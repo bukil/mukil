@@ -18,3 +18,4 @@ $PROJECT_ROOT
 │   # Static files for images and 3d model file
 └── public
 ```
+Dependeces: @chakra-ui/react @emotion/react @emotion/styled framer-motion next react react-dom
