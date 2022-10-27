@@ -38,15 +38,21 @@ const ProfileImage = chakra(Image, {
 const Home = () => (
   <Layout>
 
-    <Spacer/>
- <Container maxW='container.md' mt={20}>
+    <Spacer mb={10}/>
+ <Container maxW='container.lg' mt={90}>
 
   <Flex>
-    <Box flexGrow={0}>
-      <Heading as="h2" variant="page-title">
+    <Box>
+      <Heading mt={12} as="h2" variant="page-title">
         MUKIL KUMAR
       </Heading>
       <p>AUTOMOTIVE DESIGNER / HIC DESIGNER / SOFTWARE DEVELOPER</p>
+      <Image
+          src="/../public/images/Imag.png"   // Add image here!
+          alt="Img"
+          width="457%"
+          height="40%"
+        />
       </Box>
   <Spacer />
   {/* <Box
@@ -64,8 +70,8 @@ const Home = () => (
           src="/../public/images/mukil.jpg"   // Add image here!
           alt="Img"
           borderRadius="full"
-          width="100%"
-          height="120%"
+          width="120%"
+          height="70%"
         />
       {/* </Box> */}
   </Flex>
@@ -77,6 +83,8 @@ const Home = () => (
   mt ={6}
   />
 
+  <Spacer />
+  
   <Spacer />
 
   <Container maxW='container.lg'

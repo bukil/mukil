@@ -7,7 +7,7 @@ import VoxelDogLoader from '../voxel-dog-loader'
 
 const LazyVoxelDog = dynamic(() => import('../voxel-dog'), {
   ssr: false,
-  loading: () => <VoxelDogLoader />
+  loading: () => <VoxelDogLoader/>
 })
 
 const Main = ({ children, router }) => {
@@ -16,18 +16,18 @@ const Main = ({ children, router }) => {
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content="homepage" />
-        <meta name="author" content="Prince Kumar" />
+        <meta name="author" content="Mukil Kumar" />
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-        <meta property="og:site_name" content="Prince Portfolio" />
-        <meta name="og:title" content="Prince Portfolio" />
+        <meta property="og:site_name" content="Mukil Portfolio" />
+        <meta name="og:title" content="Mukil Portfolio" />
         <meta property="og:type" content="website" />
-        <title>Prince Portfolio</title>
+        <title>MUKIL</title>
       </Head>
 
       <NavBar path={router.asPath} />
 
       <Container maxW="container.xl" pt={18}>
-        <LazyVoxelDog />
+        <LazyVoxelDog/>
 
         {children}
 
