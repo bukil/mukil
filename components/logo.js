@@ -13,30 +13,31 @@ const LogoBox = styled.span`
   padding: 10px;
 
   img {
-    transition: 200ms ease;
+    transition: 250ms ease;
+    transform: rotate(-10deg);
   }
 
   &:hover img {
-    transform: rotate(20deg);
+    transform: rotate(0deg);
   }
 `
 
 const Logo = () => {
-  const footPrintImg = `/images/footprint${useColorModeValue('', '-dark')}.png`
+  const footPrintImg = `/images/logo${useColorModeValue('', '-dark')}.png`
 
   return (
     <Link href="/" scroll={false}>
       <a>
         <LogoBox>
-{/* <Image src={footPrintImg} width={21} height={21} alt="logo"/> */}
-          <Text
+      <Image src={footPrintImg} width={100} height={40} alt="logo"/>
+          {/* <Text
             color={useColorModeValue('gray.800', 'whiteAlpha.900')}
             fontFamily='M PLUS Rounded 1c", sans-serif'
             fontWeight="bold"
             ml={3}
           >
             MUKIL KUMAR
-          </Text>
+          </Text> */}
         </LogoBox>
       </a>
     </Link>

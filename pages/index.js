@@ -84,8 +84,6 @@ const Home = () => (
   />
 
   <Spacer />
-  
-  <Spacer />
 
   <Container maxW='container.lg'
              mt={6}
@@ -164,20 +162,20 @@ const Home = () => (
           Languages
         </Heading>
 
-        <UnorderedList>
+        <UnorderedList mt={10}>
           <ListItem>Hindi</ListItem>
-          <ListItem mt={3}>English</ListItem>
-          <ListItem mt={3}>Italian</ListItem>
+          <ListItem mt={5}>English</ListItem>
+          <ListItem mt={5}>Italian</ListItem>
         </UnorderedList>
 
       </Section>
 
         </GridItem>
 
-        <GridItem w={60}>
-        <Progress value={95} size='sm' colorScheme='green' mt={55} borderRadius={10}/>
-        <Progress value={85} size='sm' colorScheme='green' mt={5} borderRadius={10}/>
-        <Progress value={30} size='sm' colorScheme='green' mt={5} borderRadius={10}/>
+        <GridItem w={60} mt={10}>
+        <Progress value={95} size='sm' colorScheme='green' mt={42} borderRadius={10}/>
+        <Progress value={85} size='sm' colorScheme='green' mt={6} borderRadius={10}/>
+        <Progress value={30} size='sm' colorScheme='green' mt={6} borderRadius={10}/>
         </GridItem>
       </Grid>
 
