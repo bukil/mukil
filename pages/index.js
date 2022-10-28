@@ -48,6 +48,7 @@ const Home = () => (
       </Heading>
       <p>AUTOMOTIVE DESIGNER / HIC DESIGNER / SOFTWARE DEVELOPER</p>
       <Image
+      alignItems={'flex-start'}
           src="/../public/images/Imag.png"   // Add image here!
           alt="Img"
           width="457%"
@@ -88,7 +89,7 @@ const Home = () => (
   <Container maxW='container.lg'
              mt={6}
              mb={8}
-             p={4}
+             p={2}
   >
       <Grid templateColumns='repeat(2, 2fr)' gap={20}>
       <GridItem w='100%' >
@@ -149,13 +150,13 @@ const Home = () => (
 
 
       </GridItem>
-      <GridItem w='80%' >
+      <GridItem w='100%' >
 
       
 
       <Grid templateColumns='repeat(2, 2fr)' gap={0}>
 
-        <GridItem w={60}>
+        <GridItem w='100%'>
 
         <Section delay={0.5}>
         <Heading as="h5" variant="section-title" >
@@ -172,7 +173,7 @@ const Home = () => (
 
         </GridItem>
 
-        <GridItem w={60} mt={10}>
+        <GridItem w='100%' mt={10}>
         <Progress value={95} size='sm' colorScheme='green' mt={42} borderRadius={10}/>
         <Progress value={85} size='sm' colorScheme='green' mt={6} borderRadius={10}/>
         <Progress value={30} size='sm' colorScheme='green' mt={6} borderRadius={10}/>

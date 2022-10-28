@@ -42,7 +42,7 @@ const VoxelDog = () => {
       refRenderer.current = renderer
       const scene = new THREE.Scene()
 
-      const target = new THREE.Vector3(-0.1, 1.9, 1)
+      const target = new THREE.Vector3(-0.06, 1.0, 0.1)
       const initialCameraPosition = new THREE.Vector3(
         20 * Math.sin(0.2 * Math.PI),
         10,
@@ -53,7 +53,7 @@ const VoxelDog = () => {
       // 8   -> 6
       const scale = (scH*0.0001) * 0.005 + 1.0
       const camera = new THREE.PerspectiveCamera(
-        scale,
+        scale+20,
         scale,
         scale,
         -scale,
