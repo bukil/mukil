@@ -5,6 +5,7 @@ import {
   Heading,
   Box,
   ListItem,
+  UnorderedList
 } from '@chakra-ui/react'
 
 import Paragraph from '../components/paragraph'
