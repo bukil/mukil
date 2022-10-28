@@ -4,6 +4,7 @@ import {
   Container,
   Heading,
   Box,
+  chakra,
   ListItem,
   UnorderedList
 } from '@chakra-ui/react'
