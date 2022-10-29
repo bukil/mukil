@@ -15,7 +15,7 @@ import Section from '../components/section'
 import { Grid, GridItem } from '@chakra-ui/react'
 import Image from 'next/image'
 import { Divider, Progress } from '@chakra-ui/react'
-import { Flex, Spacer } from '@chakra-ui/react'
+import { Spacer } from '@chakra-ui/react'
 
 
 const ProfileImage = chakra(Image, {
