@@ -28,7 +28,48 @@ const Home = () => (
     <Spacer mb={10}/>
  <Container maxW='container.lg' mt={90}>
 
-  <Flex>
+      <Box display={{ md: 'flex' }}>
+        <Box flexGrow={1}>
+          <Heading as="h2" variant="page-title">
+            MUKIL KUMAR
+          </Heading>
+          <p>AUTOMOTIVE DESIGNER / HIC DESIGNER / SOFTWARE DEVELOPER</p>
+          <Image
+          alignItems={'flex-start'}
+          src="/images/Imag.png"   // Add image here!
+          alt="Img"
+          width="457%"
+          height="40%"
+        />
+        </Box>
+        <Box
+          flexShrink={0}
+          mt={{ base: 4, md: 0 }}
+          ml={{ md: 6 }}
+          textAlign="center"
+        >
+          <Box
+            borderColor="whiteAlpha.800"
+            borderWidth={2}
+            borderStyle="solid"
+            w="100px"
+            h="120px"
+            display="inline-block"
+            borderRadius="full"
+            overflow="hidden"
+          >
+            <ProfileImage
+              src="/images/mukil.jpg"
+              alt="Profile image"
+              borderRadius="full"
+              width="100%"
+              height="120%"
+            />
+          </Box>
+        </Box>
+      </Box>
+
+  {/* <Flex>
     <Box>
       <Heading mt={12} as="h2" variant="page-title">
         MUKIL KUMAR
@@ -42,27 +83,35 @@ const Home = () => (
           height="40%"
         />
       </Box>
+
   <Spacer />
-  {/* <Box
+
+  <Box
+          flexShrink={0}
+          mt={{ base: 4, md: 0 }}
+          ml={{ md: 6 }}
+          textAlign="center"
+        >
+  <Box
         borderColor="whiteAlpha.800"
-        borderWidth={2}
-        borderStyle="solid"
-        w="100px"
-        h="100px"
-        display="inline-block"
-        borderRadius="full"
-        overflow="hidden"
-      > */}
+            borderWidth={2}
+            borderStyle="solid"
+            w="100px"
+            h="120px"
+            display="inline-block"
+            borderRadius="full"
+            overflow="hidden"
+      >
         <ProfileImage
-         alignItems={'flex-end'}
           src="/images/mukil.jpg"   // Add image here!
-          alt="Img"
+          alt="Profile Image"
           borderRadius="full"
-          width="120%"
-          height="70%"
+          width="100%"
+          height="120%"
         />
-      {/* </Box> */}
-  </Flex>
+      </Box>
+      </ Box>
+  </Flex> */}
 
  </Container> 
                                               {/* This Container have Name and image */}
