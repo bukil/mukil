@@ -36,7 +36,7 @@ const Home = () => (
       <p>AUTOMOTIVE DESIGNER / HIC DESIGNER / SOFTWARE DEVELOPER</p>
       <Image
       alignItems={'flex-start'}
-          src="../public/images/Imag.png"   // Add image here!
+          src="/../public/images/Imag.png"   // Add image here!
           alt="Img"
           width="457%"
           height="40%"
@@ -55,7 +55,7 @@ const Home = () => (
       > */}
         <ProfileImage
          alignItems={'flex-end'}
-          src="../public/images/mukil.jpg"   // Add image here!
+          src="/../public/images/mukil.jpg"   // Add image here!
           alt="Img"
           borderRadius="full"
           width="120%"
