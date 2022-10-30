@@ -70,15 +70,15 @@ const Navbar = props => {
           flexGrow={1}
           mt={{ base: 4, md: 0 }}
         >
-          <LinkItem href="/works" path={path}>
+          <LinkItem href="#" path={path}>
             Skills
           </LinkItem>
-          <LinkItem href="/posts" path={path}>
+          <LinkItem href="#" path={path}>
             Experience
           </LinkItem>
           <LinkItem
             target="_blank"
-            href="https://github.com/craftzdog/craftzdog-homepage"
+            href="#"
             path={path}
             display="inline-flex"
             alignItems="center"
@@ -105,10 +105,10 @@ const Navbar = props => {
                 <NextLink href="/" passHref>
                   <MenuItem as={Link}>About</MenuItem>
                 </NextLink>
-                <NextLink href="/works" passHref>
+                <NextLink href="#" passHref>
                   <MenuItem as={Link}>Skills</MenuItem>
                 </NextLink>
-                <NextLink href="/posts" passHref>
+                <NextLink href="#" passHref>
                   <MenuItem as={Link}>Experience</MenuItem>
                 </NextLink>
                 <MenuItem
