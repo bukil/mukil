@@ -132,7 +132,7 @@ const Home = () => (
 
       <Section delay={0.1}>
         <Heading as="h3" variant="section-title">
-          Work
+          INTRODUCTION
         </Heading>
         <Paragraph>
           Mukil is a Dreamer and an engineering student at IET lucknow (2019-2023) 
