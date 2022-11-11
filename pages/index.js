@@ -139,7 +139,7 @@ const Home = () => (
           based in Uttar Pradesh with passion for designing stuffs like Automobiles
           and all the things in engineering he likes and wants. He has a knack
           way to solving real-life problems with design and code. When not online,
-          he loves to listening music and walking on the street alone, weird but YFKUY
+          he loves to listening music and walking on the street alone, weird but
           this helps him to understand things, phone camera is his friend and helps
           to keep the stuffs. Currently, he is working on some Project.{' '}
           <NextLink href="#" passHref scroll={false}>
