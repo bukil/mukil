@@ -33,7 +33,7 @@ const Home = () => (
           <Heading as="h2" variant="page-title">
             MUKIL KUMAR
           </Heading>
-          <p>AUTOMOTIVE DESIGNER / HIC DESIGNER / SOFTWARE DEVELOPER</p>
+          <p>AUTOMOTIVE DESIGNER/HIC DESIGNER/DEVELOPER/EMBEDED SYSTEM DESIGNER</p>
           <Image
           alignItems={'flex-start'}
           src="/images/Imag.png"   // Add image here!
