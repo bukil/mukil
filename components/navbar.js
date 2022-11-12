@@ -70,15 +70,15 @@ const Navbar = props => {
           flexGrow={1}
           mt={{ base: 4, md: 0 }}
         >
-          <LinkItem href="#" path={path}>
+          <LinkItem href="skills.js" path={path}>
             Skills
           </LinkItem>
-          <LinkItem href="#" path={path}>
+          <LinkItem href="exp.js" path={path}>
             Experience
           </LinkItem>
           <LinkItem
             target="_blank"
-            href="#"
+            href="work.js"
             path={path}
             display="inline-flex"
             alignItems="center"
@@ -102,21 +102,15 @@ const Navbar = props => {
                 aria-label="Options"
               />
               <MenuList>
-                <NextLink href="/" passHref>
-                  <MenuItem as={Link}>About</MenuItem>
-                </NextLink>
-                <NextLink href="#" passHref>
+                <NextLink href="skills.js" passHref>
                   <MenuItem as={Link}>Skills</MenuItem>
                 </NextLink>
-                <NextLink href="#" passHref>
+                <NextLink href="exp.js" passHref>
                   <MenuItem as={Link}>Experience</MenuItem>
                 </NextLink>
-                <MenuItem
-                  //as={Link}
-                  //href="https://github.com/craftzdog/craftzdog-homepage"
-                >
-                  Resume
-                </MenuItem>
+                <NextLink href="work.js" passHref>
+                <MenuItem as={Link}>Resume</MenuItem>
+                </NextLink>
               </MenuList>
             </Menu>
           </Box>
