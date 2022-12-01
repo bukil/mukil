@@ -16,6 +16,7 @@ import { Grid, GridItem } from '@chakra-ui/react'
 import Image from 'next/image'
 import { Divider, Progress } from '@chakra-ui/react'
 import { Spacer } from '@chakra-ui/react'
+<link rel="icon" href="http://www.mukil.engineer"></link>
 
 
 const ProfileImage = chakra(Image, {
@@ -36,7 +37,7 @@ const Home = () => (
           <p>AUTOMOTIVE DESIGNER/HIC DESIGNER/DEVELOPER/EMBEDED SYSTEM DESIGNER</p>
           <Image
           alignItems={'flex-start'}
-          src="/images/Imag.png"   // Add image here!
+          src="/images/Imag.png"
           alt="Img"
           width="457%"
           height="40%"
@@ -146,7 +147,7 @@ const Home = () => (
             <Link>Dynamic Steering System</Link>
           </NextLink>
           .  He publishes content just for sharing the work he done on the youtube &quot;
-          <NextLink href="#" passHref>
+          <NextLink href="https://www.youtube.com/channel/UCVeGi7RNdtqN6_7G-rjdSGQ" passHref>
             <Link target="_blank">Mukil</Link>
           </NextLink>
           &quot; has more than 4k subscribers.
@@ -212,7 +213,7 @@ const Home = () => (
         <GridItem w='100%' mt={10}>
         <Progress value={95} size='sm' colorScheme='green' mt={42} borderRadius={10}/>
         <Progress value={85} size='sm' colorScheme='green' mt={6} borderRadius={10}/>
-        <Progress value={30} size='sm' colorScheme='green' mt={6} borderRadius={10}/>
+        <Progress value={40} size='sm' colorScheme='green' mt={6} borderRadius={10}/>
         </GridItem>
       </Grid>
 
