@@ -136,13 +136,15 @@ const Home = () => (
           INTRODUCTION
         </Heading>
         <Paragraph>
-          Mukil is a Dreamer and an engineering student at IET lucknow (2019-2023) 
-          based in Uttar Pradesh with passion for designing stuffs like Automobiles
-          and all the things in engineering he likes and wants. He has a knack
-          way to solving real-life problems with design and code. When not online,
-          he loves to listening music and walking on the street alone, weird but
-          this helps him to understand things, phone camera is his friend and helps
-          to keep the stuffs. Currently, he is working on some Project.{' '}
+          Mukil is a Dreamer and an engineering student at IET lucknow (2019-2023) based in Uttar Pradesh.
+           He has a passion for designing stuff like Automobiles and several other cool gizmos that catches
+            his attention. He has a knack of solving real-life problems with design and code. When not
+             working on his passion, he loves listening to music and walking on the street alone, which
+              may sound a bit weird but it helps him to understand and find meaning to his problems. 
+              Phone camera is his trusty old friend and helps to keep his memories alive. Currently,
+               he is working on a mysterious little Project, Dynamic Steering System. He also publishes
+                content just for sharing the work he has done on his youtube channel. "Mukil" which has
+                 accrued more than 4k subscribers.{' '}
           <NextLink href="#" passHref scroll={false}>
             <Link>Dynamic Steering System</Link>
           </NextLink>
