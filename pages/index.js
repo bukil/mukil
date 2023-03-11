@@ -16,6 +16,7 @@ import { Grid, GridItem } from '@chakra-ui/react'
 import Image from 'next/image'
 import { Divider, Progress } from '@chakra-ui/react'
 import { Spacer } from '@chakra-ui/react'
+import { BioSection, BioYear } from '../components/bio'
 
 
 const ProfileImage = chakra(Image, {
@@ -30,15 +31,28 @@ const Home = () => (
 
       <Box display={{ md: 'flex' }}>
         <Box flexGrow={1}>
+        {/* <p>MUKIL</p>
           <Heading as="h2" variant="page-title">
-            MUKIL KUMAR
-          </Heading>
+            KUMAR
+          </Heading> */}
+           <Grid templateColumns='repeat(2, fr)'>
+           <GridItem w='100%' >
+              <Heading as="h2" variant="custom" fontWeight="hairline">
+                MUKIL
+              </Heading>
+            </GridItem>
+            <GridItem w='100%' >
+              <Heading as="h2" variant="page-title">
+                KUMAR
+              </Heading>
+            </GridItem>
+           </Grid>
           <p>AUTOMOTIVE DESIGNER / HIC DESIGNER / SOFTWARE DEVELOPER</p>
           <Image
           alignItems={'flex-start'}
           src="/images/Imag.png"   // Add image here!
           alt="Img"
-          width="457%"
+          width="375%"
           height="40%"
         />
         </Box>
@@ -160,7 +174,9 @@ const Home = () => (
         </Box> */}
       </Section>
 
-      {/* <Section delay={0.2}>
+
+
+      <Section delay={0.2}>
         <Heading as="h3" variant="section-title">
           Bio
         </Heading>
@@ -182,7 +198,7 @@ const Home = () => (
           <BioYear>2012 to present</BioYear>
           Working as a freelancer
         </BioSection>
-      </Section> */}
+      </Section>
 
 
       </GridItem>

@@ -12,11 +12,12 @@ const LazyVoxelDog = dynamic(() => import('../voxel-dog'), {
 
 const Main = ({ children, router }) => {
   return (
-    <Box as="main" pb={18}>
+    <Box as="main" pb={8}>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content="homepage" />
         <meta name="author" content="Mukil Kumar" />
+        <link rel="apple-touch-icon" href="apple-touch-icon.png" />
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <meta property="og:site_name" content="Mukil Portfolio" />
         <meta name="og:title" content="Mukil Portfolio" />
