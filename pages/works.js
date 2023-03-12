@@ -1,7 +1,7 @@
 import { Container, Heading, SimpleGrid, Divider } from '@chakra-ui/react'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
-import { Card, CardBody,Stack,Image,Text,Button,useDisclosure,Collapse,Box } from '@chakra-ui/react'
+import {Stack,Image,Text,Button,useDisclosure,Collapse,Box } from '@chakra-ui/react'
 
 function CollapseEx() {
   const { isOpen, onToggle } = useDisclosure()
@@ -32,7 +32,7 @@ function CollapseEx() {
           <Stack mt='6' spacing='3'>
           <Heading size='md'>Car Name-Project Name-Heading</Heading>
           <Text fontSize={'xs'}>
-            Car is car, the text is just template to increase lines here thake this "The quick brown fox jumps over the lazy dog"
+            Car is car, the text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
             Do Project Description, your Experience or whatsoever you want!
           </Text>
           <Text color='blue.600' fontSize='2xl'>
@@ -49,7 +49,7 @@ function CollapseEx() {
           <Stack mt='6' spacing='3'>
           <Heading size='md'>Car Name-Project Name-Heading</Heading>
           <Text fontSize={'xs'}>
-            Car is car, the text is just template to increase lines here thake this "The quick brown fox jumps over the lazy dog"
+            Car is car, the text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
             Do Project Description, your Experience or whatsoever you want!
           </Text>
           <Text color='blue.600' fontSize='2xl'>
@@ -69,15 +69,15 @@ function CollapseEx() {
           <Stack mt='6' spacing='3'>
           <Heading size='md'>Car Name-Project Name-Heading</Heading>
           <Text fontSize={'xs'}>
-            Car is car, the text is just template to increase lines here thake this "The quick brown fox jumps over the lazy dog"
+            Car is car, the text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
+            Do Project Description, your Experience or whatsoever you want
+            Car is car, the text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
             Do Project Description, your Experience or whatsoever you want!
-            Car is car, the text is just template to increase lines here thake this "The quick brown fox jumps over the lazy dog"
+            Car is car, the text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
             Do Project Description, your Experience or whatsoever you want!
-            Car is car, the text is just template to increase lines here thake this "The quick brown fox jumps over the lazy dog"
+            Car is car, the text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
             Do Project Description, your Experience or whatsoever you want!
-            Car is car, the text is just template to increase lines here thake this "The quick brown fox jumps over the lazy dog"
-            Do Project Description, your Experience or whatsoever you want!
-            Car is car, the text is just template to increase lines here thake this "The quick brown fox jumps over the lazy dog"
+            Car is car, the text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
             Do Project Description, your Experience or whatsoever you want!
           </Text>
           <Text color='blue.600' fontSize='2xl'>
@@ -97,15 +97,15 @@ function CollapseEx() {
           <Stack mt='6' spacing='3'>
           <Heading size='md'>Car Name-Project Name-Heading</Heading>
           <Text fontSize={'xs'}>
-            Car is car, the text is just template to increase lines here thake this "The quick brown fox jumps over the lazy dog"
+            Car is car, the text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
+            Do Project Description, your Experience or whatsoever you want
+            Car is car, the text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
             Do Project Description, your Experience or whatsoever you want!
-            Car is car, the text is just template to increase lines here thake this "The quick brown fox jumps over the lazy dog"
+            Car is car, the text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
             Do Project Description, your Experience or whatsoever you want!
-            Car is car, the text is just template to increase lines here thake this "The quick brown fox jumps over the lazy dog"
+            Car is car, the text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
             Do Project Description, your Experience or whatsoever you want!
-            Car is car, the text is just template to increase lines here thake this "The quick brown fox jumps over the lazy dog"
-            Do Project Description, your Experience or whatsoever you want!
-            Car is car, the text is just template to increase lines here thake this "The quick brown fox jumps over the lazy dog"
+            Car is car, the text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
             Do Project Description, your Experience or whatsoever you want!
           </Text>
           <Text color='blue.600' fontSize='2xl'>
@@ -125,7 +125,7 @@ function CollapseEx() {
           <Stack mt='6' spacing='3'>
           <Heading size='md'>Car Name-Project Name-Heading</Heading>
           <Text fontSize={'xs'}>
-            Car is car, the text is just template to increase lines here thake this "The quick brown fox jumps over the lazy dog"
+            Car is car, the text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
             Do Project Description, your Experience or whatsoever you want!
           </Text>
           <Text color='blue.600' fontSize='2xl'>
@@ -145,13 +145,13 @@ function CollapseEx() {
           <Stack mt='6' spacing='3'>
           <Heading size='md'>Car Name-Project Name-Heading</Heading>
           <Text fontSize={'xs'}>
-            Car is car, the text is just template to increase lines here thake this "The quick brown fox jumps over the lazy dog"
+            Car is car, the text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
             Do Project Description, your Experience or whatsoever you want!
-            Car is car, the text is just template to increase lines here thake this "The quick brown fox jumps over the lazy dog"
+            Car is car, the text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
             Do Project Description, your Experience or whatsoever you want!
-            Car is car, the text is just template to increase lines here thake this "The quick brown fox jumps over the lazy dog"
+            Car is car, the text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
             Do Project Description, your Experience or whatsoever you want!
-            Car is car, the text is just template to increase lines here thake this "The quick brown fox jumps over the lazy dog"
+            Car is car, the text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
             Do Project Description, your Experience or whatsoever you want!
           </Text>
           <Text color='blue.600' fontSize='2xl'>
@@ -171,7 +171,7 @@ function CollapseEx() {
           <Stack mt='6' spacing='3'>
           <Heading size='md'>Car Name-Project Name-Heading</Heading>
           <Text fontSize={'xs'}>
-            Car is car, the text is just template to increase lines here thake this "The quick brown fox jumps over the lazy dog"
+            Car is car, the text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
             Do Project Description, your Experience or whatsoever you want!
           </Text>
           <Text color='blue.600' fontSize='2xl'>
