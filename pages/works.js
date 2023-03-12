@@ -18,7 +18,7 @@ function CollapseEx() {
           shadow='md'
         >
          {/* Works Content */}
-         <SimpleGrid columns={[3, 2, 3]} gap={10} mt={10}>
+         <SimpleGrid columns={[1, 2, 3]} gap={10} mt={10}>
         {/* Starting of Cards - Add or Remove Work cards here */}
           {/* Bugatti + Mclaren */}
             <Section>
