@@ -7,10 +7,10 @@ import {
   chakra,
   ListItem,
   UnorderedList,
-  Button
+  Button,
+  Text
 } from '@chakra-ui/react'
 
-import Paragraph from '../components/paragraph'
 import Layout from '../components/layouts/article'
 import { ChevronRightIcon} from '@chakra-ui/icons'
 import Section from '../components/section'
@@ -160,7 +160,7 @@ const Home = () => (
         <Heading as="h3" variant="section-title">
           INTRODUCTION
         </Heading>
-        <Paragraph>
+        <Text variant="home-txt" fontWeight='normal'>
           Mukil is a Dreamer and an engineering student at IET lucknow (2019-2023) 
           based in Uttar Pradesh with passion for designing stuffs like Automobiles
           and all the things in engineering he likes and wants. He has a knack
@@ -176,7 +176,7 @@ const Home = () => (
             <Link target="https://www.youtube.com/channel/UCVeGi7RNdtqN6_7G-rjdSGQ">Mukil</Link>
           </NextLink>
           &quot; has more than 4k subscribers.
-        </Paragraph>
+        </Text>
       </Section>
 
 
