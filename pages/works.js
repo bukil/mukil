@@ -1,7 +1,7 @@
 import { Container, Heading, SimpleGrid, Divider } from '@chakra-ui/react'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
-import {Stack,Image,Text,Button,useDisclosure,Collapse,Box,NextLink,Link } from '@chakra-ui/react'
+import {Stack,Image,Text,Button,useDisclosure,Collapse,Box } from '@chakra-ui/react'
 
 function CollapseExWrk() {
   const { isOpen, onToggle } = useDisclosure()
