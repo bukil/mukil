@@ -22,7 +22,7 @@ function CollapseExWrk() {
           {/* Bugatti + Mclaren */}
             <Section>
         {/* Bugatti 1 Car Content 1 */}
-        <Container mb={10}>
+        <Container mb={20}>
             <Image 
           src='/images/works/Bugatti1.jpg'
           alt='Cahar'
