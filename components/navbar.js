@@ -70,13 +70,16 @@ const Navbar = props => {
           flexGrow={1}
           mt={{ base: 4, md: 0 }}
         >
-          <LinkItem href="skills.js" path={path}>
-            Skills
+          <LinkItem href="works" path={path}
+          fontWeight="hairline"
+          >
+            PROJECTS
           </LinkItem>
-          <LinkItem href="exp.js" path={path}>
-            Experience
+          <LinkItem href="exp.js" path={path} fontWeight="hairline">
+            VISUALS
           </LinkItem>
           <LinkItem
+          fontWeight="hairline"
             target="_blank"
             href="work.js"
             path={path}
@@ -86,7 +89,20 @@ const Navbar = props => {
             pl={2}
           >
             {/* <IoLogoGithub /> */}
-            Resume
+            RESUME
+          </LinkItem>
+          <LinkItem
+            fontWeight="hairline"
+            target="_blank"
+            href="work.js"
+            path={path}
+            display="inline-flex"
+            alignItems="center"
+            style={{ gap: 4 }}
+            pl={2}
+          >
+            {/* <IoLogoGithub /> */}
+            CONTACT
           </LinkItem>
         </Stack>
 
