@@ -6,18 +6,31 @@ import {
   Box,
   chakra,
   ListItem,
-  UnorderedList
+  UnorderedList,
+  Button
 } from '@chakra-ui/react'
 
 import Paragraph from '../components/paragraph'
 import Layout from '../components/layouts/article'
+import { ChevronRightIcon, EmailIcon } from '@chakra-ui/icons'
 import Section from '../components/section'
 import { Grid, GridItem } from '@chakra-ui/react'
 import Image from 'next/image'
 import { Divider, Progress } from '@chakra-ui/react'
 import { Spacer } from '@chakra-ui/react'
+import styled from '@emotion/styled'
 import { BioSection, BioYear } from '../components/bio'
 
+const Trans = styled.span`
+  Button {
+    transition: 800ms ease;
+    transform: rotate(0deg);
+  }
+
+  &:hover Button {
+    transform: translate(30px, 0px);
+  }
+`
 
 const ProfileImage = chakra(Image, {
   shouldForwardProp: prop => ['width', 'height', 'src', 'alt'].includes(prop)
@@ -160,23 +173,16 @@ const Home = () => (
             <Link>Dynamic Steering System</Link>
           </NextLink>
           .  He publishes content just for sharing the work he done on the youtube &quot;
-          <NextLink href="#" passHref>
-            <Link target="_blank">Mukil</Link>
+          <NextLink href="https://www.youtube.com/channel/UCVeGi7RNdtqN6_7G-rjdSGQ" passHref>
+            <Link target="https://www.youtube.com/channel/UCVeGi7RNdtqN6_7G-rjdSGQ">Mukil</Link>
           </NextLink>
           &quot; has more than 4k subscribers.
         </Paragraph>
-        {/* <Box align="center" my={4}>
-          <NextLink href="/works" passHref scroll={false}>
-            <Button rightIcon={<ChevronRightIcon />} colorScheme="teal">
-              My portfolio
-            </Button>
-          </NextLink>
-        </Box> */}
       </Section>
 
 
 
-      <Section delay={0.2}>
+      {/* <Section delay={0.2}>
         <Heading as="h3" variant="section-title">
           Bio
         </Heading>
@@ -198,7 +204,7 @@ const Home = () => (
           <BioYear>2012 to present</BioYear>
           Working as a freelancer
         </BioSection>
-      </Section>
+      </Section> */}
 
 
       </GridItem>
@@ -322,6 +328,19 @@ const Home = () => (
   
   <Spacer/>
 
+<Trans>
+<Section>
+<Box align="center" my={4}>
+          <NextLink href="/works" passHref scroll={false}>
+            <Button rightIcon={<ChevronRightIcon />} variant="ghost">
+              <Heading variant="btn" fontWeight="hairline" >
+                CLICK TO SEE MORE ABOUT MY WORK
+              </Heading>
+            </Button>
+          </NextLink>
+        </Box>
+</Section>
+</Trans>
   {/* <Container maxW='container.md'>
 <Section delay={0.5}>
       <Heading as="h2" variant="section-title">
