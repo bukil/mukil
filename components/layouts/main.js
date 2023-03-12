@@ -29,9 +29,7 @@ const Main = ({ children, router }) => {
 
       <Container maxW="container.xl" pt={18}>
         <LazyVoxelDog/>
-
         {children}
-
         <Footer />
       </Container>
     </Box>
