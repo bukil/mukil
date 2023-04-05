@@ -63,7 +63,9 @@ Bugatti Chiron is a luxury sports car designed and produced by Bugatti Automobil
           borderRadius='lg'
           />
           <Stack mt='6' spacing='3'>
-          <Heading size='md'>KOENIGSEGG CC850</Heading>
+          <Heading as="h2"  fontWeight="hairline">
+          KOENIGSEGG CC850
+        </Heading>
           <Text fontSize={'xs'}>
           Koenigsegg CC850, a rare and powerful supercar that can reach speeds of over 400 km/h. I wanted to design my own version of it in Autodesk Sketchbook, a versatile and easy-to-use drawing app on my phone and here is the powerful design journey of the Koenigsegg CC850.
           </Text>
@@ -83,7 +85,9 @@ Bugatti Chiron is a luxury sports car designed and produced by Bugatti Automobil
                   <Image src='/images/works/bug1.png' alt='Bugatti veyron 16.4' borderRadius='lg'/>
              
               <Stack mt='6' spacing='3'>
-              <Heading size='md'>BUGATTI VEYRON 16.4</Heading>
+              <Heading as="h2"  fontWeight="hairline">
+          BUGATTI VEYRON 16.4
+        </Heading>
               <Text fontSize={'xs'}>
               From DNA Arc and framework to symbol of Elegant Hypercars the engine is one of its kind and literally known as Powerplant. I started by creating a new sketch and choosing a orthogonal orientation. added some finishing touches to the car design. I added some reflections glares and sparkles to make it look more shiny and dynamic.
               </Text>
@@ -99,7 +103,9 @@ Bugatti Chiron is a luxury sports car designed and produced by Bugatti Automobil
           borderRadius='lg'
           />
           <Stack mt='6' spacing='3'>
-          <Heading size='md'>TAREN DRONE</Heading>
+          <Heading as="h2"  fontWeight="hairline">
+          TAREN DRONE
+        </Heading>
           <Text fontSize={'xs'}>
           This project is a part of my internship at E-Yantra Indian Institute of Technology Bombay (IITB) I was working as a product designer in team, where we were Designing a multipurpose Drone structure. 
 One of my projects was to visualize the 3D Drone concept under the mentorship of Mr. Maddu Murali and we named it TAREN. Taren is a stealth multipurpose drone inspired by a tarantula spider which shows the symbol of aggression and speed, Taren is not only equipped with aesthetics but intelligence also This is why we have wicked smart NVIDIA® Jetson Xavier onboard.
@@ -119,7 +125,9 @@ One of my projects was to visualize the 3D Drone concept under the mentorship of
           borderRadius='lg'
           />
           <Stack mt='6' spacing='3'>
-          <Heading size='md'>FERRARI MONZA SP1</Heading>
+          <Heading as="h2"  fontWeight="hairline">
+          FERRARI MONZA SP1
+        </Heading>
           <Text fontSize={'xs'}>
             Car is car the text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
             Do Project Description your Experience or whatsoever you want!
@@ -139,7 +147,9 @@ One of my projects was to visualize the 3D Drone concept under the mentorship of
           borderRadius='lg'
           />
           <Stack mt='6' spacing='3'>
-          <Heading size='md'>Car Name-Project Name-Heading</Heading>
+          <Heading as="h2"  fontWeight="hairline">
+          BUGATTI CHIRON
+        </Heading>
           <Text fontSize={'xs'}>
             Car is car the text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
             Do Project Description your Experience or whatsoever you want!
@@ -165,7 +175,9 @@ One of my projects was to visualize the 3D Drone concept under the mentorship of
           borderRadius='lg'
           />
           <Stack mt='6' spacing='3'>
-          <Heading size='md'>Car Name-Project Name-Heading</Heading>
+          <Heading as="h2"  fontWeight="hairline">
+          BUGATTI CHIRON
+        </Heading>
           <Text fontSize={'xs'}>
             Car is car the text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
             Do Project Description your Experience or whatsoever you want!
@@ -214,7 +226,9 @@ function CollapseExCol() {
           borderRadius='lg'
           />
           <Stack mt='6' spacing='3'>
-          <Heading size='md'>Car Name-Project Name-Heading</Heading>
+          <Heading as="h2"  fontWeight="hairline">
+          BUGATTI CHIRON
+        </Heading>
           <Text fontSize={'xs'}>
             Car is cathe text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
             Do Project Description your Experience or whatsoever you want!
@@ -231,10 +245,11 @@ function CollapseExCol() {
           borderRadius='lg'
           />
           <Stack mt='6' spacing='3'>
-          <Heading size='md'>Car Name-Project Name-Heading</Heading>
+          <Heading as="h2"  fontWeight="hairline">
+          BUGATTI CHIRON
+        </Heading>
           <Text fontSize={'xs'}>
-            Car is car the text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
-            Do Project Description your Experience or whatsoever you want!
+            LOREM IPSUM
           </Text>
           <Text color='blue.600' fontSize='2xl'>
             Temp link
@@ -251,18 +266,11 @@ function CollapseExCol() {
           borderRadius='lg'
           />
           <Stack mt='6' spacing='3'>
-          <Heading size='md'>Car Name-Project Name-Heading</Heading>
+          <Heading as="h2"  fontWeight="hairline">
+          BUGATTI CHIRON
+        </Heading>
           <Text fontSize={'xs'}>
-            Car is car the text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
-            Do Project Description your Experience or whatsoever you want
-            Car is car the text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
-            Do Project Descriptio your Experience or whatsoever you want!
-            Car is car the text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
-            Do Project Description your Experience or whatsoever you want!
-            Car is car the text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
-            Do Project Description your Experience or whatsoever you want!
-            Car is car the text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
-            Do Project Description your Experience or whatsoever you want!
+            LOREM IPSUM
           </Text>
           <Text color='blue.600' fontSize='2xl'>
             Temp link
@@ -279,7 +287,9 @@ function CollapseExCol() {
           borderRadius='lg'
           />
           <Stack mt='6' spacing='3'>
-          <Heading size='md'>Car Name-Project Name-Heading</Heading>
+          <Heading as="h2"  fontWeight="hairline">
+          BUGATTI CHIRON
+        </Heading>
           <Text fontSize={'xs'}>
             Car is car the text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
             Do Project Description your Experience or whatsoever you want
@@ -307,7 +317,9 @@ function CollapseExCol() {
           borderRadius='lg'
           />
           <Stack mt='6' spacing='3'>
-          <Heading size='md'>Car Name-Project Name-Heading</Heading>
+          <Heading as="h2"  fontWeight="hairline">
+          BUGATTI CHIRON
+        </Heading>
           <Text fontSize={'xs'}>
             Car is car the text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
             Do Project Description your Experience or whatsoever you want!
@@ -327,7 +339,9 @@ function CollapseExCol() {
           borderRadius='lg'
           />
           <Stack mt='6' spacing='3'>
-          <Heading size='md'>Car Name-Project Name-Heading</Heading>
+          <Heading as="h2"  fontWeight="hairline">
+          BUGATTI CHIRON
+        </Heading>
           <Text fontSize={'xs'}>
             Car is car the text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
             Do Project Description your Experience or whatsoever you want!
@@ -353,7 +367,9 @@ function CollapseExCol() {
           borderRadius='lg'
           />
           <Stack mt='6' spacing='3'>
-          <Heading size='md'>Car Name-Project Name-Heading</Heading>
+          <Heading as="h2"  fontWeight="hairline">
+          BUGATTI CHIRON
+        </Heading>
           <Text fontSize={'xs'}>
             Car is car the text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
             Do Project Description your Experience or whatsoever you want!
