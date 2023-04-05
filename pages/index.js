@@ -332,9 +332,7 @@ const Home = () => (
 <Box align="center" my={4}>
           <NextLink href="/works" passHref scroll={true}>
             <Button rightIcon={<ChevronRightIcon />} >
-              
                 CLICK TO SEE MORE ABOUT MY WORK
-              
             </Button>
           </NextLink>
         </Box>
