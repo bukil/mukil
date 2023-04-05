@@ -39,17 +39,17 @@ const Home = () => (
   <Layout>
 
     <Spacer mb={10}/>
- <Container maxW='container.lg' mt={90}>
+ <Container maxW='container.lg'>
 
-      <Box display={{ md: 'flex'}}>
+      <Box display={{ md:'flex'}}>
         <Box flexGrow={1}>
         {/* <p>MUKIL</p>
           <Heading as="h2" variant="page-title">
             KUMAR
           </Heading> */}
-           <Grid templateColumns='repeat(2, fr)'>
+           <Grid templateColumns='repeat(2,fr)'>
            <GridItem w='100%' >
-              <Heading as="h2" variant="custom" fontWeight="hairline">
+              <Heading as="h2"  fontWeight="hairline">
                 MUKIL
               </Heading>
             </GridItem>
