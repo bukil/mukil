@@ -25,14 +25,22 @@ function CollapseExWrk() {
         <Container mb={20}>
             <Image 
           src='/images/works/Bugatti1.jpg'
-          alt='Cahar'
+          alt='Project 3D 1'
           borderRadius='lg'
           />
           <Stack mt='6' spacing='3'>
-          <Heading size='md'>Car Name-Project Name-Heading</Heading>
+          <Heading size='md'>ABOUT</Heading>
           <Text fontSize={'xs'}>
-            Car is cathe text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
-            Do Project Description your Experience or whatsoever you want!
+          The
+Bugatti Chiron is a luxury sports car designed and produced by Bugatti Automobiles
+S A S The car is named after the French racing driver Louis Chiron The Chiron's design was
+led by Bugatti's head designer Etienne Salomé, and is an evolution of the Veyron design It
+features a sleek and aerodynamic body, with a long hood and a low, wide stance The car's
+front fascia is characterized by its large, curved grille and LED headlights, while the rear
+features a distinctive LED light strip and a large, integrated spoiler The Chiron's body is
+made of carbon fiber, which helps keep the car's weight down and improves its
+performance The car's interior is also designed with luxury and performance in mind, with
+premium materials, advanced technology, and a minimalist design!
           </Text>
           <Text color='blue.600' fontSize='2xl'>
             Temp link
