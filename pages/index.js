@@ -47,7 +47,7 @@ const Home = () => (
           <Heading as="h2" variant="page-title">
             KUMAR
           </Heading> */}
-           <Grid templateColumns='repeat(2,fr)'>
+           <Grid templateColumns='repeat(2, fr)'>
            <GridItem w='100%' >
               <Heading as="h2"  fontWeight="hairline">
                 MUKIL
@@ -153,7 +153,7 @@ const Home = () => (
              mb={8}
              p={2}
   >
-      <Grid templateColumns='repeat(2, 2fr)' gap={20}>
+      <Grid templateColumns='repeat(2, fr)' gap={20}>
       <GridItem w='100%' >
 
       <Section delay={0.1}>
@@ -230,7 +230,7 @@ const Home = () => (
 
         </GridItem>
 
-        <GridItem w='100%' mt={10}>
+        <GridItem w='10%' mt={10}>
         <Progress value={95} size='sm' colorScheme='green' mt={42} borderRadius={10}/>
         <Progress value={85} size='sm' colorScheme='green' mt={6} borderRadius={10}/>
         <Progress value={30} size='sm' colorScheme='green' mt={6} borderRadius={10}/>
@@ -330,11 +330,11 @@ const Home = () => (
 <Trans>
 <Section>
 <Box align="center" my={4}>
-          <NextLink href="/works" passHref scroll={false}>
-            <Button rightIcon={<ChevronRightIcon />} variant="ghost">
-              <Heading variant="btn" fontWeight="hairline" >
+          <NextLink href="/works" passHref scroll={true}>
+            <Button rightIcon={<ChevronRightIcon />} >
+              
                 CLICK TO SEE MORE ABOUT MY WORK
-              </Heading>
+              
             </Button>
           </NextLink>
         </Box>
