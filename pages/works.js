@@ -40,7 +40,8 @@ front fascia is characterized by its large, curved grille and LED headlights, wh
 features a distinctive LED light strip and a large, integrated spoiler The Chiron's body is
 made of carbon fiber, which helps keep the car's weight down and improves its
 performance The car's interior is also designed with luxury and performance in mind, with
-premium materials, advanced technology, and a minimalist design!
+premium materials, advanced technology, and a minimalist design!But since I can't afford one, 
+I decided to create one in Blender, a free and open source 3D modeling software.
           </Text>
           <Text color='blue.600' fontSize='2xl'>
             Temp link
