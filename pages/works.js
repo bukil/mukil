@@ -37,40 +37,41 @@ function CollapseExWrk() {
           {/* Bugatti + Mclaren */}
             <Section>
         {/* Bugatti 1 Car Content 1 */}
-        <Container mb={20}>
+
             <Image 
-          src='/images/works/Bugatti1.jpg'
+          src='/images/works/imgfro1.png'
           alt='Project 3D 1'
           borderRadius='lg'
           />
           <Stack mt='6' spacing='3'>
-          <Heading size='md'>ABOUT</Heading>
+          <Heading as="h2"  fontWeight="hairline">
+          BUGATTI CHIRON
+        </Heading>
           <Text fontSize={'xs'}>
           The
-Bugatti Chiron is a luxury sports car designed and produced by Bugatti Automobiles S A S The car is named after the French racing driver Louis Chiron The Chirons design was led by Bugattis head designer Etienne Salomé and is an evolution of the Veyron design It features a sleek and aerodynamic body with a long hood and a low wide stance The cars front fascia is characterized by its large curved grille and LED headlights while the rear features a distinctive LED light strip and a large integrated spoiler The Chirons body is made of carbon fiber which helps keep the cars weight down and improves its performance The cars interior is also designed with luxury and performance in mind with premium materials advanced technology and a minimalist design But since I cant afford one I decided to create one in Blender a free and open source 3D modeling software.
+Bugatti Chiron is a luxury sports car designed and produced by Bugatti Automobiles S A S The car is named after the French racing driver Louis Chiron The Chirons design was led by Bugattis head designer Etienne Salomé and is an evolution of the Veyron design It features a sleek and aerodynamic body with a long hood and a low wide stance The cars front fascia is characterized by its large curved grille and LED headlights while the rear features a distinctive LED light strip and a large integrated spoiler The Chirons body is made of carbon fiber which helps keep the cars weight down and improves its performance The cars interior is also designed with luxury and performance in mind with premium materials advanced technology and a minimalist design But since I cant afford one I decided to create one in Blender a free and open source 3D modeling software, as you can see.
           </Text>
           <Text color='blue.600' fontSize='2xl'>
             Temp link
           </Text>
         </Stack>
-          </Container>
-          <Container>
+     
+
             <Image 
-          src='/images/works/mclar.jpg'
-          alt='Cahar'
+          src='/images/works/koe1.png'
+          alt='Koenigsegg CC850'
           borderRadius='lg'
           />
           <Stack mt='6' spacing='3'>
-          <Heading size='md'>Car Name-Project Name-Heading</Heading>
+          <Heading size='md'>KOENIGSEGG CC850</Heading>
           <Text fontSize={'xs'}>
-            Car is car the text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
-            Do Project Description your Experience or whatsoever you want!
+          Koenigsegg CC850, a rare and powerful supercar that can reach speeds of over 400 km/h. I wanted to design my own version of it in Autodesk Sketchbook, a versatile and easy-to-use drawing app on my phone and here is the powerful design journey of the Koenigsegg CC850.
           </Text>
           <Text color='blue.600' fontSize='2xl'>
-            Temp link
+            Click to View
           </Text>
         </Stack>
-          </Container>
+         
             </Section>    
           {/* Bugatti + Mclaren */}
       
@@ -79,21 +80,12 @@ Bugatti Chiron is a luxury sports car designed and produced by Bugatti Automobil
         <Section>
               <Container>
                 
-                  <Image src='/images/works/drone1.png' alt='Cahar' borderRadius='lg'/>
+                  <Image src='/images/works/bug1.png' alt='Bugatti veyron 16.4' borderRadius='lg'/>
              
               <Stack mt='6' spacing='3'>
-              <Heading size='md'>Car Name-Project Name-Heading</Heading>
+              <Heading size='md'>BUGATTI VEYRON 16.4</Heading>
               <Text fontSize={'xs'}>
-                Car is car the text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
-                Do Project Description your Experience or whatsoever you want
-                Car is car the text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
-                Do Project Descriptio your Experience or whatsoever you want!
-                Car is car the text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
-                Do Project Description your Experience or whatsoever you want!
-                Car is car the text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
-                Do Project Description your Experience or whatsoever you want!
-                Car is car the text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
-                Do Project Description your Experience or whatsoever you want!
+              From DNA Arc and framework to symbol of Elegant Hypercars, the engine is one of its kind and literally known as "Powerplant". I started by creating a new sketch and choosing a orthogonal orientation. added some finishing touches to the car design. I added some reflections, glares, and sparkles to make it look more shiny and dynamic.
               </Text>
             </Stack>
               </Container>
@@ -102,23 +94,15 @@ Bugatti Chiron is a luxury sports car designed and produced by Bugatti Automobil
       <Section>
       <Container>
             <Image 
-          src='/images/works/drone2.png'
-          alt='Cahar'
+          src='/images/works/tar1.png'
+          alt='TAREN DRONE'
           borderRadius='lg'
           />
           <Stack mt='6' spacing='3'>
-          <Heading size='md'>Car Name-Project Name-Heading</Heading>
+          <Heading size='md'>TAREN DRONE</Heading>
           <Text fontSize={'xs'}>
-            Car is car the text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
-            Do Project Description your Experience or whatsoever you want
-            Car is car the text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
-            Do Project Description your Experience or whatsoever you want!
-            Car is car the text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
-            Do Project Description your Experience or whatsoever you want!
-            Car is car the text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
-            Do Project Description your Experience or whatsoever you want!
-            Car is car the text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
-            Do Project Description your Experience or whatsoever you want!
+          This project is a part of my internship at E-Yantra, Indian Institute of Technology, Bombay (IITB), I was working as a product designer in team, where we were Designing a multipurpose Drone structure. 
+One of my projects was to visualize the 3D Drone concept under the mentorship of Mr. Maddu Murali and we named it "TAREN". Taren is a stealth multipurpose drone inspired by a tarantula spider which shows the symbol of aggression and speed, Taren is not only equipped with aesthetics but intelligence also, This is why we have wicked smart NVIDIA® Jetson Xavier onboard.
           </Text>
           <Text color='blue.600' fontSize='2xl'>
             Temp link
@@ -130,12 +114,12 @@ Bugatti Chiron is a luxury sports car designed and produced by Bugatti Automobil
       <Section>
       <Container>
             <Image 
-          src='/images/works/drone3.png'
-          alt='Cahar'
+          src='/images/works/fer1.jpg'
+          alt='FERRARI MONZA SP1'
           borderRadius='lg'
           />
           <Stack mt='6' spacing='3'>
-          <Heading size='md'>Car Name-Project Name-Heading</Heading>
+          <Heading size='md'>FERRARI MONZA SP1</Heading>
           <Text fontSize={'xs'}>
             Car is car the text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
             Do Project Description your Experience or whatsoever you want!
@@ -430,7 +414,7 @@ const Works = () => (
 <Box align="center" my={4}>
           <NextLink href="/" passHref scroll={true}>
             <Button leftIcon={<ChevronLeftIcon />}>
-                CLICK TO SEE MORE ABOUT MY WORK
+                
             </Button>
             
           </NextLink>

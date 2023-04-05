@@ -98,49 +98,7 @@ const Home = () => (
         </Box>
       </Box>
 
-  {/* <Flex>
-    <Box>
-      <Heading mt={12} as="h2" variant="page-title">
-        MUKIL KUMAR
-      </Heading>
-      <p>AUTOMOTIVE DESIGNER / HIC DESIGNER / SOFTWARE DEVELOPER</p>
-      <Image
-      alignItems={'flex-start'}
-          src="/images/Imag.png"   // Add image here!
-          alt="Img"
-          width="457%"
-          height="40%"
-        />
-      </Box>
-
-  <Spacer />
-
-  <Box
-          flexShrink={0}
-          mt={{ base: 4, md: 0 }}
-          ml={{ md: 6 }}
-          textAlign="center"
-        >
-  <Box
-        borderColor="whiteAlpha.800"
-            borderWidth={2}
-            borderStyle="solid"
-            w="100px"
-            h="120px"
-            display="inline-block"
-            borderRadius="full"
-            overflow="hidden"
-      >
-        <ProfileImage
-          src="/images/mukil.jpg"   // Add image here!
-          alt="Profile Image"
-          borderRadius="full"
-          width="100%"
-          height="120%"
-        />
-      </Box>
-      </ Box>
-  </Flex> */}
+  
 
  </Container> 
                                               {/* This Container have Name and image */}
@@ -160,14 +118,14 @@ const Home = () => (
       <GridItem w='100%' >
 
       <Section delay={0.1}>
-        <Heading as="h3" variant="section-title">
-          INTRODUCTION
+        <Heading as="h2"  fontWeight="hairline">
+          What people say about me
         </Heading>
         <Text variant="home-txt" fontWeight='normal'>
           Mukil is a Dreamer and an engineering student at IET lucknow (2019-2023) 
           based in Uttar Pradesh with passion for designing stuffs like Automobiles
           and all the things in engineering he likes and wants. He has a knack
-          way to solving real-life problems with design and code. When not online,
+          way to solving real-life problems with design and technology. When not online,
           he loves to listening music and walking on the street alone, weird but
           this helps him to understand things, phone camera is his friend and helps
           to keep the stuffs. Currently, he is working on some Project.{' '}
@@ -181,33 +139,6 @@ const Home = () => (
           &quot; has more than 4k subscribers.
         </Text>
       </Section>
-
-
-
-      {/* <Section delay={0.2}>
-        <Heading as="h3" variant="section-title">
-          Bio
-        </Heading>
-        <BioSection>
-          <BioYear>1984</BioYear>
-          Born in Osaka (大阪), Japan.
-        </BioSection>
-        <BioSection>
-          <BioYear>2010</BioYear>
-          Completed the Master&apos;s Program in the Graduate School of
-          Information Science at Nara Institute of Science and Technology
-          (奈良先端科学技術大学院大学情報科学研究科修士課程)
-        </BioSection>
-        <BioSection>
-          <BioYear>2010</BioYear>
-          Worked at Yahoo! Japan (ヤフー株式会社入社)
-        </BioSection>
-        <BioSection>
-          <BioYear>2012 to present</BioYear>
-          Working as a freelancer
-        </BioSection>
-      </Section> */}
-
 
       </GridItem>
 
@@ -244,87 +175,6 @@ const Home = () => (
 
   <Spacer/>
 
-  {/* <Container maxW='container.lg'
-             mt={6}
-             mb={8}
-             p={4}
-  >
-      <Grid templateColumns='repeat(2, 2fr)' gap={20}>
-      <GridItem w='100%' >
-
-      <Section delay={0.1}>
-        <Heading as="h3" variant="section-title">
-          Software Site
-        </Heading>
-        <Stack direction='row' h='200px' p={4} >
-        <Divider orientation='vertical' />
-
-                  <List spacing={1}>
-            <ListItem>
-              <ListIcon as={SmallAddIcon} color='green.500' />
-              JAVA
-            </ListItem>
-            <ListItem>
-              <ListIcon as={SmallAddIcon} color='green.500' />
-              C++, C
-            </ListItem>
-            <ListItem>
-              <ListIcon as={SmallAddIcon} color='green.500' />
-              HTML, CSS, JAVASCRPIT, BOOTSTRAP 4
-            </ListItem>
-            <ListItem>
-              <ListIcon as={SmallAddIcon} color='green.500' />
-              PYTHON
-            </ListItem>
-            <ListItem>
-              <ListIcon as={SmallAddIcon} color='green.500' />
-              PHP, MYSQL
-            </ListItem>
-            <ListItem>
-              <ListIcon as={SmallAddIcon} color='green.500' />
-              NODE JS, REACT JS, CHAKRA UI
-            </ListItem>
-          </List>
-
-        </Stack>
-      </Section>
-      </GridItem>
-      <GridItem w='100%' >
-
-      
-
-      <Section delay={0.1}>
-        <Heading as="h3" variant="section-title">
-          Hardware Site
-        </Heading>
-        <Stack direction='row' h='200px' p={4} >
-        <Divider orientation='vertical' />
-
-                  <List spacing={1}>
-            <ListItem>
-              <ListIcon as={SmallAddIcon} color='green.500' />
-              Development Boards (Atmel, AVR, Raspberry pi)
-            </ListItem>
-            <ListItem>
-              <ListIcon as={SmallAddIcon} color='green.500' />
-              TTL Logic Designer
-            </ListItem>
-            <ListItem>
-              <ListIcon as={SmallAddIcon} color='green.500' />
-              IOT (Internet of Things)
-            </ListItem>
-            <ListItem>
-              <ListIcon as={SmallAddIcon} color='green.500' />
-              Computer Architecture
-              </ListItem>
-          </List>
-
-        </Stack>
-      </Section>
-
-      </GridItem>
-      </Grid>
-  </Container>                                This Container have skills */}
   
   <Spacer/>
 
@@ -339,119 +189,10 @@ const Home = () => (
         </Box>
 </Section>
 </Trans>
-  {/* <Container maxW='container.md'>
-<Section delay={0.5}>
-      <Heading as="h2" variant="section-title">
-        Experience
-      </Heading>
-      <Paragraph>
-          Takuya is a freelance and a full-stack developer based in Osaka with a
-          passion for building digital services/stuff he wants. He has a knack
-          for all things launching products, from planning and designing all the
-          way to solving real-life problems with code. When not online, he loves
-          hanging out with his camera. Currently, he is living off of his own
-          product called{' '}
-          <NextLink href="/works/inkdrop" passHref scroll={false}>
-            <Link>Inkdrop</Link>
-          </NextLink>
-          . He publishes content for marketing his products and his YouTube
-          channel called &quot;
-          <NextLink href="https://www.youtube.com/devaslife" passHref>
-            <Link target="_blank">Dev as Life</Link>
-          </NextLink>
-          &quot; has more than 100k subscribers.
-        </Paragraph>
-        <Box align="center" my={4} mt={10}>
-          <NextLink href="/works" passHref scroll={false}>
-            <Button rightIcon={<ChevronRightIcon />} colorScheme="teal">
-              My Resume
-            </Button>
-          </NextLink>
-        </Box>
-
-</Section>
-  </Container>                                 This Container have experience */}
 
   <Spacer/>
 
-  <Divider orientation='horizontal'
-  mb = {8}
-  mt ={6}
-  />
 
-  <Grid templateColumns='repeat(2, 1fr)' gap={4}>
-    <GridItem w='100%'> 
-    <Section delay={0.2}>
-        <Heading as="h3" variant="section-title">
-          Bio
-        </Heading>
-        <BioSection>
-          <BioYear>YYYY</BioYear>
-          Born in Utter Pradesh, India.
-          <Spacer/>
-        </BioSection>
-        <BioSection>
-          <BioYear>YYYY</BioYear>
-          Completed the Master&apos;s Program in the Graduate School of
-          Name of that shit place this should be of multiple lines to make it look cool
-        </BioSection>
-        <BioSection>
-          <BioYear>YYYY</BioYear>
-          Worked at I dont know, I dont know how!
-        </BioSection>
-        <BioSection>
-          <BioYear>YYYY to present</BioYear>
-          Working as a Nothing!
-        </BioSection>
-      </Section>
-    </GridItem>
-    <GridItem w='100%' >
-
-      
-
-<Section delay={0.9}>
-  <Heading as="h3" variant="section-title" ml={5}>
-    Aww Shit!
-  </Heading>
-  <Stack direction='row' h='180px' p={0} >
-  <Divider orientation='vertical' />
-
-            <List spacing={1}>
-      <ListItem>
-        <ListIcon as={SmallAddIcon} color='green.500' />
-        Development Boards (Atmel, AVR, Raspberry pi)
-      </ListItem>
-      <ListItem>
-        <ListIcon as={SmallAddIcon} color='green.500' />
-        TTL Logic Designer
-      </ListItem>
-      <ListItem>
-        <ListIcon as={SmallAddIcon} color='green.500' />
-        IOT (Internet of Things)
-      </ListItem>
-      <ListItem>
-        <ListIcon as={SmallAddIcon} color='green.500' />
-        Computer Architecture
-        </ListItem>
-        <ListItem>
-        <ListIcon as={SmallAddIcon} color='green.500' />
-        Development Boards (Atmel, AVR, Raspberry pi)
-      </ListItem>
-      <ListItem>
-        <ListIcon as={SmallAddIcon} color='green.500' />
-        TTL Logic Designer
-      </ListItem>
-      <ListItem>
-        <ListIcon as={SmallAddIcon} color='green.500' />
-        IOT (Internet of Things)
-      </ListItem>
-    </List>
-
-  </Stack>
-</Section>
-
-</GridItem>
-  </Grid>
 
   </Layout>
 )

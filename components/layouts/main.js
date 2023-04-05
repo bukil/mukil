@@ -17,7 +17,7 @@ const Main = ({ children, router }) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content="homepage" />
         <meta name="author" content="Mukil Kumar" />
-        <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+        <link rel="apple-touch-icon" href="apple-touch-icon1.png" />
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
         <meta property="og:site_name" content="Mukil Portfolio" />
         <meta name="og:title" content="Mukil Portfolio" />
