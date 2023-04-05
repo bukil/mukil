@@ -39,9 +39,9 @@ const Home = () => (
   <Layout>
 
     <Spacer mb={10}/>
- <Container maxW='container.md' mt={90}>
+ <Container maxW='container.lg' mt={90}>
 
-      <Box display={{ md: 'flex' }}>
+      <Box display={{ md: 'flex'}}>
         <Box flexGrow={1}>
         {/* <p>MUKIL</p>
           <Heading as="h2" variant="page-title">
