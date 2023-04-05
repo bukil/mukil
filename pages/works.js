@@ -85,7 +85,7 @@ Bugatti Chiron is a luxury sports car designed and produced by Bugatti Automobil
               <Stack mt='6' spacing='3'>
               <Heading size='md'>BUGATTI VEYRON 16.4</Heading>
               <Text fontSize={'xs'}>
-              From DNA Arc and framework to symbol of Elegant Hypercars, the engine is one of its kind and literally known as "Powerplant". I started by creating a new sketch and choosing a orthogonal orientation. added some finishing touches to the car design. I added some reflections, glares, and sparkles to make it look more shiny and dynamic.
+              From DNA Arc and framework to symbol of Elegant Hypercars the engine is one of its kind and literally known as Powerplant. I started by creating a new sketch and choosing a orthogonal orientation. added some finishing touches to the car design. I added some reflections glares and sparkles to make it look more shiny and dynamic.
               </Text>
             </Stack>
               </Container>
@@ -101,8 +101,8 @@ Bugatti Chiron is a luxury sports car designed and produced by Bugatti Automobil
           <Stack mt='6' spacing='3'>
           <Heading size='md'>TAREN DRONE</Heading>
           <Text fontSize={'xs'}>
-          This project is a part of my internship at E-Yantra, Indian Institute of Technology, Bombay (IITB), I was working as a product designer in team, where we were Designing a multipurpose Drone structure. 
-One of my projects was to visualize the 3D Drone concept under the mentorship of Mr. Maddu Murali and we named it "TAREN". Taren is a stealth multipurpose drone inspired by a tarantula spider which shows the symbol of aggression and speed, Taren is not only equipped with aesthetics but intelligence also, This is why we have wicked smart NVIDIA® Jetson Xavier onboard.
+          This project is a part of my internship at E-Yantra Indian Institute of Technology Bombay (IITB) I was working as a product designer in team, where we were Designing a multipurpose Drone structure. 
+One of my projects was to visualize the 3D Drone concept under the mentorship of Mr. Maddu Murali and we named it TAREN. Taren is a stealth multipurpose drone inspired by a tarantula spider which shows the symbol of aggression and speed, Taren is not only equipped with aesthetics but intelligence also This is why we have wicked smart NVIDIA® Jetson Xavier onboard.
           </Text>
           <Text color='blue.600' fontSize='2xl'>
             Temp link
