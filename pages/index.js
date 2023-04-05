@@ -9,8 +9,7 @@ import {
   UnorderedList,
   Button,
   Text,
-  Stack,
-  List,ListIcon,SmallAddIcon
+
 } from '@chakra-ui/react'
 
 import Layout from '../components/layouts/article'
@@ -21,7 +20,7 @@ import Image from 'next/image'
 import { Divider, Progress } from '@chakra-ui/react'
 import { Spacer } from '@chakra-ui/react'
 import styled from '@emotion/styled'
-import { BioSection,BioYear } from '../components/bio'
+
 
 const Trans = styled.span`
   Button {
