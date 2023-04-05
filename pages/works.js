@@ -2,6 +2,21 @@ import { Container, Heading, SimpleGrid, Divider } from '@chakra-ui/react'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
 import {Stack,Image,Text,Button,useDisclosure,Collapse,Box } from '@chakra-ui/react'
+import styled from '@emotion/styled'
+import { Spacer } from '@chakra-ui/react'
+import NextLink from 'next/link'
+import { ChevronLeftIcon} from '@chakra-ui/icons'
+
+const Trans = styled.span`
+  Button {
+    transition: 800ms ease;
+    transform: rotate(0deg);
+  }
+
+  &:hover Button {
+    transform: translate(-30px, 0px);
+  }
+`
 
 function CollapseExWrk() {
   const { isOpen, onToggle } = useDisclosure()
@@ -407,6 +422,22 @@ const Works = () => (
       <SimpleGrid columns={[1, 1, 2]} gap={6}>
 
       </SimpleGrid>
+
+      <Spacer/>
+
+<Trans>
+<Section>
+<Box align="center" my={4}>
+          <NextLink href="/" passHref scroll={true}>
+            <Button leftIcon={<ChevronLeftIcon />}>
+                CLICK TO SEE MORE ABOUT MY WORK
+            </Button>
+            
+          </NextLink>
+        </Box>
+</Section>
+</Trans>
+
   </Layout>
 )
 

@@ -8,7 +8,9 @@ import {
   ListItem,
   UnorderedList,
   Button,
-  Text
+  Text,
+  Stack,
+  List,ListIcon,SmallAddIcon
 } from '@chakra-ui/react'
 
 import Layout from '../components/layouts/article'
@@ -19,6 +21,7 @@ import Image from 'next/image'
 import { Divider, Progress } from '@chakra-ui/react'
 import { Spacer } from '@chakra-ui/react'
 import styled from '@emotion/styled'
+import { BioSection,BioYear } from '../components/bio'
 
 const Trans = styled.span`
   Button {
@@ -207,12 +210,10 @@ const Home = () => (
 
 
       </GridItem>
+
       <GridItem w='100%' >
 
-      
-
-      <Grid templateColumns='repeat(2, 2fr)' gap={0}>
-
+      <Grid templateColumns='repeat(4, 5fr)' gap={4}>
         <GridItem w='100%'>
 
         <Section delay={0.5}>
@@ -220,7 +221,7 @@ const Home = () => (
           Languages
         </Heading>
 
-        <UnorderedList mt={10}>
+        <UnorderedList mt={7}>
           <ListItem>Hindi</ListItem>
           <ListItem mt={5}>English</ListItem>
           <ListItem mt={5}>Italian</ListItem>
@@ -230,7 +231,7 @@ const Home = () => (
 
         </GridItem>
 
-        <GridItem w='10%' mt={10}>
+        <GridItem w='120%' mt={10}>
         <Progress value={95} size='sm' colorScheme='green' mt={42} borderRadius={10}/>
         <Progress value={85} size='sm' colorScheme='green' mt={6} borderRadius={10}/>
         <Progress value={30} size='sm' colorScheme='green' mt={6} borderRadius={10}/>
@@ -372,6 +373,85 @@ const Home = () => (
   </Container>                                 This Container have experience */}
 
   <Spacer/>
+
+  <Divider orientation='horizontal'
+  mb = {8}
+  mt ={6}
+  />
+
+  <Grid templateColumns='repeat(2, 1fr)' gap={4}>
+    <GridItem w='100%'> 
+    <Section delay={0.2}>
+        <Heading as="h3" variant="section-title">
+          Bio
+        </Heading>
+        <BioSection>
+          <BioYear>YYYY</BioYear>
+          Born in Utter Pradesh, India.
+          <Spacer/>
+        </BioSection>
+        <BioSection>
+          <BioYear>YYYY</BioYear>
+          Completed the Master&apos;s Program in the Graduate School of
+          Name of that shit place this should be of multiple lines to make it look cool
+        </BioSection>
+        <BioSection>
+          <BioYear>YYYY</BioYear>
+          Worked at I dont know, I dont know how!
+        </BioSection>
+        <BioSection>
+          <BioYear>YYYY to present</BioYear>
+          Working as a Nothing!
+        </BioSection>
+      </Section>
+    </GridItem>
+    <GridItem w='100%' >
+
+      
+
+<Section delay={0.9}>
+  <Heading as="h3" variant="section-title" ml={5}>
+    Aww Shit!
+  </Heading>
+  <Stack direction='row' h='180px' p={0} >
+  <Divider orientation='vertical' />
+
+            <List spacing={1}>
+      <ListItem>
+        <ListIcon as={SmallAddIcon} color='green.500' />
+        Development Boards (Atmel, AVR, Raspberry pi)
+      </ListItem>
+      <ListItem>
+        <ListIcon as={SmallAddIcon} color='green.500' />
+        TTL Logic Designer
+      </ListItem>
+      <ListItem>
+        <ListIcon as={SmallAddIcon} color='green.500' />
+        IOT (Internet of Things)
+      </ListItem>
+      <ListItem>
+        <ListIcon as={SmallAddIcon} color='green.500' />
+        Computer Architecture
+        </ListItem>
+        <ListItem>
+        <ListIcon as={SmallAddIcon} color='green.500' />
+        Development Boards (Atmel, AVR, Raspberry pi)
+      </ListItem>
+      <ListItem>
+        <ListIcon as={SmallAddIcon} color='green.500' />
+        TTL Logic Designer
+      </ListItem>
+      <ListItem>
+        <ListIcon as={SmallAddIcon} color='green.500' />
+        IOT (Internet of Things)
+      </ListItem>
+    </List>
+
+  </Stack>
+</Section>
+
+</GridItem>
+  </Grid>
 
   </Layout>
 )
