@@ -71,11 +71,11 @@ const Navbar = props => {
           mt={{ base: 4, md: 0 }}
         >
           <LinkItem href="works" path={path}
-          fontWeight="hairline"
+          fontWeight="hairline" passHref
           >
-            PROJECTS
+            MY WORKS
           </LinkItem>
-          <LinkItem href="exp.js" path={path} fontWeight="hairline">
+          <LinkItem href="exp.js" path={path} fontWeight="hairline" passHref>
             VISUALS
           </LinkItem>
           <LinkItem
@@ -86,7 +86,7 @@ const Navbar = props => {
             display="inline-flex"
             alignItems="center"
             style={{ gap: 4 }}
-            pl={2}
+            pl={2} passHref
           >
             {/* <IoLogoGithub /> */}
             RESUME
@@ -99,7 +99,7 @@ const Navbar = props => {
             display="inline-flex"
             alignItems="center"
             style={{ gap: 4 }}
-            pl={2}
+            pl={2} passHref
           >
             {/* <IoLogoGithub /> */}
             CONTACT
@@ -118,14 +118,17 @@ const Navbar = props => {
                 aria-label="Options"
               />
               <MenuList>
-                <NextLink href="skills.js" passHref>
-                  <MenuItem as={Link}>Skills</MenuItem>
+                <NextLink href="works" passHref>
+                  <MenuItem as={Link}>MY WORKS</MenuItem>
                 </NextLink>
                 <NextLink href="exp.js" passHref>
-                  <MenuItem as={Link}>Experience</MenuItem>
+                  <MenuItem as={Link}>VISUALS</MenuItem>
+                </NextLink>
+                <NextLink href="/Mukil_resume.pdf" passHref>
+                <MenuItem as={Link}>RESUME</MenuItem>
                 </NextLink>
                 <NextLink href="/public/Mukil" passHref>
-                <MenuItem as={Link}>Resume</MenuItem>
+                <MenuItem as={Link}>CONTACT</MenuItem>
                 </NextLink>
               </MenuList>
             </Menu>
