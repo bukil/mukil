@@ -33,7 +33,7 @@ Button {
 }
 &:hover Button {
   transform: scale(1.1);
-  box-shadow: inset 0 200px 5px 0 #abcdef;
+  box-shadow: inset 0 250px 5px 0 #abcdef;
 }
 }
 `
@@ -82,12 +82,15 @@ Bugatti Chiron is a luxury sports car designed and produced by Bugatti Automobil
           </Text>
         </Stack>
      
-
+        <Imgtrans>
+          <Button height={'auto'} background={''}>
             <Image 
           src='/images/works/koe1.png'
           alt='Koenigsegg CC850'
           borderRadius='lg'
           />
+          </Button>
+          </Imgtrans>
           <Stack mt='6' spacing='3'>
           <Heading as="h2"  fontWeight="hairline">
           KOENIGSEGG CC850
@@ -107,9 +110,11 @@ Bugatti Chiron is a luxury sports car designed and produced by Bugatti Automobil
 
         <Section>
               <Container>
-                
+              <Imgtrans>
+          <Button height={'auto'} background={''}>
                   <Image src='/images/works/bug1.png' alt='Bugatti veyron 16.4' borderRadius='lg'/>
-             
+                  </Button>
+             </Imgtrans>
               <Stack mt='6' spacing='3'>
               <Heading as="h2"  fontWeight="hairline">
           BUGATTI VEYRON 16.4
@@ -123,11 +128,15 @@ Bugatti Chiron is a luxury sports car designed and produced by Bugatti Automobil
 
       <Section>
       <Container>
+      <Imgtrans>
+          <Button height={'auto'} background={''}>
             <Image 
           src='/images/works/tar1.png'
           alt='TAREN DRONE'
           borderRadius='lg'
           />
+          </Button>
+          </Imgtrans>
           <Stack mt='6' spacing='3'>
           <Heading as="h2"  fontWeight="hairline">
           TAREN DRONE
@@ -145,11 +154,15 @@ One of my projects was to visualize the 3D Drone concept under the mentorship of
 
       <Section>
       <Container>
+      <Imgtrans>
+          <Button height={'auto'} background={''}>
             <Image 
           src='/images/works/fer1.jpg'
           alt='FERRARI MONZA SP1'
           borderRadius='lg'
           />
+          </Button>
+          </Imgtrans>
           <Stack mt='6' spacing='3'>
           <Heading as="h2"  fontWeight="hairline">
           FERRARI MONZA SP1
@@ -167,11 +180,16 @@ One of my projects was to visualize the 3D Drone concept under the mentorship of
 
       <Section>
       <Container>
+      <Imgtrans>
+          <Button height={'auto'} background={''}>
             <Image 
           src='/images/works/lambo1.jpg'
           alt='Cahar'
           borderRadius='lg'
           />
+          
+          </Button>
+          </Imgtrans>
           <Stack mt='6' spacing='3'>
           <Heading as="h2"  fontWeight="hairline">
           BUGATTI CHIRON
@@ -195,11 +213,15 @@ One of my projects was to visualize the 3D Drone concept under the mentorship of
 
       <Section>
       <Container>
+      <Imgtrans>
+          <Button height={'auto'} background={''}>
             <Image 
           src='/images/works/drone4.png'
           alt='Cahar'
           borderRadius='lg'
           />
+          </Button>
+          </Imgtrans>
           <Stack mt='6' spacing='3'>
           <Heading as="h2"  fontWeight="hairline">
           BUGATTI CHIRON
