@@ -5,7 +5,7 @@ import {Stack,Image,Text,Button,useDisclosure,Collapse,Box } from '@chakra-ui/re
 import styled from '@emotion/styled'
 import { Spacer } from '@chakra-ui/react'
 import NextLink from 'next/link'
-import { ChevronLeftIcon} from '@chakra-ui/icons'
+import { ChevronDownIcon, ChevronLeftIcon} from '@chakra-ui/icons'
 
 const Trans = styled.span`
   Button {
@@ -17,12 +17,34 @@ const Trans = styled.span`
     transform: translate(-30px, 0px);
   }
 `
+const Imgtrans = styled.span`
+
+Button {
+  transform: rotate(0deg);
+  color: #FFF;
+  border-radius: 10px;
+  padding: 18px 36px;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-transition: ease-out 0.4s;
+  -moz-transition: ease-out 0.4s;
+  transition: ease-out 0.4s;
+
+}
+&:hover Button {
+  transform: scale(1.1);
+  box-shadow: inset 0 200px 5px 0 #abcdef;
+}
+}
+`
 
 function CollapseExWrk() {
   const { isOpen, onToggle } = useDisclosure()
   return (
     <>
-      <Button onClick={onToggle} variant="ghost" fontSize={20}>Works</Button>
+      <Button leftIcon={<ChevronDownIcon />} onClick={onToggle} variant="ghost" fontSize={20}>
+        Works
+      </Button>
       <Collapse in={!isOpen} animateOpacity>
         <Box
           p='1px'
@@ -38,11 +60,15 @@ function CollapseExWrk() {
             <Section>
         {/* Bugatti 1 Car Content 1 */}
 
-            <Image 
+          <Imgtrans>
+          <Button height={'auto'} background={''}>
+           <Image 
           src='/images/works/imgfro1.png'
           alt='Project 3D 1'
           borderRadius='lg'
           />
+           </Button>
+          </Imgtrans>
           <Stack mt='6' spacing='3'>
           <Heading as="h2"  fontWeight="hairline">
           BUGATTI CHIRON
@@ -392,13 +418,14 @@ function CollapseExCol() {
 const Works = () => (
   
   <Layout title="Works" mt={10}>
+    
       <Section>
       <Heading as="h3" fontSize={50} mb={15} mt={10}>
        <CollapseExWrk/>
       </Heading>
       </Section>
 
-
+{/* 
 
       <Section delay={0.2}>
         <Divider my={6} />
@@ -421,7 +448,7 @@ const Works = () => (
 
       <SimpleGrid columns={[1, 1, 2]} gap={6}>
 
-      </SimpleGrid>
+      </SimpleGrid> */}
 
       <Spacer/>
 
@@ -430,7 +457,7 @@ const Works = () => (
 <Box align="center" my={4}>
           <NextLink href="/" passHref scroll={true}>
             <Button leftIcon={<ChevronLeftIcon />}>
-                
+                GO BACK TO HOME PAGE
             </Button>
             
           </NextLink>
