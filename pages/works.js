@@ -21,23 +21,22 @@ const Imgtrans = styled.span`
 
 Button {
   transform: rotate(0deg);
-  color: #FFF;
   border-radius: 10px;
-  padding: 18px 36px;
+  padding: 1px 1px;
   display: inline-block;
   cursor: pointer;
   -webkit-transition: ease-out 0.4s;
   -moz-transition: ease-out 0.4s;
   transition: ease-out 0.4s;
-
+  background: transparent;
 }
 &:hover Button {
-  transform: scale(1.1);
-  box-shadow: inset 0 250px 5px 0 #abcdef;
+  transform: translate(20px, 0px);
+  
+  background: transparent;
 }
 }
 `
-
 function CollapseExWrk() {
   const { isOpen, onToggle } = useDisclosure()
   return (
@@ -60,22 +59,45 @@ function CollapseExWrk() {
             <Section>
         {/* Bugatti 1 Car Content 1 */}
 
-          <Imgtrans>
-          <Button height={'auto'} background={''}>
+        <Imgtrans>
+          <Button height={'auto'} >
            <Image 
           src='/images/works/imgfro1.png'
           alt='Project 3D 1'
           borderRadius='lg'
+          onClick={onOpen}
           />
+          
            </Button>
           </Imgtrans>
+
+          <Modal onClose={onClose} isOpen={isOpen} isCentered>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Modal Title</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Lorem count={2} />
+          </ModalBody>
+          <ModalFooter>
+            <Button onClick={onClose}>Close</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+
           <Stack mt='6' spacing='3'>
           <Heading as="h2"  fontWeight="hairline">
           BUGATTI CHIRON
         </Heading>
           <Text fontSize={'xs'}>
-          The
-Bugatti Chiron is a luxury sports car designed and produced by Bugatti Automobiles S A S The car is named after the French racing driver Louis Chiron The Chirons design was led by Bugattis head designer Etienne Salomé and is an evolution of the Veyron design It features a sleek and aerodynamic body with a long hood and a low wide stance The cars front fascia is characterized by its large curved grille and LED headlights while the rear features a distinctive LED light strip and a large integrated spoiler The Chirons body is made of carbon fiber which helps keep the cars weight down and improves its performance The cars interior is also designed with luxury and performance in mind with premium materials advanced technology and a minimalist design But since I cant afford one I decided to create one in Blender a free and open source 3D modeling software, as you can see.
+          The Bugatti Chiron is a luxury sports car designed and produced by Bugatti Automobiles
+          S A S The car is named after the French racing driver Louis Chiron The Chirons design was led by Bugattis 
+          head designer Etienne Salomé and is an evolution of the Veyron design It features a sleek and aerodynamic 
+          body with a long hood and a low wide stance The cars front fascia is characterized by its large curved grille 
+          and LED headlights while the rear features a distinctive LED light strip and a large integrated spoiler The Chirons 
+          body is made of carbon fiber which helps keep the cars weight down and improves its performance The cars interior is 
+          also designed with luxury and performance in mind with premium materials advanced technology and a minimalist design But 
+          since I cant afford one I decided to create one in Blender a free and open source 3D modeling software, as you can see.
           </Text>
           <Text color='blue.600' fontSize='2xl'>
             Temp link
