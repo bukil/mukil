@@ -202,7 +202,7 @@ function CollapseExWrk() {
           BUGATTI CHIRON
         </Heading>
           <Text fontSize={'xs'} mb={10}>
-          The Bugatti Chiron 3D Project in Blender
+          The Bugatti Chiron 3D Project in blender 
           </Text>
         </Stack>
      
@@ -232,7 +232,9 @@ function CollapseExWrk() {
           borderRadius='lg'
           mb={10}
           />
-                    Koenigsegg CC850 2D Project in Autodesk Sketchbook (ipad, Android).
+                    Koenigsegg CC850, a rare and powerful supercar that can reach speeds of over 400 km/h. 
+                    I wanted to design my own version of it in Autodesk Sketchbook, a versatile and easy-to-use 
+                    drawing app on my phone and here is the powerful design journey of the Koenigsegg CC850.
                   <Divider orientation='horizontal'>
                   </Divider>
 
@@ -305,11 +307,7 @@ function CollapseExWrk() {
                   </SimpleGrid>
                     <Divider orientation='horizontal' mb={10}>
                     </Divider>
-                    ANY TEXT OR 
-                    <NextLink href="/" passHref scroll={false}>
-                      <Link> ANY LINK </Link>
-                    </NextLink>
-                     PLACE HERE!
+                    Disclaimer:The design and logo name used on this website are the intellectual property of respective owners.
                   </center>
               </ModalBody>
               <ModalFooter>
@@ -327,9 +325,7 @@ function CollapseExWrk() {
           KOENIGSEGG CC850
         </Heading>
           <Text fontSize={'xs'}>
-          Koenigsegg CC850, a rare and powerful supercar that can reach speeds of over 400 km/h. 
-          I wanted to design my own version of it in Autodesk Sketchbook, a versatile and easy-to-use 
-          drawing app on my phone and here is the powerful design journey of the Koenigsegg CC850.
+          Design Journey of Koenigsegg CC850 2D Project in Autodesk Sketchbook
           </Text>
         </Stack>
          
@@ -430,9 +426,7 @@ function CollapseExWrk() {
           BUGATTI VEYRON 16.4
         </Heading>
               <Text fontSize={'xs'}>
-              From DNA Arc and framework to symbol of Elegant Hypercars the engine is one of its kind and literally known as 
-              Powerplant. I started by creating a new sketch and choosing a orthogonal orientation. added some finishing touches 
-              to the car design. I added some reflections glares and sparkles to make it look more shiny and dynamic.
+             Sketch of Bugatti Veyron 16.4 Grande sports in Autodesk Sketchbook(Android)
               </Text>
             </Stack>
               </Container>
@@ -454,8 +448,7 @@ function CollapseExWrk() {
           TAREN DRONE
         </Heading>
           <Text fontSize={'xs'}>
-          This project is a part of my internship at E-Yantra Indian Institute of Technology Bombay (IITB) I was working as a product designer in team, where we were Designing a multipurpose Drone structure. 
-One of my projects was to visualize the 3D Drone concept under the mentorship of Mr. Maddu Murali and we named it TAREN. Taren is a stealth multipurpose drone inspired by a tarantula spider which shows the symbol of aggression and speed, Taren is not only equipped with aesthetics but intelligence also This is why we have wicked smart NVIDIA® Jetson Xavier onboard.
+          Design Journey Of Multipurpose Drone Body
           </Text>
 
         </Stack>
