@@ -1,4 +1,4 @@
-import { Container, Divider, Heading, SimpleGrid,Link } from '@chakra-ui/react'
+import { Container, Divider, Heading, SimpleGrid,Link} from '@chakra-ui/react'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
 import {Stack,Image,Text,Button,useDisclosure,Collapse,Box } from '@chakra-ui/react'
@@ -99,6 +99,7 @@ function CollapseExWrk() {
                     width={ 'container.lg' }
                     mb={10}
                   />
+                    <Text fontSize={24} fontWeight={'hairline'}>
                     The Bugatti Chiron is a luxury sports car designed and produced by Bugatti Automobiles
                 S A S The car is named after the French racing driver Louis Chiron The Chirons design was led by Bugattis 
                 head designer Etienne Salomé and is an evolution of the Veyron design It features a sleek and aerodynamic 
@@ -107,6 +108,7 @@ function CollapseExWrk() {
                 body is made of carbon fiber which helps keep the cars weight down and improves its performance The cars interior is 
                 also designed with luxury and performance in mind with premium materials advanced technology and a minimalist design But 
                 since I cant afford one I decided to create one in Blender a free and open source 3D modeling software, as you can see.
+                    </Text>
                   <Divider orientation='horizontal'>
                   </Divider>
 
@@ -200,21 +202,14 @@ function CollapseExWrk() {
           BUGATTI CHIRON
         </Heading>
           <Text fontSize={'xs'} mb={10}>
-          The Bugatti Chiron is a luxury sports car designed and produced by Bugatti Automobiles
-          S A S The car is named after the French racing driver Louis Chiron The Chirons design was led by Bugattis 
-          head designer Etienne Salomé and is an evolution of the Veyron design It features a sleek and aerodynamic 
-          body with a long hood and a low wide stance The cars front fascia is characterized by its large curved grille 
-          and LED headlights while the rear features a distinctive LED light strip and a large integrated spoiler The Chirons 
-          body is made of carbon fiber which helps keep the cars weight down and improves its performance The cars interior is 
-          also designed with luxury and performance in mind with premium materials advanced technology and a minimalist design But 
-          since I cant afford one I decided to create one in Blender a free and open source 3D modeling software, as you can see.
+          The Bugatti Chiron 3D Project in Blender
           </Text>
         </Stack>
      
         <Imgtrans mt={10}>
           <Button height={'auto'} onClick={onEditOpenmd2}>
             <Image 
-          src='/images/works/koe1.png'
+          src='/images/works/koegfro1.png'
           alt='Koenigsegg CC850'
           borderRadius='lg'
           />
@@ -232,14 +227,12 @@ function CollapseExWrk() {
               <center>
                  
               <Image 
-          src='/images/works/koe1.png'
+          src='/images/works/koegfro1.png'
           alt='Koenigsegg CC850'
           borderRadius='lg'
           mb={10}
           />
-                    Koenigsegg CC850, a rare and powerful supercar that can reach speeds of over 400 km/h. 
-                    I wanted to design my own version of it in Autodesk Sketchbook, a versatile and easy-to-use 
-                    drawing app on my phone and here is the powerful design journey of the Koenigsegg CC850.
+                    Koenigsegg CC850 2D Project in Autodesk Sketchbook (ipad, Android).
                   <Divider orientation='horizontal'>
                   </Divider>
 
@@ -363,9 +356,11 @@ function CollapseExWrk() {
               <center>
                  
               <Image src='/images/works/bug1.png' alt='Bugatti veyron 16.4' borderRadius='lg'/>
+                    <Text fontSize={24} fontWeight={'hairline'}>
                     From DNA Arc and framework to symbol of Elegant Hypercars the engine is one of its kind and literally known as 
               Powerplant. I started by creating a new sketch and choosing a orthogonal orientation. added some finishing touches 
               to the car design. I added some reflections glares and sparkles to make it look more shiny and dynamic.
+                    </Text>
                   <Divider orientation='horizontal'>
                   </Divider>
 
@@ -418,11 +413,7 @@ function CollapseExWrk() {
                   </SimpleGrid>
                     <Divider orientation='horizontal' mb={10}>
                     </Divider>
-                    ANY TEXT OR 
-                    <NextLink href="/" passHref scroll={false}>
-                      <Link> ANY LINK </Link>
-                    </NextLink>
-                     PLACE HERE!
+                    Disclaimer:The design and logo name used on this website are the intellectual property of respective owners.
                   </center>
               </ModalBody>
               <ModalFooter>
@@ -476,7 +467,7 @@ One of my projects was to visualize the 3D Drone concept under the mentorship of
       <Imgtrans>
           <Button height={'auto'} background={''}>
             <Image 
-          src='/images/works/fer1.jpg'
+          src='/images/works/fer1.png'
           alt='FERRARI MONZA SP1'
           borderRadius='lg'
           />
