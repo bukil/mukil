@@ -107,7 +107,7 @@ function CollapseExtandi() {
                 and LED headlights while the rear features a distinctive LED light strip and a large integrated spoiler The Chirons 
                 body is made of carbon fiber which helps keep the cars weight down and improves its performance The cars interior is 
                 also designed with luxury and performance in mind with premium materials advanced technology and a minimalist design But 
-                since I cant afford one I decided to create one in Blender a free and open source 3D modeling software, as you can see.
+                since I cant afford one I decided to create one in Blender a free and open source 3D modeling software.
                     </Text>
                   <Divider orientation='horizontal'>
                   </Divider>
@@ -234,10 +234,11 @@ function CollapseExtandi() {
           alt='Koenigsegg CC850'
           borderRadius='lg'
           mb={10}
-          />
+          /><Text fontSize={24} fontWeight={'hairline'}>
                     Koenigsegg CC850, a rare and powerful supercar that can reach speeds of over 400 km/h. 
                     I wanted to design my own version of it in Autodesk Sketchbook, a versatile and easy-to-use 
                     drawing app on my phone and here is the powerful design journey of the Koenigsegg CC850.
+                    </Text>
                   <Divider orientation='horizontal'>
                   </Divider>
 
@@ -259,7 +260,27 @@ function CollapseExtandi() {
           borderRadius='lg'
           />
                   <ModalHeader>Shading and Principal Color</ModalHeader>
-                  I drew the car from a side view, making sure to capture the distinctive features of the CC850, such as the targa top, the dihedral doors, and the large wheels.
+                    I drew the car from a side view and add signature grey color, making sure to capture the distinctive features of the CC850, such as the targa top, the dihedral doors, and the large wheels.
+                  </Section>
+
+                  <Section>
+                  <Image 
+          src='/images/works/Konigsegg.png'
+          alt='Koenigsegg CC850'
+          borderRadius='lg'
+          />
+                  <ModalHeader>Texture and Volume Rendering</ModalHeader>
+                  Next, I added some shading and highlights to the sketch using different shades of gray. I used a soft brush tool with low opacity to create smooth gradients and shadows. I also used a hard eraser tool to erase some parts of the outline and make the sketch look more realistic. I paid attention to the light source and how it reflected on the car’s surface.
+                  </Section>
+
+                  <Section>
+                  <Image 
+          src='/images/works/wokbench.png'
+          alt='Koenigsegg CC850'
+          borderRadius='lg'
+          />
+                  <ModalHeader>😁My Compact Canvas✍️</ModalHeader>
+                  This is what it looks like when working on the Android version of Autodesk Sketchbook
                   </Section>
 
                   <Section>
@@ -268,37 +289,8 @@ function CollapseExtandi() {
           alt='Koenigsegg CC850'
           borderRadius='lg'
           />
-                  <ModalHeader>TITLE IF ANY</ModalHeader>
-                  Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want
-                  </Section>
-
-                  <Section>
-                  <Image 
-          src='/images/works/koe1.png'
-          alt='Koenigsegg CC850'
-          borderRadius='lg'
-          />
-                  <ModalHeader>TITLE IF ANY</ModalHeader>
-                  Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want
-                  </Section>
-
-                  <Section>
-                  <Image 
-          src='/images/works/koe1.png'
-          alt='Koenigsegg CC850'
-          borderRadius='lg'
-          />
-                  <ModalHeader>TITLE IF ANY</ModalHeader>
-                  Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want
+                  <ModalHeader>⚠️And results are awesome</ModalHeader>
+                  After adding few more detail and wheel textures for more dynamic visuals the ultimate result is here.
                   </Section>
                    
                   </SimpleGrid>
@@ -348,57 +340,42 @@ function CollapseExtandi() {
                  
               <Image src='/images/works/bug1.png' alt='Bugatti veyron 16.4' borderRadius='lg'/>
                     <Text fontSize={24} fontWeight={'hairline'}>
-                    From DNA Arc and framework to symbol of Elegant Hypercars the engine is one of its kind and literally known as 
-              Powerplant. I started by creating a new sketch and choosing a orthogonal orientation. added some finishing touches 
-              to the car design. I added some reflections glares and sparkles to make it look more shiny and dynamic.
+                    Welcome to the design journey of the legendary Bugatti Veyron 16.4 Sports Grande. From DNA Arc and framework to symbol of Elegant Hypercars the engine is one of its kind and literally known as 
+              Powerplant.
                     </Text>
                   <Divider orientation='horizontal'>
                   </Divider>
 
                   <SimpleGrid columns={2} spacingX='40px' spacingY='20px' mt={10}>
                   <Section>
-                  <Image src='/images/works/bug1.png' alt='Bugatti veyron 16.4' borderRadius='lg'/>
-                  <ModalHeader>TITLE IF ANY</ModalHeader>
-                  Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want
+                  <Image src='/images/works/bugta.jpg' alt='Bugatti veyron 16.4' borderRadius='lg'/>
+                  <ModalHeader>Framework and Basic Structure </ModalHeader>
+                  I chose a pencil tool with a thin tip and low opacity to draw the outline of the car. I used reference images from the internet to help me get the proportions and details right.
+                  </Section>
+
+                  <Section>
+                  <Image src='/images/works/rawbug.jpg' alt='Bugatti veyron 16.4' borderRadius='lg'/>
+                  <ModalHeader>Principal Color and Material</ModalHeader>
+                  Adding Principal color and reflection elements
+                  </Section>
+
+                  <Section>
+                  <Image src='/images/works/buga.jpg' alt='Bugatti veyron 16.4' borderRadius='lg'/>
+                  <ModalHeader>Light Source and Surfacing</ModalHeader>
+                  I added some shading and highlights to the sketch using different shades of gray. I used a soft brush tool with low opacity to create smooth gradients and shadows. I also used a hard eraser tool to erase sharp reflection parts of the outline and make the sketch look more realistic. I paid attention to the light source and how it reflected on the car’s surface.
+                  </Section>
+
+                  <Section>
+                  <Image src='/images/works/buga2.jpg' alt='Bugatti veyron 16.4' borderRadius='lg'/>
+                  <ModalHeader>Different version</ModalHeader>
+                  Also triad different version of the design with some tweak in visuals and colors.
                   </Section>
 
                   <Section>
                   <Image src='/images/works/bug1.png' alt='Bugatti veyron 16.4' borderRadius='lg'/>
-                  <ModalHeader>TITLE IF ANY</ModalHeader>
-                  Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want
-                  </Section>
-
-                  <Section>
-                  <Image src='/images/works/bug1.png' alt='Bugatti veyron 16.4' borderRadius='lg'/>
-                  <ModalHeader>TITLE IF ANY</ModalHeader>
-                  Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want
-                  </Section>
-
-                  <Section>
-                  <Image src='/images/works/bug1.png' alt='Bugatti veyron 16.4' borderRadius='lg'/>
-                  <ModalHeader>TITLE IF ANY</ModalHeader>
-                  Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want
-                  </Section>
-
-                  <Section>
-                  <Image src='/images/works/bug1.png' alt='Bugatti veyron 16.4' borderRadius='lg'/>
-                  <ModalHeader>TITLE IF ANY</ModalHeader>
-                  Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want
+                  <ModalHeader>Final Render</ModalHeader>
+                  After adding few more detail and wheel textures for more dynamic visuals.
+                  
                   </Section>
                    
                   </SimpleGrid>
@@ -591,7 +568,7 @@ function CollapseExart() {
                 and LED headlights while the rear features a distinctive LED light strip and a large integrated spoiler The Chirons 
                 body is made of carbon fiber which helps keep the cars weight down and improves its performance The cars interior is 
                 also designed with luxury and performance in mind with premium materials advanced technology and a minimalist design But 
-                since I cant afford one I decided to create one in Blender a free and open source 3D modeling software, as you can see.
+                since I cant afford one I decided to create one in Blender a free and open source 3D modeling software.
                     </Text>
                   <Divider orientation='horizontal'>
                   </Divider>
