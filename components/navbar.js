@@ -1,5 +1,6 @@
 import Logo from './logo'
 import NextLink from 'next/link'
+import styled from '@emotion/styled'
 import {
   Container,
   Box,
@@ -12,10 +13,31 @@ import {
   MenuList,
   MenuButton,
   IconButton,
-  useColorModeValue
+  useColorModeValue,
+  Button,
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  SimpleGrid
 } from '@chakra-ui/react'
 import { HamburgerIcon } from '@chakra-ui/icons'
+import { IoLogoLinkedin,IoLogoGithub,IoMail,IoLogoYoutube } from 'react-icons/io5'
 import ThemeToggleButton from './theme-toggle-button'
+
+const cust = styled.span`
+  Button {
+       backgroundColor: transparent;
+  }
+
+  &:hover Button {
+    backgroundColor: transparent;
+  }
+`
 
 const LinkItem = ({ href, path, target, children, ...props }) => {
   const active = path === href
@@ -37,6 +59,7 @@ const LinkItem = ({ href, path, target, children, ...props }) => {
 
 const Navbar = props => {
   const { path } = props
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
     <Box
@@ -91,20 +114,77 @@ const Navbar = props => {
             {/* <IoLogoGithub /> */}
             RESUME
           </LinkItem>
-          <LinkItem
+          <cust>
+          <Button
             fontWeight="hairline"
-            target="_blank"
-            href="work.js"
+            fontSize={13}
+            onClick={onOpen}
             path={path}
             display="inline-flex"
             alignItems="center"
-            style={{ gap: 4 }}
-            pl={2} passHref
+            // style={{ gap: 4 }}
+            pl={2}
+            backgroundColor={'transparent'}
+            _hover={{backgroundColor: 'transparent', textDecoration: 'underline'}}
           >
             {/* <IoLogoGithub /> */}
             CONTACT
-          </LinkItem>
+          </Button>
+          </cust>
         </Stack>
+
+        {/* =================Modal Contacts ========================================== */}
+        <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Contact Info</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            {/* Contact info 1st set------------------------------------------------------ */}
+            <SimpleGrid columns={2} gap={1} gridTemplateColumns={'30px 1fr'} mb={3}> 
+            <IoLogoLinkedin size={20}/> 
+            <Link target="https://www.linkedin.com/in/automotivedesigner/" href="https://www.linkedin.com/in/automotivedesigner/"  backgroundColor={'transparent'}
+            _hover={{backgroundColor: 'transparent', textDecoration: 'underline'}} _active={{backgroundColor: 'transparent', textDecoration: 'underline'}} fontSize={13}>
+                LinkedIn
+            </Link>
+            </SimpleGrid>
+            {/* Contact info 1st set------------------------------------------------------ */}
+            {/* Contact info 1st set------------------------------------------------------ */}
+            <SimpleGrid columns={2} gap={1} gridTemplateColumns={'30px 1fr'} mb={3}> 
+            <IoLogoGithub size={20}/> 
+            <Link target="https://www.linkedin.com/in/automotivedesigner/" href="https://www.linkedin.com/in/automotivedesigner/"  backgroundColor={'transparent'}
+            _hover={{backgroundColor: 'transparent', textDecoration: 'underline'}} _active={{backgroundColor: 'transparent', textDecoration: 'underline'}} fontSize={13}>
+                Github
+            </Link>
+            </SimpleGrid>
+            {/* Contact info 1st set------------------------------------------------------ */}
+            {/* Contact info 1st set------------------------------------------------------ */}
+            <SimpleGrid columns={2} gap={1} gridTemplateColumns={'30px 1fr'} mb={3}> 
+            <IoMail size={20}/> 
+            <Link target="https://www.linkedin.com/in/automotivedesigner/" href="https://www.linkedin.com/in/automotivedesigner/"  backgroundColor={'transparent'}
+            _hover={{backgroundColor: 'transparent', textDecoration: 'underline'}} _active={{backgroundColor: 'transparent', textDecoration: 'underline'}} fontSize={13}>
+                Gmail
+            </Link>
+            </SimpleGrid>
+            {/* Contact info 1st set------------------------------------------------------ */}
+            {/* Contact info 1st set------------------------------------------------------ */}
+            <SimpleGrid columns={2} gap={1} gridTemplateColumns={'30px 1fr'} mb={3}> 
+            <IoLogoYoutube size={20}/> 
+            <Link target="https://www.linkedin.com/in/automotivedesigner/" href="https://www.linkedin.com/in/automotivedesigner/"  backgroundColor={'transparent'}
+            _hover={{backgroundColor: 'transparent', textDecoration: 'underline'}} _active={{backgroundColor: 'transparent', textDecoration: 'underline'}} fontSize={13}>
+                YouTube
+            </Link>
+            </SimpleGrid>
+            {/* Contact info 1st set------------------------------------------------------ */}
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme='blue' mr={3} onClick={onClose}>
+              Close
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+      {/* ======================================================================== */}
 
         <Box flex={1} align="right">
           <ThemeToggleButton />
@@ -129,6 +209,7 @@ const Navbar = props => {
                 </NextLink>
                 <NextLink href="/public/Mukil" passHref>
                 <MenuItem as={Link}>CONTACT</MenuItem>
+
                 </NextLink>
               </MenuList>
             </Menu>
