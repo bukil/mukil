@@ -76,7 +76,7 @@ const Navbar = props => {
             MY WORKS
           </LinkItem>
           <LinkItem href="exp.js" path={path} fontWeight="hairline" passHref>
-            VISUALS
+            VIDEOS
           </LinkItem>
           <LinkItem
           fontWeight="hairline"
@@ -122,7 +122,7 @@ const Navbar = props => {
                   <MenuItem as={Link}>MY WORKS</MenuItem>
                 </NextLink>
                 <NextLink href="exp.js" passHref>
-                  <MenuItem as={Link}>VISUALS</MenuItem>
+                  <MenuItem as={Link}>VIDEOS</MenuItem>
                 </NextLink>
                 <NextLink href="/Mukil_resume.pdf" passHref>
                 <MenuItem as={Link}>RESUME</MenuItem>
