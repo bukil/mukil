@@ -1,6 +1,5 @@
 import Logo from './logo'
 import NextLink from 'next/link'
-import styled from '@emotion/styled'
 import {
   Container,
   Box,
@@ -28,16 +27,6 @@ import {
 import { HamburgerIcon } from '@chakra-ui/icons'
 import { IoLogoLinkedin,IoLogoGithub,IoMail,IoLogoYoutube } from 'react-icons/io5'
 import ThemeToggleButton from './theme-toggle-button'
-
-const cust = styled.span`
-  Button {
-       backgroundColor: transparent;
-  }
-
-  &:hover Button {
-    backgroundColor: transparent;
-  }
-`
 
 const LinkItem = ({ href, path, target, children, ...props }) => {
   const active = path === href
@@ -98,9 +87,6 @@ const Navbar = props => {
           >
             MY WORKS
           </LinkItem>
-          <LinkItem href="exp.js" path={path} fontWeight="hairline" passHref>
-            VIDEOS
-          </LinkItem>
           <LinkItem
           fontWeight="hairline"
             target="_blank"
@@ -114,7 +100,6 @@ const Navbar = props => {
             {/* <IoLogoGithub /> */}
             RESUME
           </LinkItem>
-          <cust>
           <Button
             fontWeight="hairline"
             fontSize={13}
@@ -130,7 +115,6 @@ const Navbar = props => {
             {/* <IoLogoGithub /> */}
             CONTACT
           </Button>
-          </cust>
         </Stack>
 
         {/* =================Modal Contacts ========================================== */}
@@ -201,16 +185,26 @@ const Navbar = props => {
                 <NextLink href="works" passHref>
                   <MenuItem as={Link}>MY WORKS</MenuItem>
                 </NextLink>
-                <NextLink href="exp.js" passHref>
-                  <MenuItem as={Link}>VIDEOS</MenuItem>
-                </NextLink>
                 <NextLink href="/Mukil_resume.pdf" passHref>
                 <MenuItem as={Link}>RESUME</MenuItem>
                 </NextLink>
-                <NextLink href="/public/Mukil" passHref>
-                <MenuItem as={Link}>CONTACT</MenuItem>
-
-                </NextLink>
+                <MenuItem>
+                <Button
+            fontWeight="hairline"
+            fontSize={13}
+            onClick={onOpen}
+            path={path}
+            display="inline-flex"
+            alignItems="left"
+            // style={{ gap: 4 }}
+            pl={2}
+            backgroundColor={'transparent'}
+            _hover={{backgroundColor: 'transparent', textDecoration: 'underline'}}
+          >
+            {/* <IoLogoGithub /> */}
+            CONTACT
+          </Button>
+          </MenuItem>
               </MenuList>
             </Menu>
           </Box>
