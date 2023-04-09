@@ -119,67 +119,59 @@ function CollapseExtandi() {
                   <SimpleGrid columns={2} spacingX='40px' spacingY='20px' mt={10}>
                   <Section>
                   <Image 
-                    src='/images/works/imgfro1.png'
+                    src='/images/works/WIRE.png'
                     alt='Project 3D 1'
                     width={ 'container.lg' }
                   />
-                  <ModalHeader>TITLE IF ANY</ModalHeader>
-                  Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want
+                  <ModalHeader>MODELING AND WIREFRAMING</ModalHeader>
+                 
                   </Section>
 
                   <Section>
                   <Image 
-                    src='/images/works/imgfro1.png'
+                    src='/images/works/lit.jpg'
                     alt='Project 3D 1'
                     width={ 'container.lg' }
                   />
-                  <ModalHeader>TITLE IF ANY</ModalHeader>
-                  Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want
+                  <ModalHeader>ENVIRONMENT AND LIGHT</ModalHeader>
+                  
                   </Section>
 
                   <Section>
                   <Image 
-                    src='/images/works/imgfro1.png'
+                    src='/images/works/frame.png'
                     alt='Project 3D 1'
                     width={ 'container.lg' }
                   />
-                  <ModalHeader>TITLE IF ANY</ModalHeader>
-                  Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want
+                  <ModalHeader>TEXTURING AND SURFACING</ModalHeader>
+                 
                   </Section>
 
                   <Section>
                   <Image 
-                    src='/images/works/imgfro1.png'
+                    src='/images/works/jug.jpg'
                     alt='Project 3D 1'
                     width={ 'container.lg' }
                   />
-                  <ModalHeader>TITLE IF ANY</ModalHeader>
-                  Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want
+                  <ModalHeader>RENDERING (CYCLES)</ModalHeader>
+                  
                   </Section>
 
                   <Section>
-                  <Image 
-                    src='/images/works/imgfro1.png'
-                    alt='Project 3D 1'
-                    width={ 'container.lg' }
-                  />
-                  <ModalHeader>TITLE IF ANY</ModalHeader>
-                  Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want
+                  <Box
+    as='video'
+    controls
+    autoplay
+    src='/images/works/jug.mp4'
+    poster='images/works/huj.jpg?x11217'
+    alt='Big Buck Bunny'
+    objectFit='contain'
+    sx={{
+      aspectRatio: '16/9'
+    }}
+/>
+                  <ModalHeader>ANIMATION</ModalHeader>
+              
                   </Section>
                    
                   </SimpleGrid>
@@ -878,7 +870,7 @@ function CollapseExtart() {
   return (
     <>
       <Button leftIcon={<ChevronDownIcon />} onClick={onToggle} variant="ghost" fontSize={20}>
-        ART AND DESIGN
+        ✍️ART AND ANIMATION📽️
       </Button>
       <Collapse in={isOpen} animateOpacity>
         <Box
@@ -898,7 +890,7 @@ function CollapseExtart() {
         <Imgtrans>
           <Button height={'auto'} onClick={onEditOpenmd1}>
            <Image 
-          src='/images/works/imgfro1.png'
+          src='/images/works/ske.png'
           alt='Project 3D 1'
           borderRadius='lg'
           />
@@ -908,44 +900,38 @@ function CollapseExtart() {
               <ModalOverlay />
               <ModalContent>
               <center>
-              <ModalHeader as="h1" >BUGATTI CHIRON</ModalHeader>
+              <ModalHeader as="h1" >ART AND ANIMATION 📽️</ModalHeader>
               </center>
               <ModalCloseButton />
               <ModalBody>
                     
               <center>
                  
-                  <Image 
-                    src='/images/works/imgfro1.png'
-                    alt='Project 3D 1'
-                    width={ 'container.lg' }
-                    mb={10}
-                  />
+                  
                     <Text fontSize={24} fontWeight={'hairline'}>
-                    The Bugatti Chiron is a luxury sports car designed and produced by Bugatti Automobiles
-                S A S The car is named after the French racing driver Louis Chiron The Chirons design was led by Bugattis 
-                head designer Etienne Salomé and is an evolution of the Veyron design It features a sleek and aerodynamic 
-                body with a long hood and a low wide stance The cars front fascia is characterized by its large curved grille 
-                and LED headlights while the rear features a distinctive LED light strip and a large integrated spoiler The Chirons 
-                body is made of carbon fiber which helps keep the cars weight down and improves its performance The cars interior is 
-                also designed with luxury and performance in mind with premium materials advanced technology and a minimalist design But 
-                since I cant afford one I decided to create one in Blender a free and open source 3D modeling software.
+                    It’s not a bug or unmannered section. It’s an undocumented feature of the site!
                     </Text>
                   <Divider orientation='horizontal'>
                   </Divider>
 
                   <SimpleGrid columns={2} spacingX='40px' spacingY='20px' mt={10}>
                   <Section>
-                  <Image 
-                    src='/images/works/imgfro1.png'
-                    alt='Project 3D 1'
+                  
+                    <Box
+                    as='video'
+                    controls
+                    src='/images/works/fgh.mp4'
+                    poster='/images/works/koegfro1.png'
+                    alt='Koenigsegg cc850 video'
                     width={ 'container.lg' }
-                  />
-                  <ModalHeader>TITLE IF ANY</ModalHeader>
-                  Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want
+
+                    objectFit='contain'
+                    sx={{
+                      aspectRatio: '16/9'
+                    }}
+                />
+                  <ModalHeader>KOENIGSEGG CC850</ModalHeader>
+          
                   </Section>
 
                   <Section>
@@ -955,10 +941,7 @@ function CollapseExtart() {
                     width={ 'container.lg' }
                   />
                   <ModalHeader>TITLE IF ANY</ModalHeader>
-                  Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want
+                 
                   </Section>
 
                   <Section>
@@ -968,10 +951,7 @@ function CollapseExtart() {
                     width={ 'container.lg' }
                   />
                   <ModalHeader>TITLE IF ANY</ModalHeader>
-                  Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want
+                  
                   </Section>
 
                   <Section>
@@ -981,10 +961,7 @@ function CollapseExtart() {
                     width={ 'container.lg' }
                   />
                   <ModalHeader>TITLE IF ANY</ModalHeader>
-                  Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want
+                 
                   </Section>
 
                   <Section>
@@ -994,20 +971,17 @@ function CollapseExtart() {
                     width={ 'container.lg' }
                   />
                   <ModalHeader>TITLE IF ANY</ModalHeader>
-                  Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want Text is car is car this is just to increase lines here take this a quick brown fox jumps over A
-                  lazy dog put text anything you want
+                  
                   </Section>
                    
                   </SimpleGrid>
                     <Divider orientation='horizontal' mb={10}>
                     </Divider>
-                    ANY TEXT OR 
+                    I post content ferquently on my Instagram handle 
                     <NextLink href="/" passHref scroll={false}>
-                      <Link> ANY LINK </Link>
+                      <Link> https://www.instagram.com/magna_kaizen/</Link>
                     </NextLink>
-                     PLACE HERE!
+                     
                   </center>
               </ModalBody>
               <ModalFooter>
@@ -1452,7 +1426,7 @@ function CollapseExtart() {
                     mb={10}
                   />
                     <Text fontSize={24} fontWeight={'hairline'}>
-                    The Bugatti Chiron is a luxury sports car designed and produced by Bugatti Automobiles
+                    Bugatti Chiron is a luxury sports car designed and produced by Bugatti Automobiles
                 S A S The car is named after the French racing driver Louis Chiron The Chirons design was led by Bugattis 
                 head designer Etienne Salomé and is an evolution of the Veyron design It features a sleek and aerodynamic 
                 body with a long hood and a low wide stance The cars front fascia is characterized by its large curved grille 
