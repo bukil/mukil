@@ -41,8 +41,10 @@ Button {
 }
 &:hover Button {
   transform: translate(20px, 0px);
-  
   background: transparent;
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
+
 }
 }
 `
