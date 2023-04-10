@@ -38,13 +38,12 @@ Button {
   -moz-transition: ease-out 0.4s;
   transition: ease-out 0.4s;
   background: transparent;
+
 }
 &:hover Button {
   transform: translate(20px, 0px);
   background: transparent;
-  filter: blur(5px);
-  -webkit-filter: blur(5px);
-
+  filter: blur(3px);
 }
 }
 `
@@ -179,11 +178,7 @@ function CollapseExtandi() {
                   </SimpleGrid>
                     <Divider orientation='horizontal' mb={10}>
                     </Divider>
-                    ANY TEXT OR 
-                    <NextLink href="/" passHref scroll={false}>
-                      <Link> ANY LINK </Link>
-                    </NextLink>
-                     PLACE HERE!
+                    Reference images, Design and logo used in the website is property of respective owners.
                   </center>
               </ModalBody>
               <ModalFooter>
@@ -401,7 +396,7 @@ function CollapseExtandi() {
             </Stack>
               </Container>
       </Section>
-
+{/*original drone */}
       <Section>
       <Container>
       <Imgtrans>
@@ -416,7 +411,7 @@ function CollapseExtandi() {
               <ModalOverlay />
               <ModalContent>
               <center>
-              <ModalHeader as="h1" >Koenigsegg CC850</ModalHeader>
+              <ModalHeader as="h1" >TAREN DRONE</ModalHeader>
               </center>
               <ModalCloseButton />
               <ModalBody>
@@ -424,67 +419,107 @@ function CollapseExtandi() {
               <center>
                  
               <Image 
-          src='/images/works/koegfro1.png'
-          alt='Koenigsegg CC850'
+          src='/images/works/unh.jpg'
+          alt='Taren drone'
           borderRadius='lg'
           mb={10}
           /><Text fontSize={24} fontWeight={'hairline'}>
-                    Koenigsegg CC850, a rare and powerful supercar that can reach speeds of over 400 km/h. 
-                    I wanted to design my own version of it in Autodesk Sketchbook, a versatile and easy-to-use 
-                    drawing app on my phone and here is the powerful design journey of the Koenigsegg CC850.
+                   This project is a part of my internship at E-Yantra Indian Institute of Technology Bombay (IITB) I was working as a product designer in team, where we were Designing a multipurpose Drone structure. 
+One of my projects was to visualize the 3D Drone concept under the mentorship of Mr. Maddu Murali and we named it TAREN. Taren is a stealth multipurpose drone inspired by a tarantula spider which shows the symbol of aggression and speed, Taren is not only equipped with aesthetics but intelligence also This is why we have wicked smart NVIDIA® Jetson Xavier onboard.
                     </Text>
+                    <Box
+           as='video'
+           controls
+           src='/images/works/iitbvd.mp4'
+           poster='/images/works/desg.jpg'
+           alt='sketching'
+           objectFit='contain'
+           sx={{
+             aspectRatio: '16/9'
+           }}
+          mb={10}
+          />
+          <Box
+           as='video'
+           controls
+           src='/images/works/race.mp4'
+           poster='/images/works/0240.png'
+           alt='sketching'
+           objectFit='contain'
+           sx={{
+             aspectRatio: '16/9'
+           }}
+          mb={10}
+          />
                   <Divider orientation='horizontal'>
                   </Divider>
 
                   <SimpleGrid columns={2} spacingX='40px' spacingY='20px' mt={10}>
                   <Section>
                   <Image 
-          src='/images/works/KOENIGSEGG CC3.png'
-          alt='Koenigsegg CC850'
+          src='/images/works/mk.jpg'
+          alt='Drone design'
           borderRadius='lg'
           />
-                  <ModalHeader>Basic Sketch and Orthogonal framework</ModalHeader>
-                  I initiate by choosing simple orthogonal orientation and draw the basic structure. I used reference images from the internet to help me get the proportions and details
+                  <ModalHeader>Basic Sketch and Ideation</ModalHeader>
+                  The primary objective of this project is to develop an outer cover, basically the protective shell for the multipurpose drone to protect it from atmospheric conditions. Keeping the objective in mind, we need to develop an outer cover that also has more aesthetic
+
                   </Section>
 
                   <Section>
                   <Image 
-          src='/images/works/KOENIGSEGG CC2.png'
-          alt='Koenigsegg CC850'
+          src='/images/works/drone4.png'
+          alt='taren'
           borderRadius='lg'
           />
-                  <ModalHeader>Shading and Principal Color</ModalHeader>
-                    I drew the car from a side view and add signature grey color, making sure to capture the distinctive features of the CC850, such as the targa top, the dihedral doors, and the large wheels.
+                  <ModalHeader>Prior Design Proposals</ModalHeader>
+                  I got inspired by a Spider. Spiders are fast and aggressive. They help farmers by
+feeding on crop-destroying Bugs. The venom from a black widow spider may cause muscle aches, nausea, a paralysis of the diaphragm, and potentially death, but it’s being used in inventive ways in medicine.
+
                   </Section>
 
                   <Section>
                   <Image 
-          src='/images/works/Konigsegg.png'
-          alt='Koenigsegg CC850'
+          src='/images/works/tar1.png'
+          alt='PAI'
           borderRadius='lg'
           />
-                  <ModalHeader>Texture and Volume Rendering</ModalHeader>
-                  Next, I added some shading and highlights to the sketch using different shades of gray. I used a soft brush tool with low opacity to create smooth gradients and shadows. I also used a hard eraser tool to erase some parts of the outline and make the sketch look more realistic. I paid attention to the light source and how it reflected on the car’s surface.
+                  <ModalHeader>Physical assembly and visualisation</ModalHeader>
+                  The main challenges that we faced were:
+We, teammates, were from distant locations and we both were also at a
+long distance from eYantra’s Office. This makes the process more
+tedious. If we were nearer to eYantra’s office, we would have surely
+taken a visit to complete in a fast and easier manner. Our mentors
+helped us a lot by providing dimensions and other details whenever
+necessary.
                   </Section>
 
                   <Section>
                   <Image 
-          src='/images/works/wokbench.png'
-          alt='Koenigsegg CC850'
+          src='/images/works/unjht.jpg'
+          alt='taren dron'
           borderRadius='lg'
           />
-                  <ModalHeader>😁My Compact Canvas✍️</ModalHeader>
-                  This is what it looks like when working on the Android version of Autodesk Sketchbook
+                  <ModalHeader>Final Design</ModalHeader>
+                  In this internship, we were asked to design and develop an outer cover for the
+drone. One can develop any product using any engineering principles. However, to
+market the product, to get it sold, Aesthetics is important. We came up with a
+concept that is inspired by nature. We prepared an STL file in a clean manner and
+delivered it to our team. They further verified and started 3d printing. Overall, this
+internship helped us to explore 3d printing mechanisms and prepare a 3d printable
+model. We dived into the pool of design principles and got benefited from it.
+
                   </Section>
 
                   <Section>
                   <Image 
-          src='/images/works/koe1.png'
-          alt='Koenigsegg CC850'
+          src='/images/works/drone2.png'
+          alt='Drone design'
           borderRadius='lg'
           />
-                  <ModalHeader>⚠️And results are awesome</ModalHeader>
-                  After adding few more detail and wheel textures for more dynamic visuals the ultimate result is here.
+                  
+                  <ModalHeader>More design Praposals</ModalHeader>
+                 Throughout the session we develope many design praposal and select one of them by user study.
                   </Section>
                    
                   </SimpleGrid>

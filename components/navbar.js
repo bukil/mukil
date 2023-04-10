@@ -25,7 +25,7 @@ import {
   SimpleGrid
 } from '@chakra-ui/react'
 import { HamburgerIcon } from '@chakra-ui/icons'
-import { IoLogoLinkedin,IoLogoGithub,IoMail,IoLogoYoutube } from 'react-icons/io5'
+import { IoLogoLinkedin,IoLogoGithub,IoMail,IoLogoYoutube, IoLogoInstagram } from 'react-icons/io5'
 import ThemeToggleButton from './theme-toggle-button'
 
 const LinkItem = ({ href, path, target, children, ...props }) => {
@@ -129,34 +129,41 @@ const Navbar = props => {
             <IoLogoLinkedin size={20}/> 
             <Link target="https://www.linkedin.com/in/automotivedesigner/" href="https://www.linkedin.com/in/automotivedesigner/"  backgroundColor={'transparent'}
             _hover={{backgroundColor: 'transparent', textDecoration: 'underline'}} _active={{backgroundColor: 'transparent', textDecoration: 'underline'}} fontSize={13}>
-                LinkedIn
+                LinkedIn/mukil kumar
             </Link>
             </SimpleGrid>
             {/* Contact info 1st set------------------------------------------------------ */}
             {/* Contact info 1st set------------------------------------------------------ */}
             <SimpleGrid columns={2} gap={1} gridTemplateColumns={'30px 1fr'} mb={3}> 
             <IoLogoGithub size={20}/> 
-            <Link target="https://www.linkedin.com/in/automotivedesigner/" href="https://www.linkedin.com/in/automotivedesigner/"  backgroundColor={'transparent'}
+            <Link target="https://github.com/bukil" href="https://github.com/bukil"  backgroundColor={'transparent'}
             _hover={{backgroundColor: 'transparent', textDecoration: 'underline'}} _active={{backgroundColor: 'transparent', textDecoration: 'underline'}} fontSize={13}>
-                Github
+                Github.com/bukil
             </Link>
             </SimpleGrid>
             {/* Contact info 1st set------------------------------------------------------ */}
             {/* Contact info 1st set------------------------------------------------------ */}
             <SimpleGrid columns={2} gap={1} gridTemplateColumns={'30px 1fr'} mb={3}> 
             <IoMail size={20}/> 
-            <Link target="https://www.linkedin.com/in/automotivedesigner/" href="https://www.linkedin.com/in/automotivedesigner/"  backgroundColor={'transparent'}
+            <Link target="mailto:mukil289446@gmail.com" href="mailto:mukil289446@gmail.com"  backgroundColor={'transparent'}
             _hover={{backgroundColor: 'transparent', textDecoration: 'underline'}} _active={{backgroundColor: 'transparent', textDecoration: 'underline'}} fontSize={13}>
-                Gmail
+                mukil289446@gmail.com
             </Link>
             </SimpleGrid>
             {/* Contact info 1st set------------------------------------------------------ */}
             {/* Contact info 1st set------------------------------------------------------ */}
             <SimpleGrid columns={2} gap={1} gridTemplateColumns={'30px 1fr'} mb={3}> 
             <IoLogoYoutube size={20}/> 
-            <Link target="https://www.linkedin.com/in/automotivedesigner/" href="https://www.linkedin.com/in/automotivedesigner/"  backgroundColor={'transparent'}
+            <Link target="https://www.youtube.com/channel/UCVeGi7RNdtqN6_7G-rjdSGQ" href="https://www.youtube.com/channel/UCVeGi7RNdtqN6_7G-rjdSGQ"  backgroundColor={'transparent'}
             _hover={{backgroundColor: 'transparent', textDecoration: 'underline'}} _active={{backgroundColor: 'transparent', textDecoration: 'underline'}} fontSize={13}>
                 YouTube
+            </Link>
+            </SimpleGrid>
+            <SimpleGrid columns={2} gap={1} gridTemplateColumns={'30px 1fr'} mb={3}> 
+            <IoLogoInstagram size={20}/> 
+            <Link target="https://www.instagram.com/magna_kaizen/" href="https://www.instagram.com/magna_kaizen/"  backgroundColor={'transparent'}
+            _hover={{backgroundColor: 'transparent', textDecoration: 'underline'}} _active={{backgroundColor: 'transparent', textDecoration: 'underline'}} fontSize={13}>
+                Instagram
             </Link>
             </SimpleGrid>
             {/* Contact info 1st set------------------------------------------------------ */}
@@ -196,13 +203,13 @@ const Navbar = props => {
             path={path}
             display="inline-flex"
             alignItems="left"
-            // style={{ gap: 4 }}
+           
             pl={2}
             backgroundColor={'transparent'}
             _hover={{backgroundColor: 'transparent', textDecoration: 'underline'}}
           >
-            {/* <IoLogoGithub /> */}
-            CONTACT
+            
+            CONTACTS
           </Button>
           </MenuItem>
               </MenuList>
