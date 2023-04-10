@@ -1502,32 +1502,7 @@ function CollapseExtart() {
           </Container>
       </Section>
 
-      <Section>
-      <Container>
-      <Imgtrans>
-          <Button height={'auto'} onClick={onEditOpenmd7}>
-            <Image 
-          src='/images/works/drone4.png'
-          alt='Cahar'
-          borderRadius='lg'
-          />
-          {/* ===================Bugatti Chiron Edit Modal===================================================== */}
-          
-          {/* ===================================================================================== */}
-          </Button>
-          </Imgtrans>
-          <Stack mt='6' spacing='3'>
-          <Heading as="h2"  fontWeight="hairline">
-          BUGATTI CHIRON
-        </Heading>
-          <Text fontSize={'xs'}>
-            Car is car the text is just template to increase lines here thake this The quick brown fox jumps over the lazy dog
-            Do Project Description your Experience or whatsoever you want!
-          </Text>
-
-        </Stack>
-          </Container>
-      </Section>
+  
       {/* Ending of Cards - Add or Remove Work cards here */}
       </SimpleGrid>
          {/* Works Content */}
