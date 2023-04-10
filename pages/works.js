@@ -571,9 +571,9 @@ model. We dived into the pool of design principles and got benefited from it.
                  
               <Image src='/images/works/FMSP6.jpg' alt='FERRARI MONZA SP1' borderRadius='lg'/>
                     <Text fontSize={24} fontWeight={'hairline'}>
-                   Welcome to another Design journey of Ferrari Monza SP1. The Ferrari Monza SP1 is a limited edition model that was unveiled by Ferrari in 2018. It is part of the Icona series, which
-pay s homage to some of the brand's most iconic
-models from the past. The design of the Monza SP1 is inspired by the barchetta body style, which was popular in the 1950s and features a sleek, open top design with a minimal
+                   Welcome to another Design journey of Ferrari Monza SP1. The Ferrari Monza SP1 is a limited edition model that was unveiled by Ferrari in 2018. It is part of the Icona series which
+pay s homage to some of the brands most iconic
+models from the past. The design of the Monza SP1 is inspired by the barchetta body style which was popular in the 1950s and features a sleek open top design with a minimal
 windshield and no roof. In this project I recreate a Ferrari Monza SP1 in blender. The post on Artstation by Saksham kumar and Adam wiese helped me a lot in this project for providing reference data and textures.
                     </Text>
                   <Divider orientation='horizontal'>
@@ -695,7 +695,7 @@ windshield and no roof. In this project I recreate a Ferrari Monza SP1 in blende
                   }}
                   />
 
-                   
+          
                   </SimpleGrid>
                     <Divider orientation='horizontal' mb={10}>
                     </Divider>
