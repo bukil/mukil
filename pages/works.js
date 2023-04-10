@@ -1084,7 +1084,39 @@ function CollapseExtart() {
       
 
 
-        
+        <Section>
+              <Container>
+              <Imgtrans>
+          <Button height={'auto'} onClick={onEditOpenmd3}>
+                  <Image src='/images/works/bug1.png' alt='Bugatti veyron 16.4' borderRadius='lg'/>
+                  {/* ===================Bugatti Chiron Edit Modal===================================================== */}
+          <Modal isOpen={isEditOpenmd3} onClose={onEditClosemd3} size={'full'} scrollBehavior={'outside'}>
+              <ModalOverlay />
+              <ModalContent>
+              <center>
+              <ModalHeader as="h1" >BUGATTI VEYRON 16.4</ModalHeader>
+              </center>
+              <ModalCloseButton />
+            
+              <ModalFooter>
+              <Button variant="ghost" mr={3} onClick={onEditClosemd3}>Close</Button>
+              </ModalFooter>
+              </ModalContent>
+          </Modal>
+          {/* ===================================================================================== */}
+
+                  </Button>
+             </Imgtrans>
+              <Stack mt='6' spacing='3'>
+              <Heading as="h2"  fontWeight="hairline">
+          BUGATTI VEYRON 16.4
+        </Heading>
+              <Text fontSize={'xs'}>
+             Sketch of Bugatti Veyron 16.4 Grande sports in Autodesk Sketchbook(Android)
+              </Text>
+            </Stack>
+              </Container>
+      </Section>
 
       <Section>
       <Container>
