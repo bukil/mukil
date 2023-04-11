@@ -854,7 +854,7 @@ function CollapseExtart() {
           <Button height={'auto'} onClick={onEditOpenmd1}>
            <Image 
           src='/images/works/ske.png'
-          alt='Project 3D 1'
+          alt='Project'
           borderRadius='lg'
           />
 
@@ -898,51 +898,67 @@ function CollapseExtart() {
                   </Section>
 
                   <Section>
-                  <Image 
-                    src='/images/works/imgfro1.png'
-                    alt='Project 3D 1'
+                  <Box
+                    as='video'
+                    controls
+                    src='/images/works/race.mp4'
+                    poster='/images/works/tar1.png'
+                    alt='Race animation'
                     width={ 'container.lg' }
-                  />
-                  <ModalHeader>TITLE IF ANY</ModalHeader>
+
+                    objectFit='contain'
+                    sx={{
+                      aspectRatio: '16/9'
+                    }}
+                    />
+                  <ModalHeader>DRONE RACE ANIMATION</ModalHeader>
                  
                   </Section>
 
                   <Section>
                   <Image 
-                    src='/images/works/imgfro1.png'
-                    alt='Project 3D 1'
+                    src='/images/works/design.jpg'
+                    alt='Industrtial design'
                     width={ 'container.lg' }
                   />
-                  <ModalHeader>TITLE IF ANY</ModalHeader>
+                  <ModalHeader>FLOWER PLUCK MECHANISM</ModalHeader>
                   
                   </Section>
 
                   <Section>
                   <Image 
-                    src='/images/works/imgfro1.png'
-                    alt='Project 3D 1'
+                    src='/images/works/WORKING.jpg'
+                    alt='Industrial'
                     width={ 'container.lg' }
                   />
-                  <ModalHeader>TITLE IF ANY</ModalHeader>
+                  <ModalHeader>WORKING MECHANISM</ModalHeader>
                  
                   </Section>
 
                   <Section>
-                  <Image 
-                    src='/images/works/imgfro1.png'
-                    alt='Project 3D 1'
+                  <Box
+                    as='video'
+                    controls
+                    src='/images/works/SPD.mkv'
+                    poster='/images/works/Space.jpg'
+                    alt='space azure'
                     width={ 'container.lg' }
-                  />
-                  <ModalHeader>TITLE IF ANY</ModalHeader>
+
+                    objectFit='contain'
+                    sx={{
+                      aspectRatio: '16/9'
+                    }}
+                    />
+                  <ModalHeader>SPACE RENDER</ModalHeader>
                   
                   </Section>
                    
                   </SimpleGrid>
                     <Divider orientation='horizontal' mb={10}>
                     </Divider>
-                    I post content ferquently on my Instagram handle 
-                    <NextLink href="/" passHref scroll={false}>
-                      <Link> https://www.instagram.com/magna_kaizen/</Link>
+                    I post ferquently on my Instagram handle 
+                    <NextLink href="https://www.instagram.com/magna_kaizen/" passHref scroll={false}>
+                      <Link> MUKIL</Link>
                     </NextLink>
                      
                   </center>
@@ -971,8 +987,8 @@ function CollapseExtart() {
             <Imgtrans mt={10}>
           <Button height={'auto'} onClick={onEditOpenmd2}>
             <Image 
-          src='/images/works/koegfro1.png'
-          alt='Koenigsegg CC850'
+          src='/images/works/mnh.png'
+          alt='raw work'
           borderRadius='lg'
           />
 
@@ -1090,7 +1106,7 @@ function CollapseExtart() {
           OPEN AT YOU OWN RISK!⚠️
         </Heading>
           <Text fontSize={'xs'}>
-          Design Journey of Koenigsegg CC850 2D Project in Autodesk Sketchbook
+          Incomplete and Raw Designs workflow
           </Text>
         </Stack></Section>    
           {/* Bugatti + Mclaren */}
