@@ -872,7 +872,7 @@ function CollapseExtart() {
                  
                   
                     <Text fontSize={24} fontWeight={'hairline'}>
-                    It’s not a bug or unmannered section. It’s an undocumented feature of the site!
+                    
                     </Text>
                   <Divider orientation='horizontal'>
                   </Divider>
@@ -894,7 +894,7 @@ function CollapseExtart() {
                     }}
                 />
                   <ModalHeader>KOENIGSEGG CC850</ModalHeader>
-          
+          A small part of designing the Koenigsegg CC850 in Autodesk Sketchbook
                   </Section>
 
                   <Section>
@@ -981,7 +981,7 @@ function CollapseExtart() {
               <ModalOverlay />
               <ModalContent>
               <center>
-              <ModalHeader as="h1" >Koenigsegg CC850</ModalHeader>
+              <ModalHeader as="h1" >WORKFLOW DESIGNS AND SKETCHS</ModalHeader>
               </center>
               <ModalCloseButton />
               <ModalBody>
@@ -989,14 +989,12 @@ function CollapseExtart() {
               <center>
                  
               <Image 
-          src='/images/works/koegfro1.png'
-          alt='Koenigsegg CC850'
+          src='/images/works/Logo.png'
+          alt='Mukil'
           borderRadius='lg'
           mb={10}
           /><Text fontSize={24} fontWeight={'hairline'}>
-                    Koenigsegg CC850, a rare and powerful supercar that can reach speeds of over 400 km/h. 
-                    I wanted to design my own version of it in Autodesk Sketchbook, a versatile and easy-to-use 
-                    drawing app on my phone and here is the powerful design journey of the Koenigsegg CC850.
+                    It’s not a bug or unmannered section. It’s an undocumented feature of the site!
                     </Text>
                   <Divider orientation='horizontal'>
                   </Divider>
@@ -1004,52 +1002,71 @@ function CollapseExtart() {
                   <SimpleGrid columns={2} spacingX='40px' spacingY='20px' mt={10}>
                   <Section>
                   <Image 
+          src='/images/works/mclar.jpg'
+          alt='un'
+          borderRadius='lg'
+          />
+            
+                  </Section>
+
+                  <Section>
+                  <Image 
+          src='/images/works/merce.jpg'
+          alt='benz'
+          borderRadius='lg'
+          />
+            
+                  </Section>
+
+                  <Section>
+                  <Image 
+          src='/images/works/khh.jpg'
+          alt='work0'
+          borderRadius='lg'
+          />
+            
+                  </Section>
+
+                  <Section>
+                  <Image 
+          src='/images/works/kh1.jpg'
+          alt='work'
+          borderRadius='lg'
+          />
+            
+                  </Section>
+
+                  <Section>
+                  <Image 
+          src='/images/works/kh2.jpg'
+          alt='carsketch'
+          borderRadius='lg'
+          />
+            
+                  </Section>
+                  <Section>
+                  <Image 
           src='/images/works/KOENIGSEGG CC3.png'
           alt='Koenigsegg CC850'
           borderRadius='lg'
           />
-                  <ModalHeader>Basic Sketch and Orthogonal framework</ModalHeader>
-                  I initiate by choosing simple orthogonal orientation and draw the basic structure. I used reference images from the internet to help me get the proportions and details
+            
                   </Section>
-
                   <Section>
                   <Image 
-          src='/images/works/KOENIGSEGG CC2.png'
-          alt='Koenigsegg CC850'
+          src='/images/works/mgh.jpg'
+          alt='design'
           borderRadius='lg'
           />
-                  <ModalHeader>Shading and Principal Color</ModalHeader>
-                    I drew the car from a side view and add signature grey color, making sure to capture the distinctive features of the CC850, such as the targa top, the dihedral doors, and the large wheels.
+            
                   </Section>
-
                   <Section>
                   <Image 
-          src='/images/works/Konigsegg.png'
-          alt='Koenigsegg CC850'
+          src='/images/works/drone3.png'
+          alt='design'
           borderRadius='lg'
           />
-                  <ModalHeader>Texture and Volume Rendering</ModalHeader>
-                  Next, I added some shading and highlights to the sketch using different shades of gray. I used a soft brush tool with low opacity to create smooth gradients and shadows. I also used a hard eraser tool to erase some parts of the outline and make the sketch look more realistic. I paid attention to the light source and how it reflected on the car’s surface.
-                  </Section>
-
-                  <Section>
-                  <Image 
-          src='/images/works/wokbench.png'
-          alt='Koenigsegg CC850'
-          borderRadius='lg'
-          />
-                  <ModalHeader>😁My Compact Canvas✍️</ModalHeader>
-                  This is what it looks like when working on the Android version of Autodesk Sketchbook
-                  </Section>
-
-                  <Section>
-                  <Image 
-          src='/images/works/koe1.png'
-          alt='Koenigsegg CC850'
-          borderRadius='lg'
-          />
-                  <ModalHeader>⚠️And results are awesome</ModalHeader>
-                  After adding few more detail and wheel textures for more dynamic visuals the ultimate result is here.
+            
                   </Section>
                    
                   </SimpleGrid>
@@ -1070,7 +1087,7 @@ function CollapseExtart() {
           </Imgtrans>
           <Stack mt='6' spacing='3'>
           <Heading as="h2"  fontWeight="hairline">
-          KOENIGSEGG CC850
+          OPEN AT YOU OWN RISK!⚠️
         </Heading>
           <Text fontSize={'xs'}>
           Design Journey of Koenigsegg CC850 2D Project in Autodesk Sketchbook
