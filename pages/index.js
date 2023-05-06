@@ -61,7 +61,7 @@ const Home = () => (
               </Heading>
             </GridItem>
            </Grid>
-          <p>AUTOMOTIVE DESIGNER / HIC DESIGNER / SOFTWARE DEVELOPER</p>
+          <p>DESIGNER / UI/UX DESIGNER  / SOFTWARE DEVELOPER / AUTOMOBILES</p>
           <Image
           alignItems={'flex-start'}
           src="/images/Imag.png"   // Add image here!
