@@ -51,6 +51,8 @@ Button {
 
 function CollapseExtandi() {
   const { isOpen, onToggle } = useDisclosure()
+
+  const { isOpen: isEditOpenmd0 , onOpen: onEditOpenmd0, onClose: onEditClosemd0 } = useDisclosure()
   const { isOpen: isEditOpenmd1 , onOpen: onEditOpenmd1, onClose: onEditClosemd1 } = useDisclosure()
   const { isOpen: isEditOpenmd2 , onOpen: onEditOpenmd2, onClose: onEditClosemd2 } = useDisclosure()
   const { isOpen: isEditOpenmd3 , onOpen: onEditOpenmd3, onClose: onEditClosemd3 } = useDisclosure()
@@ -79,19 +81,19 @@ function CollapseExtandi() {
         
         
         <Imgtrans>
-          <Button height={'auto'} onClick={onEditOpenmd1}>
+          <Button height={'auto'} onClick={onEditOpenmd0}>
            <Image 
-          src='/images/works/imgfro1.png'
+          src='/images/works/menu.jpg'
           alt='User Experience'
           borderRadius='lg'
           />
 
            
-          <Modal isOpen={isEditOpenmd1} onClose={onEditClosemd1} size={'full'} scrollBehavior={'outside'}>
+          <Modal isOpen={isEditOpenmd0} onClose={onEditClosemd0} size={'full'} scrollBehavior={'outside'}>
               <ModalOverlay />
               <ModalContent>
               <center>
-              <ModalHeader as="h1" >BUGATTI CHIRON</ModalHeader>
+              <ModalHeader as="h1" >OPTICAL ENCODER BASED STEERING SYSTEM</ModalHeader>
               </center>
               <ModalCloseButton />
               <ModalBody>
@@ -99,20 +101,13 @@ function CollapseExtandi() {
               <center>
                  
                   <Image 
-                    src='/images/works/imgfro1.png'
+                    src='/images/works/rat1.jpg'
                     alt='Project 3D 1'
                     width={ 'container.lg' }
                     mb={10}
                   />
                     <Text fontSize={24} fontWeight={'hairline'}>
-                    The Bugatti Chiron is a luxury sports car designed and produced by Bugatti Automobiles
-                S A S The car is named after the French racing driver Louis Chiron The Chirons design was led by Bugattis 
-                head designer Etienne Salomé and is an evolution of the Veyron design It features a sleek and aerodynamic 
-                body with a long hood and a low wide stance The cars front fascia is characterized by its large curved grille 
-                and LED headlights while the rear features a distinctive LED light strip and a large integrated spoiler The Chirons 
-                body is made of carbon fiber which helps keep the cars weight down and improves its performance The cars interior is 
-                also designed with luxury and performance in mind with premium materials advanced technology and a minimalist design But 
-                since I cant afford one I decided to create one in Blender a free and open source 3D modeling software.
+                    Mukil was a bright and cheerful teenager who loved technology. He was always curious about how things worked and enjoyed tinkering with gadgets and software. He wanted to become a software engineer and create useful applications for people. He was also left hand disabled, which meant he had limited use of his left hand due to a birth defect. He had learned to adapt to his condition and do most things with his right hand only. He didn’t let his disability stop him from pursuing his dreams.
                     </Text>
                   <Divider orientation='horizontal'>
                   </Divider>
@@ -120,65 +115,58 @@ function CollapseExtandi() {
                   <SimpleGrid columns={2} spacingX='40px' spacingY='20px' mt={10}>
                   <Section>
                   <Image 
-                    src='/images/works/WIRE.png'
+                    src='/images/works/rat2.jpg'
                     alt='Project 3D 1'
                     width={ 'container.lg' }
                   />
-                  <ModalHeader>MODELING AND WIREFRAMING</ModalHeader>
-                 
+                  <ModalHeader>What can it Changes</ModalHeader>
+                  One day, he decided to do something about it. He thought of an idea that could help him drive a vehicle with his left hand disabled. He decided to use his knowledge of technology and create a prototype that could control a vehicle with optical encoder, it is a high accuracy small sensor use in industrial purpose. He thought that if he could control the vehicle with only right hand with the help of sensor, he wouldn’t need to use his left hands at all. he realises that the abilities of the Encoder based steering system is more than anybody think
                   </Section>
 
                   <Section>
                   <Image 
-                    src='/images/works/lit.jpg'
+                    src='/images/works/rat3.jpg'
                     alt='Project 3D 1'
                     width={ 'container.lg' }
                   />
-                  <ModalHeader>ENVIRONMENT AND LIGHT</ModalHeader>
+                  <ModalHeader>More Moodboards</ModalHeader>
+                 Sketching the first task for him and then He started working on his project with enthusiasm and determination. He researched online and found some tutorials and resources that could help him. He bought some components and tools from online distributor. He starts assembling the components, Fabricating and soldering PCBs accordingly and try to build the prototype. He spent many hours in his hostel room, wiring, coding, testing, and debugging his device.
+                  </Section>
+
+                  <Section>
+                  <Image 
+                    src='/images/works/rat4.jpg'
+                    alt='Project 3D 1'
+                    width={ 'container.lg' }
+                  />
+                  <ModalHeader>Prototypiing</ModalHeader>
+                  After several days of hard work, he finally completed his project. He had created optical encoder(sensor) based vehicle controller that could connect to the car’s system and control its functions. He had tested the device in simulation first and successful in it.
+                  </Section>
+
+                  <Section>
+                  <Image 
+                    src='/images/works/menu.jpg'
+                    alt='Project 3D 1'
+                    width={ 'container.lg' }
+                  />
+                  <ModalHeader>Enhanced User Experience</ModalHeader>
                   
                   </Section>
 
                   <Section>
-                  <Image 
-                    src='/images/works/frame.png'
-                    alt='Project 3D 1'
-                    width={ 'container.lg' }
-                  />
-                  <ModalHeader>TEXTURING AND SURFACING</ModalHeader>
-                 
-                  </Section>
-
-                  <Section>
-                  <Image 
-                    src='/images/works/jug.jpg'
-                    alt='Project 3D 1'
-                    width={ 'container.lg' }
-                  />
-                  <ModalHeader>RENDERING (CYCLES)</ModalHeader>
-                  
-                  </Section>
-
-                  <Section>
-                  <Box
-    as='video'
-    controls
-    autoplay
-    src='/images/works/jug.mp4'
-    poster='images/works/huj.jpg'
-    alt='animation'
-    objectFit='contain'
-    sx={{
-      aspectRatio: '16/9'
-    }}
+                  <Image
+    src='/images/works/menu1.jpg'
+    alt='Project 3D 1'
+    width={ 'container.lg' }
 />
-                  <ModalHeader>ANIMATION</ModalHeader>
+                  <ModalHeader>High Feasability</ModalHeader>
               
                   </Section>
                    
                   </SimpleGrid>
                     <Divider orientation='horizontal' mb={10}>
                     </Divider>
-                    Reference images, Design and logo used in the website is property of respective owners.
+                   
                   </center>
               </ModalBody>
               <ModalFooter>
@@ -192,10 +180,10 @@ function CollapseExtandi() {
           </Imgtrans>
           <Stack mt='6' spacing='3' mb={10}>
           <Heading as="h2"  fontWeight="hairline">
-          BUGATTI CHIRON
+          OPTICAL ENCODER STEERING SYSTEM
         </Heading>
           <Text fontSize={'xs'} mb={10}>
-          The Bugatti Chiron 3D Project in blender 
+          Optical Encoder Steering System for Enhanced User Experience
           </Text>
         </Stack>
          
