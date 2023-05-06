@@ -1051,6 +1051,41 @@ function CollapseExtart() {
                   </Section>
 
                   <Section>
+                    <Box
+                    as='video'
+                    controls
+                    src='/images/works/rat45.mkv'
+          
+                    alt='Koenigsegg cc850 video'
+                    width={ 'container.lg' }
+
+                    objectFit='contain'
+                    sx={{
+                      aspectRatio: '16/9'
+                    }}
+                />
+                  <ModalHeader>LAMBORGHINI ANIMATION</ModalHeader>
+          A Small animation shows the suspensionn rigging and environment
+                  </Section>
+                  <Section>
+                    <Box
+                    as='video'
+                    controls
+                    src='/images/works/rat46.mkv'
+          
+                    alt='camera dynamic'
+                    width={ 'container.lg' }
+
+                    objectFit='contain'
+                    sx={{
+                      aspectRatio: '16/9'
+                    }}
+                />
+                  <ModalHeader>CAMERA DYNAMIC WITH PORSCHE</ModalHeader>
+          A Small animation Porsche 911 with dynamic camera and low poly environment environment
+                  </Section>
+              
+                  <Section>
                   <Box
                     as='video'
                     controls
