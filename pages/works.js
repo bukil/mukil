@@ -74,6 +74,133 @@ function CollapseExtandi() {
         >
          
          <SimpleGrid columns={[1, 2, 3]} gap={25} mt={0}>
+
+         <Section>
+        
+        
+        <Imgtrans>
+          <Button height={'auto'} onClick={onEditOpenmd1}>
+           <Image 
+          src='/images/works/imgfro1.png'
+          alt='User Experience'
+          borderRadius='lg'
+          />
+
+           
+          <Modal isOpen={isEditOpenmd1} onClose={onEditClosemd1} size={'full'} scrollBehavior={'outside'}>
+              <ModalOverlay />
+              <ModalContent>
+              <center>
+              <ModalHeader as="h1" >BUGATTI CHIRON</ModalHeader>
+              </center>
+              <ModalCloseButton />
+              <ModalBody>
+                    
+              <center>
+                 
+                  <Image 
+                    src='/images/works/imgfro1.png'
+                    alt='Project 3D 1'
+                    width={ 'container.lg' }
+                    mb={10}
+                  />
+                    <Text fontSize={24} fontWeight={'hairline'}>
+                    The Bugatti Chiron is a luxury sports car designed and produced by Bugatti Automobiles
+                S A S The car is named after the French racing driver Louis Chiron The Chirons design was led by Bugattis 
+                head designer Etienne Salomé and is an evolution of the Veyron design It features a sleek and aerodynamic 
+                body with a long hood and a low wide stance The cars front fascia is characterized by its large curved grille 
+                and LED headlights while the rear features a distinctive LED light strip and a large integrated spoiler The Chirons 
+                body is made of carbon fiber which helps keep the cars weight down and improves its performance The cars interior is 
+                also designed with luxury and performance in mind with premium materials advanced technology and a minimalist design But 
+                since I cant afford one I decided to create one in Blender a free and open source 3D modeling software.
+                    </Text>
+                  <Divider orientation='horizontal'>
+                  </Divider>
+
+                  <SimpleGrid columns={2} spacingX='40px' spacingY='20px' mt={10}>
+                  <Section>
+                  <Image 
+                    src='/images/works/WIRE.png'
+                    alt='Project 3D 1'
+                    width={ 'container.lg' }
+                  />
+                  <ModalHeader>MODELING AND WIREFRAMING</ModalHeader>
+                 
+                  </Section>
+
+                  <Section>
+                  <Image 
+                    src='/images/works/lit.jpg'
+                    alt='Project 3D 1'
+                    width={ 'container.lg' }
+                  />
+                  <ModalHeader>ENVIRONMENT AND LIGHT</ModalHeader>
+                  
+                  </Section>
+
+                  <Section>
+                  <Image 
+                    src='/images/works/frame.png'
+                    alt='Project 3D 1'
+                    width={ 'container.lg' }
+                  />
+                  <ModalHeader>TEXTURING AND SURFACING</ModalHeader>
+                 
+                  </Section>
+
+                  <Section>
+                  <Image 
+                    src='/images/works/jug.jpg'
+                    alt='Project 3D 1'
+                    width={ 'container.lg' }
+                  />
+                  <ModalHeader>RENDERING (CYCLES)</ModalHeader>
+                  
+                  </Section>
+
+                  <Section>
+                  <Box
+    as='video'
+    controls
+    autoplay
+    src='/images/works/jug.mp4'
+    poster='images/works/huj.jpg'
+    alt='animation'
+    objectFit='contain'
+    sx={{
+      aspectRatio: '16/9'
+    }}
+/>
+                  <ModalHeader>ANIMATION</ModalHeader>
+              
+                  </Section>
+                   
+                  </SimpleGrid>
+                    <Divider orientation='horizontal' mb={10}>
+                    </Divider>
+                    Reference images, Design and logo used in the website is property of respective owners.
+                  </center>
+              </ModalBody>
+              <ModalFooter>
+              <Button variant="ghost" mr={3} onClick={onEditClosemd1}>Close</Button>
+              </ModalFooter>
+              </ModalContent>
+          </Modal>
+         
+
+           </Button>
+          </Imgtrans>
+          <Stack mt='6' spacing='3' mb={10}>
+          <Heading as="h2"  fontWeight="hairline">
+          BUGATTI CHIRON
+        </Heading>
+          <Text fontSize={'xs'} mb={10}>
+          The Bugatti Chiron 3D Project in blender 
+          </Text>
+        </Stack>
+         
+            </Section>
+
         
             <Section>
         

@@ -166,6 +166,7 @@ const Navbar = props => {
                 Instagram
             </Link>
             </SimpleGrid>
+            
             {/* Contact info 1st set------------------------------------------------------ */}
           </ModalBody>
           <ModalFooter>
