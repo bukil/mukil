@@ -107,7 +107,7 @@ function CollapseExtandi() {
                     mb={10}
                   />
                     <Text fontSize={24} fontWeight={'hairline'}>
-                    Mukil was a bright and cheerful teenager who loved technology. He was always curious about how things worked and enjoyed tinkering with gadgets and software. He wanted to become a software engineer and create useful applications for people. He was also left hand disabled, which meant he had limited use of his left hand due to a birth defect. He had learned to adapt to his condition and do most things with his right hand only. He didn’t let his disability stop him from pursuing his dreams.
+                    Well somethiing need to be done.......
                     </Text>
                   <Divider orientation='horizontal'>
                   </Divider>
@@ -740,7 +740,7 @@ windshield and no roof. In this project I recreate a Ferrari Monza SP1 in blende
           FERRARI MONZA SP1
         </Heading>
           <Text fontSize={'xs'}>
-            Ferrari Monza SP1 3D Design Project in Blender
+            Ferrari Monza SP1 3D Design and Rendering Project in Blender
           </Text>
 
         </Stack>
@@ -900,7 +900,7 @@ windshield and no roof. In this project I recreate a Ferrari Monza SP1 in blende
           alt='hedes'
           borderRadius='lg'
           />
-                  <ModalHeader>Raven/Hedes from the hadal</ModalHeader>
+                  <ModalHeader>Raven/Hedes from the hadal(Dark zone of the deep sea)</ModalHeader>
                  
                   </Section>
 
@@ -959,7 +959,7 @@ function CollapseExtart() {
           shadow='md'
         >
          {/* Works Content */}
-         <SimpleGrid columns={[1, 2]} gap={10} mt={10}>
+         <SimpleGrid columns={[1]} gap={10} mt={10}>
         {/* Starting of Cards - Add or Remove Work cards here */}
           {/* Bugatti + Mclaren */}
             <Section>
@@ -992,7 +992,7 @@ function CollapseExtart() {
                   <Divider orientation='horizontal'>
                   </Divider>
 
-                  <SimpleGrid columns={2} spacingX='40px' spacingY='20px' mt={10}>
+                  <SimpleGrid columns={1} spacingX='40px' spacingY='20px' mt={10}>
                   <Section>
                   
                     <Box
@@ -1027,7 +1027,7 @@ function CollapseExtart() {
                     }}
                     />
                   <ModalHeader>DRONE RACE ANIMATION</ModalHeader>
-                 
+                  This project is a part of my internship at E-Yantra Indian Institute of Technology Bombay (IITB) I was working as a product designer in team, where we were Designing a multipurpose Drone structure. One of my projects was to visualize the 3D Drone concept under the mentorship of Mr. Maddu Murali and we named it TAREN. Taren is a stealth multipurpose drone inspired by a tarantula spider which shows the symbol of aggression and speed, Taren is not only equipped with aesthetics but intelligence also This is why we have wicked smart NVIDIA® Jetson Xavier onboard.
                   </Section>
 
                   <Section>
@@ -1082,7 +1082,7 @@ function CollapseExtart() {
                     }}
                 />
                   <ModalHeader>CAMERA DYNAMIC WITH PORSCHE</ModalHeader>
-          A Small animation Porsche 911 with dynamic camera and low poly environment environment
+          A Small animation of Porsche 911 with dynamic camera and low poly environment
                   </Section>
               
                   <Section>
