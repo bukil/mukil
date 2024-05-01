@@ -121,14 +121,14 @@ const Home = () => (
           Introduction
         </Heading>
         <Text variant="home-txt" fontWeight='normal'>
-        Hailing from Uttar Pradesh, India, I'm Mukil, a recent graduate (IET Lucknow, 2019-2023)
+        Hailing from Uttar Pradesh, India, I&apos;m Mukil, a recent graduate (IET Lucknow, 2019-2023)
          with an insatiable design itch. From sleek automobiles to the intricate workings of 
          everyday machinery, anything with an engineering pulse sparks my imagination. 
-         He has a knack
-          way to solving real-life problems with design and technology. When not online,
-          he loves to listening music and walking on the street alone, weird but
-          this helps him to understand things, phone camera is his friend and helps
-          to keep the stuffs. Currently, he is working on some Project.{' '}
+         My superpower? Transforming real-world challenges into design and tech solutions.
+        Think MacGyver meets the future! When I&apos;m not glued to the screen, you&apos;ll find me
+         lost in the rhythm of music, taking solitary walks to untangle thoughts (weird, but it works!),
+          and wielding my phone camera like a trusty sidekick, capturing inspiration on the go.
+        Right now, I&apos;m brewing up some exciting projects in my creative cauldron. Stay tuned!{' '}
           <NextLink href="#" passHref scroll={false}>
             <Link>Dynamic Steering System</Link>
           </NextLink>
