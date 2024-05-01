@@ -121,9 +121,10 @@ const Home = () => (
           Introduction
         </Heading>
         <Text variant="home-txt" fontWeight='normal'>
-          Mukil is a Dreamer and an engineering student at IET lucknow (2019-2023) 
-          based in Uttar Pradesh with passion for designing stuffs like Automobiles
-          and all the things in engineering he likes and wants. He has a knack
+        Hailing from Uttar Pradesh, India, I'm Mukil, a recent graduate (IET Lucknow, 2019-2023)
+         with an insatiable design itch. From sleek automobiles to the intricate workings of 
+         everyday machinery, anything with an engineering pulse sparks my imagination. 
+         He has a knack
           way to solving real-life problems with design and technology. When not online,
           he loves to listening music and walking on the street alone, weird but
           this helps him to understand things, phone camera is his friend and helps
