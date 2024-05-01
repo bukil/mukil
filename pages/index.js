@@ -118,16 +118,16 @@ const Home = () => (
 
       <Section delay={0.1}>
         <Heading as="h2"  fontWeight="hairline">
-          What people say about me
+          Introduction
         </Heading>
         <Text variant="home-txt" fontWeight='normal'>
         Daydreamer. Engineer. Problem Solver.
-        Hailing from Uttar Pradesh, India, I'm Mukil, a recent graduate (IET Lucknow, 2019-2023) 
+        Hailing from Uttar Pradesh, India, I'm Mukil, a recent graduate IET Lucknow, 2019-2023
         with an insatiable design itch. From sleek automobiles to the intricate workings of everyday machinery,
         anything with an engineering pulse sparks my imagination.
-        My superpower- Transforming real-world challenges into design and tech solutions. Think MacGyver meets the future!
+        My superpower Transforming real-world challenges into design and tech solutions. Think MacGyver meets the future.
         When I'm not glued to the screen, you'll find me lost in the rhythm of music, taking solitary 
-        walks to untangle thoughts (weird, but it works!), and wielding my phone camera like a trusty sidekick, capturing inspiration on the go.
+        walks to untangle thoughts (weird, but it works), and wielding my phone camera like a trusty sidekick, capturing inspiration on the go.
         Right now, I'm brewing up some exciting projects in my creative cauldron. Stay tuned. {' '}
           <NextLink href="#" passHref scroll={false}>
             <Link>Dynamic Steering System</Link>
