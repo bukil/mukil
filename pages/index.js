@@ -120,7 +120,7 @@ const Home = () => (
         <Heading as="h2"  fontWeight="hairline">
           Introduction
         </Heading>
-        <Text variant="home-txt" fontWeight='normal'>
+        <Text fontWeight='normal'>
         Daydreamer. Engineer. Problem Solver.
         Hailing from Uttar Pradesh, India, I'm Mukil, a recent graduate IET Lucknow, 2019-2023
         with an insatiable design itch. From sleek automobiles to the intricate workings of everyday machinery,
