@@ -128,7 +128,7 @@ const Home = () => (
         My superpower? Transforming real-world challenges into design and tech solutions. Think MacGyver meets the future!
         When I'm not glued to the screen, you'll find me lost in the rhythm of music, taking solitary 
         walks to untangle thoughts (weird, but it works!), and wielding my phone camera like a trusty sidekick, capturing inspiration on the go.
-        Right now, I'm brewing up some exciting projects in my creative cauldron. Stay tuned!{' '}
+        Right now, I'm brewing up some exciting projects in my creative cauldron. Stay tuned. {' '}
           <NextLink href="#" passHref scroll={false}>
             <Link>Dynamic Steering System</Link>
           </NextLink>
