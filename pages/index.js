@@ -56,14 +56,9 @@ const Home = () => (
               </Heading>
             </GridItem>
             <GridItem w='100%' >
-            <Text
-            bgGradient='linear(green.200, pink.500)'
-             bgClip='text'
-             fontSize='3xl'
-             fontWeight='extrabold'
->
-  KUMAR
-</Text>
+              <Heading as="h2" variant="page-title">
+                KUMAR
+              </Heading>
             </GridItem>
            </Grid>
           <p>COMPUTATIONAL DESIGNER / SOFTWARE DEVELOPER / AUTOMOBILES DESIGNER</p>
@@ -107,8 +102,8 @@ const Home = () => (
  </Container> 
                                               {/* This Container have Name and image */}
  <Divider orientation='horizontal'
-  mb = {1}
-  mt ={20}
+  mb = {8}
+  mt ={6}
   />
 
   <Spacer />
@@ -122,10 +117,10 @@ const Home = () => (
       <GridItem w='100%' >
 
       <Section delay={0.1}>
-        <Heading fontSize='5xl' fontWeight="hairline">
+        <Heading fontSize="6xl"  fontWeight="hairline">
           Introduction
         </Heading>
-        <Text  fontSize='md'>
+        <Text variant="home-txt" fontWeight='normal'>
         Hailing from Uttar Pradesh, India, I&apos;m Mukil, a recent graduate (IET Lucknow, 2019-2023)
          with an insatiable design itch. From sleek automobiles to the intricate workings of 
          everyday machinery, anything with an engineering pulse sparks my imagination. 
