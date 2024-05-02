@@ -66,8 +66,8 @@ const Home = () => (
           alignItems={'flex-start'}
           src="/images/Imag.png"   // Add image here!
           alt="Img"
-          width="375%"
-          height="40%"
+          width="500%"
+          height="20%"
         />
         </Box>
         <Box
