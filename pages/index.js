@@ -40,7 +40,7 @@ const ProfileImage = chakra(Image, {
 const Home = () => (
   <Layout>
 
-    <Spacer mb={10}/>
+    <Spacer mb={130}/>
  <Container maxW='container.lg'>
 
       <Box display={{ md:'flex'}}>
@@ -51,12 +51,12 @@ const Home = () => (
           </Heading> */}
            <Grid templateColumns='repeat(2, fr)'>
            <GridItem w='100%' >
-              <Heading as="h2"  fontWeight="hairline">
+              <Heading fontSize='7xl'  fontWeight="hairline">
                 MUKIL
               </Heading>
             </GridItem>
             <GridItem w='100%' >
-              <Heading as="h2" variant="page-title">
+              <Heading fontSize='7xl' variant="page-title">
                 KUMAR
               </Heading>
             </GridItem>
@@ -163,9 +163,9 @@ const Home = () => (
         </GridItem>
 
         <GridItem w='120%' mt={10}>
-        <Progress value={95} size='sm' colorScheme='green' mt={42} borderRadius={10}/>
+        <Progress value={95} size='sm' colorScheme='pink' mt={42} borderRadius={10}/>
         <Progress value={85} size='sm' colorScheme='green' mt={6} borderRadius={10}/>
-        <Progress value={30} size='sm' colorScheme='green' mt={6} borderRadius={10}/>
+        <Progress value={30} size='sm' colorScheme='blue' mt={6} borderRadius={10}/>
         </GridItem>
       </Grid>
 
@@ -181,8 +181,9 @@ const Home = () => (
 <Trans>
 <Section>
 <Box align="center" my={4}>
+  
           <NextLink href="/works" passHref scroll={true}>
-            <Button rightIcon={<ChevronRightIcon />} >
+            <Button borderRadius='20px' variant='outline' border='4px' rightIcon={<ChevronRightIcon />} >
                 CLICK TO SEE MORE ABOUT MY WORK
             </Button>
           </NextLink>
