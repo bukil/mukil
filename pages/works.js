@@ -1295,7 +1295,7 @@ const Works = () => (
 <Section>
 <Box align="center" my={4}>
           <NextLink href="/" passHref scroll={true}>
-            <Button borderRadius='20px' variant='outline' border='4px' leftIcon={<ChevronLeftIcon />}>
+            <Button borderRadius='20px' variant='outline' border='2px' borderColor='black.500' leftIcon={<ChevronLeftIcon />}>
                 GO BACK TO HOME PAGE
             </Button>
             

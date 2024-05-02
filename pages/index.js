@@ -129,8 +129,8 @@ const Home = () => (
          lost in the rhythm of music, taking solitary walks to untangle thoughts (weird, but it works!),
           and wielding my phone camera like a trusty sidekick, capturing inspiration on the go.
         Right now, I&apos;m brewing up some exciting projects in my creative cauldron. Stay tuned!{' '}
-          <NextLink href="#" passHref scroll={false}>
-            <Link>Dynamic Steering System</Link>
+          <NextLink href="https://www.youtube.com/shorts/yOYycYeoM24" passHref scroll={false}>
+            <Link target="https://www.youtube.com/shorts/yOYycYeoM24">Dynamic Steering System</Link>
           </NextLink>
           .  He publishes content just for sharing the work he done on the youtube &quot;
           <NextLink href="https://www.youtube.com/channel/UCVeGi7RNdtqN6_7G-rjdSGQ" passHref>
@@ -144,7 +144,7 @@ const Home = () => (
 
       <GridItem w='100%' >
 
-      <Grid templateColumns='repeat(4, 5fr)' gap={4}>
+      <Grid templateColumns='repeat(4, 5fr)' gap={2}>
         <GridItem w='100%'>
 
         <Section delay={0.5}>
@@ -183,7 +183,7 @@ const Home = () => (
 <Box align="center" my={4}>
   
           <NextLink href="/works" passHref scroll={true}>
-            <Button borderRadius='20px' variant='outline' border='4px' rightIcon={<ChevronRightIcon />} >
+            <Button borderRadius='20px' variant='outline' border='2px' borderColor='black.500' rightIcon={<ChevronRightIcon />} >
                 CLICK TO SEE MORE ABOUT MY WORK
             </Button>
           </NextLink>
