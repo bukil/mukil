@@ -68,7 +68,7 @@ const Navbar = props => {
         align="center"
         justify="space-between"
       >
-        <Flex align="center" mr={5}>
+        <Flex align="center" mr={100}>
           <Heading as="h1" size="lg" letterSpacing={'tighter'}>
             <Logo />
           </Heading>
@@ -84,12 +84,14 @@ const Navbar = props => {
         >
           <LinkItem href="works" path={path}
           fontWeight="hairline" passHref
+          fontSize={20}
           >
             MY WORKS
           </LinkItem>
           <LinkItem
           fontWeight="hairline"
             target="_blank"
+            fontSize={20}
             href="/Mukil_resume.pdf"
             path={path}
             display="inline-flex"
@@ -102,7 +104,7 @@ const Navbar = props => {
           </LinkItem>
           <Button
             fontWeight="hairline"
-            fontSize={13}
+            fontSize={20}
             onClick={onOpen}
             path={path}
             display="inline-flex"
@@ -187,25 +189,28 @@ const Navbar = props => {
                 as={IconButton}
                 icon={<HamburgerIcon />}
                 variant="outline"
+                borderRadius='15px'
                 aria-label="Options"
               />
               <MenuList>
+              
                 <NextLink href="works" passHref>
                   <MenuItem as={Link}>MY WORKS</MenuItem>
                 </NextLink>
-                <NextLink href="/Mukil_resume.pdf" passHref>
+                <NextLink  href="/Mukil_resume.pdf" passHref>
                 <MenuItem as={Link}>RESUME</MenuItem>
                 </NextLink>
                 <MenuItem>
                 <Button
-            fontWeight="hairline"
-            fontSize={13}
+            fontWeight="regular"
+            fontSize={11}
             onClick={onOpen}
             path={path}
             display="inline-flex"
             alignItems="left"
+          
            
-            pl={2}
+            pl={0}
             backgroundColor={'transparent'}
             _hover={{backgroundColor: 'transparent', textDecoration: 'underline'}}
           >
