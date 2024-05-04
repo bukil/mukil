@@ -1,4 +1,5 @@
 import { Box } from '@chakra-ui/react'
+import { FaTwitter, FaYoutube, FaInstagram } from 'react-icons/fa';
 
 const Footer = () => {
   return (
