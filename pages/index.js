@@ -78,7 +78,7 @@ const Home = () => (
         >
           <Box
             borderColor="whiteAlpha.800"
-            borderWidth={2}
+            borderWidth={0}
             borderStyle="solid"
             w="100px"
             h="120px"
@@ -109,14 +109,14 @@ const Home = () => (
   <Spacer />
 
   <Container maxW='container.lg'
-             mt={6}
-             mb={8}
+             mt={2}
+             mb={2}
              p={2}
   >
       <Grid templateColumns='repeat(2, fr)' gap={20}>
       <GridItem w='100%' >
 
-      <Section delay={0.1}>
+      <Section delay={0.3}>
         <Heading fontSize="6xl"  fontWeight="hairline">
           Introduction
         </Heading>
@@ -183,7 +183,7 @@ const Home = () => (
 <Box align="center" my={4}>
   
           <NextLink href="/works" passHref scroll={true}>
-            <Button borderRadius='20px' variant='outline' border='2px' borderColor='black.500' rightIcon={<ChevronRightIcon />} >
+            <Button borderRadius='20px' variant='outline' border='2px' borderColor='black' rightIcon={<ChevronRightIcon />} >
                 CLICK TO SEE MORE ABOUT MY WORK
             </Button>
           </NextLink>
