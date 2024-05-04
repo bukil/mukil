@@ -2,7 +2,7 @@ import { Box } from '@chakra-ui/react'
 
 const Footer = () => {
   return (
-    <Box align="center" opacity={0.4} fontSize="sm">
+    <Box align="center" opacity={0.1} fontSize="sm">
       &copy; {new Date().getFullYear()} MUKIL KUMAR. All Rights Reserved.
     </Box>
   )
