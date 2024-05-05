@@ -43,7 +43,6 @@ Button {
 &:hover Button {
   transform: translate(20px, 0px);
   background: transparent;
-  filter: blur(3px);
 }
 }
 `
@@ -75,7 +74,7 @@ function CollapseExtandi() {
           shadow='md'
         >
          
-         <SimpleGrid columns={[1, 2, 3]} gap={25} mt={0}>
+         <SimpleGrid columns={[1]} gap={25} mt={10}>
 
          <Section>
         
@@ -104,6 +103,7 @@ function CollapseExtandi() {
                     src='/images/works/rat1.jpg'
                     alt='Project 3D 1'
                     width={ 'container.lg' }
+                    borderRadius={15}
                     mb={10}
                   />
                     <Text fontSize={24} fontWeight={'hairline'}>
@@ -112,12 +112,13 @@ function CollapseExtandi() {
                   <Divider orientation='horizontal'>
                   </Divider>
 
-                  <SimpleGrid columns={2} spacingX='40px' spacingY='20px' mt={10}>
+                  <SimpleGrid columns={1} spacingX='40px' spacingY='20px' mt={10}>
                   <Section>
                   <Image 
                     src='/images/works/rat2.jpg'
                     alt='Project 3D 1'
                     width={ 'container.lg' }
+                    borderRadius={15}
                   />
                   <ModalHeader>What can it Changes</ModalHeader>
                   One day, he decided to do something about it. He thought of an idea that could help him drive a vehicle with his left hand disabled. He decided to use his knowledge of technology and create a prototype that could control a vehicle with optical encoder, it is a high accuracy small sensor use in industrial purpose. He thought that if he could control the vehicle with only right hand with the help of sensor, he wouldn’t need to use his left hands at all. he realises that the abilities of the Encoder based steering system is more than anybody think
@@ -128,6 +129,7 @@ function CollapseExtandi() {
                     src='/images/works/rat3.jpg'
                     alt='Project 3D 1'
                     width={ 'container.lg' }
+                    borderRadius={15}
                   />
                   <ModalHeader>More Moodboards</ModalHeader>
                  Sketching the first task for him and then He started working on his project with enthusiasm and determination. He researched online and found some tutorials and resources that could help him. He bought some components and tools from online distributor. He starts assembling the components, Fabricating and soldering PCBs accordingly and try to build the prototype. He spent many hours in his hostel room, wiring, coding, testing, and debugging his device.
@@ -137,6 +139,7 @@ function CollapseExtandi() {
                   <Image 
                     src='/images/works/rat4.jpg'
                     alt='Project 3D 1'
+                    borderRadius={15}
                     width={ 'container.lg' }
                   />
                   <ModalHeader>Prototypiing</ModalHeader>
@@ -147,6 +150,7 @@ function CollapseExtandi() {
                   <Image 
                     src='/images/works/menu.jpg'
                     alt='Project 3D 1'
+                    borderRadius={15}
                     width={ 'container.lg' }
                   />
                   <ModalHeader>Enhanced User Experience</ModalHeader>
@@ -158,6 +162,7 @@ function CollapseExtandi() {
     src='/images/works/menu1.jpg'
     alt='Project 3D 1'
     width={ 'container.lg' }
+    borderRadius={15}
 />
                   <ModalHeader>High Feasability</ModalHeader>
               
