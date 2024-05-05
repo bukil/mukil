@@ -74,7 +74,7 @@ function CollapseExtandi() {
           shadow='md'
         >
          
-         <SimpleGrid columns={[1]} gap={25} mt={10}>
+         <SimpleGrid columns={[2]} gap={25} mt={10}>
 
          <Section>
         
@@ -175,7 +175,7 @@ function CollapseExtandi() {
                   </center>
               </ModalBody>
               <ModalFooter>
-              <Button variant="ghost" mr={3} onClick={onEditClosemd1}>Close</Button>
+              <Button variant="ghost" mr={3} onClick={onEditClosemd0}>Close</Button>
               </ModalFooter>
               </ModalContent>
           </Modal>
@@ -222,6 +222,7 @@ function CollapseExtandi() {
                     src='/images/works/imgfro1.png'
                     alt='Project 3D 1'
                     width={ 'container.lg' }
+                    borderRadius={15}
                     mb={10}
                   />
                     <Text fontSize={24} fontWeight={'hairline'}>
@@ -237,12 +238,13 @@ function CollapseExtandi() {
                   <Divider orientation='horizontal'>
                   </Divider>
 
-                  <SimpleGrid columns={2} spacingX='40px' spacingY='20px' mt={10}>
+                  <SimpleGrid columns={1} spacingX='40px' spacingY='20px' mt={10}>
                   <Section>
                   <Image 
                     src='/images/works/WIRE.png'
                     alt='Project 3D 1'
                     width={ 'container.lg' }
+                    borderRadius={15}
                   />
                   <ModalHeader>MODELING AND WIREFRAMING</ModalHeader>
                  
@@ -253,6 +255,7 @@ function CollapseExtandi() {
                     src='/images/works/lit.jpg'
                     alt='Project 3D 1'
                     width={ 'container.lg' }
+                    borderRadius={15}
                   />
                   <ModalHeader>ENVIRONMENT AND LIGHT</ModalHeader>
                   
@@ -263,6 +266,7 @@ function CollapseExtandi() {
                     src='/images/works/frame.png'
                     alt='Project 3D 1'
                     width={ 'container.lg' }
+                    borderRadius={15}
                   />
                   <ModalHeader>TEXTURING AND SURFACING</ModalHeader>
                  
@@ -273,6 +277,7 @@ function CollapseExtandi() {
                     src='/images/works/jug.jpg'
                     alt='Project 3D 1'
                     width={ 'container.lg' }
+                    borderRadius={15}
                   />
                   <ModalHeader>RENDERING (CYCLES)</ModalHeader>
                   
@@ -285,6 +290,7 @@ function CollapseExtandi() {
     autoplay
     src='/images/works/jug.mp4'
     poster='images/works/huj.jpg'
+    borderRadius={15}
     alt='animation'
     objectFit='contain'
     sx={{
@@ -355,7 +361,7 @@ function CollapseExtandi() {
                   <Divider orientation='horizontal'>
                   </Divider>
 
-                  <SimpleGrid columns={2} spacingX='40px' spacingY='20px' mt={10}>
+                  <SimpleGrid columns={1} spacingX='40px' spacingY='20px' mt={10}>
                   <Section>
                   <Image 
           src='/images/works/KOENIGSEGG CC3.png'
@@ -459,7 +465,7 @@ function CollapseExtandi() {
                   <Divider orientation='horizontal'>
                   </Divider>
 
-                  <SimpleGrid columns={2} spacingX='40px' spacingY='20px' mt={10}>
+                  <SimpleGrid columns={1} spacingX='40px' spacingY='20px' mt={10}>
                   <Section>
                   <Image src='/images/works/bugta.jpg' alt='Bugatti veyron 16.4' borderRadius='lg'/>
                   <ModalHeader>Framework and Basic Structure </ModalHeader>
@@ -552,6 +558,7 @@ One of my projects was to visualize the 3D Drone concept under the mentorship of
            controls
            src='/images/works/iitbvd.mp4'
            poster='/images/works/desg.jpg'
+           borderRadius={15}
            alt='sketching'
            objectFit='contain'
            sx={{
@@ -564,6 +571,7 @@ One of my projects was to visualize the 3D Drone concept under the mentorship of
            controls
            src='/images/works/race.mp4'
            poster='/images/works/0240.png'
+           borderRadius={15}
            alt='sketching'
            objectFit='contain'
            sx={{
@@ -574,7 +582,7 @@ One of my projects was to visualize the 3D Drone concept under the mentorship of
                   <Divider orientation='horizontal'>
                   </Divider>
 
-                  <SimpleGrid columns={2} spacingX='40px' spacingY='20px' mt={10}>
+                  <SimpleGrid columns={1} spacingX='40px' spacingY='20px' mt={10}>
                   <Section>
                   <Image 
           src='/images/works/mk.jpg'
@@ -699,7 +707,7 @@ windshield and no roof. In this project I recreate a Ferrari Monza SP1 in blende
                   <Divider orientation='horizontal'>
                   </Divider>
 
-                  <SimpleGrid columns={2} spacingX='40px' spacingY='20px' mt={10}>
+                  <SimpleGrid columns={1} spacingX='40px' spacingY='20px' mt={10}>
                   <Section>
                   <Image src='/images/works/ferdg.png' alt='Bugatti veyron 16.4' borderRadius='lg'/>
                   <ModalHeader>Framework and Basic Structure </ModalHeader>
@@ -777,6 +785,7 @@ windshield and no roof. In this project I recreate a Ferrari Monza SP1 in blende
                     src='/images/works/lambo.jpg'
                     alt='Project 3D 1'
                     width={ 'container.lg' }
+                    borderRadius={15}
                     mb={10}
                   />
                   
@@ -792,6 +801,7 @@ windshield and no roof. In this project I recreate a Ferrari Monza SP1 in blende
                     src='/images/works/terzo_128.jpg'
                     alt='Project 3D 1'
                     width={ 'container.lg' }
+                    borderRadius={15}
                   />
                   
                   </Section>
@@ -800,6 +810,7 @@ windshield and no roof. In this project I recreate a Ferrari Monza SP1 in blende
                     src='/images/works/lambo1.jpg'
                     alt='Project 3D 1'
                     width={ 'container.lg' }
+                    borderRadius={15}
                   />
                   
                   <Box
@@ -807,7 +818,8 @@ windshield and no roof. In this project I recreate a Ferrari Monza SP1 in blende
                   controls
                   autoplay
                   src='/images/works/CYC.mkv'
-                  poster='images/works/.jpg?x11217'
+                  poster='images/works/terzo_128.jpg'
+                  borderRadius={15}
                   alt='Big Buck Bunny'
                   objectFit='contain'
                   sx={{
@@ -943,6 +955,7 @@ windshield and no roof. In this project I recreate a Ferrari Monza SP1 in blende
 }
 
 // ================ End of Work Section =========================
+
 
 // ============= Coll ===========================================
 function CollapseExtart() {
