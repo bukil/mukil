@@ -964,7 +964,7 @@ function CollapseExtart() {
           shadow='md'
         >
          {/* Works Content */}
-         <SimpleGrid columns={[2]} gap={10} mt={10}>
+         <SimpleGrid columns={[3]} gap={10} mt={10}>
         {/* Starting of Cards - Add or Remove Work cards here */}
           {/* Bugatti + Mclaren */}
             <Section>
