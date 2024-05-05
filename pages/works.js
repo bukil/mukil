@@ -955,7 +955,7 @@ function CollapseExtart() {
       <Button leftIcon={<ChevronDownIcon />} onClick={onToggle} variant="ghost" fontSize={20}>
         ✍️ART AND ANIMATION📽️
       </Button>
-      <Collapse in={isOpen} animateOpacity>
+      <Collapse in={!isOpen} animateOpacity>
         <Box
           p='1px'
           color='white'
@@ -964,7 +964,7 @@ function CollapseExtart() {
           shadow='md'
         >
          {/* Works Content */}
-         <SimpleGrid columns={[1]} gap={10} mt={10}>
+         <SimpleGrid columns={[2]} gap={10} mt={10}>
         {/* Starting of Cards - Add or Remove Work cards here */}
           {/* Bugatti + Mclaren */}
             <Section>
