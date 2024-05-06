@@ -80,18 +80,17 @@ const Home = () => (
             borderColor="whiteAlpha.800"
             borderWidth={0}
             borderStyle="solid"
-            w="100px"
-            h="120px"
+            w="200px"
+            h="240px"
             display="inline-block"
-            borderRadius="full"
+            borderRadius={15}
             overflow="hidden"
           >
             <ProfileImage
-              src="/images/mukil.jpg"
+              src="/images/mukil.png"
               alt="Profile image"
-              borderRadius="full"
-              width="100%"
-              height="120%"
+              width="200%"
+              height="240%"
             />
           </Box>
         </Box>
@@ -120,7 +119,7 @@ const Home = () => (
         <Heading fontSize="6xl"  fontWeight="hairline">
           Introduction
         </Heading>
-        <Text variant="home-txt" fontWeight='normal'>
+        <Text variant="home-txt" fontSize="l" fontWeight='normal'>
         Hailing from Uttar Pradesh, India, I&apos;m Mukil, a recent graduate (IET Lucknow, 2019-2023)
          with an insatiable design itch. From sleek automobiles to the intricate workings of 
          everyday machinery, anything with an engineering pulse sparks my imagination. 
