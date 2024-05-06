@@ -120,12 +120,20 @@ const Navbar = props => {
         </Stack>
 
         {/* =================Modal Contacts ========================================== */}
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal isOpen={isOpen} onClose={onClose}
+        bg={useColorModeValue('#ffffff40', '#20202380')}
+        css={{ backdropFilter: 'blur(10px)'}}
+        >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Contact Info</ModalHeader>
+          <ModalHeader
+  >Contact Info</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>
+          <ModalBody
+          bg={useColorModeValue('#ffffff40', '#20202380')}
+          css={{ backdropFilter: 'blur(10px)' }}
+
+          >
             
             {/* Contact info 1st set------------------------------------------------------ */}
             <SimpleGrid columns={2} gap={1} gridTemplateColumns={'30px 1fr'} mb={3}> 
@@ -173,7 +181,7 @@ const Navbar = props => {
             {/* Contact info 1st set------------------------------------------------------ */}
           </ModalBody>
           <ModalFooter>
-            <Button colorScheme='blue' mr={3} onClick={onClose}>
+            <Button borderRadius='15px' colorScheme='pink' mr={3} onClick={onClose}>
               Close
             </Button>
           </ModalFooter>
