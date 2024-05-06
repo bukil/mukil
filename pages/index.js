@@ -119,7 +119,7 @@ const Home = () => (
         <Heading fontSize="6xl"  fontWeight="hairline">
           Introduction
         </Heading>
-        <Text variant="home-txt" fontSize="l" fontWeight='normal'>
+        <Text variant="home-txt" fontSize={14} fontWeight='normal'>
         Hailing from Uttar Pradesh, India, I&apos;m Mukil, a recent graduate (IET Lucknow, 2019-2023)
          with an insatiable design itch. From sleek automobiles to the intricate workings of 
          everyday machinery, anything with an engineering pulse sparks my imagination. 
