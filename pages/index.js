@@ -83,7 +83,7 @@ const Home = () => (
             w="200px"
             h="240px"
             display="inline-block"
-            borderRadius={15}
+            borderRadius='full'
             overflow="hidden"
           >
             <ProfileImage
