@@ -62,7 +62,7 @@ const Navbar = props => {
     >
       <Container
         display="flex"
-        p={2}
+        p={6}
         maxW="container.md"
         wrap="wrap"
         align="center"
@@ -126,6 +126,7 @@ const Navbar = props => {
           <ModalHeader>Contact Info</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
+            
             {/* Contact info 1st set------------------------------------------------------ */}
             <SimpleGrid columns={2} gap={1} gridTemplateColumns={'30px 1fr'} mb={3}> 
             <IoLogoLinkedin size={20}/> 
