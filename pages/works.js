@@ -212,7 +212,7 @@ function CollapseExtandip() {
         <Imgtrans>
           <Button height={'auto'} onClick={onEditOpenmd1}>
            <Image 
-          src='/images/works/kodbordrr.png'
+          src='/images/works/kodbordrr.jpg'
           alt='Project 3D 1'
           borderRadius='lg'
           />
@@ -230,7 +230,7 @@ function CollapseExtandip() {
               <center>
                  
                   <Image 
-                    src='/images/works/kodbordrr.png'
+                    src='/images/works/kodbordrr.jpg'
                     alt='kodpad'
                     width={ 'container.lg' }
                     borderRadius={15}
@@ -274,24 +274,24 @@ function CollapseExtandip() {
 
                   <Section>
                   <Image 
-                    src='/images/works/frame.png'
+                    src='/images/works/kodbordrrssd.png'
                     alt='Project 3D 1'
                     width={ 'container.lg' }
                     borderRadius={15}
                   />
-                  <ModalHeader>TEXTURING AND SURFACING</ModalHeader>
-                 
+                  <ModalHeader>SLEEK AND TRANSPARENT CONSTRUCTION</ModalHeader>
+                  The transparent body showcases the inner workings of the KODEPAD, adding a touch of intrigue and technological elegance. It also allows for glimpses of the customizable RGB lighting (optional feature) for a truly personalized touch.
                   </Section>
 
                   <Section>
                   <Image 
-                    src='/images/works/jug.jpg'
+                    src='/images/works/kodbordrrz.jpg'
                     alt='Project 3D 1'
                     width={ 'container.lg' }
                     borderRadius={15}
                   />
                   <ModalHeader>RENDERING (CYCLES)</ModalHeader>
-                  
+                  Overall, the KODEPAD is a keyboard that is both beautiful and powerful. The minimalist design and transparent construction make it a statement piece on any desk, while the customizable features and rotary encoders empower creators to unleash their potential.
                   </Section>
 
                   <Section>
@@ -299,8 +299,8 @@ function CollapseExtandip() {
     as='video'
     controls
     autoplay
-    src='/images/works/jug.mp4'
-    poster='images/works/huj.jpg'
+    src='/images/works/neew.mKV'
+    poster='images/works/kodbord.jpg'
     borderRadius={15}
     alt='animation'
     objectFit='contain'
@@ -308,7 +308,7 @@ function CollapseExtandip() {
       aspectRatio: '16/9'
     }}
 />
-                  <ModalHeader>ANIMATION</ModalHeader>
+                  <ModalHeader>PRODUCT ANIMATION</ModalHeader>
               
                   </Section>
                    
