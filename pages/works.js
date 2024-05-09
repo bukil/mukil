@@ -126,7 +126,7 @@ function CollapseExtandip() {
                   />
                   <ModalHeader>DESIGN AND MOODBOARDS</ModalHeader>
                   Warning: This keyboard may cause uncontrollable bursts of productivity and uncontrollable urges to show off. Use(not possible) with caution! ⚠️
- so, Forget therapy, this keyboard is all the emotional support you need. Plus, it doesn't judge your typos. 😊😊😊
+ so, Forget therapy, this keyboard is all the emotional support you need. Plus, it doesn&apos;t judge your typos. 😊😊😊
                   </Section>
 
                   <Section>
@@ -255,7 +255,7 @@ function CollapseExtandip() {
                     borderRadius={15}
                   />
                   <ModalHeader>MOODBOARD AND DESIGN PROPOSAL</ModalHeader>
-                  The KODEPAD can be a programmer's secret weapon.  The customizable keys 
+                  The KODEPAD can be a programmer&apos;s secret weapon.  The customizable keys 
                   can be programmed with language-specific shortcuts or macros to streamline workflows.
                     The rotary encoders can be used for scrolling through code or adjusting editor settings. 
                      The compact design makes it easy to take to hackathons or coding meetups.
