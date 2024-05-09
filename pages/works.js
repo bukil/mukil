@@ -66,7 +66,7 @@ function CollapseExtandip() {
       <Button leftIcon={<ChevronDownIcon />} onClick={onToggle} variant="ghost" fontSize={20}
       mt='20'
       >
-        USABILITY AND MATERIAL DESIGN
+        USABILITY AND HARDWARE INTERACTION
       </Button>
       <Collapse in={!isOpen} animateOpacity>
         <Box
@@ -95,7 +95,7 @@ function CollapseExtandip() {
               <ModalOverlay />
               <ModalContent>
               <center>
-              <ModalHeader as="h1" >OPTICAL ENCODER BASED STEERING SYSTEM</ModalHeader>
+              <ModalHeader as="h1" >KOD-BOARD</ModalHeader>
               </center>
               <ModalCloseButton />
               <ModalBody>
