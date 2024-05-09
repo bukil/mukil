@@ -5,6 +5,7 @@ import {Stack,Image,Text,Button,useDisclosure,Collapse,Box } from '@chakra-ui/re
 import styled from '@emotion/styled'
 import { Spacer } from '@chakra-ui/react'
 import NextLink from 'next/link'
+import { Grid, GridItem } from '@chakra-ui/react'
 import { ChevronDownIcon, ChevronLeftIcon} from '@chakra-ui/icons'
 import {
   Modal,
@@ -95,7 +96,7 @@ function CollapseExtandip() {
               <ModalOverlay />
               <ModalContent>
               <center>
-              <ModalHeader as="h1" >KOD-BOARD</ModalHeader>
+              <ModalHeader as="h1" >KODE-BOARD</ModalHeader>
               </center>
               <ModalCloseButton />
               <ModalBody>
@@ -125,52 +126,59 @@ function CollapseExtandip() {
                     borderRadius={15}
                   />
                   <ModalHeader>DESIGN AND MOODBOARDS</ModalHeader>
-                  One day, he decided to do something about it. He thought of an idea that could help him drive a vehicle with his left hand disabled. He decided to use his knowledge of technology and create a prototype that could control a vehicle with optical encoder, it is a high accuracy small sensor use in industrial purpose. He thought that if he could control the vehicle with only right hand with the help of sensor, he wouldn’t need to use his left hands at all. he realises that the abilities of the Encoder based steering system is more than anybody think
+                  Warning: This keyboard may cause uncontrollable bursts of productivity and uncontrollable urges to show off. Use(not possible) with caution! ⚠️
+ so, Forget therapy, this keyboard is all the emotional support you need. Plus, it doesn't judge your typos. 😊😊😊
                   </Section>
 
                   <Section>
                   <Image 
-                    src='/images/works/rat3.jpg'
-                    alt='Project 3D 1'
+                    src='/images/works/Frame 1.jpg'
+                    alt='FIgma output'
                     width={ 'container.lg' }
                     borderRadius={15}
                   />
-                  <ModalHeader>More Moodboards</ModalHeader>
-                 Sketching the first task for him and then He started working on his project with enthusiasm and determination. He researched online and found some tutorials and resources that could help him. He bought some components and tools from online distributor. He starts assembling the components, Fabricating and soldering PCBs accordingly and try to build the prototype. He spent many hours in his hostel room, wiring, coding, testing, and debugging his device.
+                  <ModalHeader>Ortholinear keyboards offer a few potential advantages over traditional staggered keyboards, particularly in terms of ergonomics and efficiency</ModalHeader>
+                  Reduced Fatigue: The grid layout of ortholinear keyboards minimizes finger travel distance. This means you can keep your fingers closer to the home row, reducing reaching 
+                  and minimizing the need for unnatural finger curling. This can lead to less fatigue during long typing sessions.Sketching the first task for him and then He started working
+                   on his project with enthusiasm and determination. He researched online and found some tutorials and resources that could help him. He bought some components and tools from
+                    online distributor. He starts assembling the components, Fabricating and soldering PCBs accordingly and try to build the prototype. He spent many hours in his hostel room, 
+                    wiring, coding, testing, and debugging his device.
                   </Section>
 
                   <Section>
                   <Image 
-                    src='/images/works/rat4.jpg'
-                    alt='Project 3D 1'
+                    src='/images/works/stealth.png'
+                    alt='Project 3D output'
                     borderRadius={15}
                     width={ 'container.lg' }
                   />
-                  <ModalHeader>Prototypiing</ModalHeader>
-                  After several days of hard work, he finally completed his project. He had created optical encoder(sensor) based vehicle controller that could connect to the car’s system and control its functions. He had tested the device in simulation first and successful in it.
+                  <ModalHeader>PROPOSED RENDERINGS</ModalHeader>
+                  Compact Design: By eliminating the staggered layout, ortholinear keyboards can be more compact than traditional keyboards, saving desk space.
                   </Section>
 
                   <Section>
                   <Image 
-                    src='/images/works/menu.jpg'
+                    src='/images/works/BOTASF.jpg'
                     alt='Project 3D 1'
                     borderRadius={15}
                     width={ 'container.lg' }
                   />
-                  <ModalHeader>Enhanced User Experience</ModalHeader>
+                  <ModalHeader> The beauty of these encoders lies in their programmability. Using keyboard firmware like QMK, you can define what actions occur based on the rotation direction (clockwise/counter-clockwise) and even the number of clicks (rotations) made.</ModalHeader>
                   
                   </Section>
+                  
 
                   <Section>
                   <Image
-    src='/images/works/menu1.jpg'
+    src='/images/works/NEWPERSIO.jpg'
     alt='Project 3D 1'
     width={ 'container.lg' }
     borderRadius={15}
 />
-                  <ModalHeader>High Feasability</ModalHeader>
+                  <ModalHeader>LOVABLE MATERIALS</ModalHeader>
               
                   </Section>
+
                    
                   </SimpleGrid>
                     <Divider orientation='horizontal' mb={10}>
@@ -189,10 +197,10 @@ function CollapseExtandip() {
           </Imgtrans>
           <Stack mt='6' spacing='3' mb={10}>
           <Heading as="h2"  fontWeight="hairline">
-          OPTICAL ENCODER STEERING SYSTEM
+          KODE/BOARD
         </Heading>
           <Text fontSize={'xs'} mb={10}>
-          Optical Encoder Steering System for Enhanced User Experience
+          Here is a keyboard concept ( kode board 🙃 ) , Copy, paste, repeat... but not as you know it. Multi-layer clipboard on fingertips like seamlessly storing your snippets for instant recall. 🪄
           </Text>
         </Stack>
          
@@ -205,7 +213,7 @@ function CollapseExtandip() {
         <Imgtrans>
           <Button height={'auto'} onClick={onEditOpenmd1}>
            <Image 
-          src='/images/works/imgfro1.png'
+          src='/images/works/kodbordrr.png'
           alt='Project 3D 1'
           borderRadius='lg'
           />
@@ -215,7 +223,7 @@ function CollapseExtandip() {
               <ModalOverlay />
               <ModalContent>
               <center>
-              <ModalHeader as="h1" >BUGATTI CHIRON</ModalHeader>
+              <ModalHeader as="h1" >KODE-PAD</ModalHeader>
               </center>
               <ModalCloseButton />
               <ModalBody>
@@ -223,21 +231,18 @@ function CollapseExtandip() {
               <center>
                  
                   <Image 
-                    src='/images/works/imgfro1.png'
-                    alt='Project 3D 1'
+                    src='/images/works/kodbordrr.png'
+                    alt='kodpad'
                     width={ 'container.lg' }
                     borderRadius={15}
                     mb={10}
                   />
                     <Text fontSize={24} fontWeight={'hairline'}>
-                    The Bugatti Chiron is a luxury sports car designed and produced by Bugatti Automobiles
-                S A S The car is named after the French racing driver Louis Chiron The Chirons design was led by Bugattis 
-                head designer Etienne Salomé and is an evolution of the Veyron design It features a sleek and aerodynamic 
-                body with a long hood and a low wide stance The cars front fascia is characterized by its large curved grille 
-                and LED headlights while the rear features a distinctive LED light strip and a large integrated spoiler The Chirons 
-                body is made of carbon fiber which helps keep the cars weight down and improves its performance The cars interior is 
-                also designed with luxury and performance in mind with premium materials advanced technology and a minimalist design But 
-                since I cant afford one I decided to create one in Blender a free and open source 3D modeling software.
+                    Imagine a keyboard shrunk to its most essential 
+                    form, yet exploding with functionality. With just
+                     16-20 carefully chosen keys, the Mini Maestro 
+                     prioritizes efficiency and portability without 
+                     sacrificing power.
                     </Text>
                   <Divider orientation='horizontal'>
                   </Divider>
@@ -245,24 +250,27 @@ function CollapseExtandip() {
                   <SimpleGrid columns={1} spacingX='40px' spacingY='20px' mt={10}>
                   <Section>
                   <Image 
-                    src='/images/works/WIRE.png'
+                    src='/images/works/keypad23.jpg'
                     alt='Project 3D 1'
                     width={ 'container.lg' }
                     borderRadius={15}
                   />
-                  <ModalHeader>MODELING AND WIREFRAMING</ModalHeader>
-                 
+                  <ModalHeader>MOODBOARD AND DESIGN PROPOSAL</ModalHeader>
+                  The KODEPAD can be a programmer's secret weapon.  The customizable keys 
+                  can be programmed with language-specific shortcuts or macros to streamline workflows.
+                    The rotary encoders can be used for scrolling through code or adjusting editor settings. 
+                     The compact design makes it easy to take to hackathons or coding meetups.
                   </Section>
 
                   <Section>
                   <Image 
-                    src='/images/works/lit.jpg'
+                    src='/images/works/kod_board.jpg'
                     alt='Project 3D 1'
                     width={ 'container.lg' }
                     borderRadius={15}
                   />
-                  <ModalHeader>ENVIRONMENT AND LIGHT</ModalHeader>
-                  
+                  <ModalHeader>DESIGN AND FUCTIONALITY</ModalHeader>
+                  Minimalist Design: The KODEPAD embraces a clean, minimalist aesthetic. Every element is carefully considered for maximum functionality with minimal footprint. This allows creators to focus on their work without visual clutter.
                   </Section>
 
                   <Section>
@@ -322,10 +330,10 @@ function CollapseExtandip() {
           </Imgtrans>
           <Stack mt='6' spacing='3' mb={10}>
           <Heading as="h2"  fontWeight="hairline">
-          BUGATTI CHIRON
+          KODE-PAD
         </Heading>
           <Text fontSize={'xs'} mb={10}>
-          The Bugatti Chiron 3D Project in blender 
+          KODEPAD: The Macro Magician in Your Backpack Pocket
           </Text>
         </Stack>
          
