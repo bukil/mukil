@@ -78,7 +78,7 @@ const Home = () => (
         >
           <Box
             borderColor="whiteAlpha.800"
-            borderWidth={0}
+            borderWidth={1}
             borderStyle="solid"
             w="200px"
             h="240px"
