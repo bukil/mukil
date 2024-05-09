@@ -85,7 +85,7 @@ function CollapseExtandip() {
         <Imgtrans>
           <Button height={'auto'} onClick={onEditOpenmd0}>
            <Image 
-          src='/images/works/menu.jpg'
+          src='/images/works/newpers.jpg'
           alt='User Experience'
           borderRadius='lg'
           />
@@ -103,14 +103,15 @@ function CollapseExtandip() {
               <center>
                  
                   <Image 
-                    src='/images/works/rat1.jpg'
-                    alt='Project 3D 1'
+                    src='/images/works/kode.png'
+                    alt='KODE-BOARD'
                     width={ 'container.lg' }
                     borderRadius={15}
                     mb={10}
                   />
                     <Text fontSize={24} fontWeight={'hairline'}>
-                    Well somethiing need to be done.......
+                    😀 😉 😪 😣 😡
+                    My cat finally spilled the beans on my secret keyboard obsession. Prepare to be meow-ved!
                     </Text>
                   <Divider orientation='horizontal'>
                   </Divider>
@@ -118,12 +119,12 @@ function CollapseExtandip() {
                   <SimpleGrid columns={1} spacingX='40px' spacingY='20px' mt={10}>
                   <Section>
                   <Image 
-                    src='/images/works/rat2.jpg'
+                    src='/images/works/koenigseg1.jpg'
                     alt='Project 3D 1'
                     width={ 'container.lg' }
                     borderRadius={15}
                   />
-                  <ModalHeader>What can it Changes</ModalHeader>
+                  <ModalHeader>DESIGN AND MOODBOARDS</ModalHeader>
                   One day, he decided to do something about it. He thought of an idea that could help him drive a vehicle with his left hand disabled. He decided to use his knowledge of technology and create a prototype that could control a vehicle with optical encoder, it is a high accuracy small sensor use in industrial purpose. He thought that if he could control the vehicle with only right hand with the help of sensor, he wouldn’t need to use his left hands at all. he realises that the abilities of the Encoder based steering system is more than anybody think
                   </Section>
 
