@@ -112,6 +112,8 @@ function CollapseExtandip() {
                     <Text fontSize={24} fontWeight={'hairline'}>
                     😀 😉 😪 😣 😡
                     My cat finally spilled the beans on my secret keyboard obsession. Prepare to be meow-ved!
+                    Warning: This keyboard may cause uncontrollable bursts of productivity and uncontrollable urges to show off. Use with caution! ⚠️
+ so, Forget therapy, this keyboard is all the emotional support you need. Plus, it doesn&apos;t judge your typos. 😊😊😊
                     </Text>
                   <Divider orientation='horizontal'>
                   </Divider>
@@ -125,8 +127,10 @@ function CollapseExtandip() {
                     borderRadius={15}
                   />
                   <ModalHeader>DESIGN AND MOODBOARDS</ModalHeader>
-                  Warning: This keyboard may cause uncontrollable bursts of productivity and uncontrollable urges to show off. Use(not possible) with caution! ⚠️
- so, Forget therapy, this keyboard is all the emotional support you need. Plus, it doesn&apos;t judge your typos. 😊😊😊
+                  Brainstorming: The initial stage involved brainstorming sessions to explore
+                   different form factors, key layouts, and integration of rotary encoders.
+                    Rough sketches captured various ideas, focusing on minimizing size while
+                     maximizing functionality.
                   </Section>
 
                   <Section>
@@ -274,7 +278,7 @@ function CollapseExtandip() {
 
                   <Section>
                   <Image 
-                    src='/images/works/kodbordrrssd.png'
+                    src='/images/works/kodbordrrssd.JPG'
                     alt='Project 3D 1'
                     width={ 'container.lg' }
                     borderRadius={15}
