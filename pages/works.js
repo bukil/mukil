@@ -5,7 +5,6 @@ import {Stack,Image,Text,Button,useDisclosure,Collapse,Box } from '@chakra-ui/re
 import styled from '@emotion/styled'
 import { Spacer } from '@chakra-ui/react'
 import NextLink from 'next/link'
-import { Grid, GridItem } from '@chakra-ui/react'
 import { ChevronDownIcon, ChevronLeftIcon} from '@chakra-ui/icons'
 import {
   Modal,
