@@ -523,7 +523,7 @@ pen_spark
           borderRadius={20}
           />
                   <ModalHeader>MORE DISPLAYS</ModalHeader>
-                  A minimalist haven for focused listening. Imagine a tranquil library dedicated to your music, where every element fosters a sense of calm and clarity. Suono's interface is a breath of fresh air, stripping away unnecessary features to place the spotlight on the music itself.
+                  A minimalist haven for focused listening. Imagine a tranquil library dedicated to your music, where every element fosters a sense of calm and clarity. Suono s interface is a breath of fresh air, stripping away unnecessary features to place the spotlight on the music itself.
                   </Section>
                    
                   </SimpleGrid>
