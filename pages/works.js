@@ -404,7 +404,7 @@ While the KODEPAD offers specific benefits for disabled creators, these features
             <Imgtrans mt={10}>
           <Button height={'auto'} onClick={onEditOpenmd2}>
             <Image 
-          src='/images/works/koegfro1.png'
+          src='/images/works/suono jpeg.jpg'
           alt='Koenigsegg CC850'
           borderRadius='lg'
           />
@@ -414,7 +414,7 @@ While the KODEPAD offers specific benefits for disabled creators, these features
               <ModalOverlay />
               <ModalContent>
               <center>
-              <ModalHeader as="h1" >KOENIGSEGG CC850</ModalHeader>
+              <ModalHeader as="h1" >SUONO🎶</ModalHeader>
               </center>
               <ModalCloseButton />
               <ModalBody>
@@ -422,14 +422,18 @@ While the KODEPAD offers specific benefits for disabled creators, these features
               <center>
                  
               <Image 
-          src='/images/works/koegfro1.png'
+          src='/images/works/suono jpeg.jpg'
           alt='Koenigsegg CC850'
           borderRadius='lg'
           mb={10}
           /><Text fontSize={24} fontWeight={'hairline'}>
-                    Koenigsegg CC850, a rare and powerful supercar that can reach speeds of over 400 km/h. 
-                    I wanted to design my own version of it in Autodesk Sketchbook, a versatile and easy-to-use 
-                    drawing app on my phone and here is the powerful design journey of the Koenigsegg CC850.
+                    Suono, the Italian word for sound, is not just a music player app; 
+                    it&apos;s a transformative experience that crystallizes your music into a 
+                    mesmerizing journey.  Imagine a music experience where songs unfold 
+                    like sparkling crystals, revealing hidden depths and emotions with 
+                    each segment. Suono reimagines music listening through a crystal-inspired 
+                    interface and segmented timelines, creating a deeply personal and cognitive
+                     listening experience.
                     </Text>
                   <Divider orientation='horizontal'>
                   </Divider>
@@ -503,10 +507,10 @@ While the KODEPAD offers specific benefits for disabled creators, these features
           </Imgtrans>
           <Stack mt='6' spacing='3'>
           <Heading as="h2"  fontWeight="hairline">
-          KOENIGSEGG CC850
+          SUONO
         </Heading>
           <Text fontSize={'xs'}>
-          Design Journey of Koenigsegg CC850 2D Project in Autodesk Sketchbook
+          SUONO🎶:Where Music Crystallizes
           </Text>
         </Stack></Section>    
           
