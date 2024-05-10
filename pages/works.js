@@ -479,7 +479,7 @@ While the KODEPAD offers specific benefits for disabled creators, these features
           borderRadius={20}
           />
                   <ModalHeader>Minimalist Library for Maximum Focus</ModalHeader>
-                  Uncluttered Interface:  Suono's library eschews clutter. 
+                  Uncluttered Interface:  Suono s library eschews clutter. 
                   Clean lines, soft colors, and ample space create a calming
                    environment for browsing your music collection. This allows
                     you to focus on finding the perfect song without visual 
