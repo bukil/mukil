@@ -290,6 +290,21 @@ While the KODEPAD offers specific benefits for disabled creators, these features
                     
               <center>
                  
+              <Box
+                    as='video'
+                    controls
+                    src='/images/works/0016-0060.mkv'
+                    poster='/images/works/mukil.jpeg'
+                    alt='space azure'
+                    borderRadius={15}
+                    width={ 'container.lg' }
+
+                    objectFit='contain'
+                    sx={{
+                      aspectRatio: '16/9'
+                    }}
+                    />
+                  _____________________________________________________________________________________________     
                   <Image 
                     src='/images/works/kodbordrr.jpg'
                     alt='kodpad'
@@ -297,6 +312,7 @@ While the KODEPAD offers specific benefits for disabled creators, these features
                     borderRadius={15}
                     mb={10}
                   />
+                  
                     <Text fontSize={24} fontWeight={'hairline'}>
                     Imagine a keyboard shrunk to its most essential 
                     form, yet exploding with functionality. With just
@@ -577,7 +593,7 @@ pen_spark
                     
               <center>
                  
-              <Image src='/images/works/pind.png' alt='Bugatti veyron 16.4' borderRadius='lg'/>
+              <Image src='/images/works/pind.png' alt='Bugatti veyron 16.4' borderRadius={50}/>
                     <Text fontSize={24} fontWeight={'hairline'}>
                     Introducing NEMOSYNE-1, the M.2 SSD enclosure that redefines portable storage. 
               Inspired by the Greek goddess of memory,
@@ -590,7 +606,7 @@ pen_spark
 
                   <SimpleGrid columns={1} spacingX='40px' spacingY='20px' mt={10}>
                   <Section>
-                  <Image src='/images/works/1701795778958.jpg' alt='Bugatti veyron 16.4' borderRadius='lg'/>
+                  <Image src='/images/works/1701795778958.jpg' alt='Bugatti veyron 16.4' borderRadius={25}/>
                   <ModalHeader>Integrated Display </ModalHeader>
                   Integrated Display:  NEMOSYNE-1 breaks away from the traditional enclosure mold by featuring 
                   a built-in display.  This innovative feature allows for real-time monitoring of drive health,
@@ -599,7 +615,7 @@ pen_spark
                   </Section>
 
                   <Section>
-                  <Image src='/images/works/novos.png' alt='Bugatti veyron 16.4' borderRadius='lg'/>
+                  <Image src='/images/works/novos.png' alt='Bugatti veyron 16.4' borderRadius={25}/>
                   <ModalHeader>All-in-One Button:</ModalHeader>
                   Gone are the days of fumbling with multiple buttons.
                    NEMOSYNE-1 boasts a single, multifunctional button. 
@@ -610,7 +626,7 @@ pen_spark
                   </Section>
 
                   <Section>
-                  <Image src='/images/works/frid (2).png' alt='Bugatti veyron 16.4' borderRadius='lg'/>
+                  <Image src='/images/works/frid (2).png' alt='Bugatti veyron 16.4' borderRadius={25}/>
                   <ModalHeader>EXOTIC MATERIALS AND SURFACE</ModalHeader>
                   Exotic Materials:  NEMOSYNE-1 isnt just functional;
                    its a feast for the eyes.  The enclosure is crafted
@@ -621,7 +637,7 @@ pen_spark
                   </Section>
 
                   <Section>
-                  <Image src='/images/works/glass.png' alt='Bugatti veyron 16.4' borderRadius='lg'/>
+                  <Image src='/images/works/glass.png' alt='Bugatti veyron 16.4' borderRadius={25}/>
                   <ModalHeader>Inspired by Mythology</ModalHeader>
                   Mnemosyne s Legacy: The name NEMOSYNE-1 pays homage to Mnemosyne,
                    the Greek goddess of memory and remembrance. This connection 
@@ -630,10 +646,21 @@ pen_spark
                   </Section>
 
                   <Section>
-                  <Image src='/images/works/bug1.png' alt='Bugatti veyron 16.4' borderRadius='lg'/>
-                  <ModalHeader>Final Render</ModalHeader>
-                  After adding few more detail and wheel textures for more dynamic visuals.
+                  <Image src='/images/works/wrdis.png' alt='Bugatti veyron 16.4' borderRadius={25}/>
+                  <ModalHeader>Beyond the Basics</ModalHeader>
+                  Performance Unleashed:  NEMOSYNE-1 is designed to maximize the potential of your M.2 SSD.  Advanced thermal management ensures optimal operating temperatures, allowing your drive to perform at its peak.
                   
+                  </Section>
+
+                  <Section>
+                  <Image src='/images/works/ssd enclosuredisplay.png' alt='Bugatti veyron 16.4' borderRadius={25}/>
+                  <ModalHeader>Beyond the Basics</ModalHeader>
+                  NEMOSYNE-1 breaks away from the traditional enclosure mold by
+                   featuring a built-in display.  This innovative feature allows
+                    for real-time monitoring of drive health, capacity usage, and
+                     even data transfer speeds.  Imagine a sleek enclosure showcasing
+                      the vital statistics of your M.2 SSD, keeping you informed 
+                      and in control.
                   </Section>
                    
                   </SimpleGrid>
