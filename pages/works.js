@@ -767,6 +767,96 @@ function CollapseExtandi() {
         
         
         <Imgtrans>
+          <Button height={'auto'} onClick={onEditOpenmd10}>
+           <Image 
+          src='/images/works/NANDI.jpg'
+          alt='User Experience'
+          borderRadius='lg'
+          />
+
+           
+          <Modal isOpen={isEditOpenmd10} onClose={onEditClosemd10} size={'full'} scrollBehavior={'outside'}>
+              <ModalOverlay />
+              <ModalContent>
+              <center>
+              <ModalHeader as="h1" >INFINITY DOOR</ModalHeader>
+              </center>
+              <ModalCloseButton />
+              <ModalBody>
+                    
+              <center>
+                 
+                  <Image 
+                    src='/images/works/macmurtry2.jpg'
+                    alt='Project 3D 1'
+                    width={ 'container.lg' }
+                    borderRadius={15}
+                    mb={10}
+                  />
+                    <Text fontSize={24} fontWeight={'hairline'}>
+                    Moo-ve over, ordinary cars! Introducing a glimpse of the futuristic Design moo-d, inspired by nature s gentle giants "La grande mucca carina🐮". you can spot the big, cute ears. Stay tuned for the udderly unique door reveal!
+
+btw, the giant cute bull is a regular visitor to help me to design some cool DNAs, 
+
+This gentle giant moos by for a daily snack and cuddle. Can t resist those big brown eyes 
+so Forget the scissor doors. Taurus embraces a radical approach with doors that fold upwards in a powerful arc, resembling a bull horns poised for action. This dramatic movement creates a sense of anticipation and raw energy.
+                    </Text>
+                  <Divider orientation='horizontal'>
+                  </Divider>
+
+                  <SimpleGrid columns={1} spacingX='40px' spacingY='20px' mt={10}>
+                  <Section>
+                  <Image 
+                    src='/images/works/nandt.jpg'
+                    alt='Project 3D 1'
+                    width={ 'container.lg' }
+                    borderRadius={15}
+                  />
+                  <ModalHeader>Bovine Elegance</ModalHeader>
+                  The hinges for the Taurus doors are cleverly concealed within the body of the car. This creates a clean, seamless look when the doors are closed, further emphasizing the unexpected reveal when they open.  Imagine a sleek, unassuming exterior that transforms into a powerful beast when the doors rise.
+                  </Section>
+
+                  <Section>
+                  <Image 
+                    src='/images/works/assda.png'
+                    alt='Project 3D 1'
+                    width={ 'container.lg' }
+                    borderRadius={15}
+                  />
+                  <ModalHeader>DESIGN AND INSPIRATION</ModalHeader>
+                  The Taurinus doors are inspired by the graceful upward curve of a bull horns.  They hinge vertically at the front of the car and rise smoothly, creating a sense of elegance and controlled power.
+                  </Section>
+
+                  </SimpleGrid>
+                    <Divider orientation='horizontal' mb={10}>
+                    </Divider>
+                   
+                  </center>
+              </ModalBody>
+              <ModalFooter>
+              <Button variant="ghost" mr={3} onClick={onEditClosemd10}>Close</Button>
+              </ModalFooter>
+              </ModalContent>
+          </Modal>
+         
+
+           </Button>
+          </Imgtrans>
+          <Stack mt='6' spacing='3' mb={10}>
+          <Heading as="h2"  fontWeight="hairline">
+          PROJECT NANDI
+        </Heading>
+          <Text fontSize={'xs'} mb={10}>
+          Introducing NANDI, a car door design inspired by the raw power and untamed spirit of a bull. This isn t just a car; it's an extension of your personality, a statement that exudes confidence and a hint of controlled aggression.
+          </Text>
+        </Stack>
+         
+            </Section>
+
+         <Section>
+        
+        
+        <Imgtrans>
           <Button height={'auto'} onClick={onEditOpenmd0}>
            <Image 
           src='/images/works/pro.jpg'
