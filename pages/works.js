@@ -372,6 +372,17 @@ While the KODEPAD offers specific benefits for disabled creators, these features
                   </Section>
 
                   <Section>
+                  <Image 
+                    src='/images/works/jourdey.png'
+                    alt='Project 3D 1'
+                    width={ 'container.lg' }
+                    borderRadius={15}
+                  />
+                  <ModalHeader>PROTOYPE MAKING JOURNEY</ModalHeader>
+                  
+                  </Section>
+
+                  <Section>
                   <Box
                     as='video'
                     controls
@@ -662,11 +673,29 @@ pen_spark
                       the vital statistics of your M.2 SSD, keeping you informed 
                       and in control.
                   </Section>
+
+                  <Section>
+                  <Box
+                    as='video'
+                    controls
+                    src='/images/works/tegra00.mkv'
+                    poster='/images/works/frid (2).png'
+                    alt='space azure'
+                    borderRadius={15}
+                    width={ 'container.lg' }
+
+                    objectFit='contain'
+                    sx={{
+                      aspectRatio: '16/9'
+                    }}
+                    />
+                  <ModalHeader>ANIMATION RENDERING</ModalHeader>
+                  </Section>
                    
                   </SimpleGrid>
                     <Divider orientation='horizontal' mb={10}>
                     </Divider>
-                    Disclaimer:The design and logo name used on this website are the intellectual property of respective owners.
+                    The name NEMOSYNE-1 pays homage to Mnemosyne, the Greek goddess of memory and remembrance. This connection emphasizes the core function of the enclosure – safeguarding your valuable data.
                   </center>
               </ModalBody>
               <ModalFooter>
@@ -693,428 +722,6 @@ pen_spark
               </Container>
       </Section>
 {/*original drone */}
-      <Section>
-      <Container>
-      <Imgtrans>
-          <Button height={'auto'} onClick={onEditOpenmd4}>
-            <Image 
-          src='/images/works/tar1.png'
-          alt='TAREN DRONE'
-          borderRadius='lg'
-          />
-    
-          <Modal isOpen={isEditOpenmd4} onClose={onEditClosemd4} size={'full'} scrollBehavior={'outside'}>
-              <ModalOverlay />
-              <ModalContent>
-              <center>
-              <ModalHeader as="h1" >TAREN DRONE</ModalHeader>
-              </center>
-              <ModalCloseButton />
-              <ModalBody>
-                    
-              <center>
-                 
-              <Image 
-          src='/images/works/unh.jpg'
-          alt='Taren drone'
-          borderRadius='lg'
-          mb={10}
-          /><Text fontSize={24} fontWeight={'hairline'}>
-                   This project is a part of my internship at E-Yantra Indian Institute of Technology Bombay (IITB) I was working as a product designer in team, where we were Designing a multipurpose Drone structure. 
-One of my projects was to visualize the 3D Drone concept under the mentorship of Mr. Maddu Murali and we named it TAREN. Taren is a stealth multipurpose drone inspired by a tarantula spider which shows the symbol of aggression and speed, Taren is not only equipped with aesthetics but intelligence also This is why we have wicked smart NVIDIA® Jetson Xavier onboard.
-                    </Text>
-                    <Box
-           as='video'
-           controls
-           src='/images/works/iitbvd.mp4'
-           poster='/images/works/desg.jpg'
-           borderRadius={15}
-           alt='sketching'
-           objectFit='contain'
-           sx={{
-             aspectRatio: '16/9'
-           }}
-          mb={10}
-          />
-          <Box
-           as='video'
-           controls
-           src='/images/works/race.mp4'
-           poster='/images/works/0240.png'
-           borderRadius={15}
-           alt='sketching'
-           objectFit='contain'
-           sx={{
-             aspectRatio: '16/9'
-           }}
-          mb={10}
-          />
-                  <Divider orientation='horizontal'>
-                  </Divider>
-
-                  <SimpleGrid columns={1} spacingX='40px' spacingY='20px' mt={10}>
-                  <Section>
-                  <Image 
-          src='/images/works/mk.jpg'
-          alt='Drone design'
-          borderRadius='lg'
-          />
-                  <ModalHeader>Basic Sketch and Ideation</ModalHeader>
-                  The primary objective of this project is to develop an outer cover, basically the protective shell for the multipurpose drone to protect it from atmospheric conditions. Keeping the objective in mind, we need to develop an outer cover that also has more aesthetic
-
-                  </Section>
-
-                  <Section>
-                  <Image 
-          src='/images/works/drone4.png'
-          alt='taren'
-          borderRadius='lg'
-          />
-                  <ModalHeader>Prior Design Proposals</ModalHeader>
-                  I got inspired by a Spider. Spiders are fast and aggressive. They help farmers by
-feeding on crop-destroying Bugs. The venom from a black widow spider may cause muscle aches, nausea, a paralysis of the diaphragm, and potentially death, but it’s being used in inventive ways in medicine.
-
-                  </Section>
-
-                  <Section>
-                  <Image 
-          src='/images/works/tar1.png'
-          alt='PAI'
-          borderRadius='lg'
-          />
-                  <ModalHeader>Physical assembly and visualisation</ModalHeader>
-                  The main challenges that we faced were:
-We, teammates, were from distant locations and we both were also at a
-long distance from eYantra’s Office. This makes the process more
-tedious. If we were nearer to eYantra’s office, we would have surely
-taken a visit to complete in a fast and easier manner. Our mentors
-helped us a lot by providing dimensions and other details whenever
-necessary.
-                  </Section>
-
-                  <Section>
-                  <Image 
-          src='/images/works/unjht.jpg'
-          alt='taren dron'
-          borderRadius='lg'
-          />
-                  <ModalHeader>Final Design</ModalHeader>
-                  In this internship, we were asked to design and develop an outer cover for the
-drone. One can develop any product using any engineering principles. However, to
-market the product, to get it sold, Aesthetics is important. We came up with a
-concept that is inspired by nature. We prepared an STL file in a clean manner and
-delivered it to our team. They further verified and started 3d printing. Overall, this
-internship helped us to explore 3d printing mechanisms and prepare a 3d printable
-model. We dived into the pool of design principles and got benefited from it.
-
-                  </Section>
-
-                  <Section>
-                  <Image 
-          src='/images/works/drone2.png'
-          alt='Drone design'
-          borderRadius='lg'
-          />
-                  
-                  <ModalHeader>More design Praposals</ModalHeader>
-                 Throughout the session we develope many design praposal and select one of them by user study.
-                  </Section>
-                   
-                  </SimpleGrid>
-                    <Divider orientation='horizontal' mb={10}>
-                    </Divider>
-                    Disclaimer:The design and logo name used on this website are the intellectual property of respective owners.
-                  </center>
-              </ModalBody>
-              <ModalFooter>
-              <Button variant="ghost" mr={3} onClick={onEditClosemd4}>Close</Button>
-              </ModalFooter>
-              </ModalContent>
-          </Modal>
-          {/* ===================================================================================== */}
-          </Button>
-          </Imgtrans>
-          <Stack mt='6' spacing='3'>
-          <Heading as="h2"  fontWeight="hairline">
-          TAREN DRONE
-        </Heading>
-          <Text fontSize={'xs'}>
-          Design Journey Of Multipurpose Drone Body
-          </Text>
-
-        </Stack>
-          </Container>
-      </Section>
-
-      <Section>
-      <Container>
-      <Imgtrans>
-          <Button height={'auto'} onClick={onEditOpenmd5}>
-            <Image 
-          src='/images/works/fer1.png'
-          alt='FERRARI MONZA SP1'
-          borderRadius='lg'
-          />
-          
-          <Modal isOpen={isEditOpenmd5} onClose={onEditClosemd5} size={'full'} scrollBehavior={'outside'}>
-              <ModalOverlay />
-              <ModalContent>
-              <center>
-              <ModalHeader as="h1" >FERRARI MONZA SP1</ModalHeader>
-              </center>
-              <ModalCloseButton />
-              <ModalBody>
-                    
-              <center>
-                 
-              <Image src='/images/works/FMSP6.jpg' alt='FERRARI MONZA SP1' borderRadius='lg'/>
-                    <Text fontSize={24} fontWeight={'hairline'}>
-                   Welcome to another Design journey of Ferrari Monza SP1. The Ferrari Monza SP1 is a limited edition model that was unveiled by Ferrari in 2018. It is part of the Icona series which
-pay s homage to some of the brands most iconic
-models from the past. The design of the Monza SP1 is inspired by the barchetta body style which was popular in the 1950s and features a sleek open top design with a minimal
-windshield and no roof. In this project I recreate a Ferrari Monza SP1 in blender. The post on Artstation by Saksham kumar and Adam wiese helped me a lot in this project for providing reference data and textures.
-                    </Text>
-                  <Divider orientation='horizontal'>
-                  </Divider>
-
-                  <SimpleGrid columns={1} spacingX='40px' spacingY='20px' mt={10}>
-                  <Section>
-                  <Image src='/images/works/ferdg.png' alt='Bugatti veyron 16.4' borderRadius='lg'/>
-                  <ModalHeader>Framework and Basic Structure </ModalHeader>
-                 I used reference images from the internet to help me get the proportions and details right.
-                  </Section>
-
-                  <Section>
-                  <Image src='/images/works/deign.png' alt='Bugatti veyron 16.4' borderRadius='lg'/>
-                  <ModalHeader>Initial Models</ModalHeader>
-                  Designing simple mesh surface
-                  </Section>
-
-                  <Section>
-                  <Image src='/images/works/det.png' alt='Bugatti veyron 16.4' borderRadius='lg'/>
-                  <ModalHeader>ENVIRONMENT SETUP AND LIGHTING </ModalHeader>
-                  Seting up the environment and Importing Pre-Modelled elements (Textures, Seat, Controls etc.) to fasten up the design process.
-                  </Section>
-
-                  <Section>
-                  <Image src='/images/works/FMSP4.jpg' alt='Bugatti veyron 16.4' borderRadius='lg'/>
-                  <ModalHeader>RENDERINGS</ModalHeader>
-                  
-                  </Section>
-
-                  <Image src='/images/works/FMSP3.jpg' alt='FERRARI MONZA SP1' borderRadius='lg'/>
-                  <Image src='/images/works/FMSP5.jpg' alt='FERRARI MONZA SP1' borderRadius='lg'/>
-                  </SimpleGrid>
-                    <Divider orientation='horizontal' mb={10}>
-                    </Divider>
-                    Disclaimer:The design and logo name used on this website are the intellectual property of respective owners.
-                  </center>
-              </ModalBody>
-              <ModalFooter>
-              <Button variant="ghost" mr={3} onClick={onEditClosemd5}>Close</Button>
-              </ModalFooter>
-              </ModalContent>
-          </Modal>
-         
-          </Button>
-          </Imgtrans>
-          <Stack mt='6' spacing='3'>
-          <Heading as="h2"  fontWeight="hairline">
-          FERRARI MONZA SP1
-        </Heading>
-          <Text fontSize={'xs'}>
-            Ferrari Monza SP1 3D Design and Rendering Project in Blender
-          </Text>
-
-        </Stack>
-          </Container>
-      </Section>
-
-      <Section>
-      <Container>
-      <Imgtrans>
-          <Button height={'auto'} onClick={onEditOpenmd6}>
-            <Image 
-          src='/images/works/lambo1.jpg'
-          alt='Cahar'
-          borderRadius='lg'
-          />
-          {/* ===================Bugatti Chiron Edit Modal===================================================== */}
-          <Modal isOpen={isEditOpenmd6} onClose={onEditClosemd6} size={'full'} scrollBehavior={'outside'}>
-              <ModalOverlay />
-              <ModalContent>
-              <center>
-              <ModalHeader as="h1" >LAMBORGHINI TERZO MILLENNIO</ModalHeader>
-              </center>
-              <ModalCloseButton />
-              <ModalBody>
-                    
-              <center>
-                 
-                  <Image 
-                    src='/images/works/lambo.jpg'
-                    alt='Project 3D 1'
-                    width={ 'container.lg' }
-                    borderRadius={15}
-                    mb={10}
-                  />
-                  
-                    <Text fontSize={24} fontWeight={'hairline'}>
-                    Have you ever dreamed of driving a futuristic supercar that looks like it came straight out of a sci-fi movie? Well, I did. And I decided to make it a reality. Well, sort of. I downloaded model of the Lamborghini Terzo Millennio from Blender marketplace just to fasten up the overall design process, a stunning concept car that combines cutting-edge technology and design. I imported it into Blender, and started to customize it to my liking. I adjusted its size, position and orientation to fit my scene. I added some details and modifications to make it more unique and realistic. I chose a sleek and shiny material for the car body and applied it to the model. I also added some textures, decals and other elements to enhance its appearance. Then I set up the lighting, camera and background for my scene. I used HDRI images, lamps and other objects to create realistic lighting effects. I wanted to capture the beauty and elegance of the car from different angles and perspectives. I also wanted to create some dynamic and dramatic shots that show its speed and power. I set up the render settings for Cycles engine, a fast and realistic render engine that comes with Blender. I chose a high resolution, sampling rate and denoising option for my image or animation. I also enabled some effects like motion blur, depth of field and glare to make it more cinematic and appealing. I rendered my image or animation and saved it to my computer. I was amazed by the result. It looked like a real photo or video of the car. I was proud of my work and wanted to share it with the world. So I uploaded it to my website and wrote this paragraph to explain how I did it. I hope you enjoy it as much as I did.
-                    </Text>
-                  <Divider orientation='horizontal'>
-                  </Divider>
-
-                  <SimpleGrid columns={1} spacingX='40px' spacingY='20px' mt={10}>
-                  <Section>
-                  <Image 
-                    src='/images/works/terzo_128.jpg'
-                    alt='Project 3D 1'
-                    width={ 'container.lg' }
-                    borderRadius={15}
-                  />
-                  
-                  </Section>
-
-                  <Image 
-                    src='/images/works/lambo1.jpg'
-                    alt='Project 3D 1'
-                    width={ 'container.lg' }
-                    borderRadius={15}
-                  />
-                  
-                  <Box
-                  as='video'
-                  controls
-                  autoplay
-                  src='/images/works/CYC.mkv'
-                  poster='images/works/terzo_128.jpg'
-                  borderRadius={15}
-                  alt='Big Buck Bunny'
-                  objectFit='contain'
-                  sx={{
-                    aspectRatio: '16/9'
-                  }}
-                  />
-
-          
-                  </SimpleGrid>
-                    <Divider orientation='horizontal' mb={10}>
-                    </Divider>
-                    Disclaimer:The design and logo name used on this website are the intellectual property of respective owners.
-                  </center>
-              </ModalBody>
-              <ModalFooter>
-              <Button variant="ghost" mr={3} onClick={onEditClosemd6}>Close</Button>
-              </ModalFooter>
-              </ModalContent>
-          </Modal>
-          {/* ===================================================================================== */}
-
-          </Button>
-          </Imgtrans>
-          <Stack mt='6' spacing='3'>
-          <Heading as="h2"  fontWeight="hairline">
-          LAMBORGHINI TERZO MILLENNIO
-        </Heading>
-          <Text fontSize={'xs'}>
-          3D Renderings and Animation of Pre-Modelled Lamboorghini Terzo Millennio in Blender
-          </Text>
-
-        </Stack>
-          </Container>
-      </Section>
-
-      <Section>
-      <Container>
-      <Imgtrans>
-          <Button height={'auto'} onClick={onEditOpenmd7}>
-            <Image 
-          src='/images/works/mgh.jpg'
-          alt='my work'
-          borderRadius='lg'
-          />
-          {/* ===================Bugatti Chiron Edit Modal===================================================== */}
-          <Modal isOpen={isEditOpenmd7} onClose={onEditClosemd7} size={'full'} scrollBehavior={'outside'}>
-              <ModalOverlay />
-              <ModalContent>
-              <center>
-          
-              </center>
-              <ModalCloseButton />
-              <ModalBody>
-              <center>
-              <Text fontSize={24} fontWeight={'hairline'}>
-                    My Designs.
-                    </Text>
-                 
-              <Image 
-          src='/images/works/lk.png'
-          alt='krishna make'
-          borderRadius='lg'
-          mb={10}
-          />
-          <Text fontSize={24} fontWeight={'hairline'}>
-          The peacock feather is a symbol of beauty, grace and divinity in Hindu mythology. It adorns the crown of Lord Krishna, the supreme personality of Godhead, who is the source of all creation and the embodiment of love. Inspired by this sacred motif, I have designed a car that reflects the qualities of Krishna and his feather. Our car is sleek, elegant and colorful, with a peacock feather pattern on the hood and the doors. The car also features a state-of-the-art sound system that plays soothing melodies of Krishna’s flute, creating a serene and blissful atmosphere for the driver and passengers. Our car is not just a vehicle, but a tribute to the almighty Lord Krishna and his divine grace.
-                    </Text>
-                  <Divider orientation='horizontal'>
-                  </Divider>
-
-                  <SimpleGrid columns={1} spacingX='40px' spacingY='20px' mt={10}>
-                  <Section>
-                  <Image 
-          src='/images/works/imp.png'
-          alt='Krishna make'
-          borderRadius='lg'
-          />
-                  <ModalHeader>DESIGN MOODBOARDS</ModalHeader>
-                  
-                  </Section>
-
-                  <Section>
-                  <Image 
-          src='/images/works/ske.png'
-          alt='moodboard'
-          borderRadius='lg'
-          />
-                  <ModalHeader>MOODBOARDS</ModalHeader>
-                
-                  </Section>
-
-                  <Section>
-                  <Image 
-          src='/images/works/hed.png'
-          alt='hedes'
-          borderRadius='lg'
-          />
-                  <ModalHeader>Raven/Hedes from the hadal(Dark zone of the deep sea)</ModalHeader>
-                 
-                  </Section>
-
-          
-                  </SimpleGrid>
-                
-                  </center>
-              </ModalBody>
-              <ModalFooter>
-              <Button variant="ghost" mr={3} onClick={onEditClosemd7}>Close</Button>
-              </ModalFooter>
-              </ModalContent>
-          </Modal>
-          {/* ===================================================================================== */}
-          </Button>
-          </Imgtrans>
-          <Stack mt='6' spacing='3'>
-          <Heading as="h2"  fontWeight="hairline">
-          MY DESIGNS
-        </Heading>
-          <Text fontSize={'xs'}>
-            Click if love cars😘
-          </Text>
-
-        </Stack>
-          </Container>
-      </Section>
       {/* Ending of Cards - Add or Remove Work cards here */}
       </SimpleGrid>
          {/* Works Content */}
@@ -1138,6 +745,7 @@ function CollapseExtandi() {
   const { isOpen: isEditOpenmd5 , onOpen: onEditOpenmd5, onClose: onEditClosemd5 } = useDisclosure()
   const { isOpen: isEditOpenmd6 , onOpen: onEditOpenmd6, onClose: onEditClosemd6 } = useDisclosure()
   const { isOpen: isEditOpenmd7 , onOpen: onEditOpenmd7, onClose: onEditClosemd7 } = useDisclosure()
+  const { isOpen: isEditOpenmd8 , onOpen: onEditOpenmd8, onClose: onEditClosemd8 } = useDisclosure()
   return (
     <>
     
