@@ -741,7 +741,6 @@ function CollapseExtandi() {
   const { isOpen: isEditOpenmd5 , onOpen: onEditOpenmd5, onClose: onEditClosemd5 } = useDisclosure()
   const { isOpen: isEditOpenmd6 , onOpen: onEditOpenmd6, onClose: onEditClosemd6 } = useDisclosure()
   const { isOpen: isEditOpenmd7 , onOpen: onEditOpenmd7, onClose: onEditClosemd7 } = useDisclosure()
-  const { isOpen: isEditOpenmd8 , onOpen: onEditOpenmd8, onClose: onEditClosemd8 } = useDisclosure()
   const { isOpen: isEditOpenmd9 , onOpen: onEditOpenmd9, onClose: onEditClosemd9 } = useDisclosure()
   const { isOpen: isEditOpenmd10 , onOpen: onEditOpenmd10, onClose: onEditClosemd10 } = useDisclosure()
   return (
@@ -794,7 +793,7 @@ function CollapseExtandi() {
                     mb={10}
                   />
                     <Text fontSize={24} fontWeight={'hairline'}>
-                    Moo-ve over, ordinary cars! Introducing a glimpse of the futuristic Design moo-d, inspired by nature s gentle giants "La grande mucca carina🐮". you can spot the big, cute ears. Stay tuned for the udderly unique door reveal!
+                    Moo-ve over, ordinary cars! Introducing a glimpse of the futuristic Design moo-d, inspired by nature s gentle giants -La grande mucca carina🐮-. you can spot the big, cute ears. Stay tuned for the udderly unique door reveal!
 
 btw, the giant cute bull is a regular visitor to help me to design some cool DNAs, 
 
@@ -847,7 +846,105 @@ so Forget the scissor doors. Taurus embraces a radical approach with doors that 
           PROJECT NANDI
         </Heading>
           <Text fontSize={'xs'} mb={10}>
-          Introducing NANDI, a car door design inspired by the raw power and untamed spirit of a bull. This isn t just a car; it's an extension of your personality, a statement that exudes confidence and a hint of controlled aggression.
+          Introducing NANDI, a car door design inspired by the raw power and untamed spirit of a bull. This isn t just a car; its an extension of your personality, a statement that exudes confidence and a hint of controlled aggression.
+          </Text>
+        </Stack>
+         
+            </Section>
+
+            <Section>
+        
+        
+        <Imgtrans>
+          <Button height={'auto'} onClick={onEditOpenmd9}>
+           <Image 
+          src='/images/works/NANDI.jpg'
+          alt='User Experience'
+          borderRadius='lg'
+          />
+
+           
+          <Modal isOpen={isEditOpenmd9} onClose={onEditClosemd9} size={'full'} scrollBehavior={'outside'}>
+              <ModalOverlay />
+              <ModalContent>
+              <center>
+              <ModalHeader as="h1" >SKETCH PROJECTS</ModalHeader>
+              </center>
+              <ModalCloseButton />
+              <ModalBody>
+                    
+              <center>
+                 
+                  <Image 
+                    src='/images/works/yellow theme baed2.jpg'
+                    alt='Project 3D 1'
+                    width={ 'container.lg' }
+                    borderRadius={15}
+                    mb={10}
+                  />
+                  <Divider orientation='horizontal' mb={10}>
+                  </Divider>
+
+                  <Image 
+                    src='/images/works/tra tra lento1.jpg'
+                    alt='Project 3D 1'
+                    width={ 'container.lg' }
+                    borderRadius={15}
+                    mb={10}
+                  />
+                  <Divider orientation='horizontal' mb={10}>
+                  </Divider>
+
+                  <Image 
+                    src='/images/works/lambutrgrd1.jpg'
+                    alt='Project 3D 1'
+                    width={ 'container.lg' }
+                    borderRadius={15}
+                    mb={10}
+                  />
+                  
+                    <Divider orientation='horizontal' mb={10}>
+                    </Divider>
+
+                    <Image 
+                    src='/images/works/lampor1.png'
+                    alt='Project 3D 1'
+                    width={ 'container.lg' }
+                    borderRadius={15}
+                    mb={10}
+                  />
+                  
+                    <Divider orientation='horizontal' mb={10}>
+                    </Divider>
+
+                    <Image 
+                    src='/images/works/bmdubroo3.png'
+                    alt='Project 3D 1'
+                    width={ 'container.lg' }
+                    borderRadius={15}
+                    mb={10}
+                  />
+                  
+                    <Divider orientation='horizontal' mb={10}>
+                    </Divider>
+                   
+                  </center>
+              </ModalBody>
+              <ModalFooter>
+              <Button variant="ghost" mr={3} onClick={onEditClosemd9}>Close</Button>
+              </ModalFooter>
+              </ModalContent>
+          </Modal>
+         
+
+           </Button>
+          </Imgtrans>
+          <Stack mt='6' spacing='3' mb={10}>
+          <Heading as="h2"  fontWeight="hairline">
+          MORE PROJECT AND CONTINOUS SLIDING DOOR
+        </Heading>
+          <Text fontSize={'xs'} mb={10}>
+          
           </Text>
         </Stack>
          
