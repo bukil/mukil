@@ -590,27 +590,43 @@ pen_spark
 
                   <SimpleGrid columns={1} spacingX='40px' spacingY='20px' mt={10}>
                   <Section>
-                  <Image src='/images/works/bugta.jpg' alt='Bugatti veyron 16.4' borderRadius='lg'/>
-                  <ModalHeader>Framework and Basic Structure </ModalHeader>
-                  I chose a pencil tool with a thin tip and low opacity to draw the outline of the car. I used reference images from the internet to help me get the proportions and details right.
+                  <Image src='/images/works/1701795778958.jpg' alt='Bugatti veyron 16.4' borderRadius='lg'/>
+                  <ModalHeader>Integrated Display </ModalHeader>
+                  Integrated Display:  NEMOSYNE-1 breaks away from the traditional enclosure mold by featuring 
+                  a built-in display.  This innovative feature allows for real-time monitoring of drive health,
+                   capacity usage, and even data transfer speeds.  Imagine a sleek enclosure showcasing the vital
+                    statistics of your M.2 SSD, keeping you informed and in control.
                   </Section>
 
                   <Section>
-                  <Image src='/images/works/rawbug.jpg' alt='Bugatti veyron 16.4' borderRadius='lg'/>
-                  <ModalHeader>Principal Color and Material</ModalHeader>
-                  Adding Principal color and reflection elements
+                  <Image src='/images/works/novos.png' alt='Bugatti veyron 16.4' borderRadius='lg'/>
+                  <ModalHeader>All-in-One Button:</ModalHeader>
+                  Gone are the days of fumbling with multiple buttons.
+                   NEMOSYNE-1 boasts a single, multifunctional button. 
+                    With a simple press, you can power on the enclosure,
+                     wake the display, or even initiate specific actions
+                      you program 
+                  through intuitive software.  This elegant solution simplifies user interaction and keeps the design clean.
                   </Section>
 
                   <Section>
-                  <Image src='/images/works/buga.jpg' alt='Bugatti veyron 16.4' borderRadius='lg'/>
-                  <ModalHeader>Light Source and Surfacing</ModalHeader>
-                  I added some shading and highlights to the sketch using different shades of gray. I used a soft brush tool with low opacity to create smooth gradients and shadows. I also used a hard eraser tool to erase sharp reflection parts of the outline and make the sketch look more realistic. I paid attention to the light source and how it reflected on the car’s surface.
+                  <Image src='/images/works/frid (2).png' alt='Bugatti veyron 16.4' borderRadius='lg'/>
+                  <ModalHeader>EXOTIC MATERIALS AND SURFACE</ModalHeader>
+                  Exotic Materials:  NEMOSYNE-1 isnt just functional;
+                   its a feast for the eyes.  The enclosure is crafted
+                    from exotic materials, offering a unique and luxurious
+                     aesthetic.  Imagine a textural masterpiece that complements
+                      your high-performance setup, making NEMOSYNE-1 a conversation
+                       starter on any desk.
                   </Section>
 
                   <Section>
-                  <Image src='/images/works/buga2.jpg' alt='Bugatti veyron 16.4' borderRadius='lg'/>
-                  <ModalHeader>Different version</ModalHeader>
-                  Also triad different version of the design with some tweak in visuals and colors.
+                  <Image src='/images/works/glass.png' alt='Bugatti veyron 16.4' borderRadius='lg'/>
+                  <ModalHeader>Inspired by Mythology</ModalHeader>
+                  Mnemosyne s Legacy: The name NEMOSYNE-1 pays homage to Mnemosyne,
+                   the Greek goddess of memory and remembrance. This connection 
+                   emphasizes the core function of the enclosure – safeguarding
+                    your valuable data.
                   </Section>
 
                   <Section>
