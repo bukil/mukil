@@ -181,18 +181,18 @@ function CollapseExtandip() {
                   <ModalHeader>A COMPLETE PICTURE</ModalHeader>
                   The KODEPAD&apos;s design philosophy extends beyond portability and aesthetics. We believe in creating a tool that empowers all creators, regardless of their abilities.
 
-Here's how the KODEPAD caters to creators with disabilities:
+Here&apos;s how the KODEPAD caters to creators with disabilities:
 
 Accessibility Features:
 
 Analog Inputs and Horizontal Encoders: The rotary encoders being horizontal and offering analog input allows for smoother and more precise control for users with limited hand mobility. This can be particularly beneficial for tasks like audio editing or manipulating virtual instruments.
 Customizable Keys: The programmable keys can be configured with single keystrokes, macros, or even mouse functions. This allows users to create custom layouts that best suit their needs and physical capabilities.
 Minimalist Design: The clean, uncluttered design with minimal keys reduces the need for complex hand movements, making it easier for users with dexterity limitations.
-Open-Source Software: We plan to make the KODEPAD's software open-source. This allows the developer community to create custom software profiles or accessibility tools specifically tailored to the needs of users with disabilities.
+Open-Source Software: We plan to make the KODEPAD&apos;s software open-source. This allows the developer community to create custom software profiles or accessibility tools specifically tailored to the needs of users with disabilities.
 
 Universal Appeal:
 
-While the KODEPAD offers specific benefits for disabled creators, these features are not exclusive. The KODEPAD's focus on customization and efficient design makes it a powerful tool for any creator on the go, regardless of ability.
+While the KODEPAD offers specific benefits for disabled creators, these features are not exclusive. The KODEPAD&apos;s focus on customization and efficient design makes it a powerful tool for any creator on the go, regardless of ability.
                   </Section>
 
                   <Section>
