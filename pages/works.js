@@ -587,7 +587,7 @@ pen_spark
               <Container>
               <Imgtrans>
           <Button height={'auto'} onClick={onEditOpenmd3}>
-                  <Image src='/images/works/pind.Png' alt='Bugatti veyron 16.4' borderRadius='lg'/>
+                  <Image src='/images/works/pind.png' alt='Bugatti veyron 16.4' borderRadius='lg'/>
                   
           <Modal isOpen={isEditOpenmd3} onClose={onEditClosemd3} size={'full'} scrollBehavior={'outside'}>
               <ModalOverlay />
@@ -642,7 +642,7 @@ pen_spark
                       your high-performance setup, making NEMOSYNE-1 a conversation
                        starter on any desk.
                   </Section>
-
+                  <Image src='/images/works/linkepure.png' alt='Bugatti veyron 16.4' borderRadius={25}/>
                   <Section>
                   <Image src='/images/works/glass.png' alt='Bugatti veyron 16.4' borderRadius={25}/>
                   <ModalHeader>Inspired by Mythology</ModalHeader>
@@ -858,7 +858,7 @@ so Forget the scissor doors. Taurus embraces a radical approach with doors that 
         <Imgtrans>
           <Button height={'auto'} onClick={onEditOpenmd9}>
            <Image 
-          src='/images/works/NANDI.jpg'
+          src='/images/works/bmdubroo3.png'
           alt='User Experience'
           borderRadius='lg'
           />
@@ -919,6 +919,28 @@ so Forget the scissor doors. Taurus embraces a radical approach with doors that 
 
                     <Image 
                     src='/images/works/bmdubroo3.png'
+                    alt='Project 3D 1'
+                    width={ 'container.lg' }
+                    borderRadius={15}
+                    mb={10}
+                  />
+                  
+                    <Divider orientation='horizontal' mb={10}>
+                    </Divider>
+
+                    <Image 
+                    src='/images/works/nandt1y.jpg'
+                    alt='Project 3D 1'
+                    width={ 'container.lg' }
+                    borderRadius={15}
+                    mb={10}
+                  />
+                  
+                    <Divider orientation='horizontal' mb={10}>
+                    </Divider>
+
+                    <Image 
+                    src='/images/works/nandt1y1h.jpg'
                     alt='Project 3D 1'
                     width={ 'container.lg' }
                     borderRadius={15}
