@@ -302,7 +302,7 @@ While the KODEPAD offers specific benefits for disabled creators, these features
 
                   <Section>
                   <Image 
-                    src='/images/works/kodbordrrssd.JPG'
+                    src='/images/works/REDDEF.jpg'
                     alt='Project 3D 1'
                     width={ 'container.lg' }
                     borderRadius={15}
@@ -324,20 +324,20 @@ While the KODEPAD offers specific benefits for disabled creators, these features
 
                   <Section>
                   <Box
-    as='video'
-    controls
-    autoplay
-    src='/images/works/neew.mKV'
-    poster='images/works/kodbord.jpg'
-    borderRadius={15}
-    alt='animation'
-    objectFit='contain'
-    sx={{
-      aspectRatio: '16/9'
-    }}
-/>
-                  <ModalHeader>PRODUCT ANIMATION</ModalHeader>
-              
+                    as='video'
+                    controls
+                    src='/images/works/neew.mkv'
+                    poster='/images/works/kodbord.jpg'
+                    alt='space azure'
+                    width={ 'container.lg' }
+
+                    objectFit='contain'
+                    sx={{
+                      aspectRatio: '16/9'
+                    }}
+                    />
+                  <ModalHeader>ANIMATION RENDERING</ModalHeader>
+                  Minimalist Design: The clean, uncluttered design with minimal keys reduces the need for complex hand movements, making it easier for users with dexterity limitations.
                   </Section>
                    
                   </SimpleGrid>
