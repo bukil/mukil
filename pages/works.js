@@ -1066,7 +1066,7 @@ function CollapseExtandi() {
         <Imgtrans>
           <Button height={'auto'} onClick={onEditOpenmd0}>
            <Image 
-          src='/images/works/menu.jpg'
+          src='/images/works/pro.jpg'
           alt='User Experience'
           borderRadius='lg'
           />
@@ -1084,7 +1084,7 @@ function CollapseExtandi() {
               <center>
                  
                   <Image 
-                    src='/images/works/rat1.jpg'
+                    src='/images/works/Pro.jpg'
                     alt='Project 3D 1'
                     width={ 'container.lg' }
                     borderRadius={15}
@@ -1149,7 +1149,16 @@ function CollapseExtandi() {
     borderRadius={15}
 />
                   <ModalHeader>High Feasability</ModalHeader>
-              
+                  Minimal space-usage and no permanent modification to the vehicle
+Should be able to handle parking and low speed maneuvers safely
+1. The long shaft of the steering wheel is eliminated. Due to the encoder fixed near to the steering wheel.
+2. There is precise control available due the high resolution of the encoder.
+3. More the resolution more the accuracy of the steering mechanism.
+4. Weight of the system is reduced.
+5.DRIVING ACCESSIBILITY FOR SPECIALY ABLED PEOPLES
+5. Cost of manufacturing and assembly is increased due to electronic component. 
+6. Autonomous driving system is possible due to introduction of the encoder. 
+
                   </Section>
                    
                   </SimpleGrid>
