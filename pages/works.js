@@ -424,6 +424,7 @@ While the KODEPAD offers specific benefits for disabled creators, these features
               <Image 
           src='/images/works/suono jpeg.jpg'
           alt='Koenigsegg CC850'
+          width={ 'container.sm' }
           borderRadius='lg'
           mb={10}
           /><Text fontSize={24} fontWeight={'hairline'}>
@@ -441,8 +442,9 @@ While the KODEPAD offers specific benefits for disabled creators, these features
                   <SimpleGrid columns={1} spacingX='40px' spacingY='20px' mt={10}>
                   <Section>
                   <Image 
-          src='/images/works/KOENIGSEGG CC3.png'
+          src='/images/works/alizeefoder.png'
           alt='Koenigsegg CC850'
+          width={ 'container.sm' }
           borderRadius='lg'
           />
                   <ModalHeader>Basic Sketch and Orthogonal framework</ModalHeader>
@@ -451,8 +453,9 @@ While the KODEPAD offers specific benefits for disabled creators, these features
 
                   <Section>
                   <Image 
-          src='/images/works/KOENIGSEGG CC2.png'
+          src='/images/works/search.jpg'
           alt='Koenigsegg CC850'
+          width={ 'container.sm' }
           borderRadius='lg'
           />
                   <ModalHeader>Shading and Principal Color</ModalHeader>
@@ -461,8 +464,9 @@ While the KODEPAD offers specific benefits for disabled creators, these features
 
                   <Section>
                   <Image 
-          src='/images/works/Konigsegg.png'
+          src='/images/works/Frame 7.jpg'
           alt='Koenigsegg CC850'
+          width={ 'container.sm' }
           borderRadius='lg'
           />
                   <ModalHeader>Texture and Volume Rendering</ModalHeader>
@@ -473,6 +477,7 @@ While the KODEPAD offers specific benefits for disabled creators, these features
                   <Image 
           src='/images/works/wokbench.png'
           alt='Koenigsegg CC850'
+          width={ 'container.sm' }
           borderRadius='lg'
           />
                   <ModalHeader>😁My Compact Canvas✍️</ModalHeader>
@@ -483,6 +488,7 @@ While the KODEPAD offers specific benefits for disabled creators, these features
                   <Image 
           src='/images/works/koe1.png'
           alt='Koenigsegg CC850'
+          width={ 'container.sm' }
           borderRadius='lg'
           />
                   <ModalHeader>⚠️And results are awesome</ModalHeader>
@@ -521,7 +527,7 @@ While the KODEPAD offers specific benefits for disabled creators, these features
               <Container>
               <Imgtrans>
           <Button height={'auto'} onClick={onEditOpenmd3}>
-                  <Image src='/images/works/bug1.png' alt='Bugatti veyron 16.4' borderRadius='lg'/>
+                  <Image src='/images/works/bug1.ng' alt='Bugatti veyron 16.4' borderRadius='lg'/>
                   
           <Modal isOpen={isEditOpenmd3} onClose={onEditClosemd3} size={'full'} scrollBehavior={'outside'}>
               <ModalOverlay />
