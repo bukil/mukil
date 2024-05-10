@@ -197,12 +197,45 @@ While the KODEPAD offers specific benefits for disabled creators, these features
 
                   <Section>
                   <Image
+                    src='/images/works/newpers2.jpg'
+                    alt='Project 3D 1'
+                     width={ 'container.lg' }
+                     borderRadius={15}
+                  />
+                  <ModalHeader>Digital Mockup and Rendering</ModalHeader>
+                  3D Modeling: A 3D model of the KODEPAD was created, allowing for a more realistic visualization of the product from all angles. Transparency effects were applied to showcase the internal components.
+                  </Section>
+                  
+
+                  <Section>
+                  <Image
+                    src='/images/works/newpers.jpg'
+                    alt='Project 3D 1'
+                     width={ 'container.lg' }
+                     borderRadius={15}
+                  />
+                  <ModalHeader>LOVABLE DESIGN</ModalHeader>
+ 
+                  </Section>
+                  <Section>
+                  <Image
+                    src='/images/works/newperjjgjgg.jpg'
+                    alt='Project 3D 1'
+                     width={ 'container.lg' }
+                     borderRadius={15}
+                  />
+                  <ModalHeader>LOVABLE DESIGN</ModalHeader>
+                  Material Exploration: Different materials were explored digitally to find the perfect balance of transparency, durability, and weight. Options like high-grade acrylic or transparent polycarbonate were considered.
+                  </Section>
+
+                  <Section>
+                  <Image
                     src='/images/works/lov.jpg'
                     alt='Project 3D 1'
                      width={ 'container.lg' }
                      borderRadius={15}
                   />
-                  <ModalHeader>LOVABLE MATERIALS</ModalHeader>
+                  <ModalHeader>LOVABLE MATERIALS AND SO ON..</ModalHeader>
               
                   </Section>
 
@@ -329,6 +362,7 @@ While the KODEPAD offers specific benefits for disabled creators, these features
                     src='/images/works/neew.mkv'
                     poster='/images/works/kodbord.jpg'
                     alt='space azure'
+                    borderRadius={15}
                     width={ 'container.lg' }
 
                     objectFit='contain'
