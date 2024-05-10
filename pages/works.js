@@ -519,7 +519,7 @@ pen_spark
                   <Image 
           src='/images/works/Frame 9.png'
           alt='Koenigsegg CC850'
-          width={ 'container.sm' }
+          width={ 'container.L' }
           borderRadius={20}
           />
                   <ModalHeader>MORE DISPLAYS</ModalHeader>
@@ -564,7 +564,7 @@ pen_spark
               <Container>
               <Imgtrans>
           <Button height={'auto'} onClick={onEditOpenmd3}>
-                  <Image src='/images/works/bug1.ng' alt='Bugatti veyron 16.4' borderRadius='lg'/>
+                  <Image src='/images/works/pind.Png' alt='Bugatti veyron 16.4' borderRadius='lg'/>
                   
           <Modal isOpen={isEditOpenmd3} onClose={onEditClosemd3} size={'full'} scrollBehavior={'outside'}>
               <ModalOverlay />
@@ -577,10 +577,13 @@ pen_spark
                     
               <center>
                  
-              <Image src='/images/works/bug1.png' alt='Bugatti veyron 16.4' borderRadius='lg'/>
+              <Image src='/images/works/pind.png' alt='Bugatti veyron 16.4' borderRadius='lg'/>
                     <Text fontSize={24} fontWeight={'hairline'}>
-                    Welcome to the design journey of the legendary Bugatti Veyron 16.4 Sports Grande. From DNA Arc and framework to symbol of Elegant Hypercars the engine is one of its kind and literally known as 
-              Powerplant.
+                    Introducing NEMOSYNE-1, the M.2 SSD enclosure that redefines portable storage. 
+              Inspired by the Greek goddess of memory,
+               Mnemosyne, NEMOSYNE-1 isnt just about 
+               safeguarding your data; its a statement 
+               piece that elevates your computing experience.
                     </Text>
                   <Divider orientation='horizontal'>
                   </Divider>
@@ -637,7 +640,11 @@ pen_spark
               NEMOSYNE-1 SSD ENCOLSURE
         </Heading>
               <Text fontSize={'xs'}>
-             Sketch of Bugatti Veyron 16.4 Grande sports in Autodesk Sketchbook(Android)
+              Introducing NEMOSYNE-1, the M.2 SSD enclosure that redefines portable storage. 
+              Inspired by the Greek goddess of memory,
+               Mnemosyne, NEMOSYNE-1 isnt just about 
+               safeguarding your data; its a statement 
+               piece that elevates your computing experience.
               </Text>
             </Stack>
               </Container>
