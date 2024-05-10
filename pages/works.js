@@ -527,7 +527,7 @@ While the KODEPAD offers specific benefits for disabled creators, these features
               <ModalOverlay />
               <ModalContent>
               <center>
-              <ModalHeader as="h1" >BUGATTI VEYRON 16.4</ModalHeader>
+              <ModalHeader as="h1" >NEMOSYNE-1 SSD ENCOLSURE</ModalHeader>
               </center>
               <ModalCloseButton />
               <ModalBody>
@@ -591,7 +591,7 @@ While the KODEPAD offers specific benefits for disabled creators, these features
              </Imgtrans>
               <Stack mt='6' spacing='3'>
               <Heading as="h2"  fontWeight="hairline">
-          BUGATTI VEYRON 16.4
+              NEMOSYNE-1 SSD ENCOLSURE
         </Heading>
               <Text fontSize={'xs'}>
              Sketch of Bugatti Veyron 16.4 Grande sports in Autodesk Sketchbook(Android)
