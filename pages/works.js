@@ -425,7 +425,7 @@ While the KODEPAD offers specific benefits for disabled creators, these features
           src='/images/works/suono jpeg.jpg'
           alt='Koenigsegg CC850'
           width={ 'container.sm' }
-          borderRadius='lg'
+          borderRadius={15}
           mb={10}
           /><Text fontSize={24} fontWeight={'hairline'}>
                     Suono, the Italian word for sound, is not just a music player app; 
@@ -445,10 +445,15 @@ While the KODEPAD offers specific benefits for disabled creators, these features
           src='/images/works/alizeefoder.png'
           alt='Koenigsegg CC850'
           width={ 'container.sm' }
-          borderRadius='lg'
+          borderRadius={20}
           />
-                  <ModalHeader>Basic Sketch and Orthogonal framework</ModalHeader>
-                  I initiate by choosing simple orthogonal orientation and draw the basic structure. I used reference images from the internet to help me get the proportions and details
+                  <ModalHeader>There is a reason behind your segmented timeline of life</ModalHeader>
+                  Cognitive Deep Dives:  The timeline is segmented, allowing you to 
+                  explore each section of a song in detail.  This can be particularly
+                   useful for appreciating intricate musical arrangements, uncovering 
+                   subtle details, or focusing on specific parts you love.  Imagine 
+                   dissecting a musical gem, each segment revealing a new layer of
+                    brilliance.
                   </Section>
 
                   <Section>
@@ -456,10 +461,14 @@ While the KODEPAD offers specific benefits for disabled creators, these features
           src='/images/works/search.jpg'
           alt='Koenigsegg CC850'
           width={ 'container.sm' }
-          borderRadius='lg'
+          borderRadius={20}
           />
-                  <ModalHeader>Shading and Principal Color</ModalHeader>
-                    I drew the car from a side view and add signature grey color, making sure to capture the distinctive features of the CC850, such as the targa top, the dihedral doors, and the large wheels.
+                  <ModalHeader>Frost Glass(Crys-Morphic theme everyware)</ModalHeader>
+                  Soft Focus: The frosted glass theme creates a sense of 
+                  calmness and intimacy.  Harsh lines and bright colors 
+                  are replaced by a muted palette and a diffused aesthetic.
+                   This allows listeners to truly immerse themselves in the 
+                   music without visual distractions.
                   </Section>
 
                   <Section>
@@ -467,38 +476,55 @@ While the KODEPAD offers specific benefits for disabled creators, these features
           src='/images/works/Frame 7.jpg'
           alt='Koenigsegg CC850'
           width={ 'container.sm' }
-          borderRadius='lg'
+          borderRadius={20}
           />
-                  <ModalHeader>Texture and Volume Rendering</ModalHeader>
-                  Next, I added some shading and highlights to the sketch using different shades of gray. I used a soft brush tool with low opacity to create smooth gradients and shadows. I also used a hard eraser tool to erase some parts of the outline and make the sketch look more realistic. I paid attention to the light source and how it reflected on the car’s surface.
+                  <ModalHeader>Minimalist Library for Maximum Focus</ModalHeader>
+                  Uncluttered Interface:  Suono's library eschews clutter. 
+                  Clean lines, soft colors, and ample space create a calming
+                   environment for browsing your music collection. This allows
+                    you to focus on finding the perfect song without visual 
+                    distractions.
                   </Section>
 
                   <Section>
                   <Image 
-          src='/images/works/wokbench.png'
+          src='/images/works/Now Playingfoder.jpg'
           alt='Koenigsegg CC850'
           width={ 'container.sm' }
-          borderRadius='lg'
+          borderRadius={20}
           />
-                  <ModalHeader>😁My Compact Canvas✍️</ModalHeader>
-                  This is what it looks like when working on the Android version of Autodesk Sketchbook
+                  <ModalHeader>BACKGROUND COLORDROP</ModalHeader>
+                  This is what it looks like when working on the
+                   Android smooth transition from personal music 
+                   collection to a shared listening experience.
                   </Section>
 
                   <Section>
                   <Image 
-          src='/images/works/koe1.png'
+          src='/images/works/Frame 3.jpg'
           alt='Koenigsegg CC850'
           width={ 'container.sm' }
-          borderRadius='lg'
+          borderRadius={20}
           />
-                  <ModalHeader>⚠️And results are awesome</ModalHeader>
-                  After adding few more detail and wheel textures for more dynamic visuals the ultimate result is here.
+                  <ModalHeader>GROUP SESSION BASED ON LOCAL MUSIC FILE</ModalHeader>
+                  Group Creation: Once youve chosen your music, creating a group session is a breeze. Invite friends by sharing a unique link or using their usernames within Suono. This allows you to curate a listening experience with the specific people you want to share it with.
+
+Synchronized Playback: Once everyone joins the session, the music begins playing in perfect sync for all participants.
+
+pen_spark
+
                   </Section>
                    
                   </SimpleGrid>
                     <Divider orientation='horizontal' mb={10}>
                     </Divider>
-                    Disclaimer:The design and logo name used on this website are the intellectual property of respective owners.
+                    Suono isnt just a music player; its a bridge
+                     that connects people through shared musical 
+                     journeys.  With its intuitive music session 
+                     feature and focus on a collaborative listening
+                      experience, Suono allows you to create new 
+                      memories and deepen connections with friends,
+                       all centered around the music you love.
                   </center>
               </ModalBody>
               <ModalFooter>
