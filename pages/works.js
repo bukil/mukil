@@ -724,7 +724,7 @@ pen_spark
         <Imgtrans>
           <Button height={'auto'} onClick={onEditOpenmd9}>
            <Image 
-          src='/images/works/Mdx.jpg'
+          src='/images/works/utop.png'
           alt='User Experience'
           borderRadius='lg'
           />
@@ -862,7 +862,7 @@ pen_spark
           </Imgtrans>
           <Stack mt='6' spacing='3' mb={10}>
           <Heading as="h2"  fontWeight="hairline">
-          MORE SKETCH PROJECTS AND DESIGN JOURNEYS
+          DIGITAL SKETCH PROJECTS AND PIXEL ARTS
         </Heading>
           <Text fontSize={'xs'} mb={10}>
           
