@@ -949,7 +949,17 @@ so Forget the scissor doors. Taurus embraces a radical approach with doors that 
                   
                     <Divider orientation='horizontal' mb={10}>
                     </Divider>
-                   
+                    
+                    <Image 
+                    src='/images/works/MUKILH1ddd3.jpg'
+                    alt='Project 3D 1'
+                    width={ 'container.lg' }
+                    borderRadius={15}
+                    mb={10}
+                  />
+                  
+                    <Divider orientation='horizontal' mb={10}>
+                    </Divider>
                   </center>
               </ModalBody>
               <ModalFooter>
