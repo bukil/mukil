@@ -1136,6 +1136,17 @@ so Forget the scissor doors. Taurus embraces a radical approach with doors that 
                     <Divider orientation='horizontal' mb={10}>
                     </Divider>
 
+                    <Image 
+                    src='/images/works/MUKILH2.jpg'
+                    alt='Project 3D 1'
+                    width={ 'container.lg' }
+                    borderRadius={15}
+                    mb={10}
+                  />
+                  
+                    <Divider orientation='horizontal' mb={10}>
+                    </Divider>
+
                   </center>
               </ModalBody>
               <ModalFooter>
@@ -1951,7 +1962,7 @@ windshield and no roof. In this project I recreate a Ferrari Monza SP1 in blende
       <Imgtrans>
           <Button height={'auto'} onClick={onEditOpenmd7}>
             <Image 
-          src='/images/works/mgh.jpg'
+          src='/images/works/fgfgf.jpg'
           alt='my work'
           borderRadius='lg'
           />
