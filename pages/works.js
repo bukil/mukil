@@ -740,7 +740,14 @@ pen_spark
               <ModalBody>
                     
               <center>
-                 
+              
+              <Image 
+                    src='/images/works/cycle port1.jpg'
+                    alt='Project 3D 1'
+                    width={ 'container.lg' }
+                    borderRadius={15}
+                    mb={10}
+                  />
                   <Image 
                     src='/images/works/utop.png'
                     alt='Project 3D 1'
@@ -2286,7 +2293,18 @@ function CollapseExtart() {
                   </Divider>
 
                   <SimpleGrid columns={2} spacingX='40px' spacingY='20px' mt={10}>
+                  
                   <Section>
+                  <Image 
+          src='/images/works/cycle port1.jpg'
+          alt='design'
+          borderRadius='lg'
+          />
+            
+                  </Section>
+                  <Section>
+
+
                   <Image 
           src='/images/works/MdDX.jpg'
           alt='un'
@@ -2394,6 +2412,7 @@ function CollapseExtart() {
           />
             
                   </Section>
+                  
                    
                   </SimpleGrid>
                     <Divider orientation='horizontal' mb={10}>
