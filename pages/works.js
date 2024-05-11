@@ -56,6 +56,7 @@ function CollapseExtandip() {
   const { isOpen: isEditOpenmd1 , onOpen: onEditOpenmd1, onClose: onEditClosemd1 } = useDisclosure()
   const { isOpen: isEditOpenmd2 , onOpen: onEditOpenmd2, onClose: onEditClosemd2 } = useDisclosure()
   const { isOpen: isEditOpenmd3 , onOpen: onEditOpenmd3, onClose: onEditClosemd3 } = useDisclosure()
+  const { isOpen: isEditOpenmd9 , onOpen: onEditOpenmd9, onClose: onEditClosemd9 } = useDisclosure()
   return (
     <>
     
@@ -717,6 +718,158 @@ pen_spark
             </Stack>
               </Container>
       </Section>
+      <Section>
+        
+        
+        <Imgtrans>
+          <Button height={'auto'} onClick={onEditOpenmd9}>
+           <Image 
+          src='/images/works/Mdx.jpg'
+          alt='User Experience'
+          borderRadius='lg'
+          />
+
+           
+          <Modal isOpen={isEditOpenmd9} onClose={onEditClosemd9} size={'full'} scrollBehavior={'outside'}>
+              <ModalOverlay />
+              <ModalContent>
+              <center>
+              <ModalHeader as="h1" >SKETCH PROJECTS AND PIXEL ARTS</ModalHeader>
+              </center>
+              <ModalCloseButton />
+              <ModalBody>
+                    
+              <center>
+                 
+                  <Image 
+                    src='/images/works/utop.png'
+                    alt='Project 3D 1'
+                    width={ 'container.lg' }
+                    borderRadius={15}
+                    mb={10}
+                  />
+                  <Divider orientation='horizontal' mb={10}>
+                  </Divider>
+
+                  <Image 
+                    src='/images/works/newm4.jpeg'
+                    alt='Project 3D 1'
+                    width={ 'container.lg' }
+                    borderRadius={15}
+                    mb={10}
+                  />
+                  <Divider orientation='horizontal' mb={10}>
+                  </Divider>
+
+                  <Image 
+                    src='/images/works/MUKILH1ddd2.jpg'
+                    alt='Project 3D 1'
+                    width={ 'container.lg' }
+                    borderRadius={15}
+                    mb={10}
+                  />
+                  
+                    <Divider orientation='horizontal' mb={10}>
+                    </Divider>
+
+                    <Image 
+                    src='/images/works/megazord1.jpg'
+                    alt='Project 3D 1'
+                    width={ 'container.lg' }
+                    borderRadius={15}
+                    mb={10}
+                  />
+                  
+                    <Divider orientation='horizontal' mb={10}>
+                    </Divider>
+
+                    <Image 
+                    src='/images/works/lplkl1.jpg'
+                    alt='Project 3D 1'
+                    width={ 'container.lg' }
+                    borderRadius={15}
+                    mb={10}
+                  />
+                  
+                    <Divider orientation='horizontal' mb={10}>
+                    </Divider>
+
+                    <Image 
+                    src='/images/works/JPEGD.jpg'
+                    alt='Project 3D 1'
+                    width={ 'container.lg' }
+                    borderRadius={15}
+                    mb={10}
+                  />
+                  
+                    <Divider orientation='horizontal' mb={10}>
+                    </Divider>
+
+                    <Image 
+                    src='/images/works/contral.png'
+                    alt='Project 3D 1'
+                    width={ 'container.lg' }
+                    borderRadius={15}
+                    mb={10}
+                  />
+                  
+                    <Divider orientation='horizontal' mb={10}>
+                    </Divider>
+
+                    <Image 
+                    src='/images/works/nandt1y1h.jpg'
+                    alt='Project 3D 1'
+                    width={ 'container.lg' }
+                    borderRadius={15}
+                    mb={10}
+                  />
+                  
+                    <Divider orientation='horizontal' mb={10}>
+                    </Divider>
+                    
+                    <Image 
+                    src='/images/works/MUKILH1ddd3.jpg'
+                    alt='Project 3D 1'
+                    width={ 'container.lg' }
+                    borderRadius={15}
+                    mb={10}
+                  />
+                  
+                    <Divider orientation='horizontal' mb={10}>
+                    </Divider>
+
+                    <Image 
+                    src='/images/works/MUKILH1ddd3.jpg'
+                    alt='Project 3D 1'
+                    width={ 'container.lg' }
+                    borderRadius={15}
+                    mb={10}
+                  />
+                  
+                    <Divider orientation='horizontal' mb={10}>
+                    </Divider>
+
+                  </center>
+              </ModalBody>
+              <ModalFooter>
+              <Button variant="ghost" mr={3} onClick={onEditClosemd9}>Close</Button>
+              </ModalFooter>
+              </ModalContent>
+          </Modal>
+         
+
+           </Button>
+          </Imgtrans>
+          <Stack mt='6' spacing='3' mb={10}>
+          <Heading as="h2"  fontWeight="hairline">
+          MORE SKETCH PROJECTS AND DESIGN JOURNEYS
+        </Heading>
+          <Text fontSize={'xs'} mb={10}>
+          
+          </Text>
+        </Stack>
+         
+            </Section>
 {/*original drone */}
       {/* Ending of Cards - Add or Remove Work cards here */}
       </SimpleGrid>
@@ -858,7 +1011,7 @@ so Forget the scissor doors. Taurus embraces a radical approach with doors that 
         <Imgtrans>
           <Button height={'auto'} onClick={onEditOpenmd9}>
            <Image 
-          src='/images/works/bmdubroo3.png'
+          src='/images/works/Mdx.jpg'
           alt='User Experience'
           borderRadius='lg'
           />
@@ -868,7 +1021,7 @@ so Forget the scissor doors. Taurus embraces a radical approach with doors that 
               <ModalOverlay />
               <ModalContent>
               <center>
-              <ModalHeader as="h1" >SKETCH PROJECTS</ModalHeader>
+              <ModalHeader as="h1" >SKETCH PROJECTS AND DESIGN JOURNEYS</ModalHeader>
               </center>
               <ModalCloseButton />
               <ModalBody>
@@ -908,6 +1061,17 @@ so Forget the scissor doors. Taurus embraces a radical approach with doors that 
 
                     <Image 
                     src='/images/works/lampor1.png'
+                    alt='Project 3D 1'
+                    width={ 'container.lg' }
+                    borderRadius={15}
+                    mb={10}
+                  />
+                  
+                    <Divider orientation='horizontal' mb={10}>
+                    </Divider>
+
+                    <Image 
+                    src='/images/works/gayialk.png'
                     alt='Project 3D 1'
                     width={ 'container.lg' }
                     borderRadius={15}
@@ -960,6 +1124,18 @@ so Forget the scissor doors. Taurus embraces a radical approach with doors that 
                   
                     <Divider orientation='horizontal' mb={10}>
                     </Divider>
+
+                    <Image 
+                    src='/images/works/MUKILH1ddd3.jpg'
+                    alt='Project 3D 1'
+                    width={ 'container.lg' }
+                    borderRadius={15}
+                    mb={10}
+                  />
+                  
+                    <Divider orientation='horizontal' mb={10}>
+                    </Divider>
+
                   </center>
               </ModalBody>
               <ModalFooter>
@@ -973,7 +1149,7 @@ so Forget the scissor doors. Taurus embraces a radical approach with doors that 
           </Imgtrans>
           <Stack mt='6' spacing='3' mb={10}>
           <Heading as="h2"  fontWeight="hairline">
-          MORE PROJECT AND CONTINOUS SLIDING DOOR
+          MORE SKETCH PROJECTS AND DESIGN JOURNEYS
         </Heading>
           <Text fontSize={'xs'} mb={10}>
           
@@ -1612,7 +1788,7 @@ model. We dived into the pool of design principles and got benefited from it.
                     
               <center>
                  
-              <Image src='/images/works/FMSP6.jpg' alt='FERRARI MONZA SP1' borderRadius='lg'/>
+              <Image src='/images/works/alfatauri.png' alt='FERRARI MONZA SP1' borderRadius='lg'/>
                     <Text fontSize={24} fontWeight={'hairline'}>
                    Welcome to another Design journey of Ferrari Monza SP1. The Ferrari Monza SP1 is a limited edition model that was unveiled by Ferrari in 2018. It is part of the Icona series which
 pay s homage to some of the brands most iconic
@@ -1854,7 +2030,7 @@ windshield and no roof. In this project I recreate a Ferrari Monza SP1 in blende
           MY DESIGNS
         </Heading>
           <Text fontSize={'xs'}>
-            Click if love cars😘
+            DESIGN SKETCHES AND MOODBOARDS
           </Text>
 
         </Stack>
@@ -2070,7 +2246,7 @@ function CollapseExtart() {
             <Imgtrans mt={10}>
           <Button height={'auto'} onClick={onEditOpenmd2}>
             <Image 
-          src='/images/works/mnh.png'
+          src='/images/works/MKJRT.jpg'
           alt='raw work'
           borderRadius='lg'
           />
@@ -2101,12 +2277,52 @@ function CollapseExtart() {
                   <SimpleGrid columns={2} spacingX='40px' spacingY='20px' mt={10}>
                   <Section>
                   <Image 
-          src='/images/works/mclar.jpg'
+          src='/images/works/MdDX.jpg'
           alt='un'
           borderRadius='lg'
           />
+          </Section>
+
+          <Section>
+                  <Image 
+          src='/images/works/MKJRT.jpg'
+          alt='un'
+          borderRadius='lg'
+          />
+          </Section>
+          <Section>
+                  <Image 
+          src='/images/works/MKJRT2.jpg'
+          alt='un'
+          borderRadius='lg'
+          />
+          </Section>
+
+          <Section>
+                  <Image 
+          src='/images/works/mordde.jpg'
+          alt='un'
+          borderRadius='lg'
+          />
+          </Section>
+
+          <Section>
+                  <Image 
+          src='/images/works/MKJRT3d1.jpg'
+          alt='un'
+          borderRadius='lg'
+          />
+          </Section>
+
+          <Section>
+                  <Image 
+          src='/images/works/MKJRT3d2d.jpg'
+          alt='un'
+          borderRadius='lg'
+          />
+          </Section>
             
-                  </Section>
+            
 
                   <Section>
                   <Image 
@@ -2186,10 +2402,10 @@ function CollapseExtart() {
           </Imgtrans>
           <Stack mt='6' spacing='3'>
           <Heading as="h2"  fontWeight="hairline">
-          OPEN AT YOU OWN RISK!⚠️
+          SOME UNFURNISHED WORK
         </Heading>
           <Text fontSize={'xs'}>
-          Incomplete and Raw Designs workflow
+          Incomplete and Raw Designs workflow(ADHD)
           </Text>
         </Stack></Section>    
           {/* Bugatti + Mclaren */}
