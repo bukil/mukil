@@ -1003,10 +1003,10 @@ so Forget the scissor doors. Taurus embraces a radical approach with doors that 
           </Imgtrans>
           <Stack mt='6' spacing='3' mb={10}>
           <Heading as="h2"  fontWeight="hairline">
-          PROJECT NANDI
+          TOROS
         </Heading>
           <Text fontSize={'xs'} mb={10}>
-          Introducing NANDI, a car door design inspired by the raw power and untamed spirit of a bull. This isn t just a car; its an extension of your personality, a statement that exudes confidence and a hint of controlled aggression.
+          Introducing TOROS, a car door design inspired by the raw power and untamed spirit of a bull. This isn t just a car; its an extension of your personality, a statement that exudes confidence and a hint of controlled aggression.
           </Text>
         </Stack>
          
