@@ -19,7 +19,7 @@
     "@emotion/styled": "^11.10.5",
     "@fontsource/open-sans": "^4.5.13",
     "@fontsource/raleway": "^4.5.11",
-    "framer-motion": "^7.6.1",
+    "framer-motion": "^7.10.3",
     "next": "^12.3.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
