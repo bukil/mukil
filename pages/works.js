@@ -60,13 +60,14 @@ function CollapseExtandip() {
   return (
     <>
     
-      <Button leftIcon={<ChevronDownIcon />} onClick={onToggle} variant="ghost" fontSize={20}
+      <Button borderRadius='10px' variant='outline' leftIcon={<ChevronDownIcon />} onClick={onToggle} fontSize={20}
       mt='20'
       >
-        USABILITY AND HARDWARE INTERACTION
+        Selected Projects
       </Button>
       <Collapse in={!isOpen} animateOpacity>
         <Box
+          
           p='1px'
           color='white'
           mt='4'
@@ -906,8 +907,8 @@ function CollapseExtandi() {
   return (
     <>
     
-      <Button leftIcon={<ChevronDownIcon />} onClick={onToggle} variant="ghost" fontSize={20}
-      mt='2'
+    <Button borderRadius='10px' variant='outline' leftIcon={<ChevronDownIcon />} onClick={onToggle} fontSize={20}
+      mt='0'
       >
         TRANSPORTATION AND INDUSTRIAL
       </Button>
@@ -2074,7 +2075,9 @@ function CollapseExtart() {
   
   return (
     <>
-      <Button leftIcon={<ChevronDownIcon />} onClick={onToggle} variant="ghost" fontSize={20}>
+      <Button borderRadius='10px' variant='outline' leftIcon={<ChevronDownIcon />} onClick={onToggle} fontSize={20}
+      mt='0'
+      >
         ✍️ART AND ANIMATION📽️
       </Button>
       <Collapse in={!isOpen} animateOpacity>
@@ -2480,7 +2483,7 @@ const Works = () => (
 <Section>
 <Box align="center" my={4}>
           <NextLink href="/" passHref scroll={true}>
-            <Button borderRadius='20px' variant='outline' border='2px' borderColor='black.500' leftIcon={<ChevronLeftIcon />}>
+            <Button borderRadius='20px' variant='outline' border='2px' borderColor='black.500' mt='10' leftIcon={<ChevronLeftIcon />}>
                 GO BACK TO HOME PAGE
             </Button>
             
