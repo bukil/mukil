@@ -19,12 +19,12 @@
     "@emotion/styled": "^11.10.5",
     "@fontsource/open-sans": "^4.5.13",
     "@fontsource/raleway": "^4.5.11",
-    "framer-motion": "^7.10.3",
-    "next": "^12.3.4",
+    "framer-motion": "^11.17.0",
+    "next": "^15.1.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",
-    "react-pdf": "^6.2.2",
+    "react-pdf": "^9.2.1",
     "three": "^0.143.0"
   },
   "devDependencies": {

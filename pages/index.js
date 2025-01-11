@@ -66,8 +66,8 @@ const Home = () => (
           alignItems={'flex-start'}
           src="/images/Imag.png"   // Add image here!
           alt="Img"
-          width="450%"
-          height="45%"
+          width={450} 
+      height={300}
         />
         </Box>
         <Box
@@ -87,10 +87,10 @@ const Home = () => (
             overflow="hidden"
           >
             <ProfileImage
-              src="/images/mukil.jpg"
+              src="/images/mukil.png"
               alt="Profile image"
-              width="200%"
-              height="240%"
+              width={200}
+              height={240}
             />
           </Box>
         </Box>
@@ -115,13 +115,13 @@ const Home = () => (
       <Grid templateColumns='repeat(2, fr)' gap={20}>
       <GridItem w='100%' >
 
-      {/*<Section delay={0.3}>
+      <Section delay={0.3}>
         <Heading fontSize="6xl"  fontWeight="hairline">
           Introduction
         </Heading>
         <Text variant="home-txt" fontSize={14} fontWeight='normal'>
-        Hailing from Uttar Pradesh, India, I&apos;m Mukil, a recent graduate (IET Lucknow, 2019-2023)
-         with an insatiable design itch. From sleek automobiles to the intricate workings of 
+        Hailing from Uttar Pradesh, India, I&apos;m Mukil an engineering graduate
+         with an insatiable design itch. From crafting intuitive, user-centered experiences, to the intricate workings of 
          everyday machinery, anything with an engineering pulse sparks my imagination. 
          My superpower? Transforming real-world challenges into design and tech solutions.
         Think MacGyver meets the future! When I&apos;m not glued to the screen, you&apos;ll find me
@@ -137,9 +137,9 @@ const Home = () => (
           </NextLink>
           &quot; has more than 4k subscribers.
         </Text>
-      </Section>*/}
+      </Section>
 
-<Section delay={0.3}>
+{/*<Section delay={0.3}>
         <Heading fontSize="6xl"  fontWeight="hairline">
           Introduction
         </Heading>
@@ -148,7 +148,7 @@ const Home = () => (
          With a strong foundation in research, design thinking, and prototyping, I strive to bridge 
          the gap between users and technology.
         </Text>
-      </Section>
+      </Section>*/}
 
       </GridItem>
 
