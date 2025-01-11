@@ -115,7 +115,7 @@ const Home = () => (
       <Grid templateColumns='repeat(2, fr)' gap={20}>
       <GridItem w='100%' >
 
-      <Section delay={0.3}>
+      {/*<Section delay={0.3}>
         <Heading fontSize="6xl"  fontWeight="hairline">
           Introduction
         </Heading>
@@ -136,6 +136,17 @@ const Home = () => (
             <Link target="https://www.youtube.com/channel/UCVeGi7RNdtqN6_7G-rjdSGQ">Mukil</Link>
           </NextLink>
           &quot; has more than 4k subscribers.
+        </Text>
+      </Section>*/}
+
+<Section delay={0.3}>
+        <Heading fontSize="6xl"  fontWeight="hairline">
+          Introduction
+        </Heading>
+        <Text variant="home-txt" fontSize={14} fontWeight='normal'>
+        I'm a passionate designer with a focus on crafting intuitive, user-centered experiences.
+         With a strong foundation in research, design thinking, and prototyping, I strive to bridge 
+         the gap between users and technology.
         </Text>
       </Section>
 
@@ -169,6 +180,8 @@ const Home = () => (
       </Grid>
 
       </GridItem>
+
+      
       </Grid>
   </Container>                                {/* This Container have Work(About) and languages */}
 
