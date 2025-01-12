@@ -78,19 +78,19 @@ const Home = () => (
         >
           <Box
             borderColor="whiteAlpha.800"
-            borderWidth={1}
+            borderWidth={0}
             borderStyle="solid"
             w="200px"
             h="240px"
             display="inline-block"
-            borderRadius='full'
+            borderRadius='50'
             overflow="hidden"
           >
             <ProfileImage
-              src="/images/mukil.png"
+              src="/images/mukil.jpg"
               alt="Profile image"
-              width={200}
-              height={240}
+              width={320}
+              height={290}
             />
           </Box>
         </Box>
