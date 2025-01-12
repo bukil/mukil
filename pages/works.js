@@ -15,7 +15,7 @@ import {
   ModalBody,
   ModalCloseButton
 } from '@chakra-ui/react'
-import { TimelineItem, TimelineRoot } from "@/components/ui/timeline"
+
 
 const Trans = styled.span`
   Button {
@@ -258,9 +258,9 @@ While the KODEPAD offers specific benefits for disabled creators, these features
           <Heading as="h2"  fontWeight="hairline">
           KODE/BOARD
         </Heading>
-         {/* <Text fontSize={'xs'} mb={10}>
+        <Text fontSize={'xs'} mb={10}>
           Here is a keyboard concept ( kode board 🙃 ) , Copy, paste, repeat... but not as you know it. Multi-layer clipboard on fingertips like seamlessly storing your snippets for instant recall. 🪄
-          </Text>*/}
+          </Text>
         </Stack>
          
             </Section>
@@ -309,6 +309,7 @@ While the KODEPAD offers specific benefits for disabled creators, these features
                     alt='kodpad'
                     width={ 'container.lg' }
                     borderRadius={15}
+                    mb={0}
                     
                   />
                   
@@ -331,6 +332,10 @@ While the KODEPAD offers specific benefits for disabled creators, these features
                     borderRadius={0}
                   />
                   <ModalHeader></ModalHeader>
+                  The KODEPAD can be a programmer&apos;s secret weapon.  The customizable keys 
+                  can be programmed with language-specific shortcuts or macros to streamline workflows.
+                    The rotary encoders can be used for scrolling through code or adjusting editor settings. 
+                     The compact design makes it easy to take to hackathons or coding meetups.
                   </Section>
 
                   <Section>
