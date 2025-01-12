@@ -15,6 +15,7 @@ import {
   ModalBody,
   ModalCloseButton
 } from '@chakra-ui/react'
+import { TimelineItem, TimelineRoot } from "@/components/ui/timeline"
 
 const Trans = styled.span`
   Button {
@@ -75,7 +76,7 @@ function CollapseExtandip() {
           shadow='md'
         >
          
-         <SimpleGrid columns={[2]} gap={25} mt={10}>
+         <SimpleGrid columns={[1]} gap={20} mt={10}>
 
          <Section>
         
@@ -257,9 +258,9 @@ While the KODEPAD offers specific benefits for disabled creators, these features
           <Heading as="h2"  fontWeight="hairline">
           KODE/BOARD
         </Heading>
-          <Text fontSize={'xs'} mb={10}>
+         {/* <Text fontSize={'xs'} mb={10}>
           Here is a keyboard concept ( kode board 🙃 ) , Copy, paste, repeat... but not as you know it. Multi-layer clipboard on fingertips like seamlessly storing your snippets for instant recall. 🪄
-          </Text>
+          </Text>*/}
         </Stack>
          
             </Section>
@@ -294,8 +295,8 @@ While the KODEPAD offers specific benefits for disabled creators, these features
                     src='/images/works/0016-0060.mkv'
                     poster='/images/works/mukil.jpeg'
                     alt='space azure'
-                    borderRadius={15}
-                    width={ 'container.lg' }
+                    borderRadius={0}
+                    width={ 'full' }
 
                     objectFit='contain'
                     sx={{
@@ -308,7 +309,7 @@ While the KODEPAD offers specific benefits for disabled creators, these features
                     alt='kodpad'
                     width={ 'container.lg' }
                     borderRadius={15}
-                    mb={10}
+                    
                   />
                   
                     <Text fontSize={24} fontWeight={'hairline'}>
@@ -327,13 +328,9 @@ While the KODEPAD offers specific benefits for disabled creators, these features
                     src='/images/works/keypad23.jpg'
                     alt='Project 3D 1'
                     width={ 'container.lg' }
-                    borderRadius={15}
+                    borderRadius={0}
                   />
-                  <ModalHeader>MOODBOARD AND DESIGN PROPOSAL</ModalHeader>
-                  The KODEPAD can be a programmer&apos;s secret weapon.  The customizable keys 
-                  can be programmed with language-specific shortcuts or macros to streamline workflows.
-                    The rotary encoders can be used for scrolling through code or adjusting editor settings. 
-                     The compact design makes it easy to take to hackathons or coding meetups.
+                  <ModalHeader></ModalHeader>
                   </Section>
 
                   <Section>
@@ -341,7 +338,7 @@ While the KODEPAD offers specific benefits for disabled creators, these features
                     src='/images/works/kod_board.jpg'
                     alt='Project 3D 1'
                     width={ 'container.lg' }
-                    borderRadius={15}
+                    borderRadius={0}
                   />
                   <ModalHeader>DESIGN AND FUCTIONALITY</ModalHeader>
                   Minimalist Design: The KODEPAD embraces a clean, minimalist aesthetic. Every element is carefully considered for maximum functionality with minimal footprint. This allows creators to focus on their work without visual clutter.
@@ -352,10 +349,10 @@ While the KODEPAD offers specific benefits for disabled creators, these features
                     src='/images/works/REDDEF.jpg'
                     alt='Project 3D 1'
                     width={ 'container.lg' }
-                    borderRadius={15}
+                    borderRadius={0}
                   />
                   <ModalHeader>SLEEK AND TRANSPARENT CONSTRUCTION</ModalHeader>
-                  The transparent body showcases the inner workings of the KODEPAD, adding a touch of intrigue and technological elegance. It also allows for glimpses of the customizable RGB lighting (optional feature) for a truly personalized touch.
+                  
                   </Section>
 
                   <Section>
@@ -363,10 +360,10 @@ While the KODEPAD offers specific benefits for disabled creators, these features
                     src='/images/works/kodbordrrz.jpg'
                     alt='Project 3D 1'
                     width={ 'container.lg' }
-                    borderRadius={15}
+                    borderRadius={0}
                   />
                   <ModalHeader>RENDERING (CYCLES)</ModalHeader>
-                  Overall, the KODEPAD is a keyboard that is both beautiful and powerful. The minimalist design and transparent construction make it a statement piece on any desk, while the customizable features and rotary encoders empower creators to unleash their potential.
+            
                   </Section>
 
                   <Section>
@@ -396,13 +393,13 @@ While the KODEPAD offers specific benefits for disabled creators, these features
                     }}
                     />
                   <ModalHeader>ANIMATION RENDERING</ModalHeader>
-                  Minimalist Design: The clean, uncluttered design with minimal keys reduces the need for complex hand movements, making it easier for users with dexterity limitations.
+                  
                   </Section>
                    
                   </SimpleGrid>
                     <Divider orientation='horizontal' mb={10}>
                     </Divider>
-                    Reference images, Design and logo used in the website is property of respective owners.
+              
                   </center>
               </ModalBody>
               <ModalFooter>
