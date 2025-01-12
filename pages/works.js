@@ -93,7 +93,7 @@ function CollapseExtandip() {
               <ModalOverlay />
               <ModalContent>
               <center>
-              <ModalHeader as="h1" >KODE-BOARD</ModalHeader>
+              <ModalHeader as="h1" ></ModalHeader>
               </center>
               <ModalCloseButton />
               <ModalBody>
@@ -101,17 +101,14 @@ function CollapseExtandip() {
               <center>
                  
                   <Image 
-                    src='/images/works/kode.png'
+                    src='/images/works/keeb_post.png'
                     alt='KODE-BOARD'
-                    width={ 'container.lg' }
-                    borderRadius={15}
-                    mb={10}
+                    width={ 'full' }
+                    borderRadius={0}
+                    mb={0}
+                    
                   />
                     <Text fontSize={24} fontWeight={'hairline'}>
-                    😀 😉 😪 😣 😡
-                    My cat finally spilled the beans on my secret keyboard obsession. Prepare to be meow-ved!
-                    Warning: This keyboard may cause uncontrollable bursts of productivity and uncontrollable urges to show off. Use with caution! ⚠️
- so, Forget therapy, this keyboard is all the emotional support you need. Plus, it doesn&apos;t judge your typos. 😊😊😊
                     </Text>
                   <Divider orientation='horizontal'>
                   </Divider>
@@ -119,16 +116,16 @@ function CollapseExtandip() {
                   <SimpleGrid columns={1} spacingX='40px' spacingY='20px' mt={10}>
                   <Section>
                   <Image 
-                    src='/images/works/koenigseg1.jpg'
+                    src='/images/works/keeb_ref.png'
                     alt='Project 3D 1'
                     width={ 'container.lg' }
-                    borderRadius={15}
+                    borderRadius={0}
                   />
-                  <ModalHeader>DESIGN AND MOODBOARDS</ModalHeader>
+                  {/*<ModalHeader>DESIGN AND MOODBOARDS</ModalHeader>
                   Brainstorming: The initial stage involved brainstorming sessions to explore
                    different form factors, key layouts, and integration of rotary encoders.
                     Rough sketches captured various ideas, focusing on minimizing size while
-                     maximizing functionality.
+                     maximizing functionality.*/}
                   </Section>
 
                   <Section>
@@ -136,35 +133,37 @@ function CollapseExtandip() {
                     src='/images/works/Frame 1.jpg'
                     alt='FIgma output'
                     width={ 'container.lg' }
-                    borderRadius={15}
+                    borderRadius={0}
                   />
-                  <ModalHeader>Ortholinear keyboards offer a few potential advantages over traditional staggered keyboards, particularly in terms of ergonomics and efficiency</ModalHeader>
+                  {/*<ModalHeader>Ortholinear keyboards offer a few potential advantages over traditional staggered keyboards, particularly in terms of ergonomics and efficiency</ModalHeader>
                   Reduced Fatigue: The grid layout of ortholinear keyboards minimizes finger travel distance. This means you can keep your fingers closer to the home row, reducing reaching 
                   and minimizing the need for unnatural finger curling. This can lead to less fatigue during long typing sessions.Sketching the first task for him and then He started working
                    on his project with enthusiasm and determination. He researched online and found some tutorials and resources that could help him. He bought some components and tools from
                     online distributor. He starts assembling the components, Fabricating and soldering PCBs accordingly and try to build the prototype. He spent many hours in his hostel room, 
-                    wiring, coding, testing, and debugging his device.
+                    wiring, coding, testing, and debugging his device.*/}
                   </Section>
 
                   <Section>
                   <Image 
                     src='/images/works/stealth.png'
                     alt='Project 3D output'
-                    borderRadius={15}
+                    borderRadius={0}
                     width={ 'container.lg' }
                   />
                   <ModalHeader>PROPOSED RENDERINGS</ModalHeader>
-                  Compact Design: By eliminating the staggered layout, ortholinear keyboards can be more compact than traditional keyboards, saving desk space.
                   </Section>
 
                   <Section>
                   <Image 
                     src='/images/works/BOTASF.jpg'
                     alt='Project 3D 1'
-                    borderRadius={15}
+                    borderRadius={0}
                     width={ 'container.lg' }
                   />
-                  <ModalHeader> The beauty of these encoders lies in their programmability. Using keyboard firmware like QMK, you can define what actions occur based on the rotation direction (clockwise/counter-clockwise) and even the number of clicks (rotations) made.</ModalHeader>
+                  <ModalHeader> The beauty of these encoders lies in their programmability. 
+                    Using keyboard firmware like QMK, you can define what actions occur based
+                     on the rotation direction (clockwise/counter-clockwise) and even the number
+                      of clicks (rotations) made.</ModalHeader>
                   
                   </Section>
                   
@@ -174,10 +173,11 @@ function CollapseExtandip() {
                     src='/images/works/nww.jpg'
                     alt='Project 3D 1'
                      width={ 'container.lg' }
-                     borderRadius={15}
+                     borderRadius={0}
                   />
                   <ModalHeader>A COMPLETE PICTURE</ModalHeader>
-                  The KODEPAD&apos;s design philosophy extends beyond portability and aesthetics. We believe in creating a tool that empowers all creators, regardless of their abilities.
+                  {/*The KODEPAD&apos;s design philosophy extends beyond portability and aesthetics.
+                   We believe in creating a tool that empowers all creators, regardless of their abilities.
 
 Here&apos;s how the KODEPAD caters to creators with disabilities:
 
@@ -190,7 +190,7 @@ Open-Source Software: We plan to make the KODEPAD&apos;s software open-source. T
 
 Universal Appeal:
 
-While the KODEPAD offers specific benefits for disabled creators, these features are not exclusive. The KODEPAD&apos;s focus on customization and efficient design makes it a powerful tool for any creator on the go, regardless of ability.
+While the KODEPAD offers specific benefits for disabled creators, these features are not exclusive. The KODEPAD&apos;s focus on customization and efficient design makes it a powerful tool for any creator on the go, regardless of ability.*/}
                   </Section>
 
                   <Section>
@@ -198,7 +198,7 @@ While the KODEPAD offers specific benefits for disabled creators, these features
                     src='/images/works/newpers2.jpg'
                     alt='Project 3D 1'
                      width={ 'container.lg' }
-                     borderRadius={15}
+                     borderRadius={0}
                   />
                   <ModalHeader>Digital Mockup and Rendering</ModalHeader>
                   3D Modeling: A 3D model of the KODEPAD was created, allowing for a more realistic visualization of the product from all angles. Transparency effects were applied to showcase the internal components.
@@ -210,7 +210,7 @@ While the KODEPAD offers specific benefits for disabled creators, these features
                     src='/images/works/newpers.jpg'
                     alt='Project 3D 1'
                      width={ 'container.lg' }
-                     borderRadius={15}
+                     borderRadius={0}
                   />
                   <ModalHeader>LOVABLE DESIGN</ModalHeader>
  
@@ -220,7 +220,7 @@ While the KODEPAD offers specific benefits for disabled creators, these features
                     src='/images/works/newperjjgjgg.jpg'
                     alt='Project 3D 1'
                      width={ 'container.lg' }
-                     borderRadius={15}
+                     borderRadius={0}
                   />
                   <ModalHeader>LOVABLE DESIGN</ModalHeader>
                   Material Exploration: Different materials were explored digitally to find the perfect balance of transparency, durability, and weight. Options like high-grade acrylic or transparent polycarbonate were considered.
@@ -231,7 +231,7 @@ While the KODEPAD offers specific benefits for disabled creators, these features
                     src='/images/works/lov.jpg'
                     alt='Project 3D 1'
                      width={ 'container.lg' }
-                     borderRadius={15}
+                     borderRadius={0}
                   />
                   <ModalHeader>LOVABLE MATERIALS AND SO ON..</ModalHeader>
               
