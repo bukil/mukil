@@ -119,7 +119,7 @@ function CollapseExtandip() {
                   <Image 
                     src='/images/works/keeb_ref.png'
                     alt='Project 3D 1'
-                    width={ 'container.lg' }
+                    width={ 'full' }
                     borderRadius={0}
                   />
                   {/*<ModalHeader>DESIGN AND MOODBOARDS</ModalHeader>
@@ -133,7 +133,7 @@ function CollapseExtandip() {
                   <Image 
                     src='/images/works/Frame 1.jpg'
                     alt='FIgma output'
-                    width={ 'container.lg' }
+                    width={ 'full' }
                     borderRadius={0}
                   />
                   {/*<ModalHeader>Ortholinear keyboards offer a few potential advantages over traditional staggered keyboards, particularly in terms of ergonomics and efficiency</ModalHeader>
@@ -146,10 +146,10 @@ function CollapseExtandip() {
 
                   <Section>
                   <Image 
-                    src='/images/works/stealth.png'
+                    src='/images/works/keeb_2.jpg'
                     alt='Project 3D output'
                     borderRadius={0}
-                    width={ 'container.lg' }
+                    width={ 'full' }
                   />
                   <ModalHeader>PROPOSED RENDERINGS</ModalHeader>
                   </Section>
@@ -159,7 +159,7 @@ function CollapseExtandip() {
                     src='/images/works/BOTASF.jpg'
                     alt='Project 3D 1'
                     borderRadius={0}
-                    width={ 'container.lg' }
+                    width={ 'full' }
                   />
                   <ModalHeader> The beauty of these encoders lies in their programmability. 
                     Using keyboard firmware like QMK, you can define what actions occur based
@@ -173,7 +173,7 @@ function CollapseExtandip() {
                   <Image
                     src='/images/works/nww.jpg'
                     alt='Project 3D 1'
-                     width={ 'container.lg' }
+                     width={ 'full' }
                      borderRadius={0}
                   />
                   <ModalHeader>A COMPLETE PICTURE</ModalHeader>
@@ -198,7 +198,7 @@ While the KODEPAD offers specific benefits for disabled creators, these features
                   <Image
                     src='/images/works/newpers2.jpg'
                     alt='Project 3D 1'
-                     width={ 'container.lg' }
+                     width={ 'full' }
                      borderRadius={0}
                   />
                   <ModalHeader>Digital Mockup and Rendering</ModalHeader>
@@ -210,7 +210,7 @@ While the KODEPAD offers specific benefits for disabled creators, these features
                   <Image
                     src='/images/works/newpers.jpg'
                     alt='Project 3D 1'
-                     width={ 'container.lg' }
+                     width={ 'full' }
                      borderRadius={0}
                   />
                   <ModalHeader>LOVABLE DESIGN</ModalHeader>
@@ -220,10 +220,10 @@ While the KODEPAD offers specific benefits for disabled creators, these features
                   <Image
                     src='/images/works/newperjjgjgg.jpg'
                     alt='Project 3D 1'
-                     width={ 'container.lg' }
+                     width={ 'full' }
                      borderRadius={0}
                   />
-                  <ModalHeader>LOVABLE DESIGN</ModalHeader>
+                  <ModalHeader>mukikkuku</ModalHeader>
                   Material Exploration: Different materials were explored digitally to find the perfect balance of transparency, durability, and weight. Options like high-grade acrylic or transparent polycarbonate were considered.
                   </Section>
 
@@ -231,10 +231,10 @@ While the KODEPAD offers specific benefits for disabled creators, these features
                   <Image
                     src='/images/works/lov.jpg'
                     alt='Project 3D 1'
-                     width={ 'container.lg' }
+                     width={ 'full' }
                      borderRadius={0}
                   />
-                  <ModalHeader>LOVABLE MATERIALS AND SO ON..</ModalHeader>
+                  <ModalHeader>mhkhkjgkjfhh</ModalHeader>
               
                   </Section>
 
