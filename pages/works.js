@@ -307,8 +307,8 @@ While the KODEPAD offers specific benefits for disabled creators, these features
                   <Image 
                     src='/images/works/kodbordrr.jpg'
                     alt='kodpad'
-                    width={ 'container.lg' }
-                    borderRadius={15}
+                    width={ 'full' }
+                    borderRadius={0}
                     mb={0}
                     
                   />
@@ -328,7 +328,7 @@ While the KODEPAD offers specific benefits for disabled creators, these features
                   <Image 
                     src='/images/works/keypad23.jpg'
                     alt='Project 3D 1'
-                    width={ 'container.lg' }
+                    width={ 'full' }
                     borderRadius={0}
                   />
                   <ModalHeader></ModalHeader>
@@ -342,7 +342,7 @@ While the KODEPAD offers specific benefits for disabled creators, these features
                   <Image 
                     src='/images/works/kod_board.jpg'
                     alt='Project 3D 1'
-                    width={ 'container.lg' }
+                    width={ 'full' }
                     borderRadius={0}
                   />
                   <ModalHeader>DESIGN AND FUCTIONALITY</ModalHeader>
@@ -353,7 +353,7 @@ While the KODEPAD offers specific benefits for disabled creators, these features
                   <Image 
                     src='/images/works/REDDEF.jpg'
                     alt='Project 3D 1'
-                    width={ 'container.lg' }
+                    width={ 'full' }
                     borderRadius={0}
                   />
                   <ModalHeader>SLEEK AND TRANSPARENT CONSTRUCTION</ModalHeader>
@@ -364,7 +364,7 @@ While the KODEPAD offers specific benefits for disabled creators, these features
                   <Image 
                     src='/images/works/kodbordrrz.jpg'
                     alt='Project 3D 1'
-                    width={ 'container.lg' }
+                    width={ 'full' }
                     borderRadius={0}
                   />
                   <ModalHeader>RENDERING (CYCLES)</ModalHeader>
@@ -375,8 +375,8 @@ While the KODEPAD offers specific benefits for disabled creators, these features
                   <Image 
                     src='/images/works/jourdey.png'
                     alt='Project 3D 1'
-                    width={ 'container.lg' }
-                    borderRadius={15}
+                    width={ 'full' }
+                    borderRadius={0}
                   />
                   <ModalHeader>PROTOYPE MAKING JOURNEY</ModalHeader>
                   
@@ -389,8 +389,8 @@ While the KODEPAD offers specific benefits for disabled creators, these features
                     src='/images/works/neew.mkv'
                     poster='/images/works/kodbord.jpg'
                     alt='space azure'
-                    borderRadius={15}
-                    width={ 'container.lg' }
+                    borderRadius={0}
+                    width={ 'full' }
 
                     objectFit='contain'
                     sx={{
@@ -487,8 +487,8 @@ While the KODEPAD offers specific benefits for disabled creators, these features
                   <Image 
           src='/images/works/search.jpg'
           alt='Koenigsegg CC850'
-          width={ 'container.sm' }
-          borderRadius={20}
+          width={ 'full' }
+          borderRadius={0}
           />
                   <ModalHeader>Frost Glass(Crys-Morphic theme everyware)</ModalHeader>
                   Soft Focus: The frosted glass theme creates a sense of 
@@ -502,8 +502,8 @@ While the KODEPAD offers specific benefits for disabled creators, these features
                   <Image 
           src='/images/works/Frame 7.jpg'
           alt='Koenigsegg CC850'
-          width={ 'container.sm' }
-          borderRadius={20}
+          width={ 'full' }
+          borderRadius={0}
           />
                   <ModalHeader>Minimalist Library for Maximum Focus</ModalHeader>
                   Uncluttered Interface:  Suono s library eschews clutter. 
@@ -517,8 +517,8 @@ While the KODEPAD offers specific benefits for disabled creators, these features
                   <Image 
           src='/images/works/Now Playingfoder.jpg'
           alt='Koenigsegg CC850'
-          width={ 'container.sm' }
-          borderRadius={20}
+          width={ 'full' }
+          borderRadius={0}
           />
                   <ModalHeader>BACKGROUND COLORDROP</ModalHeader>
                   This is what it looks like when working on the

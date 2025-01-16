@@ -131,11 +131,11 @@ const Home = () => (
           <NextLink href="https://www.youtube.com/shorts/yOYycYeoM24" passHref scroll={false}>
             <Link target="https://www.youtube.com/shorts/yOYycYeoM24">Dynamic Steering System</Link>
           </NextLink>
-          .  He publishes content just for sharing the work he done on the youtube &quot;
+          .&quot;
           <NextLink href="https://www.youtube.com/channel/UCVeGi7RNdtqN6_7G-rjdSGQ" passHref>
-            <Link target="https://www.youtube.com/channel/UCVeGi7RNdtqN6_7G-rjdSGQ">Mukil</Link>
+            <Link target="https://www.youtube.com/channel/UCVeGi7RNdtqN6_7G-rjdSGQ">YT@Mukil</Link>
           </NextLink>
-          &quot; has more than 4k subscribers.
+          &quot;
         </Text>
       </Section>
 
