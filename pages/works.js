@@ -58,6 +58,7 @@ function CollapseExtandip() {
   const { isOpen: isEditOpenmd2 , onOpen: onEditOpenmd2, onClose: onEditClosemd2 } = useDisclosure()
   const { isOpen: isEditOpenmd3 , onOpen: onEditOpenmd3, onClose: onEditClosemd3 } = useDisclosure()
   const { isOpen: isEditOpenmd9 , onOpen: onEditOpenmd9, onClose: onEditClosemd9 } = useDisclosure()
+  const { isOpen: isEditOpenmd11 , onOpen: onEditOpenmd11, onClose: onEditClosemd11 } = useDisclosure()
   return (
     <>
     
@@ -426,6 +427,134 @@ While the KODEPAD offers specific benefits for disabled creators, these features
         </Stack>
          
             </Section>
+{/*opto starts--------------------------------------------------------------------------*/}
+            <Section>
+        
+        
+        <Imgtrans>
+          <Button height={'auto'} onClick={onEditOpenmd11}>
+           <Image 
+          src='/images/works/pro.jpg'
+          alt='User Experience'
+          borderRadius='lg'
+          />
+
+           
+          <Modal isOpen={isEditOpenmd11} onClose={onEditClosemd11} size={'full'} scrollBehavior={'outside'}>
+              <ModalOverlay />
+              <ModalContent>
+              <center>
+              <ModalHeader as="h1" >OPTICAL ENCODER BASED STEERING SYSTEM</ModalHeader>
+              </center>
+              <ModalCloseButton />
+              <ModalBody>
+                    
+              <center>
+                 
+                  <Image 
+                    src='/images/works/Pro.jpg'
+                    alt='Project 3D 1'
+                    width={ 'container.lg' }
+                    borderRadius={15}
+                    mb={10}
+                  />
+                    <Text fontSize={24} fontWeight={'hairline'}>
+                    Well somethiing need to be done.......
+                    </Text>
+                  <Divider orientation='horizontal'>
+                  </Divider>
+
+                  <SimpleGrid columns={1} spacingX='40px' spacingY='20px' mt={10}>
+                  <Section>
+                  <Image 
+                    src='/images/works/rat2.jpg'
+                    alt='Project 3D 1'
+                    width={ 'container.lg' }
+                    borderRadius={15}
+                  />
+                  <ModalHeader>What can it Changes</ModalHeader>
+                  One day, he decided to do something about it. He thought of an idea that could help him drive a vehicle with his left hand disabled. He decided to use his knowledge of technology and create a prototype that could control a vehicle with optical encoder, it is a high accuracy small sensor use in industrial purpose. He thought that if he could control the vehicle with only right hand with the help of sensor, he wouldn’t need to use his left hands at all. he realises that the abilities of the Encoder based steering system is more than anybody think
+                  </Section>
+
+                  <Section>
+                  <Image 
+                    src='/images/works/rat3.jpg'
+                    alt='Project 3D 1'
+                    width={ 'container.lg' }
+                    borderRadius={15}
+                  />
+                  <ModalHeader>More Moodboards</ModalHeader>
+                 Sketching the first task for him and then He started working on his project with enthusiasm and determination. He researched online and found some tutorials and resources that could help him. He bought some components and tools from online distributor. He starts assembling the components, Fabricating and soldering PCBs accordingly and try to build the prototype. He spent many hours in his hostel room, wiring, coding, testing, and debugging his device.
+                  </Section>
+
+                  <Section>
+                  <Image 
+                    src='/images/works/rat4.jpg'
+                    alt='Project 3D 1'
+                    borderRadius={15}
+                    width={ 'container.lg' }
+                  />
+                  <ModalHeader>Prototypiing</ModalHeader>
+                  After several days of hard work, he finally completed his project. He had created optical encoder(sensor) based vehicle controller that could connect to the car’s system and control its functions. He had tested the device in simulation first and successful in it.
+                  </Section>
+
+                  <Section>
+                  <Image 
+                    src='/images/works/menu.jpg'
+                    alt='Project 3D 1'
+                    borderRadius={15}
+                    width={ 'container.lg' }
+                  />
+                  <ModalHeader>Enhanced User Experience</ModalHeader>
+                  
+                  </Section>
+
+                  <Section>
+                  <Image
+    src='/images/works/menu1.jpg'
+    alt='Project 3D 1'
+    width={ 'container.lg' }
+    borderRadius={15}
+/>
+                  <ModalHeader>High Feasability</ModalHeader>
+                  Minimal space-usage and no permanent modification to the vehicle
+Should be able to handle parking and low speed maneuvers safely
+1. The long shaft of the steering wheel is eliminated. Due to the encoder fixed near to the steering wheel.
+2. There is precise control available due the high resolution of the encoder.
+3. More the resolution more the accuracy of the steering mechanism.
+4. Weight of the system is reduced.
+5.DRIVING ACCESSIBILITY FOR SPECIALY ABLED PEOPLES
+5. Cost of manufacturing and assembly is increased due to electronic component. 
+6. Autonomous driving system is possible due to introduction of the encoder. 
+
+                  </Section>
+                   
+                  </SimpleGrid>
+                    <Divider orientation='horizontal' mb={10}>
+                    </Divider>
+                   
+                  </center>
+              </ModalBody>
+              <ModalFooter>
+              <Button variant="ghost" mr={3} onClick={onEditClosemd11}>Close</Button>
+              </ModalFooter>
+              </ModalContent>
+          </Modal>
+         
+
+           </Button>
+          </Imgtrans>
+          <Stack mt='6' spacing='3' mb={10}>
+          <Heading as="h2"  fontWeight="hairline">
+          OPTICAL ENCODER STEERING SYSTEM
+        </Heading>
+          <Text fontSize={'xs'} mb={10}>
+          Optical Encoder Steering System for Enhanced User Experience
+          </Text>
+        </Stack>
+         
+            </Section>
+            {/*opto ends--------------------------------------------------------------------------*/}
 
             <Section>
             <Imgtrans mt={10}>
@@ -530,8 +659,8 @@ While the KODEPAD offers specific benefits for disabled creators, these features
                   <Image 
           src='/images/works/Frame 3.jpg'
           alt='Koenigsegg CC850'
-          width={ 'container.sm' }
-          borderRadius={20}
+          width={ 'full' }
+          borderRadius={0}
           />
                   <ModalHeader>GROUP SESSION BASED ON LOCAL MUSIC FILE</ModalHeader>
                   Group Creation: Once youve chosen your music, creating a group session is a breeze. Invite friends by sharing a unique link or using their usernames within Suono. This allows you to curate a listening experience with the specific people you want to share it with.
@@ -1179,132 +1308,7 @@ so Forget the scissor doors. Taurus embraces a radical approach with doors that 
          
             </Section>
 
-         <Section>
-        
-        
-        <Imgtrans>
-          <Button height={'auto'} onClick={onEditOpenmd0}>
-           <Image 
-          src='/images/works/pro.jpg'
-          alt='User Experience'
-          borderRadius='lg'
-          />
-
-           
-          <Modal isOpen={isEditOpenmd0} onClose={onEditClosemd0} size={'full'} scrollBehavior={'outside'}>
-              <ModalOverlay />
-              <ModalContent>
-              <center>
-              <ModalHeader as="h1" >OPTICAL ENCODER BASED STEERING SYSTEM</ModalHeader>
-              </center>
-              <ModalCloseButton />
-              <ModalBody>
-                    
-              <center>
-                 
-                  <Image 
-                    src='/images/works/Pro.jpg'
-                    alt='Project 3D 1'
-                    width={ 'container.lg' }
-                    borderRadius={15}
-                    mb={10}
-                  />
-                    <Text fontSize={24} fontWeight={'hairline'}>
-                    Well somethiing need to be done.......
-                    </Text>
-                  <Divider orientation='horizontal'>
-                  </Divider>
-
-                  <SimpleGrid columns={1} spacingX='40px' spacingY='20px' mt={10}>
-                  <Section>
-                  <Image 
-                    src='/images/works/rat2.jpg'
-                    alt='Project 3D 1'
-                    width={ 'container.lg' }
-                    borderRadius={15}
-                  />
-                  <ModalHeader>What can it Changes</ModalHeader>
-                  One day, he decided to do something about it. He thought of an idea that could help him drive a vehicle with his left hand disabled. He decided to use his knowledge of technology and create a prototype that could control a vehicle with optical encoder, it is a high accuracy small sensor use in industrial purpose. He thought that if he could control the vehicle with only right hand with the help of sensor, he wouldn’t need to use his left hands at all. he realises that the abilities of the Encoder based steering system is more than anybody think
-                  </Section>
-
-                  <Section>
-                  <Image 
-                    src='/images/works/rat3.jpg'
-                    alt='Project 3D 1'
-                    width={ 'container.lg' }
-                    borderRadius={15}
-                  />
-                  <ModalHeader>More Moodboards</ModalHeader>
-                 Sketching the first task for him and then He started working on his project with enthusiasm and determination. He researched online and found some tutorials and resources that could help him. He bought some components and tools from online distributor. He starts assembling the components, Fabricating and soldering PCBs accordingly and try to build the prototype. He spent many hours in his hostel room, wiring, coding, testing, and debugging his device.
-                  </Section>
-
-                  <Section>
-                  <Image 
-                    src='/images/works/rat4.jpg'
-                    alt='Project 3D 1'
-                    borderRadius={15}
-                    width={ 'container.lg' }
-                  />
-                  <ModalHeader>Prototypiing</ModalHeader>
-                  After several days of hard work, he finally completed his project. He had created optical encoder(sensor) based vehicle controller that could connect to the car’s system and control its functions. He had tested the device in simulation first and successful in it.
-                  </Section>
-
-                  <Section>
-                  <Image 
-                    src='/images/works/menu.jpg'
-                    alt='Project 3D 1'
-                    borderRadius={15}
-                    width={ 'container.lg' }
-                  />
-                  <ModalHeader>Enhanced User Experience</ModalHeader>
-                  
-                  </Section>
-
-                  <Section>
-                  <Image
-    src='/images/works/menu1.jpg'
-    alt='Project 3D 1'
-    width={ 'container.lg' }
-    borderRadius={15}
-/>
-                  <ModalHeader>High Feasability</ModalHeader>
-                  Minimal space-usage and no permanent modification to the vehicle
-Should be able to handle parking and low speed maneuvers safely
-1. The long shaft of the steering wheel is eliminated. Due to the encoder fixed near to the steering wheel.
-2. There is precise control available due the high resolution of the encoder.
-3. More the resolution more the accuracy of the steering mechanism.
-4. Weight of the system is reduced.
-5.DRIVING ACCESSIBILITY FOR SPECIALY ABLED PEOPLES
-5. Cost of manufacturing and assembly is increased due to electronic component. 
-6. Autonomous driving system is possible due to introduction of the encoder. 
-
-                  </Section>
-                   
-                  </SimpleGrid>
-                    <Divider orientation='horizontal' mb={10}>
-                    </Divider>
-                   
-                  </center>
-              </ModalBody>
-              <ModalFooter>
-              <Button variant="ghost" mr={3} onClick={onEditClosemd0}>Close</Button>
-              </ModalFooter>
-              </ModalContent>
-          </Modal>
          
-
-           </Button>
-          </Imgtrans>
-          <Stack mt='6' spacing='3' mb={10}>
-          <Heading as="h2"  fontWeight="hairline">
-          OPTICAL ENCODER STEERING SYSTEM
-        </Heading>
-          <Text fontSize={'xs'} mb={10}>
-          Optical Encoder Steering System for Enhanced User Experience
-          </Text>
-        </Stack>
-         
-            </Section>
 
         
             <Section>
@@ -2070,6 +2074,8 @@ windshield and no roof. In this project I recreate a Ferrari Monza SP1 in blende
 
 
 // ============= Coll ===========================================
+<Divider orientation='horizontal'>
+</Divider>
 function CollapseExtart() {
   const { isOpen, onToggle } = useDisclosure()
   const { isOpen: isEditOpenmd1 , onOpen: onEditOpenmd1, onClose: onEditClosemd1 } = useDisclosure()
@@ -2077,10 +2083,12 @@ function CollapseExtart() {
   
   return (
     <>
+    <Divider orientation='horizontal'>
+    </Divider>
       <Button borderRadius='10px' variant='outline' leftIcon={<ChevronDownIcon />} onClick={onToggle} fontSize={20}
-      mt='0'
+      mt='16'
       >
-        ✍️ART AND ANIMATION📽️
+        Also check out...
       </Button>
       <Collapse in={!isOpen} animateOpacity>
         <Box
