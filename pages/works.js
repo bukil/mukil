@@ -116,19 +116,14 @@ function CollapseExtandip() {
                   </Divider>
 
                   <SimpleGrid columns={1} spacingX='40px' spacingY='20px' mt={10}>
-                  <Section>
+                  
                   <Image 
                     src='/images/works/keeb_ref.png'
                     alt='Project 3D 1'
                     width={ 'full' }
                     borderRadius={0}
                   />
-                  {/*<ModalHeader>DESIGN AND MOODBOARDS</ModalHeader>
-                  Brainstorming: The initial stage involved brainstorming sessions to explore
-                   different form factors, key layouts, and integration of rotary encoders.
-                    Rough sketches captured various ideas, focusing on minimizing size while
-                     maximizing functionality.*/}
-                  </Section>
+                  
 
                 
                   <Image 
