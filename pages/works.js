@@ -130,20 +130,23 @@ function CollapseExtandip() {
                      maximizing functionality.*/}
                   </Section>
 
-                  <Section>
+                
                   <Image 
                     src='/images/works/Frame 1.jpg'
                     alt='FIgma output'
                     width={ 'full' }
                     borderRadius={0}
                   />
-                  {/*<ModalHeader>Ortholinear keyboards offer a few potential advantages over traditional staggered keyboards, particularly in terms of ergonomics and efficiency</ModalHeader>
-                  Reduced Fatigue: The grid layout of ortholinear keyboards minimizes finger travel distance. This means you can keep your fingers closer to the home row, reducing reaching 
-                  and minimizing the need for unnatural finger curling. This can lead to less fatigue during long typing sessions.Sketching the first task for him and then He started working
-                   on his project with enthusiasm and determination. He researched online and found some tutorials and resources that could help him. He bought some components and tools from
-                    online distributor. He starts assembling the components, Fabricating and soldering PCBs accordingly and try to build the prototype. He spent many hours in his hostel room, 
-                    wiring, coding, testing, and debugging his device.*/}
-                  </Section>
+                  
+                  
+                  <Image 
+                    src='/images/works/keeb_1.png'
+                    alt='Project 3D output'
+                    borderRadius={0}
+                    width={ 'full' }
+                  />
+                  
+                  
 
                   <Section>
                   <Image 
@@ -152,7 +155,7 @@ function CollapseExtandip() {
                     borderRadius={0}
                     width={ 'full' }
                   />
-                  <ModalHeader>PROPOSED RENDERINGS</ModalHeader>
+                  
                   </Section>
 
                   <Section>
@@ -177,22 +180,7 @@ function CollapseExtandip() {
                      width={ 'full' }
                      borderRadius={0}
                   />
-                  <ModalHeader>A COMPLETE PICTURE</ModalHeader>
-                  {/*The KODEPAD&apos;s design philosophy extends beyond portability and aesthetics.
-                   We believe in creating a tool that empowers all creators, regardless of their abilities.
-
-Here&apos;s how the KODEPAD caters to creators with disabilities:
-
-Accessibility Features:
-
-Analog Inputs and Horizontal Encoders: The rotary encoders being horizontal and offering analog input allows for smoother and more precise control for users with limited hand mobility. This can be particularly beneficial for tasks like audio editing or manipulating virtual instruments.
-Customizable Keys: The programmable keys can be configured with single keystrokes, macros, or even mouse functions. This allows users to create custom layouts that best suit their needs and physical capabilities.
-Minimalist Design: The clean, uncluttered design with minimal keys reduces the need for complex hand movements, making it easier for users with dexterity limitations.
-Open-Source Software: We plan to make the KODEPAD&apos;s software open-source. This allows the developer community to create custom software profiles or accessibility tools specifically tailored to the needs of users with disabilities.
-
-Universal Appeal:
-
-While the KODEPAD offers specific benefits for disabled creators, these features are not exclusive. The KODEPAD&apos;s focus on customization and efficient design makes it a powerful tool for any creator on the go, regardless of ability.*/}
+                
                   </Section>
 
                   <Section>
@@ -202,8 +190,7 @@ While the KODEPAD offers specific benefits for disabled creators, these features
                      width={ 'full' }
                      borderRadius={0}
                   />
-                  <ModalHeader>Digital Mockup and Rendering</ModalHeader>
-                  3D Modeling: A 3D model of the KODEPAD was created, allowing for a more realistic visualization of the product from all angles. Transparency effects were applied to showcase the internal components.
+            
                   </Section>
                   
 
@@ -214,7 +201,7 @@ While the KODEPAD offers specific benefits for disabled creators, these features
                      width={ 'full' }
                      borderRadius={0}
                   />
-                  <ModalHeader>LOVABLE DESIGN</ModalHeader>
+                  
  
                   </Section>
                   <Section>
@@ -224,8 +211,7 @@ While the KODEPAD offers specific benefits for disabled creators, these features
                      width={ 'full' }
                      borderRadius={0}
                   />
-                  <ModalHeader>mukikkuku</ModalHeader>
-                  Material Exploration: Different materials were explored digitally to find the perfect balance of transparency, durability, and weight. Options like high-grade acrylic or transparent polycarbonate were considered.
+                
                   </Section>
 
                   <Section>
@@ -235,7 +221,7 @@ While the KODEPAD offers specific benefits for disabled creators, these features
                      width={ 'full' }
                      borderRadius={0}
                   />
-                  <ModalHeader>mhkhkjgkjfhh</ModalHeader>
+                
               
                   </Section>
 
