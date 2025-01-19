@@ -116,25 +116,26 @@ function CollapseExtandip() {
                   </Divider>
 
                   <SimpleGrid columns={1} spacingX='40px' spacingY='20px' mt={10}>
-                  
+                  {/*
                   <Image 
                     src='/images/works/keeb_ref.png'
                     alt='Project 3D 1'
                     width={ 'full' }
                     borderRadius={0}
-                  />
+                  /> */}
                   
 
-                
+                  <Section>
                   <Image 
-                    src='/images/works/Frame 1.jpg'
+                    src='/images/works/keenn.png'
                     alt='FIgma output'
-                    width={ 'full' }
+                    width={ 'container.lg' }
                     borderRadius={0}
                   />
+                  </Section>
                   
                   
-                  <Image 
+                  {/*<Image 
                     src='/images/works/keeb_1.png'
                     alt='Project 3D output'
                     borderRadius={0}
@@ -143,7 +144,7 @@ function CollapseExtandip() {
                   
                   
 
-                  <Section>
+                  
                   <Image 
                     src='/images/works/keeb_2.jpg'
                     alt='Project 3D output'
@@ -151,21 +152,18 @@ function CollapseExtandip() {
                     width={ 'full' }
                   />
                   
-                  </Section>
+                  
 
-                  <Section>
+                 
                   <Image 
                     src='/images/works/BOTASF.jpg'
                     alt='Project 3D 1'
                     borderRadius={0}
                     width={ 'full' }
                   />
-                  <ModalHeader> The beauty of these encoders lies in their programmability. 
-                    Using keyboard firmware like QMK, you can define what actions occur based
-                     on the rotation direction (clockwise/counter-clockwise) and even the number
-                      of clicks (rotations) made.</ModalHeader>
                   
-                  </Section>
+                  
+                
                   
 
                   <Section>
@@ -218,7 +216,7 @@ function CollapseExtandip() {
                   />
                 
               
-                  </Section>
+                  </Section>*/}
 
                    
                   </SimpleGrid>
@@ -285,7 +283,7 @@ function CollapseExtandip() {
                       aspectRatio: '16/9'
                     }}
                     />
-                  _____________________________________________________________________________________________     
+                     
                   <Image 
                     src='/images/works/kodbordrr.jpg'
                     alt='kodpad'
