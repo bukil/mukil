@@ -92,7 +92,7 @@ const Navbar = props => {
           fontWeight="hairline"
             target="_blank"
             fontSize={20}
-            href="/Mukil_resume.pdf"
+            href="/Mukil_Resume.pdf"
             path={path}
             display="inline-flex"
             alignItems="center"
@@ -138,7 +138,7 @@ const Navbar = props => {
             {/* Contact info 1st set------------------------------------------------------ */}
             <SimpleGrid columns={2} gap={1} gridTemplateColumns={'30px 1fr'} mb={3}> 
             <IoLogoLinkedin size={20}/> 
-            <Link target="https://www.linkedin.com/in/automotivedesigner/" href="https://www.linkedin.com/in/automotivedesigner/"  backgroundColor={'transparent'}
+            <Link target="https://www.linkedin.com/in/mukilk/" href="https://www.linkedin.com/in/mukilk/"  backgroundColor={'transparent'}
             _hover={{backgroundColor: 'transparent', textDecoration: 'underline'}} _active={{backgroundColor: 'transparent', textDecoration: 'underline'}} fontSize={13}>
                 LinkedIn/mukil kumar
             </Link>
@@ -172,7 +172,7 @@ const Navbar = props => {
             </SimpleGrid>
             <SimpleGrid columns={2} gap={1} gridTemplateColumns={'30px 1fr'} mb={3}> 
             <IoLogoInstagram size={20}/> 
-            <Link target="https://www.instagram.com/magna_kaizen/" href="https://www.instagram.com/magna_kaizen/"  backgroundColor={'transparent'}
+            <Link target="https://www.instagram.com/chintukla_pintukla/" href="https://www.instagram.com/chintukla_pintukla/"  backgroundColor={'transparent'}
             _hover={{backgroundColor: 'transparent', textDecoration: 'underline'}} _active={{backgroundColor: 'transparent', textDecoration: 'underline'}} fontSize={13}>
                 Instagram
             </Link>
