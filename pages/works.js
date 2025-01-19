@@ -262,7 +262,7 @@ function CollapseExtandip() {
               <ModalOverlay />
               <ModalContent>
               <center>
-              <ModalHeader as="h1" >KODE-PAD</ModalHeader>
+              <ModalHeader as="h1" >KODE-PAD Renders</ModalHeader>
               </center>
               <ModalCloseButton />
               <ModalBody>
@@ -294,11 +294,7 @@ function CollapseExtandip() {
                   />
                   
                     <Text fontSize={24} fontWeight={'hairline'}>
-                    Imagine a keyboard shrunk to its most essential 
-                    form, yet exploding with functionality. With just
-                     16-20 carefully chosen keys, the Mini Maestro 
-                     prioritizes efficiency and portability without 
-                     sacrificing power.
+                    
                     </Text>
                   <Divider orientation='horizontal'>
                   </Divider>
@@ -311,11 +307,7 @@ function CollapseExtandip() {
                     width={ 'full' }
                     borderRadius={0}
                   />
-                  <ModalHeader></ModalHeader>
-                  The KODEPAD can be a programmer&apos;s secret weapon.  The customizable keys 
-                  can be programmed with language-specific shortcuts or macros to streamline workflows.
-                    The rotary encoders can be used for scrolling through code or adjusting editor settings. 
-                     The compact design makes it easy to take to hackathons or coding meetups.
+                  
                   </Section>
 
                   <Section>
@@ -325,8 +317,7 @@ function CollapseExtandip() {
                     width={ 'full' }
                     borderRadius={0}
                   />
-                  <ModalHeader>DESIGN AND FUCTIONALITY</ModalHeader>
-                  Minimalist Design: The KODEPAD embraces a clean, minimalist aesthetic. Every element is carefully considered for maximum functionality with minimal footprint. This allows creators to focus on their work without visual clutter.
+                  
                   </Section>
 
                   <Section>
@@ -336,7 +327,7 @@ function CollapseExtandip() {
                     width={ 'full' }
                     borderRadius={0}
                   />
-                  <ModalHeader>SLEEK AND TRANSPARENT CONSTRUCTION</ModalHeader>
+                  
                   
                   </Section>
 
@@ -347,7 +338,6 @@ function CollapseExtandip() {
                     width={ 'full' }
                     borderRadius={0}
                   />
-                  <ModalHeader>RENDERING (CYCLES)</ModalHeader>
             
                   </Section>
 
@@ -358,7 +348,6 @@ function CollapseExtandip() {
                     width={ 'full' }
                     borderRadius={0}
                   />
-                  <ModalHeader>PROTOYPE MAKING JOURNEY</ModalHeader>
                   
                   </Section>
 
@@ -377,7 +366,7 @@ function CollapseExtandip() {
                       aspectRatio: '16/9'
                     }}
                     />
-                  <ModalHeader>ANIMATION RENDERING</ModalHeader>
+                  
                   
                   </Section>
                    
@@ -401,7 +390,7 @@ function CollapseExtandip() {
           KODE-PAD
         </Heading>
           <Text fontSize={'xs'} mb={10}>
-          KODEPAD: The Macro Magician in Your Backpack Pocket
+          KODEPAD Renders: The Macro Magician in Your Backpack Pocket
           </Text>
         </Stack>
          
