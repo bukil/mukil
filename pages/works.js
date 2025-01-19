@@ -77,7 +77,7 @@ function CollapseExtandip() {
           shadow='md'
         >
          
-         <SimpleGrid columns={[1]} gap={20} mt={10}>
+         <SimpleGrid columns={[2]} gap={20} mt={10}>
 
          <Section>
         
@@ -85,7 +85,7 @@ function CollapseExtandip() {
         <Imgtrans>
           <Button height={'auto'} onClick={onEditOpenmd0}>
            <Image 
-          src='/images/works/newpers.jpg'
+          src='/images/works/BOTASF.jpg'
           alt='User Experience'
           borderRadius='lg'
           />
