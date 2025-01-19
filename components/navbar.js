@@ -92,7 +92,7 @@ const Navbar = props => {
           fontWeight="hairline"
             target="_blank"
             fontSize={20}
-            href="/Mukil_Resume.pdf"
+            href="/Mukil_resume.pdf"
             path={path}
             display="inline-flex"
             alignItems="center"
