@@ -9,18 +9,16 @@ import {
   UnorderedList,
   Button,
   Text,
-
 } from '@chakra-ui/react'
 
 import Layout from '../components/layouts/article'
-import { ChevronRightIcon} from '@chakra-ui/icons'
+import { ChevronRightIcon } from '@chakra-ui/icons'
 import Section from '../components/section'
 import { Grid, GridItem } from '@chakra-ui/react'
 import Image from 'next/image'
 import { Divider, Progress } from '@chakra-ui/react'
 import { Spacer } from '@chakra-ui/react'
 import styled from '@emotion/styled'
-
 
 const Trans = styled.span`
   Button {
@@ -39,36 +37,30 @@ const ProfileImage = chakra(Image, {
 
 const Home = () => (
   <Layout>
-
     <Spacer mb={130}/>
- <Container maxW='container.lg'>
-
+    <Container maxW='container.lg'>
       <Box display={{ md:'flex'}}>
         <Box flexGrow={1}>
-        {/* <p>MUKIL</p>
-          <Heading as="h2" variant="page-title">
-            KUMAR
-          </Heading> */}
-           <Grid templateColumns='repeat(2, fr)'>
-           <GridItem w='100%' >
-              <Heading fontSize='7xl'  fontWeight="hairline">
+          <Grid templateColumns='repeat(2, fr)'>
+            <GridItem w='100%'>
+              <Heading fontSize='7xl' fontWeight="hairline">
                 MUKIL
               </Heading>
             </GridItem>
-            <GridItem w='100%' >
+            <GridItem w='100%'>
               <Heading fontSize='7xl' variant="page-title">
                 KUMAR
               </Heading>
             </GridItem>
-           </Grid>
+          </Grid>
           <p>COMPUTATIONAL DESIGNER / SOFTWARE DEVELOPER / AUTOMOBILES DESIGNER</p>
           <Image
-          alignItems={'flex-start'}
-          src="/images/Imag.png"   // Add image here!
-          alt="Img"
-          width={450} 
-      height={300}
-        />
+            alignItems={'flex-start'}
+            src="/images/Imag.png"
+            alt="Img"
+            width={450} 
+            height={300}
+          />
         </Box>
         <Box
           flexShrink={0}
@@ -95,118 +87,79 @@ const Home = () => (
           </Box>
         </Box>
       </Box>
+    </Container> 
 
-  
+    <Divider orientation='horizontal' mb={8} mt={6} />
+    <Spacer />
 
- </Container> 
-                                              {/* This Container have Name and image */}
- <Divider orientation='horizontal'
-  mb = {8}
-  mt ={6}
-  />
-
-  <Spacer />
-
-  <Container maxW='container.lg'
-             mt={2}
-             mb={2}
-             p={2}
-  >
+    <Container maxW='container.lg' mt={2} mb={2} p={2}>
       <Grid templateColumns='repeat(2, fr)' gap={20}>
-      <GridItem w='100%' >
-
-      <Section delay={0.3}>
-        <Heading fontSize="6xl"  fontWeight="hairline">
-          Introduction
-        </Heading>
-        <Text variant="home-txt" fontSize={14} fontWeight='normal'>
-        Hailing from Uttar Pradesh, India, I&apos;m Mukil an engineering graduate
-         with an insatiable design itch. From crafting intuitive, user-centered experiences, to the intricate workings of 
-         everyday machinery, anything with an engineering pulse sparks my imagination. 
-         My superpower? Transforming real-world challenges into design and tech solutions.
-        Think MacGyver meets the future! When I&apos;m not glued to the screen, you&apos;ll find me
-         lost in the rhythm of music, taking solitary walks to untangle thoughts (weird, but it works!),
-          and wielding my phone camera like a trusty sidekick, capturing inspiration on the go.
-        Right now, I&apos;m brewing up some exciting projects in my creative cauldron. Stay tuned!{' '}
-          <NextLink href="https://www.youtube.com/shorts/yOYycYeoM24" passHref scroll={false}>
-            <Link target="https://www.youtube.com/shorts/yOYycYeoM24">Dynamic Steering System</Link>
-          </NextLink>
-          .&quot;
-          <NextLink href="https://www.youtube.com/channel/UCVeGi7RNdtqN6_7G-rjdSGQ" passHref>
-            <Link target="https://www.youtube.com/channel/UCVeGi7RNdtqN6_7G-rjdSGQ">YT@Mukil</Link>
-          </NextLink>
-          &quot;
-        </Text>
-      </Section>
-
-{/*<Section delay={0.3}>
-        <Heading fontSize="6xl"  fontWeight="hairline">
-          Introduction
-        </Heading>
-        <Text variant="home-txt" fontSize={14} fontWeight='normal'>
-        I'm a passionate designer with a focus on crafting intuitive, user-centered experiences.
-         With a strong foundation in research, design thinking, and prototyping, I strive to bridge 
-         the gap between users and technology.
-        </Text>
-      </Section>*/}
-
-      </GridItem>
-
-      <GridItem w='100%' >
-
-      <Grid templateColumns='repeat(4, 5fr)' gap={2}>
         <GridItem w='100%'>
-
-        <Section delay={0.5}>
-        <Heading as="h5" variant="section-title" >
-          Languages
-        </Heading>
-
-        <UnorderedList mt={7}>
-          <ListItem>Hindi</ListItem>
-          <ListItem mt={5}>English</ListItem>
-          <ListItem mt={5}>Italian</ListItem>
-        </UnorderedList>
-
-      </Section>
-
+          <Section delay={0.3}>
+            <Heading fontSize="6xl" fontWeight="hairline">
+              Introduction
+            </Heading>
+            <Text variant="home-txt" fontSize={14} fontWeight='normal'>
+              Hailing from Uttar Pradesh, India, I&apos;m Mukil an engineering graduate
+              with an insatiable design itch. From crafting intuitive, user-centered experiences, 
+              to the intricate workings of everyday machinery, anything with an engineering pulse sparks my imagination. 
+              My superpower? Transforming real-world challenges into design and tech solutions.
+              Think MacGyver meets the future! When I&apos;m not glued to the screen, you&apos;ll find me
+              lost in the rhythm of music, taking solitary walks to untangle thoughts (weird, but it works!),
+              and wielding my phone camera like a trusty sidekick, capturing inspiration on the go.
+              Right now, I&apos;m brewing up some exciting projects in my creative cauldron. Stay tuned!{' '}
+              <Link href="https://www.youtube.com/shorts/yOYycYeoM24" isExternal>
+                Dynamic Steering System
+              </Link>
+              .&quot;
+              <Link href="https://www.youtube.com/channel/UCVeGi7RNdtqN6_7G-rjdSGQ" isExternal>
+                YT@Mukil
+              </Link>
+              &quot;
+            </Text>
+          </Section>
         </GridItem>
 
-        <GridItem w='120%' mt={10}>
-        <Progress value={95} size='sm' colorScheme='pink' mt={42} borderRadius={10}/>
-        <Progress value={85} size='sm' colorScheme='green' mt={6} borderRadius={10}/>
-        <Progress value={30} size='sm' colorScheme='blue' mt={6} borderRadius={10}/>
+        <GridItem w='100%'>
+          <Grid templateColumns='repeat(4, 5fr)' gap={2}>
+            <GridItem w='100%'>
+              <Section delay={0.5}>
+                <Heading as="h5" variant="section-title">
+                  Languages
+                </Heading>
+                <UnorderedList mt={7}>
+                  <ListItem>Hindi</ListItem>
+                  <ListItem mt={5}>English</ListItem>
+                  <ListItem mt={5}>Italian</ListItem>
+                </UnorderedList>
+              </Section>
+            </GridItem>
+            <GridItem w='120%' mt={10}>
+              <Progress value={95} size='sm' colorScheme='pink' mt={42} borderRadius={10}/>
+              <Progress value={85} size='sm' colorScheme='green' mt={6} borderRadius={10}/>
+              <Progress value={30} size='sm' colorScheme='blue' mt={6} borderRadius={10}/>
+            </GridItem>
+          </Grid>
         </GridItem>
       </Grid>
+    </Container>
 
-      </GridItem>
+    <Spacer/>
+    <Spacer/>
 
-      
-      </Grid>
-  </Container>                                {/* This Container have Work(About) and languages */}
-
-  <Spacer/>
-
-  
-  <Spacer/>
-
-<Trans>
-<Section>
-<Box align="center" my={4}>
-  
+    <Trans>
+      <Section>
+        <Box align="center" my={4}>
           <NextLink href="/works" passHref scroll={true}>
-            <Button borderRadius='20px' variant='outline' border='2px' borderColor='black' rightIcon={<ChevronRightIcon />} >
-                CLICK TO SEE MORE ABOUT MY WORK
+            <Button borderRadius='20px' variant='outline' border='2px' borderColor='black' rightIcon={<ChevronRightIcon />}>
+              CLICK TO SEE MORE ABOUT MY WORK
             </Button>
           </NextLink>
         </Box>
-</Section>
-</Trans>
+      </Section>
+    </Trans>
 
-  <Spacer/>
-
-
-
+    <Spacer/>
   </Layout>
 )
 
