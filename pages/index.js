@@ -53,14 +53,7 @@ const Home = () => (
               </Heading>
             </GridItem>
           </Grid>
-          <p>COMPUTATIONAL DESIGNER / SOFTWARE DEVELOPER / AUTOMOBILES DESIGNER</p>
-          <Image
-            alignItems={'flex-start'}
-            src="/images/Imag.png"
-            alt="Img"
-            width={450} 
-            height={300}
-          />
+          <p>CInteraction Designer · Creative Technologist · Electronics Engineer</p>
         </Box>
         <Box
           flexShrink={0}
