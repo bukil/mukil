@@ -1,22 +1,11 @@
-import { Container, Divider, Heading, SimpleGrid,Link} from '@chakra-ui/react'
+import { Container, Divider, Heading, SimpleGrid, Link, Stack, Image, Text, Button, useDisclosure, Collapse, Box, Spacer, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton } from '@chakra-ui/react'
+import { ChevronDownIcon, ChevronLeftIcon } from '@chakra-ui/icons'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
-import {Stack,Image,Text,Button,useDisclosure,Collapse,Box } from '@chakra-ui/react'
 import styled from '@emotion/styled'
-import { Spacer } from '@chakra-ui/react'
 import NextLink from 'next/link'
-import { ChevronDownIcon, ChevronLeftIcon} from '@chakra-ui/icons'
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton
-} from '@chakra-ui/react'
 
-
+// Styled components
 const Trans = styled.span`
   Button {
     transition: 800ms ease;
@@ -27,25 +16,24 @@ const Trans = styled.span`
     transform: translate(-30px, 0px);
   }
 `
+
 const Imgtrans = styled.span`
-
-Button {
-  transform: rotate(0deg);
-  border-radius: 10px;
-  padding: 1px 1px;
-  display: inline-block;
-  cursor: pointer;
-  -webkit-transition: ease-out 0.4s;
-  -moz-transition: ease-out 0.4s;
-  transition: ease-out 0.4s;
-  background: transparent;
-
-}
-&:hover Button {
-  transform: translate(20px, 0px);
-  background: transparent;
-}
-}
+  Button {
+    transform: rotate(0deg);
+    border-radius: 10px;
+    padding: 1px 1px;
+    display: inline-block;
+    cursor: pointer;
+    -webkit-transition: ease-out 0.4s;
+    -moz-transition: ease-out 0.4s;
+    transition: ease-out 0.4s;
+    background: transparent;
+  }
+  
+  &:hover Button {
+    transform: translate(20px, 0px);
+    background: transparent;
+  }
 `
 
 // ===================== Part =================
@@ -441,7 +429,7 @@ function CollapseExtandip() {
                     borderRadius={15}
                   />
                   <ModalHeader>What can it Changes</ModalHeader>
-                  One day, he decided to do something about it. He thought of an idea that could help him drive a vehicle with his left hand disabled. He decided to use his knowledge of technology and create a prototype that could control a vehicle with optical encoder, it is a high accuracy small sensor use in industrial purpose. He thought that if he could control the vehicle with only right hand with the help of sensor, he wouldn’t need to use his left hands at all. he realises that the abilities of the Encoder based steering system is more than anybody think
+                  One day, he decided to do something about it. He thought of an idea that could help him drive a vehicle with his left hand disabled. He decided to use his knowledge of technology and create a prototype that could control a vehicle with optical encoder, it is a high accuracy small sensor use in industrial purpose. He thought that if he could control the vehicle with only right hand with the help of sensor, he wouldn't need to use his left hands at all. he realises that the abilities of the Encoder based steering system is more than anybody think
                   </Section>
 
                   <Section>
@@ -463,7 +451,7 @@ function CollapseExtandip() {
                     width={ 'container.lg' }
                   />
                   <ModalHeader>Prototypiing</ModalHeader>
-                  After several days of hard work, he finally completed his project. He had created optical encoder(sensor) based vehicle controller that could connect to the car’s system and control its functions. He had tested the device in simulation first and successful in it.
+                  After several days of hard work, he finally completed his project. He had created optical encoder(sensor) based vehicle controller that could connect to the car's system and control its functions. He had tested the device in simulation first and successful in it.
                   </Section>
 
                   <Section>
@@ -1473,7 +1461,7 @@ so Forget the scissor doors. Taurus embraces a radical approach with doors that 
           borderRadius='lg'
           />
                   <ModalHeader>Texture and Volume Rendering</ModalHeader>
-                  Next, I added some shading and highlights to the sketch using different shades of gray. I used a soft brush tool with low opacity to create smooth gradients and shadows. I also used a hard eraser tool to erase some parts of the outline and make the sketch look more realistic. I paid attention to the light source and how it reflected on the car’s surface.
+                  Next, I added some shading and highlights to the sketch using different shades of gray. I used a soft brush tool with low opacity to create smooth gradients and shadows. I also used a hard eraser tool to erase some parts of the outline and make the sketch look more realistic. I paid attention to the light source and how it reflected on the car's surface.
                   </Section>
 
                   <Section>
@@ -1565,7 +1553,7 @@ so Forget the scissor doors. Taurus embraces a radical approach with doors that 
                   <Section>
                   <Image src='/images/works/buga.jpg' alt='Bugatti veyron 16.4' borderRadius='lg'/>
                   <ModalHeader>Light Source and Surfacing</ModalHeader>
-                  I added some shading and highlights to the sketch using different shades of gray. I used a soft brush tool with low opacity to create smooth gradients and shadows. I also used a hard eraser tool to erase sharp reflection parts of the outline and make the sketch look more realistic. I paid attention to the light source and how it reflected on the car’s surface.
+                  I added some shading and highlights to the sketch using different shades of gray. I used a soft brush tool with low opacity to create smooth gradients and shadows. I also used a hard eraser tool to erase sharp reflection parts of the outline and make the sketch look more realistic. I paid attention to the light source and how it reflected on the car's surface.
                   </Section>
 
                   <Section>
@@ -1686,7 +1674,7 @@ One of my projects was to visualize the 3D Drone concept under the mentorship of
           />
                   <ModalHeader>Prior Design Proposals</ModalHeader>
                   I got inspired by a Spider. Spiders are fast and aggressive. They help farmers by
-feeding on crop-destroying Bugs. The venom from a black widow spider may cause muscle aches, nausea, a paralysis of the diaphragm, and potentially death, but it’s being used in inventive ways in medicine.
+feeding on crop-destroying Bugs. The venom from a black widow spider may cause muscle aches, nausea, a paralysis of the diaphragm, and potentially death, but it's being used in inventive ways in medicine.
 
                   </Section>
 
@@ -1699,8 +1687,8 @@ feeding on crop-destroying Bugs. The venom from a black widow spider may cause 
                   <ModalHeader>Physical assembly and visualisation</ModalHeader>
                   The main challenges that we faced were:
 We, teammates, were from distant locations and we both were also at a
-long distance from eYantra’s Office. This makes the process more
-tedious. If we were nearer to eYantra’s office, we would have surely
+long distance from eYantra's Office. This makes the process more
+tedious. If we were nearer to eYantra's office, we would have surely
 taken a visit to complete in a fast and easier manner. Our mentors
 helped us a lot by providing dimensions and other details whenever
 necessary.
@@ -1969,7 +1957,7 @@ windshield and no roof. In this project I recreate a Ferrari Monza SP1 in blende
           mb={10}
           />
           <Text fontSize={24} fontWeight={'hairline'}>
-          The peacock feather is a symbol of beauty, grace and divinity in Hindu mythology. It adorns the crown of Lord Krishna, the supreme personality of Godhead, who is the source of all creation and the embodiment of love. Inspired by this sacred motif, I have designed a car that reflects the qualities of Krishna and his feather. Our car is sleek, elegant and colorful, with a peacock feather pattern on the hood and the doors. The car also features a state-of-the-art sound system that plays soothing melodies of Krishna’s flute, creating a serene and blissful atmosphere for the driver and passengers. Our car is not just a vehicle, but a tribute to the almighty Lord Krishna and his divine grace.
+          The peacock feather is a symbol of beauty, grace and divinity in Hindu mythology. It adorns the crown of Lord Krishna, the supreme personality of Godhead, who is the source of all creation and the embodiment of love. Inspired by this sacred motif, I have designed a car that reflects the qualities of Krishna and his feather. Our car is sleek, elegant and colorful, with a peacock feather pattern on the hood and the doors. The car also features a state-of-the-art sound system that plays soothing melodies of Krishna's flute, creating a serene and blissful atmosphere for the driver and passengers. Our car is not just a vehicle, but a tribute to the almighty Lord Krishna and his divine grace.
                     </Text>
                   <Divider orientation='horizontal'>
                   </Divider>
@@ -2268,7 +2256,7 @@ function CollapseExtart() {
           borderRadius='lg'
           mb={10}
           /><Text fontSize={24} fontWeight={'hairline'}>
-                    It’s not a bug or unmannered section. It’s an undocumented feature of the site!
+                    It's not a bug or unmannered section. It's an undocumented feature of the site!
                     </Text>
                   <Divider orientation='horizontal'>
                   </Divider>
