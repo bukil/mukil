@@ -2256,7 +2256,7 @@ function CollapseExtart() {
           borderRadius='lg'
           mb={10}
           /><Text fontSize={24} fontWeight={'hairline'}>
-                    It's not a bug or unmannered section. It's an undocumented feature of the site!
+                    It&apos;s not a bug or unmannered section. It&apos;s an undocumented feature of the site!
                     </Text>
                   <Divider orientation='horizontal'>
                   </Divider>
