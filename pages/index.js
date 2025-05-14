@@ -52,7 +52,7 @@ const Home = () => (
               </Heading>
             </GridItem>
           </Grid>
-          <p>CInteraction Designer · Creative Technologist · Electronics Engineer</p>
+          <p>INTERACTION DESIGNER · CREATIVE TECHNOLOGIST · ELECTRONICS ENGINEER</p>
         </Box>
         <Box
           flexShrink={0}
