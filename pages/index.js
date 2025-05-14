@@ -112,28 +112,6 @@ const Home = () => (
             </Text>
           </Section>
         </GridItem>
-
-        <GridItem w='100%'>
-          <Grid templateColumns='repeat(4, 5fr)' gap={2}>
-            <GridItem w='100%'>
-              <Section delay={0.5}>
-                <Heading as="h5" variant="section-title">
-                  Languages
-                </Heading>
-                <UnorderedList mt={7}>
-                  <ListItem>Hindi</ListItem>
-                  <ListItem mt={5}>English</ListItem>
-                  <ListItem mt={5}>Italian</ListItem>
-                </UnorderedList>
-              </Section>
-            </GridItem>
-            <GridItem w='120%' mt={10}>
-              <Progress value={95} size='sm' colorScheme='pink' mt={42} borderRadius={10}/>
-              <Progress value={85} size='sm' colorScheme='green' mt={6} borderRadius={10}/>
-              <Progress value={30} size='sm' colorScheme='blue' mt={6} borderRadius={10}/>
-            </GridItem>
-          </Grid>
-        </GridItem>
       </Grid>
     </Container>
 
