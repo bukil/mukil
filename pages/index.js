@@ -5,8 +5,6 @@ import {
   Heading,
   Box,
   chakra,
-  ListItem,
-  UnorderedList,
   Button,
   Text,
 } from '@chakra-ui/react'
@@ -16,7 +14,7 @@ import { ChevronRightIcon } from '@chakra-ui/icons'
 import Section from '../components/section'
 import { Grid, GridItem } from '@chakra-ui/react'
 import Image from 'next/image'
-import { Divider, Progress } from '@chakra-ui/react'
+import { Divider } from '@chakra-ui/react'
 import { Spacer } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 
