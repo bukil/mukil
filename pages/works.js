@@ -998,7 +998,7 @@ function CollapseExtandi() {
     <Button borderRadius='10px' variant='outline' leftIcon={<ChevronDownIcon />} onClick={onToggle} fontSize={20}
       mt='0'
       >
-        TRANSPORTATION AND INDUSTRIAL
+        Also check out
       </Button>
       <Collapse in={!isOpen} animateOpacity>
         <Box
@@ -1891,7 +1891,7 @@ windshield and no roof. In this project I recreate a Ferrari Monza SP1 in blende
                   controls
                   autoplay
                   src='/images/works/CYC.mkv'
-                  poster='images/works/terzo_128.jpg'
+                  poster='/images/works/terzo_128.jpg'
                   borderRadius={15}
                   alt='Big Buck Bunny'
                   objectFit='contain'
@@ -2029,437 +2029,32 @@ windshield and no roof. In this project I recreate a Ferrari Monza SP1 in blende
 
 // ================ End of Work Section =========================
 
-
-// ============= Coll ===========================================
-<Divider orientation='horizontal'>
-</Divider>
-function CollapseExtart() {
-  const { isOpen, onToggle } = useDisclosure()
-  const { isOpen: isEditOpenmd1 , onOpen: onEditOpenmd1, onClose: onEditClosemd1 } = useDisclosure()
-  const { isOpen: isEditOpenmd2 , onOpen: onEditOpenmd2, onClose: onEditClosemd2 } = useDisclosure()
-  
-  return (
-    <>
-    <Divider orientation='horizontal'>
-    </Divider>
-      <Button borderRadius='10px' variant='outline' leftIcon={<ChevronDownIcon />} onClick={onToggle} fontSize={20}
-      mt='16'
-      >
-        Also check out...
-      </Button>
-      <Collapse in={!isOpen} animateOpacity>
-        <Box
-          p='1px'
-          color='white'
-          mt='2'
-          rounded='md'
-          shadow='md'
-        >
-         {/* Works Content */}
-         <SimpleGrid columns={[3]} gap={10} mt={10}>
-        {/* Starting of Cards - Add or Remove Work cards here */}
-          {/* Bugatti + Mclaren */}
-            <Section>
-        {/* Bugatti 1 Car Content 1 */}
-        
-        <Imgtrans>
-          <Button height={'auto'} onClick={onEditOpenmd1}>
-           <Image 
-          src='/images/works/ske.png'
-          alt='Project'
-          borderRadius='lg'
-          />
-
-            {/* ===================Bugatti Chiron Edit Modal===================================================== */}
-          <Modal isOpen={isEditOpenmd1} onClose={onEditClosemd1} size={'full'} scrollBehavior={'outside'}>
-              <ModalOverlay />
-              <ModalContent>
-              <center>
-              <ModalHeader as="h1" >ART AND ANIMATION 📽️</ModalHeader>
-              </center>
-              <ModalCloseButton />
-              <ModalBody>
-                    
-              <center>
-                 
-                  
-                    <Text fontSize={24} fontWeight={'hairline'}>
-                    
-                    </Text>
-                  <Divider orientation='horizontal'>
-                  </Divider>
-
-                  <SimpleGrid columns={1} spacingX='40px' spacingY='20px' mt={10}>
-                  <Section>
-                  
-                    <Box
-                    as='video'
-                    controls
-                    src='/images/works/fgh.mp4'
-                    poster='/images/works/koegfro1.png'
-                    alt='Koenigsegg cc850 video'
-                    width={ 'container.lg' }
-
-                    objectFit='contain'
-                    sx={{
-                      aspectRatio: '16/9'
-                    }}
-                />
-                  <ModalHeader>KOENIGSEGG CC850</ModalHeader>
-          A small part of designing the Koenigsegg CC850 in Autodesk Sketchbook
-                  </Section>
-
-                  <Section>
-                  <Box
-                    as='video'
-                    controls
-                    src='/images/works/race.mp4'
-                    poster='/images/works/tar1.png'
-                    alt='Race animation'
-                    width={ 'container.lg' }
-
-                    objectFit='contain'
-                    sx={{
-                      aspectRatio: '16/9'
-                    }}
-                    />
-                  <ModalHeader>DRONE RACE ANIMATION</ModalHeader>
-                  This project is a part of my internship at E-Yantra Indian Institute of Technology Bombay (IITB) I was working as a product designer in team, where we were Designing a multipurpose Drone structure. One of my projects was to visualize the 3D Drone concept under the mentorship of Mr. Maddu Murali and we named it TAREN. Taren is a stealth multipurpose drone inspired by a tarantula spider which shows the symbol of aggression and speed, Taren is not only equipped with aesthetics but intelligence also This is why we have wicked smart NVIDIA® Jetson Xavier onboard.
-                  </Section>
-
-                  <Section>
-                  <Image 
-                    src='/images/works/design.jpg'
-                    alt='Industrtial design'
-                    width={ 'container.lg' }
-                  />
-                  <ModalHeader>FLOWER PLUCK MECHANISM</ModalHeader>
-                  
-                  </Section>
-
-                  <Section>
-                  <Image 
-                    src='/images/works/WORKING.jpg'
-                    alt='Industrial'
-                    width={ 'container.lg' }
-                  />
-                  <ModalHeader>WORKING MECHANISM</ModalHeader>
-                 
-                  </Section>
-
-                  <Section>
-                    <Box
-                    as='video'
-                    controls
-                    src='/images/works/rat45.mkv'
-          
-                    alt='Koenigsegg cc850 video'
-                    width={ 'container.lg' }
-
-                    objectFit='contain'
-                    sx={{
-                      aspectRatio: '16/9'
-                    }}
-                />
-                  <ModalHeader>LAMBORGHINI ANIMATION</ModalHeader>
-          A Small animation shows the suspensionn rigging and environment
-                  </Section>
-                  <Section>
-                    <Box
-                    as='video'
-                    controls
-                    src='/images/works/rat46.mkv'
-          
-                    alt='camera dynamic'
-                    width={ 'container.lg' }
-
-                    objectFit='contain'
-                    sx={{
-                      aspectRatio: '16/9'
-                    }}
-                />
-                  <ModalHeader>CAMERA DYNAMIC WITH PORSCHE</ModalHeader>
-          A Small animation of Porsche 911 with dynamic camera and low poly environment
-                  </Section>
-              
-                  <Section>
-                  <Box
-                    as='video'
-                    controls
-                    src='/images/works/SPD.mkv'
-                    poster='/images/works/Space.jpg'
-                    alt='space azure'
-                    width={ 'container.lg' }
-
-                    objectFit='contain'
-                    sx={{
-                      aspectRatio: '16/9'
-                    }}
-                    />
-                  <ModalHeader>SPACE RENDER</ModalHeader>
-                  
-                  </Section>
-                   
-                  </SimpleGrid>
-                    <Divider orientation='horizontal' mb={10}>
-                    </Divider>
-                    I post ferquently on my Instagram handle 
-                    <NextLink href="https://www.instagram.com/magna_kaizen/" passHref scroll={false}>
-                      <Link> MUKIL</Link>
-                    </NextLink>
-                     
-                  </center>
-              </ModalBody>
-              <ModalFooter>
-              <Button variant="ghost" mr={3} onClick={onEditClosemd1}>Close</Button>
-              </ModalFooter>
-              </ModalContent>
-          </Modal>
-          {/* ===================================================================================== */}
-
-           </Button>
-          </Imgtrans>
-          <Stack mt='6' spacing='3' mb={10}>
-          <Heading as="h2"  fontWeight="hairline">
-          ANIMATION AND VIDEOS
-        </Heading>
-          <Text fontSize={'xs'} mb={10}>
-          This one is awesome 📽️
-          </Text>
-        </Stack>
-         
-            </Section>
-
-            <Section>
-            <Imgtrans mt={10}>
-          <Button height={'auto'} onClick={onEditOpenmd2}>
-            <Image 
-          src='/images/works/MKJRT.jpg'
-          alt='raw work'
-          borderRadius='lg'
-          />
-
-          {/* ===================Bugatti Chiron Edit Modal===================================================== */}
-          <Modal isOpen={isEditOpenmd2} onClose={onEditClosemd2} size={'full'} scrollBehavior={'outside'}>
-              <ModalOverlay />
-              <ModalContent>
-              <center>
-              <ModalHeader as="h1" >WORKFLOW DESIGNS AND SKETCHS</ModalHeader>
-              </center>
-              <ModalCloseButton />
-              <ModalBody>
-                    
-              <center>
-                 
-              <Image 
-          src='/images/works/Logo.png'
-          alt='Mukil'
-          borderRadius='lg'
-          mb={10}
-          /><Text fontSize={24} fontWeight={'hairline'}>
-                    It&apos;s not a bug or unmannered section. It&apos;s an undocumented feature of the site!
-                    </Text>
-                  <Divider orientation='horizontal'>
-                  </Divider>
-
-                  <SimpleGrid columns={2} spacingX='40px' spacingY='20px' mt={10}>
-                  
-                  <Section>
-                  <Image 
-          src='/images/works/cycle port1.jpg'
-          alt='design'
-          borderRadius='lg'
-          />
-            
-                  </Section>
-                  <Section>
-
-
-                  <Image 
-          src='/images/works/MdDX.jpg'
-          alt='un'
-          borderRadius='lg'
-          />
-          </Section>
-
-          <Section>
-                  <Image 
-          src='/images/works/MKJRT.jpg'
-          alt='un'
-          borderRadius='lg'
-          />
-          </Section>
-          <Section>
-                  <Image 
-          src='/images/works/MKJRT2.jpg'
-          alt='un'
-          borderRadius='lg'
-          />
-          </Section>
-
-          <Section>
-                  <Image 
-          src='/images/works/mordde.jpg'
-          alt='un'
-          borderRadius='lg'
-          />
-          </Section>
-
-          <Section>
-                  <Image 
-          src='/images/works/MKJRT3d1.jpg'
-          alt='un'
-          borderRadius='lg'
-          />
-          </Section>
-
-          <Section>
-                  <Image 
-          src='/images/works/MKJRT3d2d.jpg'
-          alt='un'
-          borderRadius='lg'
-          />
-          </Section>
-            
-            
-
-                  <Section>
-                  <Image 
-          src='/images/works/merce.jpg'
-          alt='benz'
-          borderRadius='lg'
-          />
-            
-                  </Section>
-
-                  <Section>
-                  <Image 
-          src='/images/works/khh.jpg'
-          alt='work0'
-          borderRadius='lg'
-          />
-            
-                  </Section>
-
-                  <Section>
-                  <Image 
-          src='/images/works/kh1.jpg'
-          alt='work'
-          borderRadius='lg'
-          />
-            
-                  </Section>
-
-                  <Section>
-                  <Image 
-          src='/images/works/kh2.jpg'
-          alt='carsketch'
-          borderRadius='lg'
-          />
-            
-                  </Section>
-                  <Section>
-                  <Image 
-          src='/images/works/KOENIGSEGG CC3.png'
-          alt='Koenigsegg CC850'
-          borderRadius='lg'
-          />
-            
-                  </Section>
-                  <Section>
-                  <Image 
-          src='/images/works/mgh.jpg'
-          alt='design'
-          borderRadius='lg'
-          />
-            
-                  </Section>
-                  <Section>
-                  <Image 
-          src='/images/works/drone3.png'
-          alt='design'
-          borderRadius='lg'
-          />
-            
-                  </Section>
-                  
-                   
-                  </SimpleGrid>
-                    <Divider orientation='horizontal' mb={10}>
-                    </Divider>
-                    Disclaimer:The design and logo name used on this website are the intellectual property of respective owners.
-                  </center>
-              </ModalBody>
-              <ModalFooter>
-              <Button variant="ghost" mr={3} onClick={onEditClosemd2}>Close</Button>
-              </ModalFooter>
-              </ModalContent>
-          </Modal>
-          {/* ===================================================================================== */}
-
-
-          </Button>
-          </Imgtrans>
-          <Stack mt='6' spacing='3'>
-          <Heading as="h2"  fontWeight="hairline">
-          SOME UNFURNISHED WORK
-        </Heading>
-          <Text fontSize={'xs'}>
-          Incomplete and Raw Designs workflow(ADHD)
-          </Text>
-        </Stack></Section>    
-          {/* Bugatti + Mclaren */}
-      
-
-
-
-      {/* Ending of Cards - Add or Remove Work cards here */}
-      </SimpleGrid>
-         {/* Works Content */}
-        </Box>
-      </Collapse>
-    </>
-  )
-}
-
-
 const Works = () => (
-  
   <Layout title="Works" mt={10}>
-
-<Section>
+    <Section>
       <Heading as="h3" fontSize={50} mb={15} mt={10}>
-       <CollapseExtandip/>
+        <CollapseExtandip/>
       </Heading>
-      </Section>
-    
+    </Section>
+    <Section>
+      <Heading as="h3" fontSize={50} mb={15} mt={10}>
+        <CollapseExtandi/>
+      </Heading>
+    </Section>
+    <Spacer/>
+    <Spacer/>
+    <Trans>
       <Section>
-      <Heading as="h3" fontSize={50} mb={15} mt={10}>
-       <CollapseExtandi/>
-      </Heading>
-      </Section>
-      <Spacer/>
-      <Section>
-      <Heading as="h3" fontSize={50} mb={15} mt={10}>
-       <CollapseExtart/>
-      </Heading>
-      </Section>
-      <Spacer/>
-
-<Trans>
-<Section>
-<Box align="center" my={4}>
+        <Box align="center" my={4}>
           <NextLink href="/" passHref scroll={true}>
             <Button borderRadius='20px' variant='outline' border='1px' 
-            borderColor='black.500' mt='10' leftIcon={<ChevronLeftIcon />}>
+              borderColor='black.500' mt='10' leftIcon={<ChevronLeftIcon />}>
                 GO BACK TO HOME PAGE
             </Button>
-            
           </NextLink>
         </Box>
-</Section>
-</Trans>
-
+      </Section>
+    </Trans>
   </Layout>
 )
 
