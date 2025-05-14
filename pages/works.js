@@ -1957,7 +1957,7 @@ windshield and no roof. In this project I recreate a Ferrari Monza SP1 in blende
           mb={10}
           />
           <Text fontSize={24} fontWeight={'hairline'}>
-          The peacock feather is a symbol of beauty, grace and divinity in Hindu mythology. It adorns the crown of Lord Krishna, the supreme personality of Godhead, who is the source of all creation and the embodiment of love. Inspired by this sacred motif, I have designed a car that reflects the qualities of Krishna and his feather. Our car is sleek, elegant and colorful, with a peacock feather pattern on the hood and the doors. The car also features a state-of-the-art sound system that plays soothing melodies of Krishna's flute, creating a serene and blissful atmosphere for the driver and passengers. Our car is not just a vehicle, but a tribute to the almighty Lord Krishna and his divine grace.
+          The peacock feather is a symbol of beauty, grace and divinity in Hindu mythology. It adorns the crown of Lord Krishna, the supreme personality of Godhead, who is the source of all creation and the embodiment of love. Inspired by this sacred motif, I have designed a car that reflects the qualities of Krishna and his feather. Our car is sleek, elegant and colorful, with a peacock feather pattern on the hood and the doors. The car also features a state-of-the-art sound system that plays soothing melodies of Krishna&apos;s flute, creating a serene and blissful atmosphere for the driver and passengers. Our car is not just a vehicle, but a tribute to the almighty Lord Krishna and his divine grace.
                     </Text>
                   <Divider orientation='horizontal'>
                   </Divider>
