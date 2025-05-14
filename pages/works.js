@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import { Container, Divider, Heading, SimpleGrid, Link, Stack, Image, Text, Button, useDisclosure, Collapse, Box, Spacer, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton } from '@chakra-ui/react'
+import { Container, Divider, Heading, SimpleGrid, Stack, Image, Text, Button, useDisclosure, Collapse, Box, Spacer, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton } from '@chakra-ui/react'
 import { ChevronDownIcon, ChevronLeftIcon } from '@chakra-ui/icons'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
