@@ -429,7 +429,7 @@ function CollapseExtandip() {
                     borderRadius={15}
                   />
                   <ModalHeader>What can it Changes</ModalHeader>
-                  One day, he decided to do something about it. He thought of an idea that could help him drive a vehicle with his left hand disabled. He decided to use his knowledge of technology and create a prototype that could control a vehicle with optical encoder, it is a high accuracy small sensor use in industrial purpose. He thought that if he could control the vehicle with only right hand with the help of sensor, he wouldn't need to use his left hands at all. he realises that the abilities of the Encoder based steering system is more than anybody think
+                  One day, he decided to do something about it. He thought of an idea that could help him drive a vehicle with his left hand disabled. He decided to use his knowledge of technology and create a prototype that could control a vehicle with optical encoder, it is a high accuracy small sensor use in industrial purpose. He thought that if he could control the vehicle with only right hand with the help of sensor, he wouldn&apos;t need to use his left hands at all. he realises that the abilities of the Encoder based steering system is more than anybody think
                   </Section>
 
                   <Section>
@@ -451,7 +451,7 @@ function CollapseExtandip() {
                     width={ 'container.lg' }
                   />
                   <ModalHeader>Prototypiing</ModalHeader>
-                  After several days of hard work, he finally completed his project. He had created optical encoder(sensor) based vehicle controller that could connect to the car's system and control its functions. He had tested the device in simulation first and successful in it.
+                  After several days of hard work, he finally completed his project. He had created optical encoder(sensor) based vehicle controller that could connect to the car&apos;s system and control its functions. He had tested the device in simulation first and successful in it.
                   </Section>
 
                   <Section>
