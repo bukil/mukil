@@ -48,6 +48,7 @@ function CollapseExtandip() {
   const { isOpen: isEditOpenmd3 , onOpen: onEditOpenmd3, onClose: onEditClosemd3 } = useDisclosure()
   const { isOpen: isEditOpenmd9 , onOpen: onEditOpenmd9, onClose: onEditClosemd9 } = useDisclosure()
   const { isOpen: isEditOpenmd11 , onOpen: onEditOpenmd11, onClose: onEditClosemd11 } = useDisclosure()
+  const { isOpen: isEditOpenmd12 , onOpen: onEditOpenmd12, onClose: onEditClosemd12 } = useDisclosure()
   return (
     <>
     
@@ -228,6 +229,173 @@ function CollapseExtandip() {
           KODE/BOARD
         </Heading>
         <Text fontSize={'xs'} mb={10}>
+          Here is a keyboard concept ( kode board 🙃 ) , Copy, paste, repeat... but not as you know it. Multi-layer clipboard on fingertips like seamlessly storing your snippets for instant recall. 🪄
+          </Text>
+        </Stack>
+         
+            </Section>
+
+        
+            <Section>
+        
+        
+        <Imgtrans>
+          <Button height={'auto'} onClick={onEditOpenmd12}>
+           <Image 
+          src='/images/works/BOTASF.jpg'
+          alt='User Experience'
+          borderRadius='lg'
+          />
+
+           
+          <Modal isOpen={isEditOpenmd12} onClose={onEditClosemd12} size={'full'} scrollBehavior={'outside'}>
+              <ModalOverlay />
+              <ModalContent>
+              <center>
+              <ModalHeader as="h1" >JokifAI</ModalHeader>
+              </center>
+              <ModalCloseButton />
+              <ModalBody>
+                    
+              <center>
+                 
+                  <Image 
+                    src='/images/works/keeb_post.png'
+                    alt='KODE-BOARD'
+                    width={ 'full' }
+                    borderRadius={0}
+                    mb={0}
+                    
+                  />
+                    <Text fontSize={24} fontWeight={'hairline'}>
+                    </Text>
+                  <Divider orientation='horizontal'>
+                  </Divider>
+
+                  <SimpleGrid columns={1} spacingX='40px' spacingY='20px' mt={10}>
+                  {/*
+                  <Image 
+                    src='/images/works/keeb_ref.png'
+                    alt='Project 3D 1'
+                    width={ 'full' }
+                    borderRadius={0}
+                  /> */}
+                  
+
+                  <Section>
+                  <Image 
+                    src='/images/works/keenn.png'
+                    alt='FIgma output'
+                    width={ 'container.lg' }
+                    borderRadius={0}
+                  />
+                  </Section>
+                  
+                  
+                  {/*<Image 
+                    src='/images/works/keeb_1.png'
+                    alt='Project 3D output'
+                    borderRadius={0}
+                    width={ 'full' }
+                  />
+                  
+                  
+
+                  
+                  <Image 
+                    src='/images/works/keeb_2.jpg'
+                    alt='Project 3D output'
+                    borderRadius={0}
+                    width={ 'full' }
+                  />
+                  
+                  
+
+                 
+                  <Image 
+                    src='/images/works/BOTASF.jpg'
+                    alt='Project 3D 1'
+                    borderRadius={0}
+                    width={ 'full' }
+                  />
+                  
+                  
+                
+                  
+
+                  <Section>
+                  <Image
+                    src='/images/works/nww.jpg'
+                    alt='Project 3D 1'
+                     width={ 'full' }
+                     borderRadius={0}
+                  />
+                
+                  </Section>
+
+                  <Section>
+                  <Image
+                    src='/images/works/newpers2.jpg'
+                    alt='Project 3D 1'
+                     width={ 'full' }
+                     borderRadius={0}
+                  />
+            
+                  </Section>
+                  
+
+                  <Section>
+                  <Image
+                    src='/images/works/newpers.jpg'
+                    alt='Project 3D 1'
+                     width={ 'full' }
+                     borderRadius={0}
+                  />
+                  
+ 
+                  </Section>
+                  <Section>
+                  <Image
+                    src='/images/works/newperjjgjgg.jpg'
+                    alt='Project 3D 1'
+                     width={ 'full' }
+                     borderRadius={0}
+                  />
+                
+                  </Section>
+
+                  <Section>
+                  <Image
+                    src='/images/works/lov.jpg'
+                    alt='Project 3D 1'
+                     width={ 'full' }
+                     borderRadius={0}
+                  />
+                
+              
+                  </Section>*/}
+
+                   
+                  </SimpleGrid>
+                    <Divider orientation='horizontal' mb={10}>
+                    </Divider>
+                   
+                  </center>
+              </ModalBody>
+              <ModalFooter>
+              <Button variant="ghost" mr={3} onClick={onEditClosemd12}>Close</Button>
+              </ModalFooter>
+              </ModalContent>
+          </Modal>
+         
+
+           </Button>
+          </Imgtrans>
+          <Stack mt='6' spacing='3' mb={10}>
+          <Heading as="h2"  fontWeight="hairline">
+          JokifAI
+        </Heading>
+          <Text fontSize={'xs'} mb={10}>
           Here is a keyboard concept ( kode board 🙃 ) , Copy, paste, repeat... but not as you know it. Multi-layer clipboard on fingertips like seamlessly storing your snippets for instant recall. 🪄
           </Text>
         </Stack>
@@ -503,10 +671,10 @@ Should be able to handle parking and low speed maneuvers safely
           </Imgtrans>
           <Stack mt='6' spacing='3' mb={10}>
           <Heading as="h2"  fontWeight="hairline">
-          OPTICAL ENCODER STEERING SYSTEM
+          MICROINTERACTION CLASS ASSIGNMENT
         </Heading>
           <Text fontSize={'xs'} mb={10}>
-          Optical Encoder Steering System for Enhanced User Experience
+          Microinteraction is a small, interactive element that occurs when a user interacts with a digital product. It can be as simple as a button click or as complex as a multi-step process.
           </Text>
         </Stack>
          
@@ -1605,7 +1773,7 @@ so Forget the scissor doors. Taurus embraces a radical approach with doors that 
             </Stack>
               </Container>
       </Section>
-{/*original drone */}
+
       <Section>
       <Container>
       <Imgtrans>
