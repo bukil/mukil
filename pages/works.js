@@ -1461,7 +1461,7 @@ so Forget the scissor doors. Taurus embraces a radical approach with doors that 
           borderRadius='lg'
           />
                   <ModalHeader>Texture and Volume Rendering</ModalHeader>
-                  Next, I added some shading and highlights to the sketch using different shades of gray. I used a soft brush tool with low opacity to create smooth gradients and shadows. I also used a hard eraser tool to erase some parts of the outline and make the sketch look more realistic. I paid attention to the light source and how it reflected on the car's surface.
+                  Next, I added some shading and highlights to the sketch using different shades of gray. I used a soft brush tool with low opacity to create smooth gradients and shadows. I also used a hard eraser tool to erase some parts of the outline and make the sketch look more realistic. I paid attention to the light source and how it reflected on the car&apos;s surface.
                   </Section>
 
                   <Section>
@@ -1553,7 +1553,7 @@ so Forget the scissor doors. Taurus embraces a radical approach with doors that 
                   <Section>
                   <Image src='/images/works/buga.jpg' alt='Bugatti veyron 16.4' borderRadius='lg'/>
                   <ModalHeader>Light Source and Surfacing</ModalHeader>
-                  I added some shading and highlights to the sketch using different shades of gray. I used a soft brush tool with low opacity to create smooth gradients and shadows. I also used a hard eraser tool to erase sharp reflection parts of the outline and make the sketch look more realistic. I paid attention to the light source and how it reflected on the car's surface.
+                  I added some shading and highlights to the sketch using different shades of gray. I used a soft brush tool with low opacity to create smooth gradients and shadows. I also used a hard eraser tool to erase sharp reflection parts of the outline and make the sketch look more realistic. I paid attention to the light source and how it reflected on the car&apos;s surface.
                   </Section>
 
                   <Section>
@@ -1674,7 +1674,7 @@ One of my projects was to visualize the 3D Drone concept under the mentorship of
           />
                   <ModalHeader>Prior Design Proposals</ModalHeader>
                   I got inspired by a Spider. Spiders are fast and aggressive. They help farmers by
-feeding on crop-destroying Bugs. The venom from a black widow spider may cause muscle aches, nausea, a paralysis of the diaphragm, and potentially death, but it's being used in inventive ways in medicine.
+feeding on crop-destroying Bugs. The venom from a black widow spider may cause muscle aches, nausea, a paralysis of the diaphragm, and potentially death, but it&apos;s being used in inventive ways in medicine.
 
                   </Section>
 
@@ -1687,8 +1687,8 @@ feeding on crop-destroying Bugs. The venom from a black widow spider may cause m
                   <ModalHeader>Physical assembly and visualisation</ModalHeader>
                   The main challenges that we faced were:
 We, teammates, were from distant locations and we both were also at a
-long distance from eYantra's Office. This makes the process more
-tedious. If we were nearer to eYantra's office, we would have surely
+long distance from eYantra&apos;s Office. This makes the process more
+tedious. If we were nearer to eYantra&apos;s office, we would have surely
 taken a visit to complete in a fast and easier manner. Our mentors
 helped us a lot by providing dimensions and other details whenever
 necessary.
