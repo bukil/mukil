@@ -945,6 +945,17 @@ pen_spark
                     <Divider orientation='horizontal' mb={10}>
                     </Divider>
 
+                    <Image 
+                    src='/images/works/MUKILH2.jpg'
+                    alt='Project 3D 1'
+                    width={ 'container.lg' }
+                    borderRadius={15}
+                    mb={10}
+                  />
+                  
+                    <Divider orientation='horizontal' mb={10}>
+                    </Divider>
+
                   </center>
               </ModalBody>
               <ModalFooter>
@@ -989,7 +1000,6 @@ function CollapseExtandi() {
   const { isOpen: isEditOpenmd4 , onOpen: onEditOpenmd4, onClose: onEditClosemd4 } = useDisclosure()
   const { isOpen: isEditOpenmd5 , onOpen: onEditOpenmd5, onClose: onEditClosemd5 } = useDisclosure()
   const { isOpen: isEditOpenmd6 , onOpen: onEditOpenmd6, onClose: onEditClosemd6 } = useDisclosure()
-  const { isOpen: isEditOpenmd7 , onOpen: onEditOpenmd7, onClose: onEditClosemd7 } = useDisclosure()
   const { isOpen: isEditOpenmd9 , onOpen: onEditOpenmd9, onClose: onEditClosemd9 } = useDisclosure()
   const { isOpen: isEditOpenmd10 , onOpen: onEditOpenmd10, onClose: onEditClosemd10 } = useDisclosure()
   return (
@@ -1421,12 +1431,12 @@ so Forget the scissor doors. Taurus embraces a radical approach with doors that 
                     
               <center>
                  
-              <Image 
-          src='/images/works/koegfro1.png'
-          alt='Koenigsegg CC850'
-          borderRadius='lg'
-          mb={10}
-          /><Text fontSize={24} fontWeight={'hairline'}>
+                  <Image 
+                    src='/images/works/koegfro1.png'
+                    alt='Koenigsegg CC850'
+                    borderRadius='lg'
+                    mb={10}
+                  /><Text fontSize={24} fontWeight={'hairline'}>
                     Koenigsegg CC850, a rare and powerful supercar that can reach speeds of over 400 km/h. 
                     I wanted to design my own version of it in Autodesk Sketchbook, a versatile and easy-to-use 
                     drawing app on my phone and here is the powerful design journey of the Koenigsegg CC850.
