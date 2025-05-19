@@ -2,9 +2,12 @@ import Head from 'next/head'
 import NavBar from '../navbar'
 import { Box, Container } from '@chakra-ui/react'
 import Footer from '../footer'
-
+import FooterLand from '../FooterLand'
+import { useRouter } from 'next/router'
 
 const Main = ({ children, router }) => {
+  const showFooterLand = router.pathname === '/' || router.pathname === '/contact'
+
   return (
     <Box as="main" pb={8}>
       <Head>
@@ -26,6 +29,7 @@ const Main = ({ children, router }) => {
         {children}
         <Footer />
       </Container>
+      {showFooterLand && <FooterLand />}
     </Box>
   )
 }

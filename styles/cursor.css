@@ -1,3 +1,7 @@
 body, * {
   cursor: url('/cursor.png'), auto;
 }
+
+.hand-cursor {
+  cursor: url('/cursor_hand.png') 8 0, pointer;
+}

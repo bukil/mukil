@@ -395,7 +395,7 @@ function CollapseExtandip() {
           <Heading as="h2"  fontWeight="hairline">
           JokifAI
         </Heading>
-          <Text fontSize={'xs'} mb={10}>
+        <Text fontSize={'xs'} mb={10}>
           Here is a keyboard concept ( kode board 🙃 ) , Copy, paste, repeat... but not as you know it. Multi-layer clipboard on fingertips like seamlessly storing your snippets for instant recall. 🪄
           </Text>
         </Stack>
@@ -1599,12 +1599,12 @@ so Forget the scissor doors. Taurus embraces a radical approach with doors that 
                     
               <center>
                  
-                  <Image 
-                    src='/images/works/koegfro1.png'
-                    alt='Koenigsegg CC850'
-                    borderRadius='lg'
-                    mb={10}
-                  /><Text fontSize={24} fontWeight={'hairline'}>
+              <Image 
+          src='/images/works/koegfro1.png'
+          alt='Koenigsegg CC850'
+          borderRadius='lg'
+          mb={10}
+          /><Text fontSize={24} fontWeight={'hairline'}>
                     Koenigsegg CC850, a rare and powerful supercar that can reach speeds of over 400 km/h. 
                     I wanted to design my own version of it in Autodesk Sketchbook, a versatile and easy-to-use 
                     drawing app on my phone and here is the powerful design journey of the Koenigsegg CC850.
@@ -2120,30 +2120,30 @@ windshield and no roof. In this project I recreate a Ferrari Monza SP1 in blende
 
 const Works = () => (
   <Layout title="Works" mt={10}>
-    <Section>
+<Section>
       <Heading as="h3" fontSize={50} mb={15} mt={10}>
-        <CollapseExtandip/>
+       <CollapseExtandip/>
       </Heading>
-    </Section>
-    <Section>
-      <Heading as="h3" fontSize={50} mb={15} mt={10}>
-        <CollapseExtandi/>
-      </Heading>
-    </Section>
-    <Spacer/>
-    <Spacer/>
-    <Trans>
+      </Section>
       <Section>
-        <Box align="center" my={4}>
+      <Heading as="h3" fontSize={50} mb={15} mt={10}>
+       <CollapseExtandi/>
+      </Heading>
+      </Section>
+      <Spacer/>
+      <Spacer/>
+<Trans>
+<Section>
+<Box align="center" my={4}>
           <NextLink href="/" passHref scroll={true}>
             <Button borderRadius='20px' variant='outline' border='1px' 
-              borderColor='black.500' mt='10' leftIcon={<ChevronLeftIcon />}>
+            borderColor='black.500' mt='10' leftIcon={<ChevronLeftIcon />}>
                 GO BACK TO HOME PAGE
             </Button>
           </NextLink>
         </Box>
-      </Section>
-    </Trans>
+</Section>
+</Trans>
   </Layout>
 )
 
