@@ -31,6 +31,9 @@ const FooterLand = () => {
             '100%': {
               transform: 'translate3d(-75%, 0, 0)'
             }
+          },
+          '@media (max-aspect-ratio: 1/1)': {
+            animation: 'scrollLand 20s linear infinite'
           }
         }}
       >
