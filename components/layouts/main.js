@@ -3,7 +3,6 @@ import NavBar from '../navbar'
 import { Box, Container } from '@chakra-ui/react'
 import Footer from '../footer'
 import FooterLand from '../FooterLand'
-import { useRouter } from 'next/router'
 
 const Main = ({ children, router }) => {
   const showFooterLand = router.pathname === '/' || router.pathname === '/contact'
