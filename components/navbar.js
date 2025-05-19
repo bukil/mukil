@@ -12,20 +12,9 @@ import {
   MenuList,
   MenuButton,
   IconButton,
-  useColorModeValue,
-  Button,
-  useDisclosure,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  SimpleGrid
+  useColorModeValue
 } from '@chakra-ui/react'
 import { HamburgerIcon } from '@chakra-ui/icons'
-import { IoLogoLinkedin, IoLogoGithub, IoMail, IoLogoYoutube, IoLogoInstagram } from 'react-icons/io5'
 import ThemeToggleButton from './theme-toggle-button'
 
 const LinkItem = ({ href, path, target, children, ...props }) => {
@@ -50,7 +39,6 @@ const LinkItem = ({ href, path, target, children, ...props }) => {
 
 const Navbar = props => {
   const { path } = props
-  const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
     <Box
