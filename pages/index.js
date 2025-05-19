@@ -8,6 +8,9 @@ import {
   chakra,
   Button,
   Text,
+  VStack,
+  HStack,
+  Badge,
 } from '@chakra-ui/react'
 
 import Layout from '../components/layouts/article'
@@ -27,6 +30,28 @@ const Trans = styled.span`
 
   &:hover Button {
     transform: translate(30px, 0px);
+  }
+`
+
+const JourneyItem = styled(Box)`
+  position: relative;
+  padding-left: 2rem;
+  border-left: 2px solid #2D3748;
+  margin-bottom: 2rem;
+
+  &:last-child {
+    border-left: none;
+  }
+
+  &:before {
+    content: '';
+    position: absolute;
+    left: -8px;
+    top: 0;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #2D3748;
   }
 `
 
@@ -110,17 +135,48 @@ const Home = () => (
                 </Link>
                 &quot;
               </Text>
+
+              <Heading fontSize="4xl" fontWeight="hairline" mt={12} mb={6}>
+                My Journey
+              </Heading>
+
+              <VStack align="stretch" spacing={0}>
+                <JourneyItem>
+                  <Badge colorScheme="blue" mb={2}>2024 - Present</Badge>
+                  <Heading fontSize="xl" fontWeight="bold">Master of Design</Heading>
+                  <Text fontSize="md" color="gray.600">IDC School of Design, IIT Bombay</Text>
+                  <Text fontSize="sm" mt={2}>Specializing in Interaction Design</Text>
+                </JourneyItem>
+
+                <JourneyItem>
+                  <Badge colorScheme="green" mb={2}>2022 - 2023</Badge>
+                  <Heading fontSize="xl" fontWeight="bold">Creative Design Intern</Heading>
+                  <Text fontSize="md" color="gray.600">e-Yantra, IIT Bombay</Text>
+                  <Text fontSize="sm" mt={2}>Designed and developed a multipurpose drone system with interactive interfaces</Text>
+                </JourneyItem>
+
+                <JourneyItem>
+                  <Badge colorScheme="purple" mb={2}>2022</Badge>
+                  <Heading fontSize="xl" fontWeight="bold">Product Design Intern</Heading>
+                  <Text fontSize="md" color="gray.600">Digital Ink, Delhi</Text>
+                  <Text fontSize="sm" mt={2}>User experience and interface design</Text>
+                </JourneyItem>
+
+                <JourneyItem>
+                  <Badge colorScheme="orange" mb={2}>2019 - 2023</Badge>
+                  <Heading fontSize="xl" fontWeight="bold">B.Tech in Electronics & Communication</Heading>
+                  <Text fontSize="md" color="gray.600">IET Lucknow</Text>
+                  <Text fontSize="sm" mt={2}>Graduated with First Class Honors</Text>
+                </JourneyItem>
+              </VStack>
             </Section>
           </GridItem>
         </Grid>
       </Container>
 
-      <Spacer/>
-      <Spacer/>
-
       <Trans>
         <Section>
-          <Box align="center" my={4}>
+          <Box align="center" mb={4}>
             <NextLink href="/works" passHref scroll={true}>
               <Button borderRadius='20px' variant='outline' border='2px' borderColor='black' rightIcon={<ChevronRightIcon />}>
                 CLICK TO SEE MORE ABOUT MY WORK
@@ -129,8 +185,6 @@ const Home = () => (
           </Box>
         </Section>
       </Trans>
-
-      <Spacer/>
     </Layout>
   </Box>
 )

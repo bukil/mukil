@@ -1,14 +1,16 @@
 import Head from 'next/head'
-import NavBar from '../navbar'
+import Navbar from '../navbar'
 import { Box, Container } from '@chakra-ui/react'
 import Footer from '../footer'
 import FooterLand from '../FooterLand'
+import { useRouter } from 'next/router'
 
 const Main = ({ children, router }) => {
-  const showFooterLand = router.pathname === '/' || router.pathname === '/contact'
+  const showFooter = router.pathname !== '/'
+  const showFooterLand = router.pathname === '/'
 
   return (
-    <Box as="main" pb={8}>
+    <Box as="main" pb={0}>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content="homepage" />
@@ -21,12 +23,12 @@ const Main = ({ children, router }) => {
         <title>MUKIL</title>
       </Head>
 
-      <NavBar path={router.asPath} />
+      <Navbar path={router.asPath} />
 
-      <Container maxW="container.lg" pt={18}>
+      <Container maxW="container.md" pt={14} pb={0}>
         {/* <LazyVoxelDog/> */}
         {children}
-        <Footer />
+        {showFooter && <Footer />}
       </Container>
       {showFooterLand && <FooterLand />}
     </Box>

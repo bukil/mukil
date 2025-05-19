@@ -4,10 +4,7 @@ const FooterLand = () => {
   return (
     <Box
       as="footer"
-      position="fixed"
-      left={0}
-      bottom={0}
-      width="100%"
+      width="100vw"
       height="100px"
       zIndex={10}
       backgroundImage="url('/Footer_NG.png')"
@@ -22,6 +19,11 @@ const FooterLand = () => {
         height: '100%',
       }}
       boxShadow="0 -2px 8px rgba(0,0,0,0)"
+      position="relative"
+      left="50%"
+      right="50%"
+      marginLeft="-50vw"
+      marginRight="-50vw"
     >
       <Box
         position="absolute"
