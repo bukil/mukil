@@ -1,4 +1,4 @@
-import { Box, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, useDisclosure, Text, VStack, Link, Center } from "@chakra-ui/react";
+import { Box, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, useDisclosure, Text, VStack, Center } from "@chakra-ui/react";
 
 const FooterLand = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -132,23 +132,39 @@ const FooterLand = () => {
                   The infinite scrolling landscape at the bottom of my portfolio is inspired by the iconic Ninja Gaiden series, particularly the character Ryu Hayabusa. This subtle homage represents my journey in design and technology - continuous, determined, and always moving forward.
                 </Text>
                 <Text color="white">
-                  The theme "Unbreakable Determination" from Ninja Gaiden perfectly encapsulates my approach to design and development. Just as Ryu faces endless challenges with unwavering resolve, I believe in pushing through obstacles to create meaningful digital experiences.
+                  The theme &quot;Unbreakable Determination&quot; from Ninja Gaiden perfectly encapsulates my approach to design and development. Just as Ryu faces endless challenges with unwavering resolve, I believe in pushing through obstacles to create meaningful digital experiences.
                 </Text>
                 <Text color="white">
                   The running animation of Ryu in the corner is a playful reminder that in the world of design and technology, we must keep moving, keep learning, and keep creating - just like a true ninja warrior.
                 </Text>
-                <Link 
-                  href="https://www.youtube.com/watch?v=BAjxoooKDu4&ab_channel=NeonXGameRemixes" 
-                  isExternal 
-                  color="blue.300"
-                  _hover={{ 
-                    textDecoration: 'underline',
-                    color: 'blue.200'
+                <a 
+                  href="https://www.youtube.com/watch?v=BAjxoooKDu4&ab_channel=NeonXGameRemixes"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: 'inline-block',
+                    padding: '8px 16px',
+                    borderRadius: '6px',
+                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                    color: '#90cdf4',
+                    textAlign: 'center',
+                    fontWeight: 500,
+                    textDecoration: 'none',
+                    transition: 'all 0.2s ease-in-out'
                   }}
-                  textAlign="center"
+                  onMouseOver={(e) => {
+                    e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+                    e.target.style.color = '#90cdf4';
+                    e.target.style.transform = 'scale(1.05)';
+                  }}
+                  onMouseOut={(e) => {
+                    e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+                    e.target.style.color = '#90cdf4';
+                    e.target.style.transform = 'scale(1)';
+                  }}
                 >
-                  Listen to "Unbreakable Determination" Theme
-                </Link>
+                  Listen to &quot;Unbreakable Determination&quot; Theme
+                </a>
               </VStack>
             </ModalBody>
           </ModalContent>
