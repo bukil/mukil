@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import NextLink from 'next/link'
+import Head from 'next/head'
 import {
   Link,
   Container,
@@ -61,6 +62,29 @@ const ProfileImage = chakra(Image, {
 
 const Home = () => (
   <Box position="relative" minHeight="100vh">
+    <Head>
+      <title>Mukil Kumar | Interaction Designer & Creative Technologist</title>
+      <meta name="description" content="Mukil Kumar - Interaction Designer, Creative Technologist, and Electronics Engineer. Currently pursuing Master of Design at IDC IIT Bombay. Specializing in user-centered design and creative technology solutions." />
+      <meta name="keywords" content="Mukil Kumar, Interaction Designer, Creative Technologist, Electronics Engineer, IDC IIT Bombay, UX Design, UI Design, Product Design" />
+      <meta name="author" content="Mukil Kumar" />
+      <meta name="robots" content="index, follow" />
+      
+      {/* Open Graph / Social Media Meta Tags */}
+      <meta property="og:title" content="Mukil Kumar | Interaction Designer & Creative Technologist" />
+      <meta property="og:description" content="Portfolio of Mukil Kumar - Interaction Designer, Creative Technologist, and Electronics Engineer. Specializing in user-centered design and creative technology solutions." />
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content="https://mukil.vercel.app" />
+      <meta property="og:image" content="https://mukil.vercel.app/images/mukil.jpg" />
+      
+      {/* Twitter Card Meta Tags */}
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content="Mukil Kumar | Interaction Designer & Creative Technologist" />
+      <meta name="twitter:description" content="Portfolio of Mukil Kumar - Interaction Designer, Creative Technologist, and Electronics Engineer." />
+      <meta name="twitter:image" content="https://mukil.vercel.app/images/mukil.jpg" />
+      
+      {/* Canonical URL */}
+      <link rel="canonical" href="https://mukil.vercel.app" />
+    </Head>
     <Layout>
       <Spacer mb={130}/>
       <Container maxW='container.lg'>
