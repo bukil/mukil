@@ -1,7 +1,14 @@
-import { Box, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, useDisclosure, Text, VStack, Center } from "@chakra-ui/react";
+import { Box, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, useDisclosure, Text, VStack, Center, Button } from "@chakra-ui/react";
+import { useState } from "react";
 
 const FooterLand = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleVideoClick = (e) => {
+    e.preventDefault();
+    window.open('https://www.youtube.com/watch?v=BAjxoooKDu4', '_blank', 'noopener,noreferrer');
+  };
 
   return (
     <Box
@@ -18,66 +25,55 @@ const FooterLand = () => {
     >
       <Box
         position="absolute"
-        width="400%"
-        height="100%"
-        display="flex"
+        width="100%"
+        height="150px"
         bottom="0"
-        sx={{
-          animation: 'scrollLand 40s linear infinite',
-          '@keyframes scrollLand': {
-            '0%': {
-              transform: 'translate3d(0, 0, 0)'
-            },
-            '100%': {
-              transform: 'translate3d(-75%, 0, 0)'
-            }
-          },
-          '@media (max-aspect-ratio: 1/1)': {
-            animation: 'scrollLand 20s linear infinite'
-          }
-        }}
+        left="0"
+        overflow="hidden"
       >
         <Box
-          width="25%"
-          height="100%"
-          backgroundImage="url('/Footer_NG.png')"
-          backgroundSize="auto 100%"
-          backgroundPosition="bottom center"
-          backgroundRepeat="no-repeat"
-          willChange="transform"
-        />
-        <Box
-          width="25%"
-          height="100%"
-          backgroundImage="url('/Footer_NG.png')"
-          backgroundSize="auto 100%"
-          backgroundPosition="bottom center"
-          backgroundRepeat="no-repeat"
-          willChange="transform"
-        />
-        <Box
-          width="25%"
-          height="100%"
-          backgroundImage="url('/Footer_NG.png')"
-          backgroundSize="auto 100%"
-          backgroundPosition="bottom center"
-          backgroundRepeat="no-repeat"
-          willChange="transform"
-        />
-        <Box
-          width="25%"
-          height="100%"
-          backgroundImage="url('/Footer_NG.png')"
-          backgroundSize="auto 100%"
-          backgroundPosition="bottom center"
-          backgroundRepeat="no-repeat"
-          willChange="transform"
-        />
+          position="absolute"
+          width="8000px"
+          height="150px"
+          bottom="0"
+          left="0"
+          display="flex"
+          sx={{
+            animation: 'scrollLand 20s linear infinite',
+            '@keyframes scrollLand': {
+              '0%': {
+                transform: 'translateX(0)'
+              },
+              '100%': {
+                transform: 'translateX(-4000px)'
+              }
+            }
+          }}
+        >
+          <Box
+            width="4000px"
+            height="150px"
+            backgroundImage="url('/Footer_NG.png')"
+            backgroundSize="4000px 150px"
+            backgroundPosition="bottom"
+            backgroundRepeat="no-repeat"
+            flexShrink={0}
+          />
+          <Box
+            width="4000px"
+            height="150px"
+            backgroundImage="url('/Footer_NG.png')"
+            backgroundSize="4000px 150px"
+            backgroundPosition="bottom"
+            backgroundRepeat="no-repeat"
+            flexShrink={0}
+          />
+        </Box>
       </Box>
       <Box
         position="absolute"
         left="80px"
-        bottom="5"
+        bottom="8"
         width="50px"
         height="50px"
         backgroundImage="url('/ryu.gif')"
@@ -87,22 +83,33 @@ const FooterLand = () => {
         zIndex={11}
         cursor="pointer"
         onClick={onOpen}
-        _hover={{
-          transform: 'scale(1.1)',
-          transition: 'transform 0.2s ease-in-out'
-        }}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        transition="transform 0.2s ease-in-out"
+        transform={isHovered ? 'scale(1.1)' : 'scale(1)'}
       />
 
-      <Modal isOpen={isOpen} onClose={onClose} size="md" isCentered>
-        <ModalOverlay bg="blackAlpha.300" />
+      <Modal 
+        isOpen={isOpen} 
+        onClose={onClose} 
+        size="md" 
+        isCentered
+        motionPreset="slideInBottom"
+      >
+        <ModalOverlay 
+          bg="blackAlpha.400"
+          backdropFilter="blur(8px)"
+        />
         <Center>
           <ModalContent 
             mx={4}
             bg="rgba(255, 255, 255, 0.1)"
-            backdropFilter="blur(20px)"
+            backdropFilter="blur(12px)"
             border="1px solid rgba(255, 255, 255, 0.2)"
             borderRadius="xl"
             boxShadow="0 8px 32px 0 rgba(31, 38, 135, 0.37)"
+            maxW="600px"
+            w="90%"
             sx={{
               '&::before': {
                 content: '""',
@@ -125,49 +132,48 @@ const FooterLand = () => {
               color="white"
               fontWeight="bold"
               fontSize="xl"
+              borderBottom="1px solid rgba(255,255,255,0.1)"
+              pb={4}
             >
               Ninja Gaiden Inspiration
             </ModalHeader>
-            <ModalCloseButton color="white" />
-            <ModalBody pb={6}>
-              <VStack spacing={4} align="stretch">
-                <Text color="white">
+            <ModalCloseButton 
+              color="white" 
+              _hover={{ bg: 'rgba(255,255,255,0.1)' }}
+              borderRadius="full"
+            />
+            <ModalBody py={6}>
+              <VStack spacing={6} align="stretch">
+                <Text color="white" fontSize="md" lineHeight="1.6" textShadow="0 2px 4px rgba(0,0,0,0.3)">
                   The infinite scrolling landscape at the bottom of my portfolio is inspired by the iconic Ninja Gaiden series, particularly the character Ryu Hayabusa. This subtle homage represents my journey in design and technology - continuous, determined, and always moving forward.
                 </Text>
-                <Text color="white">
+                <Text color="white" fontSize="md" lineHeight="1.6" textShadow="0 2px 4px rgba(0,0,0,0.3)">
                   The theme &quot;Unbreakable Determination&quot; from Ninja Gaiden perfectly encapsulates my approach to design and development. Just as Ryu faces endless challenges with unwavering resolve, I believe in pushing through obstacles to create meaningful digital experiences.
                 </Text>
-                <Text color="white">
+                <Text color="white" fontSize="md" lineHeight="1.6" textShadow="0 2px 4px rgba(0,0,0,0.3)">
                   The running animation of Ryu in the corner is a playful reminder that in the world of design and technology, we must keep moving, keep learning, and keep creating - just like a true ninja warrior.
                 </Text>
-                <a 
-                  href="https://www.youtube.com/watch?v=BAjxoooKDu4&ab_channel=NeonXGameRemixes"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    display: 'inline-block',
-                    padding: '8px 16px',
-                    borderRadius: '6px',
-                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                    color: '#90cdf4',
-                    textAlign: 'center',
-                    fontWeight: 500,
-                    textDecoration: 'none',
-                    transition: 'all 0.2s ease-in-out'
+                <Button
+                  onClick={handleVideoClick}
+                  bg="rgba(255, 255, 255, 0.15)"
+                  color="#90cdf4"
+                  _hover={{
+                    bg: 'rgba(255, 255, 255, 0.25)',
+                    transform: 'scale(1.05)',
                   }}
-                  onMouseOver={(e) => {
-                    e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
-                    e.target.style.color = '#90cdf4';
-                    e.target.style.transform = 'scale(1.05)';
+                  _active={{
+                    bg: 'rgba(255, 255, 255, 0.2)',
                   }}
-                  onMouseOut={(e) => {
-                    e.target.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
-                    e.target.style.color = '#90cdf4';
-                    e.target.style.transform = 'scale(1)';
-                  }}
+                  transition="all 0.2s ease-in-out"
+                  size="lg"
+                  width="100%"
+                  borderRadius="md"
+                  fontWeight="medium"
+                  backdropFilter="blur(4px)"
+                  border="1px solid rgba(255, 255, 255, 0.1)"
                 >
                   Listen to &quot;Unbreakable Determination&quot; Theme
-                </a>
+                </Button>
               </VStack>
             </ModalBody>
           </ModalContent>
@@ -178,9 +184,3 @@ const FooterLand = () => {
 };
 
 export default FooterLand;
-
-// Add the animation keyframes globally (in _app.js or a global CSS file):
-// @keyframes scrollLand {
-//   0% { background-position-x: 0; }
-//   100% { background-position-x: -1000px; } // Adjust -1000px to match your image width for seamless loop
-// } 
