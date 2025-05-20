@@ -153,6 +153,57 @@ const FooterLand = () => {
                 <Text color="white" fontSize="md" lineHeight="1.6" textShadow="0 2px 4px rgba(0,0,0,0.3)">
                   The running animation of Ryu in the corner is a playful reminder that in the world of design and technology, we must keep moving, keep learning, and keep creating - just like a true ninja warrior.
                 </Text>
+                <VStack spacing={4} align="stretch">
+                  <Text color="white" fontSize="md" lineHeight="1.6" textShadow="0 2px 4px rgba(0,0,0,0.3)">
+                    The animation was created using Aseprite, a powerful pixel art tool. Here's a glimpse into the process:
+                  </Text>
+                  <Box display="grid" gridTemplateColumns="repeat(2, 1fr)" gap={4}>
+                    <Box>
+                      <Text color="white" fontSize="sm" mb={2}>1. Initial Frame Setup</Text>
+                      <Box
+                        as="img"
+                        src="/mukil/NG0.jpeg"
+                        alt="Aseprite Frame Setup"
+                        width="100%"
+                        borderRadius="md"
+                        border="1px solid rgba(255,255,255,0.1)"
+                      />
+                    </Box>
+                    <Box>
+                      <Text color="white" fontSize="sm" mb={2}>2. Animation Timeline</Text>
+                      <Box
+                        as="img"
+                        src="/mukil/NG1.jpeg"
+                        alt="Aseprite Timeline"
+                        width="100%"
+                        borderRadius="md"
+                        border="1px solid rgba(255,255,255,0.1)"
+                      />
+                    </Box>
+                    <Box>
+                      <Text color="white" fontSize="sm" mb={2}>3. Frame Animation</Text>
+                      <Box
+                        as="img"
+                        src="/mukil/NG2.jpeg"
+                        alt="Aseprite Frame Animation"
+                        width="100%"
+                        borderRadius="md"
+                        border="1px solid rgba(255,255,255,0.1)"
+                      />
+                    </Box>
+                    <Box>
+                      <Text color="white" fontSize="sm" mb={2}>4. Final Export</Text>
+                      <Box
+                        as="img"
+                        src="/mukil/NG3.jpeg"
+                        alt="Aseprite Export"
+                        width="100%"
+                        borderRadius="md"
+                        border="1px solid rgba(255,255,255,0.1)"
+                      />
+                    </Box>
+                  </Box>
+                </VStack>
                 <Button
                   onClick={handleVideoClick}
                   bg="rgba(255, 255, 255, 0.15)"
