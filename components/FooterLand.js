@@ -153,54 +153,77 @@ const FooterLand = () => {
                 <Text color="white" fontSize="md" lineHeight="1.6" textShadow="0 2px 4px rgba(0,0,0,0.3)">
                   The running animation of Ryu in the corner is a playful reminder that in the world of design and technology, we must keep moving, keep learning, and keep creating - just like a true ninja warrior.
                 </Text>
-                <VStack spacing={4} align="stretch">
+                <VStack spacing={6} align="stretch">
                   <Text color="white" fontSize="md" lineHeight="1.6" textShadow="0 2px 4px rgba(0,0,0,0.3)">
-                    The animation was created using Aseprite, a powerful pixel art tool. Here's a glimpse into the process:
+                    The animation was created using Aseprite, a powerful pixel art tool. Here&apos;s a glimpse into the process:
                   </Text>
-                  <Box display="grid" gridTemplateColumns="repeat(2, 1fr)" gap={4}>
-                    <Box>
-                      <Text color="white" fontSize="sm" mb={2}>1. Initial Frame Setup</Text>
-                      <Box
-                        as="img"
-                        src="/mukil/NG0.jpeg"
-                        alt="Aseprite Frame Setup"
-                        width="100%"
-                        borderRadius="md"
-                        border="1px solid rgba(255,255,255,0.1)"
-                      />
+                  <Box>
+                    <Text color="white" fontSize="lg" fontWeight="bold" mb={4}>Character Animation Process</Text>
+                    <Box display="grid" gridTemplateColumns="repeat(2, 1fr)" gap={6}>
+                      <Box>
+                        <Text color="white" fontSize="sm" mb={2} fontWeight="medium">1. Initial Frame Setup</Text>
+                        <Box
+                          as="img"
+                          src="/mukil/NG0.jpeg"
+                          alt="Aseprite Frame Background Frame Setup"
+                          width="100%"
+                          height="200px"
+                          objectFit="cover"
+                          borderRadius="md"
+                          border="1px solid rgba(255,255,255,0.1)"
+                          boxShadow="0 4px 12px rgba(0,0,0,0.2)"
+                        />
+                      </Box>
+                      <Box>
+                        <Text color="white" fontSize="sm" mb={2} fontWeight="medium">2. Aseprite Ryu Running in 12 FPS</Text>
+                        <Text color="white" fontSize="xs" mb={2} opacity={0.8}>Enhanced version of the original which is 3 Frames with static clothing and low physics</Text>
+                        <Box
+                          as="img"
+                          src="/mukil/NG1.jpeg"
+                          alt="Aseprite Ryu Running in 12 FPS enhanced version"
+                          width="100%"
+                          height="200px"
+                          objectFit="cover"
+                          borderRadius="md"
+                          border="1px solid rgba(255,255,255,0.1)"
+                          boxShadow="0 4px 12px rgba(0,0,0,0.2)"
+                        />
+                      </Box>
                     </Box>
-                    <Box>
-                      <Text color="white" fontSize="sm" mb={2}>2. Animation Timeline</Text>
-                      <Box
-                        as="img"
-                        src="/mukil/NG1.jpeg"
-                        alt="Aseprite Timeline"
-                        width="100%"
-                        borderRadius="md"
-                        border="1px solid rgba(255,255,255,0.1)"
-                      />
-                    </Box>
-                    <Box>
-                      <Text color="white" fontSize="sm" mb={2}>3. Frame Animation</Text>
-                      <Box
-                        as="img"
-                        src="/mukil/NG2.jpeg"
-                        alt="Aseprite Frame Animation"
-                        width="100%"
-                        borderRadius="md"
-                        border="1px solid rgba(255,255,255,0.1)"
-                      />
-                    </Box>
-                    <Box>
-                      <Text color="white" fontSize="sm" mb={2}>4. Final Export</Text>
-                      <Box
-                        as="img"
-                        src="/mukil/NG3.jpeg"
-                        alt="Aseprite Export"
-                        width="100%"
-                        borderRadius="md"
-                        border="1px solid rgba(255,255,255,0.1)"
-                      />
+                  </Box>
+
+                  <Box>
+                    <Text color="white" fontSize="lg" fontWeight="bold" mb={4}>Background & Implementation</Text>
+                    <Box display="grid" gridTemplateColumns="repeat(2, 1fr)" gap={6}>
+                      <Box>
+                        <Text color="white" fontSize="sm" mb={2} fontWeight="medium">3. Footer City Pixel Art</Text>
+                        <Box
+                          as="img"
+                          src="/mukil/NG2.jpeg"
+                          alt="Footer City Pixel Art"
+                          width="100%"
+                          height="200px"
+                          objectFit="cover"
+                          borderRadius="md"
+                          border="1px solid rgba(255,255,255,0.1)"
+                          boxShadow="0 4px 12px rgba(0,0,0,0.2)"
+                        />
+                      </Box>
+                      <Box>
+                        <Text color="white" fontSize="sm" mb={2} fontWeight="medium">4. Animation Implementation</Text>
+                        <Text color="white" fontSize="xs" mb={2} opacity={0.8}>Code for the animation, here I use single image for the animation in the loop</Text>
+                        <Box
+                          as="img"
+                          src="/mukil/NG3.jpeg"
+                          alt="Code for the animation implementation"
+                          width="100%"
+                          height="200px"
+                          objectFit="cover"
+                          borderRadius="md"
+                          border="1px solid rgba(255,255,255,0.1)"
+                          boxShadow="0 4px 12px rgba(0,0,0,0.2)"
+                        />
+                      </Box>
                     </Box>
                   </Box>
                 </VStack>
