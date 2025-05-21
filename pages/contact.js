@@ -15,6 +15,8 @@ import { FaGithub, FaLinkedin, FaYoutube, FaInstagram } from 'react-icons/fa'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
 import { Spacer } from '@chakra-ui/react'
+import FooterLand from "../components/FooterLand";
+import ContactForm from '../components/ContactForm'
 
 const ContactLink = ({ icon, href, children }) => (
   <Link href={href} isExternal>
@@ -76,8 +78,13 @@ const Contact = () => (
             </Heading>
             <Text>Aligarh, Uttar Pradesh, India</Text>
           </Box>
+
+          <Box mt={8}>
+            <ContactForm />
+          </Box>
         </VStack>
       </Section>
+      <FooterLand />
     </Container>
   </Layout>
 )
