@@ -90,8 +90,10 @@ function CollapseExtandip() {
           }}
           onClick={onEditOpenmd12}
           cursor="pointer"
+          height="400px"
+          width="100%"
         >
-          <Box position="relative">
+          <Box position="relative" height="100%" width="100%">
             <Text
               position="absolute"
               top="20%"
@@ -102,7 +104,6 @@ function CollapseExtandip() {
               color="white"
               opacity="0"
               transition="all 0.8s cubic-bezier(0.4, 0, 0.2, 1)"
-              textShadow="2px 2px 4px rgba(0,0,0,0.5)"
               _groupHover={{ 
                 opacity: 0.8,
                 top: "35%",
@@ -119,8 +120,8 @@ function CollapseExtandip() {
               src='/images/works/BOTASF.PNG'
               alt='KODE/BOARD'
               width="100%"
-              height="auto"
-              objectFit="cover"
+              height="100%"
+              objectFit="contain"
               transition="all 0.3s ease"
               _groupHover={{ 
                 filter: 'brightness(1.2)',
@@ -128,6 +129,7 @@ function CollapseExtandip() {
               }}
               position="relative"
               zIndex="1"
+              bg="transparent"
             />
           </Box>
           <Box
