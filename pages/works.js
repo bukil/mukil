@@ -48,6 +48,7 @@ function CollapseExtandip() {
   const { isOpen: isEditOpenmd9 , onOpen: onEditOpenmd9, onClose: onEditClosemd9 } = useDisclosure()
   const { isOpen: isEditOpenmd11 , onOpen: onEditOpenmd11, onClose: onEditClosemd11 } = useDisclosure()
   const { isOpen: isEditOpenmd12 , onOpen: onEditOpenmd12, onClose: onEditClosemd12 } = useDisclosure()
+  const { isOpen: isEditOpenmd13 , onOpen: onEditOpenmd13, onClose: onEditClosemd13 } = useDisclosure()
   return (
     <>
     
@@ -73,6 +74,7 @@ function CollapseExtandip() {
            px={{ base: 4, md: 8 }}
          >
 
+         {/* ===================== KODE/BOARD PANEL START ===================== */}
          <Section>
         
         
@@ -105,7 +107,7 @@ function CollapseExtandip() {
               opacity="0"
               transition="all 0.8s cubic-bezier(0.4, 0, 0.2, 1)"
               _groupHover={{ 
-                opacity: 0.8,
+                opacity: 0.4,
                 top: "35%",
                 transform: "translate(-50%, -50%)"
               }}
@@ -172,23 +174,7 @@ function CollapseExtandip() {
               Multi-layer clipboard on fingertips like seamlessly storing your snippets for instant recall. 🪄
             </Text>
           </Box>
-        </Box>
-         
-            </Section>
-
-        
-            <Section>
-        
-        
-        <Imgtrans>
-          <Button height={'auto'} onClick={onEditOpenmd12}>
-           <Image 
-          src='/images/works/BOTASF.jpg'
-          alt='User Experience'
-          borderRadius='lg'
-          />
-
-           
+          {/* KODE/BOARD Modal */}
           <Modal isOpen={isEditOpenmd12} onClose={onEditClosemd12} size={'full'} scrollBehavior={'outside'}>
               <ModalOverlay />
               <ModalContent>
@@ -206,17 +192,15 @@ function CollapseExtandip() {
                     width={ 'full' }
                     borderRadius={0}
                     mb={0}
-                    
                   />
-                    <Text fontSize={24} fontWeight={'hairline'}>
-                    </Text>
+                  <Text fontSize={24} fontWeight={'hairline'}>
+                    Here is a keyboard concept (kode board 🙃), Copy, paste, repeat... but not as you know it. 
+                    Multi-layer clipboard on fingertips like seamlessly storing your snippets for instant recall. 🪄
+                  </Text>
                   <Divider orientation='horizontal'>
                   </Divider>
 
                   <SimpleGrid columns={1} spacingX='40px' spacingY='20px' mt={10}>
-                  
-                  
-
                   <Section>
                   <Image 
                     src='/images/works/keenn.png'
@@ -225,15 +209,9 @@ function CollapseExtandip() {
                     borderRadius={0}
                   />
                   </Section>
-                  
-                  
-                 
-
-                   
                   </SimpleGrid>
-                    <Divider orientation='horizontal' mb={10}>
-                    </Divider>
-                   
+                  <Divider orientation='horizontal' mb={10}>
+                  </Divider>
                   </center>
               </ModalBody>
               <ModalFooter>
@@ -241,21 +219,161 @@ function CollapseExtandip() {
               </ModalFooter>
               </ModalContent>
           </Modal>
-         
-
-           </Button>
-          </Imgtrans>
-          <Stack mt='6' spacing='3' mb={10}>
-          <Heading as="h2"  fontWeight="hairline">
-          JokifAI
-        </Heading>
-        <Text fontSize={'xs'} mb={10}>
-          Here is a keyboard concept ( kode board 🙃 ) , Copy, paste, repeat... but not as you know it. Multi-layer clipboard on fingertips like seamlessly storing your snippets for instant recall. 🪄
-          </Text>
-        </Stack>
+        </Box>
          
             </Section>
+        {/* ===================== JOKIFAI DUPLICATE PANEL START ===================== */}
+         <Section>
+        <Box 
+          position="relative"
+          borderWidth="1px" 
+          borderRadius="lg" 
+          overflow="hidden" 
+          boxShadow="md"
+          role="group"
+          bg="radial-gradient(circle at center, rgba(100, 0, 255, 0.7) 0%, rgba(30, 0, 60, 0.98) 100%)"
+          transition="all 0.5s cubic-bezier(0.4, 0, 0.2, 1)"
+          _hover={{
+            bg: "radial-gradient(circle at center, rgba(150, 50, 255, 0.85) 0%, rgba(60, 0, 100, 0.98) 100%)"
+          }}
+          onClick={onEditOpenmd13}
+          cursor="pointer"
+          height="400px"
+          width="100%"
+        >
+          <Box position="relative" height="100%" width="100%">
+            <Text
+              position="absolute"
+              top="50%"
+              left="50%"
+              transform="translate(-50%, -50%)"
+              fontSize="8xl"
+              fontWeight="900"
+              color="transparent"
+              style={{
+                WebkitTextStroke: '2px rgba(255, 255, 255, 0.8)',
+                textStroke: '2px rgba(255, 255, 255, 0.8)'
+              }}
+              opacity="0.8"
+              transition="all 0.8s cubic-bezier(0.4, 0, 0.2, 1)"
+              _groupHover={{ 
+                opacity: 1,
+                transform: "translate(-50%, -50%) scale(1.1)",
+                color: "rgba(255, 255, 255, 0.2)"
+              }}
+              zIndex="1"
+              letterSpacing="wider"
+              fontFamily="'Bebas Neue', sans-serif"
+              fontStyle="italic"
+              textAlign="center"
+            >
+              JOKIF-AI
+            </Text>
+            <Image 
+              src='/images/works/BOTASF.png'
+              alt='AI Trends Project'
+              width="100%"
+              height="100%"
+              objectFit="contain"
+              transition="all 0.3s ease"
+              _groupHover={{ 
+                filter: 'brightness(1.2)',
+                transform: 'scale(1.05)'
+              }}
+              position="relative"
+              zIndex="1"
+              bg="transparent"
+            />
+          </Box>
+          <Box
+            position="absolute"
+            bottom="0"
+            left="0"
+            right="0"
+            bg="transparent"
+            p={3}
+            color="white"
+            zIndex="2"
+          >
+            <Heading 
+              as="h3" 
+              size="sm" 
+              mb={1} 
+              fontFamily="'Encode Sans Expanded', sans-serif"
+              fontWeight="700"
+              letterSpacing="0.2em"
+              textTransform="uppercase"
+              color="white"
+              transition="all 0.3s ease"
+              _groupHover={{ opacity: 0 }}
+            >
+              JOKIF-AI
+            </Heading>
+            <Box 
+              w="100%" 
+              h="0.5px" 
+              bg="purple.400" 
+              mb={2}
+            />
+            <Text 
+              fontSize="xs"
+              fontFamily="'Encode Sans Expanded', sans-serif"
+              fontWeight="400"
+              letterSpacing="0.5px"
+            >
+              An AI-powered platform that brings humor and creativity together. 
+              Generate jokes, create memes, and share laughter with the power of artificial intelligence. 🤖
+            </Text>
+          </Box>
+          {/* KODE/BOARD Modal */}
+          <Modal isOpen={isEditOpenmd13} onClose={onEditClosemd13} size={'full'} scrollBehavior={'outside'}>
+              <ModalOverlay />
+              <ModalContent>
+              <center>
+              <ModalHeader as="h1" >KODE/BOARD</ModalHeader>
+              </center>
+              <ModalCloseButton />
+              <ModalBody>
+                    
+              <center>
+                 
+                  <Image 
+                    src='/images/works/keeb_post.png'
+                    alt='KODE-BOARD'
+                    width={ 'full' }
+                    borderRadius={0}
+                    mb={0}
+                  />
+                  <Text fontSize={24} fontWeight={'hairline'}>
+                    Here is a keyboard concept (kode board 🙃), Copy, paste, repeat... but not as you know it. 
+                    Multi-layer clipboard on fingertips like seamlessly storing your snippets for instant recall. 🪄
+                  </Text>
+                  <Divider orientation='horizontal'>
+                  </Divider>
 
+                  <SimpleGrid columns={1} spacingX='40px' spacingY='20px' mt={10}>
+                  <Section>
+                  <Image 
+                    src='/images/works/keenn.png'
+                    alt='FIgma output'
+                    width={ 'container.lg' }
+                    borderRadius={0}
+                  />
+                  </Section>
+                  </SimpleGrid>
+                  <Divider orientation='horizontal' mb={10}>
+                  </Divider>
+                  </center>
+              </ModalBody>
+              <ModalFooter>
+              <Button variant="ghost" mr={3} onClick={onEditClosemd13}>Close</Button>
+              </ModalFooter>
+              </ModalContent>
+          </Modal>
+        </Box>
+         
+            </Section>
+        {/* ===================== KODE/BOARD DUPLICATE PANEL END ===================== */}
         
             <Section>
         
@@ -1438,7 +1556,7 @@ so Forget the scissor doors. Taurus embraces a radical approach with doors that 
             </Section>
 
             <Section>
-            <Imgtrans mt={10}>
+            <Imgtrans>
           <Button height={'auto'} onClick={onEditOpenmd2}>
             <Image 
           src='/images/works/koegfro1.png'
@@ -1446,7 +1564,7 @@ so Forget the scissor doors. Taurus embraces a radical approach with doors that 
           borderRadius='lg'
           />
 
-         
+           
           <Modal isOpen={isEditOpenmd2} onClose={onEditClosemd2} size={'full'} scrollBehavior={'outside'}>
               <ModalOverlay />
               <ModalContent>
@@ -1458,12 +1576,12 @@ so Forget the scissor doors. Taurus embraces a radical approach with doors that 
                     
               <center>
                  
-              <Image 
-          src='/images/works/koegfro1.png'
-          alt='Koenigsegg CC850'
-          borderRadius='lg'
-          mb={10}
-          /><Text fontSize={24} fontWeight={'hairline'}>
+                  <Image 
+                    src='/images/works/koegfro1.png'
+                    alt='Koenigsegg CC850'
+                    borderRadius='lg'
+                    mb={10}
+                  /><Text fontSize={24} fontWeight={'hairline'}>
                     Koenigsegg CC850, a rare and powerful supercar that can reach speeds of over 400 km/h. 
                     I wanted to design my own version of it in Autodesk Sketchbook, a versatile and easy-to-use 
                     drawing app on my phone and here is the powerful design journey of the Koenigsegg CC850.
@@ -1533,10 +1651,9 @@ so Forget the scissor doors. Taurus embraces a radical approach with doors that 
               </ModalFooter>
               </ModalContent>
           </Modal>
-          
+         
 
-
-          </Button>
+           </Button>
           </Imgtrans>
           <Stack mt='6' spacing='3'>
           <Heading as="h2"  fontWeight="hairline">
@@ -1642,7 +1759,8 @@ so Forget the scissor doors. Taurus embraces a radical approach with doors that 
           alt='TAREN DRONE'
           borderRadius='lg'
           />
-    
+
+          {/* TAREN DRONE Modal */}
           <Modal isOpen={isEditOpenmd4} onClose={onEditClosemd4} size={'full'} scrollBehavior={'outside'}>
               <ModalOverlay />
               <ModalContent>
@@ -1772,6 +1890,7 @@ model. We dived into the pool of design principles and got benefited from it.
               </ModalContent>
           </Modal>
           {/* ===================================================================================== */}
+
           </Button>
           </Imgtrans>
           <Stack mt='6' spacing='3'>
@@ -1795,7 +1914,8 @@ model. We dived into the pool of design principles and got benefited from it.
           alt='FERRARI MONZA SP1'
           borderRadius='lg'
           />
-          
+
+          {/* FERRARI MONZA Modal */}
           <Modal isOpen={isEditOpenmd5} onClose={onEditClosemd5} size={'full'} scrollBehavior={'outside'}>
               <ModalOverlay />
               <ModalContent>
@@ -1863,7 +1983,7 @@ windshield and no roof. In this project I recreate a Ferrari Monza SP1 in blende
           FERRARI MONZA SP1
         </Heading>
           <Text fontSize={'xs'}>
-            Ferrari Monza SP1 3D Design and Rendering Project in Blender
+          Ferrari Monza SP1 3D Design and Rendering Project in Blender
           </Text>
 
         </Stack>
@@ -1879,7 +1999,8 @@ windshield and no roof. In this project I recreate a Ferrari Monza SP1 in blende
           alt='Cahar'
           borderRadius='lg'
           />
-          {/* ===================Bugatti Chiron Edit Modal===================================================== */}
+
+          {/* LAMBORGHINI Modal */}
           <Modal isOpen={isEditOpenmd6} onClose={onEditClosemd6} size={'full'} scrollBehavior={'outside'}>
               <ModalOverlay />
               <ModalContent>
