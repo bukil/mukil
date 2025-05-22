@@ -1,4 +1,4 @@
-import { Box, useColorMode, useColorModeValue } from '@chakra-ui/react'
+import { Box, useColorMode } from '@chakra-ui/react'
 import { SunIcon, MoonIcon } from '@chakra-ui/icons'
 import styled from '@emotion/styled'
 

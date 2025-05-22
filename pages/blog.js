@@ -1,4 +1,4 @@
-import { Container, Heading, SimpleGrid, Text, Box, useColorModeValue, Stack, Badge, VStack, HStack, Icon } from '@chakra-ui/react'
+import { Container, Heading, SimpleGrid, Text, useColorModeValue, VStack, Icon } from '@chakra-ui/react'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
 import { FiBook, FiCamera, FiEdit } from 'react-icons/fi'
