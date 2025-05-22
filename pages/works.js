@@ -67,171 +67,111 @@ function CollapseExtandip() {
           shadow='md'
         >
          
-         <SimpleGrid columns={[2]} gap={20} mt={10}>
+         <SimpleGrid 
+           columns={{ base: 1, sm: 2, md: 3 }} 
+           gap={{ base: 8, md: 10 }} 
+           mt={10}
+           px={{ base: 4, md: 8 }}
+         >
 
          <Section>
         
         
-        <Imgtrans>
-          <Button height={'auto'} onClick={onEditOpenmd0}>
-           <Image 
-          src='/images/works/BOTASF.jpg'
-          alt='User Experience'
-          borderRadius='lg'
-          />
-
-           
-          <Modal isOpen={isEditOpenmd0} onClose={onEditClosemd0} size={'full'} scrollBehavior={'outside'}>
-              <ModalOverlay />
-              <ModalContent>
-              <center>
-              <ModalHeader as="h1" ></ModalHeader>
-              </center>
-              <ModalCloseButton />
-              <ModalBody>
-                    
-              <center>
-                 
-                  <Image 
-                    src='/images/works/keeb_post.png'
-                    alt='KODE-BOARD'
-                    width={ 'full' }
-                    borderRadius={0}
-                    mb={0}
-                    
-                  />
-                    <Text fontSize={24} fontWeight={'hairline'}>
-                    </Text>
-                  <Divider orientation='horizontal'>
-                  </Divider>
-
-                  <SimpleGrid columns={1} spacingX='40px' spacingY='20px' mt={10}>
-                  {/*
-                  <Image 
-                    src='/images/works/keeb_ref.png'
-                    alt='Project 3D 1'
-                    width={ 'full' }
-                    borderRadius={0}
-                  /> */}
-                  
-
-                  <Section>
-                  <Image 
-                    src='/images/works/keenn.png'
-                    alt='FIgma output'
-                    width={ 'container.lg' }
-                    borderRadius={0}
-                  />
-                  </Section>
-                  
-                  
-                  {/*<Image 
-                    src='/images/works/keeb_1.png'
-                    alt='Project 3D output'
-                    borderRadius={0}
-                    width={ 'full' }
-                  />
-                  
-                  
-
-                  
-                  <Image 
-                    src='/images/works/keeb_2.jpg'
-                    alt='Project 3D output'
-                    borderRadius={0}
-                    width={ 'full' }
-                  />
-                  
-                  
-
-                 
-                  <Image 
-                    src='/images/works/BOTASF.jpg'
-                    alt='Project 3D 1'
-                    borderRadius={0}
-                    width={ 'full' }
-                  />
-                  
-                  
-                
-                  
-
-                  <Section>
-                  <Image
-                    src='/images/works/nww.jpg'
-                    alt='Project 3D 1'
-                     width={ 'full' }
-                     borderRadius={0}
-                  />
-                
-                  </Section>
-
-                  <Section>
-                  <Image
-                    src='/images/works/newpers2.jpg'
-                    alt='Project 3D 1'
-                     width={ 'full' }
-                     borderRadius={0}
-                  />
-            
-                  </Section>
-                  
-
-                  <Section>
-                  <Image
-                    src='/images/works/newpers.jpg'
-                    alt='Project 3D 1'
-                     width={ 'full' }
-                     borderRadius={0}
-                  />
-                  
- 
-                  </Section>
-                  <Section>
-                  <Image
-                    src='/images/works/newperjjgjgg.jpg'
-                    alt='Project 3D 1'
-                     width={ 'full' }
-                     borderRadius={0}
-                  />
-                
-                  </Section>
-
-                  <Section>
-                  <Image
-                    src='/images/works/lov.jpg'
-                    alt='Project 3D 1'
-                     width={ 'full' }
-                     borderRadius={0}
-                  />
-                
-              
-                  </Section>*/}
-
-                   
-                  </SimpleGrid>
-                    <Divider orientation='horizontal' mb={10}>
-                    </Divider>
-                   
-                  </center>
-              </ModalBody>
-              <ModalFooter>
-              <Button variant="ghost" mr={3} onClick={onEditClosemd0}>Close</Button>
-              </ModalFooter>
-              </ModalContent>
-          </Modal>
-         
-
-           </Button>
-          </Imgtrans>
-          <Stack mt='6' spacing='3' mb={10}>
-          <Heading as="h2"  fontWeight="hairline">
-          KODE/BOARD
-        </Heading>
-        <Text fontSize={'xs'} mb={10}>
-          Here is a keyboard concept ( kode board 🙃 ) , Copy, paste, repeat... but not as you know it. Multi-layer clipboard on fingertips like seamlessly storing your snippets for instant recall. 🪄
-          </Text>
-        </Stack>
+        <Box 
+          position="relative"
+          borderWidth="1px" 
+          borderRadius="lg" 
+          overflow="hidden" 
+          boxShadow="md"
+          role="group"
+          bg="radial-gradient(circle at center, rgba(0, 150, 0, 0.7) 0%, rgba(0, 30, 0, 0.98) 100%)"
+          transition="all 0.3s ease"
+          _hover={{
+            bg: "radial-gradient(circle at center, rgba(0, 200, 0, 0.8) 0%, rgba(0, 40, 0, 0.98) 100%)"
+          }}
+          onClick={onEditOpenmd12}
+          cursor="pointer"
+        >
+          <Box position="relative">
+            <Text
+              position="absolute"
+              top="20%"
+              left="50%"
+              transform="translate(-50%, -50%)"
+              fontSize="6xl"
+              fontWeight="900"
+              color="white"
+              opacity="0"
+              transition="all 0.8s cubic-bezier(0.4, 0, 0.2, 1)"
+              textShadow="2px 2px 4px rgba(0,0,0,0.5)"
+              _groupHover={{ 
+                opacity: 0.8,
+                top: "45%",
+                transform: "translate(-50%, -50%)"
+              }}
+              zIndex="0"
+              letterSpacing="wider"
+              fontFamily="'Bebas Neue', sans-serif"
+              fontStyle="italic"
+            >
+              KODE/BOARD
+            </Text>
+            <Image 
+              src='/images/works/BOTASF.PNG'
+              alt='KODE/BOARD'
+              width="100%"
+              height="auto"
+              objectFit="cover"
+              transition="all 0.3s ease"
+              _groupHover={{ 
+                filter: 'brightness(1.2)',
+                transform: 'scale(1.05)'
+              }}
+              position="relative"
+              zIndex="1"
+            />
+          </Box>
+          <Box
+            position="absolute"
+            bottom="0"
+            left="0"
+            right="0"
+            bg="transparent"
+            p={3}
+            color="white"
+            zIndex="2"
+          >
+            <Heading 
+              as="h3" 
+              size="sm" 
+              mb={1} 
+              fontFamily="'Encode Sans Expanded', sans-serif"
+              fontWeight="700"
+              letterSpacing="0.2em"
+              textTransform="uppercase"
+              color="white"
+              transition="all 0.3s ease"
+              _groupHover={{ opacity: 0 }}
+            >
+              KODE/BOARD
+            </Heading>
+            <Box 
+              w="100%" 
+              h="0.5px" 
+              bg="green.400" 
+              mb={2}
+            />
+            <Text 
+              fontSize="xs"
+              fontFamily="'Encode Sans Expanded', sans-serif"
+              fontWeight="400"
+              letterSpacing="0.5px"
+            >
+              Here is a keyboard concept (kode board 🙃), Copy, paste, repeat... but not as you know it. 
+              Multi-layer clipboard on fingertips like seamlessly storing your snippets for instant recall. 🪄
+            </Text>
+          </Box>
+        </Box>
          
             </Section>
 
@@ -252,7 +192,7 @@ function CollapseExtandip() {
               <ModalOverlay />
               <ModalContent>
               <center>
-              <ModalHeader as="h1" >JokifAI</ModalHeader>
+              <ModalHeader as="h1" >KODE/BOARD</ModalHeader>
               </center>
               <ModalCloseButton />
               <ModalBody>
@@ -273,13 +213,7 @@ function CollapseExtandip() {
                   </Divider>
 
                   <SimpleGrid columns={1} spacingX='40px' spacingY='20px' mt={10}>
-                  {/*
-                  <Image 
-                    src='/images/works/keeb_ref.png'
-                    alt='Project 3D 1'
-                    width={ 'full' }
-                    borderRadius={0}
-                  /> */}
+                  
                   
 
                   <Section>
@@ -292,88 +226,7 @@ function CollapseExtandip() {
                   </Section>
                   
                   
-                  {/*<Image 
-                    src='/images/works/keeb_1.png'
-                    alt='Project 3D output'
-                    borderRadius={0}
-                    width={ 'full' }
-                  />
-                  
-                  
-
-                  
-                  <Image 
-                    src='/images/works/keeb_2.jpg'
-                    alt='Project 3D output'
-                    borderRadius={0}
-                    width={ 'full' }
-                  />
-                  
-                  
-
                  
-                  <Image 
-                    src='/images/works/BOTASF.jpg'
-                    alt='Project 3D 1'
-                    borderRadius={0}
-                    width={ 'full' }
-                  />
-                  
-                  
-                
-                  
-
-                  <Section>
-                  <Image
-                    src='/images/works/nww.jpg'
-                    alt='Project 3D 1'
-                     width={ 'full' }
-                     borderRadius={0}
-                  />
-                
-                  </Section>
-
-                  <Section>
-                  <Image
-                    src='/images/works/newpers2.jpg'
-                    alt='Project 3D 1'
-                     width={ 'full' }
-                     borderRadius={0}
-                  />
-            
-                  </Section>
-                  
-
-                  <Section>
-                  <Image
-                    src='/images/works/newpers.jpg'
-                    alt='Project 3D 1'
-                     width={ 'full' }
-                     borderRadius={0}
-                  />
-                  
- 
-                  </Section>
-                  <Section>
-                  <Image
-                    src='/images/works/newperjjgjgg.jpg'
-                    alt='Project 3D 1'
-                     width={ 'full' }
-                     borderRadius={0}
-                  />
-                
-                  </Section>
-
-                  <Section>
-                  <Image
-                    src='/images/works/lov.jpg'
-                    alt='Project 3D 1'
-                     width={ 'full' }
-                     borderRadius={0}
-                  />
-                
-              
-                  </Section>*/}
 
                    
                   </SimpleGrid>
@@ -1187,7 +1040,12 @@ function CollapseExtandi() {
           shadow='md'
         >
          
-         <SimpleGrid columns={[2]} gap={25} mt={10}>
+         <SimpleGrid 
+           columns={{ base: 1, sm: 2, md: 3 }} 
+           gap={{ base: 8, md: 10 }} 
+           mt={10}
+           px={{ base: 4, md: 8 }}
+         >
 
          <Section>
         
@@ -2119,31 +1977,33 @@ windshield and no roof. In this project I recreate a Ferrari Monza SP1 in blende
 // ================ End of Work Section =========================
 
 const Works = () => (
-  <Layout title="Works" mt={10}>
-<Section>
-      <Heading as="h3" fontSize={50} mb={15} mt={10}>
-       <CollapseExtandip/>
-      </Heading>
+  <Layout title="Works" mt={10} maxW="100vw" overflowX="hidden">
+    <Box w="100vw" position="relative" left="50%" right="50%" marginLeft="-50vw" marginRight="-50vw">
+      <Section>
+        <Heading as="h3" fontSize={50} mb={15} mt={10}>
+          <CollapseExtandip/>
+        </Heading>
       </Section>
       <Section>
-      <Heading as="h3" fontSize={50} mb={15} mt={10}>
-       <CollapseExtandi/>
-      </Heading>
+        <Heading as="h3" fontSize={50} mb={15} mt={10}>
+          <CollapseExtandi/>
+        </Heading>
       </Section>
       <Spacer/>
       <Spacer/>
-<Trans>
-<Section>
-<Box align="center" my={4}>
-          <NextLink href="/" passHref scroll={true}>
-            <Button borderRadius='20px' variant='outline' border='1px' 
-            borderColor='black.500' mt='10' leftIcon={<ChevronLeftIcon />}>
-                GO BACK TO HOME PAGE
-            </Button>
-          </NextLink>
-        </Box>
-</Section>
-</Trans>
+      <Trans>
+        <Section>
+          <Box align="center" my={4}>
+            <NextLink href="/" passHref scroll={true}>
+              <Button borderRadius='20px' variant='outline' border='1px' 
+              borderColor='black.500' mt='10' leftIcon={<ChevronLeftIcon />}>
+                  GO BACK TO HOME PAGE
+              </Button>
+            </NextLink>
+          </Box>
+        </Section>
+      </Trans>
+    </Box>
   </Layout>
 )
 

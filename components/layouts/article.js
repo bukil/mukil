@@ -25,6 +25,7 @@ const Layout = ({ children, title }) => {
             <title>{t}</title>
             <meta name="twitter:title" content={t} />
             <meta property="og:title" content={t} />
+            <link href="https://fonts.googleapis.com/css2?family=Encode+Sans+Expanded:wght@400;500;600;700&display=swap" rel="stylesheet" />
           </Head>
         )}
         {children}
