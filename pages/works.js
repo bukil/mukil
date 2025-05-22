@@ -117,7 +117,7 @@ function CollapseExtandip() {
               KODE/BOARD
             </Text>
             <Image 
-              src='/images/works/BOTASF.PNG'
+              src='/images/works/BOTASF.png'
               alt='KODE/BOARD'
               width="100%"
               height="100%"
