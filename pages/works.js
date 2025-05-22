@@ -42,7 +42,6 @@ const Imgtrans = styled.span`
 function CollapseExtandip() {
   const { isOpen, onToggle } = useDisclosure()
 
-  const { isOpen: isEditOpenmd0 , onOpen: onEditOpenmd0, onClose: onEditClosemd0 } = useDisclosure()
   const { isOpen: isEditOpenmd1 , onOpen: onEditOpenmd1, onClose: onEditClosemd1 } = useDisclosure()
   const { isOpen: isEditOpenmd2 , onOpen: onEditOpenmd2, onClose: onEditClosemd2 } = useDisclosure()
   const { isOpen: isEditOpenmd3 , onOpen: onEditOpenmd3, onClose: onEditClosemd3 } = useDisclosure()
@@ -106,7 +105,7 @@ function CollapseExtandip() {
               textShadow="2px 2px 4px rgba(0,0,0,0.5)"
               _groupHover={{ 
                 opacity: 0.8,
-                top: "45%",
+                top: "35%",
                 transform: "translate(-50%, -50%)"
               }}
               zIndex="0"
