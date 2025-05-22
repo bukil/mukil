@@ -37,6 +37,43 @@ const Imgtrans = styled.span`
   }
 `
 
+const SnowContainer = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+`
+
+const Snowflake = styled.div`
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  opacity: 0;
+  filter: blur(0.5px);
+  box-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
+  animation: float linear infinite;
+  @keyframes float {
+    0% {
+      transform: translateY(0) translateX(0) rotate(0deg);
+      opacity: 0;
+    }
+    20% {
+      opacity: 0.8;
+    }
+    80% {
+      opacity: 0.8;
+    }
+    100% {
+      transform: translateY(-20px) translateX(10px) rotate(360deg);
+      opacity: 0;
+    }
+  }
+`
+
 // ===================== Part =================
 
 function CollapseExtandip() {
@@ -241,6 +278,25 @@ function CollapseExtandip() {
           height="400px"
           width="100%"
         >
+          <SnowContainer>
+            {[...Array(30)].map((_, i) => {
+              const size = Math.random() * 6 + 1;
+              return (
+                <Snowflake
+                  key={i}
+                  style={{
+                    left: `${Math.random() * 100}%`,
+                    top: `${Math.random() * 100}%`,
+                    width: `${size}px`,
+                    height: `${size}px`,
+                    animationDuration: `${Math.random() * 8 + 4}s`,
+                    animationDelay: `${Math.random() * 5}s`,
+                    opacity: `${Math.random() * 0.4 + 0.4}`
+                  }}
+                />
+              );
+            })}
+          </SnowContainer>
           <Box position="relative" height="100%" width="100%">
             <Text
               position="absolute"
