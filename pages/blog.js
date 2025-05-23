@@ -19,7 +19,7 @@ const Blog = () => {
               bgClip="text"
               letterSpacing="tight"
             >
-              Blog soon (website under construction hehehe 😅 )
+              Blog soon (website under construction hehehe :.| )
             </Heading>
             <Text
               fontSize={{ base: 'xl', md: '2xl' }}

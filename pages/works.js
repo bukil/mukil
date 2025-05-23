@@ -263,7 +263,7 @@ function CollapseExtandip() {
 
             <Section>
               <ProjectPanel
-                title="Design Evaluation"
+                title="Design Evaluation ChatGPT"
                 description="Leveraging ChatGPT to evaluate and enhance design concepts. Get instant feedback, suggestions, and improvements for your creative work through AI-powered analysis. 🤖"
                 imageSrc="/mukil/degpt2.png"
                 imageAlt="Design Evaluation ChatGPT"
