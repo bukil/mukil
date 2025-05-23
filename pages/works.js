@@ -74,24 +74,6 @@ const Snowflake = styled.div`
   }
 `
 
-// Add Michroma font import
-const MichromaFont = styled.span`
-  @import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');
-`
-
-// Add Michroma heading style
-const MichromaHeading = styled(Heading)`
-  font-family: "Michroma", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: white;
-  transition: all 0.3s ease;
-  margin-bottom: 1;
-  _groupHover={{ opacity: 0 }}
-`
-
 // Standard Panel Component
 const ProjectPanel = ({ 
   title, 
