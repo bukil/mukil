@@ -86,6 +86,7 @@ function CollapseExtandip() {
   const { isOpen: isEditOpenmd11 , onOpen: onEditOpenmd11, onClose: onEditClosemd11 } = useDisclosure()
   const { isOpen: isEditOpenmd12 , onOpen: onEditOpenmd12, onClose: onEditClosemd12 } = useDisclosure()
   const { isOpen: isEditOpenmd13 , onOpen: onEditOpenmd13, onClose: onEditClosemd13 } = useDisclosure()
+  const { isOpen: isEditOpenmd14 , onOpen: onEditOpenmd14, onClose: onEditClosemd14 } = useDisclosure()
   return (
     <>
     
@@ -253,6 +254,160 @@ function CollapseExtandip() {
               </ModalBody>
               <ModalFooter>
               <Button variant="ghost" mr={3} onClick={onEditClosemd12}>Close</Button>
+              </ModalFooter>
+              </ModalContent>
+          </Modal>
+        </Box>
+         
+            </Section>
+        {/* ===================== DESIGN EVALUATION CHATGPT PANEL START ===================== */}
+         <Section>
+        <Box 
+          position="relative"
+          borderWidth="1px" 
+          borderRadius="lg" 
+          overflow="hidden" 
+          boxShadow="md"
+          role="group"
+          bg="radial-gradient(circle at center, rgba(0, 100, 255, 0.7) 0%, rgba(0, 30, 60, 0.98) 100%)"
+          transition="all 0.3s ease"
+          _hover={{
+            bg: "radial-gradient(circle at center, rgba(0, 150, 255, 0.8) 0%, rgba(0, 40, 80, 0.98) 100%)"
+          }}
+          onClick={onEditOpenmd14}
+          cursor="pointer"
+          height="400px"
+          width="100%"
+        >
+          <Box 
+            position="relative" 
+            height="100%" 
+            width="100%" 
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <Text
+              position="absolute"
+              top="20%"
+              left="50%"
+              transform="translate(-50%, -50%)"
+              fontSize="6xl"
+              fontWeight="900"
+              color="white"
+              opacity="0"
+              transition="all 0.8s cubic-bezier(0.4, 0, 0.2, 1)"
+              _groupHover={{ 
+                opacity: 0.4,
+                top: "35%",
+                transform: "translate(-50%, -50%)"
+              }}
+              zIndex="0"
+              letterSpacing="wider"
+              fontFamily="'Bebas Neue', sans-serif"
+              fontStyle="italic"
+            >
+              DESIGN EVALUATION
+            </Text>
+            <Image 
+              src='/mukil/degpt2.png'
+              alt='Design Evaluation ChatGPT'
+              width="50%"
+              height="50%"
+              objectFit="contain"
+              transition="all 0.3s ease"
+              _groupHover={{ 
+                filter: 'brightness(1.2)',
+                transform: 'scale(1.05)'
+              }}
+              position="relative"
+              zIndex="1"
+              bg="transparent"
+            />
+          </Box>
+          <Box
+            position="absolute"
+            bottom="0"
+            left="0"
+            right="0"
+            bg="transparent"
+            p={3}
+            color="white"
+            zIndex="2"
+          >
+            <Heading 
+              as="h3" 
+              size="sm" 
+              mb={1} 
+              fontFamily="'Encode Sans Expanded', sans-serif"
+              fontWeight="700"
+              letterSpacing="0.2em"
+              textTransform="uppercase"
+              color="white"
+              transition="all 0.3s ease"
+              _groupHover={{ opacity: 0 }}
+            >
+              DESIGN EVALUATION
+            </Heading>
+            <Box 
+              w="100%" 
+              h="0.5px" 
+              bg="blue.400" 
+              mb={2}
+            />
+            <Text 
+              fontSize="xs"
+              fontFamily="'Encode Sans Expanded', sans-serif"
+              fontWeight="400"
+              letterSpacing="0.5px"
+            >
+              Leveraging ChatGPT to evaluate and enhance design concepts. Get instant feedback, 
+              suggestions, and improvements for your creative work through AI-powered analysis. 🤖
+            </Text>
+          </Box>
+          {/* Design Evaluation Modal */}
+          <Modal isOpen={isEditOpenmd14} onClose={onEditClosemd14} size={'full'} scrollBehavior={'outside'}>
+              <ModalOverlay />
+              <ModalContent>
+              <center>
+              <ModalHeader as="h1" >Design Evaluation ChatGPT</ModalHeader>
+              </center>
+              <ModalCloseButton />
+              <ModalBody>
+                    
+              <center>
+                 
+                  <Image 
+                    src='/images/works/keeb_post.png'
+                    alt='Design Evaluation'
+                    width={ 'full' }
+                    borderRadius={0}
+                    mb={0}
+                  />
+                  <Text fontSize={24} fontWeight={'hairline'}>
+                    A revolutionary approach to design evaluation using ChatGPT. Get instant feedback, 
+                    suggestions, and improvements for your creative work through AI-powered analysis. 
+                    Transform your design process with intelligent insights and recommendations. 🎨
+                  </Text>
+                  <Divider orientation='horizontal'>
+                  </Divider>
+
+                  <SimpleGrid columns={1} spacingX='40px' spacingY='20px' mt={10}>
+                  <Section>
+                  <Image 
+                    src='/images/works/keenn.png'
+                    alt='Design Evaluation Interface'
+                    width={ 'container.lg' }
+                    borderRadius={0}
+                  />
+                  </Section>
+                  </SimpleGrid>
+                  <Divider orientation='horizontal' mb={10}>
+                  </Divider>
+                  </center>
+              </ModalBody>
+              <ModalFooter>
+              <Button variant="ghost" mr={3} onClick={onEditClosemd14}>Close</Button>
               </ModalFooter>
               </ModalContent>
           </Modal>
