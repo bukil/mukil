@@ -19,6 +19,11 @@ import {
   ModalBody,
   ModalCloseButton,
   useToast,
+  useColorMode,
+  Link,
+  HStack,
+  Icon,
+  VStack
 } from '@chakra-ui/react'
 import { ChevronDownIcon, ChevronLeftIcon, EmailIcon } from '@chakra-ui/icons'
 import { FaLinkedin, FaGithub, FaYoutube } from 'react-icons/fa'
