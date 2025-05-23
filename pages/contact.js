@@ -61,16 +61,28 @@ const Contact = () => {
             fontSize={{ base: "4xl", md: "6xl" }}
             fontWeight="extrabold"
             letterSpacing="tight"
-            mb={12}
+            mb={4}
             textAlign="center"
             lineHeight="1.2"
           >
             LET'S CREATE SOMETHING AMAZING TOGETHER
           </Heading>
           
-          <Heading as="h2" fontSize="6xl" fontWeight="hairline" mb={8}>
-            Contact
-          </Heading>
+          <Text
+            fontSize="md"
+            textAlign="center"
+            mb={12}
+            fontFamily='"Michroma", sans-serif'
+            fontWeight="400"
+            letterSpacing="0.2em"
+            color="gray.500"
+            maxW="800px"
+            mx="auto"
+          >
+            I'm all ears whether you're building the next big thing, sketching out a moonshot, or just want to say hi.
+            <br />
+            Let's connect. Let's create. Or at the very least, let's talk.
+          </Text>
           
           <VStack spacing={8} align="stretch">
             <Box
@@ -88,7 +100,7 @@ const Contact = () => {
               <ContactLink icon={FaLinkedin} href="https://www.linkedin.com/in/mukil-kumar-289446/">
                 LinkedIn
               </ContactLink>
-              <ContactLink icon={FaGithub} href="https://github.com/mukil289446">
+              <ContactLink icon={FaGithub} href="https://github.com/bukil">
                 GitHub
               </ContactLink>
               <ContactLink icon={FaYoutube} href="https://www.youtube.com/channel/UCVeGi7RNdtqN6_7G-rjdSGQ">
@@ -108,6 +120,32 @@ const Contact = () => {
             </Box>
           </VStack>
         </Section>
+        <Box
+          position="fixed"
+          bottom="-30%"
+          left="0"
+          right="0"
+          textAlign="center"
+          zIndex="0"
+          pointerEvents="none"
+          overflow="visible"
+        >
+          <Text
+            fontSize={{ base: "25rem", md: "35rem" }}
+            fontFamily="'BaseNeueTrial', sans-serif"
+            fontWeight="900"
+            lineHeight="0.8"
+            background="linear-gradient(to bottom, rgba(255, 255, 255, 0.31) 0%, rgba(255, 255, 255, 0.04) 50%, rgba(255, 255, 255, 0.01) 100%)"
+            backgroundClip="text"
+            WebkitBackgroundClip="text"
+            color="transparent"
+            transform="translateY(0)"
+            userSelect="none"
+            paddingTop="20%"
+          >
+            HELLO
+          </Text>
+        </Box>
         <FooterLand />
       </Container>
     </Layout>
