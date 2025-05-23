@@ -1,10 +1,11 @@
 /* eslint-disable react/no-unescaped-entities */
-import { Container, Divider, Heading, SimpleGrid, Stack, Image, Text, Button, useDisclosure, Collapse, Box, Spacer, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton } from '@chakra-ui/react'
+import { Container, Divider, Heading, SimpleGrid, Stack, Image, Text, Button, useDisclosure, Collapse, Box, Spacer, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Input, useToast } from '@chakra-ui/react'
 import { ChevronDownIcon, ChevronLeftIcon } from '@chakra-ui/icons'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
 import styled from '@emotion/styled'
 import NextLink from 'next/link'
+import { useState } from 'react'
 
 // Styled components
 const Trans = styled.span`
@@ -53,8 +54,6 @@ const Snowflake = styled.div`
   background: white;
   border-radius: 50%;
   opacity: 0;
-  filter: blur(0.5px);
-  box-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
   animation: float linear infinite;
   @keyframes float {
     0% {
@@ -107,7 +106,7 @@ const ProjectPanel = ({
       {hasSnow && (
         <SnowContainer>
           {[...Array(30)].map((_, i) => {
-            const size = Math.random() * 6 + 1;
+            const size = Math.random() * 10 + 3;
             return (
               <Snowflake
                 key={i}
@@ -149,8 +148,9 @@ const ProjectPanel = ({
             transform: "translate(-50%, -50%)"
           }}
           zIndex="0"
-          letterSpacing="wider"
-          fontFamily="'Bebas Neue', sans-serif"
+          letterSpacing="tight"
+          lineHeight="0.8"
+          fontFamily="'BaseNeueTrial', sans-serif"
           fontStyle="italic"
           textTransform="uppercase"
         >
@@ -159,8 +159,8 @@ const ProjectPanel = ({
         <Image 
           src={imageSrc}
           alt={imageAlt}
-          width="50%"
-          height="50%"
+          width={title === "Kode/Board" ? "80%" : "50%"}
+          height={title === "Kode/Board" ? "80%" : "50%"}
           objectFit="contain"
           transition="all 0.3s ease"
           _groupHover={{ 
@@ -226,6 +226,9 @@ function CollapseExtandip() {
   const { isOpen: isEditOpenmd14, onOpen: onEditOpenmd14, onClose: onEditClosemd14 } = useDisclosure()
   const { isOpen: isEditOpenmd13, onOpen: onEditOpenmd13, onClose: onEditClosemd13 } = useDisclosure()
   const { isOpen: isEditOpenmd15, onOpen: onEditOpenmd15, onClose: onEditClosemd15 } = useDisclosure()
+  const toast = useToast()
+
+  
 
   return (
     <>
@@ -249,9 +252,9 @@ function CollapseExtandip() {
               <Modal isOpen={isEditOpenmd12} onClose={onEditClosemd12} size="full">
                 <ModalOverlay />
                 <ModalContent>
-                  <ModalHeader>Kode/Board</ModalHeader>
-                  <ModalCloseButton />
-                  <ModalBody>
+                  <ModalHeader as="h1" mt={32}>Kode/Board</ModalHeader>
+                  <ModalCloseButton mt={32} />
+                  <ModalBody mt={4}>
                     {/* Add your modal content here */}
                   </ModalBody>
                   <ModalFooter>
@@ -275,9 +278,9 @@ function CollapseExtandip() {
               <Modal isOpen={isEditOpenmd14} onClose={onEditClosemd14} size="full">
                 <ModalOverlay />
                 <ModalContent>
-                  <ModalHeader>Design Evaluation</ModalHeader>
-                  <ModalCloseButton />
-                  <ModalBody>
+                  <ModalHeader as="h1" mt={32}>Design Evaluation</ModalHeader>
+                  <ModalCloseButton mt={32} />
+                  <ModalBody mt={4}>
                     {/* Add your modal content here */}
                   </ModalBody>
                   <ModalFooter>
@@ -300,12 +303,21 @@ function CollapseExtandip() {
                 hasSnow={true}
               />
               <Modal isOpen={isEditOpenmd13} onClose={onEditClosemd13} size="full">
-                <ModalOverlay />
-                <ModalContent>
-                  <ModalHeader>Jokif-AI</ModalHeader>
-                  <ModalCloseButton />
-                  <ModalBody>
-                    {/* Add your modal content here */}
+                <ModalOverlay backdropFilter="blur(10px)" />
+                <ModalContent bg="rgba(0, 0, 0, 0.8)">
+                  <ModalHeader mt={32}>Jokif-AI</ModalHeader>
+                  <ModalCloseButton mt={32} />
+                  <ModalBody mt={4}>
+                    <Text fontSize={24} fontWeight={'hairline'} mb={6}>
+                      Welcome to Jokif-AI! This is a protected section of my portfolio.
+                    </Text>
+                    <Image 
+                      src="/images/works/BOTASF.png"
+                      alt="Jokif-AI Project"
+                      width="100%"
+                      borderRadius="lg"
+                      mb={6}
+                    />
                   </ModalBody>
                   <ModalFooter>
                     <Button onClick={onEditClosemd13}>Close</Button>
@@ -401,10 +413,10 @@ function CollapseExtandi() {
               <ModalOverlay />
               <ModalContent>
               <center>
-              <ModalHeader as="h1" >INFINITY DOOR</ModalHeader>
+              <ModalHeader as="h1" mt={32}>INFINITY DOOR</ModalHeader>
               </center>
-              <ModalCloseButton />
-              <ModalBody>
+              <ModalCloseButton mt={32} />
+              <ModalBody mt={4}>
                     
               <center>
                  
@@ -491,10 +503,10 @@ so Forget the scissor doors. Taurus embraces a radical approach with doors that 
               <ModalOverlay />
               <ModalContent>
               <center>
-              <ModalHeader as="h1" >SKETCH PROJECTS AND DESIGN JOURNEYS</ModalHeader>
+              <ModalHeader as="h1" mt={32}>SKETCH PROJECTS AND DESIGN JOURNEYS</ModalHeader>
               </center>
-              <ModalCloseButton />
-              <ModalBody>
+              <ModalCloseButton mt={32} />
+              <ModalBody mt={4}>
                     
               <center>
                  
@@ -658,10 +670,10 @@ so Forget the scissor doors. Taurus embraces a radical approach with doors that 
               <ModalOverlay />
               <ModalContent>
               <center>
-              <ModalHeader as="h1" >BUGATTI CHIRON</ModalHeader>
+              <ModalHeader as="h1" mt={32}>BUGATTI CHIRON</ModalHeader>
               </center>
-              <ModalCloseButton />
-              <ModalBody>
+              <ModalCloseButton mt={32} />
+              <ModalBody mt={4}>
                     
               <center>
                  
@@ -788,10 +800,10 @@ so Forget the scissor doors. Taurus embraces a radical approach with doors that 
               <ModalOverlay />
               <ModalContent>
               <center>
-              <ModalHeader as="h1" >KOENIGSEGG CC850</ModalHeader>
+              <ModalHeader as="h1" mt={32}>KOENIGSEGG CC850</ModalHeader>
               </center>
-              <ModalCloseButton />
-              <ModalBody>
+              <ModalCloseButton mt={32} />
+              <ModalBody mt={4}>
                     
               <center>
                  
@@ -896,10 +908,10 @@ so Forget the scissor doors. Taurus embraces a radical approach with doors that 
               <ModalOverlay />
               <ModalContent>
               <center>
-              <ModalHeader as="h1" >BUGATTI VEYRON 16.4</ModalHeader>
+              <ModalHeader as="h1" mt={32}>BUGATTI VEYRON 16.4</ModalHeader>
               </center>
-              <ModalCloseButton />
-              <ModalBody>
+              <ModalCloseButton mt={32} />
+              <ModalBody mt={4}>
                     
               <center>
                  
@@ -984,10 +996,10 @@ so Forget the scissor doors. Taurus embraces a radical approach with doors that 
               <ModalOverlay />
               <ModalContent>
               <center>
-              <ModalHeader as="h1" >TAREN DRONE</ModalHeader>
+              <ModalHeader as="h1" mt={32}>TAREN DRONE</ModalHeader>
               </center>
-              <ModalCloseButton />
-              <ModalBody>
+              <ModalCloseButton mt={32} />
+              <ModalBody mt={4}>
                     
               <center>
                  
@@ -1139,10 +1151,10 @@ model. We dived into the pool of design principles and got benefited from it.
               <ModalOverlay />
               <ModalContent>
               <center>
-              <ModalHeader as="h1" >FERRARI MONZA SP1</ModalHeader>
+              <ModalHeader as="h1" mt={32}>FERRARI MONZA SP1</ModalHeader>
               </center>
-              <ModalCloseButton />
-              <ModalBody>
+              <ModalCloseButton mt={32} />
+              <ModalBody mt={4}>
                     
               <center>
                  
@@ -1224,10 +1236,10 @@ windshield and no roof. In this project I recreate a Ferrari Monza SP1 in blende
               <ModalOverlay />
               <ModalContent>
               <center>
-              <ModalHeader as="h1" >LAMBORGHINI TERZO MILLENNIO</ModalHeader>
+              <ModalHeader as="h1" mt={32}>LAMBORGHINI TERZO MILLENNIO</ModalHeader>
               </center>
-              <ModalCloseButton />
-              <ModalBody>
+              <ModalCloseButton mt={32} />
+              <ModalBody mt={4}>
                     
               <center>
                  

@@ -78,7 +78,6 @@ const JourneyItem = styled(Box)`
     height: 14px;
     border-radius: 50%;
     background: #90cdf4;
-    box-shadow: 0 0 10px rgba(144, 205, 244, 0.5);
   }
 `
 
@@ -253,7 +252,15 @@ const Home = () => {
           <Grid templateColumns='repeat(2, fr)' gap={20}>
             <GridItem w='100%'>
               <Section delay={0.3}>
-                <Heading fontSize="6xl" fontWeight="hairline">
+                <Heading fontSize="6xl" fontWeight="hairline" 
+                  _hover={{ 
+                    textDecoration: 'underline',
+                    textDecorationColor: '#89EF8C',
+                    textDecorationThickness: '2px',
+                    textUnderlineOffset: '8px',
+                    transition: 'all 0.3s ease'
+                  }}
+                >
                   Introduction
                 </Heading>
                 <Text variant="home-txt" fontSize={14} fontWeight='normal'>
@@ -275,7 +282,15 @@ const Home = () => {
                   &quot;
                 </Text>
 
-                <Heading fontSize="4xl" fontWeight="hairline" mt={12} mb={6}>
+                <Heading fontSize="4xl" fontWeight="hairline" mt={12} mb={6}
+                  _hover={{ 
+                    textDecoration: 'underline',
+                    textDecorationColor: '#89EF8C',
+                    textDecorationThickness: '2px',
+                    textUnderlineOffset: '8px',
+                    transition: 'all 0.3s ease'
+                  }}
+                >
                   My Journey
                 </Heading>
 
@@ -285,7 +300,15 @@ const Home = () => {
                     style={{ opacity: 0 }}
                   >
                     <Badge colorScheme="blue" mb={2}>2024 - Present</Badge>
-                    <Heading fontSize="xl" fontWeight="bold">Master of Design</Heading>
+                    <Heading fontSize="xl" fontWeight="bold"
+                      _hover={{ 
+                        textDecoration: 'underline',
+                        textDecorationColor: '#89EF8C',
+                        textDecorationThickness: '2px',
+                        textUnderlineOffset: '4px',
+                        transition: 'all 0.3s ease'
+                      }}
+                    >Master of Design</Heading>
                     <Text fontSize="md" color="#90cdf4">IDC School of Design, IIT Bombay</Text>
                     <Text fontSize="sm" mt={2}>Specializing in Interaction Design</Text>
                   </JourneyItem>
@@ -295,7 +318,15 @@ const Home = () => {
                     style={{ opacity: 0 }}
                   >
                     <Badge colorScheme="green" mb={2}>2022 - 2023</Badge>
-                    <Heading fontSize="xl" fontWeight="bold">Creative Design Intern</Heading>
+                    <Heading fontSize="xl" fontWeight="bold"
+                      _hover={{ 
+                        textDecoration: 'underline',
+                        textDecorationColor: '#89EF8C',
+                        textDecorationThickness: '2px',
+                        textUnderlineOffset: '4px',
+                        transition: 'all 0.3s ease'
+                      }}
+                    >Creative Design Intern</Heading>
                     <Text fontSize="md" color="#90cdf4">e-Yantra, IIT Bombay</Text>
                     <Text fontSize="sm" mt={2}>Designed and developed a multipurpose drone system with interactive interfaces</Text>
                   </JourneyItem>
@@ -305,7 +336,15 @@ const Home = () => {
                     style={{ opacity: 0 }}
                   >
                     <Badge colorScheme="purple" mb={2}>2022</Badge>
-                    <Heading fontSize="xl" fontWeight="bold">Product Design Intern</Heading>
+                    <Heading fontSize="xl" fontWeight="bold"
+                      _hover={{ 
+                        textDecoration: 'underline',
+                        textDecorationColor: '#89EF8C',
+                        textDecorationThickness: '2px',
+                        textUnderlineOffset: '4px',
+                        transition: 'all 0.3s ease'
+                      }}
+                    >Product Design Intern</Heading>
                     <Text fontSize="md" color="#90cdf4">Digital Ink, Delhi</Text>
                     <Text fontSize="sm" mt={2}>User experience and interface design</Text>
                   </JourneyItem>
