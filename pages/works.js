@@ -101,7 +101,6 @@ const ProjectPanel = ({
   gradientColors, 
   hoverGradientColors, 
   accentColor, 
-  modalContent,
   onClick,
   hasSnow = false
 }) => {
@@ -282,7 +281,7 @@ function CollapseExtandip() {
 
             <Section>
               <ProjectPanel
-                title="JOKIF-AI"
+                title="Jokif-AI"
                 description="An AI-powered platform that brings humor and creativity together. Generate jokes, create memes, and share laughter with the power of artificial intelligence. 🤖"
                 imageSrc="/images/works/BOTASF.png"
                 imageAlt="AI Trends Project"
@@ -296,7 +295,7 @@ function CollapseExtandip() {
 
             <Section>
               <ProjectPanel
-                title="MICROINTERACTION"
+                title="Microinteraction"
                 description="A class assignment exploring the art of microinteractions. Small, meaningful animations and transitions that enhance user experience and bring interfaces to life. 🎨"
                 imageSrc="/mukil/degpt2.png"
                 imageAlt="Microinteraction Class Assignment"
