@@ -1,11 +1,10 @@
 /* eslint-disable react/no-unescaped-entities */
-import { Container, Divider, Heading, SimpleGrid, Stack, Image, Text, Button, useDisclosure, Collapse, Box, Spacer, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Input, useToast } from '@chakra-ui/react'
+import { Container, Divider, Heading, SimpleGrid, Stack, Image, Text, Button, useDisclosure, Collapse, Box, Spacer, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton } from '@chakra-ui/react'
 import { ChevronDownIcon, ChevronLeftIcon } from '@chakra-ui/icons'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
 import styled from '@emotion/styled'
 import NextLink from 'next/link'
-import { useState } from 'react'
 
 // Styled components
 const Trans = styled.span`
@@ -137,7 +136,7 @@ const ProjectPanel = ({
           top="20%"
           left="50%"
           transform="translate(-50%, -50%)"
-          fontSize="6xl"
+          fontSize="8xl"
           fontWeight="900"
           color="white"
           opacity="0"
@@ -148,8 +147,8 @@ const ProjectPanel = ({
             transform: "translate(-50%, -50%)"
           }}
           zIndex="0"
-          letterSpacing="tight"
-          lineHeight="0.8"
+          letterSpacing="normal"
+          lineHeight="1"
           fontFamily="'BaseNeueTrial', sans-serif"
           fontStyle="italic"
           textTransform="uppercase"
@@ -226,9 +225,6 @@ function CollapseExtandip() {
   const { isOpen: isEditOpenmd14, onOpen: onEditOpenmd14, onClose: onEditClosemd14 } = useDisclosure()
   const { isOpen: isEditOpenmd13, onOpen: onEditOpenmd13, onClose: onEditClosemd13 } = useDisclosure()
   const { isOpen: isEditOpenmd15, onOpen: onEditOpenmd15, onClose: onEditClosemd15 } = useDisclosure()
-  const toast = useToast()
-
-  
 
   return (
     <>

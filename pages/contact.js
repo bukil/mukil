@@ -1,21 +1,31 @@
 /* eslint-disable react/no-unescaped-entities */
 import {
   Container,
+  Divider,
   Heading,
-  Box,
+  Stack,
+  Image,
   Text,
-  Link,
-  SimpleGrid,
-  Icon,
-  VStack,
-  HStack,
-  useColorMode,
+  Button,
+  useDisclosure,
+  Collapse,
+  Box,
+  Spacer,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useToast,
 } from '@chakra-ui/react'
-import { EmailIcon, PhoneIcon } from '@chakra-ui/icons'
-import { FaGithub, FaLinkedin, FaYoutube, FaInstagram } from 'react-icons/fa'
+import { ChevronDownIcon, ChevronLeftIcon, EmailIcon } from '@chakra-ui/icons'
+import { FaLinkedin, FaGithub, FaYoutube } from 'react-icons/fa'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
-import { Spacer } from '@chakra-ui/react'
+import styled from '@emotion/styled'
+import NextLink from 'next/link'
 import FooterLand from "../components/FooterLand";
 import ContactForm from '../components/ContactForm'
 
