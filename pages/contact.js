@@ -1,10 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import {
   Container,
-  Divider,
   Heading,
-  Stack,
-  Image,
   Text,
   Box,
   Spacer,
