@@ -74,1264 +74,239 @@ const Snowflake = styled.div`
   }
 `
 
-// ===================== Part =================
+// Add Michroma font import
+const MichromaFont = styled.span`
+  @import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');
+`
 
+// Add Michroma heading style
+const MichromaHeading = styled(Heading)`
+  font-family: "Michroma", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: white;
+  transition: all 0.3s ease;
+  margin-bottom: 1;
+  _groupHover={{ opacity: 0 }}
+`
+
+// Standard Panel Component
+const ProjectPanel = ({ 
+  title, 
+  description, 
+  imageSrc, 
+  imageAlt, 
+  gradientColors, 
+  hoverGradientColors, 
+  accentColor, 
+  modalContent,
+  onClick,
+  hasSnow = false
+}) => {
+  return (
+    <Box 
+      position="relative"
+      borderWidth="1px" 
+      borderRadius="lg" 
+      overflow="hidden" 
+      boxShadow="md"
+      role="group"
+      bg={gradientColors}
+      transition="all 0.3s ease"
+      _hover={{
+        bg: hoverGradientColors
+      }}
+      onClick={onClick}
+      cursor="pointer"
+      height="400px"
+      width="100%"
+    >
+      {hasSnow && (
+        <SnowContainer>
+          {[...Array(30)].map((_, i) => {
+            const size = Math.random() * 6 + 1;
+            return (
+              <Snowflake
+                key={i}
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                  width: `${size}px`,
+                  height: `${size}px`,
+                  animationDuration: `${Math.random() * 8 + 4}s`,
+                  animationDelay: `${Math.random() * 5}s`,
+                  opacity: `${Math.random() * 0.4 + 0.4}`
+                }}
+              />
+            );
+          })}
+        </SnowContainer>
+      )}
+      <Box 
+        position="relative" 
+        height="100%" 
+        width="100%" 
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <Text
+          position="absolute"
+          top="20%"
+          left="50%"
+          transform="translate(-50%, -50%)"
+          fontSize="6xl"
+          fontWeight="900"
+          color="white"
+          opacity="0"
+          transition="all 0.8s cubic-bezier(0.4, 0, 0.2, 1)"
+          _groupHover={{ 
+            opacity: 0.4,
+            top: "35%",
+            transform: "translate(-50%, -50%)"
+          }}
+          zIndex="0"
+          letterSpacing="wider"
+          fontFamily="'Bebas Neue', sans-serif"
+          fontStyle="italic"
+          textTransform="uppercase"
+        >
+          {title}
+        </Text>
+        <Image 
+          src={imageSrc}
+          alt={imageAlt}
+          width="50%"
+          height="50%"
+          objectFit="contain"
+          transition="all 0.3s ease"
+          _groupHover={{ 
+            filter: 'brightness(1.2)',
+            transform: 'scale(1.05)'
+          }}
+          position="relative"
+          zIndex="1"
+          bg="transparent"
+        />
+      </Box>
+      <Box
+        position="absolute"
+        bottom="0"
+        left="0"
+        right="0"
+        bg="transparent"
+        p={3}
+        color="white"
+        zIndex="2"
+      >
+        <Heading 
+          as="h3" 
+          size="sm" 
+          mb={1}
+          style={{
+            fontFamily: '"Michroma", sans-serif',
+            fontWeight: 900,
+            fontStyle: 'normal',
+            letterSpacing: '0.2em',
+            color: 'white',
+            transition: 'all 0.3s ease',
+            WebkitFontSmoothing: 'antialiased',
+            MozOsxFontSmoothing: 'grayscale'
+          }}
+          _groupHover={{ opacity: 0 }}
+        >
+          {title}
+        </Heading>
+        <Box 
+          w="100%" 
+          h="0.5px" 
+          bg={accentColor} 
+          mb={2}
+        />
+        <Text 
+          fontSize="xs"
+          fontFamily="'Encode Sans Expanded', sans-serif"
+          fontWeight="400"
+          letterSpacing="0.5px"
+        >
+          {description}
+        </Text>
+      </Box>
+    </Box>
+  )
+}
+
+// Usage in the main component
 function CollapseExtandip() {
   const { isOpen, onToggle } = useDisclosure()
+  const { isOpen: isEditOpenmd12, onOpen: onEditOpenmd12, onClose: onEditClosemd12 } = useDisclosure()
+  const { isOpen: isEditOpenmd14, onOpen: onEditOpenmd14, onClose: onEditClosemd14 } = useDisclosure()
+  const { isOpen: isEditOpenmd13, onOpen: onEditOpenmd13, onClose: onEditClosemd13 } = useDisclosure()
+  const { isOpen: isEditOpenmd15, onOpen: onEditOpenmd15, onClose: onEditClosemd15 } = useDisclosure()
 
-  const { isOpen: isEditOpenmd1 , onOpen: onEditOpenmd1, onClose: onEditClosemd1 } = useDisclosure()
-  const { isOpen: isEditOpenmd2 , onOpen: onEditOpenmd2, onClose: onEditClosemd2 } = useDisclosure()
-  const { isOpen: isEditOpenmd3 , onOpen: onEditOpenmd3, onClose: onEditClosemd3 } = useDisclosure()
-  const { isOpen: isEditOpenmd9 , onOpen: onEditOpenmd9, onClose: onEditClosemd9 } = useDisclosure()
-  const { isOpen: isEditOpenmd11 , onOpen: onEditOpenmd11, onClose: onEditClosemd11 } = useDisclosure()
-  const { isOpen: isEditOpenmd12 , onOpen: onEditOpenmd12, onClose: onEditClosemd12 } = useDisclosure()
-  const { isOpen: isEditOpenmd13 , onOpen: onEditOpenmd13, onClose: onEditClosemd13 } = useDisclosure()
-  const { isOpen: isEditOpenmd14 , onOpen: onEditOpenmd14, onClose: onEditClosemd14 } = useDisclosure()
   return (
     <>
-    
-      <Button borderRadius='10px' variant='outline' leftIcon={<ChevronDownIcon />} onClick={onToggle} fontSize={20}
-      mt='20'
-      >
+      <Button borderRadius='10px' variant='outline' leftIcon={<ChevronDownIcon />} onClick={onToggle} fontSize={20} mt='20'>
         Selected Projects
       </Button>
       <Collapse in={!isOpen} animateOpacity>
-        <Box
-          
-          p='1px'
-          color='white'
-          mt='4'
-          rounded='md'
-          shadow='md'
-        >
-         
-         <SimpleGrid 
-           columns={{ base: 1, sm: 2, md: 3 }} 
-           gap={{ base: 8, md: 10 }} 
-           mt={10}
-           px={{ base: 4, md: 8 }}
-         >
-
-         {/* ===================== KODE/BOARD PANEL START ===================== */}
-         <Section>
-        
-        
-        <Box 
-          position="relative"
-          borderWidth="1px" 
-          borderRadius="lg" 
-          overflow="hidden" 
-          boxShadow="md"
-          role="group"
-          bg="radial-gradient(circle at center, rgba(0, 150, 0, 0.7) 0%, rgba(0, 30, 0, 0.98) 100%)"
-          transition="all 0.3s ease"
-          _hover={{
-            bg: "radial-gradient(circle at center, rgba(0, 200, 0, 0.8) 0%, rgba(0, 40, 0, 0.98) 100%)"
-          }}
-          onClick={onEditOpenmd12}
-          cursor="pointer"
-          height="400px"
-          width="100%"
-        >
-          <Box position="relative" height="100%" width="100%">
-            <Text
-              position="absolute"
-              top="20%"
-              left="50%"
-              transform="translate(-50%, -50%)"
-              fontSize="6xl"
-              fontWeight="900"
-              color="white"
-              opacity="0"
-              transition="all 0.8s cubic-bezier(0.4, 0, 0.2, 1)"
-              _groupHover={{ 
-                opacity: 0.4,
-                top: "35%",
-                transform: "translate(-50%, -50%)"
-              }}
-              zIndex="0"
-              letterSpacing="wider"
-              fontFamily="'Bebas Neue', sans-serif"
-              fontStyle="italic"
-            >
-              KODE/BOARD
-            </Text>
-            <Image 
-              src='/images/works/BOTASF.png'
-              alt='KODE/BOARD'
-              width="100%"
-              height="100%"
-              objectFit="contain"
-              transition="all 0.3s ease"
-              _groupHover={{ 
-                filter: 'brightness(1.2)',
-                transform: 'scale(1.05)'
-              }}
-              position="relative"
-              zIndex="1"
-              bg="transparent"
-            />
-          </Box>
-          <Box
-            position="absolute"
-            bottom="0"
-            left="0"
-            right="0"
-            bg="transparent"
-            p={3}
-            color="white"
-            zIndex="2"
-          >
-            <Heading 
-              as="h3" 
-              size="sm" 
-              mb={1} 
-              fontFamily="'Encode Sans Expanded', sans-serif"
-              fontWeight="700"
-              letterSpacing="0.2em"
-              textTransform="uppercase"
-              color="white"
-              transition="all 0.3s ease"
-              _groupHover={{ opacity: 0 }}
-            >
-              KODE/BOARD
-            </Heading>
-            <Box 
-              w="100%" 
-              h="0.5px" 
-              bg="green.400" 
-              mb={2}
-            />
-            <Text 
-              fontSize="xs"
-              fontFamily="'Encode Sans Expanded', sans-serif"
-              fontWeight="400"
-              letterSpacing="0.5px"
-            >
-              Here is a keyboard concept (kode board 🙃), Copy, paste, repeat... but not as you know it. 
-              Multi-layer clipboard on fingertips like seamlessly storing your snippets for instant recall. 🪄
-            </Text>
-          </Box>
-          {/* KODE/BOARD Modal */}
-          <Modal isOpen={isEditOpenmd12} onClose={onEditClosemd12} size={'full'} scrollBehavior={'outside'}>
-              <ModalOverlay />
-              <ModalContent>
-              <center>
-              <ModalHeader as="h1" >KODE/BOARD</ModalHeader>
-              </center>
-              <ModalCloseButton />
-              <ModalBody>
-                    
-              <center>
-                 
-                  <Image 
-                    src='/images/works/keeb_post.png'
-                    alt='KODE-BOARD'
-                    width={ 'full' }
-                    borderRadius={0}
-                    mb={0}
-                  />
-                  <Text fontSize={24} fontWeight={'hairline'}>
-                    Here is a keyboard concept (kode board 🙃), Copy, paste, repeat... but not as you know it. 
-                    Multi-layer clipboard on fingertips like seamlessly storing your snippets for instant recall. 🪄
-                  </Text>
-                  <Divider orientation='horizontal'>
-                  </Divider>
-
-                  <SimpleGrid columns={1} spacingX='40px' spacingY='20px' mt={10}>
-                  <Section>
-                  <Image 
-                    src='/images/works/keenn.png'
-                    alt='FIgma output'
-                    width={ 'container.lg' }
-                    borderRadius={0}
-                  />
-                  </Section>
-                  </SimpleGrid>
-                  <Divider orientation='horizontal' mb={10}>
-                  </Divider>
-                  </center>
-              </ModalBody>
-              <ModalFooter>
-              <Button variant="ghost" mr={3} onClick={onEditClosemd12}>Close</Button>
-              </ModalFooter>
-              </ModalContent>
-          </Modal>
-        </Box>
-         
-            </Section>
-        {/* ===================== DESIGN EVALUATION CHATGPT PANEL START ===================== */}
-         <Section>
-        <Box 
-          position="relative"
-          borderWidth="1px" 
-          borderRadius="lg" 
-          overflow="hidden" 
-          boxShadow="md"
-          role="group"
-          bg="radial-gradient(circle at center, rgba(0, 100, 255, 0.7) 0%, rgba(0, 30, 60, 0.98) 100%)"
-          transition="all 0.3s ease"
-          _hover={{
-            bg: "radial-gradient(circle at center, rgba(0, 150, 255, 0.8) 0%, rgba(0, 40, 80, 0.98) 100%)"
-          }}
-          onClick={onEditOpenmd14}
-          cursor="pointer"
-          height="400px"
-          width="100%"
-        >
-          <Box 
-            position="relative" 
-            height="100%" 
-            width="100%" 
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-          >
-            <Text
-              position="absolute"
-              top="20%"
-              left="50%"
-              transform="translate(-50%, -50%)"
-              fontSize="6xl"
-              fontWeight="900"
-              color="white"
-              opacity="0"
-              transition="all 0.8s cubic-bezier(0.4, 0, 0.2, 1)"
-              _groupHover={{ 
-                opacity: 0.4,
-                top: "35%",
-                transform: "translate(-50%, -50%)"
-              }}
-              zIndex="0"
-              letterSpacing="wider"
-              fontFamily="'Bebas Neue', sans-serif"
-              fontStyle="italic"
-            >
-              DESIGN EVALUATION
-            </Text>
-            <Image 
-              src='/mukil/degpt2.png'
-              alt='Design Evaluation ChatGPT'
-              width="50%"
-              height="50%"
-              objectFit="contain"
-              transition="all 0.3s ease"
-              _groupHover={{ 
-                filter: 'brightness(1.2)',
-                transform: 'scale(1.05)'
-              }}
-              position="relative"
-              zIndex="1"
-              bg="transparent"
-            />
-          </Box>
-          <Box
-            position="absolute"
-            bottom="0"
-            left="0"
-            right="0"
-            bg="transparent"
-            p={3}
-            color="white"
-            zIndex="2"
-          >
-            <Heading 
-              as="h3" 
-              size="sm" 
-              mb={1} 
-              fontFamily="'Encode Sans Expanded', sans-serif"
-              fontWeight="700"
-              letterSpacing="0.2em"
-              textTransform="uppercase"
-              color="white"
-              transition="all 0.3s ease"
-              _groupHover={{ opacity: 0 }}
-            >
-              DESIGN EVALUATION
-            </Heading>
-            <Box 
-              w="100%" 
-              h="0.5px" 
-              bg="blue.400" 
-              mb={2}
-            />
-            <Text 
-              fontSize="xs"
-              fontFamily="'Encode Sans Expanded', sans-serif"
-              fontWeight="400"
-              letterSpacing="0.5px"
-            >
-              Leveraging ChatGPT to evaluate and enhance design concepts. Get instant feedback, 
-              suggestions, and improvements for your creative work through AI-powered analysis. 🤖
-            </Text>
-          </Box>
-          {/* Design Evaluation Modal */}
-          <Modal isOpen={isEditOpenmd14} onClose={onEditClosemd14} size={'full'} scrollBehavior={'outside'}>
-              <ModalOverlay />
-              <ModalContent>
-              <center>
-              <ModalHeader as="h1" >Design Evaluation ChatGPT</ModalHeader>
-              </center>
-              <ModalCloseButton />
-              <ModalBody>
-                    
-              <center>
-                 
-                  <Image 
-                    src='/images/works/keeb_post.png'
-                    alt='Design Evaluation'
-                    width={ 'full' }
-                    borderRadius={0}
-                    mb={0}
-                  />
-                  <Text fontSize={24} fontWeight={'hairline'}>
-                    A revolutionary approach to design evaluation using ChatGPT. Get instant feedback, 
-                    suggestions, and improvements for your creative work through AI-powered analysis. 
-                    Transform your design process with intelligent insights and recommendations. 🎨
-                  </Text>
-                  <Divider orientation='horizontal'>
-                  </Divider>
-
-                  <SimpleGrid columns={1} spacingX='40px' spacingY='20px' mt={10}>
-                  <Section>
-                  <Image 
-                    src='/images/works/keenn.png'
-                    alt='Design Evaluation Interface'
-                    width={ 'container.lg' }
-                    borderRadius={0}
-                  />
-                  </Section>
-                  </SimpleGrid>
-                  <Divider orientation='horizontal' mb={10}>
-                  </Divider>
-                  </center>
-              </ModalBody>
-              <ModalFooter>
-              <Button variant="ghost" mr={3} onClick={onEditClosemd14}>Close</Button>
-              </ModalFooter>
-              </ModalContent>
-          </Modal>
-        </Box>
-         
-            </Section>
-        {/* ===================== JOKIFAI DUPLICATE PANEL START ===================== */}
-         <Section>
-        <Box 
-          position="relative"
-          borderWidth="1px" 
-          borderRadius="lg" 
-          overflow="hidden" 
-          boxShadow="md"
-          role="group"
-          bg="radial-gradient(circle at center, rgba(100, 0, 255, 0.7) 0%, rgba(30, 0, 60, 0.98) 100%)"
-          transition="all 0.5s cubic-bezier(0.4, 0, 0.2, 1)"
-          _hover={{
-            bg: "radial-gradient(circle at center, rgba(150, 50, 255, 0.85) 0%, rgba(60, 0, 100, 0.98) 100%)"
-          }}
-          onClick={onEditOpenmd13}
-          cursor="pointer"
-          height="400px"
-          width="100%"
-        >
-          <SnowContainer>
-            {[...Array(30)].map((_, i) => {
-              const size = Math.random() * 6 + 1;
-              return (
-                <Snowflake
-                  key={i}
-                  style={{
-                    left: `${Math.random() * 100}%`,
-                    top: `${Math.random() * 100}%`,
-                    width: `${size}px`,
-                    height: `${size}px`,
-                    animationDuration: `${Math.random() * 8 + 4}s`,
-                    animationDelay: `${Math.random() * 5}s`,
-                    opacity: `${Math.random() * 0.4 + 0.4}`
-                  }}
-                />
-              );
-            })}
-          </SnowContainer>
-          <Box position="relative" height="100%" width="100%">
-            <Text
-              position="absolute"
-              top="50%"
-              left="50%"
-              transform="translate(-50%, -50%)"
-              fontSize="8xl"
-              fontWeight="900"
-              color="transparent"
-              style={{
-                WebkitTextStroke: '2px rgba(255, 255, 255, 0.8)',
-                textStroke: '2px rgba(255, 255, 255, 0.8)'
-              }}
-              opacity="0.8"
-              transition="all 0.8s cubic-bezier(0.4, 0, 0.2, 1)"
-              _groupHover={{ 
-                opacity: 1,
-                transform: "translate(-50%, -50%) scale(1.1)",
-                color: "rgba(255, 255, 255, 0.2)"
-              }}
-              zIndex="1"
-              letterSpacing=""
-              fontFamily="'Londrina Shadow', cursive"
-              fontStyle=""
-              textAlign="center"
-            >
-              Jokif-AI
-            </Text>
-            <Image 
-              src='/images/works/BOTASF.png'
-              alt='AI Trends Project'
-              width="100%"
-              height="100%"
-              objectFit="contain"
-              transition="all 0.3s ease"
-              _groupHover={{ 
-                filter: 'brightness(1.2)',
-                transform: 'scale(1.05)'
-              }}
-              position="relative"
-              zIndex="1"
-              bg="transparent"
-            />
-          </Box>
-          <Box
-            position="absolute"
-            bottom="0"
-            left="0"
-            right="0"
-            bg="transparent"
-            p={3}
-            color="white"
-            zIndex="2"
-          >
-            <Heading 
-              as="h3" 
-              size="sm" 
-              mb={1} 
-              fontFamily="'Encode Sans Expanded', sans-serif"
-              fontWeight="700"
-              letterSpacing="0.2em"
-              textTransform="uppercase"
-              color="white"
-              transition="all 0.3s ease"
-              _groupHover={{ opacity: 0 }}
-            >
-              JOKIF-AI
-            </Heading>
-            <Box 
-              w="100%" 
-              h="0.5px" 
-              bg="purple.400" 
-              mb={2}
-            />
-            <Text 
-              fontSize="xs"
-              fontFamily="'Encode Sans Expanded', sans-serif"
-              fontWeight="400"
-              letterSpacing="0.5px"
-            >
-              An AI-powered platform that brings humor and creativity together. 
-              Generate jokes, create memes, and share laughter with the power of artificial intelligence. 🤖
-            </Text>
-          </Box>
-          {/* KODE/BOARD Modal */}
-          <Modal isOpen={isEditOpenmd13} onClose={onEditClosemd13} size={'full'} scrollBehavior={'outside'}>
-              <ModalOverlay />
-              <ModalContent>
-              <center>
-              <ModalHeader as="h1" >KODE/BOARD</ModalHeader>
-              </center>
-              <ModalCloseButton />
-              <ModalBody>
-                    
-              <center>
-                 
-                  <Image 
-                    src='/images/works/keeb_post.png'
-                    alt='KODE-BOARD'
-                    width={ 'full' }
-                    borderRadius={0}
-                    mb={0}
-                  />
-                  <Text fontSize={24} fontWeight={'hairline'}>
-                    Here is a keyboard concept (kode board 🙃), Copy, paste, repeat... but not as you know it. 
-                    Multi-layer clipboard on fingertips like seamlessly storing your snippets for instant recall. 🪄
-                  </Text>
-                  <Divider orientation='horizontal'>
-                  </Divider>
-
-                  <SimpleGrid columns={1} spacingX='40px' spacingY='20px' mt={10}>
-                  <Section>
-                  <Image 
-                    src='/images/works/keenn.png'
-                    alt='FIgma output'
-                    width={ 'container.lg' }
-                    borderRadius={0}
-                  />
-                  </Section>
-                  </SimpleGrid>
-                  <Divider orientation='horizontal' mb={10}>
-                  </Divider>
-                  </center>
-              </ModalBody>
-              <ModalFooter>
-              <Button variant="ghost" mr={3} onClick={onEditClosemd13}>Close</Button>
-              </ModalFooter>
-              </ModalContent>
-          </Modal>
-        </Box>
-         
-            </Section>
-        {/* ===================== KODE/BOARD DUPLICATE PANEL END ===================== */}
-        
+        <Box p='1px' color='white' mt='4' rounded='md' shadow='md'>
+          <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} gap={{ base: 8, md: 10 }} mt={10} px={{ base: 4, md: 8 }}>
             <Section>
-        
-        
-        <Imgtrans>
-          <Button height={'auto'} onClick={onEditOpenmd1}>
-           <Image 
-          src='/images/works/kodbordrr.jpg'
-          alt='Project 3D 1'
-          borderRadius='lg'
-          />
-
-           
-          <Modal isOpen={isEditOpenmd1} onClose={onEditClosemd1} size={'full'} scrollBehavior={'outside'}>
-              <ModalOverlay />
-              <ModalContent>
-              <center>
-              <ModalHeader as="h1" >KODE-PAD Renders</ModalHeader>
-              </center>
-              <ModalCloseButton />
-              <ModalBody>
-                    
-              <center>
-                 
-              <Box
-                    as='video'
-                    controls
-                    src='/images/works/0016-0060.mkv'
-                    poster='/images/works/mukil.jpeg'
-                    alt='space azure'
-                    borderRadius={0}
-                    width={ 'full' }
-
-                    objectFit='contain'
-                    sx={{
-                      aspectRatio: '16/9'
-                    }}
-                    />
-                     
-                  <Image 
-                    src='/images/works/kodbordrr.jpg'
-                    alt='kodpad'
-                    width={ 'full' }
-                    borderRadius={0}
-                    mb={0}
-                    
-                  />
-                  
-                    <Text fontSize={24} fontWeight={'hairline'}>
-                    
-                    </Text>
-                  <Divider orientation='horizontal'>
-                  </Divider>
-
-                  <SimpleGrid columns={1} spacingX='40px' spacingY='20px' mt={10}>
-                  <Section>
-                  <Image 
-                    src='/images/works/keypad23.jpg'
-                    alt='Project 3D 1'
-                    width={ 'full' }
-                    borderRadius={0}
-                  />
-                  
-                  </Section>
-
-                  <Section>
-                  <Image 
-                    src='/images/works/kod_board.jpg'
-                    alt='Project 3D 1'
-                    width={ 'full' }
-                    borderRadius={0}
-                  />
-                  
-                  </Section>
-
-                  <Section>
-                  <Image 
-                    src='/images/works/REDDEF.jpg'
-                    alt='Project 3D 1'
-                    width={ 'full' }
-                    borderRadius={0}
-                  />
-                  
-                  
-                  </Section>
-
-                  <Section>
-                  <Image 
-                    src='/images/works/kodbordrrz.jpg'
-                    alt='Project 3D 1'
-                    width={ 'full' }
-                    borderRadius={0}
-                  />
-            
-                  </Section>
-
-                  <Section>
-                  <Image 
-                    src='/images/works/jourdey.png'
-                    alt='Project 3D 1'
-                    width={ 'full' }
-                    borderRadius={0}
-                  />
-                  
-                  </Section>
-
-                  <Section>
-                  <Box
-                    as='video'
-                    controls
-                    src='/images/works/neew.mkv'
-                    poster='/images/works/kodbord.jpg'
-                    alt='space azure'
-                    borderRadius={0}
-                    width={ 'full' }
-
-                    objectFit='contain'
-                    sx={{
-                      aspectRatio: '16/9'
-                    }}
-                    />
-                  
-                  
-                  </Section>
-                   
-                  </SimpleGrid>
-                    <Divider orientation='horizontal' mb={10}>
-                    </Divider>
-              
-                  </center>
-              </ModalBody>
-              <ModalFooter>
-              <Button variant="ghost" mr={3} onClick={onEditClosemd1}>Close</Button>
-              </ModalFooter>
-              </ModalContent>
-          </Modal>
-         
-
-           </Button>
-          </Imgtrans>
-          <Stack mt='6' spacing='3' mb={10}>
-          <Heading as="h2"  fontWeight="hairline">
-          KODE-PAD
-        </Heading>
-          <Text fontSize={'xs'} mb={10}>
-          KODEPAD Renders: The Macro Magician in Your Backpack Pocket
-          </Text>
-        </Stack>
-         
+              <ProjectPanel
+                title="Kode/Board"
+                description="Here is a keyboard concept (kode board 🙃), Copy, paste, repeat... but not as you know it. Multi-layer clipboard on fingertips like seamlessly storing your snippets for instant recall. 🪄"
+                imageSrc="/images/works/BOTASF.png"
+                imageAlt="Kode/Board"
+                gradientColors="radial-gradient(circle at center, rgba(0, 150, 0, 0.7) 0%, rgba(0, 30, 0, 0.98) 100%)"
+                hoverGradientColors="radial-gradient(circle at center, rgba(0, 200, 0, 0.8) 0%, rgba(0, 40, 0, 0.98) 100%)"
+                accentColor="green.400"
+                onClick={onEditOpenmd12}
+              />
             </Section>
-{/*opto starts--------------------------------------------------------------------------*/}
-            <Section>
-        
-        
-        <Imgtrans>
-          <Button height={'auto'} onClick={onEditOpenmd11}>
-           <Image 
-          src='/images/works/pro.jpg'
-          alt='User Experience'
-          borderRadius='lg'
-          />
-
-           
-          <Modal isOpen={isEditOpenmd11} onClose={onEditClosemd11} size={'full'} scrollBehavior={'outside'}>
-              <ModalOverlay />
-              <ModalContent>
-              <center>
-              <ModalHeader as="h1" >OPTICAL ENCODER BASED STEERING SYSTEM</ModalHeader>
-              </center>
-              <ModalCloseButton />
-              <ModalBody>
-                    
-              <center>
-                 
-                  <Image 
-                    src='/images/works/Pro.jpg'
-                    alt='Project 3D 1'
-                    width={ 'container.lg' }
-                    borderRadius={15}
-                    mb={10}
-                  />
-                    <Text fontSize={24} fontWeight={'hairline'}>
-                    Well somethiing need to be done.......
-                    </Text>
-                  <Divider orientation='horizontal'>
-                  </Divider>
-
-                  <SimpleGrid columns={1} spacingX='40px' spacingY='20px' mt={10}>
-                  <Section>
-                  <Image 
-                    src='/images/works/rat2.jpg'
-                    alt='Project 3D 1'
-                    width={ 'container.lg' }
-                    borderRadius={15}
-                  />
-                  <ModalHeader>What can it Changes</ModalHeader>
-                  One day, he decided to do something about it. He thought of an idea that could help him drive a vehicle with his left hand disabled. He decided to use his knowledge of technology and create a prototype that could control a vehicle with optical encoder, it is a high accuracy small sensor use in industrial purpose. He thought that if he could control the vehicle with only right hand with the help of sensor, he wouldn&apos;t need to use his left hands at all. he realises that the abilities of the Encoder based steering system is more than anybody think
-                  </Section>
-
-                  <Section>
-                  <Image 
-                    src='/images/works/rat3.jpg'
-                    alt='Project 3D 1'
-                    width={ 'container.lg' }
-                    borderRadius={15}
-                  />
-                  <ModalHeader>More Moodboards</ModalHeader>
-                 Sketching the first task for him and then He started working on his project with enthusiasm and determination. He researched online and found some tutorials and resources that could help him. He bought some components and tools from online distributor. He starts assembling the components, Fabricating and soldering PCBs accordingly and try to build the prototype. He spent many hours in his hostel room, wiring, coding, testing, and debugging his device.
-                  </Section>
-
-                  <Section>
-                  <Image 
-                    src='/images/works/rat4.jpg'
-                    alt='Project 3D 1'
-                    borderRadius={15}
-                    width={ 'container.lg' }
-                  />
-                  <ModalHeader>Prototypiing</ModalHeader>
-                  After several days of hard work, he finally completed his project. He had created optical encoder(sensor) based vehicle controller that could connect to the car&apos;s system and control its functions. He had tested the device in simulation first and successful in it.
-                  </Section>
-
-                  <Section>
-                  <Image 
-                    src='/images/works/menu.jpg'
-                    alt='Project 3D 1'
-                    borderRadius={15}
-                    width={ 'container.lg' }
-                  />
-                  <ModalHeader>Enhanced User Experience</ModalHeader>
-                  
-                  </Section>
-
-                  <Section>
-                  <Image
-    src='/images/works/menu1.jpg'
-    alt='Project 3D 1'
-    width={ 'container.lg' }
-    borderRadius={15}
-/>
-                  <ModalHeader>High Feasability</ModalHeader>
-                  Minimal space-usage and no permanent modification to the vehicle
-Should be able to handle parking and low speed maneuvers safely
-1. The long shaft of the steering wheel is eliminated. Due to the encoder fixed near to the steering wheel.
-2. There is precise control available due the high resolution of the encoder.
-3. More the resolution more the accuracy of the steering mechanism.
-4. Weight of the system is reduced.
-5.DRIVING ACCESSIBILITY FOR SPECIALY ABLED PEOPLES
-5. Cost of manufacturing and assembly is increased due to electronic component. 
-6. Autonomous driving system is possible due to introduction of the encoder. 
-
-                  </Section>
-                   
-                  </SimpleGrid>
-                    <Divider orientation='horizontal' mb={10}>
-                    </Divider>
-                   
-                  </center>
-              </ModalBody>
-              <ModalFooter>
-              <Button variant="ghost" mr={3} onClick={onEditClosemd11}>Close</Button>
-              </ModalFooter>
-              </ModalContent>
-          </Modal>
-         
-
-           </Button>
-          </Imgtrans>
-          <Stack mt='6' spacing='3' mb={10}>
-          <Heading as="h2"  fontWeight="hairline">
-          MICROINTERACTION CLASS ASSIGNMENT
-        </Heading>
-          <Text fontSize={'xs'} mb={10}>
-          Microinteraction is a small, interactive element that occurs when a user interacts with a digital product. It can be as simple as a button click or as complex as a multi-step process.
-          </Text>
-        </Stack>
-         
-            </Section>
-            {/*opto ends--------------------------------------------------------------------------*/}
 
             <Section>
-            <Imgtrans mt={10}>
-          <Button height={'auto'} onClick={onEditOpenmd2}>
-            <Image 
-          src='/images/works/suono jpeg.jpg'
-          alt='Koenigsegg CC850'
-          borderRadius='lg'
-          />
-
-         
-          <Modal isOpen={isEditOpenmd2} onClose={onEditClosemd2} size={'full'} scrollBehavior={'outside'}>
-              <ModalOverlay />
-              <ModalContent>
-              <center>
-              <ModalHeader as="h1" >SUONO🎶</ModalHeader>
-              </center>
-              <ModalCloseButton />
-              <ModalBody>
-                    
-              <center>
-                 
-              <Image 
-          src='/images/works/suono jpeg.jpg'
-          alt='Koenigsegg CC850'
-          width={ 'container.sm' }
-          borderRadius={15}
-          mb={10}
-          /><Text fontSize={24} fontWeight={'hairline'}>
-                    Suono, the Italian word for sound, is not just a music player app; 
-                    it&apos;s a transformative experience that crystallizes your music into a 
-                    mesmerizing journey.  Imagine a music experience where songs unfold 
-                    like sparkling crystals, revealing hidden depths and emotions with 
-                    each segment. Suono reimagines music listening through a crystal-inspired 
-                    interface and segmented timelines, creating a deeply personal and cognitive
-                     listening experience.
-                    </Text>
-                  <Divider orientation='horizontal'>
-                  </Divider>
-
-                  <SimpleGrid columns={1} spacingX='40px' spacingY='20px' mt={10}>
-                  <Section>
-                  <Image 
-          src='/images/works/alizeefoder.png'
-          alt='Koenigsegg CC850'
-          width={ 'container.sm' }
-          borderRadius={20}
-          />
-                  <ModalHeader>There is a reason behind your segmented timeline of life</ModalHeader>
-                  Cognitive Deep Dives:  The timeline is segmented, allowing you to 
-                  explore each section of a song in detail.  This can be particularly
-                   useful for appreciating intricate musical arrangements, uncovering 
-                   subtle details, or focusing on specific parts you love.  Imagine 
-                   dissecting a musical gem, each segment revealing a new layer of
-                    brilliance.
-                  </Section>
-
-                  <Section>
-                  <Image 
-          src='/images/works/search.jpg'
-          alt='Koenigsegg CC850'
-          width={ 'full' }
-          borderRadius={0}
-          />
-                  <ModalHeader>Frost Glass(Crys-Morphic theme everyware)</ModalHeader>
-                  Soft Focus: The frosted glass theme creates a sense of 
-                  calmness and intimacy.  Harsh lines and bright colors 
-                  are replaced by a muted palette and a diffused aesthetic.
-                   This allows listeners to truly immerse themselves in the 
-                   music without visual distractions.
-                  </Section>
-
-                  <Section>
-                  <Image 
-          src='/images/works/Frame 7.jpg'
-          alt='Koenigsegg CC850'
-          width={ 'full' }
-          borderRadius={0}
-          />
-                  <ModalHeader>Minimalist Library for Maximum Focus</ModalHeader>
-                  Uncluttered Interface:  Suono s library eschews clutter. 
-                  Clean lines, soft colors, and ample space create a calming
-                   environment for browsing your music collection. This allows
-                    you to focus on finding the perfect song without visual 
-                    distractions.
-                  </Section>
-
-                  <Section>
-                  <Image 
-          src='/images/works/Now Playingfoder.jpg'
-          alt='Koenigsegg CC850'
-          width={ 'full' }
-          borderRadius={0}
-          />
-                  <ModalHeader>BACKGROUND COLORDROP</ModalHeader>
-                  This is what it looks like when working on the
-                   Android smooth transition from personal music 
-                   collection to a shared listening experience.
-                  </Section>
-
-                  <Section>
-                  <Image 
-          src='/images/works/Frame 3.jpg'
-          alt='Koenigsegg CC850'
-          width={ 'full' }
-          borderRadius={0}
-          />
-                  <ModalHeader>GROUP SESSION BASED ON LOCAL MUSIC FILE</ModalHeader>
-                  Group Creation: Once youve chosen your music, creating a group session is a breeze. Invite friends by sharing a unique link or using their usernames within Suono. This allows you to curate a listening experience with the specific people you want to share it with.
-
-Synchronized Playback: Once everyone joins the session, the music begins playing in perfect sync for all participants.
-
-pen_spark
-
-                  </Section>
-
-                  <Section>
-                  <Image 
-          src='/images/works/Frame 9.png'
-          alt='Koenigsegg CC850'
-          width={ 'container.L' }
-          borderRadius={20}
-          />
-                  <ModalHeader>MORE DISPLAYS</ModalHeader>
-                  A minimalist haven for focused listening. Imagine a tranquil library dedicated to your music, where every element fosters a sense of calm and clarity. Suono s interface is a breath of fresh air, stripping away unnecessary features to place the spotlight on the music itself.
-                  </Section>
-                   
-                  </SimpleGrid>
-                    <Divider orientation='horizontal' mb={10}>
-                    </Divider>
-                    Suono isnt just a music player; its a bridge
-                     that connects people through shared musical 
-                     journeys.  With its intuitive music session 
-                     feature and focus on a collaborative listening
-                      experience, Suono allows you to create new 
-                      memories and deepen connections with friends,
-                       all centered around the music you love.
-                  </center>
-              </ModalBody>
-              <ModalFooter>
-              <Button variant="ghost" mr={3} onClick={onEditClosemd2}>Close</Button>
-              </ModalFooter>
-              </ModalContent>
-          </Modal>
-          
-
-
-          </Button>
-          </Imgtrans>
-          <Stack mt='6' spacing='3'>
-          <Heading as="h2"  fontWeight="hairline">
-          SUONO
-        </Heading>
-          <Text fontSize={'xs'}>
-          SUONO🎶:Where Music Crystallizes
-          </Text>
-        </Stack></Section>    
-          
-      
-
-
-        <Section>
-              <Container>
-              <Imgtrans>
-          <Button height={'auto'} onClick={onEditOpenmd3}>
-                  <Image src='/images/works/pind.png' alt='Bugatti veyron 16.4' borderRadius='lg'/>
-                  
-          <Modal isOpen={isEditOpenmd3} onClose={onEditClosemd3} size={'full'} scrollBehavior={'outside'}>
-              <ModalOverlay />
-              <ModalContent>
-              <center>
-              <ModalHeader as="h1" >NEMOSYNE-1 SSD ENCOLSURE</ModalHeader>
-              </center>
-              <ModalCloseButton />
-              <ModalBody>
-                    
-              <center>
-                 
-              <Image src='/images/works/pind.png' alt='Bugatti veyron 16.4' borderRadius={50}/>
-                    <Text fontSize={24} fontWeight={'hairline'}>
-                    Introducing NEMOSYNE-1, the M.2 SSD enclosure that redefines portable storage. 
-              Inspired by the Greek goddess of memory,
-               Mnemosyne, NEMOSYNE-1 isnt just about 
-               safeguarding your data; its a statement 
-               piece that elevates your computing experience.
-                    </Text>
-                  <Divider orientation='horizontal'>
-                  </Divider>
-
-                  <SimpleGrid columns={1} spacingX='40px' spacingY='20px' mt={10}>
-                  <Section>
-                  <Image src='/images/works/1701795778958.jpg' alt='Bugatti veyron 16.4' borderRadius={25}/>
-                  <ModalHeader>Integrated Display </ModalHeader>
-                  Integrated Display:  NEMOSYNE-1 breaks away from the traditional enclosure mold by featuring 
-                  a built-in display.  This innovative feature allows for real-time monitoring of drive health,
-                   capacity usage, and even data transfer speeds.  Imagine a sleek enclosure showcasing the vital
-                    statistics of your M.2 SSD, keeping you informed and in control.
-                  </Section>
-
-                  <Section>
-                  <Image src='/images/works/novos.png' alt='Bugatti veyron 16.4' borderRadius={25}/>
-                  <ModalHeader>All-in-One Button:</ModalHeader>
-                  Gone are the days of fumbling with multiple buttons.
-                   NEMOSYNE-1 boasts a single, multifunctional button. 
-                    With a simple press, you can power on the enclosure,
-                     wake the display, or even initiate specific actions
-                      you program 
-                  through intuitive software.  This elegant solution simplifies user interaction and keeps the design clean.
-                  </Section>
-
-                  <Section>
-                  <Image src='/images/works/frid (2).png' alt='Bugatti veyron 16.4' borderRadius={25}/>
-                  <ModalHeader>EXOTIC MATERIALS AND SURFACE</ModalHeader>
-                  Exotic Materials:  NEMOSYNE-1 isnt just functional;
-                   its a feast for the eyes.  The enclosure is crafted
-                    from exotic materials, offering a unique and luxurious
-                     aesthetic.  Imagine a textural masterpiece that complements
-                      your high-performance setup, making NEMOSYNE-1 a conversation
-                       starter on any desk.
-                  </Section>
-                  <Image src='/images/works/linkepure.png' alt='Bugatti veyron 16.4' borderRadius={25}/>
-                  <Section>
-                  <Image src='/images/works/glass.png' alt='Bugatti veyron 16.4' borderRadius={25}/>
-                  <ModalHeader>Inspired by Mythology</ModalHeader>
-                  Mnemosyne s Legacy: The name NEMOSYNE-1 pays homage to Mnemosyne,
-                   the Greek goddess of memory and remembrance. This connection 
-                   emphasizes the core function of the enclosure – safeguarding
-                    your valuable data.
-                  </Section>
-
-                  <Section>
-                  <Image src='/images/works/wrdis.png' alt='Bugatti veyron 16.4' borderRadius={25}/>
-                  <ModalHeader>Beyond the Basics</ModalHeader>
-                  Performance Unleashed:  NEMOSYNE-1 is designed to maximize the potential of your M.2 SSD.  Advanced thermal management ensures optimal operating temperatures, allowing your drive to perform at its peak.
-                  
-                  </Section>
-
-                  <Section>
-                  <Image src='/images/works/ssd enclosuredisplay.png' alt='Bugatti veyron 16.4' borderRadius={25}/>
-                  <ModalHeader>Beyond the Basics</ModalHeader>
-                  NEMOSYNE-1 breaks away from the traditional enclosure mold by
-                   featuring a built-in display.  This innovative feature allows
-                    for real-time monitoring of drive health, capacity usage, and
-                     even data transfer speeds.  Imagine a sleek enclosure showcasing
-                      the vital statistics of your M.2 SSD, keeping you informed 
-                      and in control.
-                  </Section>
-
-                  <Section>
-                  <Box
-                    as='video'
-                    controls
-                    src='/images/works/tegra00.mkv'
-                    poster='/images/works/frid (2).png'
-                    alt='space azure'
-                    borderRadius={15}
-                    width={ 'container.lg' }
-
-                    objectFit='contain'
-                    sx={{
-                      aspectRatio: '16/9'
-                    }}
-                    />
-                  <ModalHeader>ANIMATION RENDERING</ModalHeader>
-                  </Section>
-                   
-                  </SimpleGrid>
-                    <Divider orientation='horizontal' mb={10}>
-                    </Divider>
-                    The name NEMOSYNE-1 pays homage to Mnemosyne, the Greek goddess of memory and remembrance. This connection emphasizes the core function of the enclosure – safeguarding your valuable data.
-                  </center>
-              </ModalBody>
-              <ModalFooter>
-              <Button variant="ghost" mr={3} onClick={onEditClosemd3}>Close</Button>
-              </ModalFooter>
-              </ModalContent>
-          </Modal>
-          
-
-                  </Button>
-             </Imgtrans>
-              <Stack mt='6' spacing='3'>
-              <Heading as="h2"  fontWeight="hairline">
-              NEMOSYNE-1 SSD ENCOLSURE
-        </Heading>
-              <Text fontSize={'xs'}>
-              Introducing NEMOSYNE-1, the M.2 SSD enclosure that redefines portable storage. 
-              Inspired by the Greek goddess of memory,
-               Mnemosyne, NEMOSYNE-1 isnt just about 
-               safeguarding your data; its a statement 
-               piece that elevates your computing experience.
-              </Text>
-            </Stack>
-              </Container>
-      </Section>
-      <Section>
-        
-        
-        <Imgtrans>
-          <Button height={'auto'} onClick={onEditOpenmd9}>
-           <Image 
-          src='/images/works/utop.png'
-          alt='User Experience'
-          borderRadius='lg'
-          />
-
-           
-          <Modal isOpen={isEditOpenmd9} onClose={onEditClosemd9} size={'full'} scrollBehavior={'outside'}>
-              <ModalOverlay />
-              <ModalContent>
-              <center>
-              <ModalHeader as="h1" >SKETCH PROJECTS AND PIXEL ARTS</ModalHeader>
-              </center>
-              <ModalCloseButton />
-              <ModalBody>
-                    
-              <center>
-              
-              <Image 
-                    src='/images/works/cycle port1.jpg'
-                    alt='Project 3D 1'
-                    width={ 'container.lg' }
-                    borderRadius={15}
-                    mb={10}
-                  />
-                  <Image 
-                    src='/images/works/utop.png'
-                    alt='Project 3D 1'
-                    width={ 'container.lg' }
-                    borderRadius={15}
-                    mb={10}
-                  />
-                  <Divider orientation='horizontal' mb={10}>
-                  </Divider>
-
-                  <Image 
-                    src='/images/works/newm4.jpeg'
-                    alt='Project 3D 1'
-                    width={ 'container.lg' }
-                    borderRadius={15}
-                    mb={10}
-                  />
-                  <Divider orientation='horizontal' mb={10}>
-                  </Divider>
-
-                  <Image 
-                    src='/images/works/MUKILH1ddd2.jpg'
-                    alt='Project 3D 1'
-                    width={ 'container.lg' }
-                    borderRadius={15}
-                    mb={10}
-                  />
-                  
-                    <Divider orientation='horizontal' mb={10}>
-                    </Divider>
-
-                    <Image 
-                    src='/images/works/megazord1.jpg'
-                    alt='Project 3D 1'
-                    width={ 'container.lg' }
-                    borderRadius={15}
-                    mb={10}
-                  />
-                  
-                    <Divider orientation='horizontal' mb={10}>
-                    </Divider>
-
-                    <Image 
-                    src='/images/works/lplkl1.jpg'
-                    alt='Project 3D 1'
-                    width={ 'container.lg' }
-                    borderRadius={15}
-                    mb={10}
-                  />
-                  
-                    <Divider orientation='horizontal' mb={10}>
-                    </Divider>
-
-                    <Image 
-                    src='/images/works/JPEGD.jpg'
-                    alt='Project 3D 1'
-                    width={ 'container.lg' }
-                    borderRadius={15}
-                    mb={10}
-                  />
-                  
-                    <Divider orientation='horizontal' mb={10}>
-                    </Divider>
-
-                    <Image 
-                    src='/images/works/contral.png'
-                    alt='Project 3D 1'
-                    width={ 'container.lg' }
-                    borderRadius={15}
-                    mb={10}
-                  />
-                  
-                    <Divider orientation='horizontal' mb={10}>
-                    </Divider>
-
-                    <Image 
-                    src='/images/works/nandt1y1h.jpg'
-                    alt='Project 3D 1'
-                    width={ 'container.lg' }
-                    borderRadius={15}
-                    mb={10}
-                  />
-                  
-                    <Divider orientation='horizontal' mb={10}>
-                    </Divider>
-                    
-                    <Image 
-                    src='/images/works/MUKILH1ddd3.jpg'
-                    alt='Project 3D 1'
-                    width={ 'container.lg' }
-                    borderRadius={15}
-                    mb={10}
-                  />
-                  
-                    <Divider orientation='horizontal' mb={10}>
-                    </Divider>
-
-                    <Image 
-                    src='/images/works/MUKILH1ddd3.jpg'
-                    alt='Project 3D 1'
-                    width={ 'container.lg' }
-                    borderRadius={15}
-                    mb={10}
-                  />
-                  
-                    <Divider orientation='horizontal' mb={10}>
-                    </Divider>
-
-                    <Image 
-                    src='/images/works/MUKILH2.jpg'
-                    alt='Project 3D 1'
-                    width={ 'container.lg' }
-                    borderRadius={15}
-                    mb={10}
-                  />
-                  
-                    <Divider orientation='horizontal' mb={10}>
-                    </Divider>
-
-                  </center>
-              </ModalBody>
-              <ModalFooter>
-              <Button variant="ghost" mr={3} onClick={onEditClosemd9}>Close</Button>
-              </ModalFooter>
-              </ModalContent>
-          </Modal>
-         
-
-           </Button>
-          </Imgtrans>
-          <Stack mt='6' spacing='3' mb={10}>
-          <Heading as="h2"  fontWeight="hairline">
-          DIGITAL SKETCH PROJECTS AND PIXEL ARTS
-        </Heading>
-          <Text fontSize={'xs'} mb={10}>
-          
-          </Text>
-        </Stack>
-         
+              <ProjectPanel
+                title="Design Evaluation"
+                description="Leveraging ChatGPT to evaluate and enhance design concepts. Get instant feedback, suggestions, and improvements for your creative work through AI-powered analysis. 🤖"
+                imageSrc="/mukil/degpt2.png"
+                imageAlt="Design Evaluation ChatGPT"
+                gradientColors="radial-gradient(circle at center, rgba(0, 100, 255, 0.7) 0%, rgba(0, 30, 60, 0.98) 100%)"
+                hoverGradientColors="radial-gradient(circle at center, rgba(0, 150, 255, 0.8) 0%, rgba(0, 40, 80, 0.98) 100%)"
+                accentColor="blue.400"
+                onClick={onEditOpenmd14}
+              />
             </Section>
-{/*original drone */}
-      {/* Ending of Cards - Add or Remove Work cards here */}
-      </SimpleGrid>
-         {/* Works Content */}
+
+            <Section>
+              <ProjectPanel
+                title="JOKIF-AI"
+                description="An AI-powered platform that brings humor and creativity together. Generate jokes, create memes, and share laughter with the power of artificial intelligence. 🤖"
+                imageSrc="/images/works/BOTASF.png"
+                imageAlt="AI Trends Project"
+                gradientColors="radial-gradient(circle at center, rgba(100, 0, 255, 0.7) 0%, rgba(30, 0, 60, 0.98) 100%)"
+                hoverGradientColors="radial-gradient(circle at center, rgba(150, 50, 255, 0.85) 0%, rgba(60, 0, 100, 0.98) 100%)"
+                accentColor="purple.400"
+                onClick={onEditOpenmd13}
+                hasSnow={true}
+              />
+            </Section>
+
+            <Section>
+              <ProjectPanel
+                title="MICROINTERACTION"
+                description="A class assignment exploring the art of microinteractions. Small, meaningful animations and transitions that enhance user experience and bring interfaces to life. 🎨"
+                imageSrc="/mukil/degpt2.png"
+                imageAlt="Microinteraction Class Assignment"
+                gradientColors="radial-gradient(circle at center, rgba(255, 100, 0, 0.7) 0%, rgba(60, 30, 0, 0.98) 100%)"
+                hoverGradientColors="radial-gradient(circle at center, rgba(255, 150, 0, 0.8) 0%, rgba(80, 40, 0, 0.98) 100%)"
+                accentColor="orange.400"
+                onClick={onEditOpenmd15}
+              />
+            </Section>
+          </SimpleGrid>
         </Box>
       </Collapse>
     </>
