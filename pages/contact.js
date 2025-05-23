@@ -6,32 +6,19 @@ import {
   Stack,
   Image,
   Text,
-  Button,
-  useDisclosure,
-  Collapse,
   Box,
   Spacer,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  useToast,
   useColorMode,
   Link,
   HStack,
   Icon,
   VStack
 } from '@chakra-ui/react'
-import { ChevronDownIcon, ChevronLeftIcon, EmailIcon } from '@chakra-ui/icons'
+import { EmailIcon } from '@chakra-ui/icons'
 import { FaLinkedin, FaGithub, FaYoutube } from 'react-icons/fa'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
-import styled from '@emotion/styled'
-import NextLink from 'next/link'
-import FooterLand from "../components/FooterLand";
+import FooterLand from "../components/FooterLand"
 import ContactForm from '../components/ContactForm'
 
 const ContactLink = ({ icon, href, children }) => (
