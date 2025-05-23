@@ -318,12 +318,12 @@ function CollapseExtandip() {
                 color: "rgba(255, 255, 255, 0.2)"
               }}
               zIndex="1"
-              letterSpacing="wider"
-              fontFamily="'Bebas Neue', sans-serif"
-              fontStyle="italic"
+              letterSpacing=""
+              fontFamily="'Londrina Shadow', cursive"
+              fontStyle=""
               textAlign="center"
             >
-              JOKIF-AI
+              Jokif-AI
             </Text>
             <Image 
               src='/images/works/BOTASF.png'
