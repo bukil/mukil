@@ -264,6 +264,19 @@ function CollapseExtandip() {
                 accentColor="green.400"
                 onClick={onEditOpenmd12}
               />
+              <Modal isOpen={isEditOpenmd12} onClose={onEditClosemd12} size="full">
+                <ModalOverlay />
+                <ModalContent>
+                  <ModalHeader>Kode/Board</ModalHeader>
+                  <ModalCloseButton />
+                  <ModalBody>
+                    {/* Add your modal content here */}
+                  </ModalBody>
+                  <ModalFooter>
+                    <Button onClick={onEditClosemd12}>Close</Button>
+                  </ModalFooter>
+                </ModalContent>
+              </Modal>
             </Section>
 
             <Section>
@@ -277,6 +290,19 @@ function CollapseExtandip() {
                 accentColor="blue.400"
                 onClick={onEditOpenmd14}
               />
+              <Modal isOpen={isEditOpenmd14} onClose={onEditClosemd14} size="full">
+                <ModalOverlay />
+                <ModalContent>
+                  <ModalHeader>Design Evaluation</ModalHeader>
+                  <ModalCloseButton />
+                  <ModalBody>
+                    {/* Add your modal content here */}
+                  </ModalBody>
+                  <ModalFooter>
+                    <Button onClick={onEditClosemd14}>Close</Button>
+                  </ModalFooter>
+                </ModalContent>
+              </Modal>
             </Section>
 
             <Section>
@@ -291,6 +317,19 @@ function CollapseExtandip() {
                 onClick={onEditOpenmd13}
                 hasSnow={true}
               />
+              <Modal isOpen={isEditOpenmd13} onClose={onEditClosemd13} size="full">
+                <ModalOverlay />
+                <ModalContent>
+                  <ModalHeader>Jokif-AI</ModalHeader>
+                  <ModalCloseButton />
+                  <ModalBody>
+                    {/* Add your modal content here */}
+                  </ModalBody>
+                  <ModalFooter>
+                    <Button onClick={onEditClosemd13}>Close</Button>
+                  </ModalFooter>
+                </ModalContent>
+              </Modal>
             </Section>
 
             <Section>
@@ -304,6 +343,19 @@ function CollapseExtandip() {
                 accentColor="orange.400"
                 onClick={onEditOpenmd15}
               />
+              <Modal isOpen={isEditOpenmd15} onClose={onEditClosemd15} size="full">
+                <ModalOverlay />
+                <ModalContent>
+                  <ModalHeader>Microinteraction</ModalHeader>
+                  <ModalCloseButton />
+                  <ModalBody>
+                    {/* Add your modal content here */}
+                  </ModalBody>
+                  <ModalFooter>
+                    <Button onClick={onEditClosemd15}>Close</Button>
+                  </ModalFooter>
+                </ModalContent>
+              </Modal>
             </Section>
           </SimpleGrid>
         </Box>
