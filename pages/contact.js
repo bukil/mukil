@@ -133,7 +133,7 @@ const Contact = () => {
           overflow="visible"
         >
           <Text
-            fontSize={{ base: "20rem", md: "35rem" }}
+            fontSize={{ base: "30rem", md: "35rem" }}
             fontFamily="'BaseNeueTrial', sans-serif"
             fontWeight="800"
             lineHeight="1"
