@@ -391,7 +391,7 @@ const Home = () => {
                     boxShadow: '0 3px 10px rgba(137, 239, 140, 0.3)'
                   }}
                 >
-                CLICK TO SEE MORE ABOUT MY WORK
+                SEE MORE ABOUT MY WORK
               </Button>
             </NextLink>
           </Box>
