@@ -67,7 +67,7 @@ const Contact = () => {
             lineHeight="1.2"
             fontFamily="'WhyteInktrap', sans-serif"
           >
-            LET'S CREATE SOMETHING AMAZING TOGETHER
+            LET'S <Text as="span" color="black" bg="#89EF8C" px={2} py={5} mx={1}>CREATE</Text> SOMETHING AMAZING <Text as="span" color="black" bg="#89EF8C" px={2} py={6} mx={1}>TOGETHER</Text>
           </Heading>
           
           <Text
