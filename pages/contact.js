@@ -21,6 +21,9 @@ import styled from '@emotion/styled'
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { SplitText } from 'gsap/SplitText'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const StyledHeading = styled(Heading)`
   @font-face {
@@ -61,6 +64,7 @@ const ContactLink = ({ icon, href, children }) => (
 const Contact = () => {
   const { colorMode } = useColorMode()
   const headingRef = useRef(null)
+  const helloRef = useRef(null)
   
   useEffect(() => {
     if (headingRef.current) {
@@ -73,6 +77,24 @@ const Contact = () => {
         stagger: 0.02,
         ease: "power4.out",
         delay: 0.2
+      })
+    }
+
+    // HELLO text scroll animation
+    if (helloRef.current) {
+      ScrollTrigger.create({
+        trigger: document.body,
+        start: "top top",
+        end: "bottom bottom",
+        onUpdate: (self) => {
+          const progress = self.progress
+          gsap.to(helloRef.current, {
+            opacity: 0.2 + (progress * 1.3),
+            scale: 1 + (progress * 0.2),
+            filter: `brightness(${1 + progress})`,
+            duration: 0.1
+          })
+        }
       })
     }
   }, [])
@@ -154,12 +176,11 @@ const Contact = () => {
               <Text>Aligarh, Uttar Pradesh, India</Text>
             </Box>
 
-            <Box mt={8}>
-              <ContactForm />
-            </Box>
+            <ContactForm />
           </VStack>
         </Section>
         <Box
+          ref={helloRef}
           position="fixed"
           bottom="-20%"
           left="0"
@@ -168,8 +189,8 @@ const Contact = () => {
           zIndex="0"
           pointerEvents="none"
           overflow="visible"
-          opacity={1.5}
-          transform="scale(1.2)"
+          opacity={0.2}
+          transform="scale(1)"
         >
           <Text
             fontSize={{ base: "20rem", md: "30rem" }}
