@@ -5,6 +5,8 @@ import Layout from '../components/layouts/article'
 import Section from '../components/section'
 import styled from '@emotion/styled'
 import NextLink from 'next/link'
+import { useEffect, useRef } from 'react'
+import gsap from 'gsap'
 
 // Styled components
 const Trans = styled.span`
@@ -70,6 +72,50 @@ const Snowflake = styled.div`
       opacity: 0;
     }
   }
+`
+
+const BigText = styled.div`
+  font-family: 'BaseNeueTrial', sans-serif;
+  font-size: 25vw;
+  font-weight: 900;
+  font-style: italic;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.8);
+  position: fixed;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  pointer-events: none;
+  z-index: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translateY(-50%);
+  letter-spacing: -0.016em;
+`
+
+const Character = styled.span`
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(100px);
+`
+
+const DividerLine = styled.div`
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.88) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
+  position: fixed;
+  top: 90%;
+  left: 0;
+  z-index: 0;
+`
+
+const ContentWrapper = styled(Box)`
+  margin-top: 85vh;
+  position: relative;
+  z-index: 1;
+  background: transparent;
 `
 
 // Standard Panel Component
@@ -154,8 +200,8 @@ const ProjectPanel = ({
           textTransform="uppercase"
         >
           {title}
-                    </Text>
-                  <Image 
+        </Text>
+        <Image 
           src={imageSrc}
           alt={imageAlt}
           width={title === "Kode/Board" ? "80%" : "50%"}
@@ -212,7 +258,7 @@ const ProjectPanel = ({
           letterSpacing="0.5px"
         >
           {description}
-                    </Text>
+        </Text>
       </Box>
     </Box>
   )
@@ -220,7 +266,6 @@ const ProjectPanel = ({
 
 // Usage in the main component
 function CollapseExtandip() {
-  const { isOpen, onToggle } = useDisclosure()
   const { isOpen: isEditOpenmd12, onOpen: onEditOpenmd12, onClose: onEditClosemd12 } = useDisclosure()
   const { isOpen: isEditOpenmd14, onOpen: onEditOpenmd14, onClose: onEditClosemd14 } = useDisclosure()
   const { isOpen: isEditOpenmd13, onOpen: onEditOpenmd13, onClose: onEditClosemd13 } = useDisclosure()
@@ -228,147 +273,140 @@ function CollapseExtandip() {
 
   return (
     <>
-      <Button borderRadius='10px' variant='outline' leftIcon={<ChevronDownIcon />} onClick={onToggle} fontSize={20} mt='20'>
-        Selected Projects
-           </Button>
-      <Collapse in={!isOpen} animateOpacity>
-        <Box p='1px' color='white' mt='4' rounded='md' shadow='md'>
-          <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} gap={{ base: 8, md: 10 }} mt={10} px={{ base: 4, md: 8 }}>
-            <Section>
-              <ProjectPanel
-                title="Kode/Board"
-                description="Here is a keyboard concept (kode board 🙃), Copy, paste, repeat... but not as you know it. Multi-layer clipboard on fingertips like seamlessly storing your snippets for instant recall. 🪄"
-                imageSrc="/images/works/BOTASF.png"
-                imageAlt="Kode/Board"
-                gradientColors="radial-gradient(circle at center, rgba(0, 150, 0, 0.7) 0%, rgba(0, 30, 0, 0.98) 100%)"
-                hoverGradientColors="radial-gradient(circle at center, rgba(0, 200, 0, 0.8) 0%, rgba(0, 40, 0, 0.98) 100%)"
-                accentColor="green.400"
-                onClick={onEditOpenmd12}
-              />
-              <Modal isOpen={isEditOpenmd12} onClose={onEditClosemd12} size="full">
+      <Box p='1px' color='white' mt='4' rounded='md' shadow='md'>
+        <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} gap={{ base: 8, md: 10 }} mt={10} px={{ base: 4, md: 8 }}>
+          <Section>
+            <ProjectPanel
+              title="Kode/Board"
+              description="Here is a keyboard concept (kode board 🙃), Copy, paste, repeat... but not as you know it. Multi-layer clipboard on fingertips like seamlessly storing your snippets for instant recall. 🪄"
+              imageSrc="/images/works/BOTASF.png"
+              imageAlt="Kode/Board"
+              gradientColors="radial-gradient(circle at center, rgba(0, 150, 0, 0.7) 0%, rgba(0, 30, 0, 0.98) 100%)"
+              hoverGradientColors="radial-gradient(circle at center, rgba(0, 200, 0, 0.8) 0%, rgba(0, 40, 0, 0.98) 100%)"
+              accentColor="green.400"
+              onClick={onEditOpenmd12}
+            />
+            <Modal isOpen={isEditOpenmd12} onClose={onEditClosemd12} size="full">
               <ModalOverlay />
               <ModalContent>
-                  <ModalHeader as="h1" mt={32}>Kode/Board</ModalHeader>
-                  <ModalCloseButton mt={32} />
-                  <ModalBody mt={4}>
-                    {/* Add your modal content here */}
-              </ModalBody>
-              <ModalFooter>
-                    <Button onClick={onEditClosemd12}>Close</Button>
-              </ModalFooter>
+                <ModalHeader as="h1" mt={32}>Kode/Board</ModalHeader>
+                <ModalCloseButton mt={32} />
+                <ModalBody mt={4}>
+                  {/* Add your modal content here */}
+                </ModalBody>
+                <ModalFooter>
+                  <Button onClick={onEditClosemd12}>Close</Button>
+                </ModalFooter>
               </ModalContent>
-          </Modal>
-            </Section>
+            </Modal>
+          </Section>
 
-            <Section>
-              <ProjectPanel
-                title="Design Evaluation ChatGPT"
-                description="Leveraging ChatGPT to evaluate and enhance design concepts. Get instant feedback, suggestions, and improvements for your creative work through AI-powered analysis. 🤖"
-                imageSrc="/mukil/degpt2.png"
-                imageAlt="Design Evaluation ChatGPT"
-                gradientColors="radial-gradient(circle at center, rgba(0, 100, 255, 0.7) 0%, rgba(0, 30, 60, 0.98) 100%)"
-                hoverGradientColors="radial-gradient(circle at center, rgba(0, 150, 255, 0.8) 0%, rgba(0, 40, 80, 0.98) 100%)"
-                accentColor="blue.400"
-                onClick={onEditOpenmd14}
-              />
-              <Modal isOpen={isEditOpenmd14} onClose={onEditClosemd14} size="full">
+          <Section>
+            <ProjectPanel
+              title="Design Evaluation ChatGPT"
+              description="Leveraging ChatGPT to evaluate and enhance design concepts. Get instant feedback, suggestions, and improvements for your creative work through AI-powered analysis. 🤖"
+              imageSrc="/mukil/degpt2.png"
+              imageAlt="Design Evaluation ChatGPT"
+              gradientColors="radial-gradient(circle at center, rgba(0, 100, 255, 0.7) 0%, rgba(0, 30, 60, 0.98) 100%)"
+              hoverGradientColors="radial-gradient(circle at center, rgba(0, 150, 255, 0.8) 0%, rgba(0, 40, 80, 0.98) 100%)"
+              accentColor="blue.400"
+              onClick={onEditOpenmd14}
+            />
+            <Modal isOpen={isEditOpenmd14} onClose={onEditClosemd14} size="full">
               <ModalOverlay />
               <ModalContent>
-                  <ModalHeader as="h1" mt={32}>Design Evaluation</ModalHeader>
-                  <ModalCloseButton mt={32} />
-                  <ModalBody mt={4}>
-                    {/* Add your modal content here */}
-              </ModalBody>
-              <ModalFooter>
-                    <Button onClick={onEditClosemd14}>Close</Button>
-              </ModalFooter>
+                <ModalHeader as="h1" mt={32}>Design Evaluation</ModalHeader>
+                <ModalCloseButton mt={32} />
+                <ModalBody mt={4}>
+                  {/* Add your modal content here */}
+                </ModalBody>
+                <ModalFooter>
+                  <Button onClick={onEditClosemd14}>Close</Button>
+                </ModalFooter>
               </ModalContent>
-          </Modal>
-            </Section>
+            </Modal>
+          </Section>
 
-            <Section>
-              <ProjectPanel
-                title="Jokif-AI"
-                description="An AI-powered platform that brings humor and creativity together. Generate jokes, create memes, and share laughter with the power of artificial intelligence. 🤖"
-                imageSrc="/images/works/BOTASF.png"
-                imageAlt="AI Trends Project"
-                gradientColors="radial-gradient(circle at center, rgba(100, 0, 255, 0.7) 0%, rgba(30, 0, 60, 0.98) 100%)"
-                hoverGradientColors="radial-gradient(circle at center, rgba(150, 50, 255, 0.85) 0%, rgba(60, 0, 100, 0.98) 100%)"
-                accentColor="purple.400"
-                onClick={onEditOpenmd13}
-                hasSnow={true}
-              />
-              <Modal isOpen={isEditOpenmd13} onClose={onEditClosemd13} size="full">
-                <ModalOverlay backdropFilter="blur(10px)" />
-                <ModalContent bg="rgba(0, 0, 0, 0.8)">
-                  <ModalHeader mt={32}>Jokif-AI</ModalHeader>
-                  <ModalCloseButton mt={32} />
-                  <ModalBody mt={4}>
-                    <Text fontSize={24} fontWeight={'hairline'} mb={6}>
-                      Welcome to Jokif-AI! This is a protected section of my portfolio.
-                    </Text>
+          <Section>
+            <ProjectPanel
+              title="Jokif-AI"
+              description="An AI-powered platform that brings humor and creativity together. Generate jokes, create memes, and share laughter with the power of artificial intelligence. 🤖"
+              imageSrc="/images/works/BOTASF.png"
+              imageAlt="AI Trends Project"
+              gradientColors="radial-gradient(circle at center, rgba(100, 0, 255, 0.7) 0%, rgba(30, 0, 60, 0.98) 100%)"
+              hoverGradientColors="radial-gradient(circle at center, rgba(150, 50, 255, 0.85) 0%, rgba(60, 0, 100, 0.98) 100%)"
+              accentColor="purple.400"
+              onClick={onEditOpenmd13}
+              hasSnow={true}
+            />
+            <Modal isOpen={isEditOpenmd13} onClose={onEditClosemd13} size="full">
+              <ModalOverlay backdropFilter="blur(10px)" />
+              <ModalContent bg="rgba(0, 0, 0, 0.8)">
+                <ModalHeader mt={32}>Jokif-AI</ModalHeader>
+                <ModalCloseButton mt={32} />
+                <ModalBody mt={4}>
+                  <Text fontSize={24} fontWeight={'hairline'} mb={6}>
+                    Welcome to Jokif-AI! This is a protected section of my portfolio.
+                  </Text>
                   <Image 
-                      src="/images/works/BOTASF.png"
-                      alt="Jokif-AI Project"
-                      width="100%"
-                      borderRadius="lg"
-                      mb={6}
-                    />
-              </ModalBody>
-              <ModalFooter>
-                    <Button onClick={onEditClosemd13}>Close</Button>
-              </ModalFooter>
+                    src="/images/works/BOTASF.png"
+                    alt="Jokif-AI Project"
+                    width="100%"
+                    borderRadius="lg"
+                    mb={6}
+                  />
+                </ModalBody>
+                <ModalFooter>
+                  <Button onClick={onEditClosemd13}>Close</Button>
+                </ModalFooter>
               </ModalContent>
-          </Modal>
-                  </Section>
+            </Modal>
+          </Section>
 
-                  <Section>
-              <ProjectPanel
-                title="Microinteraction"
-                description="A class assignment exploring the art of microinteractions. Small, meaningful animations and transitions that enhance user experience and bring interfaces to life. 🎨"
-                imageSrc="/mukil/degpt2.png"
-                imageAlt="Microinteraction Class Assignment"
-                gradientColors="radial-gradient(circle at center, rgba(255, 100, 0, 0.7) 0%, rgba(60, 30, 0, 0.98) 100%)"
-                hoverGradientColors="radial-gradient(circle at center, rgba(255, 150, 0, 0.8) 0%, rgba(80, 40, 0, 0.98) 100%)"
-                accentColor="orange.400"
-                onClick={onEditOpenmd15}
-              />
-              <Modal isOpen={isEditOpenmd15} onClose={onEditClosemd15} size="full">
+          <Section>
+            <ProjectPanel
+              title="Microinteraction"
+              description="A class assignment exploring the art of microinteractions. Small, meaningful animations and transitions that enhance user experience and bring interfaces to life. 🎨"
+              imageSrc="/mukil/degpt2.png"
+              imageAlt="Microinteraction Class Assignment"
+              gradientColors="radial-gradient(circle at center, rgba(255, 100, 0, 0.7) 0%, rgba(60, 30, 0, 0.98) 100%)"
+              hoverGradientColors="radial-gradient(circle at center, rgba(255, 150, 0, 0.8) 0%, rgba(80, 40, 0, 0.98) 100%)"
+              accentColor="orange.400"
+              onClick={onEditOpenmd15}
+            />
+            <Modal isOpen={isEditOpenmd15} onClose={onEditClosemd15} size="full">
               <ModalOverlay />
               <ModalContent>
-                  <ModalHeader>Microinteraction</ModalHeader>
-              <ModalCloseButton />
-              <ModalBody>
-                    {/* Add your modal content here */}
-              </ModalBody>
-              <ModalFooter>
-                    <Button onClick={onEditClosemd15}>Close</Button>
-              </ModalFooter>
+                <ModalHeader>Microinteraction</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody>
+                  {/* Add your modal content here */}
+                </ModalBody>
+                <ModalFooter>
+                  <Button onClick={onEditClosemd15}>Close</Button>
+                </ModalFooter>
               </ModalContent>
-          </Modal>
-            </Section>
-      </SimpleGrid>
-        </Box>
-      </Collapse>
+            </Modal>
+          </Section>
+        </SimpleGrid>
+      </Box>
     </>
   )
 }
 
 // ============== Indu ===================
 
-
 function CollapseExtandi() {
   const { isOpen, onToggle } = useDisclosure()
 
-  {/*const { isOpen: isEditOpenmd0 , onOpen: onEditOpenmd0, onClose: onEditClosemd0 } = useDisclosure()*/}
-  const { isOpen: isEditOpenmd1 , onOpen: onEditOpenmd1, onClose: onEditClosemd1 } = useDisclosure()
-  const { isOpen: isEditOpenmd2 , onOpen: onEditOpenmd2, onClose: onEditClosemd2 } = useDisclosure()
-  const { isOpen: isEditOpenmd3 , onOpen: onEditOpenmd3, onClose: onEditClosemd3 } = useDisclosure()
-  const { isOpen: isEditOpenmd4 , onOpen: onEditOpenmd4, onClose: onEditClosemd4 } = useDisclosure()
-  const { isOpen: isEditOpenmd5 , onOpen: onEditOpenmd5, onClose: onEditClosemd5 } = useDisclosure()
-  const { isOpen: isEditOpenmd6 , onOpen: onEditOpenmd6, onClose: onEditClosemd6 } = useDisclosure()
-  const { isOpen: isEditOpenmd9 , onOpen: onEditOpenmd9, onClose: onEditClosemd9 } = useDisclosure()
-  const { isOpen: isEditOpenmd10 , onOpen: onEditOpenmd10, onClose: onEditClosemd10 } = useDisclosure()
+  const { isOpen: isEditOpenmd1, onOpen: onEditOpenmd1, onClose: onEditClosemd1 } = useDisclosure()
+  const { isOpen: isEditOpenmd2, onOpen: onEditOpenmd2, onClose: onEditClosemd2 } = useDisclosure()
+  const { isOpen: isEditOpenmd3, onOpen: onEditOpenmd3, onClose: onEditClosemd3 } = useDisclosure()
+  const { isOpen: isEditOpenmd4, onOpen: onEditOpenmd4, onClose: onEditClosemd4 } = useDisclosure()
+  const { isOpen: isEditOpenmd5, onOpen: onEditOpenmd5, onClose: onEditClosemd5 } = useDisclosure()
+  const { isOpen: isEditOpenmd6, onOpen: onEditOpenmd6, onClose: onEditClosemd6 } = useDisclosure()
+  const { isOpen: isEditOpenmd9, onOpen: onEditOpenmd9, onClose: onEditClosemd9 } = useDisclosure()
+  const { isOpen: isEditOpenmd10, onOpen: onEditOpenmd10, onClose: onEditClosemd10 } = useDisclosure()
   return (
     <>
     
@@ -1325,36 +1363,114 @@ windshield and no roof. In this project I recreate a Ferrari Monza SP1 in blende
 
 // ================ End of Work Section =========================
 
-const Works = () => (
-  <Layout title="Works" mt={10} maxW="100vw" overflowX="hidden">
-    <Box w="100vw" position="relative" left="50%" right="50%" marginLeft="-50vw" marginRight="-50vw">
-<Section>
-      <Heading as="h3" fontSize={50} mb={15} mt={10}>
-       <CollapseExtandip/>
-      </Heading>
-      </Section>
-      <Section>
-      <Heading as="h3" fontSize={50} mb={15} mt={10}>
-       <CollapseExtandi/>
-      </Heading>
-      </Section>
-      <Spacer/>
-      <Spacer/>
-<Trans>
-<Section>
-<Box align="center" my={4}>
-          <NextLink href="/" passHref scroll={true}>
-            <Button borderRadius='20px' variant='outline' border='1px' 
-            borderColor='black.500' mt='10' leftIcon={<ChevronLeftIcon />}>
-                GO BACK TO HOME PAGE
-            </Button>
-          </NextLink>
-        </Box>
-</Section>
-</Trans>
-    </Box>
-  </Layout>
-)
+const Works = () => {
+  const bigTextRef = useRef(null)
+  const dividerLineRef = useRef(null)
+  const characters = "DESIGN".split("")
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const chars = bigTextRef.current?.children
+      if (!chars) return
+
+      // Create a timeline
+      const tl = gsap.timeline({
+        repeat: -1,
+        repeatDelay: 1
+      })
+
+      // Initial animation
+      tl.to(chars, {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "power4.out"
+      })
+
+      // Floating animation
+      tl.to(chars, {
+        y: -20,
+        duration: 2,
+        stagger: 0.05,
+        ease: "power1.inOut",
+        yoyo: true,
+        repeat: 1
+      }, ">")
+
+      // Exit animation
+      tl.to(chars, {
+        y: 100,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "power4.in"
+      }, ">")
+    }, bigTextRef)
+
+    // Add scroll effect
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY
+      const fadeStart = 0
+      const fadeEnd = 300 // Reduced fade distance for quicker fade out
+      
+      if (bigTextRef.current && dividerLineRef.current) {
+        const opacity = Math.max(0, 1 - (scrollPosition - fadeStart) / (fadeEnd - fadeStart))
+        gsap.to([bigTextRef.current, dividerLineRef.current], {
+          opacity: opacity,
+          duration: 0.1,
+          ease: "none"
+        })
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      ctx.revert()
+    }
+  }, [])
+
+  return (
+    <Layout title="Works" mt={10} maxW="100vw" overflowX="hidden">
+      <Box w="100vw" position="relative" left="50%" right="50%" marginLeft="-50vw" marginRight="-50vw">
+        <BigText ref={bigTextRef}>
+          {characters.map((char, index) => (
+            <Character key={index}>{char}</Character>
+          ))}
+        </BigText>
+        <DividerLine ref={dividerLineRef} />
+        <ContentWrapper>
+          <Section>
+            <Heading as="h3" fontSize={50} mb={15} mt={10}>
+              <CollapseExtandip/>
+            </Heading>
+          </Section>
+          <Section>
+            <Heading as="h3" fontSize={50} mb={15} mt={10}>
+              <CollapseExtandi/>
+            </Heading>
+          </Section>
+          <Spacer/>
+          <Spacer/>
+          <Trans>
+            <Section>
+              <Box align="center" my={4}>
+                <NextLink href="/" passHref scroll={true}>
+                  <Button borderRadius='20px' variant='outline' 
+                  border='1px' 
+                  borderColor='black.500' mt='10' leftIcon={<ChevronLeftIcon />}>
+                      GO BACK TO HOME PAGE
+                  </Button>
+                </NextLink>
+              </Box>
+            </Section>
+          </Trans>
+        </ContentWrapper>
+      </Box>
+    </Layout>
+  )
+}
 
 export default Works
 export { getServerSideProps } from '../components/chakra'
