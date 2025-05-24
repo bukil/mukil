@@ -154,8 +154,8 @@ const ProjectPanel = ({
           textTransform="uppercase"
         >
           {title}
-        </Text>
-        <Image 
+                    </Text>
+                  <Image 
           src={imageSrc}
           alt={imageAlt}
           width={title === "Kode/Board" ? "80%" : "50%"}
@@ -212,7 +212,7 @@ const ProjectPanel = ({
           letterSpacing="0.5px"
         >
           {description}
-        </Text>
+                    </Text>
       </Box>
     </Box>
   )
@@ -230,7 +230,7 @@ function CollapseExtandip() {
     <>
       <Button borderRadius='10px' variant='outline' leftIcon={<ChevronDownIcon />} onClick={onToggle} fontSize={20} mt='20'>
         Selected Projects
-      </Button>
+           </Button>
       <Collapse in={!isOpen} animateOpacity>
         <Box p='1px' color='white' mt='4' rounded='md' shadow='md'>
           <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} gap={{ base: 8, md: 10 }} mt={10} px={{ base: 4, md: 8 }}>
@@ -246,18 +246,18 @@ function CollapseExtandip() {
                 onClick={onEditOpenmd12}
               />
               <Modal isOpen={isEditOpenmd12} onClose={onEditClosemd12} size="full">
-                <ModalOverlay />
-                <ModalContent>
+              <ModalOverlay />
+              <ModalContent>
                   <ModalHeader as="h1" mt={32}>Kode/Board</ModalHeader>
                   <ModalCloseButton mt={32} />
                   <ModalBody mt={4}>
                     {/* Add your modal content here */}
-                  </ModalBody>
-                  <ModalFooter>
+              </ModalBody>
+              <ModalFooter>
                     <Button onClick={onEditClosemd12}>Close</Button>
-                  </ModalFooter>
-                </ModalContent>
-              </Modal>
+              </ModalFooter>
+              </ModalContent>
+          </Modal>
             </Section>
 
             <Section>
@@ -272,18 +272,18 @@ function CollapseExtandip() {
                 onClick={onEditOpenmd14}
               />
               <Modal isOpen={isEditOpenmd14} onClose={onEditClosemd14} size="full">
-                <ModalOverlay />
-                <ModalContent>
+              <ModalOverlay />
+              <ModalContent>
                   <ModalHeader as="h1" mt={32}>Design Evaluation</ModalHeader>
                   <ModalCloseButton mt={32} />
                   <ModalBody mt={4}>
                     {/* Add your modal content here */}
-                  </ModalBody>
-                  <ModalFooter>
+              </ModalBody>
+              <ModalFooter>
                     <Button onClick={onEditClosemd14}>Close</Button>
-                  </ModalFooter>
-                </ModalContent>
-              </Modal>
+              </ModalFooter>
+              </ModalContent>
+          </Modal>
             </Section>
 
             <Section>
@@ -307,22 +307,22 @@ function CollapseExtandip() {
                     <Text fontSize={24} fontWeight={'hairline'} mb={6}>
                       Welcome to Jokif-AI! This is a protected section of my portfolio.
                     </Text>
-                    <Image 
+                  <Image 
                       src="/images/works/BOTASF.png"
                       alt="Jokif-AI Project"
                       width="100%"
                       borderRadius="lg"
                       mb={6}
                     />
-                  </ModalBody>
-                  <ModalFooter>
+              </ModalBody>
+              <ModalFooter>
                     <Button onClick={onEditClosemd13}>Close</Button>
-                  </ModalFooter>
-                </ModalContent>
-              </Modal>
-            </Section>
+              </ModalFooter>
+              </ModalContent>
+          </Modal>
+                  </Section>
 
-            <Section>
+                  <Section>
               <ProjectPanel
                 title="Microinteraction"
                 description="A class assignment exploring the art of microinteractions. Small, meaningful animations and transitions that enhance user experience and bring interfaces to life. 🎨"
@@ -334,20 +334,20 @@ function CollapseExtandip() {
                 onClick={onEditOpenmd15}
               />
               <Modal isOpen={isEditOpenmd15} onClose={onEditClosemd15} size="full">
-                <ModalOverlay />
-                <ModalContent>
+              <ModalOverlay />
+              <ModalContent>
                   <ModalHeader>Microinteraction</ModalHeader>
-                  <ModalCloseButton />
-                  <ModalBody>
+              <ModalCloseButton />
+              <ModalBody>
                     {/* Add your modal content here */}
-                  </ModalBody>
-                  <ModalFooter>
+              </ModalBody>
+              <ModalFooter>
                     <Button onClick={onEditClosemd15}>Close</Button>
-                  </ModalFooter>
-                </ModalContent>
-              </Modal>
+              </ModalFooter>
+              </ModalContent>
+          </Modal>
             </Section>
-          </SimpleGrid>
+      </SimpleGrid>
         </Box>
       </Collapse>
     </>
@@ -791,7 +791,7 @@ so Forget the scissor doors. Taurus embraces a radical approach with doors that 
           borderRadius='lg'
           />
 
-           
+         
           <Modal isOpen={isEditOpenmd2} onClose={onEditClosemd2} size={'full'} scrollBehavior={'outside'}>
               <ModalOverlay />
               <ModalContent>
@@ -803,12 +803,12 @@ so Forget the scissor doors. Taurus embraces a radical approach with doors that 
                     
               <center>
                  
-                  <Image 
-                    src='/images/works/koegfro1.png'
-                    alt='Koenigsegg CC850'
-                    borderRadius='lg'
-                    mb={10}
-                  /><Text fontSize={24} fontWeight={'hairline'}>
+              <Image 
+          src='/images/works/koegfro1.png'
+          alt='Koenigsegg CC850'
+          borderRadius='lg'
+          mb={10}
+          /><Text fontSize={24} fontWeight={'hairline'}>
                     Koenigsegg CC850, a rare and powerful supercar that can reach speeds of over 400 km/h. 
                     I wanted to design my own version of it in Autodesk Sketchbook, a versatile and easy-to-use 
                     drawing app on my phone and here is the powerful design journey of the Koenigsegg CC850.
@@ -878,9 +878,9 @@ so Forget the scissor doors. Taurus embraces a radical approach with doors that 
               </ModalFooter>
               </ModalContent>
           </Modal>
-         
 
-           </Button>
+
+          </Button>
           </Imgtrans>
           <Stack mt='6' spacing='3'>
           <Heading as="h2"  fontWeight="hairline">
@@ -986,7 +986,7 @@ so Forget the scissor doors. Taurus embraces a radical approach with doors that 
           alt='TAREN DRONE'
           borderRadius='lg'
           />
-
+    
           {/* TAREN DRONE Modal */}
           <Modal isOpen={isEditOpenmd4} onClose={onEditClosemd4} size={'full'} scrollBehavior={'outside'}>
               <ModalOverlay />
@@ -1141,7 +1141,7 @@ model. We dived into the pool of design principles and got benefited from it.
           alt='FERRARI MONZA SP1'
           borderRadius='lg'
           />
-
+          
           {/* FERRARI MONZA Modal */}
           <Modal isOpen={isEditOpenmd5} onClose={onEditClosemd5} size={'full'} scrollBehavior={'outside'}>
               <ModalOverlay />
@@ -1210,7 +1210,7 @@ windshield and no roof. In this project I recreate a Ferrari Monza SP1 in blende
           FERRARI MONZA SP1
         </Heading>
           <Text fontSize={'xs'}>
-          Ferrari Monza SP1 3D Design and Rendering Project in Blender
+            Ferrari Monza SP1 3D Design and Rendering Project in Blender
           </Text>
 
         </Stack>
@@ -1328,30 +1328,30 @@ windshield and no roof. In this project I recreate a Ferrari Monza SP1 in blende
 const Works = () => (
   <Layout title="Works" mt={10} maxW="100vw" overflowX="hidden">
     <Box w="100vw" position="relative" left="50%" right="50%" marginLeft="-50vw" marginRight="-50vw">
-      <Section>
-        <Heading as="h3" fontSize={50} mb={15} mt={10}>
-          <CollapseExtandip/>
-        </Heading>
+<Section>
+      <Heading as="h3" fontSize={50} mb={15} mt={10}>
+       <CollapseExtandip/>
+      </Heading>
       </Section>
       <Section>
-        <Heading as="h3" fontSize={50} mb={15} mt={10}>
-          <CollapseExtandi/>
-        </Heading>
+      <Heading as="h3" fontSize={50} mb={15} mt={10}>
+       <CollapseExtandi/>
+      </Heading>
       </Section>
       <Spacer/>
       <Spacer/>
-      <Trans>
-        <Section>
-          <Box align="center" my={4}>
-            <NextLink href="/" passHref scroll={true}>
-              <Button borderRadius='20px' variant='outline' border='1px' 
-              borderColor='black.500' mt='10' leftIcon={<ChevronLeftIcon />}>
-                  GO BACK TO HOME PAGE
-              </Button>
-            </NextLink>
-          </Box>
-        </Section>
-      </Trans>
+<Trans>
+<Section>
+<Box align="center" my={4}>
+          <NextLink href="/" passHref scroll={true}>
+            <Button borderRadius='20px' variant='outline' border='1px' 
+            borderColor='black.500' mt='10' leftIcon={<ChevronLeftIcon />}>
+                GO BACK TO HOME PAGE
+            </Button>
+          </NextLink>
+        </Box>
+</Section>
+</Trans>
     </Box>
   </Layout>
 )
