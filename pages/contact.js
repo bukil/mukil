@@ -17,39 +17,14 @@ import Layout from '../components/layouts/article'
 import Section from '../components/section'
 import FooterLand from "../components/FooterLand"
 import ContactForm from '../components/ContactForm'
-import styled from '@emotion/styled'
-import { useEffect, useRef } from 'react'
-import gsap from 'gsap'
-import { SplitText } from 'gsap/SplitText'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
-
-const StyledHeading = styled(Heading)`
-  @font-face {
-    font-family: 'WhyteInktrap';
-    src: url('/fonts/WhyteInktrap-Super.ttf') format('truetype');
-    font-weight: 900;
-    font-style: normal;
-  }
-  font-family: 'WhyteInktrap', sans-serif;
-`
-
-const SelectedText = styled.span`
-  background-color: #89EF8C;
-  color: black;
-  padding: 0 2px;
-  
-`
 
 const ContactLink = ({ icon, href, children }) => (
   <Link href={href} isExternal>
     <HStack 
       spacing={4} 
       p={2}
-      color="#89EF8C"
       _hover={{ 
-        color: '#89EF8C',
+        color: 'whiteAlpha.900',
         transform: 'translateY(-2px)',
         transition: 'all 0.2s ease-in-out'
       }}
@@ -63,41 +38,6 @@ const ContactLink = ({ icon, href, children }) => (
 
 const Contact = () => {
   const { colorMode } = useColorMode()
-  const headingRef = useRef(null)
-  const helloRef = useRef(null)
-  
-  useEffect(() => {
-    if (headingRef.current) {
-      const splitText = new SplitText(headingRef.current, { type: "words,chars" })
-      
-      gsap.from(splitText.chars, {
-        opacity: 0,
-        y: 50,
-        duration: 0.8,
-        stagger: 0.02,
-        ease: "power4.out",
-        delay: 0.2
-      })
-    }
-
-    // HELLO text scroll animation
-    if (helloRef.current) {
-      ScrollTrigger.create({
-        trigger: document.body,
-        start: "top top",
-        end: "bottom bottom",
-        onUpdate: (self) => {
-          const progress = self.progress
-          gsap.to(helloRef.current, {
-            opacity: 0.2 + (progress * 1.3),
-            scale: 1 + (progress * 0.2),
-            filter: `brightness(${1 + progress})`,
-            duration: 0.1
-          })
-        }
-      })
-    }
-  }, [])
   
   return (
     <Layout>
@@ -116,8 +56,7 @@ const Contact = () => {
         <Spacer mb={130}/>
         
         <Section delay={0.1}>
-          <StyledHeading
-            ref={headingRef}
+          <Heading
             as="h1"
             fontSize={{ base: "4xl", md: "6xl" }}
             fontWeight="extrabold"
@@ -127,7 +66,7 @@ const Contact = () => {
             lineHeight="1.2"
           >
             LET'S CREATE SOMETHING AMAZING TOGETHER
-          </StyledHeading>
+          </Heading>
           
           <Text
             fontSize="md"
@@ -142,7 +81,7 @@ const Contact = () => {
           >
             I'm all ears whether you're building the next big thing, sketching out a moonshot, or just want to say hi.
             <br />
-            Let's <SelectedText>connect</SelectedText>. Let's create. Or at the very least, let's talk.
+            Let's connect. Let's create. Or at the very least, let's talk.
           </Text>
           
           <VStack spacing={8} align="stretch">
@@ -176,35 +115,33 @@ const Contact = () => {
               <Text>Aligarh, Uttar Pradesh, India</Text>
             </Box>
 
-            <ContactForm />
+            <Box mt={8}>
+              <ContactForm />
+            </Box>
           </VStack>
         </Section>
         <Box
-          ref={helloRef}
           position="fixed"
-          bottom="-20%"
+          bottom="-30%"
           left="0"
           right="0"
           textAlign="center"
           zIndex="0"
           pointerEvents="none"
           overflow="visible"
-          opacity={0.2}
-          transform="scale(1)"
         >
           <Text
-            fontSize={{ base: "20rem", md: "30rem" }}
+            fontSize={{ base: "25rem", md: "35rem" }}
             fontFamily="'BaseNeueTrial', sans-serif"
             fontWeight="900"
             lineHeight="0.8"
-            background="linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.16) 40%, rgba(255, 255, 255, 0) 100%)"
+            background="linear-gradient(to bottom, rgba(255, 255, 255, 0.31) 0%, rgba(255, 255, 255, 0.04) 50%, rgba(255, 255, 255, 0.01) 100%)"
             backgroundClip="text"
             WebkitBackgroundClip="text"
             color="transparent"
             transform="translateY(0)"
             userSelect="none"
             paddingTop="20%"
-            filter="brightness(1)"
           >
             HELLO
           </Text>
