@@ -30,10 +30,12 @@ const Trans = styled.span`
     position: relative;
     overflow: hidden;
     background: transparent;
-    border: 2px solid #90cdf4;
-    color: #90cdf4;
+    border: 1px solid #89EF8C;
+    color: #89EF8C;
     transition: all 0.3s ease;
     z-index: 1;
+    border-radius: 50px;
+    height: 90px;
     
     &:before {
       content: '';
@@ -42,15 +44,15 @@ const Trans = styled.span`
       left: 0;
       width: 0;
       height: 100%;
-      background: #90cdf4;
+      background: #89EF8C;
       transition: all 0.3s ease;
       z-index: -1;
   }
 
     &:hover {
       color: #0a192f;
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(144, 205, 244, 0.4);
+      transform: translateY(-2px);
+      box-shadow: 0 3px 10px rgba(137, 239, 140, 0.3);
     }
 
     &:hover:before {
@@ -370,22 +372,23 @@ const Home = () => {
             <NextLink href="/works" passHref scroll={true}>
                 <Button 
                   ref={buttonRef}
-                  borderRadius='30px'
+                  borderRadius='50px'
                   variant='outline'
-                  border='2px'
-                  borderColor='#90cdf4'
-                  color='#90cdf4'
-                  px={8}
-                  py={6}
+                  border='1px'
+                  borderColor='#89EF8C'
+                  color='#89EF8C'
+                  px={6}
+                  py={10}
                   fontSize="lg"
                   fontWeight="medium"
                   letterSpacing="wider"
+                  height="90px"
                   rightIcon={<ChevronRightIcon />}
                   _hover={{
-                    bg: '#90cdf4',
+                    bg: '#89EF8C',
                     color: '#0a192f',
-                    transform: 'translateY(-3px)',
-                    boxShadow: '0 5px 15px rgba(144, 205, 244, 0.4)'
+                    transform: 'translateY(-2px)',
+                    boxShadow: '0 3px 10px rgba(137, 239, 140, 0.3)'
                   }}
                 >
                 CLICK TO SEE MORE ABOUT MY WORK

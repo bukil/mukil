@@ -104,7 +104,7 @@ const Character = styled.span`
 const DividerLine = styled.div`
   width: 100%;
   height: 1px;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.88) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.84) 50%, rgba(255,255,255,0) 100%);
   position: fixed;
   top: 90%;
   left: 0;
