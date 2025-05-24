@@ -24,11 +24,12 @@ const ContactLink = ({ icon, href, children }) => (
       spacing={4} 
       p={2}
       _hover={{ 
-        color: 'whiteAlpha.900',
+        color: '#89EF8C',
         transform: 'translateY(-2px)',
         transition: 'all 0.2s ease-in-out'
       }}
       transition="all 0.2s ease-in-out"
+      color="#89EF8C"
     >
       <Icon as={icon} boxSize={5} />
       <Text fontSize="sm">{children}</Text>
@@ -64,6 +65,7 @@ const Contact = () => {
             mb={4}
             textAlign="center"
             lineHeight="1.2"
+            fontFamily="'WhyteInktrap', sans-serif"
           >
             LET'S CREATE SOMETHING AMAZING TOGETHER
           </Heading>
@@ -81,7 +83,7 @@ const Contact = () => {
           >
             I'm all ears whether you're building the next big thing, sketching out a moonshot, or just want to say hi.
             <br />
-            Let's connect. Let's create. Or at the very least, let's talk.
+            Let's <Text as="span" color="black" bg="#89EF8C" px={1}>connect</Text>. Let's create. Or at the very least, let's talk.
           </Text>
           
           <VStack spacing={8} align="stretch">
