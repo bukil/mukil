@@ -19,16 +19,21 @@ export default async function handler(req, res) {
 
   try {
     const { name, email, subject, message } = req.body
+    const timestamp = new Date().toISOString()
 
-    // Here you can add your email sending logic
-    // For example, using nodemailer, SendGrid, or any other email service
-    // For now, we'll just log the data and return success
-    console.log('Contact form submission:', { name, email, subject, message })
+    // Append the form data to the Google Sheet
+    await sheets.spreadsheets.values.append({
+      spreadsheetId: SPREADSHEET_ID,
+      range: 'Sheet1!A:E', // Adjust based on your sheet structure
+      valueInputOption: 'USER_ENTERED',
+      resource: {
+        values: [[timestamp, name, email, subject, message]],
+      },
+    })
 
-    // Return success response
-    return res.status(200).json({ message: 'Message sent successfully' })
+    res.status(200).json({ message: 'Message sent successfully' })
   } catch (error) {
-    console.error('Error processing contact form:', error)
-    return res.status(500).json({ message: 'Error processing your request' })
+    console.error('Error:', error)
+    res.status(500).json({ message: 'Failed to send message' })
   }
 } 
