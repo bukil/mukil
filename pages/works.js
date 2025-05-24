@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import { Container, Divider, Heading, SimpleGrid, Stack, Image, Text, Button, useDisclosure, Collapse, Box, Spacer, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton } from '@chakra-ui/react'
+import { Container, Divider, Heading, SimpleGrid, Stack, Image, Text, Button, useDisclosure, Collapse, Box, Spacer, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, useColorMode } from '@chakra-ui/react'
 import { ChevronDownIcon, ChevronLeftIcon } from '@chakra-ui/icons'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
@@ -80,7 +80,7 @@ const BigText = styled.div`
   font-weight: 900;
   font-style: italic;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.8);
+  color: ${props => props.colorMode === 'light' ? '#89EF8C' : 'rgba(255, 255, 255, 0.8)'};
   position: fixed;
   top: 50%;
   left: 0;
@@ -1367,6 +1367,7 @@ const Works = () => {
   const bigTextRef = useRef(null)
   const dividerLineRef = useRef(null)
   const characters = "DESIGN".split("")
+  const { colorMode } = useColorMode()
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -1434,7 +1435,7 @@ const Works = () => {
   return (
     <Layout title="Works" mt={10} maxW="100vw" overflowX="hidden">
       <Box w="100vw" position="relative" left="50%" right="50%" marginLeft="-50vw" marginRight="-50vw">
-        <BigText ref={bigTextRef}>
+        <BigText ref={bigTextRef} colorMode={colorMode}>
           {characters.map((char, index) => (
             <Character key={index}>{char}</Character>
           ))}
