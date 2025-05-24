@@ -133,9 +133,9 @@ const Contact = () => {
           overflow="visible"
         >
           <Text
-            fontSize={{ base: "30rem", md: "35rem" }}
+            fontSize={{ base: "30rem", md: "30rem" }}
             fontFamily="'BaseNeueTrial', sans-serif"
-            fontWeight="800"
+            fontWeight="700"
             lineHeight="1"
             background="linear-gradient(to bottom, rgba(255, 255, 255, 0.51) 0%, rgba(255, 255, 255, 0.04) 50%, rgba(255, 255, 255, 0.01) 100%)"
             backgroundClip="text"
