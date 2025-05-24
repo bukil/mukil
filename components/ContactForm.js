@@ -6,7 +6,6 @@ import {
   Input,
   Textarea,
   VStack,
-  useToast,
   Text
 } from '@chakra-ui/react'
 import { useState, useRef } from 'react'
@@ -20,35 +19,20 @@ const ContactForm = () => {
     message: ''
   })
   const [isLoading, setIsLoading] = useState(false)
-  const toast = useToast()
-  const successRef = useRef(null)
+  const formRef = useRef(null)
 
-  const showSuccessAnimation = () => {
-    const successElement = successRef.current
-    if (successElement) {
-      successElement.style.display = 'block'
-      
-      gsap.set(successElement, { 
-        scale: 0, 
-        opacity: 0,
-        display: 'block'
-      })
-      
-      gsap.to(successElement, {
-        scale: 1,
-        opacity: 1,
+  const showSuccessGlow = () => {
+    if (formRef.current) {
+      gsap.to(formRef.current, {
+        boxShadow: '0 0 30px rgba(137, 239, 140, 0.5)',
+        borderColor: '#89EF8C',
         duration: 0.5,
-        ease: "elastic.out(1, 0.5)",
         onComplete: () => {
-          gsap.to(successElement, {
-            scale: 0.95,
-            opacity: 0,
-            duration: 0.3,
-            delay: 2,
-            ease: "power2.in",
-            onComplete: () => {
-              successElement.style.display = 'none'
-            }
+          gsap.to(formRef.current, {
+            boxShadow: 'none',
+            borderColor: 'rgba(255, 255, 255, 0.1)',
+            duration: 0.5,
+            delay: 1
           })
         }
       })
@@ -69,26 +53,11 @@ const ContactForm = () => {
       })
 
       if (response.ok) {
-        showSuccessAnimation()
-        toast({
-          title: 'Message sent!',
-          description: "I'll get back to you soon.",
-          status: 'success',
-          duration: 5000,
-          isClosable: true,
-        })
+        showSuccessGlow()
         setFormData({ name: '', email: '', subject: '', message: '' })
-      } else {
-        throw new Error('Failed to send message')
       }
     } catch (error) {
-      toast({
-        title: 'Error',
-        description: 'Failed to send message. Please try again.',
-        status: 'error',
-        duration: 5000,
-        isClosable: true,
-      })
+      console.error('Error:', error)
     } finally {
       setIsLoading(false)
     }
@@ -104,6 +73,7 @@ const ContactForm = () => {
 
   return (
     <Box
+      ref={formRef}
       as="form"
       onSubmit={handleSubmit}
       bg="rgba(255, 255, 255, 0.05)"
@@ -111,30 +81,8 @@ const ContactForm = () => {
       borderRadius="xl"
       border="1px solid rgba(255, 255, 255, 0.1)"
       backdropFilter="blur(10px)"
-      position="relative"
-      overflow="hidden"
+      transition="all 0.3s ease"
     >
-      <Box
-        ref={successRef}
-        position="absolute"
-        top="50%"
-        left="50%"
-        transform="translate(-50%, -50%)"
-        bg="rgba(137, 239, 140, 0.95)"
-        color="black"
-        p={8}
-        borderRadius="xl"
-        textAlign="center"
-        pointerEvents="none"
-        zIndex={100}
-        boxShadow="0 0 20px rgba(137, 239, 140, 0.3)"
-        minWidth="200px"
-      >
-        <Text fontSize="3xl" fontWeight="bold" mb={2}>✓</Text>
-        <Text fontSize="2xl" fontWeight="bold">Message Sent!</Text>
-        <Text mt={2} fontSize="md">Your message is on its way</Text>
-      </Box>
-
       <VStack spacing={4}>
         <Text fontSize="2xl" fontWeight="bold" mb={4}>
           Send me a Message
