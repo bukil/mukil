@@ -60,7 +60,7 @@ const Contact = () => {
           <Heading
             as="h1"
             fontSize={{ base: "4xl", md: "6xl" }}
-            fontWeight="extrabold"
+            fontWeight="900"
             letterSpacing="tight"
             mb={4}
             textAlign="center"
