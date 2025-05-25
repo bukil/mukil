@@ -7,6 +7,7 @@ import styled from '@emotion/styled'
 import NextLink from 'next/link'
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
+import KodeboardModal from '../components/projects/Kodeboard'
 
 // Styled components
 const Trans = styled.span`
@@ -286,19 +287,7 @@ function CollapseExtandip() {
               accentColor="green.400"
               onClick={onEditOpenmd12}
             />
-            <Modal isOpen={isEditOpenmd12} onClose={onEditClosemd12} size="full">
-              <ModalOverlay />
-              <ModalContent>
-                <ModalHeader as="h1" mt={32}>Kode/Board</ModalHeader>
-                <ModalCloseButton mt={32} />
-                <ModalBody mt={4}>
-                  {/* Add your modal content here */}
-                </ModalBody>
-                <ModalFooter>
-                  <Button onClick={onEditClosemd12}>Close</Button>
-                </ModalFooter>
-              </ModalContent>
-            </Modal>
+            <KodeboardModal isOpen={isEditOpenmd12} onClose={onEditClosemd12} />
           </Section>
 
           <Section>

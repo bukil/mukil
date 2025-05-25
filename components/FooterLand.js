@@ -1,5 +1,6 @@
-import { Box, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, useDisclosure, Text, VStack, Center, Button } from "@chakra-ui/react";
+import { Box, useDisclosure, Text, VStack, Center, Button } from "@chakra-ui/react";
 import { useState } from "react";
+import StandardModal from './ui/Modal';
 
 const FooterLand = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -89,170 +90,114 @@ const FooterLand = () => {
         transform={isHovered ? 'scale(1.1)' : 'scale(1)'}
       />
 
-      <Modal 
-        isOpen={isOpen} 
-        onClose={onClose} 
-        size="md" 
-        isCentered
-        motionPreset="slideInBottom"
-      >
-        <ModalOverlay 
-          bg="blackAlpha.400"
-          backdropFilter="blur(8px)"
-        />
-        <Center>
-          <ModalContent 
-            mx={4}
-            bg="rgba(255, 255, 255, 0.1)"
-            backdropFilter="blur(12px)"
-            border="1px solid rgba(255, 255, 255, 0.2)"
-            borderRadius="xl"
-            boxShadow="0 8px 32px 0 rgba(31, 38, 135, 0.37)"
-            maxW="600px"
-            w="90%"
-            sx={{
-              '&::before': {
-                content: '""',
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                borderRadius: 'xl',
-                padding: '1px',
-                background: 'linear-gradient(45deg, rgba(255,255,255,0.1), rgba(255,255,255,0.2))',
-                WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
-                WebkitMaskComposite: 'xor',
-                maskComposite: 'exclude',
-              }
-            }}
-          >
-            <ModalHeader 
-              textAlign="center"
-              color="white"
-              fontWeight="bold"
-              fontSize="xl"
-              borderBottom="1px solid rgba(255,255,255,0.1)"
-              pb={4}
-            >
-              Ninja Gaiden Inspiration
-            </ModalHeader>
-            <ModalCloseButton 
-              color="white" 
-              _hover={{ bg: 'rgba(255,255,255,0.1)' }}
-              borderRadius="full"
-            />
-            <ModalBody py={6}>
-              <VStack spacing={6} align="stretch">
-                <Text color="white" fontSize="md" lineHeight="1.6" textShadow="0 2px 4px rgba(0,0,0,0.3)">
-                  The infinite scrolling landscape at the bottom of my portfolio is inspired by the iconic Ninja Gaiden series, particularly the character Ryu Hayabusa. This subtle homage represents my journey in design and technology - continuous, determined, and always moving forward.
-                </Text>
-                <Text color="white" fontSize="md" lineHeight="1.6" textShadow="0 2px 4px rgba(0,0,0,0.3)">
-                  The theme &quot;Unbreakable Determination&quot; from Ninja Gaiden perfectly encapsulates my approach to design and development. Just as Ryu faces endless challenges with unwavering resolve, I believe in pushing through obstacles to create meaningful digital experiences.
-                </Text>
-                <Text color="white" fontSize="md" lineHeight="1.6" textShadow="0 2px 4px rgba(0,0,0,0.3)">
-                  The running animation of Ryu in the corner is a playful reminder that in the world of design and technology, we must keep moving, keep learning, and keep creating - just like a true ninja warrior.
-                </Text>
-                <VStack spacing={6} align="stretch">
-                  <Text color="white" fontSize="md" lineHeight="1.6" textShadow="0 2px 4px rgba(0,0,0,0.3)">
-                    The animation was created using Aseprite, a powerful pixel art tool. Here&apos;s a glimpse into the process:
-                  </Text>
-                  <Box>
-                    <Text color="white" fontSize="lg" fontWeight="bold" mb={4}>Character Animation Process</Text>
-                    <Box display="grid" gridTemplateColumns="repeat(2, 1fr)" gap={6}>
-                      <Box>
-                        <Text color="white" fontSize="sm" mb={2} fontWeight="medium">1. Initial Frame Setup</Text>
-                        <Box
-                          as="img"
-                          src="/mukil/NG0.jpeg"
-                          alt="Aseprite Frame Background Frame Setup"
-                          width="100%"
-                          height="200px"
-                          objectFit="cover"
-                          borderRadius="md"
-                          border="1px solid rgba(255,255,255,0.1)"
-                          boxShadow="0 4px 12px rgba(0,0,0,0.2)"
-                        />
-                      </Box>
-                      <Box>
-                        <Text color="white" fontSize="sm" mb={2} fontWeight="medium">2. Aseprite Ryu Running in 12 FPS</Text>
-                        <Text color="white" fontSize="xs" mb={2} opacity={0.8}>Enhanced version of the original which is 3 Frames with static clothing and low physics</Text>
-                        <Box
-                          as="img"
-                          src="/mukil/NG1.jpeg"
-                          alt="Aseprite Ryu Running in 12 FPS enhanced version"
-                          width="100%"
-                          height="200px"
-                          objectFit="cover"
-                          borderRadius="md"
-                          border="1px solid rgba(255,255,255,0.1)"
-                          boxShadow="0 4px 12px rgba(0,0,0,0.2)"
-                        />
-                      </Box>
-                    </Box>
-                  </Box>
+      <StandardModal isOpen={isOpen} onClose={onClose} title="Ninja Gaiden Inspiration" size="2xl">
+        <VStack spacing={6} align="stretch">
+          <Text color="white" fontSize="md" lineHeight="1.6" textShadow="0 2px 4px rgba(0,0,0,0.3)">
+            The infinite scrolling landscape at the bottom of my portfolio is inspired by the iconic Ninja Gaiden series, particularly the character Ryu Hayabusa. This subtle homage represents my journey in design and technology - continuous, determined, and always moving forward.
+          </Text>
+          <Text color="white" fontSize="md" lineHeight="1.6" textShadow="0 2px 4px rgba(0,0,0,0.3)">
+            The theme &quot;Unbreakable Determination&quot; from Ninja Gaiden perfectly encapsulates my approach to design and development. Just as Ryu faces endless challenges with unwavering resolve, I believe in pushing through obstacles to create meaningful digital experiences.
+          </Text>
+          <Text color="white" fontSize="md" lineHeight="1.6" textShadow="0 2px 4px rgba(0,0,0,0.3)">
+            The running animation of Ryu in the corner is a playful reminder that in the world of design and technology, we must keep moving, keep learning, and keep creating - just like a true ninja warrior.
+          </Text>
+          <VStack spacing={6} align="stretch">
+            <Text color="white" fontSize="md" lineHeight="1.6" textShadow="0 2px 4px rgba(0,0,0,0.3)">
+              The animation was created using Aseprite, a powerful pixel art tool. Here&apos;s a glimpse into the process:
+            </Text>
+            <Box>
+              <Text color="white" fontSize="lg" fontWeight="bold" mb={4}>Character Animation Process</Text>
+              <Box display="grid" gridTemplateColumns="repeat(2, 1fr)" gap={6}>
+                <Box>
+                  <Text color="white" fontSize="sm" mb={2} fontWeight="medium">1. Initial Frame Setup</Text>
+                  <Box
+                    as="img"
+                    src="/mukil/NG0.jpeg"
+                    alt="Aseprite Frame Background Frame Setup"
+                    width="100%"
+                    height="200px"
+                    objectFit="cover"
+                    borderRadius="md"
+                    border="1px solid rgba(255,255,255,0.1)"
+                    boxShadow="0 4px 12px rgba(0,0,0,0.2)"
+                  />
+                </Box>
+                <Box>
+                  <Text color="white" fontSize="sm" mb={2} fontWeight="medium">2. Aseprite Ryu Running in 12 FPS</Text>
+                  <Text color="white" fontSize="xs" mb={2} opacity={0.8}>Enhanced version of the original which is 3 Frames with static clothing and low physics</Text>
+                  <Box
+                    as="img"
+                    src="/mukil/NG1.jpeg"
+                    alt="Aseprite Ryu Running in 12 FPS enhanced version"
+                    width="100%"
+                    height="200px"
+                    objectFit="cover"
+                    borderRadius="md"
+                    border="1px solid rgba(255,255,255,0.1)"
+                    boxShadow="0 4px 12px rgba(0,0,0,0.2)"
+                  />
+                </Box>
+              </Box>
+            </Box>
 
-                  <Box>
-                    <Text color="white" fontSize="lg" fontWeight="bold" mb={4}>Background & Implementation</Text>
-                    <Box display="grid" gridTemplateColumns="repeat(2, 1fr)" gap={6}>
-                      <Box>
-                        <Text color="white" fontSize="sm" mb={2} fontWeight="medium">3. Footer City Pixel Art</Text>
-                        <Box
-                          as="img"
-                          src="/mukil/NG2.jpeg"
-                          alt="Footer City Pixel Art"
-                          width="100%"
-                          height="200px"
-                          objectFit="cover"
-                          borderRadius="md"
-                          border="1px solid rgba(255,255,255,0.1)"
-                          boxShadow="0 4px 12px rgba(0,0,0,0.2)"
-                        />
-                      </Box>
-                      <Box>
-                        <Text color="white" fontSize="sm" mb={2} fontWeight="medium">4. Animation Implementation</Text>
-                        <Text color="white" fontSize="xs" mb={2} opacity={0.8}>Code for the animation, here I use single image for the animation in the loop</Text>
-                        <Box
-                          as="img"
-                          src="/mukil/NG3.jpeg"
-                          alt="Code for the animation implementation"
-                          width="100%"
-                          height="200px"
-                          objectFit="cover"
-                          borderRadius="md"
-                          border="1px solid rgba(255,255,255,0.1)"
-                          boxShadow="0 4px 12px rgba(0,0,0,0.2)"
-                        />
-                      </Box>
-                    </Box>
-                  </Box>
-                </VStack>
-                <Button
-                  onClick={handleVideoClick}
-                  bg="rgba(255, 255, 255, 0.15)"
-                  color="#90cdf4"
-                  _hover={{
-                    bg: 'rgba(255, 255, 255, 0.25)',
-                    transform: 'scale(1.05)',
-                  }}
-                  _active={{
-                    bg: 'rgba(255, 255, 255, 0.2)',
-                  }}
-                  transition="all 0.2s ease-in-out"
-                  size="lg"
-                  width="100%"
-                  borderRadius="md"
-                  fontWeight="medium"
-                  backdropFilter="blur(4px)"
-                  border="1px solid rgba(255, 255, 255, 0.1)"
-                >
-                  Listen to &quot;Unbreakable Determination&quot; Theme
-                </Button>
-              </VStack>
-            </ModalBody>
-          </ModalContent>
-        </Center>
-      </Modal>
+            <Box>
+              <Text color="white" fontSize="lg" fontWeight="bold" mb={4}>Background & Implementation</Text>
+              <Box display="grid" gridTemplateColumns="repeat(2, 1fr)" gap={6}>
+                <Box>
+                  <Text color="white" fontSize="sm" mb={2} fontWeight="medium">3. Footer City Pixel Art</Text>
+                  <Box
+                    as="img"
+                    src="/mukil/NG2.jpeg"
+                    alt="Footer City Pixel Art"
+                    width="100%"
+                    height="200px"
+                    objectFit="cover"
+                    borderRadius="md"
+                    border="1px solid rgba(255,255,255,0.1)"
+                    boxShadow="0 4px 12px rgba(0,0,0,0.2)"
+                  />
+                </Box>
+                <Box>
+                  <Text color="white" fontSize="sm" mb={2} fontWeight="medium">4. Animation Implementation</Text>
+                  <Text color="white" fontSize="xs" mb={2} opacity={0.8}>Code for the animation, here I use single image for the animation in the loop</Text>
+                  <Box
+                    as="img"
+                    src="/mukil/NG3.jpeg"
+                    alt="Code for the animation implementation"
+                    width="100%"
+                    height="200px"
+                    objectFit="cover"
+                    borderRadius="md"
+                    border="1px solid rgba(255,255,255,0.1)"
+                    boxShadow="0 4px 12px rgba(0,0,0,0.2)"
+                  />
+                </Box>
+              </Box>
+            </Box>
+          </VStack>
+          <Button
+            onClick={handleVideoClick}
+            bg="rgba(255, 255, 255, 0.15)"
+            color="#90cdf4"
+            _hover={{
+              bg: 'rgba(255, 255, 255, 0.25)',
+              transform: 'scale(1.05)',
+            }}
+            _active={{
+              bg: 'rgba(255, 255, 255, 0.2)',
+            }}
+            transition="all 0.2s ease-in-out"
+            size="lg"
+            width="100%"
+            borderRadius="md"
+            fontWeight="medium"
+            backdropFilter="blur(4px)"
+            border="1px solid rgba(255, 255, 255, 0.1)"
+          >
+            Listen to &quot;Unbreakable Determination&quot; Theme
+          </Button>
+        </VStack>
+      </StandardModal>
     </Box>
   );
 };

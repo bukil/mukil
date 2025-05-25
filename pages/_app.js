@@ -14,19 +14,19 @@ function Website({ Component, pageProps, router }) {
     <Chakra cookies={pageProps.cookies}>
       <Fonts />
       <PasswordGate>
-        <Layout router={router}>
-          <AnimatePresence
-            exitBeforeEnter
-            initial={true}
-            onExitComplete={() => {
-              if (typeof window !== 'undefined') {
-                window.scrollTo({ top: 0 })
-              }
-            }}
-          >
-            <Component {...pageProps} key={router.route} />
-          </AnimatePresence>
-        </Layout>
+      <Layout router={router}>
+        <AnimatePresence
+          exitBeforeEnter
+          initial={true}
+          onExitComplete={() => {
+            if (typeof window !== 'undefined') {
+              window.scrollTo({ top: 0 })
+            }
+          }}
+        >
+          <Component {...pageProps} key={router.route} />
+        </AnimatePresence>
+      </Layout>
       </PasswordGate>
     </Chakra>
   )
