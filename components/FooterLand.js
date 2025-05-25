@@ -1,4 +1,4 @@
-import { Box, useDisclosure, Text, VStack, Center, Button } from "@chakra-ui/react";
+import { Box, useDisclosure, Text, VStack, Button } from "@chakra-ui/react";
 import { useState } from "react";
 import StandardModal from './ui/Modal';
 
