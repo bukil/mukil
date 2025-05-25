@@ -1,4 +1,4 @@
-import { Container, Heading, Text, VStack, Icon, Box, useColorModeValue } from '@chakra-ui/react'
+import { Heading, Text, VStack, Icon, Box, useColorModeValue } from '@chakra-ui/react'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
 import { FiBook, FiCamera, FiEdit } from 'react-icons/fi'
@@ -7,11 +7,9 @@ import gsap from 'gsap'
 
 const Blog = () => {
   const textColor = useColorModeValue('#222', '#fff')
-  const iconColor = useColorModeValue('#b83280', '#ff7eb3')
   const greenLine = useColorModeValue('#89EF8C', '#89EF8C')
   const pinkLine = useColorModeValue('#b83280', '#ff7eb3')
   const blueLine = useColorModeValue('#3182ce', '#63b3ed')
-  const boxBg = useColorModeValue('rgba(0,0,0,0.03)', 'rgba(255,255,255,0.02)')
 
   // Refs for GSAP animation
   const blogBoxRef = useRef(null)
