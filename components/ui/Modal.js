@@ -3,7 +3,6 @@ import {
   Modal,
   ModalOverlay,
   ModalContent,
-  ModalHeader,
   ModalFooter,
   ModalBody,
   ModalCloseButton,
@@ -14,7 +13,6 @@ const StandardModal = ({ isOpen, onClose, title, children, footer, size = 'full'
   <Modal isOpen={isOpen} onClose={onClose} size={size} {...props}>
     <ModalOverlay />
     <ModalContent mt="100px" bg="rgba(200, 200, 200, 0)" backdropFilter="blur(5px)" boxShadow="none">
-      <ModalHeader as="h1" mt={8}>{title}</ModalHeader>
       <ModalCloseButton mt={8} />
       <ModalBody mt={4}>{children}</ModalBody>
       <ModalFooter>
