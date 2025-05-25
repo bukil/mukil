@@ -9,7 +9,7 @@ import {
   Button
 } from '@chakra-ui/react';
 
-const StandardModal = ({ isOpen, onClose, title, children, footer, size = 'full', ...props }) => (
+const StandardModal = ({ isOpen, onClose, children, footer, size = 'full', ...props }) => (
   <Modal isOpen={isOpen} onClose={onClose} size={size} {...props}>
     <ModalOverlay />
     <ModalContent mt="100px" bg="rgba(200, 200, 200, 0)" backdropFilter="blur(5px)" boxShadow="none">
