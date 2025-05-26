@@ -6,9 +6,10 @@ import {
   Input,
   Textarea,
   VStack,
-  Text
+  Text,
+  useColorMode
 } from '@chakra-ui/react'
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import gsap from 'gsap'
 
 const ContactForm = () => {
@@ -20,6 +21,35 @@ const ContactForm = () => {
   })
   const [isLoading, setIsLoading] = useState(false)
   const formRef = useRef(null)
+  const buttonRef = useRef(null)
+  const { colorMode } = useColorMode();
+
+  useEffect(() => {
+    const btn = buttonRef.current;
+    if (!btn) return;
+    const handleEnter = () => {
+      gsap.to(btn, {
+        scale: 1.08,
+        boxShadow: '0 4px 24px 0 rgba(137,239,140,0.18)',
+        duration: 0.28,
+        ease: 'power2.out',
+      });
+    };
+    const handleLeave = () => {
+      gsap.to(btn, {
+        scale: 1,
+        boxShadow: 'none',
+        duration: 0.28,
+        ease: 'power2.in',
+      });
+    };
+    btn.addEventListener('mouseenter', handleEnter);
+    btn.addEventListener('mouseleave', handleLeave);
+    return () => {
+      btn.removeEventListener('mouseenter', handleEnter);
+      btn.removeEventListener('mouseleave', handleLeave);
+    };
+  }, []);
 
   const showSuccessGlow = () => {
     if (formRef.current) {
@@ -30,12 +60,32 @@ const ContactForm = () => {
         onComplete: () => {
           gsap.to(formRef.current, {
             boxShadow: 'none',
-            borderColor: 'rgba(255, 255, 255, 0.1)',
+            borderColor: colorMode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : '#E2E8F0',
             duration: 0.5,
             delay: 1
           })
         }
       })
+    }
+    if (buttonRef.current) {
+      gsap.fromTo(
+        buttonRef.current,
+        { scale: 1 },
+        {
+          scale: 1.18,
+          duration: 0.18,
+          ease: 'power2.out',
+          yoyo: true,
+          repeat: 1,
+          onComplete: () => {
+            gsap.to(buttonRef.current, {
+              scale: 1,
+              duration: 0.18,
+              ease: 'bounce.out'
+            })
+          }
+        }
+      )
     }
   }
 
@@ -71,15 +121,21 @@ const ContactForm = () => {
     }))
   }
 
+  // Bright mode for light, dark for dark
+  const formBg = colorMode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(255,255,255,0.85)';
+  const inputBg = colorMode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(255,255,255,0.85)';
+  const inputColor = colorMode === 'dark' ? 'white' : 'gray.800';
+  const borderColor = colorMode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : '#E2E8F0';
+
   return (
     <Box
       ref={formRef}
       as="form"
       onSubmit={handleSubmit}
-      bg="rgba(255, 255, 255, 0.05)"
+      bg={formBg}
       p={8}
       borderRadius="xl"
-      border="1px solid rgba(255, 255, 255, 0.1)"
+      border={`1px solid ${borderColor}`}
       backdropFilter="blur(10px)"
       transition="all 0.3s ease"
     >
@@ -95,10 +151,11 @@ const ContactForm = () => {
             value={formData.name}
             onChange={handleChange}
             placeholder="Your name"
-            bg="rgba(255, 255, 255, 0.05)"
-            border="1px solid rgba(255, 255, 255, 0.1)"
-            _hover={{ borderColor: 'rgba(255, 255, 255, 0.2)' }}
-            _focus={{ borderColor: 'rgba(255, 255, 255, 0.3)' }}
+            bg={inputBg}
+            border={`1px solid ${borderColor}`}
+            _hover={{ borderColor: colorMode === 'dark' ? 'rgba(255, 255, 255, 0.2)' : '#CBD5E1' }}
+            _focus={{ borderColor: colorMode === 'dark' ? 'rgba(255, 255, 255, 0.3)' : '#3182ce' }}
+            color={inputColor}
           />
         </FormControl>
 
@@ -110,10 +167,11 @@ const ContactForm = () => {
             value={formData.email}
             onChange={handleChange}
             placeholder="your.email@example.com"
-            bg="rgba(255, 255, 255, 0.05)"
-            border="1px solid rgba(255, 255, 255, 0.1)"
-            _hover={{ borderColor: 'rgba(255, 255, 255, 0.2)' }}
-            _focus={{ borderColor: 'rgba(255, 255, 255, 0.3)' }}
+            bg={inputBg}
+            border={`1px solid ${borderColor}`}
+            _hover={{ borderColor: colorMode === 'dark' ? 'rgba(255, 255, 255, 0.2)' : '#CBD5E1' }}
+            _focus={{ borderColor: colorMode === 'dark' ? 'rgba(255, 255, 255, 0.3)' : '#3182ce' }}
+            color={inputColor}
           />
         </FormControl>
 
@@ -124,10 +182,11 @@ const ContactForm = () => {
             value={formData.subject}
             onChange={handleChange}
             placeholder="What's this about?"
-            bg="rgba(255, 255, 255, 0.05)"
-            border="1px solid rgba(255, 255, 255, 0.1)"
-            _hover={{ borderColor: 'rgba(255, 255, 255, 0.2)' }}
-            _focus={{ borderColor: 'rgba(255, 255, 255, 0.3)' }}
+            bg={inputBg}
+            border={`1px solid ${borderColor}`}
+            _hover={{ borderColor: colorMode === 'dark' ? 'rgba(255, 255, 255, 0.2)' : '#CBD5E1' }}
+            _focus={{ borderColor: colorMode === 'dark' ? 'rgba(255, 255, 255, 0.3)' : '#3182ce' }}
+            color={inputColor}
           />
         </FormControl>
 
@@ -139,22 +198,24 @@ const ContactForm = () => {
             onChange={handleChange}
             placeholder="Your message here..."
             rows={6}
-            bg="rgba(255, 255, 255, 0.05)"
-            border="1px solid rgba(255, 255, 255, 0.1)"
-            _hover={{ borderColor: 'rgba(255, 255, 255, 0.2)' }}
-            _focus={{ borderColor: 'rgba(255, 255, 255, 0.3)' }}
+            bg={inputBg}
+            border={`1px solid ${borderColor}`}
+            _hover={{ borderColor: colorMode === 'dark' ? 'rgba(255, 255, 255, 0.2)' : '#CBD5E1' }}
+            _focus={{ borderColor: colorMode === 'dark' ? 'rgba(255, 255, 255, 0.3)' : '#3182ce' }}
+            color={inputColor}
           />
         </FormControl>
 
         <Button
+          ref={buttonRef}
           type="submit"
           isLoading={isLoading}
           loadingText="Sending..."
           width="full"
-          bg="rgba(255, 255, 255, 0.1)"
-          _hover={{ bg: 'rgba(255, 255, 255, 0.2)' }}
-          _active={{ bg: 'rgba(255, 255, 255, 0.15)' }}
-          color="white"
+          bg={colorMode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : '#F7FAFC'}
+          _hover={{ bg: colorMode === 'dark' ? 'rgba(255, 255, 255, 0.2)' : '#EDF2F7' }}
+          _active={{ bg: colorMode === 'dark' ? 'rgba(255, 255, 255, 0.15)' : '#E2E8F0' }}
+          color={colorMode === 'dark' ? 'white' : 'gray.800'}
         >
           Send Message
         </Button>
