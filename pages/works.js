@@ -8,6 +8,7 @@ import NextLink from 'next/link'
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import KodeboardModal from '../components/projects/Kodeboard'
+import Head from 'next/head'
 
 // Styled components
 const Trans = styled.span`
@@ -271,6 +272,7 @@ function CollapseExtandip() {
   const { isOpen: isEditOpenmd14, onOpen: onEditOpenmd14, onClose: onEditClosemd14 } = useDisclosure()
   const { isOpen: isEditOpenmd13, onOpen: onEditOpenmd13, onClose: onEditClosemd13 } = useDisclosure()
   const { isOpen: isEditOpenmd15, onOpen: onEditOpenmd15, onClose: onEditClosemd15 } = useDisclosure()
+  const { isOpen: isEditOpenmd17, onOpen: onEditOpenmd17, onClose: onEditClosemd17 } = useDisclosure()
 
   return (
     <>
@@ -377,13 +379,49 @@ function CollapseExtandip() {
               </ModalContent>
             </Modal>
           </Section>
+{/* interaction design===================================================================================== */}
+          <Section>
+            <ProjectPanel
+              title={<span style={{ fontFamily: 'Tiny5, monospace' }}>C2C</span>}
+              description="A deep dive into the craft of interaction design, exploring concepts, case studies, and hands-on projects from concept to creation. 🕹️"
+              imageSrc="/images/works/c2cf.png"
+              imageAlt="C2C: Interaction Design Project"
+              gradientColors="radial-gradient(circle at center, rgba(0, 200, 150, 0.7) 0%, rgba(0, 30, 60, 0.98) 100%)"
+              hoverGradientColors="radial-gradient(circle at center, rgba(0, 255, 200, 0.8) 0%, rgba(0, 40, 80, 0.98) 100%)"
+              accentColor="teal.400"
+              onClick={onEditOpenmd17}
+              hasSnow={false}
+            />
+            <Modal isOpen={isEditOpenmd17} onClose={onEditClosemd17} size="full">
+              <ModalOverlay backdropFilter="blur(10px)" />
+              <ModalContent bg="rgba(0, 0, 0, 0.8)">
+                <ModalHeader mt={32} style={{ fontFamily: 'Tiny5, monospace' }}>C2C</ModalHeader>
+                <ModalCloseButton mt={32} />
+                <ModalBody mt={4}>
+                  <Text fontSize={24} fontWeight={'hairline'} mb={6}>
+                    Explore the journey from concept to creation in interaction design. This project showcases case studies, design thinking, and hands-on interactive prototypes.
+                  </Text>
+                  <Image 
+                    src="/images/works/c2c_interaction.png"
+                    alt="C2C: Interaction Design Project"
+                    width="100%"
+                    borderRadius="lg"
+                    mb={6}
+                  />
+                </ModalBody>
+                <ModalFooter>
+                  <Button onClick={onEditClosemd17}>Close</Button>
+                </ModalFooter>
+              </ModalContent>
+            </Modal>
+          </Section>
         </SimpleGrid>
       </Box>
     </>
   )
 }
 
-// ============== Indu ===================
+// ============== Indu also check out content for the interaction design ^ ===================
 
 function CollapseExtandi() {
   const { isOpen, onToggle } = useDisclosure()
@@ -1422,43 +1460,48 @@ const Works = () => {
   }, [])
 
   return (
-    <Layout title="Works" mt={10} maxW="100vw" overflowX="hidden">
-      <Box w="100vw" position="relative" left="50%" right="50%" marginLeft="-50vw" marginRight="-50vw">
-        <BigText ref={bigTextRef} colorMode={colorMode}>
-          {characters.map((char, index) => (
-            <Character key={index}>{char}</Character>
-          ))}
-        </BigText>
-        <DividerLine ref={dividerLineRef} />
-        <ContentWrapper>
-          <Section>
-            <Heading as="h3" fontSize={50} mb={15} mt={10}>
-              <CollapseExtandip/>
-            </Heading>
-          </Section>
-          <Section>
-            <Heading as="h3" fontSize={50} mb={15} mt={10}>
-              <CollapseExtandi/>
-            </Heading>
-          </Section>
-          <Spacer/>
-          <Spacer/>
-          <Trans>
+    <>
+      <Head>
+        <link href="https://fonts.googleapis.com/css2?family=Tiny5&display=swap" rel="stylesheet" />
+      </Head>
+      <Layout title="Works" mt={10} maxW="100vw" overflowX="hidden">
+        <Box w="100vw" position="relative" left="50%" right="50%" marginLeft="-50vw" marginRight="-50vw">
+          <BigText ref={bigTextRef} colorMode={colorMode}>
+            {characters.map((char, index) => (
+              <Character key={index}>{char}</Character>
+            ))}
+          </BigText>
+          <DividerLine ref={dividerLineRef} />
+          <ContentWrapper>
             <Section>
-              <Box align="center" my={4}>
-                <NextLink href="/" passHref scroll={true}>
-                  <Button borderRadius='20px' variant='outline' 
-                  border='1px' 
-                  borderColor='black.500' mt='10' leftIcon={<ChevronLeftIcon />}>
-                      GO BACK TO HOME PAGE
-                  </Button>
-                </NextLink>
-              </Box>
+              <Heading as="h3" fontSize={50} mb={15} mt={10}>
+                <CollapseExtandip/>
+              </Heading>
             </Section>
-          </Trans>
-        </ContentWrapper>
-      </Box>
-    </Layout>
+            <Section>
+              <Heading as="h3" fontSize={50} mb={15} mt={10}>
+                <CollapseExtandi/>
+              </Heading>
+            </Section>
+            <Spacer/>
+            <Spacer/>
+            <Trans>
+              <Section>
+                <Box align="center" my={4}>
+                  <NextLink href="/" passHref scroll={true}>
+                    <Button borderRadius='20px' variant='outline' 
+                    border='1px' 
+                    borderColor='black.500' mt='10' leftIcon={<ChevronLeftIcon />}>
+                        GO BACK TO HOME PAGE
+                    </Button>
+                  </NextLink>
+                </Box>
+              </Section>
+            </Trans>
+          </ContentWrapper>
+        </Box>
+      </Layout>
+    </>
   )
 }
 
