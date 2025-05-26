@@ -15,6 +15,8 @@ import {
 } from '@chakra-ui/react'
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger);
 
 import Layout from '../components/layouts/article'
 import { ChevronRightIcon } from '@chakra-ui/icons'
@@ -92,6 +94,7 @@ const Home = () => {
   const kumarRef = useRef(null)
   const journeyRefs = useRef([])
   const buttonRef = useRef(null)
+  const hiImgRef = useRef(null)
 
   useEffect(() => {
     // Simple name animation
@@ -163,6 +166,26 @@ const Home = () => {
       button.addEventListener('mouseleave', hoverLeave)
     }
 
+    // Hi.png scroll animation
+    if (hiImgRef.current) {
+      gsap.fromTo(
+        hiImgRef.current,
+        { y: -100, scale: 0.5, opacity: 0 },
+        {
+          y: 300,
+          scale: 2.2,
+          opacity: 1,
+          ease: 'power2.inOut',
+          scrollTrigger: {
+            trigger: hiImgRef.current,
+            start: 'top top',
+            end: 'bottom+=600 top',
+            scrub: 1,
+          },
+        }
+      );
+    }
+
     // Run animations
     animateText(mukilRef)
     animateText(kumarRef)
@@ -172,6 +195,9 @@ const Home = () => {
       if (buttonRef.current) {
         buttonRef.current.removeEventListener('mouseenter', () => {})
         buttonRef.current.removeEventListener('mouseleave', () => {})
+      }
+      if (hiImgRef.current && ScrollTrigger.getById('hiImgScroll')) {
+        ScrollTrigger.getById('hiImgScroll').kill();
       }
     }
   }, [])
@@ -244,6 +270,24 @@ const Home = () => {
               />
             </Box>
           </Box>
+        </Box>
+        {/* Hi.png animated image */}
+        <Box
+          ref={hiImgRef}
+          position="fixed"
+          top={['10px', '30px']}
+          right={['10px', '30px']}
+          w={['60px', '100px', '140px']}
+          pointerEvents="none"
+          zIndex={0}
+        >
+          <Image
+            src="/mukil/Hi.png"
+            alt="Hi"
+            width={140}
+            height={140}
+            style={{ width: '100%', height: 'auto' }}
+          />
         </Box>
       </Container> 
 
