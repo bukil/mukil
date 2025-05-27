@@ -151,7 +151,7 @@ const Home = () => {
     });
 
     // Animate in
-    skillRefs.current.forEach((el, i) => {
+    skillRefs.current.forEach((el, ) => {
       if (el) {
         gsap.to(el, {
           y: 0,
@@ -167,7 +167,7 @@ const Home = () => {
         });
       }
     });
-    softwareRefs.current.forEach((el, i) => {
+    softwareRefs.current.forEach((el, ) => {
       if (el) {
         gsap.to(el, {
           y: 0,
