@@ -518,10 +518,10 @@ const Home = () => {
             Skills
           </Heading>
           <Box display="flex" flexWrap="wrap" gap={6} mb={10}>
-            {SKILLS.map(skill => (
+            {SKILLS.map((skill, i) => (
               <Box
                 key={skill}
-                ref={el => skillRefs.current.push(el)}
+                ref={el => skillRefs.current[i] = el}
                 fontSize={{ base: 'xl', md: '2xl' }}
                 fontWeight="semibold"
                 fontFamily="'Space Grotesk', sans-serif"
@@ -549,12 +549,12 @@ const Home = () => {
             Software
           </Heading>
           <Box display="flex" flexWrap="wrap" gap={4}>
-            {SOFTWARE_SKILLS.map(soft => {
+            {SOFTWARE_SKILLS.map((soft, i) => {
               const Icon = soft.icon
               return (
                 <Box
                   key={soft.name}
-                  ref={el => softwareRefs.current.push(el)}
+                  ref={el => softwareRefs.current[i] = el}
                   fontSize={{ base: 'md', md: 'lg' }}
                   fontWeight="medium"
                   fontFamily="'Space Grotesk', sans-serif"
