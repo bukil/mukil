@@ -13,7 +13,7 @@ import {
   
   Badge,
 } from '@chakra-ui/react'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useLayoutEffect } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
@@ -136,7 +136,58 @@ const Home = () => {
   const softwareRefs = useRef([])
   const router = useRouter();
 
-  useEffect(() => {
+  // GSAP/ScrollTrigger animation and cleanup logic
+  useLayoutEffect(() => {
+    // Clean up previous triggers/tweens
+    if (window.ScrollTrigger) window.ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    gsap.killTweensOf(skillRefs.current);
+    gsap.killTweensOf(softwareRefs.current);
+
+    // Set initial state
+    skillRefs.current.forEach(el => {
+      if (el) gsap.set(el, { opacity: 0, y: 40 });
+    });
+    softwareRefs.current.forEach(el => {
+      if (el) gsap.set(el, { opacity: 0, y: 40 });
+    });
+
+    // Animate in
+    skillRefs.current.forEach((el, i) => {
+      if (el) {
+        gsap.to(el, {
+          y: 0,
+          opacity: 1,
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 85%',
+            end: 'top 60%',
+            scrub: true,
+          },
+          duration: 0.6,
+          ease: 'power2.out',
+        });
+      }
+    });
+    softwareRefs.current.forEach((el, i) => {
+      if (el) {
+        gsap.to(el, {
+          y: 0,
+          opacity: 1,
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 90%',
+            end: 'top 65%',
+            scrub: true,
+          },
+          duration: 0.6,
+          ease: 'power2.out',
+        });
+      }
+    });
+
+    if (window.ScrollTrigger) window.ScrollTrigger.refresh();
+
+    // Fade in page
     if (pageRef.current) {
       gsap.fromTo(
         pageRef.current,
@@ -235,80 +286,17 @@ const Home = () => {
       );
     }
 
-    // --- GSAP/ScrollTrigger Cleanup and Reset ---
-    // Kill all previous ScrollTriggers and tweens
-    if (window.ScrollTrigger) window.ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-    gsap.killTweensOf(skillRefs.current);
-    gsap.killTweensOf(softwareRefs.current);
-
-    // Reset all skill/software tabs to initial state
-    skillRefs.current.forEach(el => {
-      if (el) gsap.set(el, { opacity: 0, y: 40 });
-    });
-    softwareRefs.current.forEach(el => {
-      if (el) gsap.set(el, { opacity: 0, y: 40 });
-    });
-
-    // Animate skills
-    skillRefs.current.forEach((el, i) => {
-      if (el) {
-        gsap.to(
-          el,
-          {
-            y: 0,
-            opacity: 1,
-            scrollTrigger: {
-              trigger: el,
-              start: 'top 85%',
-              end: 'top 60%',
-              scrub: true,
-            },
-            duration: 0.6,
-            ease: 'power2.out',
-          }
-        )
-      }
-    });
-    softwareRefs.current.forEach((el, i) => {
-      if (el) {
-        gsap.to(
-          el,
-          {
-            y: 0,
-            opacity: 1,
-            scrollTrigger: {
-              trigger: el,
-              start: 'top 90%',
-              end: 'top 65%',
-              scrub: true,
-            },
-            duration: 0.6,
-            ease: 'power2.out',
-          }
-        )
-      }
-    });
-
-    // Always refresh after setting up triggers
-    if (window.ScrollTrigger) window.ScrollTrigger.refresh();
-
-    // Run animations
-    animateText(mukilRef)
-    animateText(kumarRef)
-
     // Cleanup
     return () => {
-      // Remove button event listeners using the same handler references
       if (buttonRef.current && hoverEnter && hoverLeave) {
         buttonRef.current.removeEventListener('mouseenter', hoverEnter)
         buttonRef.current.removeEventListener('mouseleave', hoverLeave)
       }
-      // Kill ScrollTriggers and tweens
       if (window.ScrollTrigger) window.ScrollTrigger.getAll().forEach(trigger => trigger.kill());
       gsap.killTweensOf(skillRefs.current);
       gsap.killTweensOf(softwareRefs.current);
-    }
-  }, [router.asPath])
+    };
+  }, [router.asPath]);
 
   return (
     <Box ref={pageRef} position="relative" minHeight="100vh">
@@ -550,6 +538,8 @@ const Home = () => {
           >
             SKILLS
           </Box>
+          {/* Clear refs before mapping */}
+          {(() => { skillRefs.current = []; softwareRefs.current = []; return null; })()}
           <Heading fontSize="4xl" fontWeight="bold" mb={8} color="#89EF8C" zIndex={1} position="relative">
             Skills
           </Heading>
