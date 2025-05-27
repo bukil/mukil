@@ -26,8 +26,8 @@ import Image from 'next/image'
 import { Divider } from '@chakra-ui/react'
 import { Spacer } from '@chakra-ui/react'
 import styled from '@emotion/styled'
-import { FaFigma, FaAdobe, FaReact } from 'react-icons/fa'
-import { SiBlender, SiAdobexd, SiAdobeaftereffects, SiAdobephotoshop, SiAdobeillustrator, SiFramer, SiHtml5, SiCss3, SiJavascript, SiGreensock, SiJekyll, SiPython, SiArduino, SiUnity, SiUnrealengine, SiSwift, SiThreejs } from 'react-icons/si'
+import { FaFigma, FaReact } from 'react-icons/fa'
+import { SiBlender, SiAdobexd, SiAdobeaftereffects, SiAdobephotoshop, SiAdobeillustrator, SiFramer, SiHtml5, SiGreensock, SiJekyll, SiPython, SiArduino, SiUnity, SiUnrealengine, SiSwift, SiThreejs } from 'react-icons/si'
 import { MdMemory } from 'react-icons/md'
 
 const Trans = styled.span`
@@ -124,7 +124,6 @@ const SOFTWARE_SKILLS = [
 ]
 
 const Home = () => {
-  const [pageVisible, setPageVisible] = useState(false)
   const pageRef = useRef(null)
   const mukilRef = useRef(null)
   const kumarRef = useRef(null)
@@ -142,7 +141,6 @@ const Home = () => {
         { opacity: 1, duration: 1.2, ease: 'power2.out' }
       )
     }
-    setPageVisible(true)
     // Simple name animation
     const animateText = (ref) => {
       if (ref.current) {
@@ -167,69 +165,6 @@ const Home = () => {
           })
         })
       }
-    }
-
-    // Simple journey items animation - just fade in
-    journeyRefs.current.forEach((item, index) => {
-      if (item) {
-        gsap.to(item, {
-          opacity: 1,
-          duration: 0.5,
-          delay: index * 0.2,
-          ease: "power2.out"
-        })
-      }
-    })
-
-    // Button animation
-    if (buttonRef.current) {
-      gsap.to(buttonRef.current, {
-        opacity: 1,
-        y: 0,
-        duration: 0.5,
-        delay: 1,
-        ease: "power2.out"
-      })
-
-      // Hover animation
-      const button = buttonRef.current
-      const hoverEnter = () => {
-        gsap.to(button, {
-          scale: 1.05,
-          duration: 0.3,
-          ease: "power2.out"
-        })
-      }
-      const hoverLeave = () => {
-        gsap.to(button, {
-          scale: 1,
-          duration: 0.3,
-          ease: "power2.out"
-        })
-      }
-
-      button.addEventListener('mouseenter', hoverEnter)
-      button.addEventListener('mouseleave', hoverLeave)
-    }
-
-    // Hi.png scroll animation
-    if (hiImgRef.current) {
-      gsap.fromTo(
-        hiImgRef.current,
-        { y: -100, scale: 0.5, opacity: 0 },
-        {
-          y: 300,
-          scale: 2.2,
-          opacity: 1,
-          ease: 'power2.inOut',
-          scrollTrigger: {
-            trigger: hiImgRef.current,
-            start: 'top top',
-            end: 'bottom+=600 top',
-            scrub: 1,
-          },
-        }
-      );
     }
 
     // GSAP simple fade-in and upward movement for skills
@@ -282,6 +217,57 @@ const Home = () => {
     // Run animations
     animateText(mukilRef)
     animateText(kumarRef)
+
+    // Hi.png scroll animation
+    if (hiImgRef.current) {
+      gsap.fromTo(
+        hiImgRef.current,
+        { y: -100, scale: 0.5, opacity: 0 },
+        {
+          y: 300,
+          scale: 2.2,
+          opacity: 1,
+          ease: 'power2.inOut',
+          scrollTrigger: {
+            trigger: hiImgRef.current,
+            start: 'top top',
+            end: 'bottom+=600 top',
+            scrub: 1,
+          },
+        }
+      );
+    }
+
+    // Button animation
+    if (buttonRef.current) {
+      gsap.to(buttonRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: 0.5,
+        delay: 1,
+        ease: "power2.out"
+      })
+
+      // Hover animation
+      const button = buttonRef.current
+      const hoverEnter = () => {
+        gsap.to(button, {
+          scale: 1.05,
+          duration: 0.3,
+          ease: "power2.out"
+        })
+      }
+      const hoverLeave = () => {
+        gsap.to(button, {
+          scale: 1,
+          duration: 0.3,
+          ease: "power2.out"
+        })
+      }
+
+      button.addEventListener('mouseenter', hoverEnter)
+      button.addEventListener('mouseleave', hoverLeave)
+    }
 
     // Cleanup
     return () => {
@@ -506,7 +492,7 @@ const Home = () => {
         </Container>
 
         {/* Skill Section */}
-        <Container maxW='container.lg' mt={20} mb={20} position="relative">
+        <Container maxW='container.lg' mt={20} mb={20} position="relative" pb={{ base: 12, md: 20 }}>
           {/* Big SKILLS text behind the tabs */}
           <Box
             position="absolute"
@@ -538,17 +524,17 @@ const Home = () => {
           <Heading fontSize="4xl" fontWeight="bold" mb={8} color="#89EF8C" zIndex={1} position="relative">
             Skills
           </Heading>
-          <Box display="flex" flexWrap="wrap" gap={6} mb={10}>
+          <Box display="flex" flexWrap="wrap" gap={3} mb={8} justifyContent="center" width="100%">
             {SKILLS.map((skill, i) => (
               <Box
                 key={skill}
                 ref={el => (skillRefs.current[i] = el)}
-                fontSize={{ base: 'xl', md: '2xl' }}
+                fontSize={{ base: 'sm', md: 'xl', lg: '2xl' }}
                 fontWeight="semibold"
                 fontFamily="'Space Grotesk', sans-serif"
-                px={6}
-                py={3}
-                borderRadius="2xl"
+                px={{ base: 3, md: 6 }}
+                py={{ base: 1, md: 3 }}
+                borderRadius={{ base: 'md', md: '2xl' }}
                 bg="rgba(255,255,255,0.18)"
                 border="1px solid rgba(137,239,140,0.25)"
                 boxShadow="0 8px 32px 0 rgba(137,239,140,0.08)"
@@ -559,8 +545,8 @@ const Home = () => {
                 _hover={{
                   boxShadow: '0 0 24px 8px #89EF8C, 0 8px 32px 0 rgba(137,239,140,0.18)',
                   filter: 'brightness(1.2)',
-                  cursor: 'pointer',
                 }}
+                mb={i === SKILLS.length - 1 ? { base: 6, md: 0 } : 0}
               >
                 {skill}
               </Box>
@@ -569,19 +555,19 @@ const Home = () => {
           <Heading fontSize="2xl" fontWeight="bold" mb={4} color="#3182ce">
             Software
           </Heading>
-          <Box display="flex" flexWrap="wrap" gap={4}>
+          <Box display="flex" flexWrap="wrap" gap={2} justifyContent="center" width="100%">
             {SOFTWARE_SKILLS.map((soft, i) => {
               const Icon = soft.icon
               return (
                 <Box
                   key={soft.name}
                   ref={el => (softwareRefs.current[i] = el)}
-                  fontSize={{ base: 'md', md: 'lg' }}
+                  fontSize={{ base: 'xs', md: 'md', lg: 'lg' }}
                   fontWeight="medium"
                   fontFamily="'Space Grotesk', sans-serif"
-                  px={4}
-                  py={2}
-                  borderRadius="xl"
+                  px={{ base: 2, md: 4 }}
+                  py={{ base: 1, md: 2 }}
+                  borderRadius={{ base: 'md', md: 'xl' }}
                   bg="rgba(255,255,255,0.18)"
                   border="1px solid rgba(49,130,206,0.25)"
                   boxShadow="0 8px 32px 0 rgba(49,130,206,0.08)"
@@ -595,10 +581,10 @@ const Home = () => {
                   _hover={{
                     boxShadow: '0 0 24px 8px #3182ce, 0 8px 32px 0 rgba(49,130,206,0.18)',
                     filter: 'brightness(1.2)',
-                    cursor: 'pointer',
                   }}
+                  mb={i === SOFTWARE_SKILLS.length - 1 ? { base: 6, md: 0 } : 0}
                 >
-                  {Icon && <Icon style={{ fontSize: 24 }} />}
+                  {Icon && <Icon style={{ fontSize: 18 }} />}
                   {soft.name}
                 </Box>
               )
