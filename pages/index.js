@@ -150,41 +150,43 @@ const Home = () => {
       if (el) gsap.set(el, { opacity: 0, y: 40 });
     });
 
-    // Animate in
-    skillRefs.current.forEach((el, ) => {
-      if (el) {
-        gsap.to(el, {
-          y: 0,
+    // Optimized: Animate all skill tabs together with a single ScrollTrigger
+    if (skillRefs.current.length) {
+      gsap.fromTo(
+        skillRefs.current,
+        { opacity: 0, y: 40 },
+        {
           opacity: 1,
+          y: 0,
+          duration: 0.7,
+          stagger: 0.08,
+          ease: 'power2.out',
           scrollTrigger: {
-            trigger: el,
+            trigger: skillRefs.current[0]?.parentNode,
+            start: 'top 80%',
+            once: true,
+          },
+        }
+      );
+    }
+    if (softwareRefs.current.length) {
+      gsap.fromTo(
+        softwareRefs.current,
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          stagger: 0.08,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: softwareRefs.current[0]?.parentNode,
             start: 'top 85%',
-            end: 'top 60%',
-            scrub: true,
+            once: true,
           },
-          duration: 0.6,
-          ease: 'power2.out',
-        });
-      }
-    });
-    softwareRefs.current.forEach((el, ) => {
-      if (el) {
-        gsap.to(el, {
-          y: 0,
-          opacity: 1,
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 90%',
-            end: 'top 65%',
-            scrub: true,
-          },
-          duration: 0.6,
-          ease: 'power2.out',
-        });
-      }
-    });
-
-    if (window.ScrollTrigger) window.ScrollTrigger.refresh();
+        }
+      );
+    }
 
     // Fade in page
     if (pageRef.current) {
