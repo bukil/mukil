@@ -154,6 +154,10 @@ const ProjectPanel = ({
         <SnowContainer>
           {[...Array(30)].map((_, i) => {
             const size = Math.random() * 10 + 3;
+            let duration = Math.random() * 8 + 4;
+            if (title === "Jokif-AI") {
+              duration = Math.random() * 2 + 2;
+            }
             return (
               <Snowflake
                 key={i}
@@ -162,7 +166,7 @@ const ProjectPanel = ({
                   top: `${Math.random() * 100}%`,
                   width: `${size}px`,
                   height: `${size}px`,
-                  animationDuration: `${Math.random() * 8 + 4}s`,
+                  animationDuration: `${duration}s`,
                   animationDelay: `${Math.random() * 5}s`,
                   opacity: `${Math.random() * 0.4 + 0.4}`
                 }}
