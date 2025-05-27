@@ -13,7 +13,7 @@ import {
   
   Badge,
 } from '@chakra-ui/react'
-import { useEffect, useRef, useState, useLayoutEffect } from 'react'
+import { useRef, useState, useLayoutEffect } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
@@ -27,8 +27,8 @@ import Image from 'next/image'
 import { Divider } from '@chakra-ui/react'
 import { Spacer } from '@chakra-ui/react'
 import styled from '@emotion/styled'
-import { FaFigma, FaAdobe, FaReact } from 'react-icons/fa'
-import { SiBlender, SiAdobexd, SiAdobeaftereffects, SiAdobephotoshop, SiAdobeillustrator, SiFramer, SiHtml5, SiCss3, SiJavascript, SiGreensock, SiJekyll, SiPython, SiArduino, SiUnity, SiUnrealengine, SiSwift, SiThreejs } from 'react-icons/si'
+import { FaFigma, FaReact } from 'react-icons/fa'
+import { SiBlender, SiAdobexd, SiAdobeaftereffects, SiAdobephotoshop, SiAdobeillustrator, SiFramer, SiHtml5, SiGreensock, SiJekyll, SiPython, SiArduino, SiUnity, SiUnrealengine, SiSwift, SiThreejs } from 'react-icons/si'
 import { MdMemory } from 'react-icons/md'
 
 const Trans = styled.span`
@@ -125,7 +125,6 @@ const SOFTWARE_SKILLS = [
 ]
 
 const Home = () => {
-  const [pageVisible, setPageVisible] = useState(false)
   const pageRef = useRef(null)
   const mukilRef = useRef(null)
   const kumarRef = useRef(null)
@@ -195,33 +194,6 @@ const Home = () => {
         { opacity: 1, duration: 1.2, ease: 'power2.out' }
       )
     }
-    setPageVisible(true)
-    // Simple name animation
-    const animateText = (ref) => {
-      if (ref.current) {
-        const text = ref.current
-        const letters = text.textContent.split('')
-        text.textContent = ''
-        
-        letters.forEach((letter, i) => {
-          const span = document.createElement('span')
-          span.textContent = letter
-          span.style.display = 'inline-block'
-          span.style.opacity = '0'
-          span.style.transform = 'translateY(50px)'
-          text.appendChild(span)
-          
-          gsap.to(span, {
-            opacity: 1,
-            y: 0,
-            duration: 0.5,
-            delay: i * 0.1,
-            ease: 'power2.out'
-          })
-        })
-      }
-    }
-
     // Simple journey items animation - just fade in
     journeyRefs.current.forEach((item, index) => {
       if (item) {
@@ -544,10 +516,10 @@ const Home = () => {
             Skills
           </Heading>
           <Box display="flex" flexWrap="wrap" gap={6} mb={10}>
-            {SKILLS.map((skill, i) => (
+            {SKILLS.map(skill => (
               <Box
                 key={skill}
-                ref={el => (skillRefs.current[i] = el)}
+                ref={el => skillRefs.current.push(el)}
                 fontSize={{ base: 'xl', md: '2xl' }}
                 fontWeight="semibold"
                 fontFamily="'Space Grotesk', sans-serif"
@@ -575,12 +547,12 @@ const Home = () => {
             Software
           </Heading>
           <Box display="flex" flexWrap="wrap" gap={4}>
-            {SOFTWARE_SKILLS.map((soft, i) => {
+            {SOFTWARE_SKILLS.map(soft => {
               const Icon = soft.icon
               return (
                 <Box
                   key={soft.name}
-                  ref={el => (softwareRefs.current[i] = el)}
+                  ref={el => softwareRefs.current.push(el)}
                   fontSize={{ base: 'md', md: 'lg' }}
                   fontWeight="medium"
                   fontFamily="'Space Grotesk', sans-serif"
