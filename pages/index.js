@@ -17,6 +17,7 @@ import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
+import { useRouter } from 'next/router'
 
 import Layout from '../components/layouts/article'
 import { ChevronRightIcon } from '@chakra-ui/icons'
@@ -26,8 +27,8 @@ import Image from 'next/image'
 import { Divider } from '@chakra-ui/react'
 import { Spacer } from '@chakra-ui/react'
 import styled from '@emotion/styled'
-import { FaFigma, FaReact } from 'react-icons/fa'
-import { SiBlender, SiAdobexd, SiAdobeaftereffects, SiAdobephotoshop, SiAdobeillustrator, SiFramer, SiHtml5, SiGreensock, SiJekyll, SiPython, SiArduino, SiUnity, SiUnrealengine, SiSwift, SiThreejs } from 'react-icons/si'
+import { FaFigma, FaAdobe, FaReact } from 'react-icons/fa'
+import { SiBlender, SiAdobexd, SiAdobeaftereffects, SiAdobephotoshop, SiAdobeillustrator, SiFramer, SiHtml5, SiCss3, SiJavascript, SiGreensock, SiJekyll, SiPython, SiArduino, SiUnity, SiUnrealengine, SiSwift, SiThreejs } from 'react-icons/si'
 import { MdMemory } from 'react-icons/md'
 
 const Trans = styled.span`
@@ -124,6 +125,7 @@ const SOFTWARE_SKILLS = [
 ]
 
 const Home = () => {
+  const [pageVisible, setPageVisible] = useState(false)
   const pageRef = useRef(null)
   const mukilRef = useRef(null)
   const kumarRef = useRef(null)
@@ -132,6 +134,7 @@ const Home = () => {
   const hiImgRef = useRef(null)
   const skillRefs = useRef([])
   const softwareRefs = useRef([])
+  const router = useRouter();
 
   useEffect(() => {
     if (pageRef.current) {
@@ -141,6 +144,7 @@ const Home = () => {
         { opacity: 1, duration: 1.2, ease: 'power2.out' }
       )
     }
+    setPageVisible(true)
     // Simple name animation
     const animateText = (ref) => {
       if (ref.current) {
@@ -167,56 +171,49 @@ const Home = () => {
       }
     }
 
-    // GSAP simple fade-in and upward movement for skills
-    if (skillRefs.current.length) {
-      skillRefs.current.forEach((el, i) => {
-        if (el) {
-          gsap.fromTo(
-            el,
-            { y: 40, opacity: 0 },
-            {
-              y: 0,
-              opacity: 1,
-              scrollTrigger: {
-                trigger: el,
-                start: 'top 85%',
-                end: 'top 60%',
-                scrub: true,
-              },
-              duration: 0.6,
-              ease: 'power2.out',
-            }
-          )
-        }
-      })
-    }
-    // GSAP simple fade-in and upward movement for software skills
-    if (softwareRefs.current.length) {
-      softwareRefs.current.forEach((el, i) => {
-        if (el) {
-          gsap.fromTo(
-            el,
-            { y: 40, opacity: 0 },
-            {
-              y: 0,
-              opacity: 1,
-              scrollTrigger: {
-                trigger: el,
-                start: 'top 90%',
-                end: 'top 65%',
-                scrub: true,
-              },
-              duration: 0.6,
-              ease: 'power2.out',
-            }
-          )
-        }
-      })
-    }
+    // Simple journey items animation - just fade in
+    journeyRefs.current.forEach((item, index) => {
+      if (item) {
+        gsap.to(item, {
+          opacity: 1,
+          duration: 0.5,
+          delay: index * 0.2,
+          ease: "power2.out"
+        })
+      }
+    })
 
-    // Run animations
-    animateText(mukilRef)
-    animateText(kumarRef)
+    // Button animation
+    let hoverEnter, hoverLeave;
+    if (buttonRef.current) {
+      gsap.to(buttonRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: 0.5,
+        delay: 1,
+        ease: "power2.out"
+      })
+
+      // Hover animation
+      const button = buttonRef.current
+      hoverEnter = () => {
+        gsap.to(button, {
+          scale: 1.05,
+          duration: 0.3,
+          ease: "power2.out"
+        })
+      }
+      hoverLeave = () => {
+        gsap.to(button, {
+          scale: 1,
+          duration: 0.3,
+          ease: "power2.out"
+        })
+      }
+
+      button.addEventListener('mouseenter', hoverEnter)
+      button.addEventListener('mouseleave', hoverLeave)
+    }
 
     // Hi.png scroll animation
     if (hiImgRef.current) {
@@ -238,48 +235,80 @@ const Home = () => {
       );
     }
 
-    // Button animation
-    if (buttonRef.current) {
-      gsap.to(buttonRef.current, {
-        opacity: 1,
-        y: 0,
-        duration: 0.5,
-        delay: 1,
-        ease: "power2.out"
-      })
+    // --- GSAP/ScrollTrigger Cleanup and Reset ---
+    // Kill all previous ScrollTriggers and tweens
+    if (window.ScrollTrigger) window.ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    gsap.killTweensOf(skillRefs.current);
+    gsap.killTweensOf(softwareRefs.current);
 
-      // Hover animation
-      const button = buttonRef.current
-      const hoverEnter = () => {
-        gsap.to(button, {
-          scale: 1.05,
-          duration: 0.3,
-          ease: "power2.out"
-        })
-      }
-      const hoverLeave = () => {
-        gsap.to(button, {
-          scale: 1,
-          duration: 0.3,
-          ease: "power2.out"
-        })
-      }
+    // Reset all skill/software tabs to initial state
+    skillRefs.current.forEach(el => {
+      if (el) gsap.set(el, { opacity: 0, y: 40 });
+    });
+    softwareRefs.current.forEach(el => {
+      if (el) gsap.set(el, { opacity: 0, y: 40 });
+    });
 
-      button.addEventListener('mouseenter', hoverEnter)
-      button.addEventListener('mouseleave', hoverLeave)
-    }
+    // Animate skills
+    skillRefs.current.forEach((el, i) => {
+      if (el) {
+        gsap.to(
+          el,
+          {
+            y: 0,
+            opacity: 1,
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 85%',
+              end: 'top 60%',
+              scrub: true,
+            },
+            duration: 0.6,
+            ease: 'power2.out',
+          }
+        )
+      }
+    });
+    softwareRefs.current.forEach((el, i) => {
+      if (el) {
+        gsap.to(
+          el,
+          {
+            y: 0,
+            opacity: 1,
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 90%',
+              end: 'top 65%',
+              scrub: true,
+            },
+            duration: 0.6,
+            ease: 'power2.out',
+          }
+        )
+      }
+    });
+
+    // Always refresh after setting up triggers
+    if (window.ScrollTrigger) window.ScrollTrigger.refresh();
+
+    // Run animations
+    animateText(mukilRef)
+    animateText(kumarRef)
 
     // Cleanup
     return () => {
-      if (buttonRef.current) {
-        buttonRef.current.removeEventListener('mouseenter', () => {})
-        buttonRef.current.removeEventListener('mouseleave', () => {})
+      // Remove button event listeners using the same handler references
+      if (buttonRef.current && hoverEnter && hoverLeave) {
+        buttonRef.current.removeEventListener('mouseenter', hoverEnter)
+        buttonRef.current.removeEventListener('mouseleave', hoverLeave)
       }
-      if (hiImgRef.current && ScrollTrigger.getById('hiImgScroll')) {
-        ScrollTrigger.getById('hiImgScroll').kill();
-      }
+      // Kill ScrollTriggers and tweens
+      if (window.ScrollTrigger) window.ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      gsap.killTweensOf(skillRefs.current);
+      gsap.killTweensOf(softwareRefs.current);
     }
-  }, [])
+  }, [router.asPath])
 
   return (
     <Box ref={pageRef} position="relative" minHeight="100vh">
@@ -492,7 +521,7 @@ const Home = () => {
         </Container>
 
         {/* Skill Section */}
-        <Container maxW='container.lg' mt={20} mb={20} position="relative" pb={{ base: 12, md: 20 }}>
+        <Container maxW='container.lg' mt={20} mb={20} position="relative">
           {/* Big SKILLS text behind the tabs */}
           <Box
             position="absolute"
@@ -524,17 +553,17 @@ const Home = () => {
           <Heading fontSize="4xl" fontWeight="bold" mb={8} color="#89EF8C" zIndex={1} position="relative">
             Skills
           </Heading>
-          <Box display="flex" flexWrap="wrap" gap={3} mb={8} justifyContent="center" width="100%">
+          <Box display="flex" flexWrap="wrap" gap={6} mb={10}>
             {SKILLS.map((skill, i) => (
               <Box
                 key={skill}
                 ref={el => (skillRefs.current[i] = el)}
-                fontSize={{ base: 'sm', md: 'xl', lg: '2xl' }}
+                fontSize={{ base: 'xl', md: '2xl' }}
                 fontWeight="semibold"
                 fontFamily="'Space Grotesk', sans-serif"
-                px={{ base: 3, md: 6 }}
-                py={{ base: 1, md: 3 }}
-                borderRadius={{ base: 'md', md: '2xl' }}
+                px={6}
+                py={3}
+                borderRadius="2xl"
                 bg="rgba(255,255,255,0.18)"
                 border="1px solid rgba(137,239,140,0.25)"
                 boxShadow="0 8px 32px 0 rgba(137,239,140,0.08)"
@@ -545,8 +574,8 @@ const Home = () => {
                 _hover={{
                   boxShadow: '0 0 24px 8px #89EF8C, 0 8px 32px 0 rgba(137,239,140,0.18)',
                   filter: 'brightness(1.2)',
+                  cursor: 'pointer',
                 }}
-                mb={i === SKILLS.length - 1 ? { base: 6, md: 0 } : 0}
               >
                 {skill}
               </Box>
@@ -555,19 +584,19 @@ const Home = () => {
           <Heading fontSize="2xl" fontWeight="bold" mb={4} color="#3182ce">
             Software
           </Heading>
-          <Box display="flex" flexWrap="wrap" gap={2} justifyContent="center" width="100%">
+          <Box display="flex" flexWrap="wrap" gap={4}>
             {SOFTWARE_SKILLS.map((soft, i) => {
               const Icon = soft.icon
               return (
                 <Box
                   key={soft.name}
                   ref={el => (softwareRefs.current[i] = el)}
-                  fontSize={{ base: 'xs', md: 'md', lg: 'lg' }}
+                  fontSize={{ base: 'md', md: 'lg' }}
                   fontWeight="medium"
                   fontFamily="'Space Grotesk', sans-serif"
-                  px={{ base: 2, md: 4 }}
-                  py={{ base: 1, md: 2 }}
-                  borderRadius={{ base: 'md', md: 'xl' }}
+                  px={4}
+                  py={2}
+                  borderRadius="xl"
                   bg="rgba(255,255,255,0.18)"
                   border="1px solid rgba(49,130,206,0.25)"
                   boxShadow="0 8px 32px 0 rgba(49,130,206,0.08)"
@@ -581,10 +610,10 @@ const Home = () => {
                   _hover={{
                     boxShadow: '0 0 24px 8px #3182ce, 0 8px 32px 0 rgba(49,130,206,0.18)',
                     filter: 'brightness(1.2)',
+                    cursor: 'pointer',
                   }}
-                  mb={i === SOFTWARE_SKILLS.length - 1 ? { base: 6, md: 0 } : 0}
                 >
-                  {Icon && <Icon style={{ fontSize: 18 }} />}
+                  {Icon && <Icon style={{ fontSize: 24 }} />}
                   {soft.name}
                 </Box>
               )
