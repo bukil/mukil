@@ -406,9 +406,9 @@ function CollapseExtandip() {
                     Explore the journey from concept to creation in interaction design. This project showcases case studies, design thinking, and hands-on interactive prototypes.
                   </Text>
                   <Image 
-                    src="/images/works/c2c_interaction.png"
+                    src="/images/works/perma.png"
                     alt="C2C: Interaction Design Project"
-                    width="100%"
+                    width="50%"
                     borderRadius="lg"
                     mb={6}
                   />
