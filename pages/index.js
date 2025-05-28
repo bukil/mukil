@@ -107,7 +107,6 @@ const SOFTWARE_SKILLS = [
   { name: 'Figma', icon: FaFigma },
   { name: 'Adobe XD', icon: SiAdobexd },
   { name: 'Blender', icon: SiBlender },
-  { name: 'After Effects', icon: SiAdobeaftereffects },
   { name: 'Photoshop', icon: SiAdobephotoshop },
   { name: 'Illustrator', icon: SiAdobeillustrator },
   { name: 'Framer', icon: SiFramer },
@@ -136,6 +135,7 @@ const Home = () => {
   // New: Intersection observer for skills section
   const skillsSectionRef = useRef(null);
   const [skillsVisible, setSkillsVisible] = useState(false);
+  const skillsTextRef = useRef(null);
 
   useEffect(() => {
     const observer = new window.IntersectionObserver(
@@ -152,6 +152,28 @@ const Home = () => {
     }
     return () => observer.disconnect();
   }, []);
+
+  // Continuous smooth animation for SKILLS text
+  useEffect(() => {
+    if (skillsVisible && skillsTextRef.current) {
+      const tl = gsap.timeline({ repeat: -1, yoyo: true });
+      tl.to(skillsTextRef.current, {
+        scale: 1.06,
+        y: 24,
+        duration: 2.8,
+        ease: 'sine.inOut',
+      })
+      .to(skillsTextRef.current, {
+        scale: 1,
+        y: 0,
+        duration: 2.8,
+        ease: 'sine.inOut',
+      });
+    }
+    return () => {
+      if (skillsTextRef.current) gsap.killTweensOf(skillsTextRef.current);
+    };
+  }, [skillsVisible]);
 
   // GSAP/ScrollTrigger animation and cleanup logic (keep only for journey, button, hi.png)
   useLayoutEffect(() => {
@@ -447,6 +469,7 @@ const Home = () => {
         <Container maxW='container.lg' mt={20} mb={20} position="relative" ref={skillsSectionRef}>
           {/* Big SKILLS text behind the tabs */}
           <Box
+            ref={skillsTextRef}
             position="absolute"
             top="55%"
             left="50%"
@@ -456,7 +479,7 @@ const Home = () => {
             textAlign="center"
             pointerEvents="none"
             userSelect="none"
-            fontSize={{ base: '16vw', md: '10vw', lg: '8vw' }}
+            fontSize={{ base: '32vw', md: '24vw', lg: '20vw' }}
             fontWeight="extrabold"
             fontFamily="'BaseNeueTrial', sans-serif"
             lineHeight={1}
@@ -468,13 +491,13 @@ const Home = () => {
               backgroundClip: 'text',
               textFillColor: 'transparent',
               textShadow: '0 8px 32px rgba(137,239,140,0.18)',
+              maskImage: 'linear-gradient(to bottom, black 70%, transparent 100%)',
+              WebkitMaskImage: 'linear-gradient(to bottom, black 70%, transparent 100%)',
             }}
           >
             SKILLS
           </Box>
-          <Heading fontSize="4xl" fontWeight="bold" mb={8} color="#89EF8C" zIndex={1} position="relative">
-            Skills
-          </Heading>
+          
           {skillsVisible && (
             <>
               <Box display="flex" flexWrap="wrap" gap={6} mb={10}>
@@ -484,9 +507,9 @@ const Home = () => {
                     fontSize={{ base: 'xl', md: '2xl' }}
                     fontWeight="semibold"
                     fontFamily="'Space Grotesk', sans-serif"
-                    px={6}
+                    px={8}
                     py={3}
-                    borderRadius="2xl"
+                    borderRadius="full"
                     bg="rgba(255,255,255,0.18)"
                     border="1px solid rgba(137,239,140,0.25)"
                     boxShadow="0 8px 32px 0 rgba(137,239,140,0.08)"
@@ -516,9 +539,9 @@ const Home = () => {
                       fontSize={{ base: 'md', md: 'lg' }}
                       fontWeight="medium"
                       fontFamily="'Space Grotesk', sans-serif"
-                      px={4}
+                      px={6}
                       py={2}
-                      borderRadius="xl"
+                      borderRadius="full"
                       bg="rgba(255,255,255,0.18)"
                       border="1px solid rgba(49,130,206,0.25)"
                       boxShadow="0 8px 32px 0 rgba(49,130,206,0.08)"
