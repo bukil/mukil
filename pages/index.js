@@ -28,7 +28,7 @@ import { Divider } from '@chakra-ui/react'
 import { Spacer } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 import { FaFigma, FaReact } from 'react-icons/fa'
-import { SiBlender, SiAdobexd, SiAdobeaftereffects, SiAdobephotoshop, SiAdobeillustrator, SiFramer, SiHtml5, SiGreensock, SiJekyll, SiPython, SiArduino, SiUnity, SiUnrealengine, SiSwift, SiThreejs } from 'react-icons/si'
+import { SiBlender, SiAdobexd, SiAdobephotoshop, SiAdobeillustrator, SiFramer, SiHtml5, SiGreensock, SiJekyll, SiPython, SiArduino, SiUnity, SiUnrealengine, SiSwift, SiThreejs } from 'react-icons/si'
 import { MdMemory } from 'react-icons/md'
 
 const Trans = styled.span`
