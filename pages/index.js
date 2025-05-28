@@ -13,7 +13,7 @@ import {
   
   Badge,
 } from '@chakra-ui/react'
-import { useRef, useLayoutEffect } from 'react'
+import { useRef, useLayoutEffect, useState, useEffect } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
@@ -131,63 +131,31 @@ const Home = () => {
   const journeyRefs = useRef([])
   const buttonRef = useRef(null)
   const hiImgRef = useRef(null)
-  const skillRefs = useRef([])
-  const softwareRefs = useRef([])
   const router = useRouter();
 
-  // GSAP/ScrollTrigger animation and cleanup logic
+  // New: Intersection observer for skills section
+  const skillsSectionRef = useRef(null);
+  const [skillsVisible, setSkillsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new window.IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setSkillsVisible(true);
+          observer.disconnect(); // Only trigger once
+        }
+      },
+      { threshold: 0.2 }
+    );
+    if (skillsSectionRef.current) {
+      observer.observe(skillsSectionRef.current);
+    }
+    return () => observer.disconnect();
+  }, []);
+
+  // GSAP/ScrollTrigger animation and cleanup logic (keep only for journey, button, hi.png)
   useLayoutEffect(() => {
-    // Clean up previous triggers/tweens
     if (window.ScrollTrigger) window.ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-    gsap.killTweensOf(skillRefs.current);
-    gsap.killTweensOf(softwareRefs.current);
-
-    // Set initial state
-    skillRefs.current.forEach(el => {
-      if (el) gsap.set(el, { opacity: 0, y: 40 });
-    });
-    softwareRefs.current.forEach(el => {
-      if (el) gsap.set(el, { opacity: 0, y: 40 });
-    });
-
-    // Optimized: Animate all skill tabs together with a single ScrollTrigger
-    if (skillRefs.current.length) {
-      gsap.fromTo(
-        skillRefs.current,
-        { opacity: 0, y: 40 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.7,
-          stagger: 0.08,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: skillRefs.current[0]?.parentNode,
-            start: 'top 80%',
-            once: true,
-          },
-        }
-      );
-    }
-    if (softwareRefs.current.length) {
-      gsap.fromTo(
-        softwareRefs.current,
-        { opacity: 0, y: 40 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.7,
-          stagger: 0.08,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: softwareRefs.current[0]?.parentNode,
-            start: 'top 85%',
-            once: true,
-          },
-        }
-      );
-    }
-
     // Fade in page
     if (pageRef.current) {
       gsap.fromTo(
@@ -207,7 +175,6 @@ const Home = () => {
         })
       }
     })
-
     // Button animation
     let hoverEnter, hoverLeave;
     if (buttonRef.current) {
@@ -218,7 +185,6 @@ const Home = () => {
         delay: 1,
         ease: "power2.out"
       })
-
       // Hover animation
       const button = buttonRef.current
       hoverEnter = () => {
@@ -235,11 +201,9 @@ const Home = () => {
           ease: "power2.out"
         })
       }
-
       button.addEventListener('mouseenter', hoverEnter)
       button.addEventListener('mouseleave', hoverLeave)
     }
-
     // Hi.png scroll animation
     if (hiImgRef.current) {
       gsap.fromTo(
@@ -259,7 +223,6 @@ const Home = () => {
         }
       );
     }
-
     // Cleanup
     return () => {
       if (buttonRef.current && hoverEnter && hoverLeave) {
@@ -267,8 +230,6 @@ const Home = () => {
         buttonRef.current.removeEventListener('mouseleave', hoverLeave)
       }
       if (window.ScrollTrigger) window.ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-      gsap.killTweensOf(skillRefs.current);
-      gsap.killTweensOf(softwareRefs.current);
     };
   }, [router.asPath]);
 
@@ -483,7 +444,7 @@ const Home = () => {
         </Container>
 
         {/* Skill Section */}
-        <Container maxW='container.lg' mt={20} mb={20} position="relative">
+        <Container maxW='container.lg' mt={20} mb={20} position="relative" ref={skillsSectionRef}>
           {/* Big SKILLS text behind the tabs */}
           <Box
             position="absolute"
@@ -499,7 +460,6 @@ const Home = () => {
             fontWeight="extrabold"
             fontFamily="'BaseNeueTrial', sans-serif"
             lineHeight={1}
-            
             opacity={0.2}
             style={{
               background: 'linear-gradient(90deg, #89EF8C 0%, #3182ce 100%)',
@@ -512,77 +472,77 @@ const Home = () => {
           >
             SKILLS
           </Box>
-          {/* Clear refs before mapping */}
-          {(() => { skillRefs.current = []; softwareRefs.current = []; return null; })()}
           <Heading fontSize="4xl" fontWeight="bold" mb={8} color="#89EF8C" zIndex={1} position="relative">
             Skills
           </Heading>
-          <Box display="flex" flexWrap="wrap" gap={6} mb={10}>
-            {SKILLS.map((skill, i) => (
-              <Box
-                key={skill}
-                ref={el => skillRefs.current[i] = el}
-                fontSize={{ base: 'xl', md: '2xl' }}
-                fontWeight="semibold"
-                fontFamily="'Space Grotesk', sans-serif"
-                px={6}
-                py={3}
-                borderRadius="2xl"
-                bg="rgba(255,255,255,0.18)"
-                border="1px solid rgba(137,239,140,0.25)"
-                boxShadow="0 8px 32px 0 rgba(137,239,140,0.08)"
-                backdropFilter="blur(8px)"
-                transition="all 0.3s"
-                color="#222"
-                style={{ WebkitBackdropFilter: 'blur(8px)' }}
-                _hover={{
-                  boxShadow: '0 0 24px 8px #89EF8C, 0 8px 32px 0 rgba(137,239,140,0.18)',
-                  filter: 'brightness(1.2)',
-                  cursor: 'pointer',
-                }}
-              >
-                {skill}
+          {skillsVisible && (
+            <>
+              <Box display="flex" flexWrap="wrap" gap={6} mb={10}>
+                {SKILLS.map((skill) => (
+                  <Box
+                    key={skill}
+                    fontSize={{ base: 'xl', md: '2xl' }}
+                    fontWeight="semibold"
+                    fontFamily="'Space Grotesk', sans-serif"
+                    px={6}
+                    py={3}
+                    borderRadius="2xl"
+                    bg="rgba(255,255,255,0.18)"
+                    border="1px solid rgba(137,239,140,0.25)"
+                    boxShadow="0 8px 32px 0 rgba(137,239,140,0.08)"
+                    backdropFilter="blur(8px)"
+                    transition="all 0.3s"
+                    color="#222"
+                    style={{ WebkitBackdropFilter: 'blur(8px)' }}
+                    _hover={{
+                      boxShadow: '0 0 24px 8px #89EF8C, 0 8px 32px 0 rgba(137,239,140,0.18)',
+                      filter: 'brightness(1.2)',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    {skill}
+                  </Box>
+                ))}
               </Box>
-            ))}
-          </Box>
-          <Heading fontSize="2xl" fontWeight="bold" mb={4} color="#3182ce">
-            Software
-          </Heading>
-          <Box display="flex" flexWrap="wrap" gap={4}>
-            {SOFTWARE_SKILLS.map((soft, i) => {
-              const Icon = soft.icon
-              return (
-                <Box
-                  key={soft.name}
-                  ref={el => softwareRefs.current[i] = el}
-                  fontSize={{ base: 'md', md: 'lg' }}
-                  fontWeight="medium"
-                  fontFamily="'Space Grotesk', sans-serif"
-                  px={4}
-                  py={2}
-                  borderRadius="xl"
-                  bg="rgba(255,255,255,0.18)"
-                  border="1px solid rgba(49,130,206,0.25)"
-                  boxShadow="0 8px 32px 0 rgba(49,130,206,0.08)"
-                  backdropFilter="blur(8px)"
-                  transition="all 0.3s"
-                  color="#222"
-                  display="flex"
-                  alignItems="center"
-                  gap={2}
-                  style={{ WebkitBackdropFilter: 'blur(8px)' }}
-                  _hover={{
-                    boxShadow: '0 0 24px 8px #3182ce, 0 8px 32px 0 rgba(49,130,206,0.18)',
-                    filter: 'brightness(1.2)',
-                    cursor: 'pointer',
-                  }}
-                >
-                  {Icon && <Icon style={{ fontSize: 24 }} />}
-                  {soft.name}
-                </Box>
-              )
-            })}
-          </Box>
+              <Heading fontSize="2xl" fontWeight="bold" mb={4} color="#3182ce">
+                Software
+              </Heading>
+              <Box display="flex" flexWrap="wrap" gap={4}>
+                {SOFTWARE_SKILLS.map((soft) => {
+                  const Icon = soft.icon
+                  return (
+                    <Box
+                      key={soft.name}
+                      fontSize={{ base: 'md', md: 'lg' }}
+                      fontWeight="medium"
+                      fontFamily="'Space Grotesk', sans-serif"
+                      px={4}
+                      py={2}
+                      borderRadius="xl"
+                      bg="rgba(255,255,255,0.18)"
+                      border="1px solid rgba(49,130,206,0.25)"
+                      boxShadow="0 8px 32px 0 rgba(49,130,206,0.08)"
+                      backdropFilter="blur(8px)"
+                      transition="all 0.3s"
+                      color="#222"
+                      display="flex"
+                      alignItems="center"
+                      gap={2}
+                      style={{ WebkitBackdropFilter: 'blur(8px)' }}
+                      _hover={{
+                        boxShadow: '0 0 24px 8px #3182ce, 0 8px 32px 0 rgba(49,130,206,0.18)',
+                        filter: 'brightness(1.2)',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      {Icon && <Icon style={{ fontSize: 24 }} />}
+                      {soft.name}
+                    </Box>
+                  )
+                })}
+              </Box>
+            </>
+          )}
         </Container>
         {/* SEE MORE ABOUT MY WORK button moved below skills */}
         <Trans>
