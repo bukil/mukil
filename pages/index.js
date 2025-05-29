@@ -285,6 +285,18 @@ const Home = () => {
       <Layout>
         <Spacer mb={130}/>
         <Container maxW='container.lg'>
+          <Box
+            position="absolute"
+            top={{ base: '-48px', md: '-72px', lg: '-96px' }}
+            left={{ base: '-45px', md: '-60px', lg: '-75px' }}
+            w={{ base: '36px', md: '54px', lg: '72px' }}
+            h={{ base: '36px', md: '54px', lg: '72px' }}
+            zIndex={1}
+            style={{
+              clipPath: 'polygon(0 100%, 100% 100%, 100% 0)',
+              background: '#89EF8C',
+            }}
+          />
           <Box display={{ md:'flex'}}>
             <Box flexGrow={1}>
               <Grid templateColumns='repeat(2, fr)'>
@@ -334,7 +346,7 @@ const Home = () => {
             right={['10px', '30px']}
             w={['60px', '100px', '140px']}
             pointerEvents="none"
-            zIndex={0}
+            zIndex={3}
           >
             <Image
               src="/mukil/Hi.png"

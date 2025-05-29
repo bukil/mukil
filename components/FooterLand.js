@@ -90,7 +90,7 @@ const FooterLand = () => {
         transform={isHovered ? 'scale(1.1)' : 'scale(1)'}
       />
 
-      <StandardModal isOpen={isOpen} onClose={onClose} title="Ninja Gaiden Inspiration" size="2xl">
+      <StandardModal isOpen={isOpen} onClose={onClose} title="Ninja Gaiden Inspiration" size="2xl" maxW="700px" w="100vw">
         <VStack spacing={6} align="stretch">
           <Text color="white" fontSize="md" lineHeight="1.6" textShadow="0 2px 4px rgba(0,0,0,0.3)">
             The infinite scrolling landscape at the bottom of my portfolio is inspired by the iconic Ninja Gaiden series, particularly the character Ryu Hayabusa. This subtle homage represents my journey in design and technology - continuous, determined, and always moving forward.
