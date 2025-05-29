@@ -9,6 +9,7 @@ import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import KodeboardModal from '../components/projects/Kodeboard'
 import Head from 'next/head'
+import MicrointeractionModal from '../components/projects/MI'
 
 // Styled components
 const Trans = styled.span`
@@ -369,19 +370,7 @@ function CollapseExtandip() {
               accentColor="orange.400"
               onClick={onEditOpenmd15}
             />
-            <Modal isOpen={isEditOpenmd15} onClose={onEditClosemd15} size="full">
-              <ModalOverlay />
-              <ModalContent>
-                <ModalHeader>Microinteraction</ModalHeader>
-                <ModalCloseButton />
-                <ModalBody>
-                  {/* Add your modal content here */}
-                </ModalBody>
-                <ModalFooter>
-                  <Button onClick={onEditClosemd15}>Close</Button>
-                </ModalFooter>
-              </ModalContent>
-            </Modal>
+            <MicrointeractionModal isOpen={isEditOpenmd15} onClose={onEditClosemd15} />
           </Section>
 {/* interaction design===================================================================================== */}
           <Section>
@@ -438,6 +427,7 @@ function CollapseExtandi() {
   const { isOpen: isEditOpenmd6, onOpen: onEditOpenmd6, onClose: onEditClosemd6 } = useDisclosure()
   const { isOpen: isEditOpenmd9, onOpen: onEditOpenmd9, onClose: onEditClosemd9 } = useDisclosure()
   const { isOpen: isEditOpenmd10, onOpen: onEditOpenmd10, onClose: onEditClosemd10 } = useDisclosure()
+  const { isOpen: isMicroModalOpen, onOpen: onMicroModalOpen, onClose: onMicroModalClose } = useDisclosure()
   return (
     <>
     
