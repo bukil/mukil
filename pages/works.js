@@ -427,7 +427,7 @@ function CollapseExtandi() {
   const { isOpen: isEditOpenmd6, onOpen: onEditOpenmd6, onClose: onEditClosemd6 } = useDisclosure()
   const { isOpen: isEditOpenmd9, onOpen: onEditOpenmd9, onClose: onEditClosemd9 } = useDisclosure()
   const { isOpen: isEditOpenmd10, onOpen: onEditOpenmd10, onClose: onEditClosemd10 } = useDisclosure()
-  const { isOpen: isMicroModalOpen, onOpen: onMicroModalOpen, onClose: onMicroModalClose } = useDisclosure()
+  
   return (
     <>
     

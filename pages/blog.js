@@ -1,4 +1,4 @@
-import { Heading, Text, VStack, Icon, Box, useColorModeValue, Button, Image, Icon as ChakraIcon } from '@chakra-ui/react'
+import { Heading, Text, VStack, Icon, Box, useColorModeValue, Image, Icon as ChakraIcon } from '@chakra-ui/react'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
 import { FiBook, FiCamera, FiEdit } from 'react-icons/fi'
