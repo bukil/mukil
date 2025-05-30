@@ -125,6 +125,8 @@ const Blog = () => {
       { orbit: 3, r: 10, color: '#fff', speed: 0.014, phase: 0.7 },
     ];
 
+    const planetNames = ['242246', '242244', '242240', '242241']; // order: inner to outer
+
     // Twinkling starfield
     const STAR_COUNT = 120;
     const stars = Array.from({ length: STAR_COUNT }).map(() => {
@@ -200,14 +202,16 @@ const Blog = () => {
       // Draw orbits and highlights
       for (let i = 0; i < orbits.length; i++) {
         const orbit = orbits[i];
-        // Draw faint full ellipse
+        // Set axis: last orbit (outermost) gets a different axis
+        const axis = (i === orbits.length - 1) ? Math.PI / 8 : Math.PI / 12;
+        // Draw faint full ellipse (no glow)
         ctx.save();
         ctx.beginPath();
-        ctx.ellipse(cx, cy, orbit.rx, orbit.ry, Math.PI / 12, 0, Math.PI * 2);
+        ctx.ellipse(cx, cy, orbit.rx, orbit.ry, axis, 0, Math.PI * 2);
         ctx.strokeStyle = orbit.color;
         ctx.lineWidth = 2;
-        ctx.shadowColor = orbit.color;
-        ctx.shadowBlur = 8;
+        ctx.shadowColor = 'transparent'; // No glow
+        ctx.shadowBlur = 0; // No glow
         ctx.stroke();
         ctx.restore();
         // Draw highlight arc and planet, perfectly aligned
@@ -220,39 +224,72 @@ const Blog = () => {
           const arcEnd = t + arcLength / 2;
           ctx.save();
           ctx.beginPath();
-          ctx.ellipse(cx, cy, orbit.rx, orbit.ry, Math.PI / 12, arcStart, arcEnd);
+          ctx.ellipse(cx, cy, orbit.rx, orbit.ry, axis, arcStart, arcEnd);
           // Create a gradient for the highlight
           const grad = ctx.createLinearGradient(
-            cx + orbit.rx * Math.cos(arcStart) * Math.cos(Math.PI/12) - orbit.ry * Math.sin(arcStart) * Math.sin(Math.PI/12),
-            cy + orbit.rx * Math.cos(arcStart) * Math.sin(Math.PI/12) + orbit.ry * Math.sin(arcStart) * Math.cos(Math.PI/12),
-            cx + orbit.rx * Math.cos(arcEnd) * Math.cos(Math.PI/12) - orbit.ry * Math.sin(arcEnd) * Math.sin(Math.PI/12),
-            cy + orbit.rx * Math.cos(arcEnd) * Math.sin(Math.PI/12) + orbit.ry * Math.sin(arcEnd) * Math.cos(Math.PI/12)
+            cx + orbit.rx * Math.cos(arcStart) * Math.cos(axis) - orbit.ry * Math.sin(arcStart) * Math.sin(axis),
+            cy + orbit.rx * Math.cos(arcStart) * Math.sin(axis) + orbit.ry * Math.sin(arcStart) * Math.cos(axis),
+            cx + orbit.rx * Math.cos(arcEnd) * Math.cos(axis) - orbit.ry * Math.sin(arcEnd) * Math.sin(axis),
+            cy + orbit.rx * Math.cos(arcEnd) * Math.sin(axis) + orbit.ry * Math.sin(arcEnd) * Math.cos(axis)
           );
           grad.addColorStop(0, 'rgba(137,239,140,0.0)');
           grad.addColorStop(0.5, hexToRgba(planet.color, 0.8));
           grad.addColorStop(1, 'rgba(137,239,140,0.0)');
           ctx.strokeStyle = grad;
           ctx.lineWidth = 8;
-          ctx.shadowColor = planet.color;
-          ctx.shadowBlur = 18;
+          ctx.shadowColor = 'transparent'; // No glow
+          ctx.shadowBlur = 0; // No glow
           ctx.globalAlpha = 0.85;
           ctx.stroke();
           ctx.restore();
           // Draw planet at the end of the highlight arc (planet's current position)
           // Apply the same rotation as the ellipse
-          const cosA = Math.cos(Math.PI/12);
-          const sinA = Math.sin(Math.PI/12);
+          const cosA = Math.cos(axis);
+          const sinA = Math.sin(axis);
           const px = cx + orbit.rx * Math.cos(t) * cosA - orbit.ry * Math.sin(t) * sinA;
           const py = cy + orbit.rx * Math.cos(t) * sinA + orbit.ry * Math.sin(t) * cosA;
           ctx.save();
           ctx.beginPath();
           ctx.arc(px, py, planet.r, 0, Math.PI * 2);
           ctx.fillStyle = planet.color;
-          ctx.shadowColor = planet.color;
-          ctx.shadowBlur = 18;
+          ctx.shadowColor = 'transparent'; // No glow
+          ctx.shadowBlur = 0; // No glow
           ctx.globalAlpha = 0.85;
           ctx.fill();
           ctx.restore();
+          // Draw planet name near the planet, following its position
+          ctx.save();
+          ctx.font = `bold ${Math.max(planet.r * 1.2, 14)}px 'Space Mono', monospace`;
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.globalAlpha = 0.85;
+          ctx.fillStyle = '#b3d1ff';
+          // Offset the label a bit away from the planet (radially outward)
+          const labelOffset = planet.r + 18;
+          const labelAngle = t; // same as planet's angle
+          const labelX = cx + (orbit.rx + labelOffset) * Math.cos(labelAngle) * cosA - (orbit.ry + labelOffset) * Math.sin(labelAngle) * sinA;
+          const labelY = cy + (orbit.rx + labelOffset) * Math.cos(labelAngle) * sinA + (orbit.ry + labelOffset) * Math.sin(labelAngle) * cosA;
+          ctx.strokeStyle = '#222a';
+          ctx.lineWidth = 4;
+          ctx.strokeText(planetNames[i], labelX, labelY);
+          ctx.fillText(planetNames[i], labelX, labelY);
+          ctx.restore();
+          // If this is the innermost planet (index 0), add a satellite
+          if (i === 0) {
+            // Satellite orbit parameters
+            const satOrbitRadius = planet.r + 14; // distance from planet center
+            const satAngle = frame * 0.04; // satellite speed
+            // Satellite position (relative to planet)
+            const satX = px + satOrbitRadius * Math.cos(satAngle);
+            const satY = py + satOrbitRadius * Math.sin(satAngle);
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(satX, satY, 5, 0, Math.PI * 2); // satellite radius 5
+            ctx.fillStyle = '#fff8b3';
+            ctx.globalAlpha = 0.95;
+            ctx.fill();
+            ctx.restore();
+          }
         }
       }
       frame++;
