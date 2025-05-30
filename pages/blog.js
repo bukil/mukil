@@ -13,6 +13,7 @@ const Blog = () => {
   const greenLine = useColorModeValue('#89EF8C', '#89EF8C')
   const pinkLine = useColorModeValue('#b83280', '#ff7eb3')
   const blueLine = useColorModeValue('#3182ce', '#63b3ed')
+  const yellowLine = useColorModeValue('#FFD600', '#FFD600')
 
   // Refs for GSAP animation
   const blogBoxRef = useRef(null)
@@ -125,7 +126,7 @@ const Blog = () => {
       { orbit: 3, r: 10, color: '#fff', speed: 0.014, phase: 0.7 },
     ];
 
-    const planetNames = ['242246', '242244', '242240', '242241']; // order: inner to outer
+    const planetNames = ['242247', '242244', '242240', '242241']; // order: inner to outer
 
     // Twinkling starfield
     const STAR_COUNT = 120;
@@ -547,6 +548,54 @@ const Blog = () => {
                     </Heading>
                     <Text fontSize="lg" color={textColor}>
                       Capturing moments and stories through my lens.
+                    </Text>
+                  </Box>
+                </Box>
+              </Section>
+
+              {/* Games Section - outer yellow border with GSAP animation */}
+              <Section>
+                <Box
+                  display="flex"
+                  alignItems="center"
+                  p={6}
+                  borderRadius="1xl"
+                  bg="transparent"
+                  border={`1px solid ${yellowLine}`}
+                  boxShadow="none"
+                  minH="120px"
+                  h="full"
+                  style={{ willChange: 'transform, box-shadow' }}
+                  onMouseEnter={e => {
+                    if (e.currentTarget) {
+                      gsap.to(e.currentTarget, {
+                        scale: 1.035,
+                        y: -8,
+                        boxShadow: '0 8px 32px 0 rgba(255,214,0,0.15)',
+                        duration: 0.35,
+                        ease: 'power3.out',
+                      })
+                    }
+                  }}
+                  onMouseLeave={e => {
+                    if (e.currentTarget) {
+                      gsap.to(e.currentTarget, {
+                        scale: 1,
+                        y: 0,
+                        boxShadow: 'none',
+                        duration: 0.35,
+                        ease: 'power3.in',
+                      })
+                    }
+                  }}
+                >
+                  <Icon as={require('react-icons/fi').FiMonitor} w={8} h={8} color={yellowLine} mr={6} />
+                  <Box>
+                    <Heading as="h2" fontSize="2xl" fontWeight="semibold" color={textColor} mb={2}>
+                      Games
+                    </Heading>
+                    <Text fontSize="lg" color={textColor}>
+                      Exploring interactive experiences, game design, and playful creativity.
                     </Text>
                   </Box>
                 </Box>
