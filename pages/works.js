@@ -10,7 +10,6 @@ import gsap from 'gsap'
 import KodeboardModal from '../components/projects/Kodeboard'
 import Head from 'next/head'
 import MicrointeractionModal from '../components/projects/MI'
-import { useRouter } from 'next/router'
 
 // Styled components
 const Trans = styled.span`
@@ -299,7 +298,6 @@ function CollapseExtandip() {
   const { isOpen: isEditOpenmd13, onOpen: onEditOpenmd13, onClose: onEditClosemd13 } = useDisclosure()
   const { isOpen: isEditOpenmd15, onOpen: onEditOpenmd15, onClose: onEditClosemd15 } = useDisclosure()
   const { isOpen: isEditOpenmd17, onOpen: onEditOpenmd17, onClose: onEditClosemd17 } = useDisclosure()
-  const { isOpen: isEditOpenmd18, onOpen: onEditOpenmd18, onClose: onEditClosemd18 } = useDisclosure()
 
   return (
     <>
@@ -1726,174 +1724,6 @@ function C2CParticleBG() {
   )
 }
 
-function AnimatedIconMorph() {
-  // Simple morphing between two SVG icons using GSAP
-  const iconRef = useRef(null)
-  useEffect(() => {
-    const [circle, square] = iconRef.current.children
-    gsap.fromTo(circle, { scale: 1 }, { scale: 0.6, repeat: -1, yoyo: true, duration: 1.2, ease: 'power1.inOut' })
-    gsap.fromTo(square, { scale: 0.6 }, { scale: 1, repeat: -1, yoyo: true, duration: 1.2, ease: 'power1.inOut', delay: 0.6 })
-  }, [])
-  return (
-    <Box>
-      <svg ref={iconRef} width="64" height="64" viewBox="0 0 64 64" fill="none">
-        <circle cx="32" cy="32" r="20" fill="#89EF8C" style={{ transformOrigin: '32px 32px' }} />
-        <rect x="16" y="16" width="32" height="32" rx="8" fill="#00FFD0" style={{ transformOrigin: '32px 32px' }} />
-      </svg>
-    </Box>
-  )
-}
-
-function AnimatedSystemText() {
-  // Animated text with color and weight transitions
-  const textRef = useRef(null)
-  useEffect(() => {
-    gsap.to(textRef.current, {
-      color: '#00FFD0',
-      fontWeight: 900,
-      letterSpacing: 8,
-      duration: 1.2,
-      repeat: -1,
-      yoyo: true,
-      ease: 'power1.inOut',
-    })
-  }, [])
-  return (
-    <Heading ref={textRef} as="h2" fontSize="2.2rem" fontFamily="Michroma, monospace" color="#89EF8C" fontWeight={700} letterSpacing={4}>
-      SYSTEM DNA
-    </Heading>
-  )
-}
-
-function AnimatedLines() {
-  // Animated lines that move and change color
-  const lineRef = useRef(null)
-  useEffect(() => {
-    gsap.to(lineRef.current.children, {
-      x: (i) => (i % 2 === 0 ? 40 : -40),
-      background: (i) => (i % 2 === 0 ? '#00FFD0' : '#89EF8C'),
-      duration: 1.4,
-      repeat: -1,
-      yoyo: true,
-      stagger: 0.2,
-      ease: 'power1.inOut',
-    })
-  }, [])
-  return (
-    <Box ref={lineRef} display="flex" flexDirection="column" alignItems="center" gap={2}>
-      <Box w="80px" h="4px" bg="#89EF8C" borderRadius="2px" />
-      <Box w="80px" h="4px" bg="#00FFD0" borderRadius="2px" />
-      <Box w="80px" h="4px" bg="#89EF8C" borderRadius="2px" />
-    </Box>
-  )
-}
-
-function ContinuousFlow() {
-  // Animated flowing dots
-  const flowRef = useRef(null)
-  useEffect(() => {
-    gsap.to(flowRef.current.children, {
-      x: 32,
-      opacity: 0.2,
-      duration: 1.2,
-      repeat: -1,
-      yoyo: true,
-      stagger: 0.15,
-      ease: 'power1.inOut',
-    })
-  }, [])
-  return (
-    <Box ref={flowRef} display="flex" flexDirection="row" alignItems="center" gap={2}>
-      <Box w="12px" h="12px" bg="#00FFD0" borderRadius="full" />
-      <Box w="12px" h="12px" bg="#89EF8C" borderRadius="full" />
-      <Box w="12px" h="12px" bg="#00FFD0" borderRadius="full" />
-      <Box w="12px" h="12px" bg="#89EF8C" borderRadius="full" />
-    </Box>
-  )
-}
-
-function DesignSystemPanelAbstract() {
-  // Animated, softly glowing, blurred geometric shapes
-  const shapesRef = useRef([])
-  useEffect(() => {
-    shapesRef.current.forEach((shape, i) => {
-      if (shape) {
-        const duration = 8 + Math.random() * 6
-        const delay = Math.random() * 4
-        const xMove = Math.random() > 0.5 ? '+=40vw' : '-=40vw'
-        const yMove = Math.random() > 0.5 ? '+=12vh' : '-=12vh'
-        gsap.to(shape, {
-          x: xMove,
-          y: yMove,
-          scale: 0.8 + Math.random() * 0.6,
-          opacity: 0.18 + Math.random() * 0.18,
-          filter: 'blur(8px)',
-          duration,
-          delay,
-          repeat: -1,
-          yoyo: true,
-          ease: 'sine.inOut',
-        })
-      }
-    })
-    return () => {
-      shapesRef.current.forEach(shape => shape && gsap.killTweensOf(shape))
-    }
-  }, [])
-  // Define a few abstract shapes
-  return (
-    <Box position="absolute" top={0} left={0} w="100%" h="100%" zIndex={2} pointerEvents="none">
-      {/* Circles */}
-      {[0,1,2].map(i => (
-        <Box
-          key={i}
-          ref={el => shapesRef.current[i] = el}
-          position="absolute"
-          top={`${18 + i*60}px`}
-          left={`${10 + i*30}px`}
-          w={`${60 + i*30}px`}
-          h={`${60 + i*30}px`}
-          bg={['#89EF8C','#00aaff','#a259ff'][i]}
-          opacity={0.18}
-          borderRadius="full"
-          filter="blur(12px)"
-        />
-      ))}
-      {/* Rounded rectangles */}
-      {[0,1].map(i => (
-        <Box
-          key={i+3}
-          ref={el => shapesRef.current[i+3] = el}
-          position="absolute"
-          top={`${80 + i*70}px`}
-          left={`${120 + i*60}px`}
-          w="80px"
-          h="32px"
-          bg={['#2c5364','#4e8a8c'][i]}
-          opacity={0.13}
-          borderRadius="24px"
-          filter="blur(10px)"
-        />
-      ))}
-      {/* Polygon (triangle) */}
-      <Box
-        as="svg"
-        ref={el => shapesRef.current[5] = el}
-        position="absolute"
-        top="120px"
-        left="60vw"
-        width="54px"
-        height="54px"
-        opacity={0.13}
-        style={{ filter: 'blur(8px)' }}
-      >
-        <polygon points="27,0 54,54 0,54" fill="#00ffd0" />
-      </Box>
-    </Box>
-  )
-}
-
-// Add DesignSystemPanelElements component at the end of the file
 function DesignSystemPanelElements() {
   // Subtle animated lines and dots moving left to right
   const linesRef = useRef([])
