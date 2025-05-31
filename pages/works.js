@@ -391,16 +391,40 @@ function CollapseExtandip() {
                 <ModalHeader mt={32} style={{ fontFamily: 'Tiny5, monospace' }}>C2C</ModalHeader>
                 <ModalCloseButton mt={32} />
                 <ModalBody mt={4}>
-                  <Text fontSize={24} fontWeight={'hairline'} mb={6}>
-                    Explore the journey from concept to creation in interaction design. This project showcases case studies, design thinking, and hands-on interactive prototypes.
-                  </Text>
-                  <Image 
-                    src="/images/works/perma.png"
-                    alt="C2C: Interaction Design Project"
-                    width="50%"
-                    borderRadius="lg"
-                    mb={6}
-                  />
+                  {/* C2C Branding Header */}
+                  <div style={{
+                    fontFamily: 'Matrix, monospace',
+                    fontSize: '2.5rem',
+                    color: '#89EF8C',
+                    fontWeight: 900,
+                    letterSpacing: '0.08em',
+                    marginBottom: '0.5rem',
+                    textShadow: '0 2px 12px #000, 0 0px 2px #89EF8C',
+                    textAlign: 'left',
+                  }}>
+                    C2C <span style={{ fontSize: '1.2rem', color: '#b3ffb3', fontWeight: 400, marginLeft: 12 }}>Cube to Cube</span>
+                  </div>
+                  <div style={{
+                    fontFamily: 'Matrix, monospace',
+                    fontSize: '1.1rem',
+                    color: '#b3ffb3',
+                    marginBottom: '2.2rem',
+                    textAlign: 'left',
+                  }}>
+                    <b>C2C</b> is more than a project name—it's a philosophy: <b>Cube to Cube</b>, from one idea to another, from <b>Concept to Creation</b>. This theme runs throughout our work, inspiring every step of our interaction design journey.
+                  </div>
+                  {/* Retro Particle BG for C2C */}
+                  <C2CParticleBG />
+                  {/* Matrix font-face */}
+                  <style jsx global>{`
+                    @font-face {
+                      font-family: 'Matrix';
+                      src: url('/fonts/matrix.ttf') format('truetype');
+                      font-display: swap;
+                    }
+                  `}</style>
+                  {/* GSAP animated intro */}
+                  <AnimatedC2CIntro />
                 </ModalBody>
                 <ModalFooter>
                   <Button onClick={onEditClosemd17}>Close</Button>
@@ -1501,3 +1525,155 @@ const Works = () => {
 
 export default Works
 export { getServerSideProps } from '../components/chakra'
+
+// Add this component at the end of the file
+function AnimatedC2CIntro() {
+  const introRef = useRef(null)
+  const overviewRef = useRef(null)
+  const namesRef = useRef([])
+
+  useEffect(() => {
+    if (introRef.current) {
+      gsap.fromTo(introRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out' })
+    }
+    if (overviewRef.current) {
+      gsap.fromTo(overviewRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1.2, delay: 1.1, ease: 'power3.out' })
+    }
+    namesRef.current.forEach((el, i) => {
+      if (el) {
+        gsap.fromTo(el, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.7, delay: 1.7 + i * 0.2, ease: 'power3.out' })
+      }
+    })
+  }, [])
+
+  return (
+    <div>
+      <div
+        ref={introRef}
+        style={{
+          fontFamily: 'Matrix, monospace',
+          fontSize: '2.2rem',
+          color: '#89EF8C',
+          textAlign: 'left',
+          marginBottom: '2.5rem',
+          letterSpacing: '0.04em',
+        }}
+      >
+        Concept to Creation<br />
+        <span style={{ fontSize: '1.1rem', color: '#b3ffb3', fontWeight: 400 }}>
+          A journey in interaction design
+        </span>
+      </div>
+      <div style={{ height: '2.5rem' }} /> {/* gap */}
+      <div
+        ref={overviewRef}
+        style={{
+          fontFamily: 'Matrix, monospace',
+          fontSize: '1.3rem',
+          color: '#fff',
+          textAlign: 'left',
+          marginBottom: '2.2rem',
+          letterSpacing: '0.02em',
+        }}
+      >
+        <b>Overview:</b> <br />
+        This project explores the process of interaction design, from initial concept to working prototype, through collaborative teamwork and creative problem-solving.
+      </div>
+      <div style={{ height: '1.5rem' }} />
+      <div style={{
+        display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.7rem',
+        fontFamily: 'Matrix, monospace', fontSize: '1.1rem', color: '#89EF8C',
+      }}>
+        <b style={{ marginRight: '0.7rem' }}>Team:</b>
+        <a ref={el => namesRef.current[0] = el} href="https://www.behance.net/mukilkumar" target="_blank" rel="noopener noreferrer" style={{ color: '#89EF8C', textDecoration: 'underline', fontWeight: 700 }}>MUKIL</a>
+        <span style={{ margin: '0 0.5rem' }}>·</span>
+        <a ref={el => namesRef.current[1] = el} href="https://www.behance.net/prajaktapathak" target="_blank" rel="noopener noreferrer" style={{ color: '#89EF8C', textDecoration: 'underline', fontWeight: 700 }}>PRAJAKTA</a>
+        <span style={{ margin: '0 0.5rem' }}>·</span>
+        <a ref={el => namesRef.current[2] = el} href="https://www.behance.net/anoushkadey" target="_blank" rel="noopener noreferrer" style={{ color: '#89EF8C', textDecoration: 'underline', fontWeight: 700 }}>ANOUSHKA</a>
+        <span style={{ margin: '0 0.5rem' }}>·</span>
+        <a ref={el => namesRef.current[3] = el} href="https://www.behance.net/samikshajain" target="_blank" rel="noopener noreferrer" style={{ color: '#89EF8C', textDecoration: 'underline', fontWeight: 700 }}>SAMIKSHA</a>
+      </div>
+    </div>
+  )
+}
+
+// Retro particle background for C2C modal
+function C2CParticleBG() {
+  const canvasRef = useRef(null)
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext('2d')
+    let dpr = window.devicePixelRatio || 1
+    let width = window.innerWidth
+    let height = window.innerHeight
+    function setCanvasSize() {
+      dpr = window.devicePixelRatio || 1
+      width = window.innerWidth
+      height = window.innerHeight
+      canvas.width = width * dpr
+      canvas.height = height * dpr
+      ctx.setTransform(1, 0, 0, 1, 0, 0)
+      ctx.scale(dpr, dpr)
+    }
+    setCanvasSize()
+    // Retro pixel particles
+    const PARTICLE_COUNT = 60
+    const particles = Array.from({ length: PARTICLE_COUNT }).map(() => ({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      size: Math.random() * 3 + 2,
+      speedX: (Math.random() - 0.5) * 0.4,
+      speedY: (Math.random() - 0.5) * 0.4,
+      color: Math.random() > 0.5 ? '#89EF8C' : '#b3ffb3',
+      alpha: Math.random() * 0.5 + 0.5,
+    }))
+    let animId
+    function animate() {
+      ctx.clearRect(0, 0, width, height)
+      for (const p of particles) {
+        // Move
+        p.x += p.speedX
+        p.y += p.speedY
+        // Wrap
+        if (p.x < 0) p.x = width
+        if (p.x > width) p.x = 0
+        if (p.y < 0) p.y = height
+        if (p.y > height) p.y = 0
+        // Draw pixel/retro style
+        ctx.save()
+        ctx.globalAlpha = p.alpha
+        ctx.shadowColor = p.color
+        ctx.shadowBlur = 8
+        ctx.fillStyle = p.color
+        ctx.fillRect(Math.round(p.x), Math.round(p.y), p.size, p.size)
+        ctx.restore()
+      }
+      animId = requestAnimationFrame(animate)
+    }
+    animate()
+    function handleResize() {
+      setCanvasSize()
+    }
+    window.addEventListener('resize', handleResize)
+    return () => {
+      cancelAnimationFrame(animId)
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
+  return (
+    <canvas
+      ref={canvasRef}
+      style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100vw',
+        height: '100vh',
+        zIndex: 0,
+        pointerEvents: 'none',
+        opacity: 0.22,
+      }}
+    />
+  )
+}
