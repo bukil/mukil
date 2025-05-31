@@ -6,6 +6,7 @@ import { useRef, useEffect, useState } from 'react'
 import gsap from 'gsap'
 import axios from 'axios'
 import { FaPlayCircle } from 'react-icons/fa'
+import NextLink from 'next/link'
 
 
 const Blog = () => {
@@ -126,7 +127,7 @@ const Blog = () => {
       { orbit: 3, r: 10, color: '#fff', speed: 0.014, phase: 0.7 },
     ];
 
-    const planetNames = ['242247', '242244', '242240', '242241']; // order: inner to outer
+    const planetNames = ['242246', '242244', '242240', '242241']; // order: inner to outer
 
     // Twinkling starfield
     const STAR_COUNT = 120;
@@ -333,27 +334,27 @@ const Blog = () => {
           <canvas ref={canvasRef} style={{ width: '100vw', height: '100vh', display: 'block' }} />
         </Box>
         <Box minH="100vh" py={0} position="relative" zIndex={1}>
-          <VStack spacing={16} align="stretch">
-            {/* Hero Section */}
-            <VStack spacing={6} align="center" py={20}>
-              <Heading
-                as="h1"
-                fontSize={{ base: '4xl', md: '6xl' }}
-                fontWeight="bold"
-                textAlign="center"
-                color={textColor}
-                letterSpacing="tight"
-              >
-                Blog soon (website under construction hehehe :.|   wo kya he na.... )
-              </Heading>
-              <Text
-                fontSize={{ base: 'xl', md: '2xl' }}
-                textAlign="center"
-                color={textColor}
-                maxW="2xl"
-              >
-                Thoughts, Reviews & Photography
-              </Text>
+        <VStack spacing={16} align="stretch">
+          {/* Hero Section */}
+          <VStack spacing={6} align="center" py={20}>
+            <Heading
+              as="h1"
+              fontSize={{ base: '4xl', md: '6xl' }}
+              fontWeight="bold"
+              textAlign="center"
+              color={textColor}
+              letterSpacing="tight"
+            >
+              Blog soon (website under construction hehehe :.|   wo kya he na.... )
+            </Heading>
+            <Text
+              fontSize={{ base: 'xl', md: '2xl' }}
+              textAlign="center"
+              color={textColor}
+              maxW="2xl"
+            >
+              Thoughts, Reviews & Photography
+            </Text>
               {/* --- NASA APOD Feature, no card, just floating image and text --- */}
               {apodLoading ? (
                 <Text color={'#b3d1ff'}>Loading NASA fact...</Text>
@@ -371,8 +372,9 @@ const Blog = () => {
                     borderRadius="2xl"
                     overflow="hidden"
                     boxShadow="none"
+                    border="0.0px solid #89EF8C"
                     _hover={{
-                      boxShadow: '0 0 64px 0 #7bb6ff, 0 0 128px 0 #b3d1ff',
+                      boxShadow: '0 0 20px 0 #89EF8C',
                       transition: 'box-shadow 0.5s cubic-bezier(.4,2,.3,1)',
                     }}
                     transition="box-shadow 0.5s cubic-bezier(.4,2,.3,1)"
@@ -387,7 +389,7 @@ const Blog = () => {
                         borderRadius="2xl"
                         boxShadow="0 0 0 0 transparent"
                         transition="box-shadow 0.5s cubic-bezier(.4,2,.3,1)"
-                        _hover={{ boxShadow: '0 0 64px 0 #7bb6ff, 0 0 128px 0 #b3d1ff' }}
+                        _hover={{ boxShadow: '0 0 20px 0 #89EF8C' }}
                       />
                     ) : apod.media_type === 'video' ? (
                       <Box
@@ -401,7 +403,7 @@ const Blog = () => {
                         h={{ base: 'auto', md: '420px' }}
                         borderRadius="2xl"
                         overflow="hidden"
-                        _hover={{ boxShadow: '0 0 64px 0 #7bb6ff, 0 0 128px 0 #b3d1ff' }}
+                        _hover={{ boxShadow: '0 0 20px 0 #89EF8C' }}
                         transition="box-shadow 0.5s cubic-bezier(.4,2,.3,1)"
                       >
                         <Image
@@ -461,101 +463,103 @@ const Blog = () => {
                   </Text>
                 </VStack>
               ) : null}
-            </VStack>
+          </VStack>
 
-            {/* Categories as a vertical list */}
-            <VStack spacing={1} align="stretch">
-              {/* Blogs Section - outer green border with GSAP animation */}
-              <Section>
-                <Box
-                  ref={blogBoxRef}
-                  display="flex"
-                  alignItems="center"
-                  p={6}
-                  borderRadius="1xl"
-                  bg="transparent"
-                  border={`1px solid ${greenLine}`}
-                  boxShadow="none"
-                  minH="120px"
-                  h="full"
-                  position="relative"
-                  onMouseEnter={() => handleBoxEnter(blogBoxRef)}
-                  onMouseLeave={() => handleBoxLeave(blogBoxRef)}
-                  style={{ willChange: 'transform, box-shadow' }}
-                >
-                  <Icon as={FiEdit} w={8} h={8} color={greenLine} mr={6} />
-                  <Box>
-                    <Heading as="h2" fontSize="2xl" fontWeight="semibold" color={textColor} mb={2}>
-                      Blogs
-                    </Heading>
-                    <Text fontSize="lg" color={textColor}>
-                      Exploring technology, design, and innovation through thoughtful articles.
-                    </Text>
-                  </Box>
+          {/* Categories as a vertical list */}
+          <VStack spacing={1} align="stretch">
+            {/* Blogs Section - outer green border with GSAP animation */}
+            <Section>
+              <Box
+                ref={blogBoxRef}
+                display="flex"
+                alignItems="center"
+                p={6}
+                borderRadius="1xl"
+                bg="transparent"
+                border={`1px solid ${greenLine}`}
+                boxShadow="none"
+                minH="120px"
+                h="full"
+                position="relative"
+                onMouseEnter={() => handleBoxEnter(blogBoxRef)}
+                onMouseLeave={() => handleBoxLeave(blogBoxRef)}
+                style={{ willChange: 'transform, box-shadow' }}
+              >
+                <Icon as={FiEdit} w={8} h={8} color={greenLine} mr={6} />
+                <Box>
+                  <Heading as="h2" fontSize="2xl" fontWeight="semibold" color={textColor} mb={2}>
+                    Blogs
+                  </Heading>
+                  <Text fontSize="lg" color={textColor}>
+                    Exploring technology, design, and innovation through thoughtful articles.
+                  </Text>
                 </Box>
-              </Section>
+              </Box>
+            </Section>
 
-              {/* Book Reviews Section - outer pink border with GSAP animation */}
-              <Section>
-                <Box
-                  ref={bookBoxRef}
-                  display="flex"
-                  alignItems="center"
-                  p={6}
-                  borderRadius="1xl"
-                  bg="transparent"
-                  border={`1px solid ${pinkLine}`}
-                  boxShadow="none"
-                  minH="120px"
-                  h="full"
-                  onMouseEnter={() => handleBoxEnter(bookBoxRef)}
-                  onMouseLeave={() => handleBoxLeave(bookBoxRef)}
-                  style={{ willChange: 'transform, box-shadow' }}
-                >
-                  <Icon as={FiBook} w={8} h={8} color={pinkLine} mr={6} />
-                  <Box>
-                    <Heading as="h2" fontSize="2xl" fontWeight="semibold" color={textColor} mb={2}>
-                      Book Reviews
-                    </Heading>
-                    <Text fontSize="lg" color={textColor}>
-                      Deep dives into books that have shaped my thinking and perspective.
-                    </Text>
-                  </Box>
+            {/* Book Reviews Section - outer pink border with GSAP animation */}
+            <Section>
+              <Box
+                ref={bookBoxRef}
+                display="flex"
+                alignItems="center"
+                p={6}
+                borderRadius="1xl"
+                bg="transparent"
+                border={`1px solid ${pinkLine}`}
+                boxShadow="none"
+                minH="120px"
+                h="full"
+                onMouseEnter={() => handleBoxEnter(bookBoxRef)}
+                onMouseLeave={() => handleBoxLeave(bookBoxRef)}
+                style={{ willChange: 'transform, box-shadow' }}
+              >
+                <Icon as={FiBook} w={8} h={8} color={pinkLine} mr={6} />
+                <Box>
+                  <Heading as="h2" fontSize="2xl" fontWeight="semibold" color={textColor} mb={2}>
+                    Book Reviews
+                  </Heading>
+                  <Text fontSize="lg" color={textColor}>
+                    Deep dives into books that have shaped my thinking and perspective.
+                  </Text>
                 </Box>
-              </Section>
+              </Box>
+            </Section>
 
-              {/* Photography Section - outer blue border with GSAP animation */}
-              <Section>
-                <Box
-                  ref={photoBoxRef}
-                  display="flex"
-                  alignItems="center"
-                  p={6}
-                  borderRadius="1xl"
-                  bg="transparent"
-                  border={`1px solid ${blueLine}`}
-                  boxShadow="none"
-                  minH="120px"
-                  h="full"
-                  onMouseEnter={() => handleBoxEnter(photoBoxRef)}
-                  onMouseLeave={() => handleBoxLeave(photoBoxRef)}
-                  style={{ willChange: 'transform, box-shadow' }}
-                >
-                  <Icon as={FiCamera} w={8} h={8} color={blueLine} mr={6} />
-                  <Box>
-                    <Heading as="h2" fontSize="2xl" fontWeight="semibold" color={textColor} mb={2}>
-                      Photography
-                    </Heading>
-                    <Text fontSize="lg" color={textColor}>
-                      Capturing moments and stories through my lens.
-                    </Text>
-                  </Box>
+            {/* Photography Section - outer blue border with GSAP animation */}
+            <Section>
+              <Box
+                ref={photoBoxRef}
+                display="flex"
+                alignItems="center"
+                p={6}
+                borderRadius="1xl"
+                bg="transparent"
+                border={`1px solid ${blueLine}`}
+                boxShadow="none"
+                minH="120px"
+                h="full"
+                onMouseEnter={() => handleBoxEnter(photoBoxRef)}
+                onMouseLeave={() => handleBoxLeave(photoBoxRef)}
+                style={{ willChange: 'transform, box-shadow' }}
+              >
+                <Icon as={FiCamera} w={8} h={8} color={blueLine} mr={6} />
+                <Box>
+                  <Heading as="h2" fontSize="2xl" fontWeight="semibold" color={textColor} mb={2}>
+                    Photography
+                  </Heading>
+                  <Text fontSize="lg" color={textColor}>
+                    Capturing moments and stories through my lens.
+                  </Text>
                 </Box>
-              </Section>
+              </Box>
+            </Section>
 
               {/* Games Section - outer yellow border with GSAP animation */}
               <Section>
                 <Box
+                  as={NextLink}
+                  href="/game"
                   display="flex"
                   alignItems="center"
                   p={6}
@@ -566,6 +570,8 @@ const Blog = () => {
                   minH="120px"
                   h="full"
                   style={{ willChange: 'transform, box-shadow' }}
+                  cursor="pointer"
+                  _hover={{ textDecoration: 'none' }}
                   onMouseEnter={e => {
                     if (e.currentTarget) {
                       gsap.to(e.currentTarget, {
