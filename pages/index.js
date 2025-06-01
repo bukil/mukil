@@ -117,11 +117,12 @@ const SOFTWARE_SKILLS = [
   { name: 'GSAP', icon: SiGreensock },
   { name: 'Jekyll', icon: SiJekyll },
   { name: 'Python', icon: SiPython },
+  { name: 'Unreal Engine', icon: SiUnrealengine },
+  { name: 'Fusion 360', icon: MdMemory },
   { name: 'Embedded (Arduino/Electronics)', icon: SiArduino },
   { name: 'Unity', icon: SiUnity },
-  { name: 'Unreal Engine', icon: SiUnrealengine },
+
   { name: 'Swift', icon: SiSwift },
-  { name: 'Fusion 360', icon: MdMemory },
   { name: 'Three.js' },
 ]
 
@@ -187,6 +188,7 @@ const Home = () => {
   const [skillsVisible, setSkillsVisible] = useState(false);
   const skillsTextRef = useRef(null);
   const [hoveredSkill, setHoveredSkill] = useState(null)
+  const [hoveredSoft, setHoveredSoft] = useState(null)
 
   useEffect(() => {
     const observer = new window.IntersectionObserver(
@@ -554,7 +556,7 @@ const Home = () => {
                         boxShadow="0 8px 32px 0 rgba(137,239,140,0.08)"
                         backdropFilter="blur(8px)"
                         transition="all 0.3s"
-                        color="#222"
+                        color={isHovered ? '#89EF8C' : '#222'}
                         style={{ WebkitBackdropFilter: 'blur(8px)' }}
                         _hover={{
                           boxShadow: { base: 'none', md: '0 0 24px 8px #89EF8C, 0 8px 32px 0 rgba(137,239,140,0.18)' },
@@ -606,7 +608,7 @@ const Home = () => {
                         boxShadow="0 8px 32px 0 rgba(49,130,206,0.08)"
                         backdropFilter="blur(8px)"
                         transition="all 0.3s"
-                        color="#222"
+                        color={hoveredSoft === soft.name ? '#3182ce' : '#222'}
                         display="flex"
                         alignItems="center"
                         gap={2}
@@ -616,6 +618,8 @@ const Home = () => {
                           filter: { base: 'none', md: 'brightness(1.2)' },
                           cursor: 'pointer',
                         }}
+                        onMouseEnter={() => setHoveredSoft(soft.name)}
+                        onMouseLeave={() => setHoveredSoft(null)}
                       >
                         {Icon && <Icon style={{ fontSize: 24 }} />}
                         {soft.name}
