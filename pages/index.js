@@ -123,6 +123,41 @@ const SOFTWARE_SKILLS = [
   { name: 'Three.js' },
 ]
 
+function AnimatedIntro() {
+  const text = "My name is Mukil Kumar. I am a Creative Technologist and Interaction Design student living in Mumbai, currently pursuing my Masters at IIT Bombay. I craft playful, human-centered experiences at the intersection of design, technology, and art—making ideas tangible, delightful, and meaningful."
+  const charsRef = useRef([])
+
+  useEffect(() => {
+    if (charsRef.current.length) {
+      gsap.fromTo(
+        charsRef.current,
+        { opacity: 0, y: 24 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          stagger: 0.025,
+          ease: 'power3.out',
+        }
+      )
+    }
+  }, [])
+
+  return (
+    <Text variant="home-txt" fontSize={{ base: '2xl', md: '2.5xl', lg: '3xl' }} fontWeight={100} mt={6} mb={6} lineHeight={1.7} fontFamily="'Space Grotesk', 'Inter', 'sans-serif'">
+      {text.split("").map((char, i) => (
+        <span
+          key={i}
+          ref={el => charsRef.current[i] = el}
+          style={{ display: char === " " ? "inline" : "inline-block", whiteSpace: char === " " ? "pre" : undefined }}
+        >
+          {char}
+        </span>
+      ))}
+    </Text>
+  )
+}
+
 const Home = () => {
   const pageRef = useRef(null)
   const mukilRef = useRef(null)
@@ -376,24 +411,7 @@ const Home = () => {
                   >
                   Introduction
                 </Heading>
-                <Text variant="home-txt" fontSize={14} fontWeight='normal'>
-                  Hailing from Uttar Pradesh, India, I&apos;m Mukil an engineering graduate
-                  with an insatiable design itch. From crafting intuitive, user-centered experiences, 
-                  to the intricate workings of everyday machinery, anything with an engineering pulse sparks my imagination. 
-                  My superpower? Transforming real-world challenges into design and tech solutions.
-                  Think MacGyver meets the future! When I&apos;m not glued to the screen, you&apos;ll find me
-                  lost in the rhythm of music, taking solitary walks to untangle thoughts (weird, but it works!),
-                  and wielding my phone camera like a trusty sidekick, capturing inspiration on the go.
-                  Right now, I&apos;m brewing up some exciting projects in my creative cauldron. Stay tuned!{' '}
-                  <Link href="https://www.youtube.com/shorts/yOYycYeoM24" isExternal>
-                    Dynamic Steering System
-                  </Link>
-                  .&quot;
-                  <Link href="https://www.youtube.com/channel/UCVeGi7RNdtqN6_7G-rjdSGQ" isExternal>
-                    YT@Mukil
-                  </Link>
-                  &quot;
-                </Text>
+                <AnimatedIntro />
 
                   <Heading fontSize="4xl" fontWeight="hairline" mt={12} mb={6}
                     _hover={{ 
