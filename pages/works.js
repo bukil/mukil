@@ -23,24 +23,6 @@ const Trans = styled.span`
   }
 `
 
-const Imgtrans = styled.span`
-  Button {
-    transform: rotate(0deg);
-    border-radius: 10px;
-    padding: 1px 1px;
-    display: inline-block;
-    cursor: pointer;
-    -webkit-transition: ease-out 0.4s;
-    -moz-transition: ease-out 0.4s;
-    transition: ease-out 0.4s;
-    background: transparent;
-  }
-  
-  &:hover Button {
-    transform: translate(20px, 0px);
-    background: transparent;
-  }
-`
 
 const SnowContainer = styled.div`
   position: absolute;

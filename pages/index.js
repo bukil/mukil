@@ -2,7 +2,6 @@
 import NextLink from 'next/link'
 import Head from 'next/head'
 import {
-  Link,
   Container,
   Heading,
   Box,
@@ -125,18 +124,18 @@ const SOFTWARE_SKILLS = [
 
 function AnimatedIntro() {
   const text = "My name is Mukil Kumar. I am a Creative Technologist and Interaction Design student living in Mumbai, currently pursuing my Masters at IIT Bombay. I craft playful, human-centered experiences at the intersection of design, technology, and art—making ideas tangible, delightful, and meaningful."
-  const charsRef = useRef([])
+  const blockRef = useRef(null)
 
   useEffect(() => {
-    if (charsRef.current.length) {
+    if (blockRef.current) {
       gsap.fromTo(
-        charsRef.current,
-        { opacity: 0, y: 24 },
+        blockRef.current,
+        { opacity: 0, x: -40, scale: 0.95 },
         {
           opacity: 1,
-          y: 0,
-          duration: 0.7,
-          stagger: 0.025,
+          x: 0,
+          scale: 1,
+          duration: 1.2,
           ease: 'power3.out',
         }
       )
@@ -144,16 +143,17 @@ function AnimatedIntro() {
   }, [])
 
   return (
-    <Text variant="home-txt" fontSize={{ base: '2xl', md: '2.5xl', lg: '3xl' }} fontWeight={100} mt={6} mb={6} lineHeight={1.7} fontFamily="'Space Grotesk', 'Inter', 'sans-serif'">
-      {text.split("").map((char, i) => (
-        <span
-          key={i}
-          ref={el => charsRef.current[i] = el}
-          style={{ display: char === " " ? "inline" : "inline-block", whiteSpace: char === " " ? "pre" : undefined }}
-        >
-          {char}
-        </span>
-      ))}
+    <Text
+      ref={blockRef}
+      variant="home-txt"
+      fontSize="xl"
+      fontWeight={200}
+      mt={6}
+      mb={6}
+      lineHeight={1.7}
+      fontFamily="'Space Grotesk', 'Inter', 'sans-serif'"
+    >
+      {text}
     </Text>
   )
 }
@@ -319,7 +319,7 @@ const Home = () => {
       </Head>
       <Layout>
         <Spacer mb={130}/>
-        <Container maxW='container.lg'>
+        <Container maxW='container.xl'>
           <Box
             position="absolute"
             top={{ base: '-48px', md: '-72px', lg: '-96px' }}
@@ -396,39 +396,27 @@ const Home = () => {
         <Divider orientation='horizontal' mb={8} mt={6} />
         <Spacer />
 
-        <Container maxW='container.lg' mt={2} mb={2} p={2}>
+        <Container maxW='container.xl' mt={2} mb={2} p={2}>
           <Grid templateColumns='repeat(2, fr)' gap={20}>
             <GridItem w='100%'>
               <Section delay={0.3}>
-                  <Heading fontSize="6xl" fontWeight="hairline" 
-                    _hover={{ 
-                      textDecoration: 'underline',
-                      textDecorationColor: '#89EF8C',
-                      textDecorationThickness: '2px',
-                      textUnderlineOffset: '8px',
-                      transition: 'all 0.3s ease'
-                    }}
-                  >
-                  Introduction
-                </Heading>
                 <AnimatedIntro />
 
-                  <Heading fontSize="4xl" fontWeight="hairline" mt={12} mb={6}
-                    _hover={{ 
-                      textDecoration: 'underline',
-                      textDecorationColor: '#89EF8C',
-                      textDecorationThickness: '2px',
-                      textUnderlineOffset: '8px',
-                      transition: 'all 0.3s ease'
-                    }}
-                  >
-                  My Journey
-                </Heading>
+                <Heading fontSize="4xl" fontWeight="hairline" mt={12} mb={6}
+                  _hover={{ 
+                    textDecoration: 'underline',
+                    textDecorationColor: '#89EF8C',
+                    textDecorationThickness: '2px',
+                    textUnderlineOffset: '8px',
+                    transition: 'all 0.3s ease'
+                  }}
+                >
+                My Journey
+              </Heading>
 
                 <VStack align="stretch" spacing={0}>
                     <JourneyItem 
                       ref={el => journeyRefs.current[0] = el}
-                      style={{ opacity: 0 }}
                     >
                     <Badge colorScheme="blue" mb={2}>2024 - Present</Badge>
                       <Heading fontSize="xl" fontWeight="bold"
@@ -446,7 +434,6 @@ const Home = () => {
 
                     <JourneyItem 
                       ref={el => journeyRefs.current[1] = el}
-                      style={{ opacity: 0 }}
                     >
                     <Badge colorScheme="green" mb={2}>2022 - 2023</Badge>
                       <Heading fontSize="xl" fontWeight="bold"
@@ -464,7 +451,6 @@ const Home = () => {
 
                     <JourneyItem 
                       ref={el => journeyRefs.current[2] = el}
-                      style={{ opacity: 0 }}
                     >
                     <Badge colorScheme="purple" mb={2}>2022</Badge>
                       <Heading fontSize="xl" fontWeight="bold"
@@ -482,7 +468,6 @@ const Home = () => {
 
                     <JourneyItem 
                       ref={el => journeyRefs.current[3] = el}
-                      style={{ opacity: 0 }}
                     >
                     <Badge colorScheme="orange" mb={2}>2019 - 2023</Badge>
                     <Heading fontSize="xl" fontWeight="bold">B.Tech in Electronics & Communication</Heading>
@@ -496,7 +481,7 @@ const Home = () => {
         </Container>
 
         {/* Skill Section */}
-        <Container maxW='container.lg' mt={20} mb={20} position="relative" ref={skillsSectionRef}>
+        <Container maxW='container.xl' mt={20} mb={20} position="relative" ref={skillsSectionRef}>
           {/* Big SKILLS text behind the tabs */}
           <Box
             ref={skillsTextRef}
@@ -534,7 +519,7 @@ const Home = () => {
                 {SKILLS.map((skill) => (
                   <Box
                     key={skill}
-                    fontSize={{ base: 'xl', md: '2xl' }}
+                    fontSize="sm"
                     fontWeight="semibold"
                     fontFamily="'Space Grotesk', sans-serif"
                     px={8}
