@@ -31,7 +31,6 @@ import styled from '@emotion/styled'
 import { FaFigma, FaReact } from 'react-icons/fa'
 import { SiBlender, SiAdobexd, SiAdobephotoshop, SiAdobeillustrator, SiFramer, SiHtml5, SiGreensock, SiJekyll, SiPython, SiArduino, SiUnity, SiUnrealengine, SiSwift } from 'react-icons/si'
 import { MdMemory, MdMonitor, MdSmartphone, MdCode, MdScience, MdViewInAr, MdFormatShapes, MdPlayCircleFilled } from 'react-icons/md'
-import { FiFlask, FiBox } from 'react-icons/fi'
 
 const Trans = styled.span`
   Button {
@@ -541,7 +540,6 @@ const Home = () => {
                     const isHovered = hoveredSkill === skill
                     // Use green fill with black thin outline for icon
                     const iconColor = '#89EF8C'
-                    const iconStroke = '#111'
                     return (
                       <Box
                         key={skill}
