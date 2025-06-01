@@ -30,7 +30,8 @@ import { Spacer } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 import { FaFigma, FaReact } from 'react-icons/fa'
 import { SiBlender, SiAdobexd, SiAdobephotoshop, SiAdobeillustrator, SiFramer, SiHtml5, SiGreensock, SiJekyll, SiPython, SiArduino, SiUnity, SiUnrealengine, SiSwift } from 'react-icons/si'
-import { MdMemory } from 'react-icons/md'
+import { MdMemory, MdMonitor, MdSmartphone, MdCode, MdScience, MdViewInAr, MdFormatShapes, MdPlayCircleFilled } from 'react-icons/md'
+import { FiFlask, FiBox } from 'react-icons/fi'
 
 const Trans = styled.span`
   Button {
@@ -124,6 +125,17 @@ const SOFTWARE_SKILLS = [
   { name: 'Three.js' },
 ]
 
+const SKILL_ICONS = {
+  'Interaction Design': MdMonitor,
+  'UI/UX': MdSmartphone,
+  'Prototyping': MdMemory,
+  'Creative Coding': MdCode,
+  '3D Modeling': MdViewInAr,
+  'Animation': MdPlayCircleFilled,
+  'Design Systems': MdFormatShapes,
+  'User Research': MdScience,
+}
+
 function AnimatedIntro() {
   const text = "My name is Mukil Kumar. I am a Creative Technologist and Interaction Design student living in Mumbai, currently pursuing my Masters at IIT Bombay. I craft playful, human-centered experiences at the intersection of design, technology, and art—making ideas tangible, delightful, and meaningful."
   const blockRef = useRef(null)
@@ -174,6 +186,7 @@ const Home = () => {
   const skillsSectionRef = useRef(null);
   const [skillsVisible, setSkillsVisible] = useState(false);
   const skillsTextRef = useRef(null);
+  const [hoveredSkill, setHoveredSkill] = useState(null)
 
   useEffect(() => {
     const observer = new window.IntersectionObserver(
@@ -521,31 +534,57 @@ const Home = () => {
             {skillsVisible && (
               <>
                 <Box display="flex" flexWrap="wrap" gap={6} mb={10}>
-                  {SKILLS.map((skill) => (
-                    <Box
-                      key={skill}
-                      fontSize="sm"
-                      fontWeight="semibold"
-                      fontFamily="'Space Grotesk', sans-serif"
-                      px={8}
-                      py={3}
-                      borderRadius="full"
-                      bg="rgba(255,255,255,0.18)"
-                      border="1px solid rgba(137,239,140,0.25)"
-                      boxShadow="0 8px 32px 0 rgba(137,239,140,0.08)"
-                      backdropFilter="blur(8px)"
-                      transition="all 0.3s"
-                      color="#222"
-                      style={{ WebkitBackdropFilter: 'blur(8px)' }}
-                      _hover={{
-                        boxShadow: { base: 'none', md: '0 0 24px 8px #89EF8C, 0 8px 32px 0 rgba(137,239,140,0.18)' },
-                        filter: { base: 'none', md: 'brightness(1.2)' },
-                        cursor: 'pointer',
-                      }}
-                    >
-                      {skill}
-                    </Box>
-                  ))}
+                  {SKILLS.map((skill) => {
+                    const Icon = SKILL_ICONS[skill]
+                    const isHovered = hoveredSkill === skill
+                    // Use green fill with black thin outline for icon
+                    const iconColor = '#89EF8C'
+                    const iconStroke = '#111'
+                    return (
+                      <Box
+                        key={skill}
+                        fontSize="sm"
+                        fontWeight="semibold"
+                        fontFamily="'Space Grotesk', sans-serif"
+                        px={8}
+                        py={3}
+                        borderRadius="full"
+                        bg="rgba(255,255,255,0.18)"
+                        border="1px solid rgba(137,239,140,0.25)"
+                        boxShadow="0 8px 32px 0 rgba(137,239,140,0.08)"
+                        backdropFilter="blur(8px)"
+                        transition="all 0.3s"
+                        color="#222"
+                        style={{ WebkitBackdropFilter: 'blur(8px)' }}
+                        _hover={{
+                          boxShadow: { base: 'none', md: '0 0 24px 8px #89EF8C, 0 8px 32px 0 rgba(137,239,140,0.18)' },
+                          filter: { base: 'none', md: 'brightness(1.2)' },
+                          cursor: 'pointer',
+                        }}
+                        onMouseEnter={() => setHoveredSkill(skill)}
+                        onMouseLeave={() => setHoveredSkill(null)}
+                        position="relative"
+                      >
+                        {skill}
+                        {Icon && (
+                          <Box
+                            as={Icon}
+                            position="absolute"
+                            left="50%"
+                            top="-44px"
+                            transform={`translateX(-50%) scale(${isHovered ? 1 : 0.5})`}
+                            fontSize="2.5rem"
+                            color={iconColor}
+                            opacity={isHovered ? 1 : 0}
+                            transition="all 0.38s cubic-bezier(.4,2,.3,1)"
+                            zIndex={2}
+                            pointerEvents="none"
+                            filter="drop-shadow(0 2px 8px #89EF8C44)"
+                          />
+                        )}
+                      </Box>
+                    )
+                  })}
                 </Box>
                 <Heading fontSize="2xl" fontWeight="bold" mb={4} color="#3182ce">
                   Software
