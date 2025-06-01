@@ -81,6 +81,7 @@ const Blog = () => {
 
   useEffect(() => {
     fetchAPOD()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // GSAP entrance animation for the NASA card
@@ -493,7 +494,7 @@ const Blog = () => {
                       <Text fontSize="xs" color={textColor} mb={1}>Don Norman</Text>
                       <Text fontSize="md" color="#FFD600" mb={1}>★★★★★</Text>
                       <Text fontSize="xs" color={textColor}>
-                        A must-read for every designer. I saw every switch, button, and app differently after this. It gave language to things I always felt but couldn't explain.
+                        A must-read for every designer. I saw every switch, button, and app differently after this. It gave language to things I always felt but couldn&apos;t explain.
                       </Text>
                     </Box>
                     {/* Book 2 */}
@@ -541,7 +542,7 @@ const Blog = () => {
                       <Text fontSize="xs" color={textColor} mb={1}>Eric Schmidt & Jonathan Rosenberg</Text>
                       <Text fontSize="md" color="#FFD600" mb={1}>★★★☆☆</Text>
                       <Text fontSize="xs" color={textColor}>
-                      Feels a bit polished , like the official "Google tour", Some good insights on culture and hiring, but felt a bit like a PR piece in parts. Still useful if you're into org-building.
+                        Feels a bit polished , like the official &quot;Google tour&quot;, Some good insights on culture and hiring, but felt a bit like a PR piece in parts. Still useful if you&apos;re into org-building.
                       </Text>
                     </Box>
                     {/* Book 4 */}
@@ -613,7 +614,7 @@ const Blog = () => {
                       <Text fontSize="xs" color={textColor} mb={1}>Blake J. Harris</Text>
                       <Text fontSize="md" color="#FFD600" mb={1}>★★★★☆</Text>
                       <Text fontSize="xs" color={textColor}>
-                        Awesome and a must for those who know what is 6502. I mean, it's a long way from William Higinbotham to today's advanced game industry. And now here we are, waiting for GTA 6.
+                        Awesome and a must for those who know what is 6502. I mean, it&apos;s a long way from William Higinbotham to today&apos;s advanced game industry. And now here we are, waiting for GTA 6.
                       </Text>
                     </Box>
                     {/* Book 7 - The Brothers Karamazov */}
@@ -637,7 +638,7 @@ const Blog = () => {
                       <Text fontSize="xs" color={textColor} mb={1}>Fyodor Dostoevsky</Text>
                       <Text fontSize="md" color="#FFD600" mb={1}>★★★★☆</Text>
                       <Text fontSize="xs" color={textColor}>
-                        Big, philosophical, and layered. Took effort, but worth it. The courtroom scenes and Ivan's rebellion stay with you.
+                        Big, philosophical, and layered. Took effort, but worth it. The courtroom scenes and Ivan&apos;s rebellion stay with you.
                       </Text>
                     </Box>
                     {/* Book 8 - Crime and Punishment */}
@@ -661,7 +662,7 @@ const Blog = () => {
                       <Text fontSize="xs" color={textColor} mb={1}>Fyodor Dostoevsky</Text>
                       <Text fontSize="md" color="#FFD600" mb={1}>★★★★★</Text>
                       <Text fontSize="xs" color={textColor}>
-                        Intense and psychological. I read it almost like a thriller. Raskolnikov's torment felt personal like a mirror in moments of guilt.
+                        Intense and psychological. I read it almost like a thriller. Raskolnikov&apos;s torment felt personal like a mirror in moments of guilt.
                       </Text>
                     </Box>
                     {/* Book 9 - The Idiot */}
@@ -709,7 +710,7 @@ const Blog = () => {
                       <Text fontSize="xs" color={textColor} mb={1}>Fyodor Dostoevsky</Text>
                       <Text fontSize="md" color="#FFD600" mb={1}>★★★★☆</Text>
                       <Text fontSize="xs" color={textColor}>
-                        This one is messy , in a good way. The narrator frustrates you, but you also feel him. It's a book that reminded me how irrational i am beneath my polished choices.
+                        This one is messy , in a good way. The narrator frustrates you, but you also feel him. It&apos;s a book that reminded me how irrational i am beneath my polished choices.
                       </Text>
                     </Box>
                     {/* Book 11 - The Design of Everyday Things (2 stars) */}
