@@ -327,6 +327,34 @@ const Blog = () => {
   // Helper: sleep for ms
   function sleep(ms) { return new Promise(res => setTimeout(res, ms)); }
 
+  // BookReviewCard component for compact book review tiles
+  function BookReviewCard({ title, author, rating, review, color }) {
+    const textColor = useColorModeValue('#222', '#fff');
+    return (
+      <Box
+        bg="rgba(255,255,255,0.13)"
+        borderRadius="2xl"
+        boxShadow="0 4px 24px 0 rgba(0,0,0,0.10)"
+        p={4}
+        minH={"140px"}
+        display="flex"
+        flexDirection="column"
+        alignItems="flex-start"
+        justifyContent="center"
+        border="1px solid rgba(255,255,255,0.18)"
+        backdropFilter="blur(8px)"
+        style={{ WebkitBackdropFilter: 'blur(8px)' }}
+        transition="box-shadow 0.3s"
+        _hover={{ boxShadow: `0 8px 32px 0 ${color || 'rgba(137,239,140,0.18)'}` }}
+      >
+        <Text fontWeight="bold" fontSize="md" color={textColor} mb={1}>{title}</Text>
+        <Text fontSize="xs" color={textColor} mb={1}>{author}</Text>
+        <Text fontSize="md" color="#FFD600" mb={1}>{rating}</Text>
+        <Text fontSize="xs" color={textColor}>{review}</Text>
+      </Box>
+    );
+  }
+
   return (
     <Layout>
       <Box minH="100vh" py={0}>
@@ -437,7 +465,7 @@ const Blog = () => {
                     fontFamily="'Archivo Black', 'Space Grotesk', sans-serif"
                     textShadow="0 2px 16px #000, 0 0px 2px #7bb6ff"
                   >
-                    🚀 NASA Astronomy Picture of the Day
+                    NASA Astronomy Picture of the Day
                   </Text>
                   <Text
                     fontSize={{ base: 'md', md: 'xl' }}
@@ -473,270 +501,76 @@ const Blog = () => {
                 <Box fontWeight="bold" fontSize="2xl" mb={4} color={textColor}>Book Reviews</Box>
                 <Box as={"div"}>
                   <Box display="grid" gridTemplateColumns={{ base: '1fr', sm: '1fr 1fr', md: '1fr 1fr 1fr' }} gap={4}>
-                    {/* Book 1 */}
-                    <Box
-                      bg="rgba(255,255,255,0.13)"
-                      borderRadius="2xl"
-                      boxShadow="0 4px 24px 0 rgba(0,0,0,0.10)"
-                      p={4}
-                      minH={"140px"}
-                      display="flex"
-                      flexDirection="column"
-                      alignItems="flex-start"
-                      justifyContent="center"
-                      border="1px solid rgba(255,255,255,0.18)"
-                      backdropFilter="blur(8px)"
-                      style={{ WebkitBackdropFilter: 'blur(8px)' }}
-                      transition="box-shadow 0.3s"
-                      _hover={{ boxShadow: '0 8px 32px 0 rgba(137,239,140,0.18)' }}
-                    >
-                      <Text fontWeight="bold" fontSize="md" color={textColor} mb={1}>The Design of Everyday Things</Text>
-                      <Text fontSize="xs" color={textColor} mb={1}>Don Norman</Text>
-                      <Text fontSize="md" color="#FFD600" mb={1}>★★★★★</Text>
-                      <Text fontSize="xs" color={textColor}>
-                        A must-read for every designer. I saw every switch, button, and app differently after this. It gave language to things I always felt but couldn&apos;t explain.
-                      </Text>
-                    </Box>
-                    {/* Book 2 */}
-                    <Box
-                      bg="rgba(255,255,255,0.13)"
-                      borderRadius="2xl"
-                      boxShadow="0 4px 24px 0 rgba(0,0,0,0.10)"
-                      p={4}
-                      minH={"140px"}
-                      display="flex"
-                      flexDirection="column"
-                      alignItems="flex-start"
-                      justifyContent="center"
-                      border="1px solid rgba(255,255,255,0.18)"
-                      backdropFilter="blur(8px)"
-                      style={{ WebkitBackdropFilter: 'blur(8px)' }}
-                      transition="box-shadow 0.3s"
-                      _hover={{ boxShadow: '0 8px 32px 0 rgba(137,239,140,0.18)' }}
-                    >
-                      <Text fontWeight="bold" fontSize="md" color={textColor} mb={1}>Influence</Text>
-                      <Text fontSize="xs" color={textColor} mb={1}>Robert Cialdini</Text>
-                      <Text fontSize="md" color="#FFD600" mb={1}>★★★★☆</Text>
-                      <Text fontSize="xs" color={textColor}>
-                        Sharpened my awareness, now I spot persuasion tactics everywhere. Super practical and scary real.
-                      </Text>
-                    </Box>
-                    {/* Book 3 */}
-                    <Box
-                      bg="rgba(255,255,255,0.13)"
-                      borderRadius="2xl"
-                      boxShadow="0 4px 24px 0 rgba(0,0,0,0.10)"
-                      p={4}
-                      minH={"140px"}
-                      display="flex"
-                      flexDirection="column"
-                      alignItems="flex-start"
-                      justifyContent="center"
-                      border="1px solid rgba(255,255,255,0.18)"
-                      backdropFilter="blur(8px)"
-                      style={{ WebkitBackdropFilter: 'blur(8px)' }}
-                      transition="box-shadow 0.3s"
-                      _hover={{ boxShadow: '0 8px 32px 0 rgba(137,239,140,0.18)' }}
-                    >
-                      <Text fontWeight="bold" fontSize="md" color={textColor} mb={1}>How Google Works</Text>
-                      <Text fontSize="xs" color={textColor} mb={1}>Eric Schmidt & Jonathan Rosenberg</Text>
-                      <Text fontSize="md" color="#FFD600" mb={1}>★★★☆☆</Text>
-                      <Text fontSize="xs" color={textColor}>
-                        Feels a bit polished , like the official &quot;Google tour&quot;, Some good insights on culture and hiring, but felt a bit like a PR piece in parts. Still useful if you&apos;re into org-building.
-                      </Text>
-                    </Box>
-                    {/* Book 4 */}
-                    <Box
-                      bg="rgba(255,255,255,0.13)"
-                      borderRadius="2xl"
-                      boxShadow="0 4px 24px 0 rgba(0,0,0,0.10)"
-                      p={4}
-                      minH={"140px"}
-                      display="flex"
-                      flexDirection="column"
-                      alignItems="flex-start"
-                      justifyContent="center"
-                      border="1px solid rgba(255,255,255,0.18)"
-                      backdropFilter="blur(8px)"
-                      style={{ WebkitBackdropFilter: 'blur(8px)' }}
-                      transition="box-shadow 0.3s"
-                      _hover={{ boxShadow: '0 8px 32px 0 rgba(137,239,140,0.18)' }}
-                    >
-                      <Text fontWeight="bold" fontSize="md" color={textColor} mb={1}>Console Wars</Text>
-                      <Text fontSize="xs" color={textColor} mb={1}>Blake J. Harris</Text>
-                      <Text fontSize="md" color="#FFD600" mb={1}>★★★★☆</Text>
-                      <Text fontSize="xs" color={textColor}>
-                        Surprisingly cinematic. Loved the pace and drama. Showed how storytelling and tech shaped a whole generation of gamers.
-                      </Text>
-                    </Box>
-                    {/* Book 5 - Hindi */}
-                    <Box
-                      bg="rgba(255,255,255,0.13)"
-                      borderRadius="2xl"
-                      boxShadow="0 4px 24px 0 rgba(0,0,0,0.10)"
-                      p={4}
-                      minH={"140px"}
-                      display="flex"
-                      flexDirection="column"
-                      alignItems="flex-start"
-                      justifyContent="center"
-                      border="1px solid rgba(255,255,255,0.18)"
-                      backdropFilter="blur(8px)"
-                      style={{ WebkitBackdropFilter: 'blur(8px)' }}
-                      transition="box-shadow 0.3s"
-                      _hover={{ boxShadow: '0 8px 32px 0 rgba(137,239,140,0.18)' }}
-                    >
-                      <Text fontWeight="bold" fontSize="md" color={textColor} mb={1}>सारा आकाश</Text>
-                      <Text fontSize="xs" color={textColor} mb={1}>राजेंद्र यादव</Text>
-                      <Text fontSize="md" color="#FFD600" mb={1}>★★★☆☆</Text>
-                      <Text fontSize="xs" color={textColor}>
-                        किताब पढ़ते-पढ़ते यही लगा कि ये बहुत पुराने दौर की बात है। सोच, व्यवहार, सब कुछ इतना अलग था,  उसने तो सिर्फ़ 12वीं ही पास की थी। जो फैसले उसने लिए, जो ग़लतियाँ कीं, वो बचपना लगती हैं… लेकिन शायद ज़िंदगी ऐसे ही चलती है।
-                      </Text>
-                    </Box>
-                    {/* Book 6 - Console Wars (new review) */}
-                    <Box
-                      bg="rgba(255,255,255,0.13)"
-                      borderRadius="2xl"
-                      boxShadow="0 4px 24px 0 rgba(0,0,0,0.10)"
-                      p={4}
-                      minH={"140px"}
-                      display="flex"
-                      flexDirection="column"
-                      alignItems="flex-start"
-                      justifyContent="center"
-                      border="1px solid rgba(255,255,255,0.18)"
-                      backdropFilter="blur(8px)"
-                      style={{ WebkitBackdropFilter: 'blur(8px)' }}
-                      transition="box-shadow 0.3s"
-                      _hover={{ boxShadow: '0 8px 32px 0 rgba(137,239,140,0.18)' }}
-                    >
-                      <Text fontWeight="bold" fontSize="md" color={textColor} mb={1}>Console Wars</Text>
-                      <Text fontSize="xs" color={textColor} mb={1}>Blake J. Harris</Text>
-                      <Text fontSize="md" color="#FFD600" mb={1}>★★★★☆</Text>
-                      <Text fontSize="xs" color={textColor}>
-                        Awesome and a must for those who know what is 6502. I mean, it&apos;s a long way from William Higinbotham to today&apos;s advanced game industry. And now here we are, waiting for GTA 6.
-                      </Text>
-                    </Box>
-                    {/* Book 7 - The Brothers Karamazov */}
-                    <Box
-                      bg="rgba(255,255,255,0.13)"
-                      borderRadius="2xl"
-                      boxShadow="0 4px 24px 0 rgba(0,0,0,0.10)"
-                      p={4}
-                      minH={"140px"}
-                      display="flex"
-                      flexDirection="column"
-                      alignItems="flex-start"
-                      justifyContent="center"
-                      border="1px solid rgba(255,255,255,0.18)"
-                      backdropFilter="blur(8px)"
-                      style={{ WebkitBackdropFilter: 'blur(8px)' }}
-                      transition="box-shadow 0.3s"
-                      _hover={{ boxShadow: '0 8px 32px 0 rgba(137,239,140,0.18)' }}
-                    >
-                      <Text fontWeight="bold" fontSize="md" color={textColor} mb={1}>The Brothers Karamazov</Text>
-                      <Text fontSize="xs" color={textColor} mb={1}>Fyodor Dostoevsky</Text>
-                      <Text fontSize="md" color="#FFD600" mb={1}>★★★★☆</Text>
-                      <Text fontSize="xs" color={textColor}>
-                        Big, philosophical, and layered. Took effort, but worth it. The courtroom scenes and Ivan&apos;s rebellion stay with you.
-                      </Text>
-                    </Box>
-                    {/* Book 8 - Crime and Punishment */}
-                    <Box
-                      bg="rgba(255,255,255,0.13)"
-                      borderRadius="2xl"
-                      boxShadow="0 4px 24px 0 rgba(0,0,0,0.10)"
-                      p={4}
-                      minH={"140px"}
-                      display="flex"
-                      flexDirection="column"
-                      alignItems="flex-start"
-                      justifyContent="center"
-                      border="1px solid rgba(255,255,255,0.18)"
-                      backdropFilter="blur(8px)"
-                      style={{ WebkitBackdropFilter: 'blur(8px)' }}
-                      transition="box-shadow 0.3s"
-                      _hover={{ boxShadow: '0 8px 32px 0 rgba(137,239,140,0.18)' }}
-                    >
-                      <Text fontWeight="bold" fontSize="md" color={textColor} mb={1}>Crime and Punishment</Text>
-                      <Text fontSize="xs" color={textColor} mb={1}>Fyodor Dostoevsky</Text>
-                      <Text fontSize="md" color="#FFD600" mb={1}>★★★★★</Text>
-                      <Text fontSize="xs" color={textColor}>
-                        Intense and psychological. I read it almost like a thriller. Raskolnikov&apos;s torment felt personal like a mirror in moments of guilt.
-                      </Text>
-                    </Box>
-                    {/* Book 9 - The Idiot */}
-                    <Box
-                      bg="rgba(255,255,255,0.13)"
-                      borderRadius="2xl"
-                      boxShadow="0 4px 24px 0 rgba(0,0,0,0.10)"
-                      p={4}
-                      minH={"140px"}
-                      display="flex"
-                      flexDirection="column"
-                      alignItems="flex-start"
-                      justifyContent="center"
-                      border="1px solid rgba(255,255,255,0.18)"
-                      backdropFilter="blur(8px)"
-                      style={{ WebkitBackdropFilter: 'blur(8px)' }}
-                      transition="box-shadow 0.3s"
-                      _hover={{ boxShadow: '0 8px 32px 0 rgba(137,239,140,0.18)' }}
-                    >
-                      <Text fontWeight="bold" fontSize="md" color={textColor} mb={1}>The Idiot</Text>
-                      <Text fontSize="xs" color={textColor} mb={1}>Fyodor Dostoevsky</Text>
-                      <Text fontSize="md" color="#FFD600" mb={1}>★★★★★</Text>
-                      <Text fontSize="xs" color={textColor}>
-                        Prince Myshkin broke my heart. His purity in a corrupt world felt like watching a flower trampled in slow motion. Deeply human and unforgettable.
-                      </Text>
-                    </Box>
-                    {/* Book 10 - Notes from Underground */}
-                    <Box
-                      bg="rgba(255,255,255,0.13)"
-                      borderRadius="2xl"
-                      boxShadow="0 4px 24px 0 rgba(0,0,0,0.10)"
-                      p={4}
-                      minH={"140px"}
-                      display="flex"
-                      flexDirection="column"
-                      alignItems="flex-start"
-                      justifyContent="center"
-                      border="1px solid rgba(255,255,255,0.18)"
-                      backdropFilter="blur(8px)"
-                      style={{ WebkitBackdropFilter: 'blur(8px)' }}
-                      transition="box-shadow 0.3s"
-                      _hover={{ boxShadow: '0 8px 32px 0 rgba(137,239,140,0.18)' }}
-                    >
-                      <Text fontWeight="bold" fontSize="md" color={textColor} mb={1}>Notes from Underground</Text>
-                      <Text fontSize="xs" color={textColor} mb={1}>Fyodor Dostoevsky</Text>
-                      <Text fontSize="md" color="#FFD600" mb={1}>★★★★☆</Text>
-                      <Text fontSize="xs" color={textColor}>
-                        This one is messy , in a good way. The narrator frustrates you, but you also feel him. It&apos;s a book that reminded me how irrational i am beneath my polished choices.
-                      </Text>
-                    </Box>
-                    {/* Book 11 - The Design of Everyday Things (2 stars) */}
-                    <Box
-                      bg="rgba(255,255,255,0.13)"
-                      borderRadius="2xl"
-                      boxShadow="0 4px 24px 0 rgba(0,0,0,0.10)"
-                      p={4}
-                      minH={"140px"}
-                      display="flex"
-                      flexDirection="column"
-                      alignItems="flex-start"
-                      justifyContent="center"
-                      border="1px solid rgba(255,255,255,0.18)"
-                      backdropFilter="blur(8px)"
-                      style={{ WebkitBackdropFilter: 'blur(8px)' }}
-                      transition="box-shadow 0.3s"
-                      _hover={{ boxShadow: '0 8px 32px 0 rgba(137,239,140,0.18)' }}
-                    >
-                      <Text fontWeight="bold" fontSize="md" color={textColor} mb={1}>The Design of Everyday Things</Text>
-                      <Text fontSize="xs" color={textColor} mb={1}>Don Norman</Text>
-                      <Text fontSize="md" color="#FFD600" mb={1}>★★☆☆☆</Text>
-                      <Text fontSize="xs" color={textColor}>
-                        Not what i was expecting, overall a good read. 
-                      </Text>
-                    </Box>
+                    <BookReviewCard
+                      title="Influence"
+                      author="Robert Cialdini"
+                      rating="★★★★☆"
+                      review="Sharpened my awareness, now I spot persuasion tactics everywhere. Super practical and scary real."
+                      color={pinkLine}
+                    />
+                    <BookReviewCard
+                      title="How Google Works"
+                      author="Eric Schmidt & Jonathan Rosenberg"
+                      rating="★★★☆☆"
+                      review="Feels a bit polished , like the official 'Google tour', Some good insights on culture and hiring, but felt a bit like a PR piece in parts. Still useful if you're into org-building."
+                      color={pinkLine}
+                    />
+                    <BookReviewCard
+                      title="Console Wars"
+                      author="Blake J. Harris"
+                      rating="★★★★☆"
+                      review="Surprisingly cinematic. Loved the pace and drama. Showed how storytelling and tech shaped a whole generation of gamers."
+                      color={pinkLine}
+                    />
+                    <BookReviewCard
+                      title="सारा आकाश"
+                      author="राजेंद्र यादव"
+                      rating="★★★☆☆"
+                      review="किताब पढ़ते-पढ़ते यही लगा कि ये बहुत पुराने दौर की बात है। सोच, व्यवहार, सब कुछ इतना अलग था,  उसने तो सिर्फ़ 12वीं ही पास की थी। जो फैसले उसने लिए, जो ग़लतियाँ कीं, वो बचपना लगती हैं… लेकिन शायद ज़िंदगी ऐसे ही चलती है।"
+                      color={pinkLine}
+                    />
+                    <BookReviewCard
+                      title="Console Wars"
+                      author="Blake J. Harris"
+                      rating="★★★★☆"
+                      review="Awesome and a must for those who know what is 6502. I mean, it's a long way from William Higinbotham to today's advanced game industry. And now here we are, waiting for GTA 6."
+                      color={pinkLine}
+                    />
+                    <BookReviewCard
+                      title="The Brothers Karamazov"
+                      author="Fyodor Dostoevsky"
+                      rating="★★★★☆"
+                      review="Big, philosophical, and layered. Took effort, but worth it. The courtroom scenes and Ivan's rebellion stay with you."
+                      color={pinkLine}
+                    />
+                    <BookReviewCard
+                      title="Crime and Punishment"
+                      author="Fyodor Dostoevsky"
+                      rating="★★★★★"
+                      review="Intense and psychological. I read it almost like a thriller. Raskolnikov's torment felt personal like a mirror in moments of guilt."
+                      color={pinkLine}
+                    />
+                    <BookReviewCard
+                      title="The Idiot"
+                      author="Fyodor Dostoevsky"
+                      rating="★★★★★"
+                      review="Prince Myshkin broke my heart. His purity in a corrupt world felt like watching a flower trampled in slow motion. Deeply human and unforgettable."
+                      color={pinkLine}
+                    />
+                    <BookReviewCard
+                      title="Notes from Underground"
+                      author="Fyodor Dostoevsky"
+                      rating="★★★★☆"
+                      review="This one is messy , in a good way. The narrator frustrates you, but you also feel him. It's a book that reminded me how irrational i am beneath my polished choices."
+                      color={pinkLine}
+                    />
+                    <BookReviewCard
+                      title="The Design of Everyday Things"
+                      author="Don Norman"
+                      rating="★★☆☆☆"
+                      review="Not what i was expecting, overall a good read."
+                      color={pinkLine}
+                    />
                   </Box>
                 </Box>
               </Box>
