@@ -137,39 +137,134 @@ const SKILL_ICONS = {
 }
 
 function AnimatedIntro() {
-  const text = "My name is Mukil Kumar. I am a Creative Technologist and Interaction Design student living in Mumbai, currently pursuing my Masters at IIT Bombay. I craft playful, human-centered experiences at the intersection of design, technology, and art—making ideas tangible, delightful, and meaningful."
-  const blockRef = useRef(null)
+  const { colorMode } = useColorMode();
+  const lines = [
+    "I am a Creative Technologist and Interaction Design student living in Mumbai, currently pursuing my Masters at IIT Bombay.",
+    "I craft playful, human-centered experiences at the intersection of design, technology, and art making ideas tangible, delightful, and meaningful."
+  ];
+  const lineRefs = useRef([]);
 
   useEffect(() => {
-    if (blockRef.current) {
-      gsap.fromTo(
-        blockRef.current,
-        { opacity: 0, x: -40, scale: 0.95 },
-        {
-          opacity: 1,
-          x: 0,
-          scale: 1,
-          duration: 1.2,
-          ease: 'power3.out',
-        }
-      )
-    }
-  }, [])
+    if (!lineRefs.current) return;
+    gsap.set(lineRefs.current, { opacity: 0, y: 40, scale: 0.96 });
+    gsap.to(lineRefs.current, {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      duration: 1.1,
+      stagger: 0.38,
+      ease: "back.out(1.7)"
+    });
+  }, []);
 
   return (
-    <Text
-      ref={blockRef}
-      variant="home-txt"
-      fontSize="xl"
-      fontWeight={200}
-      mt={6}
-      mb={6}
-      lineHeight={1.7}
-      fontFamily="'Space Grotesk', 'Inter', 'sans-serif'"
-    >
-      {text}
-    </Text>
-  )
+    <Box mt={6} mb={6}>
+      {lines.map((line, i) => (
+        <Text
+          ref={el => lineRefs.current[i] = el}
+          key={i}
+          variant="home-txt"
+          fontSize="xl"
+          fontWeight={200}
+          lineHeight={1.7}
+          fontFamily="'Space Grotesk', 'Inter', 'sans-serif'"
+          color={colorMode === 'dark' ? '#fff' : '#1a2340'}
+          mb={i === lines.length - 1 ? 0 : 1}
+          style={{
+            transition: 'all 0.4s cubic-bezier(.4,2,.3,1)'
+          }}
+        >
+          {line}
+        </Text>
+      ))}
+    </Box>
+  );
+}
+
+function AnimatedJourney() {
+  const journeyRefs = useRef([]);
+
+  useEffect(() => {
+    journeyRefs.current.forEach((el, i) => {
+      if (el) {
+        gsap.fromTo(
+          el,
+          { opacity: 0, y: 40, scale: 0.96 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.8,
+            delay: i * 0.18,
+            ease: 'back.out(1.7)',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 80%',
+              toggleActions: 'play none none reverse',
+            }
+          }
+        );
+      }
+    });
+    return () => {
+      if (window.ScrollTrigger) window.ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
+  }, []);
+
+  const journeyData = [
+    {
+      badge: { color: 'blue', text: '2024 - Present' },
+      title: 'Master of Design',
+      org: 'IDC School of Design, IIT Bombay',
+      desc: 'Specializing in Interaction Design',
+    },
+    {
+      badge: { color: 'green', text: '2022 - 2023' },
+      title: 'Creative Design Intern',
+      org: 'e-Yantra, IIT Bombay',
+      desc: 'Designed and developed a multipurpose drone system with interactive interfaces',
+    },
+    {
+      badge: { color: 'purple', text: '2022' },
+      title: 'Product Design Intern',
+      org: 'Digital Ink, Delhi',
+      desc: 'User experience and interface design',
+    },
+    {
+      badge: { color: 'orange', text: '2019 - 2023' },
+      title: 'B.Tech in Electronics & Communication',
+      org: 'IET Lucknow',
+      desc: 'Graduated with First Class Honors',
+    },
+  ];
+
+  return (
+    <VStack align="stretch" spacing={0} position="relative" zIndex={1}>
+      {journeyData.map((item, i) => (
+        <JourneyItem
+          key={i}
+          ref={el => journeyRefs.current[i] = el}
+          boxShadow="none"
+          bg="transparent"
+          transition="box-shadow 0.3s, background 0.3s"
+          position="relative"
+        >
+          <Badge colorScheme={item.badge.color} mb={2}>{item.badge.text}</Badge>
+          <Heading fontSize="xl" fontWeight="bold"
+            _hover={{
+              textDecoration: 'underline',
+              textDecorationColor: '#89EF8C',
+              textDecorationThickness: '2px',
+              textUnderlineOffset: '4px',
+              transition: 'all 0.3s ease'
+            }}
+          >{item.title}</Heading>
+          <Text fontSize="md" color="#90cdf4">{item.org}</Text>
+          <Text fontSize="sm" mt={2}>{item.desc}</Text>
+        </JourneyItem>
+      ))}
+    </VStack>
+  );
 }
 
 const Home = () => {
@@ -420,7 +515,6 @@ const Home = () => {
               <GridItem w='100%'>
                 <Section delay={0.3}>
                   <AnimatedIntro />
-
                   <Heading fontSize="4xl" fontWeight="hairline" mt={12} mb={6}
                     _hover={{ 
                       textDecoration: 'underline',
@@ -430,70 +524,9 @@ const Home = () => {
                       transition: 'all 0.3s ease'
                     }}
                   >
-                  My Journey
-                </Heading>
-
-                  <VStack align="stretch" spacing={0}>
-                      <JourneyItem 
-                        ref={el => journeyRefs.current[0] = el}
-                      >
-                      <Badge colorScheme="blue" mb={2}>2024 - Present</Badge>
-                        <Heading fontSize="xl" fontWeight="bold"
-                          _hover={{ 
-                            textDecoration: 'underline',
-                            textDecorationColor: '#89EF8C',
-                            textDecorationThickness: '2px',
-                            textUnderlineOffset: '4px',
-                            transition: 'all 0.3s ease'
-                          }}
-                        >Master of Design</Heading>
-                        <Text fontSize="md" color="#90cdf4">IDC School of Design, IIT Bombay</Text>
-                      <Text fontSize="sm" mt={2}>Specializing in Interaction Design</Text>
-                    </JourneyItem>
-
-                      <JourneyItem 
-                        ref={el => journeyRefs.current[1] = el}
-                      >
-                      <Badge colorScheme="green" mb={2}>2022 - 2023</Badge>
-                        <Heading fontSize="xl" fontWeight="bold"
-                          _hover={{ 
-                            textDecoration: 'underline',
-                            textDecorationColor: '#89EF8C',
-                            textDecorationThickness: '2px',
-                            textUnderlineOffset: '4px',
-                            transition: 'all 0.3s ease'
-                          }}
-                        >Creative Design Intern</Heading>
-                        <Text fontSize="md" color="#90cdf4">e-Yantra, IIT Bombay</Text>
-                      <Text fontSize="sm" mt={2}>Designed and developed a multipurpose drone system with interactive interfaces</Text>
-                    </JourneyItem>
-
-                      <JourneyItem 
-                        ref={el => journeyRefs.current[2] = el}
-                      >
-                      <Badge colorScheme="purple" mb={2}>2022</Badge>
-                        <Heading fontSize="xl" fontWeight="bold"
-                          _hover={{ 
-                            textDecoration: 'underline',
-                            textDecorationColor: '#89EF8C',
-                            textDecorationThickness: '2px',
-                            textUnderlineOffset: '4px',
-                            transition: 'all 0.3s ease'
-                          }}
-                        >Product Design Intern</Heading>
-                        <Text fontSize="md" color="#90cdf4">Digital Ink, Delhi</Text>
-                      <Text fontSize="sm" mt={2}>User experience and interface design</Text>
-                    </JourneyItem>
-
-                      <JourneyItem 
-                        ref={el => journeyRefs.current[3] = el}
-                      >
-                      <Badge colorScheme="orange" mb={2}>2019 - 2023</Badge>
-                      <Heading fontSize="xl" fontWeight="bold">B.Tech in Electronics & Communication</Heading>
-                        <Text fontSize="md" color="#90cdf4">IET Lucknow</Text>
-                      <Text fontSize="sm" mt={2}>Graduated with First Class Honors</Text>
-                    </JourneyItem>
-                  </VStack>
+                    My Journey
+                  </Heading>
+                  <AnimatedJourney />
                 </Section>
               </GridItem>
             </Grid>
