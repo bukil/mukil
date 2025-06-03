@@ -32,6 +32,48 @@ const FooterLand = () => {
         left="0"
         overflow="hidden"
       >
+        {/* Parallax cloud, render first for lowest stacking */}
+        <Box
+          position="absolute"
+          right="-220px"
+          bottom="70px"
+          width="220px"
+          height="90px"
+          backgroundImage="url('/cloud1.png')"
+          backgroundSize="contain"
+          backgroundRepeat="no-repeat"
+          backgroundPosition="center"
+          zIndex={1}
+          opacity={0.8}
+          sx={{
+            animation: 'cloudParallax 45s linear infinite',
+            '@keyframes cloudParallax': {
+              '0%': { right: '-220px' },
+              '100%': { right: 'calc(100vw + 220px)' }
+            }
+          }}
+        />
+        {/* Second, faster cloud */}
+        <Box
+          position="absolute"
+          right="-200px"
+          bottom="85px"
+          width="200px"
+          height="90px"
+          backgroundImage="url('/cloud2.png')"
+          backgroundSize="contain"
+          backgroundRepeat="no-repeat"
+          backgroundPosition="center"
+          zIndex={1}
+          opacity={1}
+          sx={{
+            animation: 'cloud2Parallax 25s linear infinite',
+            '@keyframes cloud2Parallax': {
+              '0%': { right: '-200px' },
+              '100%': { right: 'calc(100vw + 200px)' }
+            }
+          }}
+        />
         <Box
           position="absolute"
           width="8000px"
@@ -39,6 +81,7 @@ const FooterLand = () => {
           bottom="0"
           left="0"
           display="flex"
+          zIndex={5}
           sx={{
             animation: 'scrollLand 20s linear infinite',
             '@keyframes scrollLand': {
