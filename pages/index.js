@@ -571,7 +571,7 @@ const Home = () => {
                   <>
                     {/* SKILLS section: all tabs highlighted by default on mobile */}
                     <Box display="flex" flexWrap="wrap" gap={6} mb={10}>
-                      {SKILLS.map((skill, idx) => (
+                      {SKILLS.map((skill) => (
                         <Box
                           key={skill}
                           fontSize="sm"
