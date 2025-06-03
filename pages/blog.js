@@ -516,13 +516,6 @@ const Blog = () => {
                       color={pinkLine}
                     />
                     <BookReviewCard
-                      title="Console Wars"
-                      author="Blake J. Harris"
-                      rating="★★★★☆"
-                      review="Surprisingly cinematic. Loved the pace and drama. Showed how storytelling and tech shaped a whole generation of gamers."
-                      color={pinkLine}
-                    />
-                    <BookReviewCard
                       title="सारा आकाश"
                       author="राजेंद्र यादव"
                       rating="★★★☆☆"
