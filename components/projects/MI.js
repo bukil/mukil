@@ -4,6 +4,93 @@ import StandardModal from '../ui/Modal';
 import gsap from 'gsap';
 import Head from 'next/head';
 
+function MaterialYouBlobAnimation({ colorMode }) {
+  const canvasRef = useRef(null);
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let dpr = window.devicePixelRatio || 1;
+    let width = 320, height = 480;
+    function setCanvasSize() {
+      dpr = window.devicePixelRatio || 1;
+      width = canvas.offsetWidth;
+      height = canvas.offsetHeight;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.scale(dpr, dpr);
+    }
+    setCanvasSize();
+    // 3D sphere animation
+    const sphereColors = colorMode === 'light'
+      ? ['#89EF8C', '#00aaff', '#a259ff']
+      : ['#222', '#fff', '#00aaff'];
+    const shadowColors = colorMode === 'light'
+      ? ['rgba(137,239,140,0.18)', 'rgba(0,170,255,0.18)', 'rgba(162,89,255,0.18)']
+      : ['rgba(34,34,34,0.18)', 'rgba(255,255,255,0.18)', 'rgba(0,170,255,0.18)'];
+    let t = 0;
+    function project3D(x, y, z) {
+      // Simple perspective projection
+      const fov = 420;
+      const scale = fov / (fov + z);
+      return [width/2 + x * scale, height/2 + y * scale, scale];
+    }
+    function draw() {
+      ctx.clearRect(0, 0, width, height);
+      // Animate 3 spheres in 3D orbits
+      for (let i = 0; i < 3; i++) {
+        // 3D orbital motion
+        const angle = t + i * (Math.PI * 2 / 3);
+        const x3d = Math.cos(angle) * 70;
+        const y3d = Math.sin(angle * 0.7) * 70;
+        const z3d = Math.sin(angle) * 120;
+        const [x2d, y2d, scale] = project3D(x3d, y3d, z3d);
+        const r = 54 * scale;
+        // Draw soft shadow
+        ctx.save();
+        ctx.globalAlpha = 0.5 * scale;
+        ctx.beginPath();
+        ctx.ellipse(x2d, y2d + r * 0.7, r * 0.9, r * 0.25, 0, 0, Math.PI * 2);
+        ctx.fillStyle = shadowColors[i];
+        ctx.filter = 'blur(12px)';
+        ctx.fill();
+        ctx.restore();
+        // Draw sphere with radial gradient
+        const grad = ctx.createRadialGradient(x2d - r*0.25, y2d - r*0.25, r*0.2, x2d, y2d, r);
+        grad.addColorStop(0, '#fff');
+        grad.addColorStop(0.25, sphereColors[i]);
+        grad.addColorStop(1, colorMode === 'light' ? '#fff0' : '#2228');
+        ctx.save();
+        ctx.globalAlpha = 0.92;
+        ctx.beginPath();
+        ctx.arc(x2d, y2d, r, 0, Math.PI * 2);
+        ctx.fillStyle = grad;
+        ctx.shadowColor = sphereColors[i];
+        ctx.shadowBlur = 24 * scale;
+        ctx.fill();
+        ctx.restore();
+      }
+      t += 0.012;
+      requestAnimationFrame(draw);
+    }
+    let animId = requestAnimationFrame(draw);
+    window.addEventListener('resize', setCanvasSize);
+    return () => {
+      cancelAnimationFrame(animId);
+      window.removeEventListener('resize', setCanvasSize);
+    };
+  }, [colorMode]);
+  return (
+    <Box w="100%" h="100%" position="absolute" top={0} left={0} zIndex={1}>
+      <canvas
+        ref={canvasRef}
+        style={{ width: '100%', height: '100%', display: 'block', borderRadius: 32 }}
+      />
+    </Box>
+  );
+}
+
 const MicrointeractionModal = ({ isOpen, onClose }) => {
   const demoRef = useRef(null);
   const textRef = useRef([]);
@@ -184,11 +271,7 @@ const MicrointeractionModal = ({ isOpen, onClose }) => {
                 WebkitBackdropFilter: 'blur(12px)',
               }}
             >
-              <Box ref={demoRef} display="inline-block" p={4} borderRadius="full" bg={colorMode === 'light' ? 'orange.100' : 'orange.700'} boxShadow="lg" mt={4}>
-                <Button colorScheme="orange" size="md">
-                  Try Me
-                </Button>
-              </Box>
+              <MaterialYouBlobAnimation colorMode={colorMode} />
             </Box>
             {/* Home indicator */}
             <Box
@@ -212,4 +295,5 @@ const MicrointeractionModal = ({ isOpen, onClose }) => {
   );
 };
 
-export default MicrointeractionModal; 
+export default MicrointeractionModal;
+export { MaterialYouBlobAnimation }; 

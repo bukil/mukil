@@ -10,6 +10,8 @@ import gsap from 'gsap'
 import KodeboardModal from '../components/projects/Kodeboard'
 import Head from 'next/head'
 import MicrointeractionModal from '../components/projects/MI'
+import { MaterialYouBlobAnimation } from '../components/projects/MI'
+import React from 'react'
 
 // Styled components
 const Trans = styled.span`
@@ -184,7 +186,7 @@ const ProjectPanel = ({
             top: "35%",
             transform: "translate(-50%, -50%)"
           }}
-          zIndex="0"
+          zIndex={2}
           letterSpacing="normal"
           lineHeight="1"
           fontFamily="'BaseNeueTrial', sans-serif"
@@ -219,7 +221,7 @@ const ProjectPanel = ({
         bg="transparent"
         p={3}
         color="white"
-        zIndex="2"
+        zIndex={3}
       >
         <Heading 
           as="h3" 
@@ -264,7 +266,8 @@ const ProjectPanel = ({
           display="flex"
           alignItems="center"
           justifyContent="center"
-          zIndex="3"
+          zIndex={1}
+          pointerEvents="none"
         >
           {customContent}
         </Box>
@@ -280,6 +283,7 @@ function CollapseExtandip() {
   const { isOpen: isEditOpenmd13, onOpen: onEditOpenmd13, onClose: onEditClosemd13 } = useDisclosure()
   const { isOpen: isEditOpenmd15, onOpen: onEditOpenmd15, onClose: onEditClosemd15 } = useDisclosure()
   const { isOpen: isEditOpenmd17, onOpen: onEditOpenmd17, onClose: onEditClosemd17 } = useDisclosure()
+  const { colorMode } = useColorMode()
 
   return (
     <>
@@ -365,12 +369,11 @@ function CollapseExtandip() {
             <ProjectPanel
               title="Microinteraction"
               description="A class assignment exploring the art of microinteractions. Small, meaningful animations and transitions that enhance user experience and bring interfaces to life. 🎨"
-              imageSrc="/mukil/degpt2.png"
-              imageAlt="Microinteraction Class Assignment"
-              gradientColors="radial-gradient(circle at center, rgba(255, 100, 0, 0.7) 0%, rgba(60, 30, 0, 0.98) 100%)"
-              hoverGradientColors="radial-gradient(circle at center, rgba(255, 150, 0, 0.8) 0%, rgba(80, 40, 0, 0.98) 100%)"
-              accentColor="orange.400"
+              gradientColors="linear-gradient(135deg, #181c3a 0%, #2d1e4f 100%)"
+              hoverGradientColors="linear-gradient(135deg, #2d1e4f 0%, #181c3a 100%)"
+              accentColor="#a259ff"
               onClick={onEditOpenmd15}
+              customContent={<GlowingRollingLandAnimation />}
             />
             <MicrointeractionModal isOpen={isEditOpenmd15} onClose={onEditClosemd15} />
           </Section>
@@ -948,4 +951,103 @@ export {
   DesignSystemPanelElements,
   DesignSystemPanelGridLines,
   DesignSystemPanelGeometric
+}
+
+function GlowingRollingLandAnimation() {
+  const canvasRef = useRef(null);
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let dpr = window.devicePixelRatio || 1;
+    let width = 400, height = 400;
+    function setCanvasSize() {
+      dpr = window.devicePixelRatio || 1;
+      width = canvas.offsetWidth;
+      height = canvas.offsetHeight;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+      ctx.scale(dpr, dpr);
+    }
+    setCanvasSize();
+    let t = 0;
+    function draw() {
+      ctx.clearRect(0, 0, width, height);
+      // Draw glowing horizon
+      const horizonY = height * 0.68;
+      const grad = ctx.createLinearGradient(0, horizonY-40, 0, horizonY+60);
+      grad.addColorStop(0, '#a259ff');
+      grad.addColorStop(0.2, '#00aaff');
+      grad.addColorStop(0.5, '#181c3a');
+      grad.addColorStop(1, '#181c3a');
+      ctx.save();
+      ctx.globalAlpha = 0.85;
+      ctx.beginPath();
+      ctx.moveTo(0, horizonY);
+      // Rolling land (undulating sine wave, animated)
+      for (let x = 0; x <= width; x += 2) {
+        const y = horizonY + Math.sin((x/width)*Math.PI*2*2 + t*0.8) * 18
+          + Math.sin((x/width)*Math.PI*4 + t*1.7) * 8
+          + Math.cos((x/width)*Math.PI*1.5 - t*1.2) * 10;
+        ctx.lineTo(x, y);
+      }
+      ctx.lineTo(width, height);
+      ctx.lineTo(0, height);
+      ctx.closePath();
+      ctx.shadowColor = '#a259ff';
+      ctx.shadowBlur = 32;
+      ctx.fillStyle = grad;
+      ctx.fill();
+      ctx.restore();
+      // Horizon glow
+      ctx.save();
+      const glowGrad = ctx.createRadialGradient(width/2, horizonY-18, 12, width/2, horizonY-18, width*0.7);
+      glowGrad.addColorStop(0, 'rgba(137,239,140,0.18)');
+      glowGrad.addColorStop(0.2, 'rgba(0,170,255,0.13)');
+      glowGrad.addColorStop(0.5, 'rgba(162,89,255,0.09)');
+      glowGrad.addColorStop(1, 'rgba(24,28,58,0.01)');
+      ctx.globalAlpha = 0.7;
+      ctx.beginPath();
+      ctx.arc(width/2, horizonY-18, width*0.7, 0, Math.PI*2);
+      ctx.fillStyle = glowGrad;
+      ctx.fill();
+      ctx.restore();
+      // Rolling land lines for parallax effect
+      for (let l = 0; l < 3; l++) {
+        ctx.save();
+        ctx.globalAlpha = 0.18 + l*0.09;
+        ctx.beginPath();
+        ctx.moveTo(0, horizonY + 18 + l*18);
+        for (let x = 0; x <= width; x += 2) {
+          const y = horizonY + 18 + l*18
+            + Math.sin((x/width)*Math.PI*2*2 + t*0.8 + l*0.5) * (12-l*2)
+            + Math.cos((x/width)*Math.PI*1.5 - t*1.2 - l*0.7) * (8-l*2);
+          ctx.lineTo(x, y);
+        }
+        ctx.strokeStyle = l === 0 ? '#00aaff' : l === 1 ? '#a259ff' : '#89EF8C';
+        ctx.lineWidth = 2.2 - l*0.5;
+        ctx.shadowColor = ctx.strokeStyle;
+        ctx.shadowBlur = 12 + l*6;
+        ctx.stroke();
+        ctx.restore();
+      }
+      t += 0.012;
+      requestAnimationFrame(draw);
+    }
+    let animId = requestAnimationFrame(draw);
+    window.addEventListener('resize', setCanvasSize);
+    return () => {
+      cancelAnimationFrame(animId);
+      window.removeEventListener('resize', setCanvasSize);
+    };
+  }, []);
+  return (
+    <Box w="100%" h="100%" position="absolute" top={0} left={0} zIndex={1} pointerEvents="none">
+      <canvas
+        ref={canvasRef}
+        style={{ width: '100%', height: '100%', display: 'block', borderRadius: 32 }}
+      />
+    </Box>
+  );
 }
