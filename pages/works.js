@@ -174,7 +174,7 @@ const ProjectPanel = ({
           top="20%"
           left="50%"
           transform="translate(-50%, -50%)"
-          fontSize="8xl"
+          fontSize="7xl"
           fontWeight="900"
           color="white"
           opacity="0"
@@ -386,7 +386,7 @@ function CollapseExtandip() {
                   customContent={
                     <>
                       <DesignSystemPanelElements colorPalette={["#89EF8C", "#00aaff", "#222", "#fff"]} />
-                      <DesignSystemPanelGridLines colorPalette={["#89EF8C", "#00aaff", "#222", "#fff"]} />
+                      <DesignSystemPanelGridLines />
                       <DesignSystemPanelGeometric colorPalette={["#89EF8C", "#00aaff", "#222", "#fff"]} />
                     </>
                   }
@@ -881,100 +881,64 @@ function DesignSystemPanelGeometric() {
 
 // Add this component at the end of the file:
 function DesignSystemPanelGridLines() {
-  // Animated grid lines with parallax effect, including diagonal lines
-  const hLineRefs = useRef([])
-  const vLineRefs = useRef([])
-  const dLineRefs = useRef([])
-  useEffect(() => {
-    // Parallax: horizontal lines move slower, vertical lines move faster
-    hLineRefs.current.forEach((el, i) => {
-      if (el) {
-        gsap.to(el, {
-          x: i % 2 === 0 ? '+=16' : '-=16',
-          duration: 8 + i * 1.2,
-          repeat: -1,
-          yoyo: true,
-          ease: 'sine.inOut',
+  // Repeated construction pattern: at each grid intersection, draw cross and diagonals
+  const svgW = 320
+  const svgH = 180
+  const gridX = 6 // number of vertical grid lines
+  const gridY = 4 // number of horizontal grid lines
+  const diagAngles = [0, 45, 90, 135] // degrees for cross and diagonals
+  // Calculate grid positions
+  const xs = Array.from({length: gridX}, (_, i) => i * (svgW/(gridX-1)))
+  const ys = Array.from({length: gridY}, (_, i) => i * (svgH/(gridY-1)))
+  // For each intersection, draw cross and diagonals
+  const guides = []
+  xs.forEach((x, xi) => {
+    ys.forEach((y, yi) => {
+      diagAngles.forEach((deg, di) => {
+        const rad = deg * Math.PI / 180
+        const len = 32 // length of each guide line
+        const dx = Math.cos(rad) * len/2
+        const dy = Math.sin(rad) * len/2
+        guides.push({
+          x1: x - dx, y1: y - dy, x2: x + dx, y2: y + dy,
+          center: xi === Math.floor(gridX/2) && yi === Math.floor(gridY/2)
         })
-      }
+      })
     })
-    vLineRefs.current.forEach((el, i) => {
-      if (el) {
-        gsap.to(el, {
-          y: i % 2 === 0 ? '+=12' : '-=12',
-          duration: 5 + i * 1.1,
-          repeat: -1,
-          yoyo: true,
-          ease: 'sine.inOut',
-        })
-      }
-    })
-    dLineRefs.current.forEach((el, i) => {
-      if (el) {
-        gsap.to(el, {
-          x: i % 2 === 0 ? '+=24' : '-=24',
-          y: i % 2 === 1 ? '+=18' : '-=18',
-          rotation: i % 2 === 0 ? '+=2' : '-=2',
-          duration: 10 + i * 1.5,
-          repeat: -1,
-          yoyo: true,
-          ease: 'sine.inOut',
-        })
-      }
-    })
-    return () => {
-      hLineRefs.current.forEach(el => el && gsap.killTweensOf(el))
-      vLineRefs.current.forEach(el => el && gsap.killTweensOf(el))
-      dLineRefs.current.forEach(el => el && gsap.killTweensOf(el))
-    }
-  }, [])
+  })
+  // Center intersection for highlight
+  const cx = xs[Math.floor(gridX/2)]
+  const cy = ys[Math.floor(gridY/2)]
   return (
     <Box position="absolute" top={0} left={0} w="100%" h="100%" zIndex={1} pointerEvents="none">
-      <svg width="100%" height="100%" viewBox="0 0 320 180" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
-        {/* More thin horizontal grid lines */}
-        {[...Array(8)].map((_, i) => (
+      <svg width="100%" height="100%" viewBox={`0 0 ${svgW} ${svgH}`} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
+        {/* Repeated construction guides at each grid intersection */}
+        {guides.map((l, i) => (
           <line
-            key={'h'+i}
-            ref={el => hLineRefs.current[i] = el}
-            x1="0" y1={20 + i*20} x2="320" y2={20 + i*20}
-            stroke="#b3c6d4"
-            strokeWidth="0.7"
-            opacity="0.10"
+            key={i}
+            x1={l.x1} y1={l.y1} x2={l.x2} y2={l.y2}
+            stroke={l.center ? '#89EF8C' : '#b3c6d4'}
+            strokeWidth={l.center ? 1.5 : 0.7}
+            opacity={l.center ? 0.35 : 0.18}
           />
         ))}
-        {/* More thin vertical grid lines */}
-        {[...Array(7)].map((_, i) => (
-          <line
-            key={'v'+i}
-            ref={el => vLineRefs.current[i] = el}
-            x1={30 + i*40} y1="0" x2={30 + i*40} y2="180"
-            stroke="#b3c6d4"
-            strokeWidth="0.7"
-            opacity="0.10"
-          />
-        ))}
-        {/* Diagonal lines ( / direction ) */}
-        {[0,1,2].map(i => (
-          <line
-            key={'d1'+i}
-            ref={el => dLineRefs.current[i] = el}
-            x1={-40 + i*60} y1="0" x2={80 + i*60} y2="180"
-            stroke="#b3c6d4"
-            strokeWidth="0.6"
-            opacity="0.09"
-          />
-        ))}
-        {/* Diagonal lines ( \ direction ) */}
-        {[0,1,2].map(i => (
-          <line
-            key={'d2'+i}
-            ref={el => dLineRefs.current[i+3] = el}
-            x1={80 + i*60} y1="0" x2={-40 + i*60} y2="180"
-            stroke="#b3c6d4"
-            strokeWidth="0.6"
-            opacity="0.09"
-          />
-        ))}
+        {/* Center intersection circle */}
+        <circle
+          cx={cx}
+          cy={cy}
+          r={10}
+          stroke="#89EF8C"
+          strokeWidth={1.2}
+          fill="none"
+          opacity={0.25}
+        />
+        <circle
+          cx={cx}
+          cy={cy}
+          r={3}
+          fill="#89EF8C"
+          opacity={0.5}
+        />
       </svg>
     </Box>
   )
