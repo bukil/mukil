@@ -216,42 +216,42 @@ function AnimatedJourney() {
     visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.7, ease: [0.4, 2, 0.3, 1] } }
   };
 
+  // Create refs and inView for each journey item
+  const refs = journeyData.map(() => useRef(null));
+  const inViews = refs.map(ref => useInView(ref, { margin: '-40px' }));
+
   return (
     <VStack align="stretch" spacing={0} position="relative" zIndex={1}>
-      {journeyData.map((item, i) => {
-        const ref = useRef(null);
-        const inView = useInView(ref, { margin: '-40px' });
-        return (
-          <motion.div
-            key={i}
-            ref={ref}
-            initial="hidden"
-            animate={inView ? "visible" : "hidden"}
-            variants={itemVariants}
-            style={{ width: '100%' }}
+      {journeyData.map((item, i) => (
+        <motion.div
+          key={i}
+          ref={refs[i]}
+          initial="hidden"
+          animate={inViews[i] ? "visible" : "hidden"}
+          variants={itemVariants}
+          style={{ width: '100%' }}
+        >
+          <JourneyItem
+            boxShadow="none"
+            bg="transparent"
+            transition="box-shadow 0.3s, background 0.3s"
+            position="relative"
           >
-            <JourneyItem
-              boxShadow="none"
-              bg="transparent"
-              transition="box-shadow 0.3s, background 0.3s"
-              position="relative"
-            >
-              <Badge colorScheme={item.badge.color} mb={2}>{item.badge.text}</Badge>
-              <Heading fontSize="xl" fontWeight="bold"
-                _hover={{
-                  textDecoration: 'underline',
-                  textDecorationColor: '#89EF8C',
-                  textDecorationThickness: '2px',
-                  textUnderlineOffset: '4px',
-                  transition: 'all 0.3s ease'
-                }}
-              >{item.title}</Heading>
-              <Text fontSize="md" color="#90cdf4">{item.org}</Text>
-              <Text fontSize="sm" mt={2}>{item.desc}</Text>
-            </JourneyItem>
-          </motion.div>
-        );
-      })}
+            <Badge colorScheme={item.badge.color} mb={2}>{item.badge.text}</Badge>
+            <Heading fontSize="xl" fontWeight="bold"
+              _hover={{
+                textDecoration: 'underline',
+                textDecorationColor: '#89EF8C',
+                textDecorationThickness: '2px',
+                textUnderlineOffset: '4px',
+                transition: 'all 0.3s ease'
+              }}
+            >{item.title}</Heading>
+            <Text fontSize="md" color="#90cdf4">{item.org}</Text>
+            <Text fontSize="sm" mt={2}>{item.desc}</Text>
+          </JourneyItem>
+        </motion.div>
+      ))}
     </VStack>
   );
 }

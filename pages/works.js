@@ -10,7 +10,7 @@ import gsap from 'gsap'
 import KodeboardModal from '../components/projects/Kodeboard'
 import Head from 'next/head'
 import MicrointeractionModal from '../components/projects/MI'
-import { MaterialYouBlobAnimation } from '../components/projects/MI'
+
 import React from 'react'
 
 // Styled components
@@ -283,7 +283,7 @@ function CollapseExtandip() {
   const { isOpen: isEditOpenmd13, onOpen: onEditOpenmd13, onClose: onEditClosemd13 } = useDisclosure()
   const { isOpen: isEditOpenmd15, onOpen: onEditOpenmd15, onClose: onEditClosemd15 } = useDisclosure()
   const { isOpen: isEditOpenmd17, onOpen: onEditOpenmd17, onClose: onEditClosemd17 } = useDisclosure()
-  const { colorMode } = useColorMode()
+  
 
   return (
     <>
@@ -897,7 +897,7 @@ function DesignSystemPanelGridLines() {
   const guides = []
   xs.forEach((x, xi) => {
     ys.forEach((y, yi) => {
-      diagAngles.forEach((deg, di) => {
+      diagAngles.forEach((deg, ) => {
         const rad = deg * Math.PI / 180
         const len = 32 // length of each guide line
         const dx = Math.cos(rad) * len/2
