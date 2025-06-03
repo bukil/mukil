@@ -283,10 +283,6 @@ const Home = () => {
   const [hoveredSkill, setHoveredSkill] = useState(null)
   const [hoveredSoft, setHoveredSoft] = useState(null)
 
-  // For mobile scroll sync highlight
-  const mobileSkillRefs = useRef([])
-  const [activeMobileSkill, setActiveMobileSkill] = useState(0)
-
   useEffect(() => {
     const observer = new window.IntersectionObserver(
       ([entry]) => {
@@ -404,29 +400,6 @@ const Home = () => {
       if (window.ScrollTrigger) window.ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
   }, [router.asPath]);
-
-  useEffect(() => {
-    if (!isMobile) return
-    if (!skillsVisible) return
-    const observer = new window.IntersectionObserver(
-      (entries) => {
-        let maxRatio = 0
-        let maxIdx = 0
-        entries.forEach((entry) => {
-          if (entry.intersectionRatio > maxRatio) {
-            maxRatio = entry.intersectionRatio
-            maxIdx = Number(entry.target.dataset.idx)
-          }
-        })
-        setActiveMobileSkill(maxIdx)
-      },
-      { threshold: Array.from({length: 11}, (_, i) => i/10), rootMargin: '-30% 0px -30% 0px' }
-    )
-    mobileSkillRefs.current.forEach((ref) => {
-      if (ref) observer.observe(ref)
-    })
-    return () => observer.disconnect()
-  }, [isMobile, skillsVisible])
 
   return (
     <>
