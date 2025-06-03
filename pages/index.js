@@ -216,9 +216,13 @@ function AnimatedJourney() {
     visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.7, ease: [0.4, 2, 0.3, 1] } }
   };
 
-  // Create refs and inView for each journey item
-  const refs = journeyData.map(() => useRef(null));
-  const inViews = refs.map(ref => useInView(ref, { margin: '-40px' }));
+  // Create refs and inView for each journey item using a for loop
+  const refs = [];
+  const inViews = [];
+  for (let i = 0; i < journeyData.length; i++) {
+    refs[i] = useRef(null);
+    inViews[i] = useInView(refs[i], { margin: '-40px' });
+  }
 
   return (
     <VStack align="stretch" spacing={0} position="relative" zIndex={1}>

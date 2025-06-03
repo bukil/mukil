@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { Box, Text, Button, useColorMode } from '@chakra-ui/react';
+import { Box, Text, useColorMode } from '@chakra-ui/react';
 import StandardModal from '../ui/Modal';
 import gsap from 'gsap';
 import Head from 'next/head';
