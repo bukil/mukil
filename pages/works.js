@@ -123,7 +123,7 @@ const ProjectPanel = ({
     <Box 
       position="relative"
       borderWidth="1px" 
-      borderRadius="lg" 
+      borderRadius="3xl" 
       overflow="hidden" 
       boxShadow="md"
       role="group"
