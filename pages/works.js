@@ -10,18 +10,42 @@ import gsap from 'gsap'
 import KodeboardModal from '../components/projects/Kodeboard'
 import Head from 'next/head'
 import MicrointeractionModal from '../components/projects/MI'
+import { motion } from 'framer-motion'
 
 import React from 'react'
 
 // Styled components
 const Trans = styled.span`
   Button {
-    transition: 800ms ease;
-    transform: rotate(0deg);
-  }
-
-  &:hover Button {
-    transform: translate(-30px, 0px);
+    position: relative;
+    overflow: hidden;
+    background: transparent;
+    border: 1px solid #89EF8C;
+    color: #89EF8C;
+    transition: all 0.3s ease;
+    z-index: 1;
+    border-radius: 50px;
+    height: 90px;
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: auto;
+      right: 0;
+      width: 0;
+      height: 100%;
+      background: #89EF8C;
+      transition: all 0.3s ease;
+      z-index: -1;
+    }
+    &:hover {
+      color: #0a192f;
+      transform: translateY(-2px);
+      box-shadow: 0 3px 10px rgba(137, 239, 140, 0.3);
+    }
+    &:hover:before {
+      width: 100%;
+    }
   }
 `
 
@@ -565,13 +589,37 @@ const Works = () => {
             <Spacer/>
             <Trans>
               <Section>
-                <Box align="center" my={4}>
+                <Box align="center" mb={4}>
                   <NextLink href="/" passHref scroll={true}>
-                    <Button borderRadius='20px' variant='outline' 
-                    border='1px' 
-                    borderColor='black.500' mt='10' leftIcon={<ChevronLeftIcon />}>
+                    <motion.div
+                      initial={{ x: 100, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      transition={{ type: 'spring', stiffness: 60, damping: 16 }}
+                      style={{ display: 'inline-block' }}
+                    >
+                      <Button 
+                        borderRadius='50px'
+                        variant='outline'
+                        border='1px'
+                        borderColor='#89EF8C'
+                        color='#89EF8C'
+                        px={6}
+                        py={10}
+                        fontSize="lg"
+                        fontWeight="medium"
+                        letterSpacing="wider"
+                        height="90px"
+                        leftIcon={<ChevronLeftIcon />}
+                        _hover={{
+                          bg: '#89EF8C',
+                          color: '#0a192f',
+                          transform: 'translateY(-2px)',
+                          boxShadow: '0 3px 10px rgba(137, 239, 140, 0.3)'
+                        }}
+                      >
                         GO BACK TO HOME PAGE
-                    </Button>
+                      </Button>
+                    </motion.div>
                   </NextLink>
                 </Box>
               </Section>
