@@ -20,11 +20,6 @@ import { keyframes } from '@emotion/react'
 import React, { useRef, useEffect, useState, useLayoutEffect } from 'react'
 
 // Add keyframes for a 'gasp' (pulse/shine) animation
-const gasp = keyframes`
-  0% { box-shadow: 0 0 0 0 rgba(137,239,140,0.18), 0 2px 8px 0 rgba(0,0,0,0.08); }
-  60% { box-shadow: 0 0 0 8px rgba(137,239,140,0.0), 0 2px 8px 0 rgba(0,0,0,0.08); }
-  100% { box-shadow: 0 0 0 0 rgba(137,239,140,0.0), 0 2px 8px 0 rgba(0,0,0,0.08); }
-`
 
 const LinkItem = ({ href, path, target, children, tabRef, ...props }) => {
   const active = path === href
