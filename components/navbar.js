@@ -16,7 +16,6 @@ import {
 } from '@chakra-ui/react'
 import { HamburgerIcon } from '@chakra-ui/icons'
 import ThemeToggleButton from './theme-toggle-button'
-import { keyframes } from '@emotion/react'
 import React, { useRef, useEffect, useState, useLayoutEffect } from 'react'
 
 // Add keyframes for a 'gasp' (pulse/shine) animation
