@@ -433,6 +433,36 @@ function CollapseExtandip() {
                           <circle cx="324" cy="209" r="182" stroke="white" strokeWidth="2"/>
                         </svg>
                       </Box>
+                      <Box
+                        position="absolute"
+                        top={0}
+                        left={0}
+                        width="100%"
+                        height="100%"
+                        zIndex={30}
+                      >
+                        <svg width="100%" height="100%" viewBox="0 0 650 426" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          {/* Rectangle corners */}
+                          <circle cx="44.25" cy="26.25" r="2" fill="#ffffff"/>
+                          <circle cx="609.75" cy="26.25" r="2" fill="#ffffff"/>
+                          <circle cx="44.25" cy="396.75" r="2" fill="#ffffff"/>
+                          <circle cx="609.75" cy="396.75" r="2" fill="#ffffff"/>
+                          <circle cx="141.25" cy="88.25" r="2" fill="#ffffff"/>
+                          <circle cx="506.75" cy="88.25" r="2" fill="#ffffff"/>
+                          <circle cx="141.25" cy="333.75" r="2" fill="#ffffff"/>
+                          <circle cx="506.75" cy="333.75" r="2" fill="#ffffff"/>
+                          <circle cx="325.25" cy="212" r="2" fill="#ffffff"/>
+                          {/* Circle intersections */}
+                          <circle cx="323.5" cy="91" r="2" fill="#ffffff"/>
+                          <circle cx="323.5" cy="330" r="2" fill="#ffffff"/>
+                          <circle cx="203" cy="210.5" r="2" fill="#ffffff"/>
+                          <circle cx="444" cy="210.5" r="2" fill="#ffffff"/>
+                          <circle cx="324" cy="27" r="2" fill="#ffffff"/>
+                          <circle cx="324" cy="391" r="2" fill="#ffffff"/>
+                          <circle cx="142" cy="209" r="2" fill="#ffffff"/>
+                          <circle cx="506" cy="209" r="2" fill="#ffffff"/>
+                        </svg>
+                      </Box>
                       <DesignSystemPanelElements colorPalette={["#89EF8C", "#00aaff", "#222", "#fff"]} />
                       <DesignSystemPanelGridLines />
                       <DesignSystemPanelGeometric colorPalette={["#89EF8C", "#00aaff", "#222", "#fff"]} />
