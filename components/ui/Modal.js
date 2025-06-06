@@ -11,7 +11,11 @@ import {
 
 const StandardModal = ({ isOpen, onClose, children, footer, size = 'full', maxW = '100vw', w = '100vw', ...props }) => (
   <Modal isOpen={isOpen} onClose={onClose} size={size} {...props}>
-    <ModalOverlay />
+    <ModalOverlay
+      bg="rgba(30,30,30,0.4)"
+      backdropFilter="blur(24px)"
+      zIndex={1}
+    />
     <ModalContent
       maxW={maxW}
       w={w}
@@ -20,8 +24,7 @@ const StandardModal = ({ isOpen, onClose, children, footer, size = 'full', maxW 
       m={0}
       p={0}
       borderRadius={0}
-      bg="rgba(200, 200, 200, 0)"
-      backdropFilter="blur(5px)"
+      bg={{ base: 'rgba(255,255,255,0.65)', _dark: 'rgba(20,20,20,0.65)' }}
       boxShadow="none"
       mt={{ base: '64px', md: '80px' }}
     >
