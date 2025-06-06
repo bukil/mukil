@@ -412,6 +412,27 @@ function CollapseExtandip() {
                   hasSnow={false}
                   customContent={
                     <>
+                      <Box
+                        position="absolute"
+                        top={0}
+                        left={0}
+                        width="100%"
+                        height="100%"
+                        zIndex={20}
+                        opacity={0.3}
+                      >
+                        <svg width="100%" height="100%" viewBox="0 0 650 426" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <rect x="44.25" y="26.25" width="565.5" height="370.5" stroke="white" strokeWidth="0.5"/>
+                          <line x1="0.136303" y1="-0.209574" x2="655.136" y2="425.79" stroke="white" strokeWidth="0.5"/>
+                          <line x1="-0.137038" y1="425.791" x2="649.863" y2="-0.209059" stroke="white" strokeWidth="0.5"/>
+                          <line y1="212" x2="650" y2="212" stroke="white" strokeWidth="2"/>
+                          <line x1="325.25" x2="325.25" y2="426" stroke="white" strokeWidth="0.5"/>
+                          <rect x="44.5" y="26.5" width="565" height="370" rx="24.5" stroke="white"/>
+                          <rect x="141.25" y="88.25" width="365.5" height="245.5" rx="24.75" stroke="white" strokeWidth="0.5"/>
+                          <circle cx="323.5" cy="210.5" r="119.5" stroke="white" strokeWidth="2"/>
+                          <circle cx="324" cy="209" r="182" stroke="white" strokeWidth="2"/>
+                        </svg>
+                      </Box>
                       <DesignSystemPanelElements colorPalette={["#89EF8C", "#00aaff", "#222", "#fff"]} />
                       <DesignSystemPanelGridLines />
                       <DesignSystemPanelGeometric colorPalette={["#89EF8C", "#00aaff", "#222", "#fff"]} />

@@ -535,35 +535,35 @@ const Home = () => {
           <Container maxW='container.xl' mt={20} mb={20} position="relative" ref={skillsSectionRef}>
             {/* Big SKILLS text behind the tabs */}
             {!isMobile && (
-              <Box
-                ref={skillsTextRef}
-                position="absolute"
-                top="55%"
-                left="50%"
-                transform="translate(-50%, -50%)"
-                w="100%"
-                zIndex={0}
-                textAlign="center"
-                pointerEvents="none"
-                userSelect="none"
-                fontSize={{ base: '32vw', md: '24vw', lg: '20vw' }}
-                fontWeight="extrabold"
-                fontFamily="'BaseNeueTrial', sans-serif"
-                lineHeight={1}
-                opacity={0.2}
-                style={{
-                  background: 'linear-gradient(90deg, #89EF8C 0%, #3182ce 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                  textFillColor: 'transparent',
-                  textShadow: '0 8px 32px rgba(137,239,140,0.18)',
-                  maskImage: 'linear-gradient(to bottom, black 70%, transparent 100%)',
-                  WebkitMaskImage: 'linear-gradient(to bottom, black 70%, transparent 100%)',
-                }}
-              >
-                SKILLS
-              </Box>
+            <Box
+              ref={skillsTextRef}
+              position="absolute"
+              top="55%"
+              left="50%"
+              transform="translate(-50%, -50%)"
+              w="100%"
+              zIndex={0}
+              textAlign="center"
+              pointerEvents="none"
+              userSelect="none"
+              fontSize={{ base: '32vw', md: '24vw', lg: '20vw' }}
+              fontWeight="extrabold"
+              fontFamily="'BaseNeueTrial', sans-serif"
+              lineHeight={1}
+              opacity={0.2}
+              style={{
+                background: 'linear-gradient(90deg, #89EF8C 0%, #3182ce 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                textFillColor: 'transparent',
+                textShadow: '0 8px 32px rgba(137,239,140,0.18)',
+                maskImage: 'linear-gradient(to bottom, black 70%, transparent 100%)',
+                WebkitMaskImage: 'linear-gradient(to bottom, black 70%, transparent 100%)',
+              }}
+            >
+              SKILLS
+            </Box>
             )}
             {skillsVisible && (
               <>
@@ -628,97 +628,97 @@ const Home = () => {
                     </Box>
                   </>
                 ) : (
-                  <>
-                    <Box display="flex" flexWrap="wrap" gap={6} mb={10}>
-                      {SKILLS.map((skill) => {
-                        const Icon = SKILL_ICONS[skill]
-                        const isHovered = hoveredSkill === skill
-                        const iconColor = '#89EF8C'
-                        return (
+              <>
+                <Box display="flex" flexWrap="wrap" gap={6} mb={10}>
+                  {SKILLS.map((skill) => {
+                    const Icon = SKILL_ICONS[skill]
+                    const isHovered = hoveredSkill === skill
+                    const iconColor = '#89EF8C'
+                    return (
+                      <Box
+                        key={skill}
+                        fontSize="sm"
+                        fontWeight="semibold"
+                        fontFamily="'Space Grotesk', sans-serif"
+                        px={8}
+                        py={3}
+                        borderRadius="full"
+                        bg="rgba(255,255,255,0.18)"
+                        border="1px solid rgba(137,239,140,0.25)"
+                        boxShadow="0 8px 32px 0 rgba(137,239,140,0.08)"
+                        backdropFilter="blur(8px)"
+                        transition="all 0.3s"
+                        color={isHovered ? '#89EF8C' : '#222'}
+                        style={{ WebkitBackdropFilter: 'blur(8px)' }}
+                        _hover={{
+                          boxShadow: { base: 'none', md: '0 0 24px 8px #89EF8C, 0 8px 32px 0 rgba(137,239,140,0.18)' },
+                          filter: { base: 'none', md: 'brightness(1.2)' },
+                          cursor: 'pointer',
+                        }}
+                        onMouseEnter={() => setHoveredSkill(skill)}
+                        onMouseLeave={() => setHoveredSkill(null)}
+                        position="relative"
+                      >
+                        {skill}
+                        {Icon && (
                           <Box
-                            key={skill}
-                            fontSize="sm"
-                            fontWeight="semibold"
-                            fontFamily="'Space Grotesk', sans-serif"
-                            px={8}
-                            py={3}
-                            borderRadius="full"
-                            bg="rgba(255,255,255,0.18)"
-                            border="1px solid rgba(137,239,140,0.25)"
-                            boxShadow="0 8px 32px 0 rgba(137,239,140,0.08)"
-                            backdropFilter="blur(8px)"
-                            transition="all 0.3s"
-                            color={isHovered ? '#89EF8C' : '#222'}
-                            style={{ WebkitBackdropFilter: 'blur(8px)' }}
-                            _hover={{
-                              boxShadow: { base: 'none', md: '0 0 24px 8px #89EF8C, 0 8px 32px 0 rgba(137,239,140,0.18)' },
-                              filter: { base: 'none', md: 'brightness(1.2)' },
-                              cursor: 'pointer',
-                            }}
-                            onMouseEnter={() => setHoveredSkill(skill)}
-                            onMouseLeave={() => setHoveredSkill(null)}
-                            position="relative"
-                          >
-                            {skill}
-                            {Icon && (
-                              <Box
-                                as={Icon}
-                                position="absolute"
-                                left="50%"
-                                top="-44px"
-                                transform={`translateX(-50%) scale(${isHovered ? 1 : 0.5})`}
-                                fontSize="2.5rem"
-                                color={iconColor}
-                                opacity={isHovered ? 1 : 0}
-                                transition="all 0.38s cubic-bezier(.4,2,.3,1)"
-                                zIndex={2}
-                                pointerEvents="none"
-                                filter="drop-shadow(0 2px 8px #89EF8C44)"
-                              />
-                            )}
-                          </Box>
-                        )
-                      })}
-                    </Box>
-                    <Heading fontSize="2xl" fontWeight="bold" mb={4} color="#3182ce">
-                      Software
-                    </Heading>
-                    <Box display="flex" flexWrap="wrap" gap={4}>
-                      {SOFTWARE_SKILLS.map((soft) => {
-                        const Icon = soft.icon
-                        return (
-                          <Box
-                            key={soft.name}
-                            fontSize={{ base: 'md', md: 'lg' }}
-                            fontWeight="medium"
-                            fontFamily="'Space Grotesk', sans-serif"
-                            px={6}
-                            py={2}
-                            borderRadius="full"
-                            bg="rgba(255,255,255,0.18)"
-                            border="1px solid rgba(49,130,206,0.25)"
-                            boxShadow="0 8px 32px 0 rgba(49,130,206,0.08)"
-                            backdropFilter="blur(8px)"
-                            transition="all 0.3s"
-                            color={hoveredSoft === soft.name ? '#3182ce' : '#222'}
-                            display="flex"
-                            alignItems="center"
-                            gap={2}
-                            style={{ WebkitBackdropFilter: 'blur(8px)' }}
-                            _hover={{
-                              boxShadow: { base: 'none', md: '0 0 24px 8px #3182ce, 0 8px 32px 0 rgba(49,130,206,0.18)' },
-                              filter: { base: 'none', md: 'brightness(1.2)' },
-                              cursor: 'pointer',
-                            }}
-                            onMouseEnter={() => setHoveredSoft(soft.name)}
-                            onMouseLeave={() => setHoveredSoft(null)}
-                          >
-                            {Icon && <Icon style={{ fontSize: 24 }} />}
-                            {soft.name}
-                          </Box>
-                        )
-                      })}
-                    </Box>
+                            as={Icon}
+                            position="absolute"
+                            left="50%"
+                            top="-44px"
+                            transform={`translateX(-50%) scale(${isHovered ? 1 : 0.5})`}
+                            fontSize="2.5rem"
+                            color={iconColor}
+                            opacity={isHovered ? 1 : 0}
+                            transition="all 0.38s cubic-bezier(.4,2,.3,1)"
+                            zIndex={2}
+                            pointerEvents="none"
+                            filter="drop-shadow(0 2px 8px #89EF8C44)"
+                          />
+                        )}
+                      </Box>
+                    )
+                  })}
+                </Box>
+                <Heading fontSize="2xl" fontWeight="bold" mb={4} color="#3182ce">
+                  Software
+                </Heading>
+                <Box display="flex" flexWrap="wrap" gap={4}>
+                  {SOFTWARE_SKILLS.map((soft) => {
+                    const Icon = soft.icon
+                    return (
+                      <Box
+                        key={soft.name}
+                        fontSize={{ base: 'md', md: 'lg' }}
+                        fontWeight="medium"
+                        fontFamily="'Space Grotesk', sans-serif"
+                        px={6}
+                        py={2}
+                        borderRadius="full"
+                        bg="rgba(255,255,255,0.18)"
+                        border="1px solid rgba(49,130,206,0.25)"
+                        boxShadow="0 8px 32px 0 rgba(49,130,206,0.08)"
+                        backdropFilter="blur(8px)"
+                        transition="all 0.3s"
+                        color={hoveredSoft === soft.name ? '#3182ce' : '#222'}
+                        display="flex"
+                        alignItems="center"
+                        gap={2}
+                        style={{ WebkitBackdropFilter: 'blur(8px)' }}
+                        _hover={{
+                          boxShadow: { base: 'none', md: '0 0 24px 8px #3182ce, 0 8px 32px 0 rgba(49,130,206,0.18)' },
+                          filter: { base: 'none', md: 'brightness(1.2)' },
+                          cursor: 'pointer',
+                        }}
+                        onMouseEnter={() => setHoveredSoft(soft.name)}
+                        onMouseLeave={() => setHoveredSoft(null)}
+                      >
+                        {Icon && <Icon style={{ fontSize: 24 }} />}
+                        {soft.name}
+                      </Box>
+                    )
+                  })}
+                </Box>
                   </>
                 )}
               </>
