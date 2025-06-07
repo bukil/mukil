@@ -407,9 +407,9 @@ function CollapseExtandip() {
               <Box as="a" style={{ display: 'block', cursor: 'pointer', textDecoration: 'none' }}>
                 <ProjectPanel
                   title={<span style={{ fontFamily: 'Michroma, monospace', letterSpacing: '0.12em', color: '#89EF8C' }}>DESIGN SYSTEM</span>}
-                  description={<span style={{ color: '#fff' }}>A living system of icons, typography, lines, and motion. Explore the DNA of my design system—where every element transforms and flows in harmony. ✨</span>}
+                  description={<span style={{ color: '#fff' }}>Design System For UPI</span>}
                   accentColor="#89EF8C"
-                  hasSnow={false}
+                  
                   customContent={
                     <>
                       <Box
@@ -463,13 +463,11 @@ function CollapseExtandip() {
                           <circle cx="506" cy="209" r="2" fill="#ffffff"/>
                         </svg>
                       </Box>
-                      <DesignSystemPanelElements colorPalette={["#89EF8C", "#00aaff", "#222", "#fff"]} />
                       <DesignSystemPanelGridLines />
-                      <DesignSystemPanelGeometric colorPalette={["#89EF8C", "#00aaff", "#222", "#fff"]} />
                     </>
                   }
                   sx={{
-                    background: 'linear-gradient(135deg, #101c2c 0%, #162447 100%)',
+                    background: 'linear-gradient(180deg,rgb(94, 164, 255) 0%,rgb(0, 26, 93) 100%)',
                     backgroundSize: '100% 100%',
                     transition: 'background 0.5s',
                     filter: 'brightness(0.98) saturate(0.98)',
@@ -837,150 +835,6 @@ function C2CParticleBG() {
   )
 }
 
-function DesignSystemPanelElements() {
-  // Subtle animated lines and dots moving left to right
-  const linesRef = useRef([])
-  const dotsRef = useRef([])
-  useEffect(() => {
-    // Animate lines
-    linesRef.current.forEach((line, i) => {
-      if (line) {
-        gsap.to(line, {
-          x: '100vw',
-          duration: 8 + i * 2,
-          repeat: -1,
-          ease: 'linear',
-          delay: i * 1.2,
-          modifiers: {
-            x: gsap.utils.unitize(x => parseFloat(x) % window.innerWidth)
-          }
-        })
-      }
-    })
-    // Animate dots
-    dotsRef.current.forEach((dot, i) => {
-      if (dot) {
-        gsap.to(dot, {
-          x: '100vw',
-          duration: 10 + i * 2,
-          repeat: -1,
-          ease: 'linear',
-          delay: i * 1.5,
-          modifiers: {
-            x: gsap.utils.unitize(x => parseFloat(x) % window.innerWidth)
-          }
-        })
-      }
-    })
-    return () => {
-      linesRef.current.forEach(line => line && gsap.killTweensOf(line))
-      dotsRef.current.forEach(dot => dot && gsap.killTweensOf(dot))
-    }
-  }, [])
-  return (
-    <Box position="absolute" top={0} left={0} w="100%" h="100%" zIndex={1} pointerEvents="none">
-      {/* Lines */}
-      {[0,1,2].map(i => (
-        <Box
-          key={i}
-          ref={el => linesRef.current[i] = el}
-          position="absolute"
-          top={`${20 + i*30}px`}
-          left="-30vw"
-          w="40vw"
-          h="2px"
-          bg={['#2c5364','#3a6b7c','#4e8a8c'][i]}
-          opacity={0.13 + i*0.07}
-          borderRadius="1px"
-        />
-      ))}
-      {/* Dots */}
-      {[0,1].map(i => (
-        <Box
-          key={i}
-          ref={el => dotsRef.current[i] = el}
-          position="absolute"
-          top={`${60 + i*60}px`}
-          left="-10vw"
-          w="12px"
-          h="12px"
-          bg={['#3a6b7c','#4e8a8c'][i]}
-          opacity={0.18}
-          borderRadius="full"
-        />
-      ))}
-    </Box>
-  )
-}
-
-// Add this component at the end of the file:
-function DesignSystemPanelGeometric() {
-  // Animated SVG geometric shapes: hexagons, triangles, circles, lines
-  const shapeRefs = useRef([])
-  useEffect(() => {
-    shapeRefs.current.forEach((el, i) => {
-      if (el) {
-        // Animate position, rotation, scale, opacity, color
-        const duration = 3.5 + Math.random() * 2.5
-        const delay = Math.random() * 2
-        gsap.to(el, {
-          x: (i % 2 === 0 ? '+=' : '-=') + (20 + Math.random() * 40),
-          y: (i % 3 === 0 ? '+=' : '-=') + (10 + Math.random() * 30),
-          rotation: (i % 2 === 0 ? '+=' : '-=') + (10 + Math.random() * 40),
-          scale: 0.7 + Math.random() * 0.7,
-          opacity: 0.13 + Math.random() * 0.22,
-          filter: 'blur(2.5px)',
-          duration,
-          delay,
-          repeat: -1,
-          yoyo: true,
-          ease: 'sine.inOut',
-        })
-        if (el.tagName === 'polygon' || el.tagName === 'path') {
-          // Animate fill color for polygons
-          gsap.to(el, {
-            fill: ['#2c5364', '#3a6b7c', '#4e8a8c', '#89EF8C', '#00aaff', '#a259ff', '#2c5364'],
-            duration: 8 + Math.random() * 4,
-            repeat: -1,
-            yoyo: true,
-            ease: 'sine.inOut',
-          })
-        } else if (el.tagName === 'circle' || el.tagName === 'rect' || el.tagName === 'line') {
-          // Animate stroke color for lines/circles/rects
-          gsap.to(el, {
-            stroke: ['#2c5364', '#3a6b7c', '#4e8a8c', '#89EF8C', '#00aaff', '#a259ff', '#2c5364'],
-            duration: 8 + Math.random() * 4,
-            repeat: -1,
-            yoyo: true,
-            ease: 'sine.inOut',
-          })
-        }
-      }
-    })
-    return () => {
-      shapeRefs.current.forEach(el => el && gsap.killTweensOf(el))
-    }
-  }, [])
-  return (
-    <Box position="absolute" top={0} left={0} w="100%" h="100%" zIndex={2} pointerEvents="none">
-      <svg width="100%" height="100%" viewBox="0 0 320 180" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
-        {/* Hexagons */}
-        <polygon ref={el => shapeRefs.current[0] = el} points="60,30 70,45 60,60 40,60 30,45 40,30" fill="#2c5364" opacity="0.18" />
-        <polygon ref={el => shapeRefs.current[1] = el} points="160,80 170,95 160,110 140,110 130,95 140,80" fill="#3a6b7c" opacity="0.16" />
-        {/* Triangles */}
-        <polygon ref={el => shapeRefs.current[2] = el} points="220,40 240,80 200,80" fill="#4e8a8c" opacity="0.15" />
-        <polygon ref={el => shapeRefs.current[3] = el} points="80,120 100,160 60,160" fill="#a259ff" opacity="0.13" />
-        {/* Circles */}
-        <circle ref={el => shapeRefs.current[4] = el} cx="260" cy="60" r="18" stroke="#89EF8C" strokeWidth="4" fill="none" opacity="0.16" />
-        <circle ref={el => shapeRefs.current[5] = el} cx="200" cy="140" r="12" stroke="#00aaff" strokeWidth="3" fill="none" opacity="0.14" />
-        {/* Lines */}
-        <line ref={el => shapeRefs.current[6] = el} x1="40" y1="100" x2="120" y2="100" stroke="#4e8a8c" strokeWidth="3" opacity="0.13" />
-        <line ref={el => shapeRefs.current[7] = el} x1="180" y1="30" x2="300" y2="30" stroke="#a259ff" strokeWidth="2" opacity="0.13" />
-      </svg>
-    </Box>
-  )
-}
-
 // Add this component at the end of the file:
 function DesignSystemPanelGridLines() {
   // Repeated construction pattern: at each grid intersection, draw cross and diagonals
@@ -1019,7 +873,7 @@ function DesignSystemPanelGridLines() {
           <line
             key={i}
             x1={l.x1} y1={l.y1} x2={l.x2} y2={l.y2}
-            stroke={l.center ? '#89EF8C' : '#b3c6d4'}
+            stroke="#89EF8C"
             strokeWidth={l.center ? 1.5 : 0.7}
             opacity={l.center ? 0.35 : 0.18}
           />
@@ -1047,9 +901,7 @@ function DesignSystemPanelGridLines() {
 }
 
 export {
-  DesignSystemPanelElements,
-  DesignSystemPanelGridLines,
-  DesignSystemPanelGeometric
+  DesignSystemPanelGridLines
 }
 
 function GlowingRollingLandAnimation() {
