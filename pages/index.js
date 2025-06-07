@@ -406,23 +406,23 @@ const Home = () => {
       <Global styles={`body { background: ${colorMode === 'dark' ? '#0a174e' : '#fff'} !important; }`} />
       <Box ref={pageRef} position="relative" minHeight="100vh">
         <Head>
-          <title>Mukil Kumar | Interaction Designer & Creative Technologist</title>
-          <meta name="description" content="Mukil Kumar - Interaction Designer, Creative Technologist, and Electronics Engineer. Currently pursuing Master of Design at IDC IIT Bombay. Specializing in user-centered design and creative technology solutions." />
-          <meta name="keywords" content="Mukil Kumar, Interaction Designer, Creative Technologist, Electronics Engineer, IDC IIT Bombay, UX Design, UI Design, Product Design" />
-          <meta name="author" content="Mukil Kumar" />
+          <title>Mukil</title>
+          <meta name="description" content="Mukil - Interaction Designer, Creative Technologist, and Electronics Engineer. Currently pursuing Master of Design at IDC IIT Bombay. Specializing in user-centered design and creative technology solutions." />
+          <meta name="keywords" content="Mukil, Interaction Designer, Creative Technologist, Electronics Engineer, IDC IIT Bombay, UX Design, UI Design, Product Design" />
+          <meta name="author" content="Mukil" />
           <meta name="robots" content="index, follow" />
           
           {/* Open Graph / Social Media Meta Tags */}
-          <meta property="og:title" content="Mukil Kumar | Interaction Designer & Creative Technologist" />
-          <meta property="og:description" content="Portfolio of Mukil Kumar - Interaction Designer, Creative Technologist, and Electronics Engineer. Specializing in user-centered design and creative technology solutions." />
+          <meta property="og:title" content="Mukil" />
+          <meta property="og:description" content="Portfolio of Mukil - Interaction Designer, Creative Technologist, and Electronics Engineer. Specializing in user-centered design and creative technology solutions." />
           <meta property="og:type" content="website" />
           <meta property="og:url" content="https://mukil.vercel.app" />
           <meta property="og:image" content="https://mukil.vercel.app/images/mukil.jpg" />
           
           {/* Twitter Card Meta Tags */}
           <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:title" content="Mukil Kumar | Interaction Designer & Creative Technologist" />
-          <meta name="twitter:description" content="Portfolio of Mukil Kumar - Interaction Designer, Creative Technologist, and Electronics Engineer." />
+          <meta name="twitter:title" content="Mukil" />
+          <meta name="twitter:description" content="Portfolio of Mukil - Interaction Designer, Creative Technologist, and Electronics Engineer." />
           <meta name="twitter:image" content="https://mukil.vercel.app/images/mukil.jpg" />
           
           {/* Canonical URL */}

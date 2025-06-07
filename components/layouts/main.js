@@ -17,10 +17,10 @@ const Main = ({ children, router }) => {
         <meta name="author" content="Mukil Kumar" />
         <link rel="apple-touch-icon" href="apple-touch-icon1.png" />
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-        <meta property="og:site_name" content="Mukil Portfolio" />
-        <meta name="og:title" content="Mukil Portfolio" />
+        <meta property="og:site_name" content="Mukil" />
+        <meta name="og:title" content="Mukil" />
         <meta property="og:type" content="website" />
-        <title>MUKIL</title>
+        <title>Mukil</title>
       </Head>
 
       <Navbar path={router.asPath} />
