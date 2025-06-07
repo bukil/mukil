@@ -132,6 +132,7 @@ const ContentWrapper = styled(Box)`
 // Standard Panel Component
 const ProjectPanel = ({ 
   title, 
+  hoverTitle,
   description, 
   imageSrc, 
   imageAlt, 
@@ -141,7 +142,7 @@ const ProjectPanel = ({
   onClick,
   hasSnow = false,
   customContent,
-  sx // <-- add sx prop
+  sx
 }) => {
   return (
     <Box 
@@ -160,7 +161,7 @@ const ProjectPanel = ({
       cursor="pointer"
       height="400px"
       width="100%"
-      sx={sx} // <-- apply sx here
+      sx={sx}
     >
       {hasSnow && (
         <SnowContainer>
@@ -217,7 +218,7 @@ const ProjectPanel = ({
           fontStyle="italic"
           textTransform="uppercase"
         >
-          {title}
+          {hoverTitle || title}
         </Text>
         {imageSrc && (
           <Image 
@@ -316,6 +317,7 @@ function CollapseExtandip() {
           <Section>
             <ProjectPanel
               title="Kode/Board"
+              hoverTitle="Kode/Board"
               description="Here is a keyboard concept (kode board 🙃), Copy, paste, repeat... but not as you know it. Multi-layer clipboard on fingertips like seamlessly storing your snippets for instant recall. 🪄"
               imageSrc="/images/works/BOTASF.png"
               imageAlt="Kode/Board"
@@ -330,6 +332,7 @@ function CollapseExtandip() {
           <Section>
             <ProjectPanel
               title="Design Evaluation ChatGPT"
+              hoverTitle="Design Evaluation ChatGPT"
               description="Leveraging ChatGPT to evaluate and enhance design concepts. Get instant feedback, suggestions, and improvements for your creative work through AI-powered analysis. 🤖"
               imageSrc="/mukil/degpt2.png"
               imageAlt="Design Evaluation ChatGPT"
@@ -356,6 +359,7 @@ function CollapseExtandip() {
           <Section>
             <ProjectPanel
               title="Jokif-AI"
+              hoverTitle="Jokif-AI"
               description="An AI-powered platform that brings humor and creativity together. Generate jokes, create memes, and share laughter with the power of artificial intelligence. 🤖"
               imageSrc="/images/works/BOTASF.png"
               imageAlt="AI Trends Project"
@@ -392,6 +396,7 @@ function CollapseExtandip() {
           <Section>
             <ProjectPanel
               title="Microinteraction"
+              hoverTitle="Microinteraction"
               description="A class assignment exploring the art of microinteractions. Small, meaningful animations and transitions that enhance user experience and bring interfaces to life. 🎨"
               gradientColors="linear-gradient(135deg, #181c3a 0%, #2d1e4f 100%)"
               hoverGradientColors="linear-gradient(135deg, #2d1e4f 0%, #181c3a 100%)"
@@ -406,10 +411,10 @@ function CollapseExtandip() {
             <NextLink href="/DS" passHref legacyBehavior>
               <Box as="a" style={{ display: 'block', cursor: 'pointer', textDecoration: 'none' }}>
                 <ProjectPanel
-                  title={<span style={{ fontFamily: 'Michroma, monospace', letterSpacing: '0.12em', color: '#89EF8C' }}>DESIGN SYSTEM</span>}
+                  title={<span style={{ fontFamily: 'Michroma, monospace', letterSpacing: '0.12em', color: '#89EF8C', fontStyle: 'normal' }}>DESIGN SYSTEM</span>}
+                  hoverTitle={<span style={{ fontFamily: 'BaseNeueTrial, sans-serif', letterSpacing: 'normal', color: 'white', fontStyle: 'italic' }}>DESIGN SYSTEM</span>}
                   description={<span style={{ color: '#fff' }}>Design System For UPI</span>}
                   accentColor="#89EF8C"
-                  
                   customContent={
                     <>
                       <Box
@@ -479,7 +484,8 @@ function CollapseExtandip() {
 
           <Section>
             <ProjectPanel
-              title={<span style={{ fontFamily: 'Tiny5, monospace' }}>C2C</span>}
+              title={<span style={{ fontFamily: 'Michroma, monospace', letterSpacing: '0.12em', fontStyle: 'normal' }}>C2C</span>}
+              hoverTitle={<span style={{ fontFamily: 'Tiny5, monospace', letterSpacing: 'normal', color: 'white' }}>C2C</span>}
               description="A deep dive into the craft of interaction design, exploring concepts, case studies, and hands-on projects from concept to creation. 🕹️"
               imageSrc="/images/works/c2cf.png"
               imageAlt="C2C: Interaction Design Project"
