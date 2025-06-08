@@ -53,7 +53,7 @@ const Navbar = props => {
   const tabRefs = [useRef(), useRef(), useRef(), useRef()]
   const [highlight, setHighlight] = useState({ left: 0, width: 0 })
   const navStackRef = useRef()
-  const tabPaths = ['/works', '/blog', '/Mukil_resume.pdf', '/contact']
+  const tabPaths = ['/works', '/blog', '/Mukil_Résumé.pdf', '/contact']
 
   // Helper to update highlight position
   const updateHighlight = () => {
@@ -143,7 +143,7 @@ const Navbar = props => {
               fontWeight="hairline"
               target="_blank"
               fontSize={18}
-              href="/Mukil_resume.pdf"
+              href="/Mukil_Résumé.pdf"
               path={path}
               tabRef={tabRefs[2]}
               display="inline-flex"
@@ -197,7 +197,7 @@ const Navbar = props => {
                   <NextLink href="/blog" passHref legacyBehavior>
                     <MenuItem as={Link}>BLOG</MenuItem>
                   </NextLink>
-                  <NextLink href="/Mukil_resume.pdf" passHref legacyBehavior>
+                  <NextLink href="/Mukil_Résumé.pdf" passHref legacyBehavior>
                     <MenuItem as={Link}>RESUME</MenuItem>
                   </NextLink>
                   <NextLink href="/contact" passHref legacyBehavior>
