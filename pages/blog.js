@@ -309,6 +309,23 @@ const Blog = () => {
             ctx.fill();
             ctx.restore();
           }
+
+          // Add rings for planet 242244 (second planet)
+          if (i === 1) { // Index 1 is the second planet (242244)
+            // Draw outer ring
+            ctx.beginPath();
+            ctx.ellipse(px, py, planet.r * 3.5, planet.r * 1.2, Math.PI / 4, 0, Math.PI * 2);
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.5)';
+            ctx.lineWidth = 4;
+            ctx.stroke();
+            
+            // Draw inner ring
+            ctx.beginPath();
+            ctx.ellipse(px, py, planet.r * 2.8, planet.r * 0.9, Math.PI / 4, 0, Math.PI * 2);
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+            ctx.lineWidth = 4;
+            ctx.stroke();
+          }
         }
       }
       frame++;
