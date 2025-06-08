@@ -116,17 +116,17 @@ const Blog = () => {
 
     // Make orbits and planets much larger
     const orbits = [
-      { rx: width * 0.15, ry: height * 0.04, color: 'rgba(137,239,140,0.18)' },
-      { rx: width * 0.22, ry: height * 0.08, color: 'rgba(137,239,140,0.13)' },
-      { rx: width * 0.29, ry: height * 0.12, color: 'rgba(137,239,140,0.10)' },
-      { rx: width * 0.36, ry: height * 0.16, color: 'rgba(137,239,140,0.08)' },
-      { rx: width * 0.43, ry: height * 0.20, color: 'rgba(137,239,140,0.06)' },
-      { rx: width * 0.50, ry: height * 0.24, color: 'rgba(137,239,140,0.04)' },
-      { rx: width * 0.57, ry: height * 0.28, color: 'rgba(137,239,140,0.03)' },
-      { rx: width * 0.64, ry: height * 0.32, color: 'rgba(137,239,140,0.02)' },
-      { rx: width * 0.71, ry: height * 0.36, color: 'rgba(137,239,140,0.01)' },
-      { rx: width * 0.78, ry: height * 0.40, color: 'rgba(137,239,140,0.01)' },
-      { rx: width * 0.85, ry: height * 0.44, color: 'rgba(137,239,140,0.01)' },
+      { rx: width * 0.15, ry: height * 0.04, color: 'rgba(137,239,140,0.35)' },
+      { rx: width * 0.22, ry: height * 0.08, color: 'rgba(137,239,140,0.30)' },
+      { rx: width * 0.29, ry: height * 0.12, color: 'rgba(137,239,140,0.25)' },
+      { rx: width * 0.36, ry: height * 0.16, color: 'rgba(137,239,140,0.20)' },
+      { rx: width * 0.43, ry: height * 0.20, color: 'rgba(137,239,140,0.15)' },
+      { rx: width * 0.50, ry: height * 0.24, color: 'rgba(137,239,140,0.12)' },
+      { rx: width * 0.57, ry: height * 0.28, color: 'rgba(137,239,140,0.10)' },
+      { rx: width * 0.64, ry: height * 0.32, color: 'rgba(137,239,140,0.08)' },
+      { rx: width * 0.71, ry: height * 0.36, color: 'rgba(137,239,140,0.06)' },
+      { rx: width * 0.78, ry: height * 0.40, color: 'rgba(137,239,140,0.04)' },
+      { rx: width * 0.85, ry: height * 0.44, color: 'rgba(137,239,140,0.03)' },
     ];
     const planets = [
       { orbit: 0, r: 18, color: '#89EF8C', speed: 0.025, phase: 0 },
@@ -233,7 +233,7 @@ const Blog = () => {
         ctx.beginPath();
         ctx.ellipse(cx, cy, orbit.rx, orbit.ry, axis, 0, Math.PI * 2);
         ctx.strokeStyle = orbit.color;
-        ctx.lineWidth = 2;
+        ctx.lineWidth = 0.5;
         ctx.shadowColor = 'transparent';
         ctx.shadowBlur = 0;
         ctx.stroke();
@@ -242,7 +242,7 @@ const Blog = () => {
         const planet = planets.find(p => p.orbit === i);
         if (planet) {
           const t = frame * planet.speed + planet.phase;
-          const arcLength = 0.36;
+          const arcLength = 0.48;
           const arcStart = t - arcLength / 2;
           const arcEnd = t + arcLength / 2;
 
@@ -259,7 +259,7 @@ const Blog = () => {
           grad.addColorStop(0.5, hexToRgba(planet.color, 0.8));
           grad.addColorStop(1, 'rgba(137,239,140,0.0)');
           ctx.strokeStyle = grad;
-          ctx.lineWidth = 8;
+          ctx.lineWidth = 2;
           ctx.shadowColor = 'transparent';
           ctx.shadowBlur = 0;
           ctx.globalAlpha = 0.85;
