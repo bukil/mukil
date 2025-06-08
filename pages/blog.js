@@ -116,28 +116,39 @@ const Blog = () => {
 
     // Make orbits and planets much larger
     const orbits = [
-      { rx: width * 0.32, ry: height * 0.08, color: 'rgba(137,239,140,0.18)' },
-      { rx: width * 0.45, ry: height * 0.16, color: 'rgba(137,239,140,0.13)' },
-      { rx: width * 0.58, ry: height * 0.24, color: 'rgba(137,239,140,0.10)' },
-      { rx: width * 0.7, ry: height * 0.33, color: 'rgba(137,239,140,0.08)' },
+      { rx: width * 0.15, ry: height * 0.04, color: 'rgba(137,239,140,0.18)' },
+      { rx: width * 0.22, ry: height * 0.08, color: 'rgba(137,239,140,0.13)' },
+      { rx: width * 0.29, ry: height * 0.12, color: 'rgba(137,239,140,0.10)' },
+      { rx: width * 0.36, ry: height * 0.16, color: 'rgba(137,239,140,0.08)' },
+      { rx: width * 0.43, ry: height * 0.20, color: 'rgba(137,239,140,0.06)' },
+      { rx: width * 0.50, ry: height * 0.24, color: 'rgba(137,239,140,0.04)' },
+      { rx: width * 0.57, ry: height * 0.28, color: 'rgba(137,239,140,0.03)' },
+      { rx: width * 0.64, ry: height * 0.32, color: 'rgba(137,239,140,0.02)' },
+      { rx: width * 0.71, ry: height * 0.36, color: 'rgba(137,239,140,0.01)' },
+      { rx: width * 0.78, ry: height * 0.40, color: 'rgba(137,239,140,0.01)' },
+      { rx: width * 0.85, ry: height * 0.44, color: 'rgba(137,239,140,0.01)' },
     ];
     const planets = [
-      { orbit: 0, r: 18, color: '#89EF8C', speed: 0.012, phase: 0 },
-      { orbit: 1, r: 12, color: '#b3ffb3', speed: 0.008, phase: 1.2 },
-      { orbit: 2, r: 24, color: '#7fffbe', speed: 0.006, phase: 2.4 },
-      { orbit: 3, r: 10, color: '#fff', speed: 0.014, phase: 0.7 },
+      { orbit: 0, r: 18, color: '#89EF8C', speed: 0.025, phase: 0 },
+      { orbit: 1, r: 12, color: '#b3ffb3', speed: -0.018, phase: 1.2 },
+      { orbit: 2, r: 24, color: '#7fffbe', speed: 0.015, phase: 2.4 },
+      { orbit: 3, r: 10, color: '#fff', speed: -0.028, phase: 0.7 },
+      { orbit: 4, r: 16, color: '#ffb3b3', speed: 0.012, phase: 1.5 },
+      { orbit: 5, r: 14, color: '#b3b3ff', speed: -0.015, phase: 2.1 },
+      { orbit: 6, r: 20, color: '#ffd6b3', speed: 0.010, phase: 0.3 },
+      { orbit: 7, r: 22, color: '#d6b3ff', speed: -0.008, phase: 1.8 },
+      { orbit: 8, r: 15, color: '#b3ffd6', speed: 0.006, phase: 0.5 },
+      { orbit: 9, r: 19, color: '#ffb3d6', speed: -0.004, phase: 2.2 },
+      { orbit: 10, r: 17, color: '#d6ffb3', speed: 0.003, phase: 1.0 },
     ];
 
-    const planetNames = ['242246', '242244', '242240', '242241']; // order: inner to outer
+    const planetNames = ['242246', '242244', '242240', '242241', '242252', '242251', '242250', '242249', '242248', '242247', '242245']; // order: inner to outer
 
     // Twinkling starfield
-    const STAR_COUNT = 120;
+    const STAR_COUNT = 60;
     const stars = Array.from({ length: STAR_COUNT }).map(() => {
-      // Use a random distribution for more natural star sizes
       let rand = Math.random();
-      // Skewed so most are small, but some are big
-      let r = 0.5 + Math.pow(rand, 2.5) * 2.7; // 0.5 to ~3.2
-      // 25% chance to be a plus star
+      let r = 0.5 + Math.pow(rand, 2.5) * 2.7;
       let type = Math.random() < 0.25 ? 'plus' : 'circle';
       return {
         x: Math.random() * width,
@@ -145,43 +156,55 @@ const Blog = () => {
         r,
         type,
         baseAlpha: Math.random() * 0.5 + 0.3,
-        twinkleSpeed: Math.random() * 0.04 + 0.01,
+        twinkleSpeed: Math.random() * 0.02 + 0.01,
         twinklePhase: Math.random() * Math.PI * 2,
       };
     });
 
     // Mouse interaction for stars
     let mouse = { x: -1000, y: -1000 };
+    let lastMouseMove = 0;
     function handleMouseMove(e) {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
+      const now = performance.now();
+      if (now - lastMouseMove > 16) {
+        mouse.x = e.clientX;
+        mouse.y = e.clientY;
+        lastMouseMove = now;
+      }
     }
     window.addEventListener('mousemove', handleMouseMove);
 
     let frame = 0;
+    let lastFrameTime = 0;
     let animId;
-    function animate() {
+    function animate(currentTime) {
+      if (currentTime - lastFrameTime < 16) {
+        animId = requestAnimationFrame(animate);
+        return;
+      }
+      lastFrameTime = currentTime;
+
       ctx.clearRect(0, 0, width, height);
+      
       // Draw twinkling stars
       for (const star of stars) {
-        // Twinkle
         const twinkle = Math.sin(frame * star.twinkleSpeed + star.twinklePhase) * 0.5 + 0.5;
         let alpha = star.baseAlpha * (0.7 + 0.6 * twinkle);
-        // Cursor interaction: brighten if close
+        
         const dx = star.x - mouse.x;
         const dy = star.y - mouse.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < 80) {
+        const distSquared = dx * dx + dy * dy;
+        if (distSquared < 6400) {
           alpha = 1.0;
-        } else if (dist < 180) {
+        } else if (distSquared < 32400) {
           alpha = Math.max(alpha, 0.7);
         }
+
         ctx.save();
         ctx.globalAlpha = alpha;
         ctx.shadowColor = '#b3d1ff';
         ctx.shadowBlur = 8;
         if (star.type === 'plus') {
-          // Draw a plus/cross shape
           ctx.strokeStyle = 'white';
           ctx.lineWidth = Math.max(1, star.r * 0.7);
           ctx.beginPath();
@@ -191,7 +214,6 @@ const Blog = () => {
           ctx.lineTo(star.x, star.y + star.r);
           ctx.stroke();
         } else {
-          // Draw a circle
           ctx.beginPath();
           ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
           ctx.fillStyle = 'white';
@@ -199,36 +221,34 @@ const Blog = () => {
         }
         ctx.restore();
       }
-      // Center of the orbits (slightly below center for perspective)
+
       const cx = width / 2;
       const cy = height / 2 + height * 0.08;
-      // Draw orbits and highlights
+
       for (let i = 0; i < orbits.length; i++) {
         const orbit = orbits[i];
-        // Set axis: last orbit (outermost) gets a different axis
         const axis = (i === orbits.length - 1) ? Math.PI / 8 : Math.PI / 12;
-        // Draw faint full ellipse (no glow)
+        
         ctx.save();
         ctx.beginPath();
         ctx.ellipse(cx, cy, orbit.rx, orbit.ry, axis, 0, Math.PI * 2);
         ctx.strokeStyle = orbit.color;
         ctx.lineWidth = 2;
-        ctx.shadowColor = 'transparent'; // No glow
-        ctx.shadowBlur = 0; // No glow
+        ctx.shadowColor = 'transparent';
+        ctx.shadowBlur = 0;
         ctx.stroke();
         ctx.restore();
-        // Draw highlight arc and planet, perfectly aligned
+
         const planet = planets.find(p => p.orbit === i);
         if (planet) {
           const t = frame * planet.speed + planet.phase;
-          // Arc segment centered at planet's angle
-          const arcLength = 0.36; // total radians for the highlight
+          const arcLength = 0.36;
           const arcStart = t - arcLength / 2;
           const arcEnd = t + arcLength / 2;
+
           ctx.save();
           ctx.beginPath();
           ctx.ellipse(cx, cy, orbit.rx, orbit.ry, axis, arcStart, arcEnd);
-          // Create a gradient for the highlight
           const grad = ctx.createLinearGradient(
             cx + orbit.rx * Math.cos(arcStart) * Math.cos(axis) - orbit.ry * Math.sin(arcStart) * Math.sin(axis),
             cy + orbit.rx * Math.cos(arcStart) * Math.sin(axis) + orbit.ry * Math.sin(arcStart) * Math.cos(axis),
@@ -240,54 +260,50 @@ const Blog = () => {
           grad.addColorStop(1, 'rgba(137,239,140,0.0)');
           ctx.strokeStyle = grad;
           ctx.lineWidth = 8;
-          ctx.shadowColor = 'transparent'; // No glow
-          ctx.shadowBlur = 0; // No glow
+          ctx.shadowColor = 'transparent';
+          ctx.shadowBlur = 0;
           ctx.globalAlpha = 0.85;
           ctx.stroke();
           ctx.restore();
-          // Draw planet at the end of the highlight arc (planet's current position)
-          // Apply the same rotation as the ellipse
+
           const cosA = Math.cos(axis);
           const sinA = Math.sin(axis);
           const px = cx + orbit.rx * Math.cos(t) * cosA - orbit.ry * Math.sin(t) * sinA;
           const py = cy + orbit.rx * Math.cos(t) * sinA + orbit.ry * Math.sin(t) * cosA;
+          
           ctx.save();
           ctx.beginPath();
           ctx.arc(px, py, planet.r, 0, Math.PI * 2);
           ctx.fillStyle = planet.color;
-          ctx.shadowColor = 'transparent'; // No glow
-          ctx.shadowBlur = 0; // No glow
+          ctx.shadowColor = 'transparent';
+          ctx.shadowBlur = 0;
           ctx.globalAlpha = 0.85;
           ctx.fill();
           ctx.restore();
-          // Draw planet name near the planet, following its position
+
           ctx.save();
           ctx.font = `bold ${Math.max(planet.r * 1.2, 14)}px 'Space Mono', monospace`;
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
           ctx.globalAlpha = 0.85;
           ctx.fillStyle = '#b3d1ff';
-          // Offset the label a bit away from the planet (radially outward)
           const labelOffset = planet.r + 18;
-          const labelAngle = t; // same as planet's angle
-          const labelX = cx + (orbit.rx + labelOffset) * Math.cos(labelAngle) * cosA - (orbit.ry + labelOffset) * Math.sin(labelAngle) * sinA;
-          const labelY = cy + (orbit.rx + labelOffset) * Math.cos(labelAngle) * sinA + (orbit.ry + labelOffset) * Math.sin(labelAngle) * cosA;
+          const labelX = cx + (orbit.rx + labelOffset) * Math.cos(t) * cosA - (orbit.ry + labelOffset) * Math.sin(t) * sinA;
+          const labelY = cy + (orbit.rx + labelOffset) * Math.cos(t) * sinA + (orbit.ry + labelOffset) * Math.sin(t) * cosA;
           ctx.strokeStyle = '#222a';
           ctx.lineWidth = 4;
           ctx.strokeText(planetNames[i], labelX, labelY);
           ctx.fillText(planetNames[i], labelX, labelY);
           ctx.restore();
-          // If this is the innermost planet (index 0), add a satellite
+
           if (i === 0) {
-            // Satellite orbit parameters
-            const satOrbitRadius = planet.r + 14; // distance from planet center
-            const satAngle = frame * 0.04; // satellite speed
-            // Satellite position (relative to planet)
+            const satOrbitRadius = planet.r + 14;
+            const satAngle = frame * 0.04;
             const satX = px + satOrbitRadius * Math.cos(satAngle);
             const satY = py + satOrbitRadius * Math.sin(satAngle);
             ctx.save();
             ctx.beginPath();
-            ctx.arc(satX, satY, 5, 0, Math.PI * 2); // satellite radius 5
+            ctx.arc(satX, satY, 5, 0, Math.PI * 2);
             ctx.fillStyle = '#fff8b3';
             ctx.globalAlpha = 0.95;
             ctx.fill();
@@ -298,11 +314,10 @@ const Blog = () => {
       frame++;
       animId = requestAnimationFrame(animate);
     }
-    animate();
+    animate(0);
 
     function handleResize() {
       setCanvasSize();
-      // Re-randomize star positions on resize
       for (const star of stars) {
         star.x = Math.random() * width;
         star.y = Math.random() * height;
