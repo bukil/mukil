@@ -1,4 +1,4 @@
-import { Box, useColorMode } from '@chakra-ui/react'
+import { useColorMode } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 import { motion } from 'framer-motion'
 
