@@ -155,13 +155,23 @@ const ProjectPanel = ({
       bg={gradientColors}
       transition="all 0.3s ease"
       _hover={{
-        bg: hoverGradientColors
+        bg: hoverGradientColors,
+        transform: 'translateY(-5px)',
+        boxShadow: 'xl'
       }}
       onClick={onClick}
       cursor="pointer"
       height="400px"
       width="100%"
-      sx={sx}
+      sx={{
+        ...sx,
+        '& *': {
+          pointerEvents: 'none'
+        }
+      }}
+      as={motion.div}
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
     >
       {hasSnow && (
         <SnowContainer>
