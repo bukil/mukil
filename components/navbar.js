@@ -88,9 +88,16 @@ const Navbar = props => {
       position="fixed"
       as="nav"
       w="100%"
-      bg={useColorModeValue('#ffffff40', '#20202380')}
-      css={{ backdropFilter: 'blur(10px)' }}
+      top={0}
+      left={0}
       zIndex={9999}
+      bg={useColorModeValue('rgba(255,255,255,0.65)', 'rgba(32,32,35,0.65)')}
+      css={{
+        backdropFilter: 'blur(2px) saturate(180%)',
+        WebkitBackdropFilter: 'blur(1px) saturate(100%)',
+        borderBottom: useColorModeValue('2.5px solid rgba(200,200,200,0.18)', '1.5px solid rgba(80,80,80,0.18)'),
+        boxShadow: '0 2px 16px 0 rgba(0,0,0,0.08)'
+      }}
       {...props}
     >
       <Container
@@ -143,7 +150,7 @@ const Navbar = props => {
               fontWeight="hairline"
               target="_blank"
               fontSize={18}
-              href="/Mukil_Résumé.pdf"
+              href="/Mukil_Résumé.pdf"
               path={path}
               tabRef={tabRefs[2]}
               display="inline-flex"
