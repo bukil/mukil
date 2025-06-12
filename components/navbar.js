@@ -82,14 +82,18 @@ const Navbar = props => {
 
   useLayoutEffect(() => {
     // Wait for DOM update for smoother animation
-    setTimeout(updateHighlight, 10)
+    const timeoutId = setTimeout(updateHighlight, 20)
     window.addEventListener('resize', updateHighlight)
-    return () => window.removeEventListener('resize', updateHighlight)
+    return () => {
+      window.removeEventListener('resize', updateHighlight)
+      clearTimeout(timeoutId)
+    }
   }, [path])
 
   useEffect(() => {
     // Initial mount
-    updateHighlight()
+    const timeoutId = setTimeout(updateHighlight, 20)
+    return () => clearTimeout(timeoutId)
   }, [])
 
   return (
@@ -196,7 +200,8 @@ const Navbar = props => {
                 )}
                 css={{
                   backdropFilter: 'blur(4px)',
-                  WebkitBackdropFilter: 'blur(4px)'
+                  WebkitBackdropFilter: 'blur(4px)',
+                  transform: 'translate3d(0, 0, 0)'
                 }}
               />
               <LinkItem href="/works" path={path} tabRef={tabRefs[0]} fontWeight="hairline" fontSize={18}>
