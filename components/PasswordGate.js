@@ -1,13 +1,206 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Box, Input, Button, Text, VStack } from '@chakra-ui/react';
 
 const PASSWORD = 'sorte';
 const STORAGE_KEY = 'site_password';
 
+const RocketJourneySimulation = () => {
+  const canvasRef = useRef(null);
+  const starsRef = useRef([]);
+  const mouseRef = useRef({ x: 0, y: 0 });
+  const speedRef = useRef(5);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+    let animationFrameId;
+
+    // Set canvas size
+    const resizeCanvas = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      initStars();
+    };
+
+    // Initialize stars
+    const initStars = () => {
+      const stars = [];
+      const starCount = 250;
+      const centerX = canvas.width / 2;
+      const centerY = canvas.height / 2;
+
+      for (let i = 0; i < starCount; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const distance = Math.random() * 30;
+        stars.push({
+          x: centerX + Math.cos(angle) * distance,
+          y: centerY + Math.sin(angle) * distance,
+          z: Math.random() * 1000,
+          size: Math.random() * 2 + 1,
+          speed: Math.random() * 5 + 2,
+          hue: Math.random() * 60 + 180,
+          alpha: Math.random() * 0.5 + 0.5,
+          type: Math.random() < 0.15 ? 'bright' : 'normal',
+          angle: angle
+        });
+      }
+
+      starsRef.current = stars;
+    };
+
+    // Mouse move handler
+    const handleMouseMove = (e) => {
+      mouseRef.current = {
+        x: e.clientX,
+        y: e.clientY
+      };
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+
+    // Draw star with glow
+    const drawStar = (star) => {
+      const x = star.x;
+      const y = star.y;
+      const size = star.size * (1000 / star.z);
+      const alpha = star.alpha * (1000 / star.z);
+
+      if (star.type === 'bright') {
+        // Draw bright star with glare
+        const gradient = ctx.createRadialGradient(
+          x, y, 0,
+          x, y, size * 4
+        );
+        gradient.addColorStop(0, `hsla(${star.hue}, 70%, 80%, ${alpha})`);
+        gradient.addColorStop(0.5, `hsla(${star.hue}, 70%, 60%, ${alpha * 0.5})`);
+        gradient.addColorStop(1, 'transparent');
+
+        ctx.beginPath();
+        ctx.fillStyle = gradient;
+        ctx.arc(x, y, size * 4, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Draw star rays
+        ctx.beginPath();
+        ctx.strokeStyle = `hsla(${star.hue}, 70%, 80%, ${alpha * 0.3})`;
+        ctx.lineWidth = 1;
+        for (let i = 0; i < 4; i++) {
+          const rayAngle = (Math.PI / 2) * i;
+          ctx.moveTo(x, y);
+          ctx.lineTo(
+            x + Math.cos(rayAngle) * size * 8,
+            y + Math.sin(rayAngle) * size * 8
+          );
+        }
+        ctx.stroke();
+      }
+
+      // Draw star core
+      const coreGradient = ctx.createRadialGradient(
+        x, y, 0,
+        x, y, size
+      );
+      coreGradient.addColorStop(0, `hsla(${star.hue}, 70%, 100%, ${alpha})`);
+      coreGradient.addColorStop(1, `hsla(${star.hue}, 70%, 60%, ${alpha})`);
+
+      ctx.beginPath();
+      ctx.fillStyle = coreGradient;
+      ctx.arc(x, y, size, 0, Math.PI * 2);
+      ctx.fill();
+    };
+
+    // Animation loop
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw space background with enhanced center brightness
+      const bgGradient = ctx.createRadialGradient(
+        canvas.width / 2, canvas.height / 2, 0,
+        canvas.width / 2, canvas.height / 2, canvas.width * 0.8
+      );
+      bgGradient.addColorStop(0, '#1a1a3a');
+      bgGradient.addColorStop(0.3, '#0a0a2a');
+      bgGradient.addColorStop(0.6, '#050520');
+      bgGradient.addColorStop(1, '#000000');
+      ctx.fillStyle = bgGradient;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Add center glow
+      const centerGlow = ctx.createRadialGradient(
+        canvas.width / 2, canvas.height / 2, 0,
+        canvas.width / 2, canvas.height / 2, 200
+      );
+      centerGlow.addColorStop(0, 'rgba(255, 255, 255, 0.1)');
+      centerGlow.addColorStop(0.5, 'rgba(255, 255, 255, 0.05)');
+      centerGlow.addColorStop(1, 'transparent');
+      ctx.fillStyle = centerGlow;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Update and draw stars
+      starsRef.current.forEach((star) => {
+        // Move star forward
+        star.z -= star.speed;
+        if (star.z < 1) {
+          star.z = 1000;
+          // Reset star to center with new random angle
+          const angle = Math.random() * Math.PI * 2;
+          star.angle = angle;
+          star.x = canvas.width / 2 + Math.cos(angle) * 30;
+          star.y = canvas.height / 2 + Math.sin(angle) * 30;
+        }
+
+        // Calculate perspective position
+        const perspective = 1000 / star.z;
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        
+        // Move star outward from center
+        const distance = 30 * perspective;
+        star.x = centerX + Math.cos(star.angle) * distance;
+        star.y = centerY + Math.sin(star.angle) * distance;
+
+        // Draw star
+        drawStar(star);
+      });
+
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    // Initialize and start animation
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+    animate();
+
+    // Cleanup
+    return () => {
+      window.removeEventListener('resize', resizeCanvas);
+      window.removeEventListener('mousemove', handleMouseMove);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        zIndex: 0,
+        pointerEvents: 'none',
+        background: '#000000'
+      }}
+    />
+  );
+};
+
 export default function PasswordGate({ children }) {
   const [input, setInput] = useState('');
   const [error, setError] = useState('');
   const [unlocked, setUnlocked] = useState(false);
+  const [showVideo, setShowVideo] = useState(false);
+  const videoRef = useRef(null);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -23,28 +216,128 @@ export default function PasswordGate({ children }) {
       localStorage.setItem(STORAGE_KEY, PASSWORD);
     } else {
       setError('Incorrect password');
+      setShowVideo(true);
+      setTimeout(() => {
+        if (videoRef.current) {
+          videoRef.current.play().catch(error => {
+            console.error('Error playing video:', error);
+            setShowVideo(false);
+          });
+        }
+      }, 100);
     }
+  };
+
+  const handleVideoEnded = () => {
+    setShowVideo(false);
+    setInput('');
+  };
+
+  const handleVideoError = (e) => {
+    console.error('Video error:', e);
+    setShowVideo(false);
   };
 
   if (unlocked) return children;
 
   return (
-    <Box minH="100vh" display="flex" alignItems="center" justifyContent="center" bg="gray.900">
-      <VStack as="form" spacing={4} onSubmit={handleSubmit} bg="white" p={8} rounded="md" boxShadow="lg">
-        <Text fontSize="lg" fontWeight="bold" color="gray.800">website under construction hehehe :.| wo kya he na....</Text>
+    <Box minH="100vh" display="flex" alignItems="center" justifyContent="center" position="relative">
+      <RocketJourneySimulation />
+      <VStack 
+        as="form" 
+        spacing={4} 
+        onSubmit={handleSubmit} 
+        bg="rgba(255, 255, 255, 0.05)" 
+        p={8} 
+        rounded="xl" 
+        boxShadow="0 8px 32px rgba(0, 0, 0, 0.3)"
+        backdropFilter="blur(12px)"
+        border="1px solid rgba(255, 255, 255, 0.1)"
+        zIndex={1}
+        transition="all 0.3s ease"
+        _hover={{
+          transform: 'translateY(-2px)',
+          boxShadow: '0 12px 40px rgba(0, 0, 0, 0.4)',
+          borderColor: 'rgba(255, 255, 255, 0.2)'
+        }}
+      >
+        <Text 
+          fontSize="lg" 
+          fontWeight="bold" 
+          color="white"
+          textShadow="0 2px 4px rgba(0, 0, 0, 0.3)"
+        >
+          website under construction hehehe :.| ....
+        </Text>
         <Input
           type="password"
           value={input}
           onChange={e => { setInput(e.target.value); setError(''); }}
           placeholder="Password"
           autoFocus
-          color="gray.800"
-          bg="gray.100"
-          _placeholder={{ color: 'gray.500' }}
+          color="white"
+          bg="rgba(255, 255, 255, 0.05)"
+          border="1px solid rgba(255, 255, 255, 0.1)"
+          _placeholder={{ color: 'rgba(255, 255, 255, 0.5)' }}
+          _hover={{ borderColor: 'rgba(255, 255, 255, 0.2)' }}
+          _focus={{ 
+            borderColor: 'rgba(255, 255, 255, 0.3)',
+            boxShadow: '0 0 0 1px rgba(255, 255, 255, 0.2)'
+          }}
+          transition="all 0.2s ease"
         />
-        {error && <Text color="red.500">{error}</Text>}
-        <Button type="submit" colorScheme="teal" width="full">Unlock</Button>
+        {error && (
+          <Text 
+            color="red.400" 
+            textShadow="0 1px 2px rgba(0, 0, 0, 0.2)"
+            animation="shake 0.5s ease-in-out"
+          >
+            {error}
+          </Text>
+        )}
+        <Button 
+          type="submit"
+          width="full"
+          bg="rgba(137, 239, 140, 0.1)"
+          _hover={{ 
+            bg: 'rgba(137, 239, 140, 0.2)',
+            transform: 'translateY(-1px)',
+            boxShadow: '0 4px 12px rgba(137, 239, 140, 0.2)'
+          }}
+          _active={{
+            transform: 'translateY(1px)',
+            boxShadow: 'none'
+          }}
+          border="1px solid rgba(137, 239, 140, 0.3)"
+          color="rgba(137, 239, 140, 0.9)"
+          transition="all 0.2s ease"
+        >
+          Unlock
+        </Button>
       </VStack>
+
+      {showVideo && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-90"
+          style={{
+            transform: 'skew(-15deg)',
+            overflow: 'hidden'
+          }}
+        >
+          <video
+            ref={videoRef}
+            src="/rick.mp4"
+            className="w-full h-full object-cover"
+            style={{
+              transform: 'skew(15deg)',
+            }}
+            onEnded={handleVideoEnded}
+            onError={handleVideoError}
+            controls={false}
+            autoPlay
+          />
+        </div>
+      )}
     </Box>
   );
 } 
