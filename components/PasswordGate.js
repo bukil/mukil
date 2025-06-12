@@ -8,7 +8,7 @@ const RocketJourneySimulation = () => {
   const canvasRef = useRef(null);
   const starsRef = useRef([]);
   const mouseRef = useRef({ x: 0, y: 0 });
-  const speedRef = useRef(5);
+  
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -318,10 +318,13 @@ export default function PasswordGate({ children }) {
 
       {showVideo && (
         <div 
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-90"
+          className="fixed bottom-0 right-0 z-50 flex items-end justify-end bg-black bg-opacity-90"
           style={{
-            transform: 'skew(-15deg)',
-            overflow: 'hidden'
+            transform: 'rotate(-15deg)',
+            width: '50%',
+            height: '50%',
+            overflow: 'hidden',
+            margin: '2rem'
           }}
         >
           <video
@@ -329,7 +332,7 @@ export default function PasswordGate({ children }) {
             src="/rick.mp4"
             className="w-full h-full object-cover"
             style={{
-              transform: 'skew(15deg)',
+              transform: 'rotate(15deg)',
             }}
             onEnded={handleVideoEnded}
             onError={handleVideoError}
