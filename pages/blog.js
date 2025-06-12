@@ -365,7 +365,7 @@ const Blog = () => {
     return (
       <Box
         bg="rgba(255,255,255,0.13)"
-        borderRadius="2xl"
+        borderRadius="0"
         boxShadow="0 4px 24px 0 rgba(0,0,0,0.10)"
         p={4}
         minH={"140px"}
@@ -529,7 +529,7 @@ const Blog = () => {
             {/* Book Reviews Grid - square tiles */}
             <Section>
               <Box w="100%" display="flex" justifyContent="center" mt={8} mb={8}>
-                <Box w="100%">
+                <Box w={{ base: '100%', md: '80%', lg: '70%' }}>
                   <Box fontWeight="bold" fontSize="2xl" mb={4} color={textColor}>Book Reviews</Box>
                   <Box as={"div"}>
                     <Box display="grid" gridTemplateColumns={{ base: '1fr', sm: '1fr 1fr', md: '1fr 1fr 1fr' }} gap={4}>
@@ -603,15 +603,15 @@ const Blog = () => {
             </Section>
 
             {/* Categories as a vertical list */}
-            <VStack spacing={1} align="stretch">
-              {/* Blogs Section - outer green border with GSAP animation */}
+            <VStack spacing={1} align="stretch" w={{ base: '100%', md: '80%', lg: '70%' }} mx="auto">
+              {/* Blogs Section */}
               <Section>
                 <Box
                   ref={blogBoxRef}
                   display="flex"
                   alignItems="center"
                   p={6}
-                  borderRadius="1xl"
+                  borderRadius="0"
                   bg="transparent"
                   border={`1px solid ${greenLine}`}
                   boxShadow="none"
@@ -634,14 +634,14 @@ const Blog = () => {
                 </Box>
               </Section>
 
-              {/* Book Reviews Section - outer pink border with GSAP animation */}
+              {/* Book Reviews Section */}
               <Section>
                 <Box
                   ref={bookBoxRef}
                   display="flex"
                   alignItems="center"
                   p={6}
-                  borderRadius="1xl"
+                  borderRadius="0"
                   bg="transparent"
                   border={`1px solid ${pinkLine}`}
                   boxShadow="none"
@@ -663,14 +663,14 @@ const Blog = () => {
                 </Box>
               </Section>
 
-              {/* Photography Section - outer blue border with GSAP animation */}
+              {/* Photography Section */}
               <Section>
                 <Box
                   ref={photoBoxRef}
                   display="flex"
                   alignItems="center"
                   p={6}
-                  borderRadius="1xl"
+                  borderRadius="0"
                   bg="transparent"
                   border={`1px solid ${blueLine}`}
                   boxShadow="none"
@@ -692,7 +692,7 @@ const Blog = () => {
                 </Box>
               </Section>
 
-              {/* Games Section - outer yellow border with GSAP animation */}
+              {/* Games Section */}
               <Section>
                 <Box
                   as={NextLink}
@@ -700,7 +700,7 @@ const Blog = () => {
                   display="flex"
                   alignItems="center"
                   p={6}
-                  borderRadius="1xl"
+                  borderRadius="0"
                   bg="transparent"
                   border={`1px solid ${yellowLine}`}
                   boxShadow="none"

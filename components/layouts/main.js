@@ -25,7 +25,7 @@ const Main = ({ children, router }) => {
 
       <Navbar path={router.asPath} />
 
-      <Box as="main" pt="64px" pb={0}>
+      <Box as="main" pt="80px" pb={0}>
         {['/blog', '/works', '/'].includes(router.pathname) ? (
           <>
             {children}

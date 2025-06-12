@@ -23,6 +23,10 @@ import React, { useRef, useEffect, useState, useLayoutEffect } from 'react'
 const LinkItem = ({ href, path, target, children, tabRef, ...props }) => {
   const active = path === href
   const inactiveColor = useColorModeValue('gray.600', 'whiteAlpha.900')
+  const hoverBg = useColorModeValue(
+    'rgba(137,239,140,0.15)',
+    'rgba(137,239,140,0.25)'
+  )
   return (
     <NextLink href={href} passHref legacyBehavior>
       <Link
@@ -41,10 +45,7 @@ const LinkItem = ({ href, path, target, children, tabRef, ...props }) => {
           textDecoration: 'none',
           transform: 'translateY(-2px)',
           color: active ? '#202023' : inactiveColor,
-          bg: active ? '#89EF8C' : useColorModeValue(
-            'rgba(137,239,140,0.15)',
-            'rgba(137,239,140,0.25)'
-          )
+          bg: active ? '#89EF8C' : hoverBg
         }}
         {...props}
       >
@@ -56,11 +57,11 @@ const LinkItem = ({ href, path, target, children, tabRef, ...props }) => {
 
 const Navbar = props => {
   const { path } = props
+  const [highlight, setHighlight] = useState({ left: 0, width: 0 })
+  const navStackRef = useRef(null)
+  const tabRefs = [useRef(null), useRef(null), useRef(null), useRef(null)]
 
   // --- Traveling highlight logic ---
-  const tabRefs = [useRef(), useRef(), useRef(), useRef()]
-  const [highlight, setHighlight] = useState({ left: 0, width: 0 })
-  const navStackRef = useRef()
   const tabPaths = ['/works', '/blog', '/Mukil_Résumé.pdf', '/contact']
 
   // Helper to update highlight position
@@ -98,204 +99,201 @@ const Navbar = props => {
       w="100%"
       top={0}
       left={0}
-      zIndex={9999}
-      bg={useColorModeValue(
-        'rgba(255,255,255,0.3)',
-        'rgba(32,32,35,0.3)'
-      )}
-      css={{
-        backdropFilter: 'blur(8px)',
-        WebkitBackdropFilter: 'blur(8px)',
-        borderBottom: useColorModeValue(
-          '1px solid rgba(255,255,255,0.3)',
-          '1px solid rgba(255,255,255,0.1)'
-        ),
-        boxShadow: useColorModeValue(
-          '0 4px 30px rgba(0,0,0,0.1), inset 0 0 0 1px rgba(255,255,255,0.2)',
-          '0 4px 30px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(255,255,255,0.1)'
-        ),
-        transition: 'all 0.3s ease-in-out',
-        borderRadius: '16px',
-        margin: '8px 16px',
-        width: 'calc(100% - 32px)',
-        transform: 'translateY(0)',
-        position: 'relative',
-        '&::before': {
-          content: '""',
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          height: '1px',
-          background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.8) 50%, transparent 100%)',
-          borderRadius: '16px 16px 0 0',
-          pointerEvents: 'none'
-        },
-        '&::after': {
-          content: '""',
-          position: 'absolute',
-          top: '1px',
-          left: '1px',
-          right: '1px',
-          height: '1px',
-          background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%)',
-          borderRadius: '16px 16px 0 0',
-          pointerEvents: 'none'
-        },
-        '&:hover': {
-          transform: 'translateY(4px)',
-          boxShadow: useColorModeValue(
-            '0 8px 32px rgba(0,0,0,0.15), inset 0 0 0 1px rgba(255,255,255,0.3)',
-            '0 8px 32px rgba(0,0,0,0.4), inset 0 0 0 1px rgba(255,255,255,0.2)'
-          )
-        }
-      }}
-      {...props}
+      zIndex={1000}
     >
-      <Container
-        display="flex"
+      <Box
+        w="100%"
         p={2}
-        maxW="container.md"
-        wrap="wrap"
-        align="center"
-        justify="space-between"
+        bg={useColorModeValue(
+          'rgba(255,255,255,0.3)',
+          'rgba(32,32,35,0.3)'
+        )}
+        css={{
+          backdropFilter: 'blur(8px)',
+          WebkitBackdropFilter: 'blur(8px)',
+          borderBottom: useColorModeValue(
+            '1px solid rgba(255,255,255,0.3)',
+            '1px solid rgba(255,255,255,0.1)'
+          ),
+          boxShadow: useColorModeValue(
+            '0 4px 30px rgba(0,0,0,0.1), inset 0 0 0 1px rgba(255,255,255,0.2)',
+            '0 4px 30px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(255,255,255,0.1)'
+          ),
+          transition: 'all 0.3s ease-in-out',
+          borderRadius: '16px',
+          margin: '8px 16px',
+          width: 'calc(100% - 32px)',
+          transform: 'translateY(0)',
+          position: 'relative',
+          '&::before': {
+            content: '""',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            height: '1px',
+            background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.8) 50%, transparent 100%)',
+            borderRadius: '16px 16px 0 0',
+            pointerEvents: 'none'
+          },
+          '&::after': {
+            content: '""',
+            position: 'absolute',
+            top: '1px',
+            left: '1px',
+            right: '1px',
+            height: '1px',
+            background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%)',
+            borderRadius: '16px 16px 0 0',
+            pointerEvents: 'none'
+          },
+          '&:hover': {
+            transform: 'translateY(4px)',
+            boxShadow: useColorModeValue(
+              '0 8px 32px rgba(0,0,0,0.15), inset 0 0 0 1px rgba(255,255,255,0.3)',
+              '0 8px 32px rgba(0,0,0,0.4), inset 0 0 0 1px rgba(255,255,255,0.2)'
+            )
+          }
+        }}
       >
-        <Flex align="center" mr={100}>
-          <Heading as="h1" size="lg" letterSpacing={'tighter'}>
-            <Logo />
-          </Heading>
-        </Flex>
-
-        {/* Desktop Navigation */}
-        <Box position="relative" flexGrow={1}>
-          <Stack
-            ref={navStackRef}
-            direction={{ base: 'column', md: 'row' }}
-            display={{ base: 'none', md: 'flex' }}
-            width={{ base: 'full', md: 'auto' }}
-            alignItems="center"
-            flexGrow={1}
-            mt={{ base: 4, md: 0 }}
-            spacing={2}
-            position="relative"
-          >
-            {/* Traveling highlight bar */}
-            <Box
-              position="absolute"
-              top={0}
-              left={highlight.left}
-              height="100%"
-              width={highlight.width}
-              bg={useColorModeValue(
-                'linear-gradient(180deg, rgba(137,239,140,0.2) 0%, rgba(137,239,140,0.1) 100%)',
-                'linear-gradient(180deg, rgba(137,239,140,0.3) 0%, rgba(137,239,140,0.2) 100%)'
-              )}
-              borderRadius="12px"
-              zIndex={1}
-              transition="all 0.4s cubic-bezier(.4,2,.3,1)"
-              boxShadow={useColorModeValue(
-                '0 4px 20px rgba(137,239,140,0.2), inset 0 0 0 1px rgba(137,239,140,0.2)',
-                '0 4px 20px rgba(137,239,140,0.3), inset 0 0 0 1px rgba(137,239,140,0.3)'
-              )}
-              css={{
-                backdropFilter: 'blur(4px)',
-                WebkitBackdropFilter: 'blur(4px)'
-              }}
-            />
-            <LinkItem href="/works" path={path} tabRef={tabRefs[0]} fontWeight="hairline" fontSize={18}>
-              MY WORKS
-            </LinkItem>
-            <LinkItem href="/blog" path={path} tabRef={tabRefs[1]} fontWeight="hairline" fontSize={18}>
-              BLOG
-            </LinkItem>
-            <LinkItem
-              fontWeight="hairline"
-              target="_blank"
-              fontSize={18}
-              href="/Mukil_Résumé.pdf"
-              path={path}
-              tabRef={tabRefs[2]}
-              display="inline-flex"
-              alignItems="center"
-              pl={2}
-            >
-              RESUME
-            </LinkItem>
-            <LinkItem href="/contact" path={path} tabRef={tabRefs[3]} fontWeight="hairline" fontSize={18}>
-              CONTACT
-            </LinkItem>
-          </Stack>
-        </Box>
-
-        {/* Mobile Menu */}
-        <Box flex={1} align="right">
-          <Flex align="center" justify="flex-end" h="100%">
-            <Box display={{ base: 'inline-block', md: 'none' }}>
-              <Menu isLazy id="navbar-menu">
-                <MenuButton
-                  as={IconButton}
-                  icon={<HamburgerIcon />}
-                  variant="outline"
-                  borderRadius="12px"
-                  aria-label="Options"
-                  bg={useColorModeValue(
-                    'linear-gradient(180deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.3) 100%)',
-                    'linear-gradient(180deg, rgba(32,32,35,0.4) 0%, rgba(32,32,35,0.3) 100%)'
-                  )}
-                  border={useColorModeValue(
-                    '1px solid rgba(255,255,255,0.3)',
-                    '1px solid rgba(255,255,255,0.1)'
-                  )}
-                  _hover={{
-                    bg: useColorModeValue(
-                      'linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.4) 100%)',
-                      'linear-gradient(180deg, rgba(32,32,35,0.5) 0%, rgba(32,32,35,0.4) 100%)'
-                    ),
-                    transform: 'scale(1.05)',
-                    boxShadow: useColorModeValue(
-                      '0 4px 20px rgba(0,0,0,0.1), inset 0 0 0 1px rgba(255,255,255,0.3)',
-                      '0 4px 20px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(255,255,255,0.2)'
-                    ),
-                    transition: 'all 0.2s ease-in-out'
-                  }}
-                />
-                <MenuList
-                  bg={useColorModeValue(
-                    'linear-gradient(180deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.3) 100%)',
-                    'linear-gradient(180deg, rgba(32,32,35,0.4) 0%, rgba(32,32,35,0.3) 100%)'
-                  )}
-                  backdropFilter="blur(8px)"
-                  border={useColorModeValue(
-                    '1px solid rgba(255,255,255,0.3)',
-                    '1px solid rgba(255,255,255,0.1)'
-                  )}
-                  borderRadius="12px"
-                  boxShadow={useColorModeValue(
-                    '0 4px 30px rgba(0,0,0,0.1), inset 0 0 0 1px rgba(255,255,255,0.2)',
-                    '0 4px 30px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(255,255,255,0.1)'
-                  )}
-                >
-                  <NextLink href="/works" passHref legacyBehavior>
-                    <MenuItem as={Link}>MY WORKS</MenuItem>
-                  </NextLink>
-                  <NextLink href="/blog" passHref legacyBehavior>
-                    <MenuItem as={Link}>BLOG</MenuItem>
-                  </NextLink>
-                  <NextLink href="/Mukil_Résumé.pdf" passHref legacyBehavior>
-                    <MenuItem as={Link}>RESUME</MenuItem>
-                  </NextLink>
-                  <NextLink href="/contact" passHref legacyBehavior>
-                    <MenuItem as={Link}>CONTACT</MenuItem>
-                  </NextLink>
-                </MenuList>
-              </Menu>
-            </Box>
-            <Box ml={2} display="flex" alignItems="center">
-              <ThemeToggleButton />
-            </Box>
+        <Container maxW="container.md" display="flex" align="center" justify="space-between">
+          <Flex align="center" mr={100}>
+            <Heading as="h1" size="lg" letterSpacing={'tighter'}>
+              <Logo />
+            </Heading>
           </Flex>
-        </Box>
-      </Container>
+
+          {/* Desktop Navigation */}
+          <Box position="relative" flexGrow={1}>
+            <Stack
+              ref={navStackRef}
+              direction={{ base: 'column', md: 'row' }}
+              display={{ base: 'none', md: 'flex' }}
+              width={{ base: 'full', md: 'auto' }}
+              alignItems="center"
+              flexGrow={1}
+              mt={{ base: 4, md: 0 }}
+              spacing={2}
+              position="relative"
+            >
+              {/* Traveling highlight bar */}
+              <Box
+                position="absolute"
+                top={0}
+                left={highlight.left}
+                height="100%"
+                width={highlight.width}
+                bg={useColorModeValue(
+                  'linear-gradient(180deg, rgba(137,239,140,0.2) 0%, rgba(137,239,140,0.1) 100%)',
+                  'linear-gradient(180deg, rgba(137,239,140,0.3) 0%, rgba(137,239,140,0.2) 100%)'
+                )}
+                borderRadius="12px"
+                zIndex={1}
+                transition="all 0.4s cubic-bezier(.4,2,.3,1)"
+                boxShadow={useColorModeValue(
+                  '0 4px 20px rgba(137,239,140,0.2), inset 0 0 0 1px rgba(137,239,140,0.2)',
+                  '0 4px 20px rgba(137,239,140,0.3), inset 0 0 0 1px rgba(137,239,140,0.3)'
+                )}
+                css={{
+                  backdropFilter: 'blur(4px)',
+                  WebkitBackdropFilter: 'blur(4px)'
+                }}
+              />
+              <LinkItem href="/works" path={path} tabRef={tabRefs[0]} fontWeight="hairline" fontSize={18}>
+                MY WORKS
+              </LinkItem>
+              <LinkItem href="/blog" path={path} tabRef={tabRefs[1]} fontWeight="hairline" fontSize={18}>
+                BLOG
+              </LinkItem>
+              <LinkItem
+                fontWeight="hairline"
+                target="_blank"
+                fontSize={18}
+                href="/Mukil_Résumé.pdf"
+                path={path}
+                tabRef={tabRefs[2]}
+                display="inline-flex"
+                alignItems="center"
+                pl={2}
+              >
+                RESUME
+              </LinkItem>
+              <LinkItem href="/contact" path={path} tabRef={tabRefs[3]} fontWeight="hairline" fontSize={18}>
+                CONTACT
+              </LinkItem>
+            </Stack>
+          </Box>
+
+          {/* Mobile Menu */}
+          <Box flex={1} align="right">
+            <Flex align="center" justify="flex-end" h="100%">
+              <Box display={{ base: 'inline-block', md: 'none' }}>
+                <Menu isLazy id="navbar-menu">
+                  <MenuButton
+                    as={IconButton}
+                    icon={<HamburgerIcon />}
+                    variant="outline"
+                    borderRadius="12px"
+                    aria-label="Options"
+                    bg={useColorModeValue(
+                      'linear-gradient(180deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.3) 100%)',
+                      'linear-gradient(180deg, rgba(32,32,35,0.4) 0%, rgba(32,32,35,0.3) 100%)'
+                    )}
+                    border={useColorModeValue(
+                      '1px solid rgba(255,255,255,0.3)',
+                      '1px solid rgba(255,255,255,0.1)'
+                    )}
+                    _hover={{
+                      bg: useColorModeValue(
+                        'linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.4) 100%)',
+                        'linear-gradient(180deg, rgba(32,32,35,0.5) 0%, rgba(32,32,35,0.4) 100%)'
+                      ),
+                      transform: 'scale(1.05)',
+                      boxShadow: useColorModeValue(
+                        '0 4px 20px rgba(0,0,0,0.1), inset 0 0 0 1px rgba(255,255,255,0.3)',
+                        '0 4px 20px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(255,255,255,0.2)'
+                      ),
+                      transition: 'all 0.2s ease-in-out'
+                    }}
+                  />
+                  <MenuList
+                    bg={useColorModeValue(
+                      'linear-gradient(180deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.3) 100%)',
+                      'linear-gradient(180deg, rgba(32,32,35,0.4) 0%, rgba(32,32,35,0.3) 100%)'
+                    )}
+                    backdropFilter="blur(8px)"
+                    border={useColorModeValue(
+                      '1px solid rgba(255,255,255,0.3)',
+                      '1px solid rgba(255,255,255,0.1)'
+                    )}
+                    borderRadius="12px"
+                    boxShadow={useColorModeValue(
+                      '0 4px 30px rgba(0,0,0,0.1), inset 0 0 0 1px rgba(255,255,255,0.2)',
+                      '0 4px 30px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(255,255,255,0.1)'
+                    )}
+                  >
+                    <NextLink href="/works" passHref legacyBehavior>
+                      <MenuItem as={Link}>MY WORKS</MenuItem>
+                    </NextLink>
+                    <NextLink href="/blog" passHref legacyBehavior>
+                      <MenuItem as={Link}>BLOG</MenuItem>
+                    </NextLink>
+                    <NextLink href="/Mukil_Résumé.pdf" passHref legacyBehavior>
+                      <MenuItem as={Link}>RESUME</MenuItem>
+                    </NextLink>
+                    <NextLink href="/contact" passHref legacyBehavior>
+                      <MenuItem as={Link}>CONTACT</MenuItem>
+                    </NextLink>
+                  </MenuList>
+                </Menu>
+              </Box>
+              <Box ml={2} display="flex" alignItems="center">
+                <ThemeToggleButton />
+              </Box>
+            </Flex>
+          </Box>
+        </Container>
+      </Box>
     </Box>
   )
 }
