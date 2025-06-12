@@ -636,8 +636,8 @@ const Works = () => {
       <Head>
         <link href="https://fonts.googleapis.com/css2?family=Tiny5&display=swap" rel="stylesheet" />
       </Head>
-      <Layout title="Works" mt={10} maxW="100vw" overflowX="hidden">
-        <Box w="100vw" position="relative" left="50%" right="50%" marginLeft="-50vw" marginRight="-50vw">
+      <Layout title="Works" mt={10} overflowX="hidden">
+        <Box w="100%" position="relative">
           <BigText ref={bigTextRef} colorMode={colorMode}>
             {characters.map((char, index) => (
               <Character key={index}>{char}</Character>

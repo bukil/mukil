@@ -14,14 +14,10 @@ const FooterLand = () => {
   return (
     <Box
       as="footer"
-      width="100vw"
+      width="100%"
       height="150px"
       zIndex={10}
       position="relative"
-      left="50%"
-      right="50%"
-      marginLeft="-50vw"
-      marginRight="-50vw"
       overflow="hidden"
     >
       <Box
