@@ -119,6 +119,29 @@ const Navbar = props => {
         margin: '8px 16px',
         width: 'calc(100% - 32px)',
         transform: 'translateY(0)',
+        position: 'relative',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: '1px',
+          background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.8) 50%, transparent 100%)',
+          borderRadius: '16px 16px 0 0',
+          pointerEvents: 'none'
+        },
+        '&::after': {
+          content: '""',
+          position: 'absolute',
+          top: '1px',
+          left: '1px',
+          right: '1px',
+          height: '1px',
+          background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%)',
+          borderRadius: '16px 16px 0 0',
+          pointerEvents: 'none'
+        },
         '&:hover': {
           transform: 'translateY(4px)',
           boxShadow: useColorModeValue(
