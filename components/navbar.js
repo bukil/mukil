@@ -206,15 +206,15 @@ const Navbar = props => {
                 BLOG
               </LinkItem>
               <LinkItem
-                fontWeight="hairline"
-                target="_blank"
-                fontSize={18}
                 href="/Mukil_Résumé.pdf"
                 path={path}
                 tabRef={tabRefs[2]}
                 display="inline-flex"
                 alignItems="center"
+                style={{ gap: 4 }}
                 pl={2}
+                fontWeight="hairline"
+                fontSize={18}
               >
                 RESUME
               </LinkItem>
