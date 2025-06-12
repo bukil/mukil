@@ -143,10 +143,10 @@ const Navbar = props => {
           '&::after': {
             content: '""',
             position: 'absolute',
-            top: '1px',
-            left: '1px',
-            right: '1px',
-            height: '1px',
+            top: '0.4px',
+            left: '0.4px',
+            right: '0.4px',
+            height: '0.4px',
             background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%)',
             borderRadius: '16px 16px 0 0',
             pointerEvents: 'none'
