@@ -485,17 +485,17 @@ const Home = () => {
                   borderColor="whiteAlpha.800"
                   borderWidth={0}
                   borderStyle="solid"
-                  w="200px"
-                  h="240px"
+                  w="300px"
+                  h="363px"
                   display="inline-block"
-                  borderRadius='50'
+                  borderRadius='0'
                   overflow="hidden"
                 >
                   <ProfileImage
-                    src="/images/mukil.jpg"
+                    src="/images/mukil.png"
                     alt="Profile image"
-                    width={320}
-                    height={290}
+                    width={300}
+                    height={363}
                   />
                 </Box>
               </Box>
