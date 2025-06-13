@@ -148,7 +148,6 @@ const ProjectPanel = ({
     <Box 
       position="relative"
       borderWidth="1px" 
-      borderRadius="3xl" 
       overflow="hidden" 
       boxShadow="md"
       role="group"
@@ -322,8 +321,8 @@ function CollapseExtandip() {
 
   return (
     <>
-      <Box p='1px' color='white' mt='4' rounded='md' shadow='md'>
-        <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} columnGap={10} rowGap={4} mt={10} px={{ base: 4, md: 8 }}>
+      <Box p='2px' color='white' mt='4' rounded='md' shadow='md'>
+        <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} columnGap={4} rowGap={4} mt={5} px={4}>
           <Section>
             <ProjectPanel
               title="Kode/Board"
