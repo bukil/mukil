@@ -387,6 +387,22 @@ const Blog = () => {
     );
   }
 
+  const [displayText, setDisplayText] = useState("        ");
+  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      // Generate new random 8 characters
+      const newText = Array(8).fill('').map(() => 
+        characters[Math.floor(Math.random() * characters.length)]
+      ).join('');
+      
+      setDisplayText(newText);
+    }, 100); // Change every 100ms
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <Layout>
       <Box minH="100vh" py={0} w="100%" maxW="100vw" overflowX="hidden">
@@ -395,6 +411,21 @@ const Blog = () => {
           <canvas ref={canvasRef} style={{ width: '100vw', height: '100vh', display: 'block' }} />
         </Box>
         <Box minH="100vh" py={0} position="relative" zIndex={1} w="100%" maxW="100vw">
+          {/* Quick changing text at the top */}
+          <Box textAlign="center" py={32} mt="30vh">
+            <Text 
+              fontSize="5xl" 
+              fontWeight="bold" 
+              color={textColor}
+              fontFamily="'Space Mono', monospace"
+              letterSpacing="tight"
+            >
+              {displayText}
+              <Text as="span" color="#89EF8C">_</Text>
+            </Text>
+          </Box>
+          {/* Spacer to push content down */}
+          <Box h="400px" />
           <VStack spacing={16} align="stretch" w="100%">
             {/* Hero Section */}
             <VStack spacing={6} align="center" py={20} w="100%">
@@ -532,7 +563,7 @@ const Blog = () => {
                 <Box w={{ base: '100%', md: '80%', lg: '70%' }}>
                   <Box fontWeight="bold" fontSize="2xl" mb={4} color={textColor}>Book Reviews</Box>
                   <Box as={"div"}>
-                    <Box display="grid" gridTemplateColumns={{ base: '1fr', sm: '1fr 1fr', md: '1fr 1fr 1fr' }} gap={4}>
+                    <Box display="grid" gridTemplateColumns={{ base: '1fr', sm: '1fr 1fr', md: '1fr 1fr 1fr' }} gap={2}>
                       <BookReviewCard
                         title="Influence"
                         author="Robert Cialdini"
@@ -643,7 +674,7 @@ const Blog = () => {
                   p={6}
                   borderRadius="0"
                   bg="transparent"
-                  border={`1px solid ${pinkLine}`}
+                  border="0.1px solid #89EF8C"
                   boxShadow="none"
                   minH="120px"
                   h="full"
@@ -651,9 +682,9 @@ const Blog = () => {
                   onMouseLeave={() => handleBoxLeave(bookBoxRef)}
                   style={{ willChange: 'transform, box-shadow' }}
                 >
-                  <Icon as={FiBook} w={8} h={8} color={pinkLine} mr={6} />
+                  <Icon as={FiBook} w={8} h={8} color="#89EF8C" mr={6} />
                   <Box>
-                    <Heading as="h2" fontSize="2xl" fontWeight="semibold" color={textColor} mb={2}>
+                    <Heading as="h2" fontSize="2xl" fontWeight="semibold" color="#89EF8C" mb={2}>
                       Book Reviews
                     </Heading>
                     <Text fontSize="lg" color={textColor}>
@@ -672,7 +703,7 @@ const Blog = () => {
                   p={6}
                   borderRadius="0"
                   bg="transparent"
-                  border={`1px solid ${blueLine}`}
+                  border="0.1px solid #89EF8C"
                   boxShadow="none"
                   minH="120px"
                   h="full"
@@ -680,9 +711,9 @@ const Blog = () => {
                   onMouseLeave={() => handleBoxLeave(photoBoxRef)}
                   style={{ willChange: 'transform, box-shadow' }}
                 >
-                  <Icon as={FiCamera} w={8} h={8} color={blueLine} mr={6} />
+                  <Icon as={FiCamera} w={8} h={8} color="#89EF8C" mr={6} />
                   <Box>
-                    <Heading as="h2" fontSize="2xl" fontWeight="semibold" color={textColor} mb={2}>
+                    <Heading as="h2" fontSize="2xl" fontWeight="semibold" color="#89EF8C" mb={2}>
                       Photography
                     </Heading>
                     <Text fontSize="lg" color={textColor}>
@@ -702,7 +733,7 @@ const Blog = () => {
                   p={6}
                   borderRadius="0"
                   bg="transparent"
-                  border={`1px solid ${yellowLine}`}
+                  border="0.1px solid #89EF8C"
                   boxShadow="none"
                   minH="120px"
                   h="full"
@@ -714,7 +745,7 @@ const Blog = () => {
                       gsap.to(e.currentTarget, {
                         scale: 1.035,
                         y: -8,
-                        boxShadow: '0 8px 32px 0 rgba(255,214,0,0.15)',
+                        boxShadow: '0 8px 32px 0 rgba(137,239,140,0.15)',
                         duration: 0.35,
                         ease: 'power3.out',
                       })
@@ -732,9 +763,9 @@ const Blog = () => {
                     }
                   }}
                 >
-                  <Icon as={require('react-icons/fi').FiMonitor} w={8} h={8} color={yellowLine} mr={6} />
+                  <Icon as={require('react-icons/fi').FiMonitor} w={8} h={8} color="#89EF8C" mr={6} />
                   <Box>
-                    <Heading as="h2" fontSize="2xl" fontWeight="semibold" color={textColor} mb={2}>
+                    <Heading as="h2" fontSize="2xl" fontWeight="semibold" color="#89EF8C" mb={2}>
                       Games
                     </Heading>
                     <Text fontSize="lg" color={textColor}>
