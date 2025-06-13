@@ -389,18 +389,50 @@ const Blog = () => {
 
   const [displayText, setDisplayText] = useState("        ");
   const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  const names = [
+    "ABHISHEK",
+    "ARINDAM",
+    "KARTHIK",
+    "SAMIKSHA",
+    "SARAYU",
+    "SAIE",
+    "UTKARSHA",
+    "KHUSHI",
+    "PRADUMN",
+    "ANOUSHKA"
+  ];
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      // Generate new random 8 characters
-      const newText = Array(8).fill('').map(() => 
-        characters[Math.floor(Math.random() * characters.length)]
-      ).join('');
-      
-      setDisplayText(newText);
-    }, 100); // Change every 100ms
+    let isShowingName = false;
+    let nameTimer = null;
 
-    return () => clearInterval(interval);
+    const interval = setInterval(() => {
+      // 20% chance to show a name, but only if we're not already showing one
+      if (!isShowingName && Math.random() < 0.2) {
+        const randomName = names[Math.floor(Math.random() * names.length)];
+        setDisplayText(randomName.padEnd(8, ' '));
+        isShowingName = true;
+        
+        // Clear any existing timer
+        if (nameTimer) clearTimeout(nameTimer);
+        
+        // Set a timer to switch back to random characters after 400ms
+        nameTimer = setTimeout(() => {
+          isShowingName = false;
+        }, 100);
+      } else if (!isShowingName) {
+        // Generate new random 8 characters
+        const newText = Array(8).fill('').map(() => 
+          characters[Math.floor(Math.random() * characters.length)]
+        ).join('');
+        setDisplayText(newText);
+      }
+    }, 80); // Much faster animation for random characters
+
+    return () => {
+      clearInterval(interval);
+      if (nameTimer) clearTimeout(nameTimer);
+    };
   }, []);
 
   return (
