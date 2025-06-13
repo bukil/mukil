@@ -160,23 +160,20 @@ const Navbar = props => {
           }
         }}
       >
-        <Container maxW="container.md" display="flex" align="center" justify="space-between">
-          <Flex align="center" mr={100}>
+        <Flex align="center" w="99.5%" justify="space-between">
+          {/* Logo on the far left */}
+          <Flex align="center">
             <Heading as="h1" size="lg" letterSpacing={'tighter'}>
               <Logo />
             </Heading>
           </Flex>
 
-          {/* Desktop Navigation */}
-          <Box position="relative" flexGrow={1}>
+          {/* Desktop Navigation and Theme Toggle on the right */}
+          <Flex align="center" ml="auto" display={{ base: 'none', md: 'flex' }}>
             <Stack
               ref={navStackRef}
-              direction={{ base: 'column', md: 'row' }}
-              display={{ base: 'none', md: 'flex' }}
-              width={{ base: 'full', md: 'auto' }}
+              direction="row"
               alignItems="center"
-              flexGrow={1}
-              mt={{ base: 4, md: 0 }}
               spacing={2}
               position="relative"
             >
@@ -227,77 +224,78 @@ const Navbar = props => {
                 CONTACT
               </LinkItem>
             </Stack>
-          </Box>
+            <Box ml={2} display={{ base: 'none', md: 'flex' }} alignItems="center">
+              <ThemeToggleButton />
+            </Box>
+          </Flex>
 
           {/* Mobile Menu */}
-          <Box flex={1} align="right">
-            <Flex align="center" justify="flex-end" h="100%">
-              <Box display={{ base: 'inline-block', md: 'none' }}>
-                <Menu isLazy id="navbar-menu">
-                  <MenuButton
-                    as={IconButton}
-                    icon={<HamburgerIcon />}
-                    variant="outline"
-                    borderRadius="12px"
-                    aria-label="Options"
-                    bg={useColorModeValue(
-                      'linear-gradient(180deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.3) 100%)',
-                      'linear-gradient(180deg, rgba(32,32,35,0.4) 0%, rgba(32,32,35,0.3) 100%)'
-                    )}
-                    border={useColorModeValue(
-                      '1px solid rgba(255,255,255,0.3)',
-                      '1px solid rgba(255,255,255,0.1)'
-                    )}
-                    _hover={{
-                      bg: useColorModeValue(
-                        'linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.4) 100%)',
-                        'linear-gradient(180deg, rgba(32,32,35,0.5) 0%, rgba(32,32,35,0.4) 100%)'
-                      ),
-                      transform: 'scale(1.05)',
-                      boxShadow: useColorModeValue(
-                        '0 4px 20px rgba(0,0,0,0.1), inset 0 0 0 1px rgba(255,255,255,0.3)',
-                        '0 4px 20px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(255,255,255,0.2)'
-                      ),
-                      transition: 'all 0.2s ease-in-out'
-                    }}
-                  />
-                  <MenuList
-                    bg={useColorModeValue(
-                      'linear-gradient(180deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.3) 100%)',
-                      'linear-gradient(180deg, rgba(32,32,35,0.4) 0%, rgba(32,32,35,0.3) 100%)'
-                    )}
-                    backdropFilter="blur(8px)"
-                    border={useColorModeValue(
-                      '1px solid rgba(255,255,255,0.3)',
-                      '1px solid rgba(255,255,255,0.1)'
-                    )}
-                    borderRadius="12px"
-                    boxShadow={useColorModeValue(
-                      '0 4px 30px rgba(0,0,0,0.1), inset 0 0 0 1px rgba(255,255,255,0.2)',
-                      '0 4px 30px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(255,255,255,0.1)'
-                    )}
-                  >
-                    <NextLink href="/works" passHref legacyBehavior>
-                      <MenuItem as={Link}>MY WORKS</MenuItem>
-                    </NextLink>
-                    <NextLink href="/blog" passHref legacyBehavior>
-                      <MenuItem as={Link}>BLOG</MenuItem>
-                    </NextLink>
-                    <NextLink href="/Mukil_Résumé.pdf" passHref legacyBehavior>
-                      <MenuItem as={Link}>RESUME</MenuItem>
-                    </NextLink>
-                    <NextLink href="/contact" passHref legacyBehavior>
-                      <MenuItem as={Link}>CONTACT</MenuItem>
-                    </NextLink>
-                  </MenuList>
-                </Menu>
-              </Box>
-              <Box ml={2} display="flex" alignItems="center">
-                <ThemeToggleButton />
-              </Box>
-            </Flex>
-          </Box>
-        </Container>
+          <Flex align="center" ml="auto" display={{ base: 'flex', md: 'none' }}>
+            <Box display={{ base: 'inline-block', md: 'none' }}>
+              <Menu isLazy id="navbar-menu">
+                <MenuButton
+                  as={IconButton}
+                  icon={<HamburgerIcon />}
+                  variant="outline"
+                  borderRadius="12px"
+                  aria-label="Options"
+                  bg={useColorModeValue(
+                    'linear-gradient(180deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.3) 100%)',
+                    'linear-gradient(180deg, rgba(32,32,35,0.4) 0%, rgba(32,32,35,0.3) 100%)'
+                  )}
+                  border={useColorModeValue(
+                    '1px solid rgba(255,255,255,0.3)',
+                    '1px solid rgba(255,255,255,0.1)'
+                  )}
+                  _hover={{
+                    bg: useColorModeValue(
+                      'linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.4) 100%)',
+                      'linear-gradient(180deg, rgba(32,32,35,0.5) 0%, rgba(32,32,35,0.4) 100%)'
+                    ),
+                    transform: 'scale(1.05)',
+                    boxShadow: useColorModeValue(
+                      '0 4px 20px rgba(0,0,0,0.1), inset 0 0 0 1px rgba(255,255,255,0.3)',
+                      '0 4px 20px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(255,255,255,0.2)'
+                    ),
+                    transition: 'all 0.2s ease-in-out'
+                  }}
+                />
+                <MenuList
+                  bg={useColorModeValue(
+                    'linear-gradient(180deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.3) 100%)',
+                    'linear-gradient(180deg, rgba(32,32,35,0.4) 0%, rgba(32,32,35,0.3) 100%)'
+                  )}
+                  backdropFilter="blur(8px)"
+                  border={useColorModeValue(
+                    '1px solid rgba(255,255,255,0.3)',
+                    '1px solid rgba(255,255,255,0.1)'
+                  )}
+                  borderRadius="12px"
+                  boxShadow={useColorModeValue(
+                    '0 4px 30px rgba(0,0,0,0.1), inset 0 0 0 1px rgba(255,255,255,0.2)',
+                    '0 4px 30px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(255,255,255,0.1)'
+                  )}
+                >
+                  <NextLink href="/works" passHref legacyBehavior>
+                    <MenuItem as={Link}>MY WORKS</MenuItem>
+                  </NextLink>
+                  <NextLink href="/blog" passHref legacyBehavior>
+                    <MenuItem as={Link}>BLOG</MenuItem>
+                  </NextLink>
+                  <NextLink href="/Mukil_Résumé.pdf" passHref legacyBehavior>
+                    <MenuItem as={Link}>RESUME</MenuItem>
+                  </NextLink>
+                  <NextLink href="/contact" passHref legacyBehavior>
+                    <MenuItem as={Link}>CONTACT</MenuItem>
+                  </NextLink>
+                </MenuList>
+              </Menu>
+            </Box>
+            <Box ml={2} display={{ base: 'flex', md: 'none' }} alignItems="center">
+              <ThemeToggleButton />
+            </Box>
+          </Flex>
+        </Flex>
       </Box>
     </Box>
   )
