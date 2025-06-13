@@ -13,8 +13,7 @@ const Blog = () => {
   const textColor = useColorModeValue('#222', '#fff')
   const greenLine = useColorModeValue('#89EF8C', '#89EF8C')
   const pinkLine = useColorModeValue('#b83280', '#ff7eb3')
-  const blueLine = useColorModeValue('#3182ce', '#63b3ed')
-  const yellowLine = useColorModeValue('#FFD600', '#FFD600')
+
 
   // Refs for GSAP animation
   const blogBoxRef = useRef(null)
