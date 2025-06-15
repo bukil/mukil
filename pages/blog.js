@@ -375,8 +375,6 @@ const Blog = () => {
         border="1px solid rgba(255,255,255,0.18)"
         backdropFilter="blur(8px)"
         style={{ WebkitBackdropFilter: 'blur(8px)' }}
-        transition="box-shadow 0.3s"
-        _hover={{ boxShadow: `0 8px 32px 0 ${color || 'rgba(137,239,140,0.18)'}` }}
       >
         <Text fontWeight="bold" fontSize="md" color={textColor} mb={1}>{title}</Text>
         <Text fontSize="xs" color={textColor} mb={1}>{author}</Text>
