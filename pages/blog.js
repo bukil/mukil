@@ -359,7 +359,7 @@ const Blog = () => {
   function sleep(ms) { return new Promise(res => setTimeout(res, ms)); }
 
   // BookReviewCard component for compact book review tiles
-  function BookReviewCard({ title, author, rating, review, color }) {
+  function BookReviewCard({ title, author, rating, review }) {
     const textColor = useColorModeValue('#222', '#fff');
     return (
       <Box
