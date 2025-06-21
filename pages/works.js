@@ -534,14 +534,6 @@ function CollapseExtandip() {
                   </div>
                   {/* Retro Particle BG for C2C */}
                   <C2CParticleBG />
-                  {/* Matrix font-face */}
-                  <style jsx global>{`
-                    @font-face {
-                      font-family: 'Matrix';
-                      src: url('/fonts/matrix.ttf') format('truetype');
-                      font-display: swap;
-                    }
-                  `}</style>
                   {/* GSAP animated intro */}
                   <AnimatedC2CIntro />
                 </ModalBody>
@@ -556,10 +548,10 @@ function CollapseExtandip() {
             <ProjectPanel
               title="Progress Bar"
               hoverTitle="Progress Bar"
-              description="An experiment on how people perceive segmented continuous progress bars. Exploring visual feedback patterns and user experience through dynamic animations in an music player android client . 🧪"
-              gradientColors="radial-gradient(circle at center, rgba(0, 150, 136, 0.7) 0%, rgba(0, 121, 107, 0.8) 100%)"
-              hoverGradientColors="radial-gradient(circle at center, rgba(0, 188, 212, 0.8) 0%, rgba(0, 150, 136, 0.9) 100%)"
-              accentColor="#009688"
+              description="An experiment on how people perceive segmented continuous progress bars. Exploring visual feedback patterns and user experience through dynamic animations in an music player android client. 🧪"
+              gradientColors="radial-gradient(circle at center, rgba(20, 20, 20, 0.9) 0%, rgba(0, 0, 0, 0.98) 100%)"
+              hoverGradientColors="radial-gradient(circle at center, rgba(40, 40, 40, 0.9) 0%, rgba(10, 10, 10, 0.98) 100%)"
+              accentColor="#89EF8C"
               customContent={<AnimatedProgressBar />}
             />
           </Section>
@@ -1035,22 +1027,9 @@ const AnimatedProgressBar = () => {
   const [progress1, setProgress1] = useState(0)
   const [progress2, setProgress2] = useState(0)
   const [progress3, setProgress3] = useState(0)
-  const [currentTime, setCurrentTime] = useState('')
 
   useEffect(() => {
-    const updateTime = () => {
-      const now = new Date()
-      const timeString = now.toLocaleTimeString('en-US', { 
-        hour12: false,
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit'
-      })
-      setCurrentTime(timeString)
-    }
-
     const interval = setInterval(() => {
-      updateTime()
       setProgress1(prev => {
         const newProgress = prev + Math.random() * 8
         return newProgress > 100 ? 0 : newProgress
@@ -1065,14 +1044,11 @@ const AnimatedProgressBar = () => {
       })
     }, 800)
 
-    updateTime()
-
     return () => clearInterval(interval)
   }, [])
 
   // Segmented Progress Bar Component
   const SegmentedProgressBar = ({ value, segments = 10, color = "#89EF8C" }) => {
-    const segmentWidth = 100 / segments
     const filledSegments = Math.floor((value / 100) * segments)
     
     return (
@@ -1151,6 +1127,13 @@ const AnimatedProgressBar = () => {
           />
           <circle cx="50" cy="50" r="2" fill="#89EF8C"/>
         </svg>
+      </Box>
+      
+      {/* Status Indicators */}
+      <Box position="absolute" bottom="8%" left="10%" display="flex" gap={2}>
+        <Box w="8px" h="8px" borderRadius="full" bg="#89EF8C" boxShadow="0 0 10px rgba(137, 239, 140, 0.7)"/>
+        <Box w="8px" h="8px" borderRadius="full" bg="#4FC3F7" boxShadow="0 0 10px rgba(79, 195, 247, 0.7)"/>
+        <Box w="8px" h="8px" borderRadius="full" bg="#9C27B0" boxShadow="0 0 10px rgba(156, 39, 176, 0.7)"/>
       </Box>
     </Box>
   )
