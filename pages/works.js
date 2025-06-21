@@ -1,11 +1,11 @@
 /* eslint-disable react/no-unescaped-entities */
-import { Heading, SimpleGrid, Image, Text, Button, useDisclosure, Box, Spacer, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, useColorMode } from '@chakra-ui/react'
+import { Heading, SimpleGrid, Image, Text, Button, useDisclosure, Box, Spacer, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, useColorMode, Progress } from '@chakra-ui/react'
 import { ChevronLeftIcon } from '@chakra-ui/icons'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
 import styled from '@emotion/styled'
 import NextLink from 'next/link'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import KodeboardModal from '../components/projects/Kodeboard'
 import Head from 'next/head'
@@ -551,6 +551,18 @@ function CollapseExtandip() {
               </ModalContent>
             </Modal>
           </Section>
+
+          <Section>
+            <ProjectPanel
+              title="Progress Bar"
+              hoverTitle="Progress Bar"
+              description="An experiment on how people perceive segmented continuous progress bars. Exploring visual feedback patterns and user experience through dynamic animations in an music player android client . 🧪"
+              gradientColors="radial-gradient(circle at center, rgba(0, 150, 136, 0.7) 0%, rgba(0, 121, 107, 0.8) 100%)"
+              hoverGradientColors="radial-gradient(circle at center, rgba(0, 188, 212, 0.8) 0%, rgba(0, 150, 136, 0.9) 100%)"
+              accentColor="#009688"
+              customContent={<AnimatedProgressBar />}
+            />
+          </Section>
         </SimpleGrid>
       </Box>
     </>
@@ -1016,4 +1028,130 @@ function GlowingRollingLandAnimation() {
       />
     </Box>
   );
+}
+
+// Animated Progress Bar Component
+const AnimatedProgressBar = () => {
+  const [progress1, setProgress1] = useState(0)
+  const [progress2, setProgress2] = useState(0)
+  const [progress3, setProgress3] = useState(0)
+  const [currentTime, setCurrentTime] = useState('')
+
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date()
+      const timeString = now.toLocaleTimeString('en-US', { 
+        hour12: false,
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      })
+      setCurrentTime(timeString)
+    }
+
+    const interval = setInterval(() => {
+      updateTime()
+      setProgress1(prev => {
+        const newProgress = prev + Math.random() * 8
+        return newProgress > 100 ? 0 : newProgress
+      })
+      setProgress2(prev => {
+        const newProgress = prev + Math.random() * 12
+        return newProgress > 100 ? 0 : newProgress
+      })
+      setProgress3(prev => {
+        const newProgress = prev + Math.random() * 6
+        return newProgress > 100 ? 0 : newProgress
+      })
+    }, 800)
+
+    updateTime()
+
+    return () => clearInterval(interval)
+  }, [])
+
+  // Segmented Progress Bar Component
+  const SegmentedProgressBar = ({ value, segments = 10, color = "#89EF8C" }) => {
+    const segmentWidth = 100 / segments
+    const filledSegments = Math.floor((value / 100) * segments)
+    
+    return (
+      <Box display="flex" gap="2px" width="100%">
+        {Array.from({ length: segments }, (_, i) => (
+          <Box
+            key={i}
+            flex="1"
+            height="20px"
+            borderRadius="sm"
+            bg={i < filledSegments ? color : "rgba(255,255,255,0.1)"}
+            boxShadow={i < filledSegments ? `0 0 8px ${color}40` : "none"}
+            transition="all 0.3s ease"
+          />
+        ))}
+      </Box>
+    )
+  }
+
+  return (
+    <Box position="relative" width="100%" height="100%" display="flex" flexDirection="column" justifyContent="center" alignItems="center" p={6} bg="rgba(0,0,0,0.3)">
+      {/* Progress Bar 1 - Main Bar */}
+      <Box width="85%" mb={6}>
+        <Progress 
+          value={progress1} 
+          size="lg" 
+          borderRadius="full"
+          bg="rgba(255,255,255,0.1)"
+          sx={{
+            '& > div': {
+              background: 'linear-gradient(90deg, #89EF8C 0%, #4CAF50 50%, #2E7D32 100%)',
+              boxShadow: '0 0 20px rgba(137, 239, 140, 0.6)',
+              borderRadius: 'full'
+            }
+          }}
+        />
+      </Box>
+      
+      {/* Progress Bar 2 - Segmented Bar */}
+      <Box width="85%" mb={6}>
+        <SegmentedProgressBar value={progress2} segments={8} color="#4FC3F7" />
+      </Box>
+      
+      {/* Progress Bar 3 - Thin Bar */}
+      <Box width="85%" mb={6}>
+        <Progress 
+          value={progress3} 
+          size="sm" 
+          borderRadius="full"
+          bg="rgba(255,255,255,0.1)"
+          sx={{
+            '& > div': {
+              background: 'linear-gradient(90deg, #9C27B0 0%, #7B1FA2 50%, #4A148C 100%)',
+              boxShadow: '0 0 10px rgba(156, 39, 176, 0.5)',
+              borderRadius: 'full'
+            }
+          }}
+        />
+      </Box>
+      
+      {/* Circular Progress Indicator */}
+      <Box position="absolute" top="5%" right="5%" width="50px" height="50px">
+        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="50" r="45" stroke="rgba(255,255,255,0.1)" strokeWidth="3" fill="none"/>
+          <circle 
+            cx="50" 
+            cy="50" 
+            r="45" 
+            stroke="#89EF8C" 
+            strokeWidth="3" 
+            fill="none"
+            strokeDasharray={`${2 * Math.PI * 45}`}
+            strokeDashoffset={`${2 * Math.PI * 45 * (1 - progress1 / 100)}`}
+            transform="rotate(-90 50 50)"
+            style={{ transition: 'stroke-dashoffset 0.3s ease' }}
+          />
+          <circle cx="50" cy="50" r="2" fill="#89EF8C"/>
+        </svg>
+      </Box>
+    </Box>
+  )
 }
