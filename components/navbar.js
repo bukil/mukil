@@ -36,7 +36,7 @@ const LinkItem = ({ href, path, target, children, tabRef, ...props }) => {
         borderRadius={'12px'}
         fontWeight="medium"
         position="relative"
-        zIndex={2}
+        zIndex={10}
         transition="all 0.3s cubic-bezier(.4,2,.3,1)"
         target={target}
         bg={active ? '#89EF8C' : 'transparent'}
@@ -104,197 +104,212 @@ const Navbar = props => {
       left={0}
       zIndex={1000}
     >
+      {/* SVG Filter for Glass Distortion */}
+      <svg style={{ display: 'none', position: 'absolute' }}>
+        <filter id="navbar-glass-distortion">
+          <feTurbulence type="turbulence" baseFrequency="0.008" numOctaves="2" result="noise" />
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="77" />
+        </filter>
+        <filter id="navbar-glow">
+          <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+          <feMerge> 
+            <feMergeNode in="coloredBlur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </svg>
+
       <Box
         w="100%"
         p={2}
-        bg={useColorModeValue(
-          'rgba(255,255,255,0.3)',
-          'rgba(32,32,35,0.3)'
-        )}
-        css={{
-          backdropFilter: 'blur(8px)',
-          WebkitBackdropFilter: 'blur(8px)',
-          borderBottom: useColorModeValue(
-            '1px solid rgba(255,255,255,0.3)',
-            '1px solid rgba(255,255,255,0.1)'
-          ),
-          boxShadow: useColorModeValue(
-            '0 4px 30px rgba(0,0,0,0.1), inset 0 0 0 1px rgba(255,255,255,0.2)',
-            '0 4px 30px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(255,255,255,0.1)'
-          ),
-          transition: 'all 0.3s ease-in-out',
-          borderRadius: '16px',
-          margin: '8px 16px',
-          width: 'calc(100% - 32px)',
-          transform: 'translateY(0)',
-          position: 'relative',
-          '&::before': {
-            content: '""',
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            height: '1px',
-            background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.8) 50%, transparent 100%)',
-            borderRadius: '16px 16px 0 0',
-            pointerEvents: 'none'
-          },
-          '&::after': {
-            content: '""',
-            position: 'absolute',
-            top: '0.4px',
-            left: '0.4px',
-            right: '0.4px',
-            height: '0.4px',
-            background: 'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%)',
-            borderRadius: '16px 16px 0 0',
-            pointerEvents: 'none'
-          },
-          '&:hover': {
-            transform: 'translateY(4px)',
-            boxShadow: useColorModeValue(
-              '0 8px 32px rgba(0,0,0,0.15), inset 0 0 0 1px rgba(255,255,255,0.3)',
-              '0 8px 32px rgba(0,0,0,0.4), inset 0 0 0 1px rgba(255,255,255,0.2)'
-            )
-          }
+        position="relative"
+        borderRadius="12px"
+        margin="8px 16px"
+        width="calc(100% - 32px)"
+        overflow="hidden"
+        background="transparent"
+        transition="transform 0.2s ease"
+        _hover={{
+          transform: 'scale(1.02)'
         }}
       >
-        <Flex align="center" w="99.5%" justify="space-between">
-          {/* Logo on the far left */}
-          <Flex align="center">
-            <Heading as="h1" size="lg" letterSpacing={'tighter'}>
-              <Logo />
-            </Heading>
-          </Flex>
+        {/* Glass Filter Layer */}
+        <Box
+          position="absolute"
+          inset={0}
+          borderRadius="inherit"
+          zIndex={1}
+          backdropFilter="blur(4px)"
+          filter="url(#navbar-glass-distortion) saturate(120%) brightness(1.15)"
+        />
+        
+        {/* Glass Overlay Layer */}
+        <Box
+          position="absolute"
+          inset={0}
+          borderRadius="inherit"
+          zIndex={2}
+          bg={useColorModeValue(
+            'rgba(255, 255, 255, 0.25)',
+            'rgba(0, 0, 0, 0.25)'
+          )}
+        />
+        
+        {/* Glass Specular Layer */}
+        <Box
+          position="absolute"
+          inset={0}
+          borderRadius="inherit"
+          zIndex={3}
+          boxShadow={useColorModeValue(
+            'inset 1px 1px 1px rgba(255, 255, 255, 0.75)',
+            'inset 1px 1px 1px rgba(255, 255, 255, 0.15)'
+          )}
+        />
 
-          {/* Desktop Navigation and Theme Toggle on the right */}
-          <Flex align="center" ml="auto" display={{ base: 'none', md: 'flex' }}>
-            <Stack
-              ref={navStackRef}
-              direction="row"
-              alignItems="center"
-              spacing={2}
-              position="relative"
-            >
-              {/* Traveling highlight bar */}
-              <Box
-                position="absolute"
-                top={0}
-                left={highlight.left}
-                height="100%"
-                width={highlight.width}
-                bg={useColorModeValue(
-                  'linear-gradient(180deg, rgba(137,239,140,0.2) 0%, rgba(137,239,140,0.1) 100%)',
-                  'linear-gradient(180deg, rgba(137,239,140,0.3) 0%, rgba(137,239,140,0.2) 100%)'
-                )}
-                borderRadius="12px"
-                zIndex={1}
-                transition="all 0.4s cubic-bezier(.4,2,.3,1)"
-                boxShadow={useColorModeValue(
-                  '0 4px 20px rgba(137,239,140,0.2), inset 0 0 0 1px rgba(137,239,140,0.2)',
-                  '0 4px 20px rgba(137,239,140,0.3), inset 0 0 0 1px rgba(137,239,140,0.3)'
-                )}
-                css={{
-                  backdropFilter: 'blur(4px)',
-                  WebkitBackdropFilter: 'blur(4px)',
-                  transform: 'translate3d(0, 0, 0)'
-                }}
-              />
-              <LinkItem href="/works" path={path} tabRef={tabRefs[0]} fontWeight="hairline" fontSize={18}>
-                MY WORKS
-              </LinkItem>
-              <LinkItem href="/blog" path={path} tabRef={tabRefs[1]} fontWeight="hairline" fontSize={18}>
-                BLOG
-              </LinkItem>
-              <LinkItem
-                href="/Mukil_Résumé.pdf"
-                path={path}
-                tabRef={tabRefs[2]}
-                display="inline-flex"
+        {/* Content Layer - This will be distorted */}
+        <Box
+          position="relative"
+          zIndex={4}
+          p={2}
+        >
+          <Flex align="center" w="99.5%" justify="space-between">
+            {/* Logo on the far left - This gets the distortion effect */}
+            <Flex align="center">
+              <Heading as="h1" size="lg" letterSpacing={'tighter'}>
+                <Logo />
+              </Heading>
+            </Flex>
+
+            {/* Desktop Navigation and Theme Toggle on the right - No distortion */}
+            <Flex align="center" ml="auto" display={{ base: 'none', md: 'flex' }}>
+              <Stack
+                ref={navStackRef}
+                direction="row"
                 alignItems="center"
-                style={{ gap: 4 }}
-                pl={2}
-                fontWeight="hairline"
-                fontSize={18}
+                spacing={2}
+                position="relative"
               >
-                RESUME
-              </LinkItem>
-              <LinkItem href="/contact" path={path} tabRef={tabRefs[3]} fontWeight="hairline" fontSize={18}>
-                CONTACT
-              </LinkItem>
-            </Stack>
-            <Box ml={2} display={{ base: 'none', md: 'flex' }} alignItems="center">
-              <ThemeToggleButton />
-            </Box>
-          </Flex>
-
-          {/* Mobile Menu */}
-          <Flex align="center" ml="auto" display={{ base: 'flex', md: 'none' }}>
-            <Box display={{ base: 'inline-block', md: 'none' }}>
-              <Menu isLazy id="navbar-menu">
-                <MenuButton
-                  as={IconButton}
-                  icon={<HamburgerIcon />}
-                  variant="outline"
-                  borderRadius="12px"
-                  aria-label="Options"
+                {/* Traveling highlight bar */}
+                <Box
+                  position="absolute"
+                  top={0}
+                  left={highlight.left}
+                  height="100%"
+                  width={highlight.width}
                   bg={useColorModeValue(
-                    'linear-gradient(180deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.3) 100%)',
-                    'linear-gradient(180deg, rgba(32,32,35,0.4) 0%, rgba(32,32,35,0.3) 100%)'
+                    'linear-gradient(180deg, rgba(137,239,140,0.2) 0%, rgba(137,239,140,0.1) 100%)',
+                    'linear-gradient(180deg, rgba(137,239,140,0.3) 0%, rgba(137,239,140,0.2) 100%)'
                   )}
-                  border={useColorModeValue(
-                    '1px solid rgba(255,255,255,0.3)',
-                    '1px solid rgba(255,255,255,0.1)'
+                  borderRadius="12px"
+                  zIndex={1}
+                  transition="all 0.4s cubic-bezier(.4,2,.3,1)"
+                  boxShadow={useColorModeValue(
+                    '0 4px 20px rgba(137,239,140,0.2), inset 0 0 0 1px rgba(137,239,140,0.2)',
+                    '0 4px 20px rgba(137,239,140,0.3), inset 0 0 0 1px rgba(137,239,140,0.3)'
                   )}
-                  _hover={{
-                    bg: useColorModeValue(
-                      'linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.4) 100%)',
-                      'linear-gradient(180deg, rgba(32,32,35,0.5) 0%, rgba(32,32,35,0.4) 100%)'
-                    ),
-                    transform: 'scale(1.05)',
-                    boxShadow: useColorModeValue(
-                      '0 4px 20px rgba(0,0,0,0.1), inset 0 0 0 1px rgba(255,255,255,0.3)',
-                      '0 4px 20px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(255,255,255,0.2)'
-                    ),
-                    transition: 'all 0.2s ease-in-out'
+                  css={{
+                    backdropFilter: 'blur(4px)',
+                    WebkitBackdropFilter: 'blur(4px)',
+                    transform: 'translate3d(0, 0, 0)'
                   }}
                 />
-                <MenuList
-                  bg={useColorModeValue(
-                    'linear-gradient(180deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.3) 100%)',
-                    'linear-gradient(180deg, rgba(32,32,35,0.4) 0%, rgba(32,32,35,0.3) 100%)'
-                  )}
-                  backdropFilter="blur(8px)"
-                  border={useColorModeValue(
-                    '1px solid rgba(255,255,255,0.3)',
-                    '1px solid rgba(255,255,255,0.1)'
-                  )}
-                  borderRadius="12px"
-                  boxShadow={useColorModeValue(
-                    '0 4px 30px rgba(0,0,0,0.1), inset 0 0 0 1px rgba(255,255,255,0.2)',
-                    '0 4px 30px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(255,255,255,0.1)'
-                  )}
+                <LinkItem href="/works" path={path} tabRef={tabRefs[0]} fontWeight="hairline" fontSize={18}>
+                  MY WORKS
+                </LinkItem>
+                <LinkItem href="/blog" path={path} tabRef={tabRefs[1]} fontWeight="hairline" fontSize={18}>
+                  BLOG
+                </LinkItem>
+                <LinkItem
+                  href="/Mukil_Résumé.pdf"
+                  path={path}
+                  tabRef={tabRefs[2]}
+                  display="inline-flex"
+                  alignItems="center"
+                  style={{ gap: 4 }}
+                  pl={2}
+                  fontWeight="hairline"
+                  fontSize={18}
                 >
-                  <NextLink href="/works" passHref legacyBehavior>
-                    <MenuItem as={Link}>MY WORKS</MenuItem>
-                  </NextLink>
-                  <NextLink href="/blog" passHref legacyBehavior>
-                    <MenuItem as={Link}>BLOG</MenuItem>
-                  </NextLink>
-                  <NextLink href="/Mukil_Résumé.pdf" passHref legacyBehavior>
-                    <MenuItem as={Link}>RESUME</MenuItem>
-                  </NextLink>
-                  <NextLink href="/contact" passHref legacyBehavior>
-                    <MenuItem as={Link}>CONTACT</MenuItem>
-                  </NextLink>
-                </MenuList>
-              </Menu>
-            </Box>
-            <Box ml={2} display={{ base: 'flex', md: 'none' }} alignItems="center">
-              <ThemeToggleButton />
-            </Box>
+                  RESUME
+                </LinkItem>
+                <LinkItem href="/contact" path={path} tabRef={tabRefs[3]} fontWeight="hairline" fontSize={18}>
+                  CONTACT
+                </LinkItem>
+              </Stack>
+              <Box ml={2} display={{ base: 'none', md: 'flex' }} alignItems="center">
+                <ThemeToggleButton />
+              </Box>
+            </Flex>
+
+            {/* Mobile Menu - No distortion */}
+            <Flex align="center" ml="auto" display={{ base: 'flex', md: 'none' }}>
+              <Box display={{ base: 'inline-block', md: 'none' }}>
+                <Menu isLazy id="navbar-menu">
+                  <MenuButton
+                    as={IconButton}
+                    icon={<HamburgerIcon />}
+                    variant="outline"
+                    borderRadius="12px"
+                    aria-label="Options"
+                    bg={useColorModeValue(
+                      'linear-gradient(180deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.3) 100%)',
+                      'linear-gradient(180deg, rgba(32,32,35,0.4) 0%, rgba(32,32,35,0.3) 100%)'
+                    )}
+                    border={useColorModeValue(
+                      '1px solid rgba(255,255,255,0.3)',
+                      '1px solid rgba(255,255,255,0.1)'
+                    )}
+                    _hover={{
+                      bg: useColorModeValue(
+                        'linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.4) 100%)',
+                        'linear-gradient(180deg, rgba(32,32,35,0.5) 0%, rgba(32,32,35,0.4) 100%)'
+                      ),
+                      transform: 'scale(1.05)',
+                      boxShadow: useColorModeValue(
+                        '0 4px 20px rgba(0,0,0,0.1), inset 0 0 0 1px rgba(255,255,255,0.3)',
+                        '0 4px 20px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(255,255,255,0.2)'
+                      ),
+                      transition: 'all 0.2s ease-in-out'
+                    }}
+                  />
+                  <MenuList
+                    bg={useColorModeValue(
+                      'linear-gradient(180deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.3) 100%)',
+                      'linear-gradient(180deg, rgba(32,32,35,0.4) 0%, rgba(32,32,35,0.3) 100%)'
+                    )}
+                    backdropFilter="blur(8px)"
+                    border={useColorModeValue(
+                      '1px solid rgba(255,255,255,0.3)',
+                      '1px solid rgba(255,255,255,0.1)'
+                    )}
+                    borderRadius="12px"
+                    boxShadow={useColorModeValue(
+                      '0 4px 30px rgba(0,0,0,0.1), inset 0 0 0 1px rgba(255,255,255,0.2)',
+                      '0 4px 30px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(255,255,255,0.1)'
+                    )}
+                  >
+                    <NextLink href="/works" passHref legacyBehavior>
+                      <MenuItem as={Link}>MY WORKS</MenuItem>
+                    </NextLink>
+                    <NextLink href="/blog" passHref legacyBehavior>
+                      <MenuItem as={Link}>BLOG</MenuItem>
+                    </NextLink>
+                    <NextLink href="/Mukil_Résumé.pdf" passHref legacyBehavior>
+                      <MenuItem as={Link}>RESUME</MenuItem>
+                    </NextLink>
+                    <NextLink href="/contact" passHref legacyBehavior>
+                      <MenuItem as={Link}>CONTACT</MenuItem>
+                    </NextLink>
+                  </MenuList>
+                </Menu>
+              </Box>
+              <Box ml={2} display={{ base: 'flex', md: 'none' }} alignItems="center">
+                <ThemeToggleButton />
+              </Box>
+            </Flex>
           </Flex>
-        </Flex>
+        </Box>
       </Box>
     </Box>
   )
