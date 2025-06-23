@@ -37,7 +37,7 @@ const LinkItem = ({ href, path, target, children, tabRef, ...props }) => {
         fontWeight="medium"
         position="relative"
         zIndex={10}
-        transition="all 0.3s cubic-bezier(.4,2,.3,1)"
+        transition="all 0.3s linear"
         target={target}
         bg={active ? '#89EF8C' : 'transparent'}
         _hover={{
@@ -102,7 +102,7 @@ const Navbar = props => {
       w="100%"
       top={0}
       left={0}
-      zIndex={1000}
+      zIndex={2000}
     >
       {/* SVG Filter for Glass Distortion */}
       <svg style={{ display: 'none', position: 'absolute' }}>
@@ -128,7 +128,7 @@ const Navbar = props => {
         width="calc(100% - 32px)"
         overflow="hidden"
         background="transparent"
-        transition="transform 0.2s ease"
+        transition="transform 0.2s linear"
         _hover={{
           transform: 'scale(1.02)'
         }}
@@ -203,15 +203,15 @@ const Navbar = props => {
                   )}
                   borderRadius="12px"
                   zIndex={1}
-                  transition="all 0.4s cubic-bezier(.4,2,.3,1)"
+                  transition="all 0.8s linear"
                   boxShadow={useColorModeValue(
                     '0 4px 20px rgba(137,239,140,0.2), inset 0 0 0 1px rgba(137,239,140,0.2)',
                     '0 4px 20px rgba(137,239,140,0.3), inset 0 0 0 1px rgba(137,239,140,0.3)'
                   )}
                   css={{
-                    backdropFilter: 'blur(4px)',
-                    WebkitBackdropFilter: 'blur(4px)',
-                    transform: 'translate3d(0, 0, 0)'
+                    backdropFilter: 'blur(8px)',
+                    WebkitBackdropFilter: 'blur(8px)',
+                    transform: 'translate3d(1, 0, 0)'
                   }}
                 />
                 <LinkItem href="/works" path={path} tabRef={tabRefs[0]} fontWeight="hairline" fontSize={18}>
@@ -270,7 +270,7 @@ const Navbar = props => {
                         '0 4px 20px rgba(0,0,0,0.1), inset 0 0 0 1px rgba(255,255,255,0.3)',
                         '0 4px 20px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(255,255,255,0.2)'
                       ),
-                      transition: 'all 0.2s ease-in-out'
+                      transition: 'all 0.2s linear'
                     }}
                   />
                   <MenuList

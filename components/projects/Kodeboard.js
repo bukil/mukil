@@ -26,7 +26,14 @@ const KodeboardModal = ({ isOpen, onClose }) => {
   }, [isOpen]);
 
   return (
-    <StandardModal isOpen={isOpen} onClose={onClose} title="Kode/Board" maxW="100vw" w="100vw">
+    <StandardModal 
+      isOpen={isOpen} 
+      onClose={onClose} 
+      title="Kode/Board" 
+      maxW="100vw" 
+      w="100vw"
+      zIndex={500}
+    >
       <Box px={{ base: 2, md: 12 }} pt={{ base: 20, md: 32 }}>
         <Text 
           ref={textRef}

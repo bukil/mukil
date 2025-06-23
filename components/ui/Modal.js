@@ -9,12 +9,12 @@ import {
   Button
 } from '@chakra-ui/react';
 
-const StandardModal = ({ isOpen, onClose, children, footer, size = 'full', maxW = '100vw', w = '100vw', ...props }) => (
+const StandardModal = ({ isOpen, onClose, children, footer, size = 'full', maxW = '100vw', w = '100vw', zIndex = 1400, ...props }) => (
   <Modal isOpen={isOpen} onClose={onClose} size={size} {...props}>
     <ModalOverlay
       bg="rgba(30,30,30,0.4)"
       backdropFilter="blur(24px)"
-      zIndex={1}
+      zIndex={zIndex}
     />
     <ModalContent
       maxW={maxW}
@@ -27,6 +27,7 @@ const StandardModal = ({ isOpen, onClose, children, footer, size = 'full', maxW 
       bg={{ base: 'rgba(255,255,255,0.65)', _dark: 'rgba(20,20,20,0.65)' }}
       boxShadow="none"
       mt={{ base: '64px', md: '80px' }}
+      zIndex={zIndex + 1}
     >
       <ModalCloseButton mt={8} />
       <ModalBody mt={4}>{children}</ModalBody>
