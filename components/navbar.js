@@ -37,7 +37,7 @@ const LinkItem = ({ href, path, target, children, tabRef, ...props }) => {
         fontWeight="medium"
         position="relative"
         zIndex={10}
-        transition="all 0.3s linear"
+        transition="all 0.2s ease-out"
         target={target}
         bg={active ? '#89EF8C' : 'transparent'}
         _hover={{
@@ -155,12 +155,24 @@ const Navbar = props => {
           )}
         />
         
-        {/* Glass Specular Layer */}
+        {/* White Gradient Overlay for Enhanced Glass Effect */}
         <Box
           position="absolute"
           inset={0}
           borderRadius="inherit"
           zIndex={3}
+          bg={useColorModeValue(
+            'linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 100%)',
+            'linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.02) 100%)'
+          )}
+        />
+        
+        {/* Glass Specular Layer */}
+        <Box
+          position="absolute"
+          inset={0}
+          borderRadius="inherit"
+          zIndex={4}
           boxShadow={useColorModeValue(
             'inset 1px 1px 1px rgba(255, 255, 255, 0.75)',
             'inset 1px 1px 1px rgba(255, 255, 255, 0.15)'
@@ -170,7 +182,7 @@ const Navbar = props => {
         {/* Content Layer - This will be distorted */}
         <Box
           position="relative"
-          zIndex={4}
+          zIndex={5}
           p={2}
         >
           <Flex align="center" w="99.5%" justify="space-between">
@@ -203,7 +215,7 @@ const Navbar = props => {
                   )}
                   borderRadius="12px"
                   zIndex={1}
-                  transition="all 0.8s linear"
+                  transition="all 0.3s ease-out"
                   boxShadow={useColorModeValue(
                     '0 4px 20px rgba(137,239,140,0.2), inset 0 0 0 1px rgba(137,239,140,0.2)',
                     '0 4px 20px rgba(137,239,140,0.3), inset 0 0 0 1px rgba(137,239,140,0.3)'
