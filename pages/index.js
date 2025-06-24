@@ -281,7 +281,7 @@ const Home = () => {
   const [skillsVisible, setSkillsVisible] = useState(false);
   const skillsTextRef = useRef(null);
   const [hoveredSkill, setHoveredSkill] = useState(null)
-  const [hoveredSoft, setHoveredSoft] = useState(null)
+  const [setHoveredSoft] = useState(null)
 
   useEffect(() => {
     const observer = new window.IntersectionObserver(
