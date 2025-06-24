@@ -130,7 +130,7 @@ const Navbar = props => {
         background="transparent"
         transition="transform 0.2s linear"
         _hover={{
-          transform: 'scale(1.02)'
+          transform: 'none'
         }}
       >
         {/* Glass Filter Layer */}
@@ -150,20 +150,8 @@ const Navbar = props => {
           borderRadius="inherit"
           zIndex={2}
           bg={useColorModeValue(
-            'rgba(255, 255, 255, 0.25)',
+            'rgba(0, 153, 255, 0.18)',
             'rgba(0, 0, 0, 0.25)'
-          )}
-        />
-        
-        {/* White Gradient Overlay for Enhanced Glass Effect */}
-        <Box
-          position="absolute"
-          inset={0}
-          borderRadius="inherit"
-          zIndex={3}
-          bg={useColorModeValue(
-            'linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 100%)',
-            'linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.02) 100%)'
           )}
         />
         
@@ -174,8 +162,12 @@ const Navbar = props => {
           borderRadius="inherit"
           zIndex={4}
           boxShadow={useColorModeValue(
-            'inset 1px 1px 1px rgba(255, 255, 255, 0.75)',
+            'inset 1px 1px 1px rgba(128, 128, 128, 0.39)',
             'inset 1px 1px 1px rgba(255, 255, 255, 0.15)'
+          )}
+          border={useColorModeValue(
+            '0.4px solid rgba(255, 255, 255, 0.04)',
+            '0.4px solid rgba(255, 255, 255, 0.04)'
           )}
         />
 

@@ -119,13 +119,12 @@ const SOFTWARE_SKILLS = [
   { name: 'GSAP', icon: SiGreensock },
   { name: 'Jekyll', icon: SiJekyll },
   { name: 'Python', icon: SiPython },
-  { name: 'Unreal Engine', icon: SiUnrealengine },
   { name: 'Fusion 360', icon: MdMemory },
-  { name: 'Embedded (Arduino/Electronics)', icon: SiArduino },
   { name: 'Unity', icon: SiUnity },
-
   { name: 'Swift', icon: SiSwift },
   { name: 'Three.js' },
+  { name: 'Unreal Engine', icon: SiUnrealengine },
+  { name: 'Embedded (Arduino/Electronics)', icon: SiArduino },
 ]
 
 const SKILL_ICONS = {
@@ -592,7 +591,7 @@ const Home = () => {
                           fontWeight="semibold"
                           fontFamily="'Space Grotesk', sans-serif"
                           px={8}
-                          py={3}
+                          py={1}
                           borderRadius="full"
                           bg="rgba(255,255,255,0.18)"
                           border="1px solid #89EF8C"
@@ -601,6 +600,11 @@ const Home = () => {
                           boxShadow="none"
                           style={{ WebkitBackdropFilter: 'blur(8px)' }}
                           mb={1}
+                          width="140px"
+                          textAlign="center"
+                          justifyContent="center"
+                          display="flex"
+                          alignItems="center"
                         >
                           {skill}
                         </Box>
@@ -633,6 +637,16 @@ const Home = () => {
                             gap={2}
                             style={{ WebkitBackdropFilter: 'blur(8px)' }}
                             mb={1}
+                            width={soft.name === 'Embedded (Arduino/Electronics)' || soft.name === 'Unreal Engine' ? "400px" : "200px"}
+                            textAlign="center"
+                            justifyContent="center"
+                            _hover={{
+                              boxShadow: { base: 'none', md: '0 0 24px 8px #3182ce, 0 8px 32px 0 rgba(49,130,206,0.18)' },
+                              filter: { base: 'none', md: 'brightness(1.2)' },
+                              cursor: 'url("/cursor-2t.png"), auto',
+                            }}
+                            onMouseEnter={() => setHoveredSoft(soft.name)}
+                            onMouseLeave={() => setHoveredSoft(null)}
                           >
                             {Icon && <Icon style={{ fontSize: 24 }} />}
                             {soft.name}
@@ -655,14 +669,14 @@ const Home = () => {
                         fontWeight="semibold"
                         fontFamily="'Space Grotesk', sans-serif"
                         px={8}
-                        py={3}
+                        py={1}
                         borderRadius="full"
                         bg="rgba(255,255,255,0.18)"
                         border="1px solid rgba(137,239,140,0.25)"
                         boxShadow="0 8px 32px 0 rgba(137,239,140,0.08)"
                         backdropFilter="blur(8px)"
                         transition="all 0.3s"
-                        color={isHovered ? '#89EF8C' : '#222'}
+                        color={isHovered ? '#e0ffe1' : '#777'}
                         style={{ WebkitBackdropFilter: 'blur(8px)' }}
                         _hover={{
                           boxShadow: { base: 'none', md: '0 0 24px 8px #89EF8C, 0 8px 32px 0 rgba(137,239,140,0.18)' },
@@ -672,6 +686,11 @@ const Home = () => {
                         onMouseEnter={() => setHoveredSkill(skill)}
                         onMouseLeave={() => setHoveredSkill(null)}
                         position="relative"
+                        width="160px"
+                        textAlign="center"
+                        justifyContent="center"
+                        display="flex"
+                        alignItems="center"
                       >
                         {skill}
                         {Icon && (
@@ -710,19 +729,23 @@ const Home = () => {
                         py={2}
                         borderRadius="full"
                         bg="rgba(255,255,255,0.18)"
-                        border="1px solid rgba(49,130,206,0.25)"
-                        boxShadow="0 8px 32px 0 rgba(49,130,206,0.08)"
+                        border="1px solid #3182ce"
+                        boxShadow="none"
                         backdropFilter="blur(8px)"
                         transition="all 0.3s"
-                        color={hoveredSoft === soft.name ? '#3182ce' : '#222'}
+                        color="#3182ce"
                         display="flex"
                         alignItems="center"
                         gap={2}
                         style={{ WebkitBackdropFilter: 'blur(8px)' }}
+                        mb={1}
+                        width={soft.name === 'Embedded (Arduino/Electronics)' || soft.name === 'Unreal Engine' ? "400px" : "200px"}
+                        textAlign="center"
+                        justifyContent="center"
                         _hover={{
                           boxShadow: { base: 'none', md: '0 0 24px 8px #3182ce, 0 8px 32px 0 rgba(49,130,206,0.18)' },
                           filter: { base: 'none', md: 'brightness(1.2)' },
-                          cursor: 'pointer',
+                          cursor: 'url("/cursor-2t.png"), auto',
                         }}
                         onMouseEnter={() => setHoveredSoft(soft.name)}
                         onMouseLeave={() => setHoveredSoft(null)}
