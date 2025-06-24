@@ -243,78 +243,146 @@ export default function PasswordGate({ children }) {
   return (
     <Box minH="100vh" display="flex" alignItems="center" justifyContent="center" position="relative">
       <RocketJourneySimulation />
-      <VStack 
-        as="form" 
-        spacing={4} 
-        onSubmit={handleSubmit} 
-        bg="rgba(255, 255, 255, 0.05)" 
-        p={8} 
-        rounded="xl" 
-        boxShadow="0 8px 32px rgba(0, 0, 0, 0.3)"
-        backdropFilter="blur(12px)"
-        border="1px solid rgba(255, 255, 255, 0.1)"
-        zIndex={1}
-        transition="all 0.3s ease"
+      
+      {/* SVG Filter for Glass Distortion */}
+      <svg style={{ display: 'none', position: 'absolute' }}>
+        <filter id="password-glass-distortion">
+          <feTurbulence type="turbulence" baseFrequency="0.008" numOctaves="2" result="noise" />
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="77" />
+        </filter>
+        <filter id="password-glow">
+          <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+          <feMerge> 
+            <feMergeNode in="coloredBlur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </svg>
+      
+      {/* Glass Effect Container */}
+      <Box
+        position="relative"
+        borderRadius="12px"
+        p={8}
+        mx="auto"
+        maxW="400px"
+        overflow="hidden"
+        background="transparent"
+        transition="transform 0.2s linear"
         _hover={{
-          transform: 'translateY(-2px)',
-          boxShadow: '0 12px 40px rgba(0, 0, 0, 0.4)',
-          borderColor: 'rgba(255, 255, 255, 0.2)'
+          transform: 'scale(1.02)'
         }}
+        zIndex={1}
       >
-        <Text 
-          fontSize="lg" 
-          fontWeight="bold" 
-          color="white"
-          textShadow="0 2px 4px rgba(0, 0, 0, 0.3)"
-        >
-          website under construction hehehe :.| ....
-        </Text>
-        <Input
-          type="password"
-          value={input}
-          onChange={e => { setInput(e.target.value); setError(''); }}
-          placeholder="Password"
-          autoFocus
-          color="white"
-          bg="rgba(255, 255, 255, 0.05)"
-          border="1px solid rgba(255, 255, 255, 0.1)"
-          _placeholder={{ color: 'rgba(255, 255, 255, 0.5)' }}
-          _hover={{ borderColor: 'rgba(255, 255, 255, 0.2)' }}
-          _focus={{ 
-            borderColor: 'rgba(255, 255, 255, 0.3)',
-            boxShadow: '0 0 0 1px rgba(255, 255, 255, 0.2)'
-          }}
-          transition="all 0.2s ease"
+        {/* Glass Filter Layer */}
+        <Box
+          position="absolute"
+          inset={0}
+          borderRadius="inherit"
+          zIndex={1}
+          backdropFilter="blur(4px)"
+          filter="url(#password-glass-distortion) saturate(120%) brightness(0.9)"
         />
-        {error && (
-          <Text 
-            color="red.400" 
-            textShadow="0 1px 2px rgba(0, 0, 0, 0.2)"
-            animation="shake 0.5s ease-in-out"
-          >
-            {error}
-          </Text>
-        )}
-        <Button 
-          type="submit"
-          width="full"
-          bg="rgba(137, 239, 140, 0.1)"
-          _hover={{ 
-            bg: 'rgba(137, 239, 140, 0.2)',
-            transform: 'translateY(-1px)',
-            boxShadow: '0 4px 12px rgba(137, 239, 140, 0.2)'
-          }}
-          _active={{
-            transform: 'translateY(1px)',
-            boxShadow: 'none'
-          }}
-          border="1px solid rgba(137, 239, 140, 0.3)"
-          color="rgba(137, 239, 140, 0.9)"
-          transition="all 0.2s ease"
+        
+        {/* Glass Overlay Layer */}
+        <Box
+          position="absolute"
+          inset={0}
+          borderRadius="inherit"
+          zIndex={2}
+          bg="rgba(255, 255, 255, 0)"
+        />
+        
+        {/* White Gradient Overlay for Enhanced Glass Effect */}
+        <Box
+          position="absolute"
+          inset={0}
+          borderRadius="inherit"
+          zIndex={3}
+          bg="linear-gradient(135deg, rgba(255, 255, 255, 0) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.02) 100%)"
+        />
+        
+        {/* Glass Specular Layer */}
+        <Box
+          position="absolute"
+          inset={0}
+          borderRadius="inherit"
+          zIndex={4}
+          boxShadow="inset 1px 1px 1px rgba(255, 255, 255, 0.3)"
+        />
+
+        {/* Content Layer */}
+        <Box
+          position="relative"
+          zIndex={5}
         >
-          Unlock
-        </Button>
-      </VStack>
+          <VStack 
+            as="form" 
+            spacing={4} 
+            onSubmit={handleSubmit} 
+            bg="transparent"
+            p={0}
+            rounded="xl"
+            border="none"
+            zIndex={1}
+            transition="all 0.3s ease"
+          >
+            <Text 
+              fontSize="lg" 
+              fontWeight="bold" 
+              color="white"
+              textShadow="0 2px 4px rgba(0, 0, 0, 0.3)"
+            >
+              website under construction hehehe :.| ....
+            </Text>
+            <Input
+              type="password"
+              value={input}
+              onChange={e => { setInput(e.target.value); setError(''); }}
+              placeholder="Password"
+              autoFocus
+              color="white"
+              bg="rgba(255, 255, 255, 0.05)"
+              border="1px solid rgba(255, 255, 255, 0.1)"
+              _placeholder={{ color: 'rgba(255, 255, 255, 0.5)' }}
+              _hover={{ borderColor: 'rgba(255, 255, 255, 0.2)' }}
+              _focus={{ 
+                borderColor: 'rgba(255, 255, 255, 0.3)',
+                boxShadow: '0 0 0 1px rgba(255, 255, 255, 0.2)'
+              }}
+              transition="all 0.2s ease"
+            />
+            {error && (
+              <Text 
+                color="red.400" 
+                textShadow="0 1px 2px rgba(0, 0, 0, 0.2)"
+                animation="shake 0.5s ease-in-out"
+              >
+                {error}
+              </Text>
+            )}
+            <Button 
+              type="submit"
+              width="full"
+              bg="rgba(137, 239, 140, 0.1)"
+              _hover={{ 
+                bg: 'rgba(137, 239, 140, 0.2)',
+                transform: 'translateY(-1px)',
+                boxShadow: '0 4px 12px rgba(137, 239, 140, 0.2)'
+              }}
+              _active={{
+                transform: 'translateY(1px)',
+                boxShadow: 'none'
+              }}
+              border="1px solid rgba(137, 239, 140, 0.3)"
+              color="rgba(137, 239, 140, 0.9)"
+              transition="all 0.2s ease"
+            >
+              Unlock
+            </Button>
+          </VStack>
+        </Box>
+      </Box>
 
       {showVideo && (
         <div 
