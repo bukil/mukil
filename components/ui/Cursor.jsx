@@ -1,8 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useColorModeValue } from '@chakra-ui/react';
 
 const Cursor = () => {
   const cursorRef = useRef(null);
+  const outlineRef = useRef(null);
   const [isClickable, setIsClickable] = useState(false);
+  
+  // Color mode aware outline color
+  const outlineColor = useColorModeValue(
+    'rgba(0, 0, 0, 0.6)', // Dark outline for light mode
+    'rgba(255, 255, 255, 0.21)' // Light outline for dark mode
+  );
 
   useEffect(() => {
     // Hide the default cursor on all elements
@@ -21,9 +29,11 @@ const Cursor = () => {
     observer.observe(document.body, { childList: true, subtree: true });
 
     const moveCursor = (e) => {
-      if (cursorRef.current) {
+      if (cursorRef.current && outlineRef.current) {
         cursorRef.current.style.left = `${e.clientX}px`;
         cursorRef.current.style.top = `${e.clientY}px`;
+        outlineRef.current.style.left = `${e.clientX}px`;
+        outlineRef.current.style.top = `${e.clientY}px`;
       }
     };
 
@@ -87,26 +97,55 @@ const Cursor = () => {
   }, []);
 
   return (
-    <div
-      ref={cursorRef}
-      style={{
-        position: 'fixed',
-        left: 0,
-        top: 0,
-        width: isClickable ? 80 : 32,
-        height: isClickable ? 8 : 32,
-        background: 'rgba(255, 255, 255, 0.12)',
-        borderRadius: isClickable ? '4px' : '50%',
-        pointerEvents: 'none',
-        transform: 'translate(-50%, -50%)',
-        zIndex: 999999,
-        boxShadow: '0 4px 24px 0 rgba(0,0,0,0.10)',
-        backdropFilter: 'blur(2px)',
-        WebkitBackdropFilter: 'blur(2px)',
-        border: '1.5px solid rgba(255,255,255,0.18)',
-        transition: 'width 0.22s cubic-bezier(.4,2,.3,1), height 0.22s cubic-bezier(.4,2,.3,1), background 0.22s, border 0.22s, box-shadow 0.22s, transform 0.08s, border-radius 0.22s cubic-bezier(.4,2,.3,1)',
-      }}
-    />
+    <>
+      {/* SVG Filter for Glass Distortion */}
+      <svg style={{ display: 'none', position: 'absolute' }}>
+        <filter id="cursor-glass-distortion" x="-20%" y="-20%" width="140%" height="140%">
+          <feTurbulence type="turbulence" baseFrequency="0.015" numOctaves="1" result="noise" />
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="25" />
+        </filter>
+      </svg>
+      
+      {/* Cursor with Distortion */}
+      <div
+        ref={cursorRef}
+        style={{
+          position: 'fixed',
+          left: 0,
+          top: 0,
+          width: isClickable ? 120 : 48,
+          height: isClickable ? 12 : 48,
+          background: 'rgba(255, 255, 255, 0)',
+          borderRadius: isClickable ? '15px' : '100%',
+          pointerEvents: 'none',
+          transform: 'translate(-50%, -50%)',
+          zIndex: 999999,
+          boxShadow: '0 4px 24px 0 rgba(0, 0, 0, 0)',
+          backdropFilter: 'blur(2px)',
+          WebkitBackdropFilter: 'blur(2px)',
+          transition: 'width 0.22s cubic-bezier(.4,2,.3,1), height 0.22s cubic-bezier(.4,2,.3,1), background 0.22s, border 0.22s, box-shadow 0.22s, transform 0.08s, border-radius 0.22s cubic-bezier(.4,2,.3,1)',
+          filter: 'url(#cursor-glass-distortion)',
+        }}
+      />
+      
+      {/* Outline with Higher Z-Index */}
+      <div
+        ref={outlineRef}
+        style={{
+          position: 'fixed',
+          left: 0,
+          top: 0,
+          width: isClickable ? 120 : 48,
+          height: isClickable ? 12 : 48,
+          borderRadius: isClickable ? '15px' : '100%',
+          pointerEvents: 'none',
+          transform: 'translate(-50%, -50%)',
+          zIndex: 1000000,
+          border: `0.5px solid ${outlineColor}`,
+          transition: 'width 0.22s cubic-bezier(.4,2,.3,1), height 0.22s cubic-bezier(.4,2,.3,1), border-radius 0.22s cubic-bezier(.4,2,.3,1)',
+        }}
+      />
+    </>
   );
 };
 
