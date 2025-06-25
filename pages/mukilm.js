@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Text, Heading, VStack, useColorMode, Grid, GridItem, Button, HStack, SimpleGrid } from '@chakra-ui/react';
 import Layout from '../components/layouts/article';
 import Head from 'next/head';
 
 const Mukilm = () => {
   const { colorMode } = useColorMode();
+  const [showHandHint, setShowHandHint] = useState(true);
+  const [imageScale, setImageScale] = useState(1);
 
   return (
     <Layout title="Microinteraction Design">
@@ -151,24 +153,78 @@ const Mukilm = () => {
                 justifyContent="center"
                 zIndex={1}
               >
-                {/* Side Volume Button */}
+                {/* Side Volume Button - Invisible larger clickable area */}
                 <Box
                   position="absolute"
-                  right="-4px"
-                  top="120px"
-                  w="8px"
-                  h="60px"
-                  bg="linear-gradient(90deg, #222 0%, #444 50%, #222 100%)"
-                  borderRadius="4px"
-                  boxShadow="inset 0 2px 4px rgba(0,0,0,0.5), inset 0 -2px 4px rgba(255,255,255,0.1)"
+                  right="-15"
+                  top="110px"
+                  w="30px"
+                  h="140px"
                   zIndex={2}
                   cursor="pointer"
-                  _hover={{ 
-                    bg: 'linear-gradient(90deg, #333 0%, #555 50%, #333 100%)',
-                    transform: 'scale(1.05)'
+                  onClick={() => setShowHandHint(false)}
+                  onMouseDown={(e) => {
+                    e.preventDefault();
+                    const volumeBar = e.currentTarget;
+                    
+                    const handleMouseMove = (moveEvent) => {
+                      const rect = volumeBar.getBoundingClientRect();
+                      const relativeY = moveEvent.clientY - rect.top;
+                      const percentage = Math.max(0, Math.min(100, (relativeY / rect.height) * 100));
+                      
+                      // Calculate zoom scale based on volume position
+                      const minScale = 1;
+                      const maxScale = 3;
+                      const scale = minScale + (percentage / 100) * (maxScale - minScale);
+                      setImageScale(scale);
+                    };
+                    
+                    const handleMouseUp = () => {
+                      document.removeEventListener('mousemove', handleMouseMove);
+                      document.removeEventListener('mouseup', handleMouseUp);
+                    };
+                    
+                    document.addEventListener('mousemove', handleMouseMove);
+                    document.addEventListener('mouseup', handleMouseUp);
                   }}
-                  transition="all 0.2s"
                 />
+                
+                {/* Visual Volume Bar - Thin appearance */}
+                <Box
+                  position="absolute"
+                  right="-3"
+                  top="120px"
+                  w="8px"
+                  h="120px"
+                  borderRadius="4px"
+                  boxShadow="inset 0 2px 4px rgb(0, 0, 0), inset 0 -2px 4px rgba(255, 255, 255, 0.33)"
+                  zIndex={1}
+                  pointerEvents="none"
+                />
+                
+                {/* Hand Image on Volume Bar */}
+                {showHandHint && (
+                  <Box
+                    position="absolute"
+                    right="-15px"
+                    top="120px"
+                    w="30px"
+                    h="30px"
+                    bgImage="url('/cursor_hand.png')"
+                    bgSize="contain"
+                    bgRepeat="no-repeat"
+                    bgPosition="center"
+                    zIndex={3}
+                    animation="slideHand 3s ease-in-out infinite"
+                    sx={{
+                      '@keyframes slideHand': {
+                        '0%': { transform: 'translateY(0px)' },
+                        '50%': { transform: 'translateY(90px)' },
+                        '100%': { transform: 'translateY(0px)' }
+                      }
+                    }}
+                  />
+                )}
                 
                 {/* Screen */}
                 <Box
@@ -197,6 +253,8 @@ const Mukilm = () => {
                     bgPosition="center"
                     bgRepeat="no-repeat"
                     zIndex={0}
+                    transform={`scale(${imageScale})`}
+                    transition="transform 0.1s ease-out"
                   />
                   
                   {/* Line Above Camera Controls */}
