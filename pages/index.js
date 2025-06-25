@@ -642,7 +642,6 @@ const Home = () => {
                             _hover={{
                               boxShadow: { base: 'none', md: '0 0 24px 8px #3182ce, 0 8px 32px 0 rgba(49,130,206,0.18)' },
                               filter: { base: 'none', md: 'brightness(1.2)' },
-                              cursor: 'url("/cursor-2t.png"), auto',
                             }}
                           >
                             {Icon && <Icon style={{ fontSize: 24 }} />}
@@ -678,7 +677,6 @@ const Home = () => {
                         _hover={{
                           boxShadow: { base: 'none', md: '0 0 24px 8px #89EF8C, 0 8px 32px 0 rgba(137,239,140,0.18)' },
                           filter: { base: 'none', md: 'brightness(1.2)' },
-                          cursor: 'pointer',
                         }}
                         onMouseEnter={() => setHoveredSkill(skill)}
                         onMouseLeave={() => setHoveredSkill(null)}
@@ -742,7 +740,6 @@ const Home = () => {
                         _hover={{
                           boxShadow: { base: 'none', md: '0 0 24px 8px #3182ce, 0 8px 32px 0 rgba(49,130,206,0.18)' },
                           filter: { base: 'none', md: 'brightness(1.2)' },
-                          cursor: 'url("/cursor-2t.png"), auto',
                         }}
                       >
                         {Icon && <Icon style={{ fontSize: 24 }} />}

@@ -13,8 +13,34 @@ const Cursor = () => {
   );
 
   useEffect(() => {
-    // Hide the default cursor on all elements
+    // More robust cursor hiding with higher specificity
     const hideDefaultCursor = () => {
+      // Add a global style to ensure cursor is hidden
+      if (!document.getElementById('cursor-hide-style')) {
+        const style = document.createElement('style');
+        style.id = 'cursor-hide-style';
+        style.textContent = `
+          * {
+            cursor: none !important;
+          }
+          *:hover {
+            cursor: none !important;
+          }
+          a, button, input, select, textarea, [role="button"], [role="link"], [tabindex] {
+            cursor: none !important;
+          }
+          a:hover, button:hover, input:hover, select:hover, textarea:hover, [role="button"]:hover, [role="link"]:hover, [tabindex]:hover {
+            cursor: none !important;
+          }
+        `;
+        document.head.appendChild(style);
+      }
+
+      // Also set cursor style directly on body and html
+      document.body.style.cursor = 'none';
+      document.documentElement.style.cursor = 'none';
+      
+      // Set cursor on all existing elements
       const elements = document.getElementsByTagName('*');
       for (let i = 0; i < elements.length; i++) {
         elements[i].style.cursor = 'none';
@@ -24,9 +50,33 @@ const Cursor = () => {
     // Initial hide
     hideDefaultCursor();
 
-    // Hide cursor on new elements
-    const observer = new MutationObserver(hideDefaultCursor);
-    observer.observe(document.body, { childList: true, subtree: true });
+    // Hide cursor on new elements with a more comprehensive observer
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'childList') {
+          mutation.addedNodes.forEach((node) => {
+            if (node.nodeType === Node.ELEMENT_NODE) {
+              // Set cursor on the new element and all its children
+              const setCursorOnElement = (element) => {
+                element.style.cursor = 'none';
+                const children = element.getElementsByTagName('*');
+                for (let i = 0; i < children.length; i++) {
+                  children[i].style.cursor = 'none';
+                }
+              };
+              setCursorOnElement(node);
+            }
+          });
+        }
+      });
+    });
+    
+    observer.observe(document.body, { 
+      childList: true, 
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['style']
+    });
 
     const moveCursor = (e) => {
       if (cursorRef.current && outlineRef.current) {
@@ -65,7 +115,7 @@ const Cursor = () => {
         el.getAttribute('role') === 'option' ||
         // Elements with click handlers
         el.onclick !== null ||
-        // Elements with pointer cursor
+        // Elements with pointer cursor (but we override this)
         computedStyle.cursor === 'pointer' ||
         // Elements with tabindex
         el.getAttribute('tabindex') !== null ||
@@ -89,10 +139,18 @@ const Cursor = () => {
 
     document.addEventListener('mousemove', moveCursor);
     document.addEventListener('mousemove', handlePointerMove);
+    
+    // Cleanup function
     return () => {
       observer.disconnect();
       document.removeEventListener('mousemove', moveCursor);
       document.removeEventListener('mousemove', handlePointerMove);
+      
+      // Remove the global style
+      const styleElement = document.getElementById('cursor-hide-style');
+      if (styleElement) {
+        styleElement.remove();
+      }
     };
   }, []);
 

@@ -99,7 +99,7 @@ const Mukilm = () => {
                   lineHeight="tall"
                   textAlign="left"
                 >
-                  Long before Apple's iPhone 16 announcement introduced a similar solid-state input concept, I conceptualized a side-mounted capacitive slider that replaces mechanical volume and camera zoom buttons.
+                  Long before Apple&apos;s iPhone 16 announcement introduced a similar solid-state input concept, I conceptualized a side-mounted capacitive slider that replaces mechanical volume and camera zoom buttons.
                 </Text>
                 <Text
                   fontSize="md"
