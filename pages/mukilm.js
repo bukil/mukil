@@ -1,9 +1,6 @@
 import React from 'react';
 import { Box, Text, Heading, VStack, useColorMode, Grid, GridItem, Button, HStack, SimpleGrid } from '@chakra-ui/react';
 import Layout from '../components/layouts/article';
-import Section from '../components/section';
-import { ChevronLeftIcon } from '@chakra-ui/icons';
-import NextLink from 'next/link';
 import Head from 'next/head';
 
 const Mukilm = () => {
