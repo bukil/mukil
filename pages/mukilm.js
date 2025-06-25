@@ -32,15 +32,15 @@ const Mukilm = () => {
           <Grid templateColumns={{ base: '1fr', md: '1fr 1fr' }} gap={16} alignItems="center" w="100%">
             {/* Left Side: Text and Features */}
             <GridItem>
-              <VStack align="flex-start" spacing={6} maxW="lg">
-                <Heading as="h1" fontSize={{ base: '4xl', md: '6xl', lg: '7xl' }} fontWeight="bold" lineHeight="1.1" color="black">
+              <VStack align="flex-start" spacing={8} maxW="lg">
+                <Heading as="h1" fontSize={{ base: '4xl', md: '6xl', lg: '7xl' }} fontWeight="bold" lineHeight="1.1" color="black" mb={4}>
                   Microinteraction  <Box as="span" color="green.400">Design</Box>
                 </Heading>
-                <Text fontSize="lg" color="black">
+                <Text fontSize="lg" color="black" mb={6}>
                   This classroom assignment focused on exploring microinteractions the subtle feedback moments that make digital interfaces feel intuitive, responsive, and human. 
                   I chose to reimagine the familiar physical button as a no button approach, envisioning future-forward interactions that blur the line between software and hardware.
                 </Text>
-                <HStack spacing={4}>
+                <HStack spacing={4} mb={8}>
                 <Box
                   bg={colorMode === 'light' ? 'rgba(255,255,255,0.8)' : 'rgba(0,0,0,0.8)'}
                   backdropFilter="blur(10px)"
@@ -72,8 +72,8 @@ const Mukilm = () => {
                 </Box>
                 </HStack>
                 {/* Feature Grid */}
-                <Box bg="black" borderRadius="2xl" p={4} mt={4} w="60vw" mb={10}>
-                  <SimpleGrid columns={{ base: 2, md: 3 }} spacing={3}>
+                <Box bg="black" borderRadius="2xl" p={6} mt={6} w="60vw" mb={12}>
+                  <SimpleGrid columns={{ base: 2, md: 3 }} spacing={4}>
                     <Button size="sm" borderRadius="full" bg="black" color="white" _hover={{ bg: 'green.400', color: 'black' }}>UI/UX Design</Button>
                     <Button size="sm" borderRadius="full" bg="white" color="black" _hover={{ bg: 'green.400', color: 'white' }}>Web Design</Button>
                     <Button size="sm" borderRadius="full" bg="black" color="white" _hover={{ bg: 'green.400', color: 'black' }}>Social Media</Button>
@@ -98,11 +98,48 @@ const Mukilm = () => {
               </VStack>
             </GridItem>
             {/* Right Side: Image */}
-            <GridItem display="flex" alignItems="center" justifyContent="center">
+            <GridItem display="flex" alignItems="center" justifyContent="center" position="relative">
+              {/* Animated Green Blob */}
+              <Box
+                position="absolute"
+                w="400px"
+                h="400px"
+                bg="green.400"
+                borderRadius="50%"
+                filter="blur(0px)"
+                opacity="0.6"
+                animation="fluidBlob 12s ease-in-out infinite"
+                zIndex={0}
+                sx={{
+                  '@keyframes fluidBlob': {
+                    '0%': {
+                      transform: 'translate(0px, 0px) scale(1) rotate(0deg)',
+                      borderRadius: '42% 58% 70% 30% / 45% 45% 55% 55%'
+                    },
+                    '25%': {
+                      transform: 'translate(20px, -15px) scale(1.05) rotate(90deg)',
+                      borderRadius: '38% 62% 63% 37% / 41% 44% 56% 59%'
+                    },
+                    '50%': {
+                      transform: 'translate(-10px, 25px) scale(0.95) rotate(180deg)',
+                      borderRadius: '33% 67% 58% 42% / 63% 68% 32% 37%'
+                    },
+                    '75%': {
+                      transform: 'translate(-25px, -10px) scale(1.1) rotate(270deg)',
+                      borderRadius: '25% 75% 47% 53% / 27% 73% 73% 27%'
+                    },
+                    '100%': {
+                      transform: 'translate(0px, 0px) scale(1) rotate(360deg)',
+                      borderRadius: '42% 58% 70% 30% / 45% 45% 55% 55%'
+                    }
+                  }
+                }}
+              />
+              
               {/* Phone Mockup */}
               <Box
                 w="280px"
-                h="500px"
+                h="600px"
                 bg="black"
                 borderRadius="40px"
                 position="relative"
@@ -112,36 +149,168 @@ const Mukilm = () => {
                 flexDirection="column"
                 alignItems="center"
                 justifyContent="center"
+                zIndex={1}
               >
+                {/* Side Volume Button */}
+                <Box
+                  position="absolute"
+                  right="-4px"
+                  top="120px"
+                  w="8px"
+                  h="60px"
+                  bg="linear-gradient(90deg, #222 0%, #444 50%, #222 100%)"
+                  borderRadius="4px"
+                  boxShadow="inset 0 2px 4px rgba(0,0,0,0.5), inset 0 -2px 4px rgba(255,255,255,0.1)"
+                  zIndex={2}
+                  cursor="pointer"
+                  _hover={{ 
+                    bg: 'linear-gradient(90deg, #333 0%, #555 50%, #333 100%)',
+                    transform: 'scale(1.05)'
+                  }}
+                  transition="all 0.2s"
+                />
+                
                 {/* Screen */}
                 <Box
                   w="100%"
                   h="100%"
-                  bg="linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+                  bg="transparent"
                   borderRadius="32px"
                   display="flex"
+                  flexDirection="column"
                   alignItems="center"
-                  justifyContent="center"
+                  justifyContent="space-between"
                   position="relative"
                   overflow="hidden"
+                  p={4}
+                  data-phone-screen
                 >
-                  {/* App Interface Mockup */}
-                  <VStack spacing={4} color="white" textAlign="center">
+                  {/* Full Screen Camera Image */}
+                  <Box
+                    position="absolute"
+                    top="0"
+                    left="0"
+                    w="100%"
+                    h="100%"
+                    bgImage="url('/images/works/Space.jpg')"
+                    bgSize="cover"
+                    bgPosition="center"
+                    bgRepeat="no-repeat"
+                    zIndex={0}
+                  />
+                  
+                  {/* Line Above Camera Controls */}
+                  <Box
+                    position="absolute"
+                    bottom="150px"
+                    left="0"
+                    right="0"
+                    h="1px"
+                    bg="rgba(255,255,255,0.4)"
+                    zIndex={3}
+                  />
+                  
+                  {/* Camera Controls - Bottom Side */}
+                  <Box
+                    position="absolute"
+                    bottom="60px"
+                    left="0"
+                    right="0"
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="space-between"
+                    px={8}
+                    zIndex={3}
+                  >
+                    {/* Left Control */}
                     <Box
-                      w="60px"
-                      h="60px"
-                      bg="rgba(255,255,255,0.2)"
+                      w="40px"
+                      h="70px"
+                      bg="transparent"
                       borderRadius="full"
+                      border="1px solid rgba(255,255,255,0.5)"
                       display="flex"
                       alignItems="center"
                       justifyContent="center"
-                      fontSize="2xl"
+                      cursor="pointer"
+                      _hover={{ borderColor: 'rgba(255,255,255,0.8)' }}
+                      transition="border-color 0.2s"
+                    />
+                    
+                    {/* Shutter Button */}
+                    <Box
+                      w="60px"
+                      h="60px"
+                      bg="transparent"
+                      borderRadius="full"
+                      border="2px solid rgba(255,255,255,0.6)"
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="center"
+                      cursor="pointer"
+                      _hover={{ borderColor: 'rgba(255,255,255,1)', transform: 'scale(1.05)' }}
+                      _active={{ 
+                        transform: 'scale(0.95)',
+                        borderColor: 'rgba(255,255,255,1)',
+                        bg: 'rgba(255,255,255,0.1)'
+                      }}
+                      transition="all 0.1s"
+                      onClick={() => {
+                        // Create flash effect inside phone screen
+                        const phoneScreen = document.querySelector('[data-phone-screen]');
+                        if (phoneScreen) {
+                          const flash = document.createElement('div');
+                          flash.style.position = 'absolute';
+                          flash.style.top = '0';
+                          flash.style.left = '0';
+                          flash.style.width = '100%';
+                          flash.style.height = '100%';
+                          flash.style.backgroundColor = 'rgba(255,255,255,0.4)';
+                          flash.style.zIndex = '5';
+                          flash.style.pointerEvents = 'none';
+                          flash.style.transition = 'opacity 0.3s ease-out';
+                          flash.style.borderRadius = '32px';
+                          
+                          phoneScreen.appendChild(flash);
+                          
+                          // Animate flash
+                          setTimeout(() => {
+                            flash.style.opacity = '0';
+                          }, 50);
+                          
+                          // Remove flash element
+                          setTimeout(() => {
+                            if (phoneScreen.contains(flash)) {
+                              phoneScreen.removeChild(flash);
+                            }
+                          }, 350);
+                        }
+                      }}
                     >
-                      📱
+                      <Box
+                        w="50px"
+                        h="50px"
+                        bg="transparent"
+                        borderRadius="full"
+                        border="1px solid rgba(255,255,255,0.4)"
+                      />
                     </Box>
-                    <Text fontSize="lg" fontWeight="bold">Microinteraction</Text>
-                    <Text fontSize="sm" opacity={0.8}>Design Demo</Text>
-                  </VStack>
+                    
+                    {/* Right Control */}
+                    <Box
+                      w="40px"
+                      h="70px"
+                      bg="transparent"
+                      borderRadius="full"
+                      border="1px solid rgba(255,255,255,0.5)"
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="center"
+                      cursor="pointer"
+                      _hover={{ borderColor: 'rgba(255,255,255,0.8)' }}
+                      transition="border-color 0.2s"
+                    />
+                  </Box>
                   
                   {/* Home Indicator */}
                   <Box
@@ -151,8 +320,9 @@ const Mukilm = () => {
                     transform="translateX(-50%)"
                     w="120px"
                     h="4px"
-                    bg="rgba(255,255,255,0.3)"
+                    bg="rgba(255,255,255,0.5)"
                     borderRadius="2px"
+                    zIndex={3}
                   />
                 </Box>
                 
