@@ -32,6 +32,11 @@ const Main = ({ children, router }) => {
             {showFooter && <Footer />}
             {showFooterLand && <FooterLand />}
           </>
+        ) : router.pathname === '/mukilm' ? (
+          <Container maxW="container.full" pt={14} pb={0}>
+            {children}
+            {showFooter && <Footer />}
+          </Container>
         ) : (
           <Container maxW="container.md" pt={14} pb={0}>
             {/* <LazyVoxelDog/> */}
