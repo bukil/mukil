@@ -191,7 +191,7 @@ const Mukilm = () => {
         display="flex"
         alignItems="center"
         justifyContent="center"
-        bg={colorMode === 'light' ? '#f6fcf9' : 'gray.800'}
+        bg={colorMode === 'light' ? '#f6fcf9' : '#f0fff4'}
         position="relative"
         overflow="hidden"
         transform="translateX(-20vw)"
@@ -204,12 +204,12 @@ const Mukilm = () => {
           {/* Left Side: Text and Features */}
           <GridItem>
             <VStack align="flex-start" spacing={6} maxW="lg">
-              <Heading as="h1" fontSize={{ base: '4xl', md: '6xl', lg: '7xl' }} fontWeight="bold" lineHeight="1.1">
+              <Heading as="h1" fontSize={{ base: '4xl', md: '6xl', lg: '7xl' }} fontWeight="bold" lineHeight="1.1" color="black">
                 Microinteraction  <Box as="span" color="green.400">Design</Box>
               </Heading>
-              <Text fontSize="lg" color={colorMode === 'light' ? 'gray.600' : 'gray.300'}>
-              This classroom assignment focused on exploring microinteractions the subtle feedback moments that make digital interfaces feel intuitive, responsive, and human. 
-              I chose to reimagine the familiar physical button as a no button approach, envisioning future-forward interactions that blur the line between software and hardware.
+              <Text fontSize="lg" color="black">
+                This classroom assignment focused on exploring microinteractions the subtle feedback moments that make digital interfaces feel intuitive, responsive, and human. 
+                I chose to reimagine the familiar physical button as a no button approach, envisioning future-forward interactions that blur the line between software and hardware.
               </Text>
               <HStack spacing={4}>
               <Box
