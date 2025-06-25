@@ -281,7 +281,6 @@ const Home = () => {
   const [skillsVisible, setSkillsVisible] = useState(false);
   const skillsTextRef = useRef(null);
   const [hoveredSkill, setHoveredSkill] = useState(null)
-  const [setHoveredSoft] = useState(null)
 
   useEffect(() => {
     const observer = new window.IntersectionObserver(
@@ -645,8 +644,6 @@ const Home = () => {
                               filter: { base: 'none', md: 'brightness(1.2)' },
                               cursor: 'url("/cursor-2t.png"), auto',
                             }}
-                            onMouseEnter={() => setHoveredSoft(soft.name)}
-                            onMouseLeave={() => setHoveredSoft(null)}
                           >
                             {Icon && <Icon style={{ fontSize: 24 }} />}
                             {soft.name}
@@ -747,8 +744,6 @@ const Home = () => {
                           filter: { base: 'none', md: 'brightness(1.2)' },
                           cursor: 'url("/cursor-2t.png"), auto',
                         }}
-                        onMouseEnter={() => setHoveredSoft(soft.name)}
-                        onMouseLeave={() => setHoveredSoft(null)}
                       >
                         {Icon && <Icon style={{ fontSize: 24 }} />}
                         {soft.name}

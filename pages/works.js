@@ -403,17 +403,19 @@ function CollapseExtandip() {
           </Section>
 
           <Section>
-            <ProjectPanel
-              title="Microinteraction"
-              hoverTitle="Microinteraction"
-              description="A class assignment exploring the art of microinteractions. Small, meaningful animations and transitions that enhance user experience and bring interfaces to life. 🎨"
-              gradientColors="linear-gradient(135deg, #181c3a 0%, #2d1e4f 100%)"
-              hoverGradientColors="linear-gradient(135deg, #2d1e4f 0%, #181c3a 100%)"
-              accentColor="#a259ff"
-              onClick={onEditOpenmd15}
-              customContent={<GlowingRollingLandAnimation />}
-            />
-            <MicrointeractionModal isOpen={isEditOpenmd15} onClose={onEditClosemd15} />
+            <NextLink href="/mukilm" passHref legacyBehavior>
+              <Box as="a" style={{ display: 'block', cursor: 'pointer', textDecoration: 'none' }}>
+                <ProjectPanel
+                  title="Microinteraction"
+                  hoverTitle="Microinteraction"
+                  description="A class assignment exploring the art of microinteractions. Small, meaningful animations and transitions that enhance user experience and bring interfaces to life. 🎨"
+                  gradientColors="linear-gradient(135deg, #181c3a 0%, #2d1e4f 100%)"
+                  hoverGradientColors="linear-gradient(135deg, #2d1e4f 0%, #181c3a 100%)"
+                  accentColor="#a259ff"
+                  customContent={<GlowingRollingLandAnimation />}
+                />
+              </Box>
+            </NextLink>
           </Section>
 {/* design system===================================================================================== */}
           <Section>
