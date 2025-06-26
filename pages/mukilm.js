@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Text, Heading, VStack, useColorMode, Grid, GridItem, Button, HStack, SimpleGrid } from '@chakra-ui/react';
 import Layout from '../components/layouts/article';
 import Head from 'next/head';
@@ -7,40 +7,105 @@ const Mukilm = () => {
   const { colorMode } = useColorMode();
   const [showHandHint, setShowHandHint] = useState(true);
   const [leftImageScale, setLeftImageScale] = useState(1);
-  const [rightImageScale, setRightImageScale] = useState(1);
   const [volume, setVolume] = useState(50);
-  const [isSliding, setIsSliding] = useState(false);
-  const [showHand, setShowHand] = useState(true);
+  const [leftHandPosition, setLeftHandPosition] = useState(0);
+  const [rightHandPosition, setRightHandPosition] = useState(50);
+  const [isDemoMode, setIsDemoMode] = useState(true);
+
+  // Auto demo mode effect
+  useEffect(() => {
+    if (isDemoMode) {
+      const interval = setInterval(() => {
+        setLeftHandPosition(prev => {
+          // Move up and down between 0 and 100
+          if (prev >= 100) return 0;
+          return prev + 1;
+        });
+        setRightHandPosition(prev => {
+          // Move up and down between 0 and 100
+          if (prev >= 100) return 0;
+          return prev + 1;
+        });
+      }, 100);
+
+      return () => clearInterval(interval);
+    }
+  }, [isDemoMode]);
+
+  // Update zoom and volume based on hand positions in demo mode
+  useEffect(() => {
+    if (isDemoMode) {
+      const minScale = 1;
+      const maxScale = 20;
+      const scale = minScale + (leftHandPosition / 100) * (maxScale - minScale);
+      setLeftImageScale(scale);
+      setVolume(100 - leftHandPosition); // Invert volume - up = lower volume, down = higher volume
+    }
+  }, [leftHandPosition, rightHandPosition, isDemoMode]);
 
   const handleVolumeChange = (e) => {
     const newVolume = parseInt(e.target.value);
     console.log('Volume changed to:', newVolume);
     setVolume(newVolume);
-    setIsSliding(true);
-    setShowHand(false);
-    
-    // Reset sliding state after a short delay
-    setTimeout(() => setIsSliding(false), 200);
+    setRightHandPosition(100 - newVolume); // Invert position for volume
+    setIsDemoMode(false);
   };
 
   const handleVolumeClick = () => {
-    setShowHand(false);
+    setShowHandHint(false);
+    setIsDemoMode(false);
   };
 
-  // Calculate volume UI opacity for right phone
-  const rightPhoneVolumeOpacity = volume / 100;
-
-  const handleMouseMove = (moveEvent) => {
-    const rect = volumeBar.getBoundingClientRect();
-    const relativeY = moveEvent.clientY - rect.top;
-    const percentage = Math.max(0, Math.min(100, (relativeY / rect.height) * 100));
+  const handleLeftPhoneMouseDown = (e) => {
+    e.preventDefault();
+    setIsDemoMode(false);
+    const phoneElement = e.currentTarget;
     
-    // Calculate zoom scale based on volume position
-    const minScale = 1;
-    const maxScale = 3;
-    const scale = minScale + (percentage / 100) * (maxScale - minScale);
-    console.log('Left phone zoom scale:', scale);
-    setLeftImageScale(scale);
+    const handleMouseMove = (moveEvent) => {
+      const rect = phoneElement.getBoundingClientRect();
+      const relativeY = moveEvent.clientY - rect.top;
+      const percentage = Math.max(0, Math.min(100, (relativeY / rect.height) * 100));
+      
+      // Calculate zoom scale based on position
+      const minScale = 1;
+      const maxScale = 20;
+      const scale = minScale + (percentage / 100) * (maxScale - minScale);
+      console.log('Left phone zoom scale:', scale);
+      setLeftImageScale(scale);
+      setLeftHandPosition(percentage);
+    };
+    
+    const handleMouseUp = () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+    
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+  };
+
+  const handleRightPhoneMouseDown = (e) => {
+    e.preventDefault();
+    setIsDemoMode(false);
+    const phoneElement = e.currentTarget;
+    
+    const handleMouseMove = (moveEvent) => {
+      const rect = phoneElement.getBoundingClientRect();
+      const relativeY = moveEvent.clientY - rect.top;
+      const percentage = Math.max(0, Math.min(100, (relativeY / rect.height) * 100));
+      
+      console.log('Right phone volume:', percentage);
+      setVolume(100 - percentage); // Invert volume - up = lower volume, down = higher volume
+      setRightHandPosition(percentage);
+    };
+    
+    const handleMouseUp = () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+    
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
   };
 
   return (
@@ -209,7 +274,7 @@ const Mukilm = () => {
                 }}
               />
               
-              {/* Phone Mockup */}
+              {/* Phone Mockup - Left Side */}
               <Box
                 w="280px"
                 h="600px"
@@ -223,8 +288,10 @@ const Mukilm = () => {
                 alignItems="center"
                 justifyContent="center"
                 zIndex={1}
+                onMouseDown={handleLeftPhoneMouseDown}
+                cursor="pointer"
               >
-                {/* Side Volume Button - Invisible larger clickable area */}
+                {/* Side Zoom Button - Invisible larger clickable area */}
                 <Box
                   position="absolute"
                   right="-15"
@@ -234,34 +301,9 @@ const Mukilm = () => {
                   zIndex={2}
                   cursor="pointer"
                   onClick={() => setShowHandHint(false)}
-                  onMouseDown={(e) => {
-                    e.preventDefault();
-                    const volumeBar = e.currentTarget;
-                    
-                    const handleMouseMove = (moveEvent) => {
-                      const rect = volumeBar.getBoundingClientRect();
-                      const relativeY = moveEvent.clientY - rect.top;
-                      const percentage = Math.max(0, Math.min(100, (relativeY / rect.height) * 100));
-                      
-                      // Calculate zoom scale based on volume position
-                      const minScale = 1;
-                      const maxScale = 3;
-                      const scale = minScale + (percentage / 100) * (maxScale - minScale);
-                      console.log('Left phone zoom scale:', scale);
-                      setLeftImageScale(scale);
-                    };
-                    
-                    const handleMouseUp = () => {
-                      document.removeEventListener('mousemove', handleMouseMove);
-                      document.removeEventListener('mouseup', handleMouseUp);
-                    };
-                    
-                    document.addEventListener('mousemove', handleMouseMove);
-                    document.addEventListener('mouseup', handleMouseUp);
-                  }}
                 />
                 
-                {/* Visual Volume Bar - Thin appearance */}
+                {/* Visual Zoom Bar - Thin appearance */}
                 <Box
                   position="absolute"
                   right="-3"
@@ -274,30 +316,41 @@ const Mukilm = () => {
                   pointerEvents="none"
                 />
                 
-                {/* Hand Image on Volume Bar */}
-                {showHandHint && (
-                  <Box
-                    position="absolute"
-                    right="-15px"
-                    top="120px"
-                    w="30px"
-                    h="30px"
-                    bgImage="url('/cursor_hand.png')"
-                    bgSize="contain"
-                    bgRepeat="no-repeat"
-                    bgPosition="center"
-                    zIndex={3}
-                    animation="slideHand 3s ease-in-out infinite"
-                    sx={{
-                      '@keyframes slideHand': {
-                        '0%': { transform: 'translateY(0px)' },
-                        '50%': { transform: 'translateY(90px)' },
-                        '100%': { transform: 'translateY(0px)' }
-                      }
-                    }}
-                  />
-                )}
+                {/* Hand Emoji on Zoom Bar */}
+                <Box
+                  position="absolute"
+                  right="-50px"
+                  top={`${120 + (leftHandPosition * 0.9)}px`}
+                  w="40px"
+                  h="40px"
+                  fontSize="32px"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                  zIndex={3}
+                  transition="top 0.1s ease-out"
+                  pointerEvents="none"
+                  transform="rotate(-90deg)"
+                >
+                  👆
+                </Box>
                 
+                {/* Zoom Level Indicator */}
+                <Box
+                  position="absolute"
+                  top="50%"
+                  left="50%"
+                  transform="translate(-50%, -50%)"
+                  opacity={leftImageScale > 1 ? 1 : 0}
+                  transition="opacity 0.3s ease"
+                  pointerEvents="none"
+                  zIndex={3}
+                >
+                  <Text fontSize="lg" fontWeight="bold" color="white" textShadow="2px 2px 4px rgba(0,0,0,0.8)">
+                    {leftImageScale.toFixed(1)}x
+                  </Text>
+                </Box>
+
                 {/* Screen */}
                 <Box
                   w="100%"
@@ -470,7 +523,7 @@ const Mukilm = () => {
                 />
               </Box>
               
-              {/* Duplicate Phone Mockup - Right Side */}
+              {/* Phone Mockup - Right Side */}
               <Box
                 w="280px"
                 h="600px"
@@ -485,6 +538,8 @@ const Mukilm = () => {
                 justifyContent="center"
                 zIndex={1}
                 ml={32}
+                onMouseDown={handleRightPhoneMouseDown}
+                cursor="pointer"
               >
                 {/* Side Volume Button - Invisible larger clickable area */}
                 <Box
@@ -532,29 +587,24 @@ const Mukilm = () => {
                   pointerEvents="none"
                 />
                 
-                {/* Hand Image on Volume Bar */}
-                {showHandHint && (
-                  <Box
-                    position="absolute"
-                    right="-15px"
-                    top="120px"
-                    w="30px"
-                    h="30px"
-                    bgImage="url('/cursor_hand.png')"
-                    bgSize="contain"
-                    bgRepeat="no-repeat"
-                    bgPosition="center"
-                    zIndex={3}
-                    animation="slideHand 3s ease-in-out infinite"
-                    sx={{
-                      '@keyframes slideHand': {
-                        '0%': { transform: 'translateY(0px)' },
-                        '50%': { transform: 'translateY(90px)' },
-                        '100%': { transform: 'translateY(0px)' }
-                      }
-                    }}
-                  />
-                )}
+                {/* Hand Emoji on Volume Bar */}
+                <Box
+                  position="absolute"
+                  right="-50px"
+                  top={`${120 + (rightHandPosition * 0.9)}px`}
+                  w="40px"
+                  h="40px"
+                  fontSize="32px"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                  zIndex={3}
+                  transition="top 0.1s ease-out"
+                  pointerEvents="none"
+                  transform="rotate(-90deg)"
+                >
+                  👆
+                </Box>
                 
                 {/* Screen */}
                 <Box
@@ -583,46 +633,50 @@ const Mukilm = () => {
                     transition="transform 0.1s ease-out"
                   />
                   
-                  {/* Volume UI Overlay */}
+                  {/* Volume Bar Only */}
                   <Box
                     position="absolute"
                     top="50%"
                     left="50%"
                     transform="translate(-50%, -50%)"
-                    bg="rgba(255, 255, 255, 0.9)"
+                    bg="rgba(255, 255, 255, 0.95)"
                     borderRadius="full"
-                    p={3}
+                    p={4}
                     opacity={1}
                     transition="opacity 0.3s ease"
                     pointerEvents="none"
                     zIndex={3}
-                    boxShadow="0 4px 20px rgba(0,0,0,0.3)"
+                    boxShadow="0 8px 32px rgba(0,0,0,0.4)"
+                    animation="pulseVolume 1.5s ease-in-out infinite"
+                    sx={{
+                      '@keyframes pulseVolume': {
+                        '0%, 100%': { transform: 'translate(-50%, -50%) scale(1)' },
+                        '50%': { transform: 'translate(-50%, -50%) scale(1.08)' }
+                      }
+                    }}
                   >
-                    <VStack spacing={2} align="center">
-                      {/* Volume Fill Bar */}
+                    {/* Volume Fill Bar */}
+                    <Box
+                      w="12px"
+                      h="50px"
+                      bg="rgba(0,0,0,0.1)"
+                      borderRadius="full"
+                      position="relative"
+                      overflow="hidden"
+                      border="2px solid rgba(0,0,0,0.2)"
+                    >
                       <Box
-                        w="8px"
-                        h="40px"
-                        bg="rgba(0,0,0,0.1)"
+                        position="absolute"
+                        bottom="0"
+                        left="0"
+                        right="0"
+                        bg="green.400"
                         borderRadius="full"
-                        position="relative"
-                        overflow="hidden"
-                      >
-                        <Box
-                          position="absolute"
-                          bottom="0"
-                          left="0"
-                          right="0"
-                          bg="green.400"
-                          borderRadius="full"
-                          transition="height 0.3s ease"
-                          height={`${volume}%`}
-                        />
-                      </Box>
-                      <Text color="black" fontSize="xs" fontWeight="bold">
-                        {volume}%
-                      </Text>
-                    </VStack>
+                        transition="height 0.3s ease"
+                        height={`${volume}%`}
+                        boxShadow="0 0 10px rgba(72, 187, 120, 0.6)"
+                      />
+                    </Box>
                   </Box>
                 </Box>
               </Box>
