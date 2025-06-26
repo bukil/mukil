@@ -647,13 +647,6 @@ const Mukilm = () => {
                     pointerEvents="none"
                     zIndex={3}
                     boxShadow="0 8px 32px rgba(0,0,0,0.4)"
-                    animation="pulseVolume 1.5s ease-in-out infinite"
-                    sx={{
-                      '@keyframes pulseVolume': {
-                        '0%, 100%': { transform: 'translate(-50%, -50%) scale(1)' },
-                        '50%': { transform: 'translate(-50%, -50%) scale(1.08)' }
-                      }
-                    }}
                   >
                     {/* Volume Fill Bar */}
                     <Box
