@@ -179,24 +179,6 @@ const Mukilm = () => {
                   </Text>
                 </Box>
                 </HStack>
-                {/* Feature Grid */}
-                <Box 
-                  bgGradient="linear(to-b, black, green.600)"
-                  borderRadius="2xl" 
-                  p={6} 
-                  mt={6} 
-                  w="30vw" 
-                  mb={12}
-                >
-                  <SimpleGrid columns={{ base: 2, md: 3 }} spacing={4} justifyItems="center">
-                    <Button size="sm" borderRadius="full" bg="black" color="white" _hover={{ bg: 'green.400', color: 'black' }}>Hover Effects</Button>
-                    <Button size="sm" borderRadius="full" bg="white" color="black" _hover={{ bg: 'green.400', color: 'white' }}>Transitions</Button>
-                    <Button size="sm" borderRadius="full" bg="black" color="white" _hover={{ bg: 'green.400', color: 'black' }}>Feedback</Button>
-                    <Button size="sm" borderRadius="full" bg="green.400" color="white" _hover={{ bg: 'black', color: 'green.400' }}>Animations</Button>
-                    <Button size="sm" borderRadius="full" bg="black" color="white" _hover={{ bg: 'green.400', color: 'black' }}>Gestures</Button>
-                    <Button size="sm" borderRadius="full" bg="white" color="black" _hover={{ bg: 'green.400', color: 'white' }}>States</Button>
-                  </SimpleGrid>
-                </Box>
               </VStack>
             </GridItem>
             {/* Right Side: Image */}
@@ -675,6 +657,27 @@ const Mukilm = () => {
               </Box>
             </GridItem>
           </Grid>
+        </Box>
+        
+        {/* Feature Grid - Moved to bottom of entire page */}
+        <Box 
+          position="absolute"
+          bottom={8}
+          right={8}
+          bgGradient="linear(to-b, black, green.600)"
+          borderRadius="2xl" 
+          p={6} 
+          zIndex={10}
+          w="690px"
+        >
+          <SimpleGrid columns={{ base: 2, md: 3 }} spacing={4} justifyItems="center">
+            <Button size="sm" borderRadius="full" bg="black" color="white" _hover={{ bg: 'green.400', color: 'black' }}>Hover Effects</Button>
+            <Button size="sm" borderRadius="full" bg="white" color="black" _hover={{ bg: 'green.400', color: 'white' }}>Transitions</Button>
+            <Button size="sm" borderRadius="full" bg="black" color="white" _hover={{ bg: 'green.400', color: 'black' }}>Feedback</Button>
+            <Button size="sm" borderRadius="full" bg="green.400" color="white" _hover={{ bg: 'black', color: 'green.400' }}>Animations</Button>
+            <Button size="sm" borderRadius="full" bg="black" color="white" _hover={{ bg: 'green.400', color: 'black' }}>Gestures</Button>
+            <Button size="sm" borderRadius="full" bg="white" color="black" _hover={{ bg: 'green.400', color: 'white' }}>States</Button>
+          </SimpleGrid>
         </Box>
       </Box>
     </Layout>
