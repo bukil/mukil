@@ -5,7 +5,7 @@ import Head from 'next/head';
 
 const Mukilm = () => {
   const { colorMode } = useColorMode();
-  const [showHandHint, setShowHandHint] = useState(true);
+  const [setShowHandHint] = useState(true);
   const [leftImageScale, setLeftImageScale] = useState(1);
   const [volume, setVolume] = useState(50);
   const [leftHandPosition, setLeftHandPosition] = useState(0);
@@ -144,7 +144,7 @@ const Mukilm = () => {
                 <Heading as="h1" fontSize={{ base: '4xl', md: '6xl', lg: '7xl' }} fontWeight="bold" lineHeight="1.1" color="black" mb={100}>
                   Microinteraction  <Box as="span" color="green.400">Design</Box>
                 </Heading>
-                <Text fontSize="lg" color="black" mb={6}>
+                <Text fontSize="lg" color="black" mb={100}>
                   This classroom assignment focused on exploring microinteractions the subtle feedback moments that make digital interfaces feel intuitive, responsive, and human. 
                   I chose to reimagine the familiar physical button as a no button approach, envisioning future-forward interactions that blur the line between software and hardware.
                 </Text>
