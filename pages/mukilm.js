@@ -6,7 +6,42 @@ import Head from 'next/head';
 const Mukilm = () => {
   const { colorMode } = useColorMode();
   const [showHandHint, setShowHandHint] = useState(true);
-  const [imageScale, setImageScale] = useState(1);
+  const [leftImageScale, setLeftImageScale] = useState(1);
+  const [rightImageScale, setRightImageScale] = useState(1);
+  const [volume, setVolume] = useState(50);
+  const [isSliding, setIsSliding] = useState(false);
+  const [showHand, setShowHand] = useState(true);
+
+  const handleVolumeChange = (e) => {
+    const newVolume = parseInt(e.target.value);
+    console.log('Volume changed to:', newVolume);
+    setVolume(newVolume);
+    setIsSliding(true);
+    setShowHand(false);
+    
+    // Reset sliding state after a short delay
+    setTimeout(() => setIsSliding(false), 200);
+  };
+
+  const handleVolumeClick = () => {
+    setShowHand(false);
+  };
+
+  // Calculate volume UI opacity for right phone
+  const rightPhoneVolumeOpacity = volume / 100;
+
+  const handleMouseMove = (moveEvent) => {
+    const rect = volumeBar.getBoundingClientRect();
+    const relativeY = moveEvent.clientY - rect.top;
+    const percentage = Math.max(0, Math.min(100, (relativeY / rect.height) * 100));
+    
+    // Calculate zoom scale based on volume position
+    const minScale = 1;
+    const maxScale = 3;
+    const scale = minScale + (percentage / 100) * (maxScale - minScale);
+    console.log('Left phone zoom scale:', scale);
+    setLeftImageScale(scale);
+  };
 
   return (
     <Layout title="Microinteraction Design">
@@ -31,11 +66,17 @@ const Mukilm = () => {
           boxShadow="lg"
           p={8}
         >
+          {/* Project Info Top Right */}
+          <Box position="absolute" top={6} right={8} zIndex={20} textAlign="right">
+            <Text fontSize="sm" color="gray.600" fontWeight="medium">Project: Class Assignment</Text>
+            <Text fontSize="sm" color="gray.600">Contribution: Individual</Text>
+            <Text fontSize="sm" color="gray.600">Time: 2.5 hours</Text>
+          </Box>
           <Grid templateColumns={{ base: '1fr', md: '1fr 1fr' }} gap={16} alignItems="center" w="100%">
             {/* Left Side: Text and Features */}
             <GridItem>
               <VStack align="flex-start" spacing={8} maxW="lg">
-                <Heading as="h1" fontSize={{ base: '4xl', md: '6xl', lg: '7xl' }} fontWeight="bold" lineHeight="1.1" color="black" mb={4}>
+                <Heading as="h1" fontSize={{ base: '4xl', md: '6xl', lg: '7xl' }} fontWeight="bold" lineHeight="1.1" color="black" mb={100}>
                   Microinteraction  <Box as="span" color="green.400">Design</Box>
                 </Heading>
                 <Text fontSize="lg" color="black" mb={6}>
@@ -74,29 +115,23 @@ const Mukilm = () => {
                 </Box>
                 </HStack>
                 {/* Feature Grid */}
-                <Box bg="black" borderRadius="2xl" p={6} mt={6} w="60vw" mb={12}>
-                  <SimpleGrid columns={{ base: 2, md: 3 }} spacing={4}>
-                    <Button size="sm" borderRadius="full" bg="black" color="white" _hover={{ bg: 'green.400', color: 'black' }}>UI/UX Design</Button>
-                    <Button size="sm" borderRadius="full" bg="white" color="black" _hover={{ bg: 'green.400', color: 'white' }}>Web Design</Button>
-                    <Button size="sm" borderRadius="full" bg="black" color="white" _hover={{ bg: 'green.400', color: 'black' }}>Social Media</Button>
-                    <Button size="sm" borderRadius="full" bg="green.400" color="white" _hover={{ bg: 'black', color: 'green.400' }}>Mobile Apps</Button>
-                    <Button size="sm" borderRadius="full" bg="black" color="white" _hover={{ bg: 'green.400', color: 'black' }}>E-commerce</Button>
-                    <Button size="sm" borderRadius="full" bg="white" color="black" _hover={{ bg: 'green.400', color: 'white' }}>Analytics</Button>
+                <Box 
+                  bgGradient="linear(to-b, black, green.600)"
+                  borderRadius="2xl" 
+                  p={6} 
+                  mt={6} 
+                  w="30vw" 
+                  mb={12}
+                >
+                  <SimpleGrid columns={{ base: 2, md: 3 }} spacing={4} justifyItems="center">
+                    <Button size="sm" borderRadius="full" bg="black" color="white" _hover={{ bg: 'green.400', color: 'black' }}>Hover Effects</Button>
+                    <Button size="sm" borderRadius="full" bg="white" color="black" _hover={{ bg: 'green.400', color: 'white' }}>Transitions</Button>
+                    <Button size="sm" borderRadius="full" bg="black" color="white" _hover={{ bg: 'green.400', color: 'black' }}>Feedback</Button>
+                    <Button size="sm" borderRadius="full" bg="green.400" color="white" _hover={{ bg: 'black', color: 'green.400' }}>Animations</Button>
+                    <Button size="sm" borderRadius="full" bg="black" color="white" _hover={{ bg: 'green.400', color: 'black' }}>Gestures</Button>
+                    <Button size="sm" borderRadius="full" bg="white" color="black" _hover={{ bg: 'green.400', color: 'white' }}>States</Button>
                   </SimpleGrid>
                 </Box>
-                {/* User Count and Avatars */}
-                {/* <HStack pt={4} spacing={6}>
-                  <Box>
-                    <Text fontWeight="bold" fontSize="2xl">5100+</Text>
-                    <Text fontSize="sm" color="gray.500">New Users</Text>
-                  </Box>
-                  <HStack spacing={-2}>
-                    <Box as="img" src="https://randomuser.me/api/portraits/men/32.jpg" boxSize="32px" borderRadius="full" border="2px solid white" />
-                    <Box as="img" src="https://randomuser.me/api/portraits/women/44.jpg" boxSize="32px" borderRadius="full" border="2px solid white" />
-                    <Box as="img" src="https://randomuser.me/api/portraits/men/45.jpg" boxSize="32px" borderRadius="full" border="2px solid white" />
-                  </HStack>
-                  <Button colorScheme="green" borderRadius="full" px={6} fontWeight="bold">Join now</Button>
-                </HStack> */}
               </VStack>
             </GridItem>
             {/* Right Side: Image */}
@@ -104,35 +139,71 @@ const Mukilm = () => {
               {/* Animated Green Blob */}
               <Box
                 position="absolute"
-                w="400px"
-                h="400px"
+                w="800px"
+                h="500px"
                 bg="green.400"
                 borderRadius="50%"
                 filter="blur(0px)"
                 opacity="0.6"
-                animation="fluidBlob 12s ease-in-out infinite"
                 zIndex={0}
+                animation="fluidBlob 20s linear infinite"
                 sx={{
                   '@keyframes fluidBlob': {
                     '0%': {
                       transform: 'translate(0px, 0px) scale(1) rotate(0deg)',
-                      borderRadius: '42% 58% 70% 30% / 45% 45% 55% 55%'
+                      borderRadius: '60% 40% 30% 70% / 60% 30% 70% 40%'
                     },
-                    '25%': {
-                      transform: 'translate(20px, -15px) scale(1.05) rotate(90deg)',
-                      borderRadius: '38% 62% 63% 37% / 41% 44% 56% 59%'
+                    '8%': {
+                      transform: 'translate(15px, -10px) scale(1.02) rotate(29deg)',
+                      borderRadius: '45% 55% 40% 60% / 50% 40% 60% 50%'
                     },
-                    '50%': {
-                      transform: 'translate(-10px, 25px) scale(0.95) rotate(180deg)',
-                      borderRadius: '33% 67% 58% 42% / 63% 68% 32% 37%'
+                    '16%': {
+                      transform: 'translate(25px, 5px) scale(0.98) rotate(58deg)',
+                      borderRadius: '35% 65% 50% 50% / 40% 50% 50% 60%'
                     },
-                    '75%': {
-                      transform: 'translate(-25px, -10px) scale(1.1) rotate(270deg)',
-                      borderRadius: '25% 75% 47% 53% / 27% 73% 73% 27%'
+                    '24%': {
+                      transform: 'translate(10px, 20px) scale(1.05) rotate(87deg)',
+                      borderRadius: '25% 75% 60% 40% / 30% 60% 40% 70%'
+                    },
+                    '32%': {
+                      transform: 'translate(-5px, 15px) scale(0.95) rotate(116deg)',
+                      borderRadius: '40% 60% 35% 65% / 45% 35% 65% 55%'
+                    },
+                    '40%': {
+                      transform: 'translate(-20px, -5px) scale(1.03) rotate(144deg)',
+                      borderRadius: '55% 45% 25% 75% / 55% 25% 75% 45%'
+                    },
+                    '48%': {
+                      transform: 'translate(-15px, -20px) scale(0.97) rotate(173deg)',
+                      borderRadius: '70% 30% 20% 80% / 70% 20% 80% 30%'
+                    },
+                    '56%': {
+                      transform: 'translate(5px, -15px) scale(1.04) rotate(202deg)',
+                      borderRadius: '50% 50% 30% 70% / 50% 30% 70% 50%'
+                    },
+                    '64%': {
+                      transform: 'translate(20px, 10px) scale(0.96) rotate(231deg)',
+                      borderRadius: '30% 70% 45% 55% / 35% 45% 55% 65%'
+                    },
+                    '72%': {
+                      transform: 'translate(15px, 25px) scale(1.01) rotate(260deg)',
+                      borderRadius: '45% 55% 35% 65% / 40% 35% 65% 60%'
+                    },
+                    '80%': {
+                      transform: 'translate(-10px, 20px) scale(0.99) rotate(289deg)',
+                      borderRadius: '65% 35% 25% 75% / 65% 25% 75% 35%'
+                    },
+                    '88%': {
+                      transform: 'translate(-25px, 5px) scale(1.02) rotate(318deg)',
+                      borderRadius: '40% 60% 45% 55% / 40% 45% 55% 60%'
+                    },
+                    '96%': {
+                      transform: 'translate(-5px, -10px) scale(0.98) rotate(347deg)',
+                      borderRadius: '55% 45% 30% 70% / 55% 30% 70% 45%'
                     },
                     '100%': {
                       transform: 'translate(0px, 0px) scale(1) rotate(360deg)',
-                      borderRadius: '42% 58% 70% 30% / 45% 45% 55% 55%'
+                      borderRadius: '60% 40% 30% 70% / 60% 30% 70% 40%'
                     }
                   }
                 }}
@@ -142,11 +213,11 @@ const Mukilm = () => {
               <Box
                 w="280px"
                 h="600px"
-                bg="black"
+                bg="gray.200"
                 borderRadius="40px"
                 position="relative"
-                boxShadow="0 20px 40px rgba(0,0,0,0.3)"
-                border="8px solid #333"
+                boxShadow="0 25px 50px rgba(0,0,0,0.4), 0 10px 20px rgba(0,0,0,0.3), inset 0 1px 3px rgba(255,255,255,0.5)"
+                border="8px solid #e2e8f0"
                 display="flex"
                 flexDirection="column"
                 alignItems="center"
@@ -176,7 +247,8 @@ const Mukilm = () => {
                       const minScale = 1;
                       const maxScale = 3;
                       const scale = minScale + (percentage / 100) * (maxScale - minScale);
-                      setImageScale(scale);
+                      console.log('Left phone zoom scale:', scale);
+                      setLeftImageScale(scale);
                     };
                     
                     const handleMouseUp = () => {
@@ -253,7 +325,7 @@ const Mukilm = () => {
                     bgPosition="center"
                     bgRepeat="no-repeat"
                     zIndex={0}
-                    transform={`scale(${imageScale})`}
+                    transform={`scale(${leftImageScale})`}
                     transition="transform 0.1s ease-out"
                   />
                   
@@ -396,6 +468,163 @@ const Mukilm = () => {
                   borderRadius="3px"
                   zIndex={2}
                 />
+              </Box>
+              
+              {/* Duplicate Phone Mockup - Right Side */}
+              <Box
+                w="280px"
+                h="600px"
+                bg="gray.200"
+                borderRadius="40px"
+                position="relative"
+                boxShadow="0 25px 50px rgba(0,0,0,0.4), 0 10px 20px rgba(0,0,0,0.3), inset 0 1px 3px rgba(255,255,255,0.5)"
+                border="8px solid #e2e8f0"
+                display="flex"
+                flexDirection="column"
+                alignItems="center"
+                justifyContent="center"
+                zIndex={1}
+                ml={32}
+              >
+                {/* Side Volume Button - Invisible larger clickable area */}
+                <Box
+                  position="absolute"
+                  right="-15"
+                  top="110px"
+                  w="30px"
+                  h="140px"
+                  zIndex={2}
+                  cursor="pointer"
+                  onClick={handleVolumeClick}
+                >
+                  {/* Volume Slider */}
+                  <Box
+                    as="input"
+                    type="range"
+                    min="0"
+                    max="100"
+                    value={volume}
+                    onChange={handleVolumeChange}
+                    position="absolute"
+                    top="-10px"
+                    left="-8px"
+                    width="30px"
+                    height="120px"
+                    opacity="0"
+                    cursor="pointer"
+                    style={{
+                      writingMode: 'bt-lr',
+                      WebkitAppearance: 'slider-vertical'
+                    }}
+                  />
+                </Box>
+                
+                {/* Visual Volume Bar - Thin appearance */}
+                <Box
+                  position="absolute"
+                  right="-3"
+                  top="120px"
+                  w="8px"
+                  h="120px"
+                  borderRadius="4px"
+                  boxShadow="inset 0 2px 4px rgb(0, 0, 0), inset 0 -2px 4px rgba(255, 255, 255, 0.33)"
+                  zIndex={1}
+                  pointerEvents="none"
+                />
+                
+                {/* Hand Image on Volume Bar */}
+                {showHandHint && (
+                  <Box
+                    position="absolute"
+                    right="-15px"
+                    top="120px"
+                    w="30px"
+                    h="30px"
+                    bgImage="url('/cursor_hand.png')"
+                    bgSize="contain"
+                    bgRepeat="no-repeat"
+                    bgPosition="center"
+                    zIndex={3}
+                    animation="slideHand 3s ease-in-out infinite"
+                    sx={{
+                      '@keyframes slideHand': {
+                        '0%': { transform: 'translateY(0px)' },
+                        '50%': { transform: 'translateY(90px)' },
+                        '100%': { transform: 'translateY(0px)' }
+                      }
+                    }}
+                  />
+                )}
+                
+                {/* Screen */}
+                <Box
+                  w="100%"
+                  h="100%"
+                  bg="transparent"
+                  borderRadius="32px"
+                  position="relative"
+                  overflow="hidden"
+                  p={4}
+                  data-phone-screen-2
+                >
+                  {/* Full Screen Camera Image */}
+                  <Box
+                    position="absolute"
+                    top="0"
+                    left="0"
+                    w="100%"
+                    h="100%"
+                    bgImage="url('/images/works/aih.png')"
+                    bgSize="cover"
+                    bgPosition="center"
+                    bgRepeat="no-repeat"
+                    zIndex={0}
+                    transform="scale(1)"
+                    transition="transform 0.1s ease-out"
+                  />
+                  
+                  {/* Volume UI Overlay */}
+                  <Box
+                    position="absolute"
+                    top="50%"
+                    left="50%"
+                    transform="translate(-50%, -50%)"
+                    bg="rgba(255, 255, 255, 0.9)"
+                    borderRadius="full"
+                    p={3}
+                    opacity={1}
+                    transition="opacity 0.3s ease"
+                    pointerEvents="none"
+                    zIndex={3}
+                    boxShadow="0 4px 20px rgba(0,0,0,0.3)"
+                  >
+                    <VStack spacing={2} align="center">
+                      {/* Volume Fill Bar */}
+                      <Box
+                        w="8px"
+                        h="40px"
+                        bg="rgba(0,0,0,0.1)"
+                        borderRadius="full"
+                        position="relative"
+                        overflow="hidden"
+                      >
+                        <Box
+                          position="absolute"
+                          bottom="0"
+                          left="0"
+                          right="0"
+                          bg="green.400"
+                          borderRadius="full"
+                          transition="height 0.3s ease"
+                          height={`${volume}%`}
+                        />
+                      </Box>
+                      <Text color="black" fontSize="xs" fontWeight="bold">
+                        {volume}%
+                      </Text>
+                    </VStack>
+                  </Box>
+                </Box>
               </Box>
             </GridItem>
           </Grid>
