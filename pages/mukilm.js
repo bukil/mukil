@@ -663,14 +663,15 @@ const Mukilm = () => {
         <Box 
           position="absolute"
           bottom={8}
-          right={8}
+          right={{ base: 0, md: '5%', lg: '10%' }}
           bgGradient="linear(to-b, black, green.600)"
           borderRadius="2xl" 
           p={6} 
           zIndex={10}
           w="690px"
+          textAlign="center"
         >
-          <SimpleGrid columns={{ base: 2, md: 3 }} spacing={4} justifyItems="center">
+          <SimpleGrid columns={{ base: 2, md: 3 }} spacing={4} justifyItems="center" alignItems="center">
             <Button size="sm" borderRadius="full" bg="black" color="white" _hover={{ bg: 'green.400', color: 'black' }}>Hover Effects</Button>
             <Button size="sm" borderRadius="full" bg="white" color="black" _hover={{ bg: 'green.400', color: 'white' }}>Transitions</Button>
             <Button size="sm" borderRadius="full" bg="black" color="white" _hover={{ bg: 'green.400', color: 'black' }}>Feedback</Button>
