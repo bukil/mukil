@@ -659,19 +659,20 @@ const Mukilm = () => {
           </Grid>
         </Box>
         
-        {/* Feature Grid - Moved to bottom of entire page */}
+        {/* Feature Grid - Shifted slightly right inside main container */}
         <Box 
           position="absolute"
           bottom={8}
-          right={{ base: 0, md: '5%', lg: '10%' }}
+          left={{ base: '50vw', lg: '50vw', xl: '51vw' }}
           bgGradient="linear(to-b, black, green.600)"
           borderRadius="2xl" 
           p={6} 
           zIndex={10}
-          w="690px"
+          w={{ base: '50%', md: '680px' }}
+          maxW="720px"
           textAlign="center"
         >
-          <SimpleGrid columns={{ base: 2, md: 3 }} spacing={4} justifyItems="center" alignItems="center">
+          <SimpleGrid columns={{ base: 2, md: 3 }} spacing={4} justifyItems="start" alignItems="center">
             <Button size="sm" borderRadius="full" bg="black" color="white" _hover={{ bg: 'green.400', color: 'black' }}>Hover Effects</Button>
             <Button size="sm" borderRadius="full" bg="white" color="black" _hover={{ bg: 'green.400', color: 'white' }}>Transitions</Button>
             <Button size="sm" borderRadius="full" bg="black" color="white" _hover={{ bg: 'green.400', color: 'black' }}>Feedback</Button>
