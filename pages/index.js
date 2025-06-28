@@ -494,6 +494,7 @@ const Home = () => {
                     alt="Profile image"
                     width={300}
                     height={363}
+                    priority
                   />
                 </Box>
               </Box>
@@ -514,6 +515,7 @@ const Home = () => {
                 width={140}
                 height={140}
                 style={{ width: '100%', height: 'auto' }}
+                priority
               />
             </Box>
           </Container> 

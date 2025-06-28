@@ -8,6 +8,12 @@ export default class Document extends NextDocument {
       <Html lang="en">
         <Head>
           <link
+            rel="preload"
+            href="https://fonts.googleapis.com/css2?family=Michroma:wght@400;700;900&display=swap"
+            as="style"
+            onLoad="this.onload=null;this.rel='stylesheet'"
+          />
+          <link
             href="https://fonts.googleapis.com/css2?family=Michroma:wght@400;700;900&display=swap"
             rel="stylesheet"
           />
