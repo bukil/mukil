@@ -137,6 +137,7 @@ const Mukilm = () => {
             <Text fontSize="sm" color="gray.600">Contribution: Individual</Text>
             <Text fontSize="sm" color="gray.600">Time: 2.5 hours</Text>
           </Box>
+          
           <Grid templateColumns={{ base: '1fr', md: '1fr 1fr' }} gap={16} alignItems="center" w="100%">
             {/* Left Side: Text and Features */}
             <GridItem>
@@ -179,6 +180,34 @@ const Mukilm = () => {
                   </Text>
                 </Box>
                 </HStack>
+                
+                {/* Apple Event 2024 Context Section */}
+                <Box
+                  w="100%"
+                  maxW="700px"
+                  mx="auto"
+                  mt={8}
+                  mb={8}
+                  p={{ base: 3, md: 5 }}
+                  borderRadius="2xl"
+                  bg={colorMode === 'light' ? 'green.50' : 'green.900'}
+                  boxShadow="0 4px 16px rgba(49,130,206,0.08)"
+                  textAlign="left"
+                >
+                  <Box mb={4}>
+                    <img
+                      src="/images/works/apple.jpg"
+                      alt="Apple September 2024 Event"
+                      style={{ width: '100%', borderRadius: '14px', boxShadow: '0 2px 12px rgba(49,130,206,0.10)' }}
+                    />
+                  </Box>
+                  <Heading as="h3" size="md" mb={1} color={colorMode === 'light' ? 'green.700' : 'green.200'}>
+                    Apple September 2024 Event
+                  </Heading>
+                  <Text fontSize="md" color={colorMode === 'light' ? 'green.800' : 'green.100'} fontWeight="medium">
+                    In September 2024, Apple officially announced the introduction of solid-state side controls and context-aware capacitive sliders for iPhone, echoing the microinteraction concepts explored in this project. The event highlighted the shift from mechanical buttons to adaptive, touch-sensitive zones—demonstrating how microinteractions are shaping the future of device design.
+                  </Text>
+                </Box>
               </VStack>
             </GridItem>
             {/* Right Side: Image */}
