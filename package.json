@@ -1,7 +1,7 @@
 {
-  "name": "prince.portfolio",
+  "name": "mukil.portfolio",
   "version": "1.2.0",
-  "description": "Prince Portfolio",
+  "description": "Mukil Portfolio",
   "main": "index.js",
   "scripts": {
     "dev": "next dev -H 0.0.0.0",
@@ -10,7 +10,7 @@
     "lint": "next lint"
   },
   "keywords": [],
-  "author": "Prince Kumar",
+  "author": " Mukil Kumar",
   "license": "MIT",
   "dependencies": {
     "@chakra-ui/icons": "^2.0.8",
