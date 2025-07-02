@@ -181,30 +181,53 @@ const Mukilm = () => {
                 </Box>
                 </HStack>
                 
+                {/* Feature Grid - Now before Apple Event panel */}
+                <Box 
+                  w="100%"
+                  maxW="700px"
+                  mx="auto"
+                  mb={{ base: 4, md: 8 }}
+                  bgGradient="linear(to-b, black, green.600)"
+                  borderRadius="2xl"
+                  p={{ base: 3, md: 6 }}
+                  zIndex={10}
+                  textAlign="center"
+                  boxShadow="0 4px 16px rgba(49,130,206,0.10)"
+                >
+                  <SimpleGrid columns={{ base: 2, sm: 3 }} spacing={2} justifyItems="center" alignItems="center">
+                    <Button size="sm" borderRadius="full" w="100%" bg="black" color="white" _hover={{ bg: 'green.400', color: 'black' }}>Hover Effects</Button>
+                    <Button size="sm" borderRadius="full" w="100%" bg="white" color="black" _hover={{ bg: 'green.400', color: 'white' }}>Transitions</Button>
+                    <Button size="sm" borderRadius="full" w="100%" bg="black" color="white" _hover={{ bg: 'green.400', color: 'black' }}>Feedback</Button>
+                    <Button size="sm" borderRadius="full" w="100%" bg="green.400" color="white" _hover={{ bg: 'black', color: 'green.400' }}>Animations</Button>
+                    <Button size="sm" borderRadius="full" w="100%" bg="black" color="white" _hover={{ bg: 'green.400', color: 'black' }}>Gestures</Button>
+                    <Button size="sm" borderRadius="full" w="100%" bg="white" color="black" _hover={{ bg: 'green.400', color: 'white' }}>States</Button>
+                  </SimpleGrid>
+                </Box>
+                
                 {/* Apple Event 2024 Context Section */}
                 <Box
                   w="100%"
                   maxW="700px"
                   mx="auto"
-                  mt={8}
-                  mb={8}
-                  p={{ base: 3, md: 5 }}
+                  mt={{ base: 4, md: 8 }}
+                  mb={{ base: 4, md: 8 }}
+                  p={{ base: 2, md: 5 }}
                   borderRadius="2xl"
                   bg={colorMode === 'light' ? 'green.50' : 'green.900'}
                   boxShadow="0 4px 16px rgba(49,130,206,0.08)"
                   textAlign="left"
                 >
-                  <Box mb={4}>
+                  <Box mb={3}>
                     <img
                       src="/images/works/apple.jpg"
                       alt="Apple September 2024 Event"
-                      style={{ width: '100%', borderRadius: '14px', boxShadow: '0 2px 12px rgba(49,130,206,0.10)' }}
+                      style={{ width: '100%', borderRadius: '14px', boxShadow: '0 2px 12px rgba(49,130,206,0.10)', maxHeight: '220px', objectFit: 'cover' }}
                     />
                   </Box>
-                  <Heading as="h3" size="md" mb={1} color={colorMode === 'light' ? 'green.700' : 'green.200'}>
+                  <Heading as="h3" fontSize={{ base: 'lg', md: 'xl' }} mb={1} color={colorMode === 'light' ? 'green.700' : 'green.200'}>
                     Apple September 2024 Event
                   </Heading>
-                  <Text fontSize="md" color={colorMode === 'light' ? 'green.800' : 'green.100'} fontWeight="medium">
+                  <Text fontSize={{ base: 'sm', md: 'md' }} color={colorMode === 'light' ? 'green.800' : 'green.100'} fontWeight="medium">
                     In September 2024, Apple officially announced the introduction of solid-state side controls and context-aware capacitive sliders for iPhone, echoing the microinteraction concepts explored in this project. The event highlighted the shift from mechanical buttons to adaptive, touch-sensitive zones—demonstrating how microinteractions are shaping the future of device design.
                   </Text>
                 </Box>
@@ -686,29 +709,6 @@ const Mukilm = () => {
               </Box>
             </GridItem>
           </Grid>
-        </Box>
-        
-        {/* Feature Grid - Shifted slightly right inside main container */}
-        <Box 
-          position="absolute"
-          bottom={8}
-          left={{ base: '50vw', lg: '50vw', xl: '51vw' }}
-          bgGradient="linear(to-b, black, green.600)"
-          borderRadius="2xl" 
-          p={6} 
-          zIndex={10}
-          w={{ base: '50%', md: '680px' }}
-          maxW="720px"
-          textAlign="center"
-        >
-          <SimpleGrid columns={{ base: 2, md: 3 }} spacing={4} justifyItems="start" alignItems="center">
-            <Button size="sm" borderRadius="full" bg="black" color="white" _hover={{ bg: 'green.400', color: 'black' }}>Hover Effects</Button>
-            <Button size="sm" borderRadius="full" bg="white" color="black" _hover={{ bg: 'green.400', color: 'white' }}>Transitions</Button>
-            <Button size="sm" borderRadius="full" bg="black" color="white" _hover={{ bg: 'green.400', color: 'black' }}>Feedback</Button>
-            <Button size="sm" borderRadius="full" bg="green.400" color="white" _hover={{ bg: 'black', color: 'green.400' }}>Animations</Button>
-            <Button size="sm" borderRadius="full" bg="black" color="white" _hover={{ bg: 'green.400', color: 'black' }}>Gestures</Button>
-            <Button size="sm" borderRadius="full" bg="white" color="black" _hover={{ bg: 'green.400', color: 'white' }}>States</Button>
-          </SimpleGrid>
         </Box>
       </Box>
     </Layout>
