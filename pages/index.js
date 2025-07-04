@@ -307,20 +307,25 @@ const Home = () => {
     if (skillsVisible && skillsTextRef.current) {
       const tl = gsap.timeline({ repeat: -1, yoyo: true });
       tl.to(skillsTextRef.current, {
-        scale: 1.06,
-        y: 24,
-        duration: 2.8,
+        scale: 1.03, // reduced for less GPU load
+        y: 12, // reduced for less movement
+        duration: 4.5, // slower for smoother animation
         ease: 'sine.inOut',
       })
       .to(skillsTextRef.current, {
         scale: 1,
         y: 0,
-        duration: 2.8,
+        duration: 4.5,
         ease: 'sine.inOut',
       });
+      // Add will-change for browser optimization
+      skillsTextRef.current.style.willChange = 'transform';
     }
     return () => {
-      if (skillsTextRef.current) gsap.killTweensOf(skillsTextRef.current);
+      if (skillsTextRef.current) {
+        gsap.killTweensOf(skillsTextRef.current);
+        skillsTextRef.current.style.willChange = '';
+      }
     };
   }, [skillsVisible]);
 
