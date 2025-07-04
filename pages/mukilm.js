@@ -200,7 +200,18 @@ const Mukilm = () => {
                     <Button size="sm" borderRadius="full" w="100%" bg="black" color="white" _hover={{ bg: 'green.400', color: 'black' }}>Feedback</Button>
                     <Button size="sm" borderRadius="full" w="100%" bg="green.400" color="white" _hover={{ bg: 'black', color: 'green.400' }}>Animations</Button>
                     <Button size="sm" borderRadius="full" w="100%" bg="black" color="white" _hover={{ bg: 'green.400', color: 'black' }}>Gestures</Button>
-                    <Button size="sm" borderRadius="full" w="100%" bg="white" color="black" _hover={{ bg: 'green.400', color: 'white' }}>States</Button>
+                    <Button
+                      as="a"
+                      href="/design-evaluation"
+                      size="sm"
+                      borderRadius="full"
+                      w="100%"
+                      bg="white"
+                      color="black"
+                      _hover={{ bg: 'green.400', color: 'white' }}
+                    >
+                      Design Evaluation
+                    </Button>
                   </SimpleGrid>
                 </Box>
                 

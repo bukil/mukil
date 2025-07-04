@@ -33,7 +33,7 @@ import { Spacer } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 import { FaFigma, FaReact } from 'react-icons/fa'
 import { SiBlender, SiAdobexd, SiAdobephotoshop, SiAdobeillustrator, SiFramer, SiHtml5, SiGreensock, SiJekyll, SiPython, SiArduino, SiUnity, SiUnrealengine, SiSwift } from 'react-icons/si'
-import { MdMemory, MdMonitor, MdSmartphone, MdCode, MdScience, MdViewInAr, MdFormatShapes, MdPlayCircleFilled } from 'react-icons/md'
+import { MdMemory, MdMonitor, MdSmartphone, MdCode, MdScience, MdViewInAr, MdFormatShapes, MdPlayCircleFilled, MdGroups, MdEmojiEmotions } from 'react-icons/md'
 
 const Trans = styled.span`
   Button {
@@ -106,6 +106,8 @@ const SKILLS = [
   'Animation',
   'Design Systems',
   'User Research',
+  'Collaboration',
+  'Empathy',
 ]
 const SOFTWARE_SKILLS = [
   { name: 'Figma', icon: FaFigma },
@@ -136,6 +138,8 @@ const SKILL_ICONS = {
   'Animation': MdPlayCircleFilled,
   'Design Systems': MdFormatShapes,
   'User Research': MdScience,
+  'Collaboration': MdGroups,
+  'Empathy': MdEmojiEmotions,
 }
 
 function AnimatedIntro() {

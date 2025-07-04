@@ -312,7 +312,6 @@ const ProjectPanel = ({
 // Usage in the main component
 function CollapseExtandip() {
   const { isOpen: isEditOpenmd12, onOpen: onEditOpenmd12, onClose: onEditClosemd12 } = useDisclosure()
-  const { isOpen: isEditOpenmd14, onOpen: onEditOpenmd14, onClose: onEditClosemd14 } = useDisclosure()
   const { isOpen: isEditOpenmd13, onOpen: onEditOpenmd13, onClose: onEditClosemd13 } = useDisclosure()
   const { isOpen: isEditOpenmd17, onOpen: onEditOpenmd17, onClose: onEditClosemd17 } = useDisclosure()
   
@@ -337,30 +336,20 @@ function CollapseExtandip() {
           </Section>
 
           <Section>
-            <ProjectPanel
-              title="Design Evaluation ChatGPT"
-              hoverTitle="Design Evaluation ChatGPT"
-              description="Leveraging ChatGPT to evaluate and enhance design concepts. Get instant feedback, suggestions, and improvements for your creative work through AI-powered analysis. 🤖"
-              imageSrc="/mukil/degpt2.png"
-              imageAlt="Design Evaluation ChatGPT"
-              gradientColors="radial-gradient(circle at center, rgba(0, 100, 255, 0.7) 0%, rgba(0, 30, 60, 0.98) 100%)"
-              hoverGradientColors="radial-gradient(circle at center, rgba(0, 150, 255, 0.8) 0%, rgba(0, 40, 80, 0.98) 100%)"
-              accentColor="blue.400"
-              onClick={onEditOpenmd14}
-            />
-            <Modal isOpen={isEditOpenmd14} onClose={onEditClosemd14} size="full">
-              <ModalOverlay />
-              <ModalContent>
-                <ModalHeader as="h1" mt={32}>Design Evaluation</ModalHeader>
-                <ModalCloseButton mt={32} />
-                <ModalBody mt={4}>
-                  {/* Add your modal content here */}
-                </ModalBody>
-                <ModalFooter>
-                  <Button onClick={onEditClosemd14}>Close</Button>
-                </ModalFooter>
-              </ModalContent>
-            </Modal>
+            <NextLink href="/design-evaluation" passHref legacyBehavior>
+              <Box as="a" style={{ display: 'block', cursor: 'pointer', textDecoration: 'none' }}>
+                <ProjectPanel
+                  title="Design Evaluation ChatGPT"
+                  hoverTitle="Design Evaluation ChatGPT"
+                  description="Leveraging ChatGPT to evaluate and enhance design concepts. Get instant feedback, suggestions, and improvements for your creative work through AI-powered analysis. 🤖"
+                  imageSrc="/mukil/degpt2.png"
+                  imageAlt="Design Evaluation ChatGPT"
+                  gradientColors="radial-gradient(circle at center, rgba(0, 100, 255, 0.7) 0%, rgba(0, 30, 60, 0.98) 100%)"
+                  hoverGradientColors="radial-gradient(circle at center, rgba(0, 150, 255, 0.8) 0%, rgba(0, 40, 80, 0.98) 100%)"
+                  accentColor="blue.400"
+                />
+              </Box>
+            </NextLink>
           </Section>
 
           <Section>
