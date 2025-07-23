@@ -14,7 +14,7 @@ const HierarchicalEdgeBundling = () => {
 
     const width = Math.min(1200, window.innerWidth - 40);
     const height = Math.min(900, window.innerHeight - 100);
-    
+   
 
     // Create cluster layout
     // const cluster = d3.cluster().size([2 * Math.PI, radius]); // Removed unused variable
