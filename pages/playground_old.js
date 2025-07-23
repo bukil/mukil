@@ -336,78 +336,8 @@ const HierarchicalEdgeBundling = () => {
     const height = Math.min(900, window.innerHeight - 100);
     const radius = Math.min(width, height) / 2 - 150;
 
-    // Flatten the hierarchy to get all leaf nodes with full paths
-    function packageHierarchy(classes) {
-      let map = {};
-      
-      function find(name, data) {
-        let node = map[name], i;
-        if (!node) {
-          node = map[name] = data || {name: name, children: []};
-          if (name.length) {
-            node.parent = find(name.substring(0, i = name.lastIndexOf(".")));
-            node.parent.children.push(node);
-            node.key = name.substring(i + 1);
-          }
-        }
-        return node;
-      }
-      
-      classes.forEach(function(d) {
-        find(d.name, d);
-      });
-      
-      return d3.hierarchy(map[""]);
-    }
-
-    // Recursively get all leaf nodes with their full hierarchical names
-    function getLeafNodes(node, prefix = "", result = []) {
-      const fullName = prefix ? `${prefix}.${node.name}` : node.name;
-      
-      if (!node.children || node.children.length === 0) {
-        result.push({
-          ...node,
-          fullName: fullName,
-          name: node.name,
-          size: node.size || 1000,
-          imports: node.imports || []
-        });
-      } else {
-        node.children.forEach(child => getLeafNodes(child, fullName, result));
-      }
-      return result;
-    }
-
-    // Get all leaf nodes from the data
-    const allLeafNodes = getLeafNodes(sampleData);
-    
-    // Create the package hierarchy
-    const packagedData = packageHierarchy(allLeafNodes);
-    
     // Create cluster layout
     const cluster = d3.cluster().size([2 * Math.PI, radius]);
-    const root = cluster(packagedData);
-
-    // Get the leaf nodes from the clustered hierarchy
-    const nodes = root.leaves();
-    
-    // Create links based on imports
-    const links = [];
-    nodes.forEach(source => {
-      if (source.data.imports) {
-        source.data.imports.forEach(importName => {
-          const target = nodes.find(n => n.data.fullName === importName);
-          if (target && target !== source) {
-            links.push({source, target});
-          }
-        });
-      }
-    });
-
-    console.log(`Found ${nodes.length} nodes and ${links.length} links`);
-    console.log("Sample node:", nodes[0]);
-    console.log("Sample link:", links[0]);
-    console.log("Does first node have path method?", typeof nodes[0].path === 'function');
 
     // Create SVG
     const svg = d3.select(svgRef.current)
@@ -426,7 +356,6 @@ const HierarchicalEdgeBundling = () => {
       root.each(d => {
         d.path = function(end) {
           const start = this;
-          const k = 0;
           const a = [];
           const b = [];
           
@@ -568,7 +497,7 @@ const HierarchicalEdgeBundling = () => {
           target.text.style.fill = "#4ecdc4";
         });
       })
-      .on("mouseout", function(event, d) {
+      .on("mouseout", function() {
         // Reset all styles
         link.style("opacity", 0.7)
            .style("stroke", "rgba(255,255,255,0.6)")

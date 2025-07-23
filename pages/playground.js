@@ -52,29 +52,6 @@ const HierarchicalEdgeBundling = () => {
     const radius = Math.min(width, height) / 2 - 120;
 
     // Helper functions
-    function packageHierarchy(classes) {
-      let map = {};
-      
-      function find(name, data) {
-        let node = map[name], i;
-        if (!node) {
-          node = map[name] = data || {name: name, children: []};
-          if (name.length) {
-            node.parent = find(name.substring(0, i = name.lastIndexOf(".")));
-            node.parent.children.push(node);
-            node.key = name.substring(i + 1);
-          }
-        }
-        return node;
-      }
-      
-      classes.forEach(function(d) {
-        find(d.name, d);
-      });
-      
-      return map[""];
-    }
-
     function packageImports(nodes) {
       let map = {},
           imports = [];
@@ -94,16 +71,6 @@ const HierarchicalEdgeBundling = () => {
       });
 
       return imports;
-    }
-
-    // Flatten the hierarchy to get all leaf nodes
-    function getLeafNodes(node, result = []) {
-      if (!node.children || node.children.length === 0) {
-        result.push(node);
-      } else {
-        node.children.forEach(child => getLeafNodes(child, result));
-      }
-      return result;
     }
 
     // Create cluster layout
@@ -195,7 +162,7 @@ const HierarchicalEdgeBundling = () => {
         
         d3.select(this).style("font-weight", "bold").style("fill", "#4ecdc4");
       })
-      .on("mouseout", function(event, d) {
+      .on("mouseout", function() {
         // Reset all styles
         link.style("stroke", "rgba(255,255,255,0.4)")
            .style("opacity", 0.6);
@@ -248,26 +215,6 @@ const Playground = () => {
             Interactive visualization showing relationships between different data clusters. 
             Hover over nodes to highlight connections.
           </Text>
-        </Box>
-
-        {/* Trust and AI Panel */}
-        <Box
-          w={{ base: '95%', md: '70%', lg: '50%' }}
-          mx="auto"
-          mb={8}
-          p={6}
-          borderRadius="2xl"
-          boxShadow="lg"
-          bg="rgba(255,255,255,0.08)"
-          border="1px solid rgba(255,255,255,0.18)"
-          backdropFilter="blur(2px)"
-          display="flex"
-          flexDirection="column"
-          alignItems="center"
-        >
-          <Heading as="h2" size="lg" color="white" mb={2} letterSpacing="wide">
-            Trust and AI
-          </Heading>
         </Box>
 
         {/* Visualization container */}
