@@ -58,10 +58,10 @@ const Navbar = props => {
   const { path } = props
   const [highlight, setHighlight] = useState({ left: 0, width: 0 })
   const navStackRef = useRef(null)
-  const tabRefs = [useRef(null), useRef(null), useRef(null), useRef(null)]
+  const tabRefs = [useRef(null), useRef(null), useRef(null), useRef(null), useRef(null)]
 
   // --- Traveling highlight logic ---
-  const tabPaths = ['/works', '/blog', '/Mukil_Résumé.pdf', '/contact']
+  const tabPaths = ['/works', '/blog', '/playground', '/Mukil_Résumé.pdf', '/contact']
 
   // Helper to update highlight position
   const updateHighlight = () => {
@@ -224,10 +224,13 @@ const Navbar = props => {
                 <LinkItem href="/blog" path={path} tabRef={tabRefs[1]} fontWeight="hairline" fontSize={18}>
                   BLOG
                 </LinkItem>
+                <LinkItem href="/playground" path={path} tabRef={tabRefs[2]} fontWeight="hairline" fontSize={18}>
+                  PLAYGROUND
+                </LinkItem>
                 <LinkItem
                   href="/Mukil_Résumé.pdf"
                   path={path}
-                  tabRef={tabRefs[2]}
+                  tabRef={tabRefs[3]}
                   display="inline-flex"
                   alignItems="center"
                   style={{ gap: 4 }}
@@ -237,13 +240,15 @@ const Navbar = props => {
                 >
                   RESUME
                 </LinkItem>
-                <LinkItem href="/contact" path={path} tabRef={tabRefs[3]} fontWeight="hairline" fontSize={18}>
+                <LinkItem href="/contact" path={path} tabRef={tabRefs[4]} fontWeight="hairline" fontSize={18}>
                   CONTACT
                 </LinkItem>
               </Stack>
-              <Box ml={2} display={{ base: 'none', md: 'flex' }} alignItems="center">
-                <ThemeToggleButton />
-              </Box>
+              {path !== '/playground' && (
+                <Box ml={2} display={{ base: 'none', md: 'flex' }} alignItems="center">
+                  <ThemeToggleButton />
+                </Box>
+              )}
             </Flex>
 
             {/* Mobile Menu - No distortion */}
@@ -299,6 +304,9 @@ const Navbar = props => {
                     <NextLink href="/blog" passHref legacyBehavior>
                       <MenuItem as={Link}>BLOG</MenuItem>
                     </NextLink>
+                    <NextLink href="/playground" passHref legacyBehavior>
+                      <MenuItem as={Link}>PLAYGROUND</MenuItem>
+                    </NextLink>
                     <NextLink href="/Mukil_Résumé.pdf" passHref legacyBehavior>
                       <MenuItem as={Link}>RESUME</MenuItem>
                     </NextLink>
@@ -308,9 +316,11 @@ const Navbar = props => {
                   </MenuList>
                 </Menu>
               </Box>
-              <Box ml={2} display={{ base: 'flex', md: 'none' }} alignItems="center">
-                <ThemeToggleButton />
-              </Box>
+              {path !== '/playground' && (
+                <Box ml={2} display={{ base: 'flex', md: 'none' }} alignItems="center">
+                  <ThemeToggleButton />
+                </Box>
+              )}
             </Flex>
           </Flex>
         </Box>

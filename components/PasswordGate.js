@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Box, Input, Button, Text, VStack } from '@chakra-ui/react';
 
-const PASSWORD = 'sorte';
+const PASSWORD = '1love';
 const STORAGE_KEY = 'site_password';
 
 const RocketJourneySimulation = () => {
@@ -411,4 +411,4 @@ export default function PasswordGate({ children }) {
       )}
     </Box>
   );
-} 
+}
