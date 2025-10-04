@@ -384,53 +384,6 @@ const Blog = () => {
     );
   }
 
-  const [displayText, setDisplayText] = useState("        ");
-  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  const names = [
-    "ABHISHEK",
-    "ARINDAM",
-    "KARTHIK",
-    "SAMIKSHA",
-    "SARAYU",
-    "SAIE",
-    "UTKARSHA",
-    "KHUSHI",
-    "PRADUMN",
-    "ANOUSHKA"
-  ];
-
-  useEffect(() => {
-    let isShowingName = false;
-    let nameTimer = null;
-
-    const interval = setInterval(() => {
-      // 20% chance to show a name, but only if we're not already showing one
-      if (!isShowingName && Math.random() < 0.2) {
-        const randomName = names[Math.floor(Math.random() * names.length)];
-        setDisplayText(randomName.padEnd(8, ' '));
-        isShowingName = true;
-        
-        // Clear any existing timer
-        if (nameTimer) clearTimeout(nameTimer);
-        
-        // Set a timer to switch back to random characters after 400ms
-        nameTimer = setTimeout(() => {
-          isShowingName = false;
-        }, 100);
-      } else if (!isShowingName) {
-        // Generate new random 8 characters
-        const newText = Array(8).fill('').map(() => 
-          characters[Math.floor(Math.random() * characters.length)]
-        ).join('');
-        setDisplayText(newText);
-      }
-    }, 80); // Much faster animation for random characters
-
-    return () => {
-      clearInterval(interval);
-      if (nameTimer) clearTimeout(nameTimer);
-    };
-  }, []);
 
   return (
     <Layout>
@@ -440,19 +393,7 @@ const Blog = () => {
           <canvas ref={canvasRef} style={{ width: '100vw', height: '100vh', display: 'block' }} />
         </Box>
         <Box minH="100vh" py={0} position="relative" zIndex={1} w="100%" maxW="100vw">
-          {/* Quick changing text at the top */}
-          <Box textAlign="center" py={32} mt="30vh">
-            <Text 
-              fontSize="5xl" 
-              fontWeight="bold" 
-              color={textColor}
-              fontFamily="'Space Mono', monospace"
-              letterSpacing="tight"
-            >
-              {displayText}
-              <Text as="span" color="#89EF8C">_</Text>
-            </Text>
-          </Box>
+          {/* Removed fast-changing names and text animation at the top */}
           {/* Spacer to push content down */}
           <Box h="400px" />
           <VStack spacing={16} align="stretch" w="100%">
@@ -466,7 +407,7 @@ const Blog = () => {
                 color={textColor}
                 letterSpacing="tight"
               >
-                Blog soon (website under construction hehehe :.|   wo kya he na.... )
+                ...
               </Heading>
               <Text
                 fontSize={{ base: 'xl', md: '2xl' }}
