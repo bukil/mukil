@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+
 import { Box, Heading, Text } from '@chakra-ui/react';
 import Layout from '../components/layouts/article';
 import Head from 'next/head';
