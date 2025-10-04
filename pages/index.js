@@ -5,7 +5,6 @@ import {
   Container,
   Heading,
   Box,
-  chakra,
   Button,
   Text,
   VStack,
