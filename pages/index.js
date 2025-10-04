@@ -482,31 +482,6 @@ const Home = () => {
                 </Grid>
                 <p>INTERACTION DESIGNER · CREATIVE TECHNOLOGIST · ELECTRONICS ENGINEER</p>
               </Box>
-              <Box
-                flexShrink={0}
-                mt={{ base: 4, md: 0 }}
-                ml={{ md: 6 }}
-                textAlign="center"
-              >
-                <Box
-                  borderColor="whiteAlpha.800"
-                  borderWidth={0}
-                  borderStyle="solid"
-                  w="300px"
-                  h="363px"
-                  display="inline-block"
-                  borderRadius='0'
-                  overflow="hidden"
-                >
-                  <ProfileImage
-                    src="/images/mukil.png"
-                    alt="Profile image"
-                    width={300}
-                    height={363}
-                    priority
-                  />
-                </Box>
-              </Box>
             </Box>
             {/* Hi.png animated image */}
             <Box
