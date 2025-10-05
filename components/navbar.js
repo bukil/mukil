@@ -9,6 +9,7 @@ import {
   Menu,
   MenuItem,
   MenuList,
+  Portal,
   MenuButton,
   IconButton,
   useColorModeValue
@@ -282,7 +283,8 @@ const Navbar = props => {
                       transition: 'all 0.2s linear'
                     }}
                   />
-                  <MenuList
+                  <Portal>
+                    <MenuList
                     bg={useColorModeValue(
                       'linear-gradient(180deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.3) 100%)',
                       'linear-gradient(180deg, rgba(32,32,35,0.4) 0%, rgba(32,32,35,0.3) 100%)'
@@ -297,6 +299,7 @@ const Navbar = props => {
                       '0 4px 30px rgba(0,0,0,0.1), inset 0 0 0 1px rgba(255,255,255,0.2)',
                       '0 4px 30px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(255,255,255,0.1)'
                     )}
+                    zIndex={2100}
                   >
                     <NextLink href="/works" passHref legacyBehavior>
                       <MenuItem as={Link}>MY WORKS</MenuItem>
@@ -314,6 +317,7 @@ const Navbar = props => {
                       <MenuItem as={Link}>CONTACT</MenuItem>
                     </NextLink>
                   </MenuList>
+                  </Portal>
                 </Menu>
               </Box>
               {path !== '/playground' && (
