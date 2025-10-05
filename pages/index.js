@@ -408,7 +408,7 @@ const Home = () => {
 
   return (
     <>
-      <Global styles={`body { background: ${colorMode === 'dark' ? '#0a174e' : '#fff'} !important; }`} />
+      <Global styles={`body { background: ${colorMode === 'dark' ? '#000000ff' : '#fff'} !important; }`} />
       <Box ref={pageRef} position="relative" minHeight="100vh">
         <Head>
           <title>Mukil</title>
@@ -576,7 +576,7 @@ const Home = () => {
                           py={1}
                           borderRadius="full"
                           bg="rgba(255,255,255,0.18)"
-                          border="1px solid #89EF8C"
+                          border="0.5px solid #89EF8C"
                           transition="all 0.3s"
                           color="#89EF8C"
                           boxShadow="none"
@@ -609,7 +609,7 @@ const Home = () => {
                             py={2}
                             borderRadius="full"
                             bg="rgba(255,255,255,0.18)"
-                            border="1px solid #3182ce"
+                            border="0.5px solid #3182ce"
                             boxShadow="none"
                             backdropFilter="blur(8px)"
                             transition="all 0.3s"
@@ -651,7 +651,7 @@ const Home = () => {
                         py={1}
                         borderRadius="full"
                         bg="rgba(255,255,255,0.18)"
-                        border="1px solid rgba(137,239,140,0.25)"
+                        border="0.5px solid rgba(137,239,140,0.25)"
                         boxShadow="0 8px 32px 0 rgba(137,239,140,0.08)"
                         backdropFilter="blur(8px)"
                         transition="all 0.3s"
@@ -707,7 +707,7 @@ const Home = () => {
                         py={2}
                         borderRadius="full"
                         bg="rgba(255,255,255,0.18)"
-                        border="1px solid #3182ce"
+                        border="0.5px solid #3182ce"
                         boxShadow="none"
                         backdropFilter="blur(8px)"
                         transition="all 0.3s"
@@ -745,7 +745,7 @@ const Home = () => {
                     ref={buttonRef}
                     borderRadius='50px'
                     variant='outline'
-                    border='1px'
+                    border='0.4px'
                     borderColor='#89EF8C'
                     color='#89EF8C'
                     px={6}

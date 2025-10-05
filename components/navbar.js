@@ -45,7 +45,8 @@ const LinkItem = ({ href, path, target, children, tabRef, ...props }) => {
           textDecoration: 'none',
           transform: 'translateY(-2px)',
           color: active ? '#202023' : inactiveColor,
-          bg: active ? '#89EF8C' : hoverBg
+          bg: active ? '#89EF8C' : hoverBg,
+          boxShadow: 'none'
         }}
         {...props}
       >
@@ -67,7 +68,10 @@ const Navbar = props => {
   // Helper to update highlight position
   const updateHighlight = () => {
     const idx = tabPaths.findIndex(p => p === path)
-    if (idx === -1) return
+    if (idx === -1) {
+      setHighlight({ left: 0, width: 0 })
+      return
+    }
     const tab = tabRefs[idx].current
     const nav = navStackRef.current
     if (tab && nav) {
@@ -105,21 +109,6 @@ const Navbar = props => {
       left={0}
       zIndex={2000}
     >
-      {/* SVG Filter for Glass Distortion */}
-      <svg style={{ display: 'none', position: 'absolute' }}>
-        <filter id="navbar-glass-distortion">
-          <feTurbulence type="turbulence" baseFrequency="0.008" numOctaves="2" result="noise" />
-          <feDisplacementMap in="SourceGraphic" in2="noise" scale="77" />
-        </filter>
-        <filter id="navbar-glow">
-          <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-          <feMerge> 
-            <feMergeNode in="coloredBlur"/>
-            <feMergeNode in="SourceGraphic"/>
-          </feMerge>
-        </filter>
-      </svg>
-
       <Box
         w="100%"
         p={2}
@@ -128,56 +117,16 @@ const Navbar = props => {
         margin="8px 16px"
         width="calc(100% - 32px)"
         overflow="hidden"
-        background="transparent"
+        bg={useColorModeValue('rgba(255,255,255,0.22)', 'rgba(32,32,35,0.32)')}
+        backdropFilter="blur(12px)"
+        boxShadow={useColorModeValue('0 4px 24px rgba(0,0,0,0.08)', '0 4px 24px rgba(0,0,0,0.18)')}
+        border={useColorModeValue('0.5px solid rgba(255,255,255,0.18)', '0.5px solid rgba(255,255,255,0.12)')}
         transition="transform 0.2s linear"
         _hover={{
           transform: 'none'
         }}
       >
-        {/* Glass Filter Layer */}
-        <Box
-          position="absolute"
-          inset={0}
-          borderRadius="inherit"
-          zIndex={1}
-          backdropFilter="blur(4px)"
-          filter="url(#navbar-glass-distortion) saturate(120%) brightness(1.15)"
-        />
-        
-        {/* Glass Overlay Layer */}
-        <Box
-          position="absolute"
-          inset={0}
-          borderRadius="inherit"
-          zIndex={2}
-          bg={useColorModeValue(
-            'rgba(0, 153, 255, 0.18)',
-            'rgba(0, 0, 0, 0.25)'
-          )}
-        />
-        
-        {/* Glass Specular Layer */}
-        <Box
-          position="absolute"
-          inset={0}
-          borderRadius="inherit"
-          zIndex={4}
-          boxShadow={useColorModeValue(
-            'inset 1px 1px 1px rgba(128, 128, 128, 0.39)',
-            'inset 1px 1px 1px rgba(255, 255, 255, 0.15)'
-          )}
-          border={useColorModeValue(
-            '0.4px solid rgba(255, 255, 255, 0.04)',
-            '0.4px solid rgba(255, 255, 255, 0.04)'
-          )}
-        />
-
-        {/* Content Layer - This will be distorted */}
-        <Box
-          position="relative"
-          zIndex={5}
-          p={2}
-        >
+        <Box position="relative" zIndex={2} p={2}>
           <Flex align="center" w="99.5%" justify="space-between">
             {/* Logo on the far left - This gets the distortion effect */}
             <Flex align="center">
@@ -196,29 +145,20 @@ const Navbar = props => {
                 position="relative"
               >
                 {/* Traveling highlight bar */}
-                <Box
-                  position="absolute"
-                  top={0}
-                  left={highlight.left}
-                  height="100%"
-                  width={highlight.width}
-                  bg={useColorModeValue(
-                    'linear-gradient(180deg, rgba(137,239,140,0.2) 0%, rgba(137,239,140,0.1) 100%)',
-                    'linear-gradient(180deg, rgba(137,239,140,0.3) 0%, rgba(137,239,140,0.2) 100%)'
-                  )}
-                  borderRadius="12px"
-                  zIndex={1}
-                  transition="all 0.3s ease-out"
-                  boxShadow={useColorModeValue(
-                    '0 4px 20px rgba(137,239,140,0.2), inset 0 0 0 1px rgba(137,239,140,0.2)',
-                    '0 4px 20px rgba(137,239,140,0.3), inset 0 0 0 1px rgba(137,239,140,0.3)'
-                  )}
-                  css={{
-                    backdropFilter: 'blur(8px)',
-                    WebkitBackdropFilter: 'blur(8px)',
-                    transform: 'translate3d(1, 0, 0)'
-                  }}
-                />
+                {highlight.width > 0 && (
+                  <Box
+                    position="absolute"
+                    top={0}
+                    left={highlight.left}
+                    height="100%"
+                    width={highlight.width}
+                    bg="#89EF8C"
+                    borderRadius="12px"
+                    zIndex={1}
+                    transition="all 0.3s ease-out"
+                    boxShadow="none"
+                  />
+                )}
                 <LinkItem href="/works" path={path} tabRef={tabRefs[0]} fontWeight="hairline" fontSize={18}>
                   MY WORKS
                 </LinkItem>

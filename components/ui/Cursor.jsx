@@ -199,7 +199,7 @@ const Cursor = () => {
           pointerEvents: 'none',
           transform: 'translate(-50%, -50%)',
           zIndex: 1000000,
-          border: `0.5px solid ${outlineColor}`,
+          border: `2px solid ${outlineColor}`,
           transition: 'width 0.22s cubic-bezier(.4,2,.3,1), height 0.22s cubic-bezier(.4,2,.3,1), border-radius 0.22s cubic-bezier(.4,2,.3,1)',
         }}
       />

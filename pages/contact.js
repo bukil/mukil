@@ -84,7 +84,7 @@ const Contact = () => {
             >
               I'm all ears whether you're building the next big thing, sketching out a moonshot, or just want to say hi.
               <br />
-              Let's <Text as="span" color="black" bg="#89EF8C" px={1}>connect</Text>. Let's create. Or at the very least, let's talk.
+              Let's <Text as="span" color="black" bg="#89EF8C" px={1}>connect</Text>. Let's create. Or at the very least, let's talk. Curious to know more before we chat? <Link href="/Mukil_Résumé.pdf" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}><Text as="span" color="black" bg="#89EF8C" px={1} fontWeight="regular">Resume</Text></Link> got the highlights.
             </Text>
             
             <VStack spacing={8} align="stretch">
@@ -159,4 +159,4 @@ const Contact = () => {
 }
 
 export default Contact
-export { getServerSideProps } from '../components/chakra' 
+export { getServerSideProps } from '../components/chakra'
