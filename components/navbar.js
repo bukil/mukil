@@ -168,19 +168,7 @@ const Navbar = props => {
                 <LinkItem href="/playground" path={path} tabRef={tabRefs[2]} fontWeight="hairline" fontSize={18}>
                   PLAYGROUND
                 </LinkItem>
-                <LinkItem
-                  href="/Mukil_Résumé.pdf"
-                  path={path}
-                  tabRef={tabRefs[3]}
-                  display="inline-flex"
-                  alignItems="center"
-                  style={{ gap: 4 }}
-                  pl={2}
-                  fontWeight="hairline"
-                  fontSize={18}
-                >
-                  RESUME
-                </LinkItem>
+                {/* RESUME tab removed */}
                 <LinkItem href="/contact" path={path} tabRef={tabRefs[4]} fontWeight="hairline" fontSize={18}>
                   CONTACT
                 </LinkItem>
@@ -250,9 +238,7 @@ const Navbar = props => {
                     <NextLink href="/playground" passHref legacyBehavior>
                       <MenuItem as={Link}>PLAYGROUND</MenuItem>
                     </NextLink>
-                    <NextLink href="/Mukil_Résumé.pdf" passHref legacyBehavior>
-                      <MenuItem as={Link}>RESUME</MenuItem>
-                    </NextLink>
+                    {/* RESUME tab removed from mobile menu */}
                     <NextLink href="/contact" passHref legacyBehavior>
                       <MenuItem as={Link}>CONTACT</MenuItem>
                     </NextLink>
