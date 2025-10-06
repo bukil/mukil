@@ -438,31 +438,7 @@ const Home = () => {
         <Layout>
           <Spacer mb={130}/>
           <Container maxW='container.xl'>
-            <Box
-              position="absolute"
-              top={{ base: '-30px', md: '-40px', lg: '-70px' }}
-              left={{ base: '130px', md: '180px', lg: '250px' }}
-              w={{ base: '36px', md: '54px', lg: '72px' }}
-              h={{ base: '36px', md: '54px', lg: '72px' }}
-              zIndex={1}
-              style={{
-                clipPath: 'polygon(0 100%, 100% 100%, 100% 0)',
-                background: useColorModeValue(
-                  'linear-gradient(135deg, rgba(137,239,140,0.95) 0%, rgba(137,239,140,0.85) 50%, rgba(137,239,140,0.75) 100%)',
-                  'linear-gradient(135deg, rgba(137,239,140,0.98) 0%, rgba(137,239,140,0.9) 50%, rgba(137,239,140,0.85) 100%)'
-                ),
-                backdropFilter: 'blur(12px)',
-                WebkitBackdropFilter: 'blur(12px)',
-                boxShadow: useColorModeValue(
-                  '0 4px 30px rgba(137,239,140,0.3), inset 0 0 0 1px rgba(137,239,140,0.4), inset 0 0 20px rgba(137,239,140,0.2)',
-                  '0 4px 30px rgba(137,239,140,0.4), inset 0 0 0 1px rgba(137,239,140,0.5), inset 0 0 20px rgba(137,239,140,0.3)'
-                ),
-                border: useColorModeValue(
-                  '1px solid rgba(137,239,140,0.4)',
-                  '1px solid rgba(137,239,140,0.5)'
-                )
-              }}
-            />
+            {/* Removed green triangle above MUKIL heading */}
             <Box display={{ md:'flex'}}>
               <Box flexGrow={1}>
                 <Grid templateColumns='repeat(2, fr)'>
