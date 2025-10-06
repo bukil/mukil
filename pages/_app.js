@@ -3,7 +3,6 @@ import Fonts from '../components/fonts'
 import { AnimatePresence } from 'framer-motion'
 import Chakra from '../components/chakra'
 // import '../styles/cursor.css'
-import PasswordGate from '../components/PasswordGate'
 import Cursor from '../components/ui/Cursor'
 
 if (typeof window !== 'undefined') {
@@ -15,7 +14,6 @@ function Website({ Component, pageProps, router }) {
     <Chakra cookies={pageProps.cookies}>
       <Fonts />
       <Cursor />
-      <PasswordGate>
       <Layout router={router}>
         <AnimatePresence
           exitBeforeEnter
@@ -28,8 +26,7 @@ function Website({ Component, pageProps, router }) {
         >
           <Component {...pageProps} key={router.route} />
         </AnimatePresence>
-      </Layout>
-      </PasswordGate>
+  </Layout>
     </Chakra>
   )
 }
