@@ -513,7 +513,7 @@ const Home = () => {
                         borderRadius="12px"
                         bg="rgba(255,255,255,0.18)"
                         border="0.5px solid rgba(137,239,140,0.25)"
-                        boxShadow="0 8px 32px 0 rgba(137,239,140,0.08)"
+                        boxShadow="none"
                         backdropFilter="blur(8px)"
                         transition="all 0.3s"
                         color={isHovered ? '#e0ffe1' : '#777'}
