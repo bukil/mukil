@@ -114,13 +114,13 @@ const Navbar = props => {
         p={2}
         position="relative"
         borderRadius="12px"
-        margin="8px 16px"
+        margin="15px 16px"
         width="calc(100% - 32px)"
         overflow="hidden"
-        bg={useColorModeValue('rgba(255,255,255,0.22)', 'rgba(32,32,35,0.32)')}
+        bg={useColorModeValue('rgba(255,255,255,0.75)', 'rgba(32,32,35,0.75)')}
         backdropFilter="blur(12px)"
         boxShadow={useColorModeValue('0 4px 24px rgba(0,0,0,0.08)', '0 4px 24px rgba(0,0,0,0.18)')}
-        border={useColorModeValue('0.5px solid rgba(255,255,255,0.18)', '0.5px solid rgba(255,255,255,0.12)')}
+        border={useColorModeValue('0.5px solid rgba(255,255,255,0.5)', '0.5px solid rgba(255,255,255,0.35)')}
         transition="transform 0.2s linear"
         _hover={{
           transform: 'none'
