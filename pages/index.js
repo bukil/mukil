@@ -22,7 +22,7 @@ import { ChevronRightIcon } from '@chakra-ui/icons'
 import Section from '../components/section'
 import { Grid, GridItem } from '@chakra-ui/react'
 import Image from 'next/image'
-import { Divider } from '@chakra-ui/react'
+
 import { Spacer } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 import { FaFigma, FaReact } from 'react-icons/fa'
@@ -77,19 +77,22 @@ const SKILLS = [
   'Collaboration',
   'Empathy',
 ]
-const SOFTWARE_SKILLS = [
+const VISUAL_DESIGN_SKILLS = [
   { name: 'Figma', icon: FaFigma },
   { name: 'Adobe XD', icon: SiAdobexd },
   { name: 'Blender', icon: SiBlender },
   { name: 'Photoshop', icon: SiAdobephotoshop },
   { name: 'Illustrator', icon: SiAdobeillustrator },
   { name: 'Framer', icon: SiFramer },
+  { name: 'Fusion 360', icon: MdMemory },
+]
+
+const DEVELOPMENT_SKILLS = [
   { name: 'HTML/CSS/JS', icon: SiHtml5 },
   { name: 'React', icon: FaReact },
   { name: 'GSAP', icon: SiGreensock },
   { name: 'Jekyll', icon: SiJekyll },
   { name: 'Python', icon: SiPython },
-  { name: 'Fusion 360', icon: MdMemory },
   { name: 'Unity', icon: SiUnity },
   { name: 'Swift', icon: SiSwift },
   { name: 'Three.js' },
@@ -299,10 +302,10 @@ const Home = () => {
 
   return (
     <>
-      <Global styles={`body { background: ${colorMode === 'dark' ? '#000000ff' : '#fff'} !important; }`} />
+      <Global styles={`body { background: ${colorMode === 'dark' ? '#1a1a1a' : '#f5f5f5'} !important; }`} />
       <Box ref={pageRef} position="relative" minHeight="100vh">
         <Head>
-          <title>Mukil</title>
+          <title>Mukil | Design</title>
           <meta name="description" content="Mukil - Interaction Designer, Creative Technologist, and Electronics Engineer. Currently pursuing Master of Design at IDC IIT Bombay. Specializing in user-centered design and creative technology solutions." />
           <meta name="keywords" content="Mukil, Interaction Designer, Creative Technologist, Electronics Engineer, IDC IIT Bombay, UX Design, UI Design, Product Design" />
           <meta name="author" content="Mukil" />
@@ -332,19 +335,9 @@ const Home = () => {
             {/* Removed green triangle above MUKIL heading */}
             <Box display={{ md:'flex'}}>
               <Box flexGrow={1}>
-                <Grid templateColumns='repeat(2, fr)'>
-                  <GridItem w='100%' position="relative">
-                      <Heading ref={mukilRef} fontSize='7xl' fontWeight="hairline">
-                      MUKIL
-                    </Heading>
-                  </GridItem>
-                  <GridItem w='100%'>
-                      <Heading ref={kumarRef} fontSize='7xl' variant="page-title">
-                      KUMAR
-                    </Heading>
-                  </GridItem>
-                </Grid>
-                <p>Interaction Designer · Creative Technologist · Electronics Engineer</p>
+                <Heading ref={mukilRef} fontSize={{ base: '6xl', md: '8xl', lg: '9xl' }} fontWeight="bold" lineHeight={0.79}>
+                  MUKIL<br />KUMAR
+                </Heading>
               </Box>
             </Box>
             {/* Hi.png animated image */}
@@ -368,7 +361,6 @@ const Home = () => {
             </Box>
           </Container> 
 
-          <Divider orientation='horizontal' mb={8} mt={6} />
           <Spacer />
 
           <Container maxW='container.xl' mt={2} mb={2} p={2}>
@@ -423,172 +415,210 @@ const Home = () => {
                     <Heading fontSize="2xl" fontWeight="bold" mb={4} color="#89EF8C">
                       Skills
                     </Heading>
-                    <Box display="flex" flexWrap="wrap" gap={6} mb={10}>
-                      {SKILLS.map((skill) => (
-                        <Box
-                          key={skill}
-                          fontSize="sm"
-                          fontWeight="semibold"
-                          fontFamily="'Space Grotesk', sans-serif"
-                          px={8}
-                          py={1}
-                          borderRadius="12px"
-                          bg="rgba(255,255,255,0.18)"
-                          border="0.5px solid #89EF8C"
-                          transition="all 0.3s"
-                          color="#89EF8C"
-                          boxShadow="none"
-                          style={{ WebkitBackdropFilter: 'blur(8px)' }}
-                          mb={1}
-                          width="140px"
-                          textAlign="center"
-                          justifyContent="center"
-                          display="flex"
-                          alignItems="center"
-                        >
-                          {skill}
-                        </Box>
-                      ))}
-                    </Box>
-                    {/* SOFTWARE section: all tabs highlighted by default on mobile */}
-                    <Heading fontSize="2xl" fontWeight="bold" mb={4} color="#3182ce">
-                      Technologies
+                    <Text
+                      fontSize="sm"
+                      fontWeight="bold"
+                      fontFamily="'Space Grotesk', sans-serif"
+                      color="#fff"
+                      mb={8}
+                    >
+                      {SKILLS.slice(0, 5).join(' | ')}<br />
+                      {SKILLS.slice(5).join(' | ')}
+                    </Text>
+                    {/* Visual Design section */}
+                    <Heading fontSize="2xl" fontWeight="bold" mt={8} mb={4} color="#3182ce">
+                      Visual Design
                     </Heading>
-                    <Box display="flex" flexWrap="wrap" gap={4}>
-                      {SOFTWARE_SKILLS.map((soft) => {
-                        const Icon = soft.icon
-                        return (
-                          <Box
-                            key={soft.name}
-                            fontSize={{ base: 'md', md: 'lg' }}
-                            fontWeight="medium"
-                            fontFamily="'Space Grotesk', sans-serif"
-                            px={6}
-                            py={2}
-                            borderRadius="12px"
-                            bg="rgba(255,255,255,0.18)"
-                            border="0.5px solid #3182ce"
-                            boxShadow="none"
-                            backdropFilter="blur(8px)"
-                            transition="all 0.3s"
-                            color="#3182ce"
-                            display="flex"
-                            alignItems="center"
-                            gap={2}
-                            style={{ WebkitBackdropFilter: 'blur(8px)' }}
-                            mb={1}
-                            width={soft.name === 'Embedded (Arduino/Electronics)' || soft.name === 'Unreal Engine' ? "400px" : "200px"}
-                            textAlign="center"
-                            justifyContent="center"
-                            _hover={{
-                              boxShadow: { base: 'none', md: '0 0 24px 8px #3182ce, 0 8px 32px 0 rgba(49,130,206,0.18)' },
-                              filter: { base: 'none', md: 'brightness(1.2)' },
-                            }}
-                          >
-                            {Icon && <Icon style={{ fontSize: 24 }} />}
-                            {soft.name}
-                          </Box>
-                        )
-                      })}
-                    </Box>
+                    <Text
+                      fontSize="sm"
+                      fontWeight="bold"
+                      fontFamily="'Space Grotesk', sans-serif"
+                      color="#fff"
+                      mb={8}
+                    >
+                      {VISUAL_DESIGN_SKILLS.map(s => s.name).join(' | ')}
+                    </Text>
+                    {/* Development section */}
+                    <Heading fontSize="2xl" fontWeight="bold" mt={8} mb={4} color="#3182ce">
+                      Development
+                    </Heading>
+                    <Text
+                      fontSize="sm"
+                      fontWeight="bold"
+                      fontFamily="'Space Grotesk', sans-serif"
+                      color="#fff"
+                      mb={8}
+                    >
+                      {DEVELOPMENT_SKILLS.slice(0, 8).map(s => s.name).join(' | ')}<br />
+                      {DEVELOPMENT_SKILLS.slice(8).map(s => s.name).join(' | ')}
+                    </Text>
                   </>
                 ) : (
               <>
                 <Heading fontSize="2xl" fontWeight="bold" mb={4} color="#89EF8C">
                   Skills
                 </Heading>
-                <Box display="flex" flexWrap="wrap" gap={6} mb={10}>
-                  {SKILLS.map((skill) => {
+                <Box display="flex" flexWrap="wrap" gap={2} mb={8} alignItems="center">
+                  {SKILLS.map((skill, index) => {
                     const Icon = SKILL_ICONS[skill]
                     const isHovered = hoveredSkill === skill
                     const iconColor = '#89EF8C'
+                    const isBreakAfter = index === 4 // Break after "3D Modeling"
                     return (
-                      <Box
-                        key={skill}
-                        fontSize="sm"
-                        fontWeight="semibold"
-                        fontFamily="'Space Grotesk', sans-serif"
-                        px={8}
-                        py={1}
-                        borderRadius="12px"
-                        bg="rgba(255,255,255,0.18)"
-                        border="0.5px solid rgba(137,239,140,0.25)"
-                        boxShadow="none"
-                        backdropFilter="blur(8px)"
-                        transition="all 0.3s"
-                        color={isHovered ? '#e0ffe1' : '#777'}
-                        style={{ WebkitBackdropFilter: 'blur(8px)' }}
-                        _hover={{
-                          boxShadow: { base: 'none', md: '0 0 24px 8px #89EF8C, 0 8px 32px 0 rgba(137,239,140,0.18)' },
-                          filter: { base: 'none', md: 'brightness(1.2)' },
-                        }}
-                        onMouseEnter={() => setHoveredSkill(skill)}
-                        onMouseLeave={() => setHoveredSkill(null)}
-                        position="relative"
-                        width="160px"
-                        textAlign="center"
-                        justifyContent="center"
-                        display="flex"
-                        alignItems="center"
-                      >
-                        {skill}
-                        {Icon && (
-                          <Box
-                            as={Icon}
-                            position="absolute"
-                            left="50%"
-                            top="-44px"
-                            transform={`translateX(-50%) scale(${isHovered ? 1 : 0.5})`}
-                            fontSize="2.5rem"
-                            color={iconColor}
-                            opacity={isHovered ? 1 : 0}
-                            transition="all 0.38s cubic-bezier(.4,2,.3,1)"
-                            zIndex={2}
-                            pointerEvents="none"
-                            filter="drop-shadow(0 2px 8px #89EF8C44)"
-                          />
+                      <>
+                        <Text
+                          key={skill}
+                          fontSize="md"
+                          fontWeight="bold"
+                          fontFamily="'Space Grotesk', sans-serif"
+                          color={isHovered ? '#89EF8C' : '#fff'}
+                          cursor="pointer"
+                          onMouseEnter={() => setHoveredSkill(skill)}
+                          onMouseLeave={() => setHoveredSkill(null)}
+                          position="relative"
+                          transition="all 0.3s"
+                        >
+                          {skill}
+                          {Icon && (
+                            <Box
+                              as={Icon}
+                              position="absolute"
+                              left="50%"
+                              top="-44px"
+                              transform={`translateX(-50%) scale(${isHovered ? 1 : 0.5})`}
+                              fontSize="2.5rem"
+                              color={iconColor}
+                              opacity={isHovered ? 1 : 0}
+                              transition="all 0.38s cubic-bezier(.4,2,.3,1)"
+                              zIndex={2}
+                              pointerEvents="none"
+                              filter="drop-shadow(0 2px 8px #89EF8C44)"
+                            />
+                          )}
+                        </Text>
+                        {index < SKILLS.length - 1 && !isBreakAfter && (
+                          <Text
+                            fontSize="md"
+                            fontWeight="semibold"
+                            color="#777"
+                          >
+                            |
+                          </Text>
                         )}
-                      </Box>
+                        {isBreakAfter && (
+                          <Box width="100%" height="0" />
+                        )}
+                      </>
                     )
                   })}
                 </Box>
-                <Heading fontSize="2xl" fontWeight="bold" mb={4} color="#3182ce">
-                  Technologies
+                <Heading fontSize="2xl" fontWeight="bold" mt={8} mb={4} color="#3182ce">
+                  Visual Design
                 </Heading>
-                <Box display="flex" flexWrap="wrap" gap={4}>
-                  {SOFTWARE_SKILLS.map((soft) => {
-                    const Icon = soft.icon
+                <Box display="flex" flexWrap="wrap" gap={2} mb={8} alignItems="center">
+                  {VISUAL_DESIGN_SKILLS.map((skill, index) => {
+                    const Icon = skill.icon
+                    const isHovered = hoveredSkill === skill.name
+                    const iconColor = '#3182ce'
                     return (
-                      <Box
-                        key={soft.name}
-                        fontSize={{ base: 'md', md: 'lg' }}
-                        fontWeight="medium"
-                        fontFamily="'Space Grotesk', sans-serif"
-                        px={6}
-                        py={2}
-                        borderRadius="12px"
-                        bg="rgba(255,255,255,0.18)"
-                        border="0.5px solid #3182ce"
-                        boxShadow="none"
-                        backdropFilter="blur(8px)"
-                        transition="all 0.3s"
-                        color="#3182ce"
-                        display="flex"
-                        alignItems="center"
-                        gap={2}
-                        style={{ WebkitBackdropFilter: 'blur(8px)' }}
-                        mb={1}
-                        width={soft.name === 'Embedded (Arduino/Electronics)' || soft.name === 'Unreal Engine' ? "400px" : "200px"}
-                        textAlign="center"
-                        justifyContent="center"
-                        _hover={{
-                          boxShadow: { base: 'none', md: '0 0 24px 8px #3182ce, 0 8px 32px 0 rgba(49,130,206,0.18)' },
-                          filter: { base: 'none', md: 'brightness(1.2)' },
-                        }}
-                      >
-                        {Icon && <Icon style={{ fontSize: 24 }} />}
-                        {soft.name}
-                      </Box>
+                      <>
+                        <Text
+                          key={skill.name}
+                          fontSize="md"
+                          fontWeight="bold"
+                          fontFamily="'Space Grotesk', sans-serif"
+                          color={isHovered ? '#3182ce' : '#fff'}
+                          cursor="pointer"
+                          onMouseEnter={() => setHoveredSkill(skill.name)}
+                          onMouseLeave={() => setHoveredSkill(null)}
+                          position="relative"
+                          transition="all 0.3s"
+                        >
+                          {skill.name}
+                          {Icon && (
+                            <Box
+                              as={Icon}
+                              position="absolute"
+                              left="50%"
+                              top="-44px"
+                              transform={`translateX(-50%) scale(${isHovered ? 1 : 0.5})`}
+                              fontSize="2.5rem"
+                              color={iconColor}
+                              opacity={isHovered ? 1 : 0}
+                              transition="all 0.38s cubic-bezier(.4,2,.3,1)"
+                              zIndex={2}
+                              pointerEvents="none"
+                              filter="drop-shadow(0 2px 8px #3182ce44)"
+                            />
+                          )}
+                        </Text>
+                        {index < VISUAL_DESIGN_SKILLS.length - 1 && (
+                          <Text
+                            fontSize="md"
+                            fontWeight="semibold"
+                            color="#777"
+                          >
+                            |
+                          </Text>
+                        )}
+                      </>
+                    )
+                  })}
+                </Box>
+                <Heading fontSize="2xl" fontWeight="bold" mt={8} mb={4} color="#3182ce">
+                  Development
+                </Heading>
+                <Box display="flex" flexWrap="wrap" gap={2} mb={8} alignItems="center">
+                  {DEVELOPMENT_SKILLS.map((skill, index) => {
+                    const Icon = skill.icon
+                    const isHovered = hoveredSkill === skill.name
+                    const iconColor = '#3182ce'
+                    const isBreakAfter = index === 7 // Break after "Three.js"
+                    return (
+                      <>
+                        <Text
+                          key={skill.name}
+                          fontSize="md"
+                          fontWeight="bold"
+                          fontFamily="'Space Grotesk', sans-serif"
+                          color={isHovered ? '#3182ce' : '#fff'}
+                          cursor="pointer"
+                          onMouseEnter={() => setHoveredSkill(skill.name)}
+                          onMouseLeave={() => setHoveredSkill(null)}
+                          position="relative"
+                          transition="all 0.3s"
+                        >
+                          {skill.name}
+                          {Icon && (
+                            <Box
+                              as={Icon}
+                              position="absolute"
+                              left="50%"
+                              top="-44px"
+                              transform={`translateX(-50%) scale(${isHovered ? 1 : 0.5})`}
+                              fontSize="2.5rem"
+                              color={iconColor}
+                              opacity={isHovered ? 1 : 0}
+                              transition="all 0.38s cubic-bezier(.4,2,.3,1)"
+                              zIndex={2}
+                              pointerEvents="none"
+                              filter="drop-shadow(0 2px 8px #3182ce44)"
+                            />
+                          )}
+                        </Text>
+                        {index < DEVELOPMENT_SKILLS.length - 1 && !isBreakAfter && (
+                          <Text
+                            fontSize="md"
+                            fontWeight="semibold"
+                            color="#777"
+                          >
+                            |
+                          </Text>
+                        )}
+                        {isBreakAfter && (
+                          <Box width="100%" height="0" />
+                        )}
+                      </>
                     )
                   })}
                 </Box>
