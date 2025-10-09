@@ -12,7 +12,6 @@ import {
   Badge,
   useColorMode,
   useBreakpointValue,
-  useColorModeValue,
 } from '@chakra-ui/react'
 import { useRef, useLayoutEffect, useState, useEffect } from 'react'
 import gsap from 'gsap'
