@@ -7,9 +7,6 @@ import {
   Box,
   Button,
   Text,
-  VStack,
-  
-  Badge,
   useColorMode,
   useBreakpointValue,
 } from '@chakra-ui/react'
@@ -19,7 +16,6 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 import { useRouter } from 'next/router'
 import { Global } from '@emotion/react'
-import { motion, useInView } from 'framer-motion'
 
 import Layout from '../components/layouts/article'
 import { ChevronRightIcon } from '@chakra-ui/icons'
@@ -68,30 +64,6 @@ const Trans = styled.span`
     }
   }
 `
-
-const JourneyItem = styled(Box)`
-  position: relative;
-  padding-left: 2rem;
-  border-left: 2px solid #90cdf4;
-  margin-bottom: 2rem;
-
-  &:last-child {
-    border-left: none;
-  }
-
-  &:before {
-    content: '';
-    position: absolute;
-    left: -8px;
-    top: 0;
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background: #90cdf4;
-  }
-`
-
-
 
 const SKILLS = [
   'Interaction Design',
