@@ -131,19 +131,7 @@ const FooterLand = () => {
 
       <StandardModal isOpen={isOpen} onClose={onClose} title="Ninja Gaiden Inspiration" size="2xl" maxW="700px" w="100vw">
         <VStack spacing={6} align="stretch">
-          <Text color="white" fontSize="md" lineHeight="1.6" textShadow="0 2px 4px rgba(0,0,0,0.3)">
-            The infinite scrolling landscape at the bottom of my portfolio is inspired by the iconic Ninja Gaiden series, particularly the character Ryu Hayabusa. This subtle homage represents my journey in design and technology - continuous, determined, and always moving forward.
-          </Text>
-          <Text color="white" fontSize="md" lineHeight="1.6" textShadow="0 2px 4px rgba(0,0,0,0.3)">
-            The theme &quot;Unbreakable Determination&quot; from Ninja Gaiden perfectly encapsulates my approach to design and development. Just as Ryu faces endless challenges with unwavering resolve, I believe in pushing through obstacles to create meaningful digital experiences.
-          </Text>
-          <Text color="white" fontSize="md" lineHeight="1.6" textShadow="0 2px 4px rgba(0,0,0,0.3)">
-            The running animation of Ryu in the corner is a playful reminder that in the world of design and technology, we must keep moving, keep learning, and keep creating - just like a true ninja warrior.
-          </Text>
           <VStack spacing={6} align="stretch">
-            <Text color="white" fontSize="md" lineHeight="1.6" textShadow="0 2px 4px rgba(0,0,0,0.3)">
-              The animation was created using Aseprite, a powerful pixel art tool. Here&apos;s a glimpse into the process:
-            </Text>
             <Box>
               <Text color="white" fontSize="lg" fontWeight="bold" mb={4}>Character Animation Process</Text>
               <Box display="grid" gridTemplateColumns="repeat(2, 1fr)" gap={6}>

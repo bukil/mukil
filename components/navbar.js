@@ -160,17 +160,17 @@ const Navbar = props => {
                   />
                 )}
                 <LinkItem href="/works" path={path} tabRef={tabRefs[0]} fontWeight="hairline" fontSize={18}>
-                  MY WORKS
+                  My Work
                 </LinkItem>
                 <LinkItem href="/blog" path={path} tabRef={tabRefs[1]} fontWeight="hairline" fontSize={18}>
-                  BLOG
+                  Blog
                 </LinkItem>
                 <LinkItem href="/playground" path={path} tabRef={tabRefs[2]} fontWeight="hairline" fontSize={18}>
-                  PLAYGROUND
+                  Playground
                 </LinkItem>
                 {/* RESUME tab removed */}
                 <LinkItem href="/contact" path={path} tabRef={tabRefs[4]} fontWeight="hairline" fontSize={18}>
-                  CONTACT
+                  Contact
                 </LinkItem>
               </Stack>
               {path !== '/playground' && (
@@ -230,17 +230,17 @@ const Navbar = props => {
                     zIndex={2100}
                   >
                     <NextLink href="/works" passHref legacyBehavior>
-                      <MenuItem as={Link}>MY WORKS</MenuItem>
+                      <MenuItem as={Link}>My Work</MenuItem>
                     </NextLink>
                     <NextLink href="/blog" passHref legacyBehavior>
-                      <MenuItem as={Link}>BLOG</MenuItem>
+                      <MenuItem as={Link}>Blog</MenuItem>
                     </NextLink>
                     <NextLink href="/playground" passHref legacyBehavior>
-                      <MenuItem as={Link}>PLAYGROUND</MenuItem>
+                      <MenuItem as={Link}>Playground</MenuItem>
                     </NextLink>
                     {/* RESUME tab removed from mobile menu */}
                     <NextLink href="/contact" passHref legacyBehavior>
-                      <MenuItem as={Link}>CONTACT</MenuItem>
+                      <MenuItem as={Link}>Contact</MenuItem>
                     </NextLink>
                   </MenuList>
                   </Portal>

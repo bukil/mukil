@@ -452,7 +452,7 @@ const Home = () => {
                     </Heading>
                   </GridItem>
                 </Grid>
-                <p>INTERACTION DESIGNER · CREATIVE TECHNOLOGIST · ELECTRONICS ENGINEER</p>
+                <p>Interaction Designer · Creative Technologist · Electronics Engineer</p>
               </Box>
             </Box>
             {/* Hi.png animated image */}
@@ -484,18 +484,6 @@ const Home = () => {
               <GridItem w='100%'>
                 <Section delay={0.3}>
                   <AnimatedIntro />
-                  <Heading fontSize="4xl" fontWeight="hairline" mt={12} mb={6}
-                    _hover={{ 
-                      textDecoration: 'underline',
-                      textDecorationColor: '#89EF8C',
-                      textDecorationThickness: '2px',
-                      textUnderlineOffset: '8px',
-                      transition: 'all 0.3s ease'
-                    }}
-                  >
-                    My Journey
-                  </Heading>
-                  <AnimatedJourney />
                 </Section>
               </GridItem>
             </Grid>
@@ -540,6 +528,9 @@ const Home = () => {
                 {isMobile ? (
                   <>
                     {/* SKILLS section: all tabs highlighted by default on mobile */}
+                    <Heading fontSize="2xl" fontWeight="bold" mb={4} color="#89EF8C">
+                      Skills
+                    </Heading>
                     <Box display="flex" flexWrap="wrap" gap={6} mb={10}>
                       {SKILLS.map((skill) => (
                         <Box
@@ -549,7 +540,7 @@ const Home = () => {
                           fontFamily="'Space Grotesk', sans-serif"
                           px={8}
                           py={1}
-                          borderRadius="full"
+                          borderRadius="12px"
                           bg="rgba(255,255,255,0.18)"
                           border="0.5px solid #89EF8C"
                           transition="all 0.3s"
@@ -569,7 +560,7 @@ const Home = () => {
                     </Box>
                     {/* SOFTWARE section: all tabs highlighted by default on mobile */}
                     <Heading fontSize="2xl" fontWeight="bold" mb={4} color="#3182ce">
-                      Software
+                      Technologies
                     </Heading>
                     <Box display="flex" flexWrap="wrap" gap={4}>
                       {SOFTWARE_SKILLS.map((soft) => {
@@ -582,7 +573,7 @@ const Home = () => {
                             fontFamily="'Space Grotesk', sans-serif"
                             px={6}
                             py={2}
-                            borderRadius="full"
+                            borderRadius="12px"
                             bg="rgba(255,255,255,0.18)"
                             border="0.5px solid #3182ce"
                             boxShadow="none"
@@ -611,6 +602,9 @@ const Home = () => {
                   </>
                 ) : (
               <>
+                <Heading fontSize="2xl" fontWeight="bold" mb={4} color="#89EF8C">
+                  Skills
+                </Heading>
                 <Box display="flex" flexWrap="wrap" gap={6} mb={10}>
                   {SKILLS.map((skill) => {
                     const Icon = SKILL_ICONS[skill]
@@ -624,7 +618,7 @@ const Home = () => {
                         fontFamily="'Space Grotesk', sans-serif"
                         px={8}
                         py={1}
-                        borderRadius="full"
+                        borderRadius="12px"
                         bg="rgba(255,255,255,0.18)"
                         border="0.5px solid rgba(137,239,140,0.25)"
                         boxShadow="0 8px 32px 0 rgba(137,239,140,0.08)"
@@ -667,7 +661,7 @@ const Home = () => {
                   })}
                 </Box>
                 <Heading fontSize="2xl" fontWeight="bold" mb={4} color="#3182ce">
-                  Software
+                  Technologies
                 </Heading>
                 <Box display="flex" flexWrap="wrap" gap={4}>
                   {SOFTWARE_SKILLS.map((soft) => {
@@ -680,7 +674,7 @@ const Home = () => {
                         fontFamily="'Space Grotesk', sans-serif"
                         px={6}
                         py={2}
-                        borderRadius="full"
+                        borderRadius="12px"
                         bg="rgba(255,255,255,0.18)"
                         border="0.5px solid #3182ce"
                         boxShadow="none"
