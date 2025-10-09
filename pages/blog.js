@@ -10,40 +10,14 @@ import { FaPlayCircle } from 'react-icons/fa'
 
 const Blog = () => {
   const textColor = useColorModeValue('#222', '#fff')
-  const greenLine = useColorModeValue('#89EF8C', '#89EF8C')
   const pinkLine = useColorModeValue('#b83280', '#ff7eb3')
 
 
   // Refs for GSAP animation
-  const blogBoxRef = useRef(null)
-  const bookBoxRef = useRef(null)
-  const photoBoxRef = useRef(null)
   const nasaCardRef = useRef(null)
   const canvasRef = useRef(null)
 
   // GSAP animation handlers
-  const handleBoxEnter = ref => {
-    if (ref.current) {
-      gsap.to(ref.current, {
-        scale: 1.035,
-        y: -8,
-        boxShadow: '0 8px 32px 0 rgba(137,239,140,0.15)',
-        duration: 0.35,
-        ease: 'power3.out',
-      })
-    }
-  }
-  const handleBoxLeave = ref => {
-    if (ref.current) {
-      gsap.to(ref.current, {
-        scale: 1,
-        y: 0,
-        boxShadow: 'none',
-        duration: 0.35,
-        ease: 'power3.in',
-      })
-    }
-  }
 
   // --- NASA APOD Fact ---
   const [apod, setApod] = useState(null)
