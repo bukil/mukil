@@ -1,12 +1,11 @@
-import { Heading, Text, VStack, Icon, Box, useColorModeValue, Image, Icon as ChakraIcon } from '@chakra-ui/react'
+import { Heading, Text, VStack, Box, useColorModeValue, Image, Icon as ChakraIcon } from '@chakra-ui/react'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
-import { FiBook, FiCamera, FiEdit } from 'react-icons/fi'
 import { useRef, useEffect, useState } from 'react'
 import gsap from 'gsap'
 import axios from 'axios'
 import { FaPlayCircle } from 'react-icons/fa'
-import NextLink from 'next/link'
+
 
 
 const Blog = () => {
