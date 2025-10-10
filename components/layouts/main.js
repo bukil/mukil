@@ -10,7 +10,7 @@ const Main = ({ children, router }) => {
   const showFooterLand = router.pathname === '/'
 
   return (
-    <Box as="main" pb={0}>
+    <Box as="main" pb={0} minHeight="100vh" display="flex" flexDirection="column">
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content="homepage" />
@@ -25,22 +25,28 @@ const Main = ({ children, router }) => {
 
       <Navbar path={router.asPath} />
 
-      <Box as="main" pt="80px" pb={0}>
+      <Box as="main" pt="80px" pb={0} flex="1" display="flex" flexDirection="column">
         {['/blog', '/works', '/'].includes(router.pathname) ? (
-          <>
-            {children}
+          <Box flex="1" display="flex" flexDirection="column">
+            <Box flex="1">
+              {children}
+            </Box>
             {showFooter && <Footer />}
             {showFooterLand && <FooterLand />}
-          </>
+          </Box>
         ) : router.pathname === '/mukilm' ? (
-          <Container maxW="container.full" pt={14} pb={0}>
-            {children}
+          <Container maxW="container.full" pt={14} pb={0} flex="1" display="flex" flexDirection="column">
+            <Box flex="1">
+              {children}
+            </Box>
             {showFooter && <Footer />}
           </Container>
         ) : (
-          <Container maxW="container.md" pt={14} pb={0}>
+          <Container maxW="container.md" pt={14} pb={0} flex="1" display="flex" flexDirection="column">
             {/* <LazyVoxelDog/> */}
-            {children}
+            <Box flex="1">
+              {children}
+            </Box>
             {showFooter && <Footer />}
           </Container>
         )}
