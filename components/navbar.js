@@ -60,10 +60,10 @@ const Navbar = props => {
   const { path } = props
   const [highlight, setHighlight] = useState({ left: 0, width: 0 })
   const navStackRef = useRef(null)
-  const tabRefs = [useRef(null), useRef(null), useRef(null), useRef(null), useRef(null)]
+  const tabRefs = [useRef(null), useRef(null), useRef(null), useRef(null)]
 
   // --- Traveling highlight logic ---
-  const tabPaths = ['/works', '/blog', '/playground', '/Mukil_Résumé.pdf', '/contact']
+  const tabPaths = ['/works', '/blog', '/Mukil_Résumé.pdf', '/contact']
 
   // Helper to update highlight position
   const updateHighlight = () => {
@@ -165,19 +165,14 @@ const Navbar = props => {
                 <LinkItem href="/blog" path={path} tabRef={tabRefs[1]} fontWeight="hairline" fontSize={18}>
                   Blog
                 </LinkItem>
-                <LinkItem href="/playground" path={path} tabRef={tabRefs[2]} fontWeight="hairline" fontSize={18}>
-                  Playground
-                </LinkItem>
                 {/* RESUME tab removed */}
-                <LinkItem href="/contact" path={path} tabRef={tabRefs[4]} fontWeight="hairline" fontSize={18}>
+                <LinkItem href="/contact" path={path} tabRef={tabRefs[3]} fontWeight="hairline" fontSize={18}>
                   Contact
                 </LinkItem>
               </Stack>
-              {path !== '/playground' && (
-                <Box ml={2} display={{ base: 'none', md: 'flex' }} alignItems="center">
-                  <ThemeToggleButton />
-                </Box>
-              )}
+              <Box ml={2} display={{ base: 'none', md: 'flex' }} alignItems="center">
+                <ThemeToggleButton />
+              </Box>
             </Flex>
 
             {/* Mobile Menu - No distortion */}
@@ -235,9 +230,6 @@ const Navbar = props => {
                     <NextLink href="/blog" passHref legacyBehavior>
                       <MenuItem as={Link}>Blog</MenuItem>
                     </NextLink>
-                    <NextLink href="/playground" passHref legacyBehavior>
-                      <MenuItem as={Link}>Playground</MenuItem>
-                    </NextLink>
                     {/* RESUME tab removed from mobile menu */}
                     <NextLink href="/contact" passHref legacyBehavior>
                       <MenuItem as={Link}>Contact</MenuItem>
@@ -246,11 +238,9 @@ const Navbar = props => {
                   </Portal>
                 </Menu>
               </Box>
-              {path !== '/playground' && (
-                <Box ml={2} display={{ base: 'flex', md: 'none' }} alignItems="center">
-                  <ThemeToggleButton />
-                </Box>
-              )}
+              <Box ml={2} display={{ base: 'flex', md: 'none' }} alignItems="center">
+                <ThemeToggleButton />
+              </Box>
             </Flex>
           </Flex>
         </Box>

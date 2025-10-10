@@ -412,7 +412,7 @@ const Home = () => {
                 {isMobile ? (
                   <>
                     {/* SKILLS section: all tabs highlighted by default on mobile */}
-                    <Heading fontSize="2xl" fontWeight="bold" mb={4} color="#89EF8C">
+                    <Heading fontSize="2xl" fontWeight="bold" mb={6} color="#89EF8C">
                       Skills
                     </Heading>
                     <Text
@@ -455,7 +455,7 @@ const Home = () => {
                   </>
                 ) : (
               <>
-                <Heading fontSize="2xl" fontWeight="bold" mb={4} color="#89EF8C">
+                <Heading fontSize="2xl" fontWeight="bold" mb={6} color="#89EF8C">
                   Skills
                 </Heading>
                 <Box display="flex" flexWrap="wrap" gap={2} mb={8} alignItems="center">
