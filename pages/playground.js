@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { Container, Heading, Box, Text } from '@chakra-ui/react'
+import { Container, Heading,Text } from '@chakra-ui/react'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
 
