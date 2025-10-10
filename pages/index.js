@@ -141,10 +141,10 @@ function AnimatedIntro() {
           ref={el => lineRefs.current[i] = el}
           key={i}
           variant="home-txt"
-          fontSize="xl"
+          fontSize="md"
           fontWeight={200}
           lineHeight={1.7}
-          fontFamily="'Space Grotesk', 'Inter', 'sans-serif'"
+          fontFamily="'Manrope', sans-serif"
           color={colorMode === 'dark' ? '#fff' : '#1a2340'}
           mb={i === lines.length - 1 ? 0 : 1}
           style={{
@@ -328,17 +328,17 @@ const Home = () => {
           <link rel="canonical" href="https://mukil.vercel.app" />
           <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
           <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet" />
+          <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet" />
+          <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet" />
         </Head>
         <Layout>
           <Spacer mb={130}/>
           <Container maxW='container.xl'>
             {/* Removed green triangle above MUKIL heading */}
-            <Box display={{ md:'flex'}}>
-              <Box flexGrow={1}>
-                <Heading ref={mukilRef} fontSize={{ base: '6xl', md: '8xl', lg: '9xl' }} fontWeight="bold" lineHeight={0.79}>
-                  MUKIL<br />KUMAR
-                </Heading>
-              </Box>
+            <Box>
+              <Heading ref={mukilRef} fontSize={{ base: '6xl', md: '8xl', lg: '9xl' }} fontWeight="bold" lineHeight={0.95} textAlign="left" fontFamily="'Anton', sans-serif" letterSpacing="0.04em">
+                MUKIL<br />KUMAR
+              </Heading>
             </Box>
             {/* Hi.png animated image */}
             <Box
@@ -363,12 +363,15 @@ const Home = () => {
 
           <Spacer />
 
-          <Container maxW='container.xl' mt={2} mb={2} p={2}>
-            <Grid templateColumns='repeat(2, fr)' gap={20}>
-              <GridItem w='100%'>
+          <Container maxW='container.xl' mt={8} mb={8}>
+            <Grid templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)' }} gap={10}>
+              <GridItem>
                 <Section delay={0.3}>
                   <AnimatedIntro />
                 </Section>
+              </GridItem>
+              <GridItem>
+                {/* Right side can be used for other content */}
               </GridItem>
             </Grid>
           </Container>
