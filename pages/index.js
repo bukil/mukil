@@ -142,11 +142,17 @@ function AnimatedIntro() {
           key={i}
           variant="home-txt"
           fontSize="md"
-          fontWeight={200}
-          lineHeight={1.7}
+          fontWeight="bold"
+          lineHeight={1}
           fontFamily="'Manrope', sans-serif"
           color={colorMode === 'dark' ? '#fff' : '#1a2340'}
+          textAlign="justify"
           mb={i === lines.length - 1 ? 0 : 1}
+          sx={{
+            textAlign: 'justify',
+            textJustify: 'inter-word',
+            hyphens: 'auto'
+          }}
           style={{
             transition: 'all 0.4s cubic-bezier(.4,2,.3,1)'
           }}
