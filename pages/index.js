@@ -163,7 +163,7 @@ function AnimatedIntro() {
 const Home = () => {
   const pageRef = useRef(null)
   const mukilRef = useRef(null)
-  const kumarRef = useRef(null)
+
   const journeyRefs = useRef([])
   const buttonRef = useRef(null)
   const hiImgRef = useRef(null)
