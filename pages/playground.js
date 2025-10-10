@@ -1,16 +1,20 @@
 import Head from 'next/head'
-import { Container, Heading,Text } from '@chakra-ui/react'
+import { Container, Heading, Text, Box } from '@chakra-ui/react'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
+import { Global } from '@emotion/react'
 
 const Playground = () => {
   return (
-    <Layout title="Playground">
-      <Head>
-        <title>Playground - Mukil</title>
-        <meta name="description" content="Mukil's creative playground. Interactive experiments and creative projects." />
-      </Head>
-      <Container maxW="container.xl" mt={20}>
+    <>
+      <Global styles={`body { background: #000000 !important; }`} />
+      <Layout title="Playground">
+        <Head>
+          <title>Playground - Mukil</title>
+          <meta name="description" content="Mukil's creative playground. Interactive experiments and creative projects." />
+        </Head>
+        <Box bg="#000000" minHeight="100vh" color="white">
+          <Container maxW="container.xl" mt={20}>
         <Section delay={0.1}>
           <Heading 
             as="h1" 
@@ -27,8 +31,10 @@ const Playground = () => {
             More content coming soon...
           </Text>
         </Section>
-      </Container>
-    </Layout>
+          </Container>
+        </Box>
+      </Layout>
+    </>
   )
 }
 
