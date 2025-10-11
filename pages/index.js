@@ -164,7 +164,38 @@ function AnimatedIntro() {
   );
 }
 
-
+// Full Page Grey Grid Component
+const SmallGrid = () => {
+  return (
+    <Box
+      position="fixed"
+      top={0}
+      left={0}
+      width="100vw"
+      height="100vh"
+      zIndex={-1}
+      pointerEvents="none"
+      sx={{
+        backgroundImage: `
+          repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 38px,
+            rgba(100, 100, 100, 0.12) 38px,
+            rgba(100, 100, 100, 0.12) 40px
+          ),
+          repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 38px,
+            rgba(100, 100, 100, 0.12) 38px,
+            rgba(100, 100, 100, 0.12) 40px
+          )
+        `
+      }}
+    />
+  );
+};
 
 const Home = () => {
   const pageRef = useRef(null)
@@ -308,7 +339,7 @@ const Home = () => {
 
   return (
     <>
-      <Global styles={`body { background: ${colorMode === 'dark' ? '#1a1a1a' : '#f5f5f5'} !important; }`} />
+      <Global styles={`body { background: #000000 !important; }`} />
       <Box ref={pageRef} position="relative" minHeight="100vh">
         <Head>
           <title>Mukil | Design</title>
@@ -338,6 +369,7 @@ const Home = () => {
           <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet" />
         </Head>
         <Layout>
+          <SmallGrid />
           <Spacer mb={130}/>
           <Container maxW='container.xl'>
             {/* Removed green triangle above MUKIL heading */}

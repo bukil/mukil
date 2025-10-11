@@ -35,6 +35,7 @@
     "react-pdf": "^9.2.1",
     "react-tsparticles": "^2.12.2",
     "styled-components": "^6.1.18",
+    "swiper": "^12.0.2",
     "three": "^0.143.0",
     "tsparticles": "^3.8.1"
   },
