@@ -114,7 +114,7 @@ const SKILL_ICONS = {
 }
 
 function AnimatedIntro({ textColor = '#ffffff' }) {
-  const { colorMode } = useColorMode();
+  const { } = useColorMode();
   const lines = [
     "I am a Creative Technologist and Interaction Design student living in Mumbai, currently pursuing my Masters at IIT Bombay.",
     "I craft playful, human-centered experiences at the intersection of design, technology, and art making ideas tangible, delightful, and meaningful."
@@ -259,7 +259,7 @@ const SmallGrid = () => {
 };
 
 // Background Image with Mouse Reveal Effect - Full Page
-const BackgroundImageReveal = ({ sectionRef }) => {
+const BackgroundImageReveal = () => {
   const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
   const [targetPos, setTargetPos] = useState({ x: -1000, y: -1000 });
   const animationFrameRef = useRef(null);
@@ -347,7 +347,7 @@ const Home = () => {
   const buttonRef = useRef(null)
   const hiImgRef = useRef(null)
   const router = useRouter();
-  const { colorMode } = useColorMode();
+  useColorMode();
   const isMobile = useBreakpointValue({ base: true, md: false })
   
   const [bgColor, setBgColor] = useState('#000000')
