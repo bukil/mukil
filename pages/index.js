@@ -113,7 +113,7 @@ const SKILL_ICONS = {
   'Empathy': MdEmojiEmotions,
 }
 
-function AnimatedIntro() {
+function AnimatedIntro({ textColor = '#ffffff' }) {
   const { colorMode } = useColorMode();
   const lines = [
     "I am a Creative Technologist and Interaction Design student living in Mumbai, currently pursuing my Masters at IIT Bombay.",
@@ -141,20 +141,20 @@ function AnimatedIntro() {
           ref={el => lineRefs.current[i] = el}
           key={i}
           variant="home-txt"
-          fontSize="md"
+          fontSize={{ base: 'xl', md: '2xl', lg: '3xl' }}
           fontWeight="bold"
-          lineHeight={1}
+          lineHeight={1.2}
           fontFamily="'Manrope', sans-serif"
-          color={colorMode === 'dark' ? '#fff' : '#1a2340'}
+          color={textColor}
           textAlign="justify"
-          mb={i === lines.length - 1 ? 0 : 1}
+          mb={i === lines.length - 1 ? 0 : 3}
           sx={{
             textAlign: 'justify',
             textJustify: 'inter-word',
             hyphens: 'auto'
           }}
           style={{
-            transition: 'all 0.4s cubic-bezier(.4,2,.3,1)'
+            transition: 'color 0.1s linear'
           }}
         >
           {line}
@@ -164,34 +164,174 @@ function AnimatedIntro() {
   );
 }
 
-// Full Page Grey Grid Component
+// Full Page Grey Grid Component with Plus Signs
 const SmallGrid = () => {
+  const canvasRef = useRef(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // Draw plus signs at every 5th intersection (accounting for grid line position)
+    const gridSize = 40;
+    const plusInterval = 5; // Every 5 boxes
+    const plusSize = 6;
+    const plusThickness = 2;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+
+    // Start from first grid line and place plus at every 5th intersection
+    for (let x = 0; x <= canvas.width; x += gridSize * plusInterval) {
+      for (let y = 0; y <= canvas.height; y += gridSize * plusInterval) {
+        // Draw horizontal line of plus (centered on intersection)
+        ctx.fillRect(x - plusSize, y - plusThickness / 2, plusSize * 2, plusThickness);
+        // Draw vertical line of plus (centered on intersection)
+        ctx.fillRect(x - plusThickness / 2, y - plusSize, plusThickness, plusSize * 2);
+      }
+    }
+
+    const handleResize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+
+      for (let x = 0; x <= canvas.width; x += gridSize * plusInterval) {
+        for (let y = 0; y <= canvas.height; y += gridSize * plusInterval) {
+          ctx.fillRect(x - plusSize, y - plusThickness / 2, plusSize * 2, plusThickness);
+          ctx.fillRect(x - plusThickness / 2, y - plusSize, plusThickness, plusSize * 2);
+        }
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return (
+    <>
+      <Box
+        position="fixed"
+        top={0}
+        left={0}
+        width="100vw"
+        height="100vh"
+        zIndex={-1}
+        pointerEvents="none"
+        sx={{
+          backgroundImage: `
+            repeating-linear-gradient(
+              0deg,
+              transparent,
+              transparent 38px,
+              rgba(100, 100, 100, 0.12) 38px,
+              rgba(100, 100, 100, 0.12) 40px
+            ),
+            repeating-linear-gradient(
+              90deg,
+              transparent,
+              transparent 38px,
+              rgba(100, 100, 100, 0.12) 38px,
+              rgba(100, 100, 100, 0.12) 40px
+            )
+          `
+        }}
+      />
+      <Box
+        as="canvas"
+        ref={canvasRef}
+        position="fixed"
+        top={0}
+        left={0}
+        width="100vw"
+        height="100vh"
+        zIndex={-1}
+        pointerEvents="none"
+      />
+    </>
+  );
+};
+
+// Background Image with Mouse Reveal Effect - Full Page
+const BackgroundImageReveal = ({ sectionRef }) => {
+  const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
+  const [targetPos, setTargetPos] = useState({ x: -1000, y: -1000 });
+  const animationFrameRef = useRef(null);
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setTargetPos({ x: e.clientX, y: e.clientY });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
+
+  // Elastic magnetic effect animation
+  useEffect(() => {
+    const animate = () => {
+      setMousePos(prev => {
+        const dx = targetPos.x - prev.x;
+        const dy = targetPos.y - prev.y;
+        
+        // More elastic easing with stronger spring effect
+        const ease = 0.08;
+        
+        return {
+          x: prev.x + dx * ease,
+          y: prev.y + dy * ease
+        };
+      });
+      
+      animationFrameRef.current = requestAnimationFrame(animate);
+    };
+
+    animationFrameRef.current = requestAnimationFrame(animate);
+
+    return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+    };
+  }, [targetPos]);
+
   return (
     <Box
-      position="fixed"
+      position="absolute"
       top={0}
       left={0}
       width="100vw"
       height="100vh"
-      zIndex={-1}
+      zIndex={-2}
       pointerEvents="none"
       sx={{
-        backgroundImage: `
-          repeating-linear-gradient(
-            0deg,
-            transparent,
-            transparent 38px,
-            rgba(100, 100, 100, 0.12) 38px,
-            rgba(100, 100, 100, 0.12) 40px
-          ),
-          repeating-linear-gradient(
-            90deg,
-            transparent,
-            transparent 38px,
-            rgba(100, 100, 100, 0.12) 38px,
-            rgba(100, 100, 100, 0.12) 40px
-          )
-        `
+        backgroundImage: 'url(/bg.png)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'top center',
+        backgroundRepeat: 'no-repeat',
+        backgroundAttachment: 'scroll',
+        // Mask with radial gradient that follows mouse
+        maskImage: `radial-gradient(
+          circle 180px at ${mousePos.x}px ${mousePos.y}px,
+          rgba(0, 0, 0, 1) 0%,
+          rgba(0, 0, 0, 0.8) 40%,
+          rgba(0, 0, 0, 0) 100%
+        )`,
+        WebkitMaskImage: `radial-gradient(
+          circle 180px at ${mousePos.x}px ${mousePos.y}px,
+          rgba(0, 0, 0, 1) 0%,
+          rgba(0, 0, 0, 0.8) 40%,
+          rgba(0, 0, 0, 0) 100%
+        )`
       }}
     />
   );
@@ -200,6 +340,8 @@ const SmallGrid = () => {
 const Home = () => {
   const pageRef = useRef(null)
   const mukilRef = useRef(null)
+  const textSectionRef = useRef(null)
+  const mukilSectionRef = useRef(null)
 
   const journeyRefs = useRef([])
   const buttonRef = useRef(null)
@@ -207,6 +349,9 @@ const Home = () => {
   const router = useRouter();
   const { colorMode } = useColorMode();
   const isMobile = useBreakpointValue({ base: true, md: false })
+  
+  const [bgColor, setBgColor] = useState('#000000')
+  const [textColor, setTextColor] = useState('#ffffff')
 
   // New: Intersection observer for skills section
   const skillsSectionRef = useRef(null);
@@ -327,6 +472,47 @@ const Home = () => {
         }
       );
     }
+    
+    // Background and text color change on scroll to text section
+    if (textSectionRef.current) {
+      gsap.to({}, {
+        scrollTrigger: {
+          trigger: textSectionRef.current,
+          start: 'top 80%',
+          end: 'top 20%',
+          scrub: 1,
+          onUpdate: (self) => {
+            const progress = self.progress;
+            // Background: black to white
+            const bgR = Math.round(0 + (255 * progress));
+            const bgG = Math.round(0 + (255 * progress));
+            const bgB = Math.round(0 + (255 * progress));
+            setBgColor(`rgb(${bgR}, ${bgG}, ${bgB})`);
+            
+            // Text: white to black
+            const textR = Math.round(255 - (255 * progress));
+            const textG = Math.round(255 - (255 * progress));
+            const textB = Math.round(255 - (255 * progress));
+            setTextColor(`rgb(${textR}, ${textG}, ${textB})`);
+          }
+        }
+      });
+    }
+    
+    // Fade out MUKIL KUMAR on scroll
+    if (mukilRef.current) {
+      gsap.to(mukilRef.current, {
+        opacity: 0,
+        y: -50,
+        scrollTrigger: {
+          trigger: mukilRef.current,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 1,
+        }
+      });
+    }
+    
     // Cleanup
     return () => {
       if (buttonRef.current && hoverEnter && hoverLeave) {
@@ -339,7 +525,7 @@ const Home = () => {
 
   return (
     <>
-      <Global styles={`body { background: #000000 !important; }`} />
+      <Global styles={`body { background: ${bgColor} !important; transition: background 0.1s linear; }`} />
       <Box ref={pageRef} position="relative" minHeight="100vh">
         <Head>
           <title>Mukil | Design</title>
@@ -369,12 +555,13 @@ const Home = () => {
           <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet" />
         </Head>
         <Layout>
+          <BackgroundImageReveal sectionRef={mukilSectionRef} />
           <SmallGrid />
-          <Spacer mb={130}/>
-          <Container maxW='container.xl'>
+          <Spacer minHeight="30vh" />
+          <Container ref={mukilSectionRef} maxW='container.xl'>
             {/* Removed green triangle above MUKIL heading */}
             <Box>
-              <Heading ref={mukilRef} fontSize={{ base: '6xl', md: '8xl', lg: '9xl' }} fontWeight="bold" lineHeight={0.95} textAlign="left" fontFamily="'Anton', sans-serif" letterSpacing="0.04em">
+              <Heading ref={mukilRef} fontSize={{ base: '6xl', md: '8xl', lg: '9xl' }} fontWeight="bold" lineHeight={0.95} textAlign="left" fontFamily="'Anton', sans-serif" letterSpacing="0.04em" color={textColor} style={{ transition: 'color 0.1s linear' }}>
                 MUKIL<br />KUMAR
               </Heading>
             </Box>
@@ -399,13 +586,13 @@ const Home = () => {
             </Box>
           </Container> 
 
-          <Spacer />
+          <Spacer minHeight="100vh" />
 
-          <Container maxW='container.xl' mt={8} mb={8}>
+          <Container ref={textSectionRef} maxW='container.xl' mt={8} mb={8}>
             <Grid templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)' }} gap={10}>
               <GridItem>
                 <Section delay={0.3}>
-                  <AnimatedIntro />
+                  <AnimatedIntro textColor={textColor} />
                 </Section>
               </GridItem>
               <GridItem>
@@ -496,7 +683,7 @@ const Home = () => {
                   </>
                 ) : (
               <>
-                <Heading fontSize="2xl" fontWeight="bold" mb={6} color="#89EF8C">
+                <Heading fontSize="2xl" fontWeight="bold" mb={6} color={textColor} style={{ transition: 'color 0.1s linear' }}>
                   Skills
                 </Heading>
                 <Box display="flex" flexWrap="wrap" gap={2} mb={8} alignItems="center">
@@ -512,12 +699,12 @@ const Home = () => {
                           fontSize="md"
                           fontWeight="bold"
                           fontFamily="'Space Grotesk', sans-serif"
-                          color={isHovered ? '#89EF8C' : '#fff'}
+                          color={isHovered ? '#89EF8C' : textColor}
                           cursor="pointer"
                           onMouseEnter={() => setHoveredSkill(skill)}
                           onMouseLeave={() => setHoveredSkill(null)}
                           position="relative"
-                          transition="all 0.3s"
+                          style={{ transition: 'color 0.1s linear' }}
                         >
                           {skill}
                           {Icon && (
@@ -541,7 +728,9 @@ const Home = () => {
                           <Text
                             fontSize="md"
                             fontWeight="semibold"
-                            color="#777"
+                            color={textColor}
+                            opacity={0.4}
+                            style={{ transition: 'color 0.1s linear' }}
                           >
                             |
                           </Text>
@@ -553,7 +742,7 @@ const Home = () => {
                     )
                   })}
                 </Box>
-                <Heading fontSize="2xl" fontWeight="bold" mt={8} mb={4} color="#3182ce">
+                <Heading fontSize="2xl" fontWeight="bold" mt={8} mb={4} color={textColor} style={{ transition: 'color 0.1s linear' }}>
                   Visual Design
                 </Heading>
                 <Box display="flex" flexWrap="wrap" gap={2} mb={8} alignItems="center">
@@ -568,12 +757,12 @@ const Home = () => {
                           fontSize="md"
                           fontWeight="bold"
                           fontFamily="'Space Grotesk', sans-serif"
-                          color={isHovered ? '#3182ce' : '#fff'}
+                          color={isHovered ? '#3182ce' : textColor}
                           cursor="pointer"
                           onMouseEnter={() => setHoveredSkill(skill.name)}
                           onMouseLeave={() => setHoveredSkill(null)}
                           position="relative"
-                          transition="all 0.3s"
+                          style={{ transition: 'color 0.1s linear' }}
                         >
                           {skill.name}
                           {Icon && (
@@ -597,7 +786,9 @@ const Home = () => {
                           <Text
                             fontSize="md"
                             fontWeight="semibold"
-                            color="#777"
+                            color={textColor}
+                            opacity={0.4}
+                            style={{ transition: 'color 0.1s linear' }}
                           >
                             |
                           </Text>
@@ -606,7 +797,7 @@ const Home = () => {
                     )
                   })}
                 </Box>
-                <Heading fontSize="2xl" fontWeight="bold" mt={8} mb={4} color="#3182ce">
+                <Heading fontSize="2xl" fontWeight="bold" mt={8} mb={4} color={textColor} style={{ transition: 'color 0.1s linear' }}>
                   Development
                 </Heading>
                 <Box display="flex" flexWrap="wrap" gap={2} mb={8} alignItems="center">
@@ -622,12 +813,12 @@ const Home = () => {
                           fontSize="md"
                           fontWeight="bold"
                           fontFamily="'Space Grotesk', sans-serif"
-                          color={isHovered ? '#3182ce' : '#fff'}
+                          color={isHovered ? '#3182ce' : textColor}
                           cursor="pointer"
                           onMouseEnter={() => setHoveredSkill(skill.name)}
                           onMouseLeave={() => setHoveredSkill(null)}
                           position="relative"
-                          transition="all 0.3s"
+                          style={{ transition: 'color 0.1s linear' }}
                         >
                           {skill.name}
                           {Icon && (
@@ -651,7 +842,9 @@ const Home = () => {
                           <Text
                             fontSize="md"
                             fontWeight="semibold"
-                            color="#777"
+                            color={textColor}
+                            opacity={0.4}
+                            style={{ transition: 'color 0.1s linear' }}
                           >
                             |
                           </Text>
