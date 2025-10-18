@@ -40,7 +40,7 @@ export default function AttractorsSim({ guiContainerRef }) {
 
     // Particles
     let params = {
-      count: 50000,
+      count: 150000,
       speed: 1.0,
       dt: 0.005,
       strength: 1.0,
