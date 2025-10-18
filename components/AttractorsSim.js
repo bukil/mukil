@@ -49,8 +49,8 @@ export default function AttractorsSim({ guiContainerRef }) {
       palette: '#89EF8C',
       trails: 0.92,
       computeFraction: 1.0,
-      followMouse: true,
-      followFactor: 1.0,
+      showHandle: true,
+      dragDepthRate: 0.25,
       pause: false,
       reset: () => resetParticles(),
     }
@@ -121,8 +121,8 @@ export default function AttractorsSim({ guiContainerRef }) {
   fSim.add(params, 'size', 0.02, 0.3, 0.01).name('Point Size').onChange((v)=> { material.size = v })
     fSim.add(params, 'trails', 0.8, 0.99, 0.005)
   fSim.add(params, 'computeFraction', 0.25, 1.0, 0.05).name('Compute %')
-    fSim.add(params, 'followMouse').name('Follow Mouse')
-    fSim.add(params, 'followFactor', 0.1, 3.0, 0.1).name('Follow Strength')
+    fSim.add(params, 'showHandle').name('Show Handle')
+    fSim.add(params, 'dragDepthRate', 0.01, 1.0, 0.01).name('Depth Rate')
     fSim.add(params, 'pause').name('Pause')
     fSim.add(params, 'reset').name('Reset')
 
@@ -160,11 +160,25 @@ export default function AttractorsSim({ guiContainerRef }) {
     // initialize noise seeds
     for (let i = 0; i < params.count * 3; i++) noiseData[i] = Math.random() - 0.5
 
-    // Mouse interaction (orbit-like attraction to pointer)
+    // Mouse interaction (raycast against a plane for dragging center)
     const mouse = new THREE.Vector2(0, 0)
     const raycaster = new THREE.Raycaster()
     const plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0)
     const mousePoint = new THREE.Vector3()
+
+    // Attractor center + visual handle
+    const attractorCenter = new THREE.Vector3(0, 0, 0)
+    const handleGeom = new THREE.SphereGeometry(1.2, 16, 16)
+    const handleMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.9, depthTest: false })
+    const handle = new THREE.Mesh(handleGeom, handleMat)
+    handle.position.copy(attractorCenter)
+    scene.add(handle)
+    let dragging = false
+
+    const inGui = (target) => {
+      if (guiContainerRef && guiContainerRef.current) return guiContainerRef.current.contains(target)
+      return target && target.closest ? target.closest('.lil-gui') : false
+    }
 
     const onMouseMove = (e) => {
       const rect = renderer.domElement.getBoundingClientRect()
@@ -173,8 +187,37 @@ export default function AttractorsSim({ guiContainerRef }) {
 
       raycaster.setFromCamera(mouse, camera)
       raycaster.ray.intersectPlane(plane, mousePoint)
+      if (dragging) {
+        attractorCenter.copy(mousePoint)
+        handle.position.copy(attractorCenter)
+      }
     }
     window.addEventListener('mousemove', onMouseMove)
+
+    const onMouseDown = (e) => {
+      if (inGui(e.target)) return
+      dragging = true
+      // initialize center to current mousePoint
+      const rect = renderer.domElement.getBoundingClientRect()
+      mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1
+      mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1
+      raycaster.setFromCamera(mouse, camera)
+      raycaster.ray.intersectPlane(plane, mousePoint)
+      attractorCenter.copy(mousePoint)
+      handle.position.copy(attractorCenter)
+    }
+    const onMouseUp = () => { dragging = false }
+    window.addEventListener('mousedown', onMouseDown)
+    window.addEventListener('mouseup', onMouseUp)
+    const onWheel = (e) => {
+      if (!dragging) return
+      if (inGui(e.target)) return
+      e.preventDefault()
+      const dz = (e.deltaY > 0 ? 1 : -1) * params.dragDepthRate
+      attractorCenter.z += dz
+      handle.position.z = attractorCenter.z
+    }
+    window.addEventListener('wheel', onWheel, { passive: false })
 
     // Attractor systems
     function stepLorenz(x, y, z, dt, a, b, c) {
@@ -201,9 +244,8 @@ export default function AttractorsSim({ guiContainerRef }) {
 
       if (!params.pause) {
         const pos = geom.attributes.position.array
-        const s = params.speed
-        const dt = params.dt * s
-        const strength = params.strength
+  const s = params.speed
+  const dt = params.dt * s * params.strength
         const n = params.noise
 
         const computeCount = Math.max(1, Math.floor(params.count * params.computeFraction))
@@ -217,39 +259,22 @@ export default function AttractorsSim({ guiContainerRef }) {
           let y = pos[i3 + 1]
           let z = pos[i3 + 2]
 
-          // gentle attraction to mousePoint when not fully following
-          if (!params.followMouse) {
-            const dxm = mousePoint.x - x
-            const dym = mousePoint.y - y
-            const dzm = mousePoint.z - z
-            x += dxm * 0.001 * strength
-            y += dym * 0.001 * strength
-            z += dzm * 0.001 * strength
-          }
-
           // add tiny noise (precomputed per-particle)
           x += noiseData[i3] * n * 0.01
           y += noiseData[i3 + 1] * n * 0.01
           z += noiseData[i3 + 2] * n * 0.01
 
-          // attractor step (Lorenz only), optionally in mouse-centered coordinates
-          if (params.followMouse) {
-            // transform to local coords around mouse
-            let lx = x - mousePoint.x
-            let ly = y - mousePoint.y
-            let lz = z - mousePoint.z
-            {
-              const { a, b, c } = PRESETS.Lorenz
-              ;[lx, ly, lz] = stepLorenz(lx, ly, lz, dt * params.followFactor, a, b, c)
-            }
-            // back to world space centered at mouse
-            x = lx + mousePoint.x
-            y = ly + mousePoint.y
-            z = lz + mousePoint.z
-          } else {
+          // attractor step (Lorenz only), centered around draggable attractorCenter
+          let lx = x - attractorCenter.x
+          let ly = y - attractorCenter.y
+          let lz = z - attractorCenter.z
+          {
             const { a, b, c } = PRESETS.Lorenz
-            ;[x, y, z] = stepLorenz(x, y, z, dt, a, b, c)
+            ;[lx, ly, lz] = stepLorenz(lx, ly, lz, dt, a, b, c)
           }
+          x = lx + attractorCenter.x
+          y = ly + attractorCenter.y
+          z = lz + attractorCenter.z
 
           pos[i3] = x
           pos[i3 + 1] = y
@@ -266,7 +291,8 @@ export default function AttractorsSim({ guiContainerRef }) {
         geom.attributes.position.needsUpdate = true
       }
 
-      camera.lookAt(0, 0, 0)
+  handle.visible = !!params.showHandle
+  camera.lookAt(0, 0, 0)
       renderer.render(scene, camera)
       requestAnimationFrame(animate)
     }
@@ -302,12 +328,17 @@ export default function AttractorsSim({ guiContainerRef }) {
     cleanupRef.current = () => {
       window.removeEventListener('resize', onResize)
       window.removeEventListener('mousemove', onMouseMove)
+      window.removeEventListener('mousedown', onMouseDown)
+      window.removeEventListener('mouseup', onMouseUp)
+  window.removeEventListener('wheel', onWheel)
       gui.destroy()
       if (styleEl && styleEl.parentNode) styleEl.parentNode.removeChild(styleEl)
       renderer.dispose()
       container.removeChild(renderer.domElement)
       geom.dispose()
       material.dispose()
+      handleGeom.dispose()
+      handleMat.dispose()
     }
 
     return () => {

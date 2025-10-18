@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { Container, Heading, Text, Box } from '@chakra-ui/react'
+import { Container, Box } from '@chakra-ui/react'
 import { useRef } from 'react'
 import dynamic from 'next/dynamic'
 
