@@ -16,13 +16,15 @@ const PRESETS = {
 
 export default function AttractorsSim({ guiContainerRef }) {
   const mountRef = useRef(null)
+  const canvasRef = useRef(null)
   const guiRef = useRef(null)
   const cleanupRef = useRef(() => {})
 
   useEffect(() => {
-    if (!mountRef.current) return
+    if (!mountRef.current || !canvasRef.current) return
 
   const container = mountRef.current
+  const canvas = canvasRef.current
   const width = window.innerWidth
   const height = window.innerHeight
 
@@ -33,10 +35,9 @@ export default function AttractorsSim({ guiContainerRef }) {
     const camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 1000)
     camera.position.set(0, 0, 120)
 
-  const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' })
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' })
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5))
     renderer.setSize(width, height)
-    container.appendChild(renderer.domElement)
 
     // Particles
     let params = {
@@ -181,7 +182,7 @@ export default function AttractorsSim({ guiContainerRef }) {
     }
 
     const onMouseMove = (e) => {
-      const rect = renderer.domElement.getBoundingClientRect()
+  const rect = canvas.getBoundingClientRect()
       mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1
       mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1
 
@@ -198,7 +199,7 @@ export default function AttractorsSim({ guiContainerRef }) {
       if (inGui(e.target)) return
       dragging = true
       // initialize center to current mousePoint
-      const rect = renderer.domElement.getBoundingClientRect()
+  const rect = canvas.getBoundingClientRect()
       mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1
       mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1
       raycaster.setFromCamera(mouse, camera)
@@ -334,7 +335,6 @@ export default function AttractorsSim({ guiContainerRef }) {
       gui.destroy()
       if (styleEl && styleEl.parentNode) styleEl.parentNode.removeChild(styleEl)
       renderer.dispose()
-      container.removeChild(renderer.domElement)
       geom.dispose()
       material.dispose()
       handleGeom.dispose()
@@ -350,6 +350,11 @@ export default function AttractorsSim({ guiContainerRef }) {
     <div
       ref={mountRef}
       style={{ position: 'fixed', inset: 0, width: '100vw', height: '100vh', pointerEvents: 'none', zIndex: 0 }}
-    />
+    >
+      <canvas
+        ref={canvasRef}
+        style={{ display: 'block', width: '100%', height: '100%' }}
+      />
+    </div>
   )
 }

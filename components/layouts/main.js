@@ -26,7 +26,7 @@ const Main = ({ children, router }) => {
       <Navbar path={router.asPath} />
 
       <Box as="main" pt="80px" pb={0} flex="1" display="flex" flexDirection="column">
-        {['/blog', '/works', '/'].includes(router.pathname) ? (
+        {['/blog', '/works', '/', '/playground'].includes(router.pathname) ? (
           <Box flex="1" display="flex" flexDirection="column">
             <Box flex="1">
               {children}
