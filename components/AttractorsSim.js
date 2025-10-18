@@ -51,6 +51,8 @@ export default function AttractorsSim({ guiContainerRef }) {
       palette: '#89EF8C',
       trails: 0.92,
       computeFraction: 1.0,
+      followMouse: true,
+      followFactor: 1.0,
       pause: false,
       reset: () => resetParticles(),
     }
@@ -121,6 +123,8 @@ export default function AttractorsSim({ guiContainerRef }) {
     fSim.addColor(params, 'palette').name('Color').onChange((v)=> material.color.set(v))
     fSim.add(params, 'trails', 0.8, 0.99, 0.005)
   fSim.add(params, 'computeFraction', 0.25, 1.0, 0.05).name('Compute %')
+    fSim.add(params, 'followMouse').name('Follow Mouse')
+    fSim.add(params, 'followFactor', 0.1, 3.0, 0.1).name('Follow Strength')
     fSim.add(params, 'pause').name('Pause')
     fSim.add(params, 'reset').name('Reset')
 
@@ -206,7 +210,6 @@ export default function AttractorsSim({ guiContainerRef }) {
     let cursorIndex = 0
     function animate() {
       const now = performance.now()
-      const elapsed = (now - last) / 1000
       last = now
 
       // Trails: draw a transparent rect to fade previous frame
@@ -229,32 +232,53 @@ export default function AttractorsSim({ guiContainerRef }) {
         const start = cursorIndex
         const end = (start + computeCount)
         const updateParticle = (idx) => {
-          const i3 = i * 3
+          const i3 = idx * 3
           let x = pos[i3]
           let y = pos[i3 + 1]
           let z = pos[i3 + 2]
 
-          // gentle attraction to mousePoint
-          const dxm = mousePoint.x - x
-          const dym = mousePoint.y - y
-          const dzm = mousePoint.z - z
-          x += dxm * 0.001 * strength
-          y += dym * 0.001 * strength
-          z += dzm * 0.001 * strength
+          // gentle attraction to mousePoint when not fully following
+          if (!params.followMouse) {
+            const dxm = mousePoint.x - x
+            const dym = mousePoint.y - y
+            const dzm = mousePoint.z - z
+            x += dxm * 0.001 * strength
+            y += dym * 0.001 * strength
+            z += dzm * 0.001 * strength
+          }
 
           // add tiny noise (precomputed per-particle)
           x += noiseData[i3] * n * 0.01
           y += noiseData[i3 + 1] * n * 0.01
           z += noiseData[i3 + 2] * n * 0.01
 
-          // attractor step
-          if (preset === 'Lorenz') {
-            const { a, b, c } = PRESETS.Lorenz
-            ;[x, y, z] = stepLorenz(x, y, z, dt, a, b, c)
-          } else if (preset === 'Aizawa') {
-            ;[x, y, z] = stepAizawa(x, y, z, dt, PRESETS.Aizawa)
-          } else if (preset === 'Thomas') {
-            ;[x, y, z] = stepThomas(x, y, z, dt, PRESETS.Thomas.b)
+          // attractor step, optionally in mouse-centered coordinates
+          if (params.followMouse) {
+            // transform to local coords around mouse
+            let lx = x - mousePoint.x
+            let ly = y - mousePoint.y
+            let lz = z - mousePoint.z
+            if (preset === 'Lorenz') {
+              const { a, b, c } = PRESETS.Lorenz
+              ;[lx, ly, lz] = stepLorenz(lx, ly, lz, dt * params.followFactor, a, b, c)
+            } else if (preset === 'Aizawa') {
+              ;[lx, ly, lz] = stepAizawa(lx, ly, lz, dt * params.followFactor, PRESETS.Aizawa)
+            } else if (preset === 'Thomas') {
+              ;[lx, ly, lz] = stepThomas(lx, ly, lz, dt * params.followFactor, PRESETS.Thomas.b)
+            }
+            // back to world space centered at mouse
+            x = lx + mousePoint.x
+            y = ly + mousePoint.y
+            z = lz + mousePoint.z
+          } else {
+            if (preset === 'Lorenz') {
+              const { a, b, c } = PRESETS.Lorenz
+              ;[x, y, z] = stepLorenz(x, y, z, dt, a, b, c)
+            } else if (preset === 'Aizawa') {
+              ;[x, y, z] = stepAizawa(x, y, z, dt, PRESETS.Aizawa)
+            } else if (preset === 'Thomas') {
+              ;[x, y, z] = stepThomas(x, y, z, dt, PRESETS.Thomas.b)
+            }
           }
 
           pos[i3] = x
