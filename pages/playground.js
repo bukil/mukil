@@ -29,26 +29,20 @@ const Playground = () => {
           {/* Overlay content */}
           <Container maxW="100%" mt={20} px={{ base: 4, md: 8 }} position="relative" zIndex={1}>
             <Section delay={0.1}>
-              <Heading 
-                as="h1" 
-                fontSize={{ base: '4xl', md: '5xl' }} 
-                fontWeight="bold" 
-                mb={6}
-              >
-                Playground
-              </Heading>
-              <Text fontSize="lg" lineHeight={1.8} mb={4}>
-                WebGPU Attractors Particles — interactive and mouse-reactive.
-              </Text>
-              <Text fontSize="md" opacity={0.7}>
-                Use the controls to change presets, particle count, speed, strength, noise and more.
-              </Text>
+              
+
+              
 
               <Box display={{ base: 'block', md: 'flex' }} gap={8} alignItems="flex-start">
                 <Box flex="1 1 auto">
                   {/* left column content placeholder if needed */}
                 </Box>
-                <Box flex="0 0 360px" width={{ base: '100%', md: '360px' }} ml={{ base: 0, md: 'auto' }}>
+                <Box
+                  flex="0 0 360px"
+                  width={{ base: '100%', md: '360px' }}
+                  ml={{ base: 0, md: 'auto' }}
+                  mr={{ base: '-4', md: '-8' }}
+                >
                   {/* Controls container aligned to the right */}
                   <Box ref={guiRef} position="relative" mt={6} p={2} bg="rgba(255,255,255,0.06)" borderRadius="12px" border="1px solid rgba(255,255,255,0.12)" backdropFilter="blur(6px)" boxShadow="0 8px 24px rgba(0,0,0,0.25)">
                     {/* GUI mounts here */}
