@@ -11,7 +11,7 @@ import * as THREE from 'three'
 import GUI from 'lil-gui'
 
 const PRESETS = {
-  Lorenz: { a: 10, b: 28, c: 8/3 },
+  Lorenz: { a: 10, b: 28, c: 8 / 3 },
 }
 
 export default function AttractorsSim({ guiContainerRef }) {
@@ -49,6 +49,9 @@ export default function AttractorsSim({ guiContainerRef }) {
       palette: '#89EF8C',
       trails: 0.92,
       computeFraction: 1.0,
+      spawnRadius: 10,
+  followMouse: false,
+      followFactor: 1.0,
       showHandle: true,
       dragDepthRate: 0.25,
       pause: false,
@@ -74,7 +77,7 @@ export default function AttractorsSim({ guiContainerRef }) {
 
     const setInitial = () => {
       for (let i = 0; i < params.count; i++) {
-        const [x, y, z] = randInSphere(10)
+        const [x, y, z] = randInSphere(params.spawnRadius)
         positions[i * 3] = x
         positions[i * 3 + 1] = y
         positions[i * 3 + 2] = z
@@ -121,6 +124,15 @@ export default function AttractorsSim({ guiContainerRef }) {
   fSim.add(params, 'size', 0.02, 0.3, 0.01).name('Point Size').onChange((v)=> { material.size = v })
     fSim.add(params, 'trails', 0.8, 0.99, 0.005)
   fSim.add(params, 'computeFraction', 0.25, 1.0, 0.05).name('Compute %')
+    fSim.add(params, 'spawnRadius', 1, 50, 1).name('Spawn Radius').onFinishChange(() => { setInitial(); geom.attributes.position.needsUpdate = true })
+  const fAttr = gui.addFolder('Attractor')
+  const fLor = fAttr.addFolder('Lorenz Params')
+    fLor.add(PRESETS.Lorenz, 'a', 1, 20, 0.1).name('sigma')
+    fLor.add(PRESETS.Lorenz, 'b', 0, 60, 0.1).name('rho')
+    fLor.add(PRESETS.Lorenz, 'c', 1, 10, 0.01).name('beta')
+  const fFollow = gui.addFolder('Centering')
+    fFollow.add(params, 'followMouse').name('Follow Mouse')
+    fFollow.add(params, 'followFactor', 0.1, 3.0, 0.1).name('Follow Strength')
     fSim.add(params, 'showHandle').name('Show Handle')
     fSim.add(params, 'dragDepthRate', 0.01, 1.0, 0.01).name('Depth Rate')
     fSim.add(params, 'pause').name('Pause')
@@ -231,7 +243,7 @@ export default function AttractorsSim({ guiContainerRef }) {
       ]
     }
 
-    // Removed Aizawa and Thomas attractors; keeping only Lorenz
+    // Lorenz-only mode
 
     // Animation loop
     let cursorIndex = 0
@@ -264,17 +276,19 @@ export default function AttractorsSim({ guiContainerRef }) {
           y += noiseData[i3 + 1] * n * 0.01
           z += noiseData[i3 + 2] * n * 0.01
 
-          // attractor step (Lorenz only), centered around draggable attractorCenter
-          let lx = x - attractorCenter.x
-          let ly = y - attractorCenter.y
-          let lz = z - attractorCenter.z
+          // choose center: mouse or draggable handle
+          const center = params.followMouse ? mousePoint : attractorCenter
+          let lx = x - center.x
+          let ly = y - center.y
+          let lz = z - center.z
+          const dtc = dt * (params.followMouse ? params.followFactor : 1)
           {
             const { a, b, c } = PRESETS.Lorenz
-            ;[lx, ly, lz] = stepLorenz(lx, ly, lz, dt, a, b, c)
+            ;[lx, ly, lz] = stepLorenz(lx, ly, lz, dtc, a, b, c)
           }
-          x = lx + attractorCenter.x
-          y = ly + attractorCenter.y
-          z = lz + attractorCenter.z
+          x = lx + center.x
+          y = ly + center.y
+          z = lz + center.z
 
           pos[i3] = x
           pos[i3 + 1] = y
