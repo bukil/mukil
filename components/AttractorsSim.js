@@ -12,8 +12,6 @@ import GUI from 'lil-gui'
 
 const PRESETS = {
   Lorenz: { a: 10, b: 28, c: 8/3 },
-  Aizawa: { a: 0.95, b: 0.7, c: 0.6, d: 3.5, e: 0.25, f: 0.1 },
-  Thomas: { b: 0.208186 },
 }
 
 export default function AttractorsSim({ guiContainerRef }) {
@@ -24,9 +22,9 @@ export default function AttractorsSim({ guiContainerRef }) {
   useEffect(() => {
     if (!mountRef.current) return
 
-    const container = mountRef.current
-    const width = container.clientWidth
-    const height = container.clientHeight
+  const container = mountRef.current
+  const width = window.innerWidth
+  const height = window.innerHeight
 
     // Scene setup
     const scene = new THREE.Scene()
@@ -42,7 +40,6 @@ export default function AttractorsSim({ guiContainerRef }) {
 
     // Particles
     let params = {
-      preset: 'Lorenz',
       count: 50000,
       speed: 1.0,
       dt: 0.005,
@@ -114,7 +111,6 @@ export default function AttractorsSim({ guiContainerRef }) {
     const gui = new GUI(guiOptions)
     guiRef.current = gui
   const fSim = gui.addFolder('Simulation')
-    fSim.add(params, 'preset', Object.keys(PRESETS)).name('Attractor')
     fSim.add(params, 'count', 1000, 150000, 1000).name('Particles').onFinishChange(rebuild)
     fSim.add(params, 'speed', 0.1, 4.0, 0.1)
     fSim.add(params, 'dt', 0.001, 0.02, 0.001).name('Time Step')
@@ -190,20 +186,7 @@ export default function AttractorsSim({ guiContainerRef }) {
       ]
     }
 
-    function stepAizawa(x, y, z, dt, p) {
-      const { a, b, c, d, e, f } = p
-      const dx = (z - b) * x - d * y
-      const dy = d * x + (z - b) * y
-      const dz = c + a * z - (z ** 3) / 3 - (x ** 2 + y ** 2) * (1 + e * z) + f * z * (x ** 3)
-      return [x + dx * dt, y + dy * dt, z + dz * dt]
-    }
-
-    function stepThomas(x, y, z, dt, b) {
-      const dx = Math.sin(y) - b * x
-      const dy = Math.sin(z) - b * y
-      const dz = Math.sin(x) - b * z
-      return [x + dx * dt, y + dy * dt, z + dz * dt]
-    }
+    // Removed Aizawa and Thomas attractors; keeping only Lorenz
 
     // Animation loop
     let cursorIndex = 0
@@ -221,7 +204,6 @@ export default function AttractorsSim({ guiContainerRef }) {
         const strength = params.strength
         const n = params.noise
 
-        const preset = params.preset
         const computeCount = Math.max(1, Math.floor(params.count * params.computeFraction))
         let i = 0
         // update in two segments if wraps around
@@ -248,33 +230,23 @@ export default function AttractorsSim({ guiContainerRef }) {
           y += noiseData[i3 + 1] * n * 0.01
           z += noiseData[i3 + 2] * n * 0.01
 
-          // attractor step, optionally in mouse-centered coordinates
+          // attractor step (Lorenz only), optionally in mouse-centered coordinates
           if (params.followMouse) {
             // transform to local coords around mouse
             let lx = x - mousePoint.x
             let ly = y - mousePoint.y
             let lz = z - mousePoint.z
-            if (preset === 'Lorenz') {
+            {
               const { a, b, c } = PRESETS.Lorenz
               ;[lx, ly, lz] = stepLorenz(lx, ly, lz, dt * params.followFactor, a, b, c)
-            } else if (preset === 'Aizawa') {
-              ;[lx, ly, lz] = stepAizawa(lx, ly, lz, dt * params.followFactor, PRESETS.Aizawa)
-            } else if (preset === 'Thomas') {
-              ;[lx, ly, lz] = stepThomas(lx, ly, lz, dt * params.followFactor, PRESETS.Thomas.b)
             }
             // back to world space centered at mouse
             x = lx + mousePoint.x
             y = ly + mousePoint.y
             z = lz + mousePoint.z
           } else {
-            if (preset === 'Lorenz') {
-              const { a, b, c } = PRESETS.Lorenz
-              ;[x, y, z] = stepLorenz(x, y, z, dt, a, b, c)
-            } else if (preset === 'Aizawa') {
-              ;[x, y, z] = stepAizawa(x, y, z, dt, PRESETS.Aizawa)
-            } else if (preset === 'Thomas') {
-              ;[x, y, z] = stepThomas(x, y, z, dt, PRESETS.Thomas.b)
-            }
+            const { a, b, c } = PRESETS.Lorenz
+            ;[x, y, z] = stepLorenz(x, y, z, dt, a, b, c)
           }
 
           pos[i3] = x
@@ -299,8 +271,8 @@ export default function AttractorsSim({ guiContainerRef }) {
     animate()
 
     const onResize = () => {
-      const w = container.clientWidth
-      const h = container.clientHeight
+      const w = window.innerWidth
+      const h = window.innerHeight
       renderer.setSize(w, h)
       camera.aspect = w / h
       camera.updateProjectionMatrix()
@@ -341,5 +313,10 @@ export default function AttractorsSim({ guiContainerRef }) {
     }
   }, [])
 
-  return <div ref={mountRef} style={{ width: '100%', height: '100%' }} />
+  return (
+    <div
+      ref={mountRef}
+      style={{ position: 'fixed', inset: 0, width: '100vw', height: '100vh', pointerEvents: 'none', zIndex: 0 }}
+    />
+  )
 }
