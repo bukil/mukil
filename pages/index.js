@@ -154,7 +154,7 @@ function AnimatedIntro({ textColor = '#ffffff' }) {
             hyphens: 'auto'
           }}
           style={{
-            transition: 'color 0.1s linear'
+            transition: 'color 0.3s ease-out'
           }}
         >
           {line}
@@ -480,19 +480,19 @@ const Home = () => {
           trigger: textSectionRef.current,
           start: 'top 80%',
           end: 'top 20%',
-          scrub: 1,
+          scrub: 2.5,
           onUpdate: (self) => {
             const progress = self.progress;
-            // Background: black to white
-            const bgR = Math.round(0 + (255 * progress));
-            const bgG = Math.round(0 + (255 * progress));
-            const bgB = Math.round(0 + (255 * progress));
+            // Background: black to white (no rounding for smoother transition)
+            const bgR = 0 + (255 * progress);
+            const bgG = 0 + (255 * progress);
+            const bgB = 0 + (255 * progress);
             setBgColor(`rgb(${bgR}, ${bgG}, ${bgB})`);
             
-            // Text: white to black
-            const textR = Math.round(255 - (255 * progress));
-            const textG = Math.round(255 - (255 * progress));
-            const textB = Math.round(255 - (255 * progress));
+            // Text: white to black (no rounding for smoother transition)
+            const textR = 255 - (255 * progress);
+            const textG = 255 - (255 * progress);
+            const textB = 255 - (255 * progress);
             setTextColor(`rgb(${textR}, ${textG}, ${textB})`);
           }
         }
@@ -561,7 +561,7 @@ const Home = () => {
           <Container ref={mukilSectionRef} maxW='container.xl'>
             {/* Removed green triangle above MUKIL heading */}
             <Box>
-              <Heading ref={mukilRef} fontSize={{ base: '6xl', md: '8xl', lg: '9xl' }} fontWeight="bold" lineHeight={0.95} textAlign="left" fontFamily="'Anton', sans-serif" letterSpacing="0.04em" color={textColor} style={{ transition: 'color 0.1s linear' }}>
+              <Heading ref={mukilRef} fontSize={{ base: '6xl', md: '8xl', lg: '9xl' }} fontWeight="bold" lineHeight={0.95} textAlign="left" fontFamily="'Anton', sans-serif" letterSpacing="0.04em" color={textColor} style={{ transition: 'color 0.3s ease-out' }}>
                 MUKIL<br />KUMAR
               </Heading>
             </Box>
@@ -683,7 +683,7 @@ const Home = () => {
                   </>
                 ) : (
               <>
-                <Heading fontSize="2xl" fontWeight="bold" mb={6} color={textColor} style={{ transition: 'color 0.1s linear' }}>
+                <Heading fontSize="2xl" fontWeight="bold" mb={6} color={textColor} style={{ transition: 'color 0.3s ease-out' }}>
                   Skills
                 </Heading>
                 <Box display="flex" flexWrap="wrap" gap={2} mb={8} alignItems="center">
@@ -704,7 +704,7 @@ const Home = () => {
                           onMouseEnter={() => setHoveredSkill(skill)}
                           onMouseLeave={() => setHoveredSkill(null)}
                           position="relative"
-                          style={{ transition: 'color 0.1s linear' }}
+                          style={{ transition: 'color 0.3s ease-out' }}
                         >
                           {skill}
                           {Icon && (
@@ -730,7 +730,7 @@ const Home = () => {
                             fontWeight="semibold"
                             color={textColor}
                             opacity={0.4}
-                            style={{ transition: 'color 0.1s linear' }}
+                            style={{ transition: 'color 0.3s ease-out' }}
                           >
                             |
                           </Text>
@@ -742,7 +742,7 @@ const Home = () => {
                     )
                   })}
                 </Box>
-                <Heading fontSize="2xl" fontWeight="bold" mt={8} mb={4} color={textColor} style={{ transition: 'color 0.1s linear' }}>
+                <Heading fontSize="2xl" fontWeight="bold" mt={8} mb={4} color={textColor} style={{ transition: 'color 0.3s ease-out' }}>
                   Visual Design
                 </Heading>
                 <Box display="flex" flexWrap="wrap" gap={2} mb={8} alignItems="center">
@@ -762,7 +762,7 @@ const Home = () => {
                           onMouseEnter={() => setHoveredSkill(skill.name)}
                           onMouseLeave={() => setHoveredSkill(null)}
                           position="relative"
-                          style={{ transition: 'color 0.1s linear' }}
+                          style={{ transition: 'color 0.3s ease-out' }}
                         >
                           {skill.name}
                           {Icon && (
@@ -788,7 +788,7 @@ const Home = () => {
                             fontWeight="semibold"
                             color={textColor}
                             opacity={0.4}
-                            style={{ transition: 'color 0.1s linear' }}
+                            style={{ transition: 'color 0.3s ease-out' }}
                           >
                             |
                           </Text>
@@ -797,7 +797,7 @@ const Home = () => {
                     )
                   })}
                 </Box>
-                <Heading fontSize="2xl" fontWeight="bold" mt={8} mb={4} color={textColor} style={{ transition: 'color 0.1s linear' }}>
+                <Heading fontSize="2xl" fontWeight="bold" mt={8} mb={4} color={textColor} style={{ transition: 'color 0.3s ease-out' }}>
                   Development
                 </Heading>
                 <Box display="flex" flexWrap="wrap" gap={2} mb={8} alignItems="center">
@@ -818,7 +818,7 @@ const Home = () => {
                           onMouseEnter={() => setHoveredSkill(skill.name)}
                           onMouseLeave={() => setHoveredSkill(null)}
                           position="relative"
-                          style={{ transition: 'color 0.1s linear' }}
+                          style={{ transition: 'color 0.3s ease-out' }}
                         >
                           {skill.name}
                           {Icon && (
@@ -844,7 +844,7 @@ const Home = () => {
                             fontWeight="semibold"
                             color={textColor}
                             opacity={0.4}
-                            style={{ transition: 'color 0.1s linear' }}
+                            style={{ transition: 'color 0.3s ease-out' }}
                           >
                             |
                           </Text>

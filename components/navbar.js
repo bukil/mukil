@@ -117,10 +117,10 @@ const Navbar = props => {
         margin="15px 16px"
         width="calc(100% - 32px)"
         overflow="hidden"
-        bg={useColorModeValue('rgba(255,255,255,0.75)', 'rgba(32,32,35,0.75)')}
-        backdropFilter="blur(12px)"
-        boxShadow={useColorModeValue('0 4px 24px rgba(0,0,0,0.08)', '0 4px 24px rgba(0,0,0,0.18)')}
-        border={useColorModeValue('0.5px solid rgba(255,255,255,0.5)', '0.5px solid rgba(255,255,255,0.35)')}
+        bg={useColorModeValue('rgba(255,255,255,0.15)', 'rgba(32, 32, 35, 0.15)')}
+        backdropFilter="blur(4px)"
+        boxShadow={useColorModeValue('0 4px 24px rgba(0,0,0,0.04)', '0 4px 24px rgba(0,0,0,0.1)')}
+        border={useColorModeValue('0.5px solid rgba(255, 255, 255, 0.05)', '0.5px solid rgba(255,255,255,0.1)')}
         transition="transform 0.2s linear"
         _hover={{
           transform: 'none'
