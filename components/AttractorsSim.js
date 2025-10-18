@@ -45,6 +45,7 @@ export default function AttractorsSim({ guiContainerRef }) {
       dt: 0.005,
       strength: 1.0,
       noise: 0.0,
+      size: 0.32,
       palette: '#89EF8C',
       trails: 0.92,
       computeFraction: 1.0,
@@ -88,7 +89,7 @@ export default function AttractorsSim({ guiContainerRef }) {
   geom.attributes.position.setUsage(THREE.DynamicDrawUsage)
 
     const material = new THREE.PointsMaterial({
-      size: 0.05,
+      size: params.size,
       color: new THREE.Color(params.palette),
       transparent: true,
       blending: THREE.AdditiveBlending,
@@ -116,7 +117,8 @@ export default function AttractorsSim({ guiContainerRef }) {
     fSim.add(params, 'dt', 0.001, 0.02, 0.001).name('Time Step')
     fSim.add(params, 'strength', 0.1, 4.0, 0.1)
     fSim.add(params, 'noise', 0.0, 1.0, 0.01)
-    fSim.addColor(params, 'palette').name('Color').onChange((v)=> material.color.set(v))
+  fSim.addColor(params, 'palette').name('Color').onChange((v)=> material.color.set(v))
+  fSim.add(params, 'size', 0.02, 0.3, 0.01).name('Point Size').onChange((v)=> { material.size = v })
     fSim.add(params, 'trails', 0.8, 0.99, 0.005)
   fSim.add(params, 'computeFraction', 0.25, 1.0, 0.05).name('Compute %')
     fSim.add(params, 'followMouse').name('Follow Mouse')
