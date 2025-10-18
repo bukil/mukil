@@ -206,12 +206,8 @@ export default function AttractorsSim({ guiContainerRef }) {
     }
 
     // Animation loop
-    let last = performance.now()
     let cursorIndex = 0
     function animate() {
-      const now = performance.now()
-      last = now
-
       // Trails: draw a transparent rect to fade previous frame
       renderer.setClearColor(clearColor, 1)
       renderer.clear()
