@@ -586,9 +586,9 @@ const Home = () => {
             </Box>
           </Container> 
 
-          <Spacer minHeight="100vh" />
+          <Spacer minHeight="12vh" />
 
-          <Container ref={textSectionRef} maxW='container.xl' mt={8} mb={8}>
+          <Container ref={textSectionRef} maxW='container.xl' mt={4} mb={8}>
             <Grid templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)' }} gap={10}>
               <GridItem>
                 <Section delay={0.3}>
