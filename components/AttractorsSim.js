@@ -35,8 +35,8 @@ export default function AttractorsSim({ guiContainerRef }) {
     const camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 1000)
     camera.position.set(0, 0, 120)
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' })
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+  const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' })
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5))
     renderer.setSize(width, height)
     container.appendChild(renderer.domElement)
 
@@ -50,12 +50,14 @@ export default function AttractorsSim({ guiContainerRef }) {
       noise: 0.0,
       palette: '#89EF8C',
       trails: 0.92,
+      computeFraction: 1.0,
       pause: false,
       reset: () => resetParticles(),
     }
 
-    const positions = new Float32Array(params.count * 3)
-    const velocities = new Float32Array(params.count * 3)
+  const positions = new Float32Array(params.count * 3)
+  const velocities = new Float32Array(params.count * 3)
+  let noiseData = new Float32Array(params.count * 3)
 
     const randInSphere = (r = 1) => {
       const u = Math.random()
@@ -82,8 +84,9 @@ export default function AttractorsSim({ guiContainerRef }) {
       }
     }
 
-    const geom = new THREE.BufferGeometry()
+  const geom = new THREE.BufferGeometry()
     geom.setAttribute('position', new THREE.BufferAttribute(positions, 3))
+  geom.attributes.position.setUsage(THREE.DynamicDrawUsage)
 
     const material = new THREE.PointsMaterial({
       size: 0.05,
@@ -93,7 +96,8 @@ export default function AttractorsSim({ guiContainerRef }) {
       depthWrite: false,
     })
 
-    const points = new THREE.Points(geom, material)
+  const points = new THREE.Points(geom, material)
+  points.frustumCulled = false
     scene.add(points)
 
     // Trails via render-to-texture style accumulation
@@ -107,7 +111,7 @@ export default function AttractorsSim({ guiContainerRef }) {
     }
     const gui = new GUI(guiOptions)
     guiRef.current = gui
-    const fSim = gui.addFolder('Simulation')
+  const fSim = gui.addFolder('Simulation')
     fSim.add(params, 'preset', Object.keys(PRESETS)).name('Attractor')
     fSim.add(params, 'count', 1000, 150000, 1000).name('Particles').onFinishChange(rebuild)
     fSim.add(params, 'speed', 0.1, 4.0, 0.1)
@@ -116,6 +120,7 @@ export default function AttractorsSim({ guiContainerRef }) {
     fSim.add(params, 'noise', 0.0, 1.0, 0.01)
     fSim.addColor(params, 'palette').name('Color').onChange((v)=> material.color.set(v))
     fSim.add(params, 'trails', 0.8, 0.99, 0.005)
+  fSim.add(params, 'computeFraction', 0.25, 1.0, 0.05).name('Compute %')
     fSim.add(params, 'pause').name('Pause')
     fSim.add(params, 'reset').name('Reset')
 
@@ -129,6 +134,7 @@ export default function AttractorsSim({ guiContainerRef }) {
       geom.dispose()
       const newPositions = new Float32Array(params.count * 3)
       const newVelocities = new Float32Array(params.count * 3)
+      noiseData = new Float32Array(params.count * 3)
       for (let i = 0; i < params.count; i++) {
         const [x, y, z] = randInSphere(10)
         newPositions[i * 3] = x
@@ -137,12 +143,20 @@ export default function AttractorsSim({ guiContainerRef }) {
         newVelocities[i * 3] = 0
         newVelocities[i * 3 + 1] = 0
         newVelocities[i * 3 + 2] = 0
+        // precompute static noise seeds
+        const j = i * 3
+        noiseData[j] = Math.random() - 0.5
+        noiseData[j + 1] = Math.random() - 0.5
+        noiseData[j + 2] = Math.random() - 0.5
       }
       geom.setAttribute('position', new THREE.BufferAttribute(newPositions, 3))
+      geom.attributes.position.setUsage(THREE.DynamicDrawUsage)
       material.color.set(params.palette)
     }
 
     setInitial()
+    // initialize noise seeds
+    for (let i = 0; i < params.count * 3; i++) noiseData[i] = Math.random() - 0.5
 
     // Mouse interaction (orbit-like attraction to pointer)
     const mouse = new THREE.Vector2(0, 0)
@@ -189,6 +203,7 @@ export default function AttractorsSim({ guiContainerRef }) {
 
     // Animation loop
     let last = performance.now()
+    let cursorIndex = 0
     function animate() {
       const now = performance.now()
       const elapsed = (now - last) / 1000
@@ -208,7 +223,12 @@ export default function AttractorsSim({ guiContainerRef }) {
         const n = params.noise
 
         const preset = params.preset
-        for (let i = 0; i < params.count; i++) {
+        const computeCount = Math.max(1, Math.floor(params.count * params.computeFraction))
+        let i = 0
+        // update in two segments if wraps around
+        const start = cursorIndex
+        const end = (start + computeCount)
+        const updateParticle = (idx) => {
           const i3 = i * 3
           let x = pos[i3]
           let y = pos[i3 + 1]
@@ -222,10 +242,10 @@ export default function AttractorsSim({ guiContainerRef }) {
           y += dym * 0.001 * strength
           z += dzm * 0.001 * strength
 
-          // add tiny noise
-          x += (Math.random() - 0.5) * n * 0.01
-          y += (Math.random() - 0.5) * n * 0.01
-          z += (Math.random() - 0.5) * n * 0.01
+          // add tiny noise (precomputed per-particle)
+          x += noiseData[i3] * n * 0.01
+          y += noiseData[i3 + 1] * n * 0.01
+          z += noiseData[i3 + 2] * n * 0.01
 
           // attractor step
           if (preset === 'Lorenz') {
@@ -241,6 +261,14 @@ export default function AttractorsSim({ guiContainerRef }) {
           pos[i3 + 1] = y
           pos[i3 + 2] = z
         }
+
+        // segment 1
+        for (i = start; i < Math.min(end, params.count); i++) updateParticle(i)
+        // segment 2 (wrap)
+        if (end > params.count) {
+          for (i = 0; i < end - params.count; i++) updateParticle(i)
+        }
+        cursorIndex = (end >= params.count) ? (end - params.count) : end
         geom.attributes.position.needsUpdate = true
       }
 
