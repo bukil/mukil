@@ -23,7 +23,6 @@ export default function AttractorsSim({ guiContainerRef }) {
   useEffect(() => {
     if (!mountRef.current || !canvasRef.current) return
 
-  const container = mountRef.current
   const canvas = canvasRef.current
   const width = window.innerWidth
   const height = window.innerHeight
