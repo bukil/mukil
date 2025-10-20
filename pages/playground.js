@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { Container, Box } from '@chakra-ui/react'
+import { Container, Box, Heading, Text, Image } from '@chakra-ui/react'
 import { useRef } from 'react'
 import dynamic from 'next/dynamic'
 
@@ -11,6 +11,90 @@ import { Global } from '@emotion/react'
 
 const Playground = () => {
   const guiRef = useRef(null)
+
+  // Simple panel similar to Works tiles (lightweight clone)
+  const ProjectPanelLite = ({ title, description, imageSrc, imageAlt, gradientColors, hoverGradientColors, accentColor }) => (
+    <Box
+      position="relative"
+      borderWidth="1px"
+      overflow="hidden"
+      boxShadow="md"
+      role="group"
+      bg={gradientColors}
+      transition="all 0.3s ease"
+      _hover={{ bg: hoverGradientColors, transform: 'translateY(-5px)', boxShadow: 'xl' }}
+      cursor="pointer"
+      height="400px"
+      width="100%"
+    >
+      <Box
+        position="relative"
+        height="100%"
+        width="100%"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <Text
+          position="absolute"
+          top="20%"
+          left="50%"
+          transform="translate(-50%, -50%)"
+          fontSize="7xl"
+          fontWeight="900"
+          color="white"
+          opacity="0"
+          transition="all 0.8s cubic-bezier(0.4, 0, 0.2, 1)"
+          _groupHover={{ opacity: 0.4, top: '35%', transform: 'translate(-50%, -50%)' }}
+          zIndex={2}
+          letterSpacing="normal"
+          lineHeight="1"
+          fontFamily="'BaseNeueTrial', sans-serif"
+          fontStyle="italic"
+          textTransform="uppercase"
+        >
+          {title}
+        </Text>
+        {imageSrc && (
+          <Image
+            src={imageSrc}
+            alt={imageAlt || title}
+            width="50%"
+            height="50%"
+            objectFit="contain"
+            transition="all 0.3s ease"
+            _groupHover={{ filter: 'brightness(1.2)', transform: 'scale(1.05)' }}
+            position="relative"
+            zIndex="1"
+            bg="transparent"
+          />
+        )}
+      </Box>
+      <Box position="absolute" bottom="0" left="0" right="0" bg="transparent" p={3} color="white" zIndex={3}>
+        <Heading
+          as="h3"
+          size="sm"
+          mb={1}
+          style={{
+            fontFamily: '"Michroma", sans-serif',
+            fontWeight: 900,
+            letterSpacing: '0.2em',
+            color: 'white',
+            transition: 'all 0.3s ease',
+            WebkitFontSmoothing: 'antialiased',
+            MozOsxFontSmoothing: 'grayscale',
+          }}
+          _groupHover={{ opacity: 0 }}
+        >
+          {title}
+        </Heading>
+        <Box w="100%" h="0.5px" bg={accentColor || 'green.400'} mb={2} />
+        <Text fontSize="xs" fontFamily="'Encode Sans Expanded', sans-serif" fontWeight="400" letterSpacing="0.5px">
+          {description}
+        </Text>
+      </Box>
+    </Box>
+  )
 
   return (
     <>
@@ -41,9 +125,7 @@ const Playground = () => {
               
 
               <Box display={{ base: 'block', md: 'flex' }} gap={8} alignItems="flex-start">
-                <Box flex="1 1 auto">
-                  {/* left column content placeholder if needed */}
-                </Box>
+                <Box flex="1 1 auto" pointerEvents="auto" />
                 <Box
                   flex="0 0 360px"
                   width={{ base: '100%', md: '360px' }}
@@ -64,6 +146,30 @@ const Playground = () => {
                     boxShadow="0 8px 24px rgba(0,0,0,0.25)"
                   >
                     {/* GUI mounts here */}
+                  </Box>
+                  {/* Divider line after controls */}
+                  <Box mt={3} mb={3} w="100%" h="1px" bg="rgba(255,255,255,0.2)" />
+                  {/* Right column tile moved to full-width centered row below */}
+                </Box>
+              </Box>
+              {/* Full-width centered tile after the divider */}
+              <Box mt={6} pointerEvents="auto" display="flex" justifyContent="center">
+                <Box
+                  as="a"
+                  href="https://bukil.github.io/dataviz/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ textDecoration: 'none' }}
+                >
+                  <Box width={{ base: '100%', md: '720px' }}>
+                    <ProjectPanelLite
+                      title="Data Visualisation: Comparative Visualisations"
+                      description="A comparative visualisation of particle speeds."
+                      imageSrc="/images/Imag.png"
+                      gradientColors="radial-gradient(circle at center, rgba(0, 120, 255, 0.7) 0%, rgba(0, 20, 40, 0.98) 100%)"
+                      hoverGradientColors="radial-gradient(circle at center, rgba(50, 160, 255, 0.85) 0%, rgba(10, 30, 60, 0.98) 100%)"
+                      accentColor="blue.400"
+                    />
                   </Box>
                 </Box>
               </Box>
