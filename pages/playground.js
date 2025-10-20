@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { Container, Box, Heading, Text, Image } from '@chakra-ui/react'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import dynamic from 'next/dynamic'
 
 // Dynamically import the simulation to avoid SSR issues
@@ -11,6 +11,7 @@ import { Global } from '@emotion/react'
 
 const Playground = () => {
   const guiRef = useRef(null)
+  const [showGui, setShowGui] = useState(false)
 
   // Simple panel similar to Works tiles (lightweight clone)
   const ProjectPanelLite = ({ title, description, imageSrc, imageAlt, gradientColors, hoverGradientColors, accentColor }) => (
@@ -125,43 +126,15 @@ const Playground = () => {
               
 
               <Box display={{ base: 'block', md: 'flex' }} gap={8} alignItems="flex-start">
-                <Box flex="1 1 auto" pointerEvents="auto" />
-                <Box
-                  flex="0 0 360px"
-                  width={{ base: '100%', md: '360px' }}
-                  ml={{ base: 0, md: 'auto' }}
-                  mr={{ base: '-4', md: '-8' }}
-                  pointerEvents="auto"
-                >
-                  {/* Controls container aligned to the right */}
+                {/* Left: project tile (aligned left) */}
+                <Box flex="1 1 auto" pointerEvents="auto">
                   <Box
-                    ref={guiRef}
-                    position="relative"
-                    mt={6}
-                    p={2}
-                    bg="rgba(255,255,255,0.06)"
-                    borderRadius="12px"
-                    border="1px solid rgba(255,255,255,0.12)"
-                    backdropFilter="blur(6px)"
-                    boxShadow="0 8px 24px rgba(0,0,0,0.25)"
+                    as="a"
+                    href="https://bukil.github.io/dataviz/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ textDecoration: 'none' }}
                   >
-                    {/* GUI mounts here */}
-                  </Box>
-                  {/* Divider line after controls */}
-                  <Box mt={3} mb={3} w="100%" h="1px" bg="rgba(255,255,255,0.2)" />
-                  {/* Right column tile moved to full-width centered row below */}
-                </Box>
-              </Box>
-              {/* Full-width centered tile after the divider */}
-              <Box mt={6} pointerEvents="auto" display="flex" justifyContent="center">
-                <Box
-                  as="a"
-                  href="https://bukil.github.io/dataviz/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ textDecoration: 'none' }}
-                >
-                  <Box width={{ base: '100%', md: '720px' }}>
                     <ProjectPanelLite
                       title="Data Visualisation: Comparative Visualisations"
                       description="A comparative visualisation of particle speeds."
@@ -172,7 +145,50 @@ const Playground = () => {
                     />
                   </Box>
                 </Box>
+                <Box
+                  flex="0 0 360px"
+                  width={{ base: '100%', md: '360px' }}
+                  ml={{ base: 0, md: 'auto' }}
+                  mr={{ base: '-4', md: '-8' }}
+                  pointerEvents="auto"
+                >
+                  {/* Small circular toggle button for controls */}
+                  <Box
+                    as="button"
+                    onClick={() => setShowGui(v => !v)}
+                    aria-label="Toggle particle controls"
+                    w="40px"
+                    h="40px"
+                    borderRadius="9999px"
+                    bg="transparent"
+                    border="1px solid rgba(255,255,255,0.6)"
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                    mt={6}
+                    transition="background 0.15s ease"
+                    _hover={{ bg: 'rgba(255,255,255,0.1)' }}
+                  />
+                  {/* Controls container aligned to the right */}
+                  <Box
+                    ref={guiRef}
+                    position="relative"
+                    mt={4}
+                    p={2}
+                    bg="rgba(255,255,255,0.06)"
+                    borderRadius="12px"
+                    border="1px solid rgba(255,255,255,0.12)"
+                    backdropFilter="blur(6px)"
+                    boxShadow="0 8px 24px rgba(0,0,0,0.25)"
+                    display={showGui ? 'block' : 'none'}
+                  >
+                    {/* GUI mounts here */}
+                  </Box>
+                  {/* Divider removed as requested */}
+                  {/* Right column content end */}
+                </Box>
               </Box>
+              {/* Centered tile row removed; tile is left aligned above */}
             </Section>
           </Container>
         </Box>

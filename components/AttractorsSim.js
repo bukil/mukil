@@ -40,12 +40,12 @@ export default function AttractorsSim({ guiContainerRef }) {
 
     // Particles
     let params = {
-      count: 150000,
+      count: 100000,
       speed: 1.0,
       dt: 0.005,
       strength: 1.0,
       noise: 0.0,
-      size: 0.32,
+      size: 0.1,
       palette: '#89EF8C',
       trails: 0.92,
       computeFraction: 1.0,
@@ -115,7 +115,7 @@ export default function AttractorsSim({ guiContainerRef }) {
     const gui = new GUI(guiOptions)
     guiRef.current = gui
   const fSim = gui.addFolder('Simulation')
-    fSim.add(params, 'count', 1000, 150000, 1000).name('Particles').onFinishChange(rebuild)
+    fSim.add(params, 'count', 1000, 100000, 1000).name('Particles').onFinishChange(rebuild)
     fSim.add(params, 'speed', 0.1, 4.0, 0.1)
     fSim.add(params, 'dt', 0.001, 0.02, 0.001).name('Time Step')
     fSim.add(params, 'strength', 0.1, 4.0, 0.1)
