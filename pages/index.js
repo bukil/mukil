@@ -377,27 +377,28 @@ const Home = () => {
 
   // Continuous smooth animation for SKILLS text
   useEffect(() => {
-    if (skillsVisible && skillsTextRef.current) {
+    const el = skillsTextRef.current
+    if (skillsVisible && el) {
       const tl = gsap.timeline({ repeat: -1, yoyo: true });
-      tl.to(skillsTextRef.current, {
+      tl.to(el, {
         scale: 1.03, // reduced for less GPU load
         y: 12, // reduced for less movement
         duration: 4.5, // slower for smoother animation
         ease: 'sine.inOut',
       })
-      .to(skillsTextRef.current, {
+      .to(el, {
         scale: 1,
         y: 0,
         duration: 4.5,
         ease: 'sine.inOut',
       });
       // Add will-change for browser optimization
-      skillsTextRef.current.style.willChange = 'transform';
+      el.style.willChange = 'transform';
     }
     return () => {
-      if (skillsTextRef.current) {
-        gsap.killTweensOf(skillsTextRef.current);
-        skillsTextRef.current.style.willChange = '';
+      if (el) {
+        gsap.killTweensOf(el);
+        el.style.willChange = '';
       }
     };
   }, [skillsVisible]);
@@ -426,8 +427,9 @@ const Home = () => {
     })
     // Button animation
     let hoverEnter, hoverLeave;
-    if (buttonRef.current) {
-      gsap.to(buttonRef.current, {
+    const btn = buttonRef.current
+    if (btn) {
+      gsap.to(btn, {
         opacity: 1,
         y: 0,
         duration: 0.5,
@@ -435,23 +437,22 @@ const Home = () => {
         ease: "power2.out"
       })
       // Hover animation
-      const button = buttonRef.current
       hoverEnter = () => {
-        gsap.to(button, {
+        gsap.to(btn, {
           scale: 1.05,
           duration: 0.3,
           ease: "power2.out"
         })
       }
       hoverLeave = () => {
-        gsap.to(button, {
+        gsap.to(btn, {
           scale: 1,
           duration: 0.3,
           ease: "power2.out"
         })
       }
-      button.addEventListener('mouseenter', hoverEnter)
-      button.addEventListener('mouseleave', hoverLeave)
+      btn.addEventListener('mouseenter', hoverEnter)
+      btn.addEventListener('mouseleave', hoverLeave)
     }
     // Hi.png scroll animation
     if (hiImgRef.current) {
@@ -515,9 +516,9 @@ const Home = () => {
     
     // Cleanup
     return () => {
-      if (buttonRef.current && hoverEnter && hoverLeave) {
-        buttonRef.current.removeEventListener('mouseenter', hoverEnter)
-        buttonRef.current.removeEventListener('mouseleave', hoverLeave)
+      if (btn && hoverEnter && hoverLeave) {
+        btn.removeEventListener('mouseenter', hoverEnter)
+        btn.removeEventListener('mouseleave', hoverLeave)
       }
       if (window.ScrollTrigger) window.ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
@@ -549,10 +550,7 @@ const Home = () => {
           
           {/* Canonical URL */}
           <link rel="canonical" href="https://mukil.vercel.app" />
-          <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
-          <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet" />
-          <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet" />
-          <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet" />
+          {/* Font links moved to _document.js */}
         </Head>
         <Layout>
           <BackgroundImageReveal sectionRef={mukilSectionRef} />
