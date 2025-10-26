@@ -10,7 +10,6 @@ import gsap from 'gsap'
 import KodeboardModal from '../components/projects/Kodeboard'
 import Head from 'next/head'
 import { motion } from 'framer-motion'
-
 import React from 'react'
 
 // Styled components
@@ -116,12 +115,12 @@ const ScrollIndicator = styled.div`
   top: 88%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 48px;
-  height: 48px;
+  width: 34px;
+  height: 64px;
   border-radius: 9999px;
-  border: 1px solid rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.28);
   background: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(6px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -647,10 +646,12 @@ const Works = () => {
           <ScrollIndicator ref={scrollIndicatorRef}>
             <Box
               as={motion.div}
-              animate={{ y: [0, 6, 0] }}
+              initial={{ y: -8, opacity: 0.4 }}
+              animate={{ y: [ -8, 8, -8 ], opacity: [0.4, 1, 0.4] }}
               transition={{ repeat: Infinity, duration: 1.6, ease: 'easeInOut' }}
+              style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
             >
-              <ChevronDownIcon boxSize={6} color="white" />
+              <ChevronDownIcon boxSize={5} color="white" />
             </Box>
           </ScrollIndicator>
           <ContentWrapper>
