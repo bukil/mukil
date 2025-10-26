@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import { Heading, SimpleGrid, Image, Text, Button, useDisclosure, Box, Spacer, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, useColorMode, Progress } from '@chakra-ui/react'
-import { ChevronLeftIcon } from '@chakra-ui/icons'
+import { ChevronLeftIcon, ChevronDownIcon } from '@chakra-ui/icons'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
 import styled from '@emotion/styled'
@@ -111,14 +111,22 @@ const Character = styled.span`
   transform: translateY(100px);
 `
 
-const DividerLine = styled.div`
-  width: 100%;
-  height: 1px;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.84) 50%, rgba(255,255,255,0) 100%);
+const ScrollIndicator = styled.div`
   position: fixed;
-  top: 90%;
-  left: 0;
+  top: 88%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.88);
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   z-index: 0;
+  pointer-events: none;
 `
 
 const ContentWrapper = styled(Box)`
@@ -556,7 +564,7 @@ function CollapseExtandip() {
 
 const Works = () => {
   const bigTextRef = useRef(null)
-  const dividerLineRef = useRef(null)
+  const scrollIndicatorRef = useRef(null)
   const characters = "DESIGN".split("")
   const { colorMode } = useColorMode()
 
@@ -605,10 +613,11 @@ const Works = () => {
       const scrollPosition = window.scrollY
       const fadeStart = 0
       const fadeEnd = 300 // Reduced fade distance for quicker fade out
-      
-      if (bigTextRef.current && dividerLineRef.current) {
+
+      const elements = [bigTextRef.current, scrollIndicatorRef.current].filter(Boolean)
+      if (elements.length) {
         const opacity = Math.max(0, 1 - (scrollPosition - fadeStart) / (fadeEnd - fadeStart))
-        gsap.to([bigTextRef.current, dividerLineRef.current], {
+        gsap.to(elements, {
           opacity: opacity,
           duration: 0.1,
           ease: "none"
@@ -635,7 +644,15 @@ const Works = () => {
               <Character key={index}>{char}</Character>
             ))}
           </BigText>
-          <DividerLine ref={dividerLineRef} />
+          <ScrollIndicator ref={scrollIndicatorRef}>
+            <Box
+              as={motion.div}
+              animate={{ y: [0, 6, 0] }}
+              transition={{ repeat: Infinity, duration: 1.6, ease: 'easeInOut' }}
+            >
+              <ChevronDownIcon boxSize={6} color="white" />
+            </Box>
+          </ScrollIndicator>
           <ContentWrapper>
             <Section>
               <Heading as="h3" fontSize={50} mb={15} mt={10}>
