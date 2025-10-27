@@ -126,25 +126,6 @@ const Playground = () => {
               
 
               <Box display={{ base: 'block', md: 'flex' }} gap={8} alignItems="flex-start">
-                {/* Left: project tile (aligned left) */}
-                <Box flex="1 1 auto" pointerEvents="auto">
-                  <Box
-                    as="a"
-                    href="https://bukil.github.io/dataviz/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ textDecoration: 'none' }}
-                  >
-                    <ProjectPanelLite
-                      title="Data Visualisation: Comparative Visualisations"
-                      description="A comparative visualisation of particle speeds."
-                      imageSrc="/images/Imag.png"
-                      gradientColors="radial-gradient(circle at center, rgba(0, 120, 255, 0.7) 0%, rgba(0, 20, 40, 0.98) 100%)"
-                      hoverGradientColors="radial-gradient(circle at center, rgba(50, 160, 255, 0.85) 0%, rgba(10, 30, 60, 0.98) 100%)"
-                      accentColor="blue.400"
-                    />
-                  </Box>
-                </Box>
                 <Box
                   flex="0 0 360px"
                   width={{ base: '100%', md: '360px' }}
