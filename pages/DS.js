@@ -34,7 +34,7 @@ const DESIGN_SYSTEM_ITEMS = [
   { file: '7_Icons.svg', title: 'Iconography', text: 'This guide details the stroke, size, and alignment rules for a coherent and consistent icon library. These icons are used extensively in navigation elements, as well as for communicating actions and status.', uses: ['Navigation', 'Actions/status'] },
   { file: '8_Spacing and padding.svg', title: 'Spacing', text: 'A set of predefined spacing steps and inset values are used to build consistent, clean, and breathable layouts. This system is applied globally to both full page layouts and the internal structure of components.', uses: ['Layouts', 'Components'] },
   { file: '9_Radius.svg', title: 'Radius', text: 'Strategic corner radii are used to define the product\'s shape language and visually signal interactive surfaces. This is applied consistently to elements like buttons, cards, and form fields.', uses: ['Buttons/cards', 'Form fields'] },
-  { file: '4_Components.svg', title: 'Components Overview', text: 'This serves as a high-level snapshot and visual inventory of all the reusable parts, controls, and elements that compose the application\'s screens. It is an essential tool for conducting design audits and serves as a perfect onboarding overview for new team members.', uses: ['Audits', 'Onboarding overview'] },
+  { file: '4_Components.svg', title: 'Components Overview', text: 'This serves as a high-level snapshot and visual inventory of all the reusable parts, controls, and elements that compose the application\'s screens. It is an essential tool for conducting design audits and serves as a perfect onboarding overview for new team members.' },
   { file: 'Final.svg', title: 'Final Spec', text: 'This document is a consolidated design system overview that includes references to each specific section, acting as a master guide. It is primarily used for developer handoff and formal design reviews.', uses: ['Handoff', 'Reviews'] }
 ]
 
@@ -117,8 +117,8 @@ const SectionTitle = styled.h2`
 
 const Text = styled.p`
   font-family: 'Manrope', sans-serif;
-  font-size: 1.125rem;
-  line-height: 1.6;
+  font-size: 0.95rem;
+  line-height: 1.5;
   color: #CCCCCC;
   max-width: 720px;
   margin-bottom: 1.25rem;
@@ -151,7 +151,7 @@ const Bullets = styled.ul`
 
 const Bullet = styled.li`
   font-family: 'Manrope', sans-serif;
-  font-size: 0.975rem;
+  font-size: 0.95rem;
   line-height: 1.5;
   color: #BDBDBD;
 `
