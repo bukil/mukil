@@ -12,7 +12,7 @@ import {
   VStack
 } from '@chakra-ui/react'
 import { EmailIcon } from '@chakra-ui/icons'
-import { FaLinkedin, FaGithub, FaYoutube } from 'react-icons/fa'
+import { FaLinkedin, FaGithub } from 'react-icons/fa'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
 import FooterLand from "../components/FooterLand"
