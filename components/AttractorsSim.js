@@ -75,7 +75,7 @@ export default function AttractorsSim({ guiContainerRef }) {
 
     const setInitial = () => {
       for (let i = 0; i < params.count; i++) {
-        const [x, y, z] = randInSphere(params.spawnRadius);
+        const [x, y] = randInSphere(params.spawnRadius);
         positions[i * 3] = x;
         positions[i * 3 + 1] = y;
         positions[i * 3 + 2] = 0;
@@ -148,7 +148,7 @@ export default function AttractorsSim({ guiContainerRef }) {
       const newVelocities = new Float32Array(params.count * 3)
       noiseData = new Float32Array(params.count * 3)
       for (let i = 0; i < params.count; i++) {
-        const [x, y, z] = randInSphere(10);
+        const [x, y] = randInSphere(10);
         newPositions[i * 3] = x;
         newPositions[i * 3 + 1] = y;
         newPositions[i * 3 + 2] = 0;
