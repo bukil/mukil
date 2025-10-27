@@ -63,13 +63,6 @@ const Title = styled.h1`
   line-height: 1.05;
 `
 
-const Divider = styled.div`
-  width: 100%;
-  height: 1px;
-  background: #FFFFFF;
-  opacity: 0.12;
-  margin: 1rem 0;
-`
 
 const Main = styled.main`
   padding: 0 0 60px 80px; /* left gutter only; right edge flush */
