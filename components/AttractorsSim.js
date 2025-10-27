@@ -31,8 +31,9 @@ export default function AttractorsSim({ guiContainerRef }) {
     const scene = new THREE.Scene()
     scene.background = new THREE.Color(0x000000)
 
-    const camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 1000)
-    camera.position.set(0, 0, 120)
+  const aspect = width / height;
+  const camera = new THREE.OrthographicCamera(-50 * aspect, 50 * aspect, 50, -50, 0.1, 1000);
+  camera.position.set(0, 0, 120);
 
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' })
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5))
@@ -40,13 +41,13 @@ export default function AttractorsSim({ guiContainerRef }) {
 
     // Particles
     let params = {
-      count: 100000,
-      speed: 1.0,
-      dt: 0.005,
-      strength: 1.0,
-      noise: 0.0,
-      size: 0.1,
-      palette: '#89EF8C',
+    count: 100000,
+    speed: 1.0,
+    dt: 0.005,
+    strength: 1.0,
+    noise: 0.0,
+    size: 0.08,
+    palette: '#89EF8C',
       trails: 0.92,
       computeFraction: 1.0,
       spawnRadius: 10,
@@ -63,27 +64,24 @@ export default function AttractorsSim({ guiContainerRef }) {
   let noiseData = new Float32Array(params.count * 3)
 
     const randInSphere = (r = 1) => {
-      const u = Math.random()
-      const v = Math.random()
-      const theta = 2 * Math.PI * u
-      const phi = Math.acos(2 * v - 1)
-      const rr = r * Math.cbrt(Math.random())
+      const theta = 2 * Math.PI * Math.random();
+      const rr = r * Math.sqrt(Math.random());
       return [
-        rr * Math.sin(phi) * Math.cos(theta),
-        rr * Math.sin(phi) * Math.sin(theta),
-        rr * Math.cos(phi),
-      ]
+        rr * Math.cos(theta),
+        rr * Math.sin(theta),
+        0,
+      ];
     }
 
     const setInitial = () => {
       for (let i = 0; i < params.count; i++) {
-        const [x, y, z] = randInSphere(params.spawnRadius)
-        positions[i * 3] = x
-        positions[i * 3 + 1] = y
-        positions[i * 3 + 2] = z
-        velocities[i * 3] = 0
-        velocities[i * 3 + 1] = 0
-        velocities[i * 3 + 2] = 0
+        const [x, y, z] = randInSphere(params.spawnRadius);
+        positions[i * 3] = x;
+        positions[i * 3 + 1] = y;
+        positions[i * 3 + 2] = 0;
+        velocities[i * 3] = 0;
+        velocities[i * 3 + 1] = 0;
+        velocities[i * 3 + 2] = 0;
       }
     }
 
@@ -150,18 +148,18 @@ export default function AttractorsSim({ guiContainerRef }) {
       const newVelocities = new Float32Array(params.count * 3)
       noiseData = new Float32Array(params.count * 3)
       for (let i = 0; i < params.count; i++) {
-        const [x, y, z] = randInSphere(10)
-        newPositions[i * 3] = x
-        newPositions[i * 3 + 1] = y
-        newPositions[i * 3 + 2] = z
-        newVelocities[i * 3] = 0
-        newVelocities[i * 3 + 1] = 0
-        newVelocities[i * 3 + 2] = 0
+        const [x, y, z] = randInSphere(10);
+        newPositions[i * 3] = x;
+        newPositions[i * 3 + 1] = y;
+        newPositions[i * 3 + 2] = 0;
+        newVelocities[i * 3] = 0;
+        newVelocities[i * 3 + 1] = 0;
+        newVelocities[i * 3 + 2] = 0;
         // precompute static noise seeds
-        const j = i * 3
-        noiseData[j] = Math.random() - 0.5
-        noiseData[j + 1] = Math.random() - 0.5
-        noiseData[j + 2] = Math.random() - 0.5
+        const j = i * 3;
+        noiseData[j] = Math.random() - 0.5;
+        noiseData[j + 1] = Math.random() - 0.5;
+        noiseData[j + 2] = 0;
       }
       geom.setAttribute('position', new THREE.BufferAttribute(newPositions, 3))
       geom.attributes.position.setUsage(THREE.DynamicDrawUsage)
@@ -176,11 +174,11 @@ export default function AttractorsSim({ guiContainerRef }) {
     const mouse = new THREE.Vector2(0, 0)
     const raycaster = new THREE.Raycaster()
     const plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0)
-    const mousePoint = new THREE.Vector3()
+  const mousePoint = new THREE.Vector3();
 
     // Attractor center + visual handle
     const attractorCenter = new THREE.Vector3(0, 0, 0)
-    const handleGeom = new THREE.SphereGeometry(1.2, 16, 16)
+  const handleGeom = new THREE.CircleGeometry(1.2, 32);
     const handleMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.9, depthTest: false })
     const handle = new THREE.Mesh(handleGeom, handleMat)
     handle.position.copy(attractorCenter)
@@ -225,9 +223,7 @@ export default function AttractorsSim({ guiContainerRef }) {
       if (!dragging) return
       if (inGui(e.target)) return
       e.preventDefault()
-      const dz = (e.deltaY > 0 ? 1 : -1) * params.dragDepthRate
-      attractorCenter.z += dz
-      handle.position.z = attractorCenter.z
+  // Ignore z-axis wheel movement for 2D
     }
     window.addEventListener('wheel', onWheel, { passive: false })
 

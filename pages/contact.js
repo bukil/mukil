@@ -106,9 +106,6 @@ const Contact = () => {
                 <ContactLink icon={FaGithub} href="https://github.com/bukil">
                   GitHub
                 </ContactLink>
-                <ContactLink icon={FaYoutube} href="https://www.youtube.com/channel/UCVeGi7RNdtqN6_7G-rjdSGQ">
-                  YouTube
-                </ContactLink>
               </Box>
 
               <Box>

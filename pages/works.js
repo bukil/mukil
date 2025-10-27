@@ -212,29 +212,36 @@ const ProjectPanel = ({
         justifyContent="center"
       >
         <Text
-          position="absolute"
-          top="20%"
-          left="50%"
-          transform="translate(-50%, -50%)"
-          fontSize="7xl"
-          fontWeight="900"
-          color="white"
-          opacity="0"
-          transition="all 0.8s cubic-bezier(0.4, 0, 0.2, 1)"
-          _groupHover={{ 
-            opacity: 0.4,
-            top: "35%",
-            transform: "translate(-50%, -50%)"
-          }}
-          zIndex={2}
-          letterSpacing="normal"
-          lineHeight="1"
-          fontFamily="'BaseNeueTrial', sans-serif"
-          fontStyle="italic"
-          textTransform="uppercase"
-        >
-          {hoverTitle || title}
-        </Text>
+            position="absolute"
+            top={hoverTitle === "Data Visualisation" || hoverTitle === "Design Evaluation ChatGPT" ? "3%" : "20%"}
+            right={hoverTitle === "Data Visualisation" ? "5%" : undefined}
+            left={hoverTitle === "Data Visualisation" ? undefined : hoverTitle === "Design Evaluation ChatGPT" ? "50%" : "50%"}
+            transform={hoverTitle === "Data Visualisation" ? "none" : hoverTitle === "Design Evaluation ChatGPT" ? "translate(-50%, 0)" : "translate(-50%, -50%)"}
+            textAlign={hoverTitle === "Data Visualisation" ? "right" : "center"}
+            fontSize={hoverTitle === "Data Visualisation" || hoverTitle === "Design Evaluation ChatGPT" ? "7xl" : "7xl"}
+            fontWeight="900"
+            color="white"
+            opacity="0"
+            transition="top 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1)"
+            whiteSpace="nowrap"
+            _groupHover={{ 
+              opacity: 0.7,
+              top: hoverTitle === "Data Visualisation" || hoverTitle === "Design Evaluation ChatGPT" ? "3%" : "35%",
+              transform: hoverTitle === "Data Visualisation" ? "none" : hoverTitle === "Design Evaluation ChatGPT" ? "translate(-50%, 0)" : "translate(-50%, -50%)",
+              transition: "top 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1)"
+            }}
+            zIndex={2}
+            letterSpacing="normal"
+            lineHeight="1"
+            fontFamily="'BaseNeueTrial', sans-serif"
+            fontStyle="italic"
+            textTransform="uppercase"
+          >
+            {hoverTitle === "Design Evaluation ChatGPT"
+              ? (<><span>Design Evaluation</span><br /><span>ChatGPT</span></>)
+              : (hoverTitle || title)
+            }
+          </Text>
         {imageSrc && (
           <Image 
             src={imageSrc}
@@ -263,24 +270,7 @@ const ProjectPanel = ({
         color="white"
         zIndex={3}
       >
-        <Heading 
-          as="h3" 
-          size="sm" 
-          mb={1}
-          style={{
-            fontFamily: '"Michroma", sans-serif',
-            fontWeight: 900,
-            fontStyle: 'normal',
-            letterSpacing: '0.2em',
-            color: 'white',
-            transition: 'all 0.3s ease',
-            WebkitFontSmoothing: 'antialiased',
-            MozOsxFontSmoothing: 'grayscale'
-          }}
-          _groupHover={{ opacity: 0 }}
-        >
-          {title}
-        </Heading>
+        {/* Title removed above accent line for Data Visualisation panel as requested */}
         <Box 
           w="100%" 
           h="0.5px" 
@@ -308,6 +298,16 @@ const ProjectPanel = ({
           justifyContent="center"
           zIndex={1}
           pointerEvents="none"
+          sx={{
+            '& img': {
+              transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+            },
+          }}
+          _groupHover={{
+            '& img': {
+              transform: 'scale(1.08)',
+            },
+          }}
         >
           {customContent}
         </Box>
@@ -349,11 +349,12 @@ function CollapseExtandip() {
                   title="Design Evaluation ChatGPT"
                   hoverTitle="Design Evaluation ChatGPT"
                   description="Leveraging ChatGPT to evaluate and enhance design concepts. Get instant feedback, suggestions, and improvements for your creative work through AI-powered analysis. 🤖"
-                  imageSrc="/mukil/degpt2.png"
-                  imageAlt="Design Evaluation ChatGPT"
                   gradientColors="radial-gradient(circle at center, rgba(0, 100, 255, 0.7) 0%, rgba(0, 30, 60, 0.98) 100%)"
                   hoverGradientColors="radial-gradient(circle at center, rgba(0, 150, 255, 0.8) 0%, rgba(0, 40, 80, 0.98) 100%)"
                   accentColor="blue.400"
+                  customContent={
+                    <img src="/mukil/degpt2.png" alt="Design Evaluation ChatGPT" style={{ width: '40%', height: '40%', objectFit: 'contain', margin: '48px auto 0', display: 'block' }} />
+                  }
                 />
               </Box>
             </NextLink>
@@ -543,14 +544,31 @@ function CollapseExtandip() {
           <Section>
             <Box as="a" href="https://bukil.github.io/dataviz/" target="_blank" rel="noopener noreferrer" style={{ display: 'block', cursor: 'pointer', textDecoration: 'none' }}>
               <ProjectPanel
-                title="Data Visualisation: Comparative Visualisations"
+                title="Data visualisation on Large Hadron Collider and Speed of Light"
                 hoverTitle="Data Visualisation"
-                description="A comparative visualisation of particle speeds."
-                imageSrc="/images/Imag.png"
-                imageAlt="Data Visualisation"
+                description="A visual exploration of particle speeds and collisions at the LHC, compared to the speed of light."
+                imageSrc="/dataviz.svg"
+                imageAlt="Data Visualisation LHC"
                 gradientColors="radial-gradient(circle at center, rgba(0, 120, 255, 0.7) 0%, rgba(0, 20, 40, 0.98) 100%)"
                 hoverGradientColors="radial-gradient(circle at center, rgba(50, 160, 255, 0.85) 0%, rgba(10, 30, 60, 0.98) 100%)"
                 accentColor="blue.400"
+                sx={{
+                  position: 'relative',
+                  overflow: 'hidden',
+                }}
+                customContent={
+                  <Image
+                    src="/dataviz.svg"
+                    alt="Data Visualisation LHC"
+                    position="absolute"
+                    top={0}
+                    left={0}
+                    width="100%"
+                    height="100%"
+                    objectFit="cover"
+                    zIndex={0}
+                  />
+                }
               />
             </Box>
           </Section>
