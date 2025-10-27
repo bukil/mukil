@@ -2,16 +2,16 @@
 <g clip-path="url(#clip0_1_2)">
 <rect width="650" height="426" fill="url(#paint0_linear_1_2)"/>
 <g filter="url(#filter0_d_1_2)">
-<line x1="0.54815" y1="-0.83638" x2="650.548" y2="425.164" stroke="white" stroke-width="2"/>
+<line x1="0.54815" y1="-0.83638" x2="650.548" y2="425.164" stroke="white" stroke-width="1"/>
 </g>
 <g filter="url(#filter1_d_1_2)">
-<line x1="-0.54815" y1="425.164" x2="649.452" y2="-0.836343" stroke="white" stroke-width="2"/>
+<line x1="-0.54815" y1="425.164" x2="649.452" y2="-0.836343" stroke="white" stroke-width="1"/>
 </g>
 <g filter="url(#filter2_d_1_2)">
-<line y1="212" x2="650" y2="212" stroke="white" stroke-width="2"/>
+<line y1="212" x2="650" y2="212" stroke="white" stroke-width="1"/>
 </g>
 <g filter="url(#filter3_d_1_2)">
-<line x1="326" x2="326" y2="426" stroke="white" stroke-width="2"/>
+<line x1="326" x2="326" y2="426" stroke="white" stroke-width="1"/>
 </g>
 <g filter="url(#filter4_d_1_2)">
 <rect x="45" y="26" width="564" height="370" rx="24" stroke="white" stroke-width="2" shape-rendering="crispEdges"/>
