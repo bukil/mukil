@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 
 // Map each SVG to a title, description, and concise use cases for the left pane
 const DESIGN_SYSTEM_ITEMS = [
-  { file: 'Cover.jpeg', title: 'PAY-GRID', text: 'PAY-GRID is a cohesive design system crafted for UPI experiences. It establishes robust foundations (type, color, spacing) and a reusable component library to ensure clarity, accessibility, and speed across flows—from onboarding to everyday payments.' },
+  { file: 'Cover.jpg', title: 'PAY-GRID', text: 'PAY-GRID is a cohesive design system crafted for UPI experiences. It establishes robust foundations (type, color, spacing) and a reusable component library to ensure clarity, accessibility, and speed across flows—from onboarding to everyday payments.' },
   { file: '10_Logo.svg', title: 'Logo', text: 'This section provides primary and secondary marks for the brand, along with strict clear space rules and usage guidance to ensure a consistent brand presence. This is applied in key areas like the app header, splash screens, and various marketing placements.', uses: ['App header / splash', 'Marketing placements'] },
   { file: '11_Size.svg', title: 'Sizing', text: 'The system includes comprehensive scale rules and responsive constraints that ensure all elements remain legible and balanced across different viewports. This is key for creating adaptive components and density variants.', uses: ['Adaptive components', 'Density variants'] },
   { file: '12_App search.svg', title: 'Search', text: 'We have defined robust search patterns that include clear focus states, helpful suggestions, and well-designed empty results pages, all designed for maximum clarity. This pattern is used for the global app search and for inline list filtering.', uses: ['Global app search', 'Inline list filtering'] },
@@ -290,7 +290,8 @@ const DesignSystem = () => {
           </LeftPane>
           <RightPane>
             {items.map((it, idx) => {
-              const src = `/DESIGN%20SYSTEM/${encodeURIComponent(it.file)}`
+              const ASSET_FOLDER = 'DESIGN SYSTEM'
+              const src = `/${encodeURIComponent(ASSET_FOLDER)}/${encodeURIComponent(it.file)}`
               return (
                 <ThumbWrap key={it.file} data-index={idx} ref={(el) => (itemRefs.current[idx] = el)}>
                   <Image
@@ -300,6 +301,8 @@ const DesignSystem = () => {
                     height="auto"
                     objectFit="contain"
                     style={{ display: 'block' }}
+                    onError={(e) => console.warn('DS image failed to load:', src, e && e.nativeEvent)}
+                    onLoad={() => console.debug('DS image loaded:', src)}
                   />
                 </ThumbWrap>
               )
