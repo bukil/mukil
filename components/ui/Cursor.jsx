@@ -4,13 +4,11 @@ import { useColorModeValue } from '@chakra-ui/react';
 const Cursor = () => {
   const cursorRef = useRef(null);
   const outlineRef = useRef(null);
+  const shadowRef = useRef(null);
   const [isClickable, setIsClickable] = useState(false);
   
-  // Color mode aware outline color
-  const outlineColor = useColorModeValue(
-    'rgba(0, 0, 0, 0.6)', // Dark outline for light mode
-    'rgba(255, 255, 255, 0.21)' // Light outline for dark mode
-  );
+  // Force outline to pure black
+  const outlineColor = 'rgba(0, 0, 0, 0.38)';
 
   useEffect(() => {
     // More robust cursor hiding with higher specificity
@@ -84,6 +82,10 @@ const Cursor = () => {
         cursorRef.current.style.top = `${e.clientY}px`;
         outlineRef.current.style.left = `${e.clientX}px`;
         outlineRef.current.style.top = `${e.clientY}px`;
+        if (shadowRef.current) {
+          shadowRef.current.style.left = `${e.clientX}px`;
+          shadowRef.current.style.top = `${e.clientY}px`;
+        }
       }
     };
 
@@ -199,8 +201,28 @@ const Cursor = () => {
           pointerEvents: 'none',
           transform: 'translate(-50%, -50%)',
           zIndex: 1000000,
-          border: `2px solid ${outlineColor}`,
+          border: `0.5px solid ${outlineColor}`,
           transition: 'width 0.22s cubic-bezier(.4,2,.3,1), height 0.22s cubic-bezier(.4,2,.3,1), border-radius 0.22s cubic-bezier(.4,2,.3,1)',
+        }}
+      />
+
+      {/* Subtle outer shadow ring */}
+      <div
+        ref={shadowRef}
+        style={{
+          position: 'fixed',
+          left: 0,
+          top: 0,
+          width: isClickable ? 86 : 36,
+          height: isClickable ? 32 : 36,
+          borderRadius: isClickable ? '12px' : '50%',
+          pointerEvents: 'none',
+          transform: 'translate(-50%, -50%)',
+          zIndex: 999997,
+          boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
+          transition: 'width 0.22s cubic-bezier(.4,2,.3,1), height 0.22s cubic-bezier(.4,2,.3,1), border-radius 0.22s',
+          mixBlendMode: 'multiply',
+          opacity: 0.95,
         }}
       />
     </>

@@ -58,6 +58,8 @@ const LinkItem = ({ href, path, target, children, tabRef, ...props }) => {
 
 const Navbar = props => {
   const { path } = props
+  // Normalize path to ignore query strings, hashes and trailing slashes
+  const normalizedPath = (path || '').split('?')[0].split('#')[0].replace(/\/$/, '') || '/'
   const [highlight, setHighlight] = useState({ left: 0, width: 0 })
   const navStackRef = useRef(null)
   const tabRefs = [useRef(null), useRef(null), useRef(null), useRef(null), useRef(null)]
@@ -173,9 +175,11 @@ const Navbar = props => {
                   Contact
                 </LinkItem>
               </Stack>
-              <Box ml={2} display={{ base: 'none', md: 'flex' }} alignItems="center">
-                <ThemeToggleButton />
-              </Box>
+              {normalizedPath !== '/' && (
+                <Box ml={2} display={{ base: 'none', md: 'flex' }} alignItems="center">
+                  <ThemeToggleButton />
+                </Box>
+              )}
             </Flex>
 
             {/* Mobile Menu - No distortion */}
@@ -244,9 +248,11 @@ const Navbar = props => {
                   </Portal>
                 </Menu>
               </Box>
-              <Box ml={2} display={{ base: 'flex', md: 'none' }} alignItems="center">
-                <ThemeToggleButton />
-              </Box>
+              {normalizedPath !== '/' && (
+                <Box ml={2} display={{ base: 'flex', md: 'none' }} alignItems="center">
+                  <ThemeToggleButton />
+                </Box>
+              )}
             </Flex>
           </Flex>
         </Box>
