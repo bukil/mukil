@@ -504,6 +504,26 @@ const Home = () => {
       // On mobile keep the background fully black and text white
       setBgColor('#000000')
       setTextColor('#ffffff')
+
+      // Minimal mobile-only scroll trigger for skills text color
+      // This ensures skill tab texts can transition to black on scroll on phones
+      if (skillsSectionRef.current) {
+        gsap.to({}, {
+          scrollTrigger: {
+            trigger: skillsSectionRef.current,
+            start: 'top 90%',
+            end: 'top 20%',
+            scrub: 2.5,
+            onUpdate: (self) => {
+              const progress = self.progress;
+              const textR = 255 - (255 * progress);
+              const textG = 255 - (255 * progress);
+              const textB = 255 - (255 * progress);
+              setTextColor(`rgb(${textR}, ${textG}, ${textB})`);
+            }
+          }
+        });
+      }
     }
     
     // Fade out MUKIL KUMAR on scroll
