@@ -1,5 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useColorModeValue } from '@chakra-ui/react';
+import { useEffect, useRef, useState } from 'react';
 
 const Cursor = () => {
   const cursorRef = useRef(null);
