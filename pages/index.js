@@ -475,29 +475,35 @@ const Home = () => {
     }
     
     // Background and text color change on scroll to text section
-    if (textSectionRef.current) {
-      gsap.to({}, {
-        scrollTrigger: {
-          trigger: textSectionRef.current,
-          start: 'top 80%',
-          end: 'top 20%',
-          scrub: 2.5,
-          onUpdate: (self) => {
-            const progress = self.progress;
-            // Background: black to white (no rounding for smoother transition)
-            const bgR = 0 + (255 * progress);
-            const bgG = 0 + (255 * progress);
-            const bgB = 0 + (255 * progress);
-            setBgColor(`rgb(${bgR}, ${bgG}, ${bgB})`);
-            
-            // Text: white to black (no rounding for smoother transition)
-            const textR = 255 - (255 * progress);
-            const textG = 255 - (255 * progress);
-            const textB = 255 - (255 * progress);
-            setTextColor(`rgb(${textR}, ${textG}, ${textB})`);
+    if (!isMobile) {
+      if (textSectionRef.current) {
+        gsap.to({}, {
+          scrollTrigger: {
+            trigger: textSectionRef.current,
+            start: 'top 80%',
+            end: 'top 20%',
+            scrub: 2.5,
+            onUpdate: (self) => {
+              const progress = self.progress;
+              // Background: black to white (no rounding for smoother transition)
+              const bgR = 0 + (255 * progress);
+              const bgG = 0 + (255 * progress);
+              const bgB = 0 + (255 * progress);
+              setBgColor(`rgb(${bgR}, ${bgG}, ${bgB})`);
+              
+              // Text: white to black (no rounding for smoother transition)
+              const textR = 255 - (255 * progress);
+              const textG = 255 - (255 * progress);
+              const textB = 255 - (255 * progress);
+              setTextColor(`rgb(${textR}, ${textG}, ${textB})`);
+            }
           }
-        }
-      });
+        });
+      }
+    } else {
+      // On mobile keep the background fully black and text white
+      setBgColor('#000000')
+      setTextColor('#ffffff')
     }
     
     // Fade out MUKIL KUMAR on scroll
@@ -522,7 +528,7 @@ const Home = () => {
       }
       if (window.ScrollTrigger) window.ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
-  }, [router.asPath]);
+  }, [router.asPath, isMobile]);
 
   return (
     <>

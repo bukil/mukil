@@ -166,24 +166,25 @@ const Cursor = () => {
         </filter>
       </svg>
       
-      {/* Cursor with Distortion */}
+      {/* Cursor with Distortion (always circular) */}
       <div
         ref={cursorRef}
         style={{
           position: 'fixed',
           left: 0,
           top: 0,
-          width: isClickable ? 70 : 28,
-          height: isClickable ? 7 : 28,
+          // base diameter
+          width: 16,
+          height: 16,
           background: 'rgba(255, 255, 255, 0)',
-          borderRadius: isClickable ? '10px' : '100%',
+          borderRadius: '50%',
           pointerEvents: 'none',
-          transform: 'translate(-50%, -50%)',
+          transform: `translate(-50%, -50%) scale(${isClickable ? 1.6 : 1})`,
           zIndex: 999999,
           boxShadow: '0 4px 24px 0 rgba(0, 0, 0, 0)',
           backdropFilter: 'blur(2px)',
           WebkitBackdropFilter: 'blur(2px)',
-          transition: 'width 0.22s cubic-bezier(.4,2,.3,1), height 0.22s cubic-bezier(.4,2,.3,1), background 0.22s, border 0.22s, box-shadow 0.22s, transform 0.08s, border-radius 0.22s cubic-bezier(.4,2,.3,1)',
+          transition: 'transform 0.18s cubic-bezier(.4,2,.3,1), background 0.12s, border 0.12s, box-shadow 0.12s',
           filter: 'url(#cursor-glass-distortion)',
         }}
       />
@@ -195,34 +196,38 @@ const Cursor = () => {
           position: 'fixed',
           left: 0,
           top: 0,
-          width: isClickable ? 70 : 28,
-          height: isClickable ? 7 : 28,
-          borderRadius: isClickable ? '10px' : '100%',
+          width: 16,
+          height: 16,
+          borderRadius: '50%',
           pointerEvents: 'none',
-          transform: 'translate(-50%, -50%)',
+          transform: `translate(-50%, -50%) scale(${isClickable ? 1.6 : 1})`,
           zIndex: 1000000,
           border: `0.5px solid ${outlineColor}`,
-          transition: 'width 0.22s cubic-bezier(.4,2,.3,1), height 0.22s cubic-bezier(.4,2,.3,1), border-radius 0.22s cubic-bezier(.4,2,.3,1)',
+          transition: 'transform 0.18s cubic-bezier(.4,2,.3,1), border 0.12s',
         }}
       />
 
-      {/* Subtle outer shadow ring */}
+      {/* Solid white outer ring */}
       <div
         ref={shadowRef}
         style={{
           position: 'fixed',
           left: 0,
           top: 0,
-          width: isClickable ? 86 : 36,
-          height: isClickable ? 32 : 36,
-          borderRadius: isClickable ? '12px' : '50%',
+          width: 28,
+          height: 28,
+          borderRadius: '50%',
           pointerEvents: 'none',
-          transform: 'translate(-50%, -50%)',
+          transform: `translate(-50%, -50%) scale(${isClickable ? 1.6 : 1})`,
           zIndex: 999997,
-          boxShadow: '0 8px 24px rgba(0,0,0,0.12)',
-          transition: 'width 0.22s cubic-bezier(.4,2,.3,1), height 0.22s cubic-bezier(.4,2,.3,1), border-radius 0.22s',
-          mixBlendMode: 'multiply',
-          opacity: 0.95,
+          // Solid white border for the outer ring
+          border: '1px solid rgba(255,255,255,1)',
+          background: 'transparent',
+          // keep a tiny inset to give subtle depth
+          boxShadow: '0 1px 4px rgba(0,0,0,0.03) inset',
+          transition: 'transform 0.18s cubic-bezier(.4,2,.3,1), border 0.12s',
+          mixBlendMode: 'normal',
+          opacity: 1,
         }}
       />
     </>
