@@ -1,0 +1,3 @@
+# Ignore npm and pnpm lockfiles to prevent Vercel from choosing a different package manager
+package-lock.json
+pnpm-lock.yaml
