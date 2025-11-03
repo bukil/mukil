@@ -11,7 +11,9 @@ const DesignEvaluation = () => {
 	]
 	return (
 		<Layout title="ChatGPT UI/UX Evaluation">
-			{/* SVG series full-bleed */}
+				{/* Page background forced to white (covers full viewport) */}
+				<Box position="fixed" top={0} left={0} right={0} bottom={0} bg="white" zIndex={-1} />
+					{/* SVG series full-bleed */}
 			<Box w="100vw" ml="calc(50% - 50vw)" py={{ base: 0, md: 0 }}>
 				{svgSeries.map((name) => (
 					<Box key={name} as="figure">
