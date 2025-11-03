@@ -16,7 +16,10 @@ import {
 } from '@chakra-ui/react'
 import { HamburgerIcon } from '@chakra-ui/icons'
 import ThemeToggleButton from './theme-toggle-button'
-import React, { useRef, useEffect, useState, useLayoutEffect, useCallback } from 'react'
+import React, { useRef, useEffect, useState, useLayoutEffect, useCallback, useMemo } from 'react'
+
+// Stable tab paths outside component to avoid hook dep warnings
+const TAB_PATHS = ['/works', '/blog', '/playground', '/Mukil_Résumé.pdf', '/contact']
 
 // Add keyframes for a 'gasp' (pulse/shine) animation
 
@@ -62,10 +65,16 @@ const Navbar = props => {
   const normalizedPath = (path || '').split('?')[0].split('#')[0].replace(/\/$/, '') || '/'
   const [highlight, setHighlight] = useState({ left: 0, width: 0 })
   const navStackRef = useRef(null)
-  const tabRefs = [useRef(null), useRef(null), useRef(null), useRef(null), useRef(null)]
+  // create stable refs and stable array identity
+  const tabRef0 = useRef(null)
+  const tabRef1 = useRef(null)
+  const tabRef2 = useRef(null)
+  const tabRef3 = useRef(null)
+  const tabRef4 = useRef(null)
+  const tabRefs = useMemo(() => [tabRef0, tabRef1, tabRef2, tabRef3, tabRef4], [])
 
   // --- Traveling highlight logic ---
-  const tabPaths = ['/works', '/blog', '/playground', '/Mukil_Résumé.pdf', '/contact']
+  const tabPaths = TAB_PATHS
 
   // Helper to update highlight position (memoized)
   const updateHighlight = useCallback(() => {
@@ -84,7 +93,7 @@ const Navbar = props => {
         width: tabRect.width
       })
     }
-  }, [path])
+  }, [path, tabPaths, tabRefs])
 
   useLayoutEffect(() => {
     // Wait for DOM update for smoother animation

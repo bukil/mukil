@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Text, Heading, VStack, useColorMode, Grid, GridItem, Button, HStack, SimpleGrid } from '@chakra-ui/react';
+import { Box, Text, Heading, VStack, useColorMode, Grid, GridItem, Button, HStack, SimpleGrid, Image } from '@chakra-ui/react';
 import Layout from '../components/layouts/article';
 import Head from 'next/head';
 
@@ -229,10 +229,15 @@ const Mukilm = () => {
                   textAlign="left"
                 >
                   <Box mb={3}>
-                    <img
+                    <Image
                       src="/images/works/apple.jpg"
                       alt="Apple September 2024 Event"
-                      style={{ width: '100%', borderRadius: '14px', boxShadow: '0 2px 12px rgba(49,130,206,0.10)', maxHeight: '220px', objectFit: 'cover' }}
+                      w="100%"
+                      borderRadius="14px"
+                      boxShadow="0 2px 12px rgba(49,130,206,0.10)"
+                      maxH="220px"
+                      objectFit="cover"
+                      display="block"
                     />
                   </Box>
                   <Heading as="h3" fontSize={{ base: 'lg', md: 'xl' }} mb={1} color={colorMode === 'light' ? 'green.700' : 'green.200'}>

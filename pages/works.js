@@ -8,7 +8,6 @@ import NextLink from 'next/link'
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import KodeboardModal from '../components/projects/Kodeboard'
-import Head from 'next/head'
 import { motion } from 'framer-motion'
 import React from 'react'
 
@@ -345,7 +344,7 @@ function CollapseExtandip() {
           <Section>
             <NextLink href="/design-evaluation" passHref legacyBehavior>
               <Box as="a" style={{ display: 'block', cursor: 'pointer', textDecoration: 'none' }}>
-                <ProjectPanel
+                  <ProjectPanel
                   title="Design Evaluation ChatGPT"
                   hoverTitle="Design Evaluation ChatGPT"
                   description="Leveraging ChatGPT to evaluate and enhance design concepts. Get instant feedback, suggestions, and improvements for your creative work through AI-powered analysis. 🤖"
@@ -353,7 +352,7 @@ function CollapseExtandip() {
                   hoverGradientColors="radial-gradient(circle at center, rgba(0, 150, 255, 0.8) 0%, rgba(0, 40, 80, 0.98) 100%)"
                   accentColor="blue.400"
                   customContent={
-                    <img src="/mukil/degpt2.png" alt="Design Evaluation ChatGPT" style={{ width: '40%', height: '40%', objectFit: 'contain', margin: '48px auto 0', display: 'block' }} />
+                    <Image src="/mukil/degpt2.png" alt="Design Evaluation ChatGPT" width="40%" height="40%" objectFit="contain" style={{ margin: '48px auto 0', display: 'block' }} />
                   }
                 />
               </Box>
