@@ -17,3 +17,17 @@
 body {
   overflow-x: hidden;
 } 
+
+/* DOTO utility classes: prefer Google-loaded "Doto", fall back to Matrix and sans-serif */
+[class^="doto-"] {
+  font-family: "Doto", "Matrix", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: var(--doto-weight, 700);
+  font-style: normal;
+  font-variation-settings: "ROND" var(--doto-roundness, 0);
+}
+
+.doto-c2c {
+  --doto-weight: 700;
+  --doto-roundness: 60;
+}

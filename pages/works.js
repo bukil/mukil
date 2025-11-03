@@ -506,10 +506,9 @@ function CollapseExtandip() {
               <ModalContent bg="rgba(0, 0, 0, 0.8)">
                 <ModalHeader mt={32} style={{ fontFamily: 'Tiny5, monospace' }}>C2C</ModalHeader>
                 <ModalCloseButton mt={32} />
-                <ModalBody mt={4}>
+                <ModalBody mt={4} className="doto-c2c">
                   {/* C2C Branding Header */}
                   <div style={{
-                    fontFamily: 'Matrix, monospace',
                     fontSize: '2.5rem',
                     color: '#89EF8C',
                     fontWeight: 900,
@@ -521,13 +520,12 @@ function CollapseExtandip() {
                     C2C <span style={{ fontSize: '1.2rem', color: '#b3ffb3', fontWeight: 400, marginLeft: 12 }}>Cube to Cube</span>
                   </div>
                   <div style={{
-                    fontFamily: 'Matrix, monospace',
                     fontSize: '1.1rem',
                     color: '#b3ffb3',
                     marginBottom: '2.2rem',
                     textAlign: 'left',
                   }}>
-                    <b>C2C</b> is more than a project name—it's a philosophy: <b>Cube to Cube</b>, from one idea to another, from <b>Concept to Creation</b>. This theme runs throughout our work, inspiring every step of our interaction design journey.
+                    <b>C2C</b> is more than a project name—it's a philosophy: <b>Cube to Cube</b>, from one idea to another. This theme runs throughout our work, inspiring every step of our interaction design journey.
                   </div>
                   {/* Retro Particle BG for C2C */}
                   <C2CParticleBG />
@@ -762,12 +760,7 @@ function AnimatedC2CIntro() {
           marginBottom: '2.5rem',
           letterSpacing: '0.04em',
         }}
-      >
-        Concept to Creation<br />
-        <span style={{ fontSize: '1.1rem', color: '#b3ffb3', fontWeight: 400 }}>
-          A journey in interaction design
-        </span>
-      </div>
+      />
       <div style={{ height: '2.5rem' }} /> {/* gap */}
       <div
         ref={overviewRef}
