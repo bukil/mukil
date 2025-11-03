@@ -32,7 +32,7 @@ const Blog = () => {
       const res = await axios.get('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY')
       setApod(res.data)
       localStorage.setItem('apodCache', JSON.stringify(res.data))
-    } catch (err) {
+  } catch (_err) {
       if (retry < 2) {
         await sleep(1200)
         fetchAPOD(retry + 1)
