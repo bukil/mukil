@@ -16,7 +16,7 @@ import {
 } from '@chakra-ui/react'
 import { HamburgerIcon } from '@chakra-ui/icons'
 import ThemeToggleButton from './theme-toggle-button'
-import React, { useRef, useEffect, useState, useLayoutEffect } from 'react'
+import React, { useRef, useEffect, useState, useLayoutEffect, useCallback } from 'react'
 
 // Add keyframes for a 'gasp' (pulse/shine) animation
 
@@ -67,8 +67,8 @@ const Navbar = props => {
   // --- Traveling highlight logic ---
   const tabPaths = ['/works', '/blog', '/playground', '/Mukil_Résumé.pdf', '/contact']
 
-  // Helper to update highlight position
-  const updateHighlight = () => {
+  // Helper to update highlight position (memoized)
+  const updateHighlight = useCallback(() => {
     const idx = tabPaths.findIndex(p => p === path)
     if (idx === -1) {
       setHighlight({ left: 0, width: 0 })
@@ -84,7 +84,7 @@ const Navbar = props => {
         width: tabRect.width
       })
     }
-  }
+  }, [path])
 
   useLayoutEffect(() => {
     // Wait for DOM update for smoother animation
@@ -94,13 +94,13 @@ const Navbar = props => {
       window.removeEventListener('resize', updateHighlight)
       clearTimeout(timeoutId)
     }
-  }, [path])
+  }, [path, updateHighlight])
 
   useEffect(() => {
     // Initial mount
     const timeoutId = setTimeout(updateHighlight, 20)
     return () => clearTimeout(timeoutId)
-  }, [])
+  }, [updateHighlight])
 
   return (
     <Box

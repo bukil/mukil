@@ -353,7 +353,7 @@ export default function AttractorsSim({ guiContainerRef }) {
     return () => {
       cleanupRef.current()
     }
-  }, [])
+  }, [guiContainerRef])
 
   return (
     <div

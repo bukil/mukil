@@ -711,9 +711,7 @@ const Works = () => {
 
   return (
     <>
-      <Head>
-        <link href="https://fonts.googleapis.com/css2?family=Tiny5&display=swap" rel="stylesheet" />
-      </Head>
+      {/* Font link moved to _document.js to satisfy @next/next/no-page-custom-font */}
       <Layout title="Works" mt={10} overflowX="hidden">
         <Box w="100%" position="relative">
           <BigText ref={bigTextRef} colorMode={colorMode}>
