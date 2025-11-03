@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import { Heading, SimpleGrid, Image, Text, Button, useDisclosure, Box, Spacer, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, useColorMode } from '@chakra-ui/react'
-import { ChevronLeftIcon, ChevronDownIcon } from '@chakra-ui/icons'
+import { ChevronLeftIcon, ChevronDownIcon, ExternalLinkIcon } from '@chakra-ui/icons'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
 import styled from '@emotion/styled'
@@ -526,8 +526,56 @@ function CollapseExtandip() {
                       marginBottom: '2.2rem',
                       textAlign: 'left',
                     }}>
-                      <b>C2C</b> is more than a project name—it's a philosophy: <b>Cube to Cube</b>, from one idea to another, from <b>Concept to Creation</b>. This theme runs throughout our work, inspiring every step of our interaction design journey.
+                      C2C is a pair of tangible interfaces designed to explore how physical interaction can enrich digital experiences. Created as part of an Interaction Design module at IIT Bombay, the project transforms the familiar form of a cube into a dynamic digital controller. Cube combines rotary encoder, tactile buttons, and OLED display powered by an RP2040 microcontroller, enabling real-time feedback, file navigation, and even playful mini-interactions.
                     </div>
+                  </Box>
+                  {/* IndiaHCI acceptance badge and caption (centered, above the button) */}
+                  <Box mb={4} textAlign="center" maxW="80%" mx="auto">
+                    <a
+                      href="https://www.2025.indiahci.org/programme_1/student-design-consortium"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <Image
+                        src="/images/hci.jpg"
+                        alt="IndiaHCI 2025 - Student Design Consortium"
+                        display="block"
+                        mx="auto"
+                        width="220px"
+                        objectFit="cover"
+                        style={{
+                          borderRadius: '24px 8px 24px 8px',
+                          border: '1px solid rgba(137, 239, 140, 0.6)',
+                          boxShadow: '0 0 16px rgba(137, 239, 140, 0.12)'
+                        }}
+                      />
+                    </a>
+                    <div style={{
+                      fontFamily: 'Matrix, monospace',
+                      color: '#b3ffb3',
+                      fontSize: '1.1rem',
+                      marginTop: '0.6rem'
+                    }}>
+                      Accepted in IndiaHCI 2025 under <br />
+                      Student Design Consortium (SDC) <br />
+                      1 amongst 7 finalists for round 1
+                    </div>
+                  </Box>
+                  {/* Read Full Report button (opens PDF in new tab) — centered and placed above the section */}
+                  <Box mb={6} textAlign="center">
+                    <Button
+                      as="a"
+                      href="/C2C_Interaction%20Design_Report.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      variant="outline"
+                      borderColor="#89EF8C"
+                      color="#89EF8C"
+                      leftIcon={<ExternalLinkIcon />}
+                      _hover={{ bg: '#89EF8C', color: '#0a192f', transform: 'translateY(-2px)', boxShadow: '0 3px 10px rgba(137, 239, 140, 0.3)' }}
+                    >
+                      Read Full Report
+                    </Button>
                   </Box>
                   {/* GSAP animated intro (Overview & Team) moved above images as requested */}
                   <AnimatedC2CIntro />
@@ -797,7 +845,7 @@ function AnimatedC2CIntro() {
         <span style={{ margin: '0 0.5rem' }}>·</span>
         <a ref={el => namesRef.current[1] = el} href="https://www.behance.net/prajaktahardikar" target="_blank" rel="noopener noreferrer" style={{ color: '#89EF8C', textDecoration: 'underline', fontWeight: 700 }}>PRAJAKTA</a>
         <span style={{ margin: '0 0.5rem' }}>·</span>
-        <a ref={el => namesRef.current[2] = el} href="https://www.behance.net/anoushkashome" target="_blank" rel="noopener noreferrer" style={{ color: '#89EF8C', textDecoration: 'underline', fontWeight: 700 }}>ANOUSHKA</a>
+        <a ref={el => namesRef.current[2] = el} href="https://www.anoushkashome.design" target="_blank" rel="noopener noreferrer" style={{ color: '#89EF8C', textDecoration: 'underline', fontWeight: 700 }}>ANOUSHKA</a>
         <span style={{ margin: '0 0.5rem' }}>·</span>
         <a ref={el => namesRef.current[3] = el} href="https://www.behance.net/samikshajain" target="_blank" rel="noopener noreferrer" style={{ color: '#89EF8C', textDecoration: 'underline', fontWeight: 700 }}>SAMIKSHA</a>
       </div>
