@@ -527,15 +527,19 @@ function CollapseExtandip() {
                   }}>
                     <b>C2C</b> is more than a project name—it's a philosophy: <b>Cube to Cube</b>, from one idea to another, from <b>Concept to Creation</b>. This theme runs throughout our work, inspiring every step of our interaction design journey.
                   </div>
-                  {/* IXD images full width */}
+                  {/* GSAP animated intro (Overview & Team) moved above images as requested */}
+                  <AnimatedC2CIntro />
+                  {/* IXD images reduced width and centered */}
+                  <Box mb={0}>
+                    <Image src="/images/ixd1.svg" alt="IXD 1" width="80%" mx="auto" mb={4} objectFit="contain" display="block" />
+                    <Image src="/images/ixd2.svg" alt="IXD 2" width="80%" mx="auto" objectFit="contain" display="block" />
+                  </Box>
+                  {/* 6502 video full width, after images (no radius, no gap above) */}
                   <Box mb={6}>
-                    <Image src="/images/ixd1.svg" alt="IXD 1" width="100%" mb={4} objectFit="contain" />
-                    <Image src="/images/ixd2.svg" alt="IXD 2" width="100%" objectFit="contain" />
+                    <video src="/6502.mp4" style={{ width: '100%', display: 'block', borderRadius: 0 }} controls playsInline />
                   </Box>
                   {/* Retro Particle BG for C2C */}
                   <C2CParticleBG />
-                  {/* GSAP animated intro */}
-                  <AnimatedC2CIntro />
                 </ModalBody>
                 <ModalFooter>
                   <Button onClick={onEditClosemd17}>Close</Button>
