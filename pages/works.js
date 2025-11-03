@@ -507,26 +507,28 @@ function CollapseExtandip() {
                 <ModalHeader mt={32} style={{ fontFamily: 'Matrix, monospace' }}>C2C</ModalHeader>
                 <ModalCloseButton mt={32} />
                 <ModalBody mt={4} style={{ fontFamily: 'Matrix, monospace' }}>
-                  {/* C2C Branding Header */}
-                  <div style={{
-                    fontSize: '2.5rem',
-                    color: '#89EF8C',
-                    fontWeight: 900,
-                    letterSpacing: '0.08em',
-                    marginBottom: '0.5rem',
-                    textShadow: '0 2px 12px #000, 0 0px 2px #89EF8C',
-                    textAlign: 'left',
-                  }}>
-                    C2C <span style={{ fontSize: '1.2rem', color: '#b3ffb3', fontWeight: 400, marginLeft: 12 }}>Cube to Cube</span>
-                  </div>
-                  <div style={{
-                    fontSize: '1.1rem',
-                    color: '#b3ffb3',
-                    marginBottom: '2.2rem',
-                    textAlign: 'left',
-                  }}>
-                    <b>C2C</b> is more than a project name—it's a philosophy: <b>Cube to Cube</b>, from one idea to another, from <b>Concept to Creation</b>. This theme runs throughout our work, inspiring every step of our interaction design journey.
-                  </div>
+                  {/* C2C Branding Header (constrained width) */}
+                  <Box maxW="80%" mx="auto">
+                    <div style={{
+                      fontSize: '2.5rem',
+                      color: '#89EF8C',
+                      fontWeight: 900,
+                      letterSpacing: '0.08em',
+                      marginBottom: '0.5rem',
+                      textShadow: '0 2px 12px #000, 0 0px 2px #89EF8C',
+                      textAlign: 'left',
+                    }}>
+                      C2C <span style={{ fontSize: '1.2rem', color: '#b3ffb3', fontWeight: 400, marginLeft: 12 }}>Cube to Cube</span>
+                    </div>
+                    <div style={{
+                      fontSize: '1.1rem',
+                      color: '#b3ffb3',
+                      marginBottom: '2.2rem',
+                      textAlign: 'left',
+                    }}>
+                      <b>C2C</b> is more than a project name—it's a philosophy: <b>Cube to Cube</b>, from one idea to another, from <b>Concept to Creation</b>. This theme runs throughout our work, inspiring every step of our interaction design journey.
+                    </div>
+                  </Box>
                   {/* GSAP animated intro (Overview & Team) moved above images as requested */}
                   <AnimatedC2CIntro />
                   {/* IXD images reduced width and centered */}
@@ -534,9 +536,9 @@ function CollapseExtandip() {
                     <Image src="/images/ixd1.svg" alt="IXD 1" width="80%" mx="auto" mb={4} objectFit="contain" display="block" />
                     <Image src="/images/ixd2.svg" alt="IXD 2" width="80%" mx="auto" objectFit="contain" display="block" />
                   </Box>
-                  {/* 6502 video full width, after images (no radius, no gap above) */}
+                  {/* 6502 video reduced width and centered, after images (no radius, no gap above) */}
                   <Box mb={6}>
-                    <video src="/6502.mp4" style={{ width: '100%', display: 'block', borderRadius: 0 }} controls playsInline />
+                    <video src="/6502.mp4" style={{ width: '80%', display: 'block', borderRadius: 0, margin: '0 auto' }} controls playsInline />
                   </Box>
                   {/* Retro Particle BG for C2C */}
                   <C2CParticleBG />
@@ -758,7 +760,7 @@ function AnimatedC2CIntro() {
   }, [])
 
   return (
-    <div>
+    <div style={{ width: '80%', margin: '0 auto' }}>
       <div
         ref={introRef}
         style={{
