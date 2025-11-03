@@ -1,31 +1,45 @@
-import { Box, Heading, Text } from '@chakra-ui/react';
-import Layout from '../components/layouts/article';
-import Head from 'next/head';
+import { Box, AspectRatio, Image } from '@chakra-ui/react'
+import Layout from '../components/layouts/article'
 
 const DesignEvaluation = () => {
-  return (
-    <Layout title="ChatGPT UI/UX Evaluation">
-      <Head>
-        <title>ChatGPT UI/UX Evaluation - Mukil</title>
-        <meta name="description" content="Academic evaluation of ChatGPT&apos;s UI/UX. Analysis, findings, and suggestions from our course project." />
-      </Head>
-      <Box w="100%" minH="90vh" bgGradient="linear(to-br, green.50, white)" px={{ base: 2, md: 6, lg: 12 }} py={20}>
-        <Heading as="h1" size="2xl" color="green.600" mb={10}>
-          ChatGPT UI/UX Evaluation
-        </Heading>
-        <Text fontSize="xl" color="gray.700" mb={8}>
-          This page presents our academic evaluation of ChatGPT&apos;s user interface and user experience, conducted as part of our course project. Here, you&apos;ll find our analysis, findings, and suggestions for improving the ChatGPT product experience.
-        </Text>
-        <Box mt={20} textAlign="center">
-          <Text fontSize="2xl" color="green.500" fontWeight="bold">
-            Hey, you caught me! 🚧<br />
-            I&apos;m still working on this page.<br />
-            Come back soon for some creative insights and UI/UX magic!
-          </Text>
-        </Box>
-      </Box>
-    </Layout>
-  );
-};
+	const svgSeries = [
+		'1.svg','2.svg','3.svg','4.svg','5.svg','6.svg','7.svg','8.svg','9.svg','10.svg',
+		'11.svg','12.svg','13.svg','14.svg','15.svg','16.svg','17.svg','18.svg','19.svg','20.svg',
+		'21.svg','22.svg','23.svg','24.svg',
+		// additional figs if needed (after numeric sequence)
+		'fig.svg','fig2.svg','fig3.svg','f2.svg','f3.svg','Frame.svg'
+	]
+	return (
+		<Layout title="ChatGPT UI/UX Evaluation">
+			{/* SVG series full-bleed */}
+			<Box w="100vw" ml="calc(50% - 50vw)" py={{ base: 0, md: 0 }}>
+				{svgSeries.map((name) => (
+					<Box key={name} as="figure">
+						<Image
+							src={`/gpt/${name}`}
+							alt={`GPT evaluation figure ${name}`}
+							width="100%"
+							height="auto"
+							display="block"
+						/>
+					</Box>
+				))}
+			</Box>
 
-export default DesignEvaluation;
+			{/* Figma embed last, full-bleed */}
+			<Box w="100vw" ml="calc(50% - 50vw)" py={{ base: 0, md: 0 }}>
+					<AspectRatio ratio={16 / 9}>
+						<Box
+							as="iframe"
+							title="Figma — GPT Design Evaluation"
+							src="https://embed.figma.com/proto/ljPaoKRHVC9aV1Z1IyAhbj/GPT-Design-Evaluation?page-id=229%3A582&node-id=288-1587&p=f&viewport=372%2C514%2C0.17&scaling=scale-down&content-scaling=fixed&starting-point-node-id=288%3A1587&embed-host=share&hide-ui=1&background=transparent"
+							style={{ border: '1px solid rgba(0, 0, 0, 0.1)' }}
+							allowFullScreen
+						/>
+					</AspectRatio>
+				</Box>
+		</Layout>
+	)
+}
+
+export default DesignEvaluation
