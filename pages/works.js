@@ -504,9 +504,9 @@ function CollapseExtandip() {
             <Modal isOpen={isEditOpenmd17} onClose={onEditClosemd17} size="full">
               <ModalOverlay backdropFilter="blur(10px)" />
               <ModalContent bg="rgba(0, 0, 0, 0.8)">
-                <ModalHeader mt={32} style={{ fontFamily: 'Tiny5, monospace' }}>C2C</ModalHeader>
+                <ModalHeader mt={32} style={{ fontFamily: 'Matrix, monospace' }}>C2C</ModalHeader>
                 <ModalCloseButton mt={32} />
-                <ModalBody mt={4} className="doto-c2c">
+                <ModalBody mt={4} style={{ fontFamily: 'Matrix, monospace' }}>
                   {/* C2C Branding Header */}
                   <div style={{
                     fontSize: '2.5rem',
@@ -525,8 +525,13 @@ function CollapseExtandip() {
                     marginBottom: '2.2rem',
                     textAlign: 'left',
                   }}>
-                    <b>C2C</b> is more than a project name—it's a philosophy: <b>Cube to Cube</b>, from one idea to another. This theme runs throughout our work, inspiring every step of our interaction design journey.
+                    <b>C2C</b> is more than a project name—it's a philosophy: <b>Cube to Cube</b>, from one idea to another, from <b>Concept to Creation</b>. This theme runs throughout our work, inspiring every step of our interaction design journey.
                   </div>
+                  {/* IXD images full width */}
+                  <Box mb={6}>
+                    <Image src="/images/ixd1.svg" alt="IXD 1" width="100%" mb={4} objectFit="contain" />
+                    <Image src="/images/ixd2.svg" alt="IXD 2" width="100%" objectFit="contain" />
+                  </Box>
                   {/* Retro Particle BG for C2C */}
                   <C2CParticleBG />
                   {/* GSAP animated intro */}

@@ -17,17 +17,6 @@ export default class Document extends NextDocument {
             href="https://fonts.googleapis.com/css2?family=Michroma:wght@400;700;900&display=swap"
             rel="stylesheet"
           />
-          {/* Doto variable font from Google Fonts (variable axes: wght and ROND) */}
-          <link
-            rel="preload"
-            href="https://fonts.googleapis.com/css2?family=Doto:wght,ROND@100..900,0..100&display=swap"
-            as="style"
-            onLoad="this.onload=null;this.rel='stylesheet'"
-          />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Doto:wght,ROND@100..900,0..100&display=swap"
-            rel="stylesheet"
-          />
           <link
             href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap"
             rel="stylesheet"

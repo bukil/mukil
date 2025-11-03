@@ -36,6 +36,15 @@ const Fonts = () => (
       font-style: normal;
       font-display: swap;
     }
+
+    /* Local Matrix font for C2C modal */
+    @font-face {
+      font-family: 'Matrix';
+      src: url('/fonts/matrix.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
   `}</style>
 )
 
