@@ -592,6 +592,52 @@ function CollapseExtandip() {
               />
             </Box>
           </Section>
+
+          {/* Additional project tile: Data Vizualisation */}
+          <Section>
+            <Box as="a" href="https://bukil.github.io/MAPA/" target="_blank" rel="noopener noreferrer" style={{ display: 'block', cursor: 'pointer', textDecoration: 'none' }}>
+              <ProjectPanel
+                title="Data Vizualisation"
+                hoverTitle="Data Vizualisation"
+                description="Exploring the Links Between Literacy, Salary & Societal Issues in India"
+                gradientColors="radial-gradient(circle at center, rgba(0, 80, 200, 0.7) 0%, rgba(0, 20, 50, 0.98) 100%)"
+                hoverGradientColors="radial-gradient(circle at center, rgba(0, 120, 255, 0.85) 0%, rgba(0, 30, 70, 0.98) 100%)"
+                accentColor="blue.300"
+                sx={{ position: 'relative', overflow: 'hidden' }}
+                customContent={
+                  <Box position="absolute" top={0} left={0} width="100%" height="100%" zIndex={0}>
+                    <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none" role="img" aria-label="Inline chart preview">
+                      <defs>
+                        <linearGradient id="vizGrad" x1="0" y1="0" x2="1" y2="1">
+                          <stop offset="0%" stopColor="#50b6ff" stopOpacity="0.9" />
+                          <stop offset="100%" stopColor="#00ffaa" stopOpacity="0.9" />
+                        </linearGradient>
+                      </defs>
+                      {/* subtle grid */}
+                      <g stroke="rgba(255,255,255,0.12)" strokeWidth="0.2">
+                        {Array.from({ length: 10 }).map((_, i) => (
+                          <line key={`v${i}`} x1={(i+1)*9} y1="8" x2={(i+1)*9} y2="92" />
+                        ))}
+                        {Array.from({ length: 6 }).map((_, i) => (
+                          <line key={`h${i}`} x1="6" y1={92 - i*14} x2="94" y2={92 - i*14} />
+                        ))}
+                      </g>
+                      {/* area under line */}
+                      <path d="M6,80 L14,74 L22,70 L30,66 L38,58 L46,60 L54,52 L62,48 L70,40 L78,46 L86,38 L94,34 L94,92 L6,92 Z" fill="rgba(0, 255, 170, 0.12)" />
+                      {/* main line */}
+                      <path d="M6,80 L14,74 L22,70 L30,66 L38,58 L46,60 L54,52 L62,48 L70,40 L78,46 L86,38 L94,34" fill="none" stroke="url(#vizGrad)" strokeWidth="1.6" strokeLinejoin="round" strokeLinecap="round" />
+                      {/* points */}
+                      <g fill="#89EF8C" opacity="0.9">
+                        {[{x:6,y:80},{x:22,y:70},{x:38,y:58},{x:54,y:52},{x:70,y:40},{x:86,y:38}].map((p,i)=>(
+                          <circle key={i} cx={p.x} cy={p.y} r="1.4" />
+                        ))}
+                      </g>
+                    </svg>
+                  </Box>
+                }
+              />
+            </Box>
+          </Section>
         </SimpleGrid>
       </Box>
     </>
