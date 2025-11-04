@@ -359,42 +359,7 @@ function CollapseExtandip() {
             </NextLink>
           </Section>
 
-          <Section>
-            <ProjectPanel
-              title="Jokif-AI"
-              hoverTitle="Jokif-AI"
-              description="An AI-powered platform that brings humor and creativity together. Generate jokes, create memes, and share laughter with the power of artificial intelligence. 🤖"
-              imageSrc="/images/works/BOTASF.png"
-              imageAlt="AI Trends Project"
-              gradientColors="radial-gradient(circle at center, rgba(100, 0, 255, 0.7) 0%, rgba(30, 0, 60, 0.98) 100%)"
-              hoverGradientColors="radial-gradient(circle at center, rgba(150, 50, 255, 0.85) 0%, rgba(60, 0, 100, 0.98) 100%)"
-              accentColor="purple.400"
-              onClick={onEditOpenmd13}
-              hasSnow={true}
-            />
-            <Modal isOpen={isEditOpenmd13} onClose={onEditClosemd13} size="full">
-              <ModalOverlay backdropFilter="blur(10px)" />
-              <ModalContent bg="rgba(0, 0, 0, 0.8)">
-                <ModalHeader mt={32}>Jokif-AI</ModalHeader>
-                <ModalCloseButton mt={32} />
-                <ModalBody mt={4}>
-                  <Text fontSize={24} fontWeight={'hairline'} mb={6}>
-                    Welcome to Jokif-AI! This is a protected section of my portfolio.
-                  </Text>
-                  <Image 
-                    src="/images/works/BOTASF.png"
-                    alt="Jokif-AI Project"
-                    width="100%"
-                    borderRadius="lg"
-                    mb={6}
-                  />
-                </ModalBody>
-                <ModalFooter>
-                  <Button onClick={onEditClosemd13}>Close</Button>
-                </ModalFooter>
-              </ModalContent>
-            </Modal>
-          </Section>
+          {/* Jokif-AI panel removed per request */}
 
           <Section>
             <NextLink href="/mukilm" passHref legacyBehavior>
