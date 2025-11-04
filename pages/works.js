@@ -269,7 +269,21 @@ const ProjectPanel = ({
         color="white"
         zIndex={3}
       >
-        {/* Title removed above accent line for Data Visualisation panel as requested */}
+        {/* Always-visible title above accent line */}
+        {title && (
+          <Box mb={1}>
+            <Text
+              fontSize="xs"
+              fontFamily="'Michroma', monospace"
+              fontWeight="400"
+              letterSpacing="0.12em"
+              lineHeight="1.1"
+              textTransform="uppercase"
+            >
+              {title}
+            </Text>
+          </Box>
+        )}
         <Box 
           w="100%" 
           h="0.5px" 
