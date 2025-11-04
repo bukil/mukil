@@ -1,4 +1,4 @@
-import { Box, AspectRatio, Image } from '@chakra-ui/react'
+import { Box, AspectRatio, Image, Text } from '@chakra-ui/react'
 import Layout from '../components/layouts/article'
 
 const DesignEvaluation = () => {
@@ -28,18 +28,26 @@ const DesignEvaluation = () => {
 				))}
 			</Box>
 
-			{/* Figma embed last, full-bleed */}
-			<Box w="100vw" ml="calc(50% - 50vw)" py={{ base: 0, md: 0 }}>
-					<AspectRatio ratio={16 / 9}>
+					{/* Figma embed last, full-bleed with small left gap and label */}
+					<Box w="100vw" ml="calc(50% - 50vw)" py={{ base: 0, md: 0 }}>
 						<Box
-							as="iframe"
-							title="Figma — GPT Design Evaluation"
-							src="https://embed.figma.com/proto/ljPaoKRHVC9aV1Z1IyAhbj/GPT-Design-Evaluation?page-id=229%3A582&node-id=288-1587&p=f&viewport=372%2C514%2C0.17&scaling=scale-down&content-scaling=fixed&starting-point-node-id=288%3A1587&embed-host=share&hide-ui=1&background=transparent"
-							style={{ border: '1px solid rgba(0, 0, 0, 0.1)' }}
-							allowFullScreen
-						/>
-					</AspectRatio>
-				</Box>
+							width={{ base: 'calc(100vw - 16px)', md: 'calc(100vw - 24px)' }}
+							ml={{ base: 4, md: 6 }}
+						>
+							<Text fontSize="sm" color="gray.600" mb={2}>
+								test prototype
+							</Text>
+							<AspectRatio ratio={16 / 9}>
+								<Box
+									as="iframe"
+									title="Figma — GPT Design Evaluation"
+									src="https://embed.figma.com/proto/ljPaoKRHVC9aV1Z1IyAhbj/GPT-Design-Evaluation?page-id=229%3A582&node-id=288-1587&p=f&viewport=372%2C514%2C0.17&scaling=scale-down&content-scaling=fixed&starting-point-node-id=288%3A1587&embed-host=share&hide-ui=1&background=transparent"
+									style={{ border: '1px solid rgba(0, 0, 0, 0.1)' }}
+									allowFullScreen
+								/>
+							</AspectRatio>
+						</Box>
+					</Box>
 		</Layout>
 	)
 }
