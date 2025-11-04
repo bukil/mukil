@@ -346,7 +346,7 @@ function CollapseExtandip() {
                   <ProjectPanel
                   title="Design Evaluation ChatGPT"
                   hoverTitle="Design Evaluation ChatGPT"
-                  description="Leveraging ChatGPT to evaluate and enhance design concepts. Get instant feedback, suggestions, and improvements for your creative work through AI-powered analysis. 🤖"
+                  description="A design evaluation of the ChatGPT Android client, analyzing its usability and interaction experience across real-world usage contexts."
                   gradientColors="radial-gradient(circle at center, rgba(0, 100, 255, 0.7) 0%, rgba(0, 30, 60, 0.98) 100%)"
                   hoverGradientColors="radial-gradient(circle at center, rgba(0, 150, 255, 0.8) 0%, rgba(0, 40, 80, 0.98) 100%)"
                   accentColor="blue.400"
@@ -455,7 +455,7 @@ function CollapseExtandip() {
             <ProjectPanel
               title={<span style={{ fontFamily: 'Michroma, monospace', letterSpacing: '0.12em', fontStyle: 'normal' }}>C2C</span>}
               hoverTitle={<span style={{ fontFamily: 'Tiny5, monospace', letterSpacing: 'normal', color: 'white' }}>C2C</span>}
-              description="A deep dive into the craft of interaction design, exploring concepts, case studies, and hands-on projects from concept to creation. 🕹️"
+              description="C2C is a pair of interactive cubes that turn simple gestures into digital control. Designed for effortless use, it doesn’t rely on precision—making it accessible for users with dexterity or muscular dystrophy challenges."
               imageSrc="/images/works/c2cf.png"
               imageAlt="C2C: Interaction Design Project"
               gradientColors="radial-gradient(circle at center, rgba(0, 200, 150, 0.7) 0%, rgba(0, 30, 60, 0.98) 100%)"
