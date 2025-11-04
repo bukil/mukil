@@ -513,19 +513,25 @@ function CollapseExtandip() {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <Image
-                        src="/images/hci.jpg"
-                        alt="IndiaHCI 2025 - Student Design Consortium"
-                        display="block"
-                        mx="auto"
-                        width="220px"
-                        objectFit="cover"
-                        style={{
-                          borderRadius: '24px 8px 24px 8px',
-                          border: '1px solid rgba(137, 239, 140, 0.6)',
-                          boxShadow: '0 0 16px rgba(137, 239, 140, 0.12)'
-                        }}
-                      />
+                      <Box position="relative" display="inline-block" mx="auto">
+                        <Image
+                          src="/images/hci.jpg"
+                          alt="IndiaHCI 2025 - Student Design Consortium"
+                          display="block"
+                          mx="auto"
+                          width="220px"
+                          height="auto"
+                          objectFit="contain"
+                          loading="eager"
+                          fallbackSrc="/images/logo.png"
+                          style={{
+                            borderRadius: '24px 8px 24px 8px',
+                            border: '1px solid rgba(137, 239, 140, 0.6)',
+                            boxShadow: '0 0 16px rgba(137, 239, 140, 0.12)',
+                            backgroundColor: 'rgba(0,0,0,0.2)'
+                          }}
+                        />
+                      </Box>
                     </a>
                     <div style={{
                       fontFamily: 'Matrix, monospace',
@@ -578,7 +584,7 @@ function CollapseExtandip() {
           <Section>
             <Box as="a" href="https://bukil.github.io/dataviz/" target="_blank" rel="noopener noreferrer" style={{ display: 'block', cursor: 'pointer', textDecoration: 'none' }}>
               <ProjectPanel
-                title="Data visualisation on Large Hadron Collider and Speed of Light"
+                title="Data visualisation on LHC and Speed of Light"
                 hoverTitle="Data Visualisation"
                 description="A visual exploration of particle speeds and collisions at the LHC, compared to the speed of light."
                 imageSrc="/dataviz.svg"
