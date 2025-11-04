@@ -455,7 +455,7 @@ function CollapseExtandip() {
             <ProjectPanel
               title={<span style={{ fontFamily: 'Michroma, monospace', letterSpacing: '0.12em', fontStyle: 'normal' }}>C2C</span>}
               hoverTitle={<span style={{ fontFamily: 'Tiny5, monospace', letterSpacing: 'normal', color: 'white' }}>C2C</span>}
-              description="C2C is a pair of interactive cubes that turn simple gestures into digital control. Designed for effortless use, it doesn’t rely on precision—making it accessible for users with dexterity or muscular dystrophy challenges."
+              description="C2C is a pair of interactive cubes that turn simple gestures into playfull digital control. Designed for effortless use, it doesn’t rely on precision, making it accessible for users with dexterity or muscular dystrophy challenges."
               imageSrc="/images/works/c2cf.png"
               imageAlt="C2C: Interaction Design Project"
               gradientColors="radial-gradient(circle at center, rgba(0, 200, 150, 0.7) 0%, rgba(0, 30, 60, 0.98) 100%)"
