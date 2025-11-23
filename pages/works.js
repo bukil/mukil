@@ -373,8 +373,18 @@ function CollapseExtandip() {
                   hoverTitle={<span style={{ fontFamily: 'BaseNeueTrial, sans-serif', letterSpacing: 'normal', color: 'white', fontStyle: 'italic' }}>HUMAN FACTOR IN DESIGN</span>}
                   description={<span style={{ color: '#fff' }}>Investigating the Influence of Dark Patterns on User Behavior and Decision Making</span>}
                   accentColor="#89EF8C"
-                  gradientColors="#000"
-                  hoverGradientColors="#000"
+                  gradientColors={"linear-gradient(135deg, #001219 0%, #004d40 50%, #071428 100%)"}
+                  hoverGradientColors={"linear-gradient(135deg, #002a20 0%, #00796b 50%, #081827 100%)"}
+                  customContent={
+                    <motion.div
+                      initial={{ y: 0, opacity: 0 }}
+                      animate={{ y: [0, -18, 0], opacity: [0, 1, 0.95] }}
+                      transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut' }}
+                      style={{ position: 'absolute', right: '8%', top: '18%', zIndex: 2, pointerEvents: 'none', transformOrigin: '50% 100%' }}
+                    >
+                      <Image src="/hfid/phone.svg" alt="phone" width="160px" height="auto" style={{ display: 'block' }} />
+                    </motion.div>
+                  }
                 />
               </Box>
             </NextLink>
@@ -1015,8 +1025,6 @@ function DesignSystemPanelGridLines() {
     })
   })
   // Center intersection for highlight
-  const cx = xs[Math.floor(gridX/2)]
-  const cy = ys[Math.floor(gridY/2)]
   return (
     <Box position="absolute" top={0} left={0} w="100%" h="100%" zIndex={1} pointerEvents="none">
       <svg width="100%" height="100%" viewBox={`0 0 ${svgW} ${svgH}`} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
