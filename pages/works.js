@@ -354,6 +354,70 @@ function CollapseExtandip() {
             <KodeboardModal isOpen={isEditOpenmd12} onClose={onEditClosemd12} />
           </Section>
 
+          {/* Human Factor in Design - same style as DESIGN SYSTEM */}
+          <Section>
+            <NextLink href="/human-factor" passHref legacyBehavior>
+              <Box as="a" style={{ display: 'block', cursor: 'pointer', textDecoration: 'none' }}>
+                <ProjectPanel
+                  title={<span style={{ fontFamily: 'Michroma, monospace', letterSpacing: '0.12em', color: '#89EF8C', fontStyle: 'normal' }}>HUMAN FACTOR IN DESIGN</span>}
+                  hoverTitle={<span style={{ fontFamily: 'BaseNeueTrial, sans-serif', letterSpacing: 'normal', color: 'white', fontStyle: 'italic' }}>HUMAN FACTOR IN DESIGN</span>}
+                  description={<span style={{ color: '#fff' }}>Exploring human factors, ergonomics and usability in product & interaction design.</span>}
+                  accentColor="#89EF8C"
+                  customContent={
+                    <>
+                      <Box
+                        position="absolute"
+                        top={0}
+                        left={0}
+                        width="100%"
+                        height="100%"
+                        zIndex={20}
+                        opacity={0.28}
+                      >
+                        <svg width="100%" height="100%" viewBox="0 0 650 426" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <rect x="44.25" y="26.25" width="565.5" height="370.5" stroke="white" strokeWidth="0.5"/>
+                          <line x1="0.136303" y1="-0.209574" x2="655.136" y2="425.79" stroke="white" strokeWidth="0.5"/>
+                          <line x1="-0.137038" y1="425.791" x2="649.863" y2="-0.209059" stroke="white" strokeWidth="0.5"/>
+                          <line y1="212" x2="650" y2="212" stroke="white" strokeWidth="2"/>
+                          <line x1="325.25" x2="325.25" y2="426" stroke="white" strokeWidth="0.5"/>
+                          <rect x="44.5" y="26.5" width="565" height="370" rx="24.5" stroke="white"/>
+                          <rect x="141.25" y="88.25" width="365.5" height="245.5" rx="24.75" stroke="white" strokeWidth="0.5"/>
+                        </svg>
+                      </Box>
+                      <Box
+                        position="absolute"
+                        top={0}
+                        left={0}
+                        width="100%"
+                        height="100%"
+                        zIndex={30}
+                      >
+                        <svg width="100%" height="100%" viewBox="0 0 650 426" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <circle cx="44.25" cy="26.25" r="2" fill="#ffffff"/>
+                          <circle cx="609.75" cy="26.25" r="2" fill="#ffffff"/>
+                          <circle cx="44.25" cy="396.75" r="2" fill="#ffffff"/>
+                          <circle cx="609.75" cy="396.75" r="2" fill="#ffffff"/>
+                          <circle cx="141.25" cy="88.25" r="2" fill="#ffffff"/>
+                          <circle cx="506.75" cy="88.25" r="2" fill="#ffffff"/>
+                          <circle cx="141.25" cy="333.75" r="2" fill="#ffffff"/>
+                          <circle cx="506.75" cy="333.75" r="2" fill="#ffffff"/>
+                          <circle cx="325.25" cy="212" r="2" fill="#ffffff"/>
+                        </svg>
+                      </Box>
+                      <DesignSystemPanelGridLines />
+                    </>
+                  }
+                  sx={{
+                    background: 'linear-gradient(180deg,rgb(94, 164, 255) 0%,rgb(0, 26, 93) 100%)',
+                    backgroundSize: '100% 100%',
+                    transition: 'background 0.5s',
+                    filter: 'brightness(0.98) saturate(0.98)',
+                  }}
+                />
+              </Box>
+            </NextLink>
+          </Section>
+
           <Section>
             <NextLink href="/design-evaluation" passHref legacyBehavior>
               <Box as="a" style={{ display: 'block', cursor: 'pointer', textDecoration: 'none' }}>
