@@ -429,8 +429,10 @@ A user centric study conducted through controlled experimental testing in digita
               <div style={{ width: '100%', maxWidth: 960 }}>
                 <iframe
                   title="HuFID Prototype"
-                  style={{ border: '1px solid rgba(0, 0, 0, 0.1)', width: '100%', height: 800 }}
-                  src="https://embed.figma.com/proto/hDukDnAjBo62Z6oxukC4ba/HuFID?page-id=1004%3A33418&node-id=1035-447&viewport=-34%2C-3128%2C0.38&scaling=scale-down&content-scaling=responsive&starting-point-node-id=1035%3A3471&embed-host=share&hide-ui=1"
+                  style={{ border: '1px solid rgba(0, 0, 0, 0.1)' }}
+                  width={800}
+                  height={800}
+                  src="https://embed.figma.com/proto/7kTgXJDQaFLerfcHJ4V844/HuFID?page-id=1004%3A33418&node-id=1035-224&viewport=-62%2C-1192%2C0.16&scaling=scale-down&content-scaling=fixed&starting-point-node-id=1035%3A3471&hide-ui=1&embed-host=share"
                   allowFullScreen
                 />
               </div>

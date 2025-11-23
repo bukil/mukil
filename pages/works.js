@@ -323,13 +323,28 @@ const ProjectPanel = ({
           pointerEvents="none"
           sx={{
             '& img': {
-              transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+              transition: 'transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease',
+              willChange: 'transform, opacity'
             },
+            // continuous float animation for the large phone
+            '@keyframes floatPhone': {
+              '0%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-22px)' },
+              '100%': { transform: 'translateY(0px)' }
+            },
+            '& img.phone-large': {
+              transformOrigin: '50% 50%',
+              animation: 'floatPhone 3.2s ease-in-out infinite'
+            }
           }}
           _groupHover={{
             '& img': {
-              transform: 'scale(1.08)',
+              transform: 'scale(1.08)'
             },
+            // keep phone floating on hover (no blink)
+            '& img.phone-large': {
+              transform: 'translateY(-18px) scale(1.08)'
+            }
           }}
         >
           {customContent}
@@ -373,17 +388,12 @@ function CollapseExtandip() {
                   hoverTitle={<span style={{ fontFamily: 'BaseNeueTrial, sans-serif', letterSpacing: 'normal', color: 'white', fontStyle: 'italic' }}>HUMAN FACTOR IN DESIGN</span>}
                   description={<span style={{ color: '#fff' }}>Investigating the Influence of Dark Patterns on User Behavior and Decision Making</span>}
                   accentColor="#89EF8C"
-                  gradientColors={"linear-gradient(135deg, #001219 0%, #004d40 50%, #071428 100%)"}
-                  hoverGradientColors={"linear-gradient(135deg, #002a20 0%, #00796b 50%, #081827 100%)"}
+                  gradientColors={"linear-gradient(135deg, #001a2e 0%, #002a55 45%, #001026 100%)"}
+                  hoverGradientColors={"linear-gradient(135deg, #002240 0%, #004e8c 45%, #00182a 100%)"}
                   customContent={
-                    <motion.div
-                      initial={{ y: 0, opacity: 0 }}
-                      animate={{ y: [0, -18, 0], opacity: [0, 1, 0.95] }}
-                      transition={{ duration: 3.2, repeat: Infinity, ease: 'easeInOut' }}
-                      style={{ position: 'absolute', right: '8%', top: '18%', zIndex: 2, pointerEvents: 'none', transformOrigin: '50% 100%' }}
-                    >
-                      <Image src="/hfid/phone.svg" alt="phone" width="160px" height="auto" style={{ display: 'block' }} />
-                    </motion.div>
+                    <div style={{ position: 'absolute', right: '6%', top: '50%', zIndex: 2, pointerEvents: 'none', transform: 'translateY(-50%)' }}>
+                      <Image className="phone-large" src="/hfid/phone.svg" alt="phone" width="920px" height="auto" style={{ display: 'block' }} />
+                    </div>
                   }
                 />
               </Box>
