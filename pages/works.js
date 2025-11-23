@@ -265,13 +265,19 @@ const ProjectPanel = ({
         left="0"
         right="0"
         bg="transparent"
-        p={3}
+        pt={1}
+        pb={3}
+        px={4}
         color="white"
         zIndex={3}
+        height="96px"
+        display="flex"
+        flexDirection="column"
+        justifyContent="flex-start"
       >
-        {/* Always-visible title above accent line */}
+        {/* Always-visible title above accent line - kept at consistent level */}
         {title && (
-          <Box mb={1}>
+          <Box mb={0}>
             <Text
               fontSize="xs"
               fontFamily="'Michroma', monospace"
@@ -288,16 +294,20 @@ const ProjectPanel = ({
           w="100%" 
           h="0.5px" 
           bg={accentColor} 
+          mt={3}
           mb={2}
         />
-        <Text 
-          fontSize="xs"
-          fontFamily="'Encode Sans Expanded', sans-serif"
-          fontWeight="400"
-          letterSpacing="0.5px"
-        >
-          {description}
-        </Text>
+        <Box flex="0 0 auto">
+          <Text 
+            fontSize="xs"
+            fontFamily="'Encode Sans Expanded', sans-serif"
+            fontWeight="400"
+            letterSpacing="0.5px"
+            noOfLines={2}
+          >
+            {description}
+          </Text>
+        </Box>
       </Box>
       {customContent && (
         <Box
@@ -343,7 +353,7 @@ function CollapseExtandip() {
             <ProjectPanel
               title="Kode/Board"
               hoverTitle="Kode/Board"
-              description="Here is a keyboard concept (kode board 🙃), Copy, paste, repeat... but not as you know it. Multi-layer clipboard on fingertips like seamlessly storing your snippets for instant recall. 🪄"
+              description="Here is a keyboard concept (kode board), Copy, paste, repeat... but not as you know it. Multi-layer clipboard on fingertips like seamlessly storing your snippets for instant recall."
               imageSrc="/images/works/BOTASF.png"
               imageAlt="Kode/Board"
               gradientColors="radial-gradient(circle at center, rgba(0, 150, 0, 0.7) 0%, rgba(0, 30, 0, 0.98) 100%)"
@@ -361,58 +371,10 @@ function CollapseExtandip() {
                 <ProjectPanel
                   title={<span style={{ fontFamily: 'Michroma, monospace', letterSpacing: '0.12em', color: '#89EF8C', fontStyle: 'normal' }}>HUMAN FACTOR IN DESIGN</span>}
                   hoverTitle={<span style={{ fontFamily: 'BaseNeueTrial, sans-serif', letterSpacing: 'normal', color: 'white', fontStyle: 'italic' }}>HUMAN FACTOR IN DESIGN</span>}
-                  description={<span style={{ color: '#fff' }}>Exploring human factors, ergonomics and usability in product & interaction design.</span>}
+                  description={<span style={{ color: '#fff' }}>Investigating the Influence of Dark Patterns on User Behavior and Decision Making</span>}
                   accentColor="#89EF8C"
-                  customContent={
-                    <>
-                      <Box
-                        position="absolute"
-                        top={0}
-                        left={0}
-                        width="100%"
-                        height="100%"
-                        zIndex={20}
-                        opacity={0.28}
-                      >
-                        <svg width="100%" height="100%" viewBox="0 0 650 426" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <rect x="44.25" y="26.25" width="565.5" height="370.5" stroke="white" strokeWidth="0.5"/>
-                          <line x1="0.136303" y1="-0.209574" x2="655.136" y2="425.79" stroke="white" strokeWidth="0.5"/>
-                          <line x1="-0.137038" y1="425.791" x2="649.863" y2="-0.209059" stroke="white" strokeWidth="0.5"/>
-                          <line y1="212" x2="650" y2="212" stroke="white" strokeWidth="2"/>
-                          <line x1="325.25" x2="325.25" y2="426" stroke="white" strokeWidth="0.5"/>
-                          <rect x="44.5" y="26.5" width="565" height="370" rx="24.5" stroke="white"/>
-                          <rect x="141.25" y="88.25" width="365.5" height="245.5" rx="24.75" stroke="white" strokeWidth="0.5"/>
-                        </svg>
-                      </Box>
-                      <Box
-                        position="absolute"
-                        top={0}
-                        left={0}
-                        width="100%"
-                        height="100%"
-                        zIndex={30}
-                      >
-                        <svg width="100%" height="100%" viewBox="0 0 650 426" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <circle cx="44.25" cy="26.25" r="2" fill="#ffffff"/>
-                          <circle cx="609.75" cy="26.25" r="2" fill="#ffffff"/>
-                          <circle cx="44.25" cy="396.75" r="2" fill="#ffffff"/>
-                          <circle cx="609.75" cy="396.75" r="2" fill="#ffffff"/>
-                          <circle cx="141.25" cy="88.25" r="2" fill="#ffffff"/>
-                          <circle cx="506.75" cy="88.25" r="2" fill="#ffffff"/>
-                          <circle cx="141.25" cy="333.75" r="2" fill="#ffffff"/>
-                          <circle cx="506.75" cy="333.75" r="2" fill="#ffffff"/>
-                          <circle cx="325.25" cy="212" r="2" fill="#ffffff"/>
-                        </svg>
-                      </Box>
-                      <DesignSystemPanelGridLines />
-                    </>
-                  }
-                  sx={{
-                    background: 'linear-gradient(180deg,rgb(94, 164, 255) 0%,rgb(0, 26, 93) 100%)',
-                    backgroundSize: '100% 100%',
-                    transition: 'background 0.5s',
-                    filter: 'brightness(0.98) saturate(0.98)',
-                  }}
+                  gradientColors="#000"
+                  hoverGradientColors="#000"
                 />
               </Box>
             </NextLink>
@@ -1068,23 +1030,7 @@ function DesignSystemPanelGridLines() {
             opacity={l.center ? 0.35 : 0.18}
           />
         ))}
-        {/* Center intersection circle */}
-        <circle
-          cx={cx}
-          cy={cy}
-          r={10}
-          stroke="#89EF8C"
-          strokeWidth={1.2}
-          fill="none"
-          opacity={0.25}
-        />
-        <circle
-          cx={cx}
-          cy={cy}
-          r={3}
-          fill="#89EF8C"
-          opacity={0.5}
-        />
+        {/* center circles removed per request */}
       </svg>
     </Box>
   )
