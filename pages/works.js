@@ -630,7 +630,7 @@ function CollapseExtandip() {
           <Section>
             <Box as="a" href="https://bukil.github.io/dataviz/" target="_blank" rel="noopener noreferrer" style={{ display: 'block', cursor: 'pointer', textDecoration: 'none' }}>
               <ProjectPanel
-                title="Data visualisation on LHC and Speed of Light"
+                title="Data visualisation:LHC, Speed of Light"
                 hoverTitle="Data Visualisation"
                 description="A visual exploration of particle speeds and collisions at the LHC, compared to the speed of light."
                 imageSrc="/dataviz.svg"
@@ -672,33 +672,39 @@ function CollapseExtandip() {
                 sx={{ position: 'relative', overflow: 'hidden' }}
                 customContent={
                   <Box position="absolute" top={0} left={0} width="100%" height="100%" zIndex={0}>
-                    <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none" role="img" aria-label="Inline chart preview">
-                      <defs>
-                        <linearGradient id="vizGrad" x1="0" y1="0" x2="1" y2="1">
-                          <stop offset="0%" stopColor="#50b6ff" stopOpacity="0.9" />
-                          <stop offset="100%" stopColor="#00ffaa" stopOpacity="0.9" />
-                        </linearGradient>
-                      </defs>
-                      {/* subtle grid */}
-                      <g stroke="rgba(255,255,255,0.12)" strokeWidth="0.2">
-                        {Array.from({ length: 10 }).map((_, i) => (
-                          <line key={`v${i}`} x1={(i+1)*9} y1="8" x2={(i+1)*9} y2="92" />
-                        ))}
-                        {Array.from({ length: 6 }).map((_, i) => (
-                          <line key={`h${i}`} x1="6" y1={92 - i*14} x2="94" y2={92 - i*14} />
-                        ))}
-                      </g>
-                      {/* area under line */}
-                      <path d="M6,80 L14,74 L22,70 L30,66 L38,58 L46,60 L54,52 L62,48 L70,40 L78,46 L86,38 L94,34 L94,92 L6,92 Z" fill="rgba(0, 255, 170, 0.12)" />
-                      {/* main line */}
-                      <path d="M6,80 L14,74 L22,70 L30,66 L38,58 L46,60 L54,52 L62,48 L70,40 L78,46 L86,38 L94,34" fill="none" stroke="url(#vizGrad)" strokeWidth="1.6" strokeLinejoin="round" strokeLinecap="round" />
-                      {/* points */}
-                      <g fill="#89EF8C" opacity="0.9">
-                        {[{x:6,y:80},{x:22,y:70},{x:38,y:58},{x:54,y:52},{x:70,y:40},{x:86,y:38}].map((p,i)=>(
-                          <circle key={i} cx={p.x} cy={p.y} r="1.4" />
-                        ))}
-                      </g>
-                    </svg>
+                      <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none" role="img" aria-label="Animated inline chart preview">
+                        <style>{`
+                          .viz-grid { stroke: rgba(255,255,255,0.10); stroke-width: 0.18 }
+                          .thread { fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 0.7; opacity: 0.96; vector-effect: non-scaling-stroke }
+                          .t1 { stroke: #50b6ff; stroke-dasharray: 200; stroke-dashoffset: 200; animation: draw1 3s linear infinite }
+                          .t2 { stroke: #00ffaa; stroke-dasharray: 200; stroke-dashoffset: 200; animation: draw2 3.6s linear infinite 0.25s }
+                          .t3 { stroke: #ff6ec7; stroke-dasharray: 200; stroke-dashoffset: 200; animation: draw3 4s linear infinite 0.5s }
+                          @keyframes draw1 { to { stroke-dashoffset: 0 } }
+                          @keyframes draw2 { to { stroke-dashoffset: 0 } }
+                          @keyframes draw3 { to { stroke-dashoffset: 0 } }
+                        `}</style>
+                        {/* subtle grid */}
+                        <g className="viz-grid">
+                          {Array.from({ length: 10 }).map((_, i) => (
+                            <line key={`v${i}`} x1={(i+1)*9} y1="8" x2={(i+1)*9} y2="92" />
+                          ))}
+                          {Array.from({ length: 6 }).map((_, i) => (
+                            <line key={`h${i}`} x1="6" y1={92 - i*14} x2="94" y2={92 - i*14} />
+                          ))}
+                        </g>
+                        {/* area under main band (subtle) */}
+                        <path d="M6,80 L14,74 L22,70 L30,66 L38,58 L46,60 L54,52 L62,48 L70,40 L78,46 L86,38 L94,34 L94,92 L6,92 Z" fill="rgba(0, 255, 170, 0.06)" />
+                        {/* three thin animated threads (slightly offset for depth) */}
+                        <path className="thread t1" d="M6,80 L14,74 L22,70 L30,66 L38,58 L46,60 L54,52 L62,48 L70,40 L78,46 L86,38 L94,34" />
+                        <path className="thread t2" d="M6,81.6 L14,75.6 L22,71.6 L30,67.6 L38,59.6 L46,61.6 L54,53.6 L62,49.6 L70,41.6 L78,47.6 L86,39.6 L94,35.6" />
+                        <path className="thread t3" d="M6,78.4 L14,72.4 L22,68.4 L30,64.4 L38,56.4 L46,58.4 L54,50.4 L62,46.4 L70,38.4 L78,44.4 L86,36.4 L94,32.4" />
+                        {/* subtle point highlights to keep visual cue (very small) */}
+                        <g fill="#ffffff" opacity="0.7">
+                          {[{x:6,y:80},{x:22,y:70},{x:38,y:58},{x:54,y:52},{x:70,y:40},{x:86,y:38}].map((p,i)=>(
+                            <circle key={i} cx={p.x} cy={p.y} r="0.9" />
+                          ))}
+                        </g>
+                      </svg>
                   </Box>
                 }
               />
