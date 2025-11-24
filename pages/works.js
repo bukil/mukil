@@ -647,7 +647,7 @@ function CollapseExtandip() {
                     src="/dataviz.svg"
                     alt="Data Visualisation LHC"
                     position="absolute"
-                    top={0}
+                    top={"-6%"}
                     left={0}
                     width="100%"
                     height="100%"
@@ -671,7 +671,7 @@ function CollapseExtandip() {
                 accentColor="blue.300"
                 sx={{ position: 'relative', overflow: 'hidden' }}
                 customContent={
-                  <Box position="absolute" top={0} left={0} width="100%" height="100%" zIndex={0}>
+                  <Box position="absolute" top={"-6%"} left={0} width="100%" height="100%" zIndex={0}>
                       <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none" role="img" aria-label="Animated inline chart preview">
                         <style>{`
                           .viz-grid { stroke: rgba(255,255,255,0.10); stroke-width: 0.18 }
