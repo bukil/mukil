@@ -274,14 +274,14 @@ const HumanFactor = () => {
       const rect = el.getBoundingClientRect()
       const vh = window.innerHeight || document.documentElement.clientHeight || 1
 
-      // progress mapping: start MUCH earlier and finish much higher
-      // startPoint: begin when section top is well below viewport (180% of its height)
-      // endPoint: finish when section is above viewport by 160% of its height
-      const startPoint = vh + rect.height * 1.8
-      const endPoint = -rect.height * 1.6
+      // progress mapping: show up a bit later, then rise quickly
+      // startPoint: begin when section top is moderately below viewport (60% of its height)
+      // endPoint: finish when section is slightly above viewport (20% of its height)
+      const startPoint = vh + rect.height * 0.6
+      const endPoint = -rect.height * 0.2
       let t = (startPoint - rect.top) / (startPoint - endPoint)
-      // speed up the perceived motion by applying a stronger ease (exponent < 1)
-      t = Math.max(0, Math.min(1, Math.pow(t, 0.65)))
+      // lower exponent to accelerate progress early for faster perceived motion
+      t = Math.max(0, Math.min(1, Math.pow(t, 0.28)))
       setPhoneProgress(t)
     }
 
@@ -328,15 +328,15 @@ const HumanFactor = () => {
   // compute transform for the phone overlay (pixels)
   const phoneY = React.useMemo(() => {
     // extend travel distance so the phone travels further to the top and stays visible longer
-    const start = 960 // off-screen start (px) — much larger so it enters earlier
+    const start = 9600 // off-screen start (px) — increase so it begins much lower off-screen
     const end = -920  // final position above the section (px) — much higher so it reaches the top
     return start + (end - start) * (phoneProgress || 0)
   }, [phoneProgress])
   // Fade-in early then fade-out as it goes above the section
   const phoneOpacity = React.useMemo(() => {
     const p = phoneProgress || 0
-    const fadeIn = 0.08
-    const fadeOutStart = 0.8
+    const fadeIn = 1
+    const fadeOutStart = 1
     if (p <= 0) return 0
     if (p < fadeIn) return p / fadeIn
     if (p > fadeOutStart) return Math.max(0, 1 - (p - fadeOutStart) / (1 - fadeOutStart))
@@ -443,7 +443,7 @@ A user centric study conducted through controlled experimental testing in digita
                   initial={{ opacity: 0 }}
                   animate={{ y: phoneY, opacity: phoneOpacity, rotate: 24, scale: 1.25 }}
                   transition={{ ease: 'linear', duration: 0 }}
-                  style={{ position: 'fixed', right: '55%', width: 320, bottom: 0, zIndex: 60, pointerEvents: 'none', transformOrigin: '50% 100%' }}
+                  style={{ position: 'fixed', right: '59%', width: 320, bottom: 0, zIndex: 60, pointerEvents: 'none', transformOrigin: '50% 100%' }}
                 >
                   <Image src={'/hfid/phone.svg'} alt="phone" width="320px" height={'auto'} style={{ display: 'block' }} />
                 </motion.div>
