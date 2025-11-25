@@ -213,12 +213,12 @@ const ProjectPanel = ({
       >
         <Text
             position="absolute"
-            top={hoverTitle === "Data Visualisation" || hoverTitle === "Design Evaluation ChatGPT" || hoverTitle === "Visually understanding Colour space" ? "3%" : "20%"}
+            top={hoverTitle === "Data Visualisation" || hoverTitle === "Design Evaluation ChatGPT" ? "3%" : "20%"}
             right={hoverTitle === "Data Visualisation" ? "5%" : undefined}
             left={hoverTitle === "Data Visualisation" ? undefined : "50%"}
-            transform={hoverTitle === "Data Visualisation" ? "none" : hoverTitle === "Design Evaluation ChatGPT" || hoverTitle === "Visually understanding Colour space" ? "translate(-50%, 0)" : "translate(-50%, -50%)"}
+            transform={hoverTitle === "Data Visualisation" ? "none" : hoverTitle === "Design Evaluation ChatGPT" ? "translate(-50%, 0)" : "translate(-50%, -50%)"}
             textAlign={hoverTitle === "Data Visualisation" ? "right" : "center"}
-            fontSize={hoverTitle === "Data Visualisation" || hoverTitle === "Design Evaluation ChatGPT" || hoverTitle === "Visually understanding Colour space" ? "7xl" : "7xl"}
+            fontSize={hoverTitle === "Data Visualisation" || hoverTitle === "Design Evaluation ChatGPT" ? "7xl" : "7xl"}
             fontWeight="900"
             color="white"
             opacity="0"
@@ -226,8 +226,8 @@ const ProjectPanel = ({
             whiteSpace="nowrap"
             _groupHover={{ 
               opacity: 0.7,
-              top: hoverTitle === "Data Visualisation" || hoverTitle === "Design Evaluation ChatGPT" || hoverTitle === "Visually understanding Colour space" ? "3%" : "35%",
-              transform: hoverTitle === "Data Visualisation" ? "none" : hoverTitle === "Design Evaluation ChatGPT" || hoverTitle === "Visually understanding Colour space" ? "translate(-50%, 0)" : "translate(-50%, -50%)",
+              top: hoverTitle === "Data Visualisation" || hoverTitle === "Design Evaluation ChatGPT" ? "3%" : "35%",
+              transform: hoverTitle === "Data Visualisation" ? "none" : hoverTitle === "Design Evaluation ChatGPT" ? "translate(-50%, 0)" : "translate(-50%, -50%)",
               transition: "top 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1)"
             }}
             zIndex={2}
@@ -373,8 +373,8 @@ function CollapseExtandip() {
                 title="Visually understanding Colour space"
                 hoverTitle="Visually understanding Colour space"
                 description="Documentation is in progress"
-                gradientColors="radial-gradient(circle at center, rgba(140, 80, 255, 0.7) 0%, rgba(20, 10, 40, 0.98) 100%)"
-                hoverGradientColors="radial-gradient(circle at center, rgba(160, 100, 255, 0.85) 0%, rgba(30, 15, 60, 0.98) 100%)"
+                gradientColors="radial-gradient(circle at center, rgba(80, 90, 200, 0.7) 0%, rgba(10, 15, 40, 0.98) 100%)"
+                hoverGradientColors="radial-gradient(circle at center, rgba(100, 110, 220, 0.85) 0%, rgba(20, 25, 50, 0.98) 100%)"
                 accentColor="purple.300"
                 sx={{ position: 'relative', overflow: 'hidden' }}
                 customContent={<MunselModel />}
