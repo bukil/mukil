@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Text, Heading, VStack, useColorMode, Grid, GridItem, Button, HStack, SimpleGrid, Image } from '@chakra-ui/react';
+import { Box, Text, Heading, VStack, Grid, GridItem, Button, HStack, SimpleGrid, Image } from '@chakra-ui/react';
 import Layout from '../components/layouts/article';
 import Head from 'next/head';
 
 const Mukilm = () => {
-  const { colorMode } = useColorMode();
   const [setShowHandHint] = useState(true);
   const [leftImageScale, setLeftImageScale] = useState(1);
   const [volume, setVolume] = useState(50);
@@ -124,7 +123,7 @@ const Mukilm = () => {
           display="flex"
           alignItems="center"
           justifyContent="center"
-          bg={colorMode === 'light' ? '#f6fcf9' : '#f0fff4'}
+          bg="#f6fcf9"
           position="relative"
           overflow="hidden"
           borderRadius="2xl"
@@ -151,19 +150,19 @@ const Mukilm = () => {
                 </Text>
                 <HStack spacing={4} mb={8}>
                 <Box
-                  bg={colorMode === 'light' ? 'rgba(255,255,255,0.8)' : 'rgba(0,0,0,0.8)'}
+                  bg="rgba(255,255,255,0.8)"
                   backdropFilter="blur(10px)"
                   borderRadius="xl"
                   p={8}
                   border="1px solid"
-                  borderColor={colorMode === 'light' ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.1)'}
+                  borderColor="rgba(0,0,0,0.1)"
                 >
-                  <Heading as="h2" size="md" mb={4} color={colorMode === 'light' ? 'gray.800' : 'white'}>
+                  <Heading as="h2" size="md" mb={4} color="gray.800">
                     Project Concept
                   </Heading>
                   <Text
                     fontSize="md"
-                    color={colorMode === 'light' ? 'gray.700' : 'gray.200'}
+                    color="gray.700"
                     lineHeight="tall"
                     textAlign="left"
                   >
@@ -171,7 +170,7 @@ const Mukilm = () => {
                   </Text>
                   <Text
                     fontSize="md"
-                    color={colorMode === 'light' ? 'gray.700' : 'gray.200'}
+                    color="gray.700"
                     lineHeight="tall"
                     textAlign="left"
                     mt={4}
@@ -224,7 +223,7 @@ const Mukilm = () => {
                   mb={{ base: 4, md: 8 }}
                   p={{ base: 2, md: 5 }}
                   borderRadius="2xl"
-                  bg={colorMode === 'light' ? 'green.50' : 'green.900'}
+                  bg="green.50"
                   boxShadow="0 4px 16px rgba(49,130,206,0.08)"
                   textAlign="left"
                 >
@@ -240,10 +239,10 @@ const Mukilm = () => {
                       display="block"
                     />
                   </Box>
-                  <Heading as="h3" fontSize={{ base: 'lg', md: 'xl' }} mb={1} color={colorMode === 'light' ? 'green.700' : 'green.200'}>
+                  <Heading as="h3" fontSize={{ base: 'lg', md: 'xl' }} mb={1} color="green.700">
                     Apple September 2024 Event
                   </Heading>
-                  <Text fontSize={{ base: 'sm', md: 'md' }} color={colorMode === 'light' ? 'green.800' : 'green.100'} fontWeight="medium">
+                  <Text fontSize={{ base: 'sm', md: 'md' }} color="green.800" fontWeight="medium">
                     In September 2024, Apple officially announced the introduction of solid-state side controls and context-aware capacitive sliders for iPhone, echoing the microinteraction concepts explored in this project. The event highlighted the shift from mechanical buttons to adaptive, touch-sensitive zones—demonstrating how microinteractions are shaping the future of device design.
                   </Text>
                 </Box>

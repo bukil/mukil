@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
-import { Heading, SimpleGrid, Image, Text, Button, useDisclosure, Box, Spacer, Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, useColorMode } from '@chakra-ui/react'
-import { ChevronLeftIcon, ChevronDownIcon, ExternalLinkIcon } from '@chakra-ui/icons'
+import { Heading, SimpleGrid, Image, Text, Button, useDisclosure, Box, Spacer } from '@chakra-ui/react'
+import { ChevronLeftIcon, ChevronDownIcon } from '@chakra-ui/icons'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
 import styled from '@emotion/styled'
@@ -18,8 +18,8 @@ const Trans = styled.span`
     position: relative;
     overflow: hidden;
     background: transparent;
-    border: 1px solid #89EF8C;
-    color: #89EF8C;
+    border: 1.5px solid #111827;
+    color: #111827;
     transition: all 0.3s ease;
     z-index: 1;
     border-radius: 50px;
@@ -32,14 +32,14 @@ const Trans = styled.span`
       right: 0;
       width: 0;
       height: 100%;
-      background: #89EF8C;
+      background: #111827;
       transition: all 0.3s ease;
       z-index: -1;
     }
     &:hover {
-      color: #0a192f;
+      color: #ffffff;
       transform: translateY(-2px);
-      box-shadow: 0 3px 10px rgba(137, 239, 140, 0.3);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
     }
     &:hover:before {
       width: 100%;
@@ -48,40 +48,6 @@ const Trans = styled.span`
 `
 
 
-const SnowContainer = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 1;
-`
-
-const Snowflake = styled.div`
-  position: absolute;
-  background: white;
-  border-radius: 50%;
-  opacity: 0;
-  animation: float linear infinite;
-  @keyframes float {
-    0% {
-      transform: translateY(0) translateX(0) rotate(0deg);
-      opacity: 0;
-    }
-    20% {
-      opacity: 0.8;
-    }
-    80% {
-      opacity: 0.8;
-    }
-    100% {
-      transform: translateY(-20px) translateX(10px) rotate(360deg);
-      opacity: 0;
-    }
-  }
-`
 
 const BigText = styled.div`
   font-family: 'BaseNeueTrial', sans-serif;
@@ -89,7 +55,7 @@ const BigText = styled.div`
   font-weight: 900;
   font-style: italic;
   text-transform: uppercase;
-  color: ${props => props.colorMode === 'light' ? '#89EF8C' : 'rgba(255, 255, 255, 0.8)'};
+  color: rgba(17, 24, 39, 0.85);
   position: fixed;
   top: 50%;
   left: 0;
@@ -118,8 +84,8 @@ const ScrollIndicator = styled.div`
   width: 34px;
   height: 64px;
   border-radius: 9999px;
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(6px);
   display: flex;
   align-items: center;
@@ -142,32 +108,36 @@ const ProjectPanel = ({
   description, 
   imageSrc, 
   imageAlt, 
-  gradientColors, 
-  hoverGradientColors, 
+  gradientColors: _gradientColors, 
+  hoverGradientColors: _hoverGradientColors, 
   accentColor, 
   onClick,
-  hasSnow = false,
   customContent,
   sx
 }) => {
   return (
     <Box 
-      position="relative"
+      position="relative" 
       borderWidth="1px" 
+      borderColor="rgba(0, 0, 0, 0.15)"
+      borderRadius={0}
       overflow="hidden" 
-      boxShadow="md"
+      boxShadow="none"
       role="group"
-      bg={gradientColors}
+      bg="transparent"
       transition="all 0.3s ease"
       _hover={{
-        bg: hoverGradientColors,
+        bg: 'transparent',
         transform: 'translateY(-5px)',
-        boxShadow: 'xl'
+        boxShadow: '0 8px 30px rgba(0, 0, 0, 0.08)',
+        borderColor: 'rgba(0, 0, 0, 0.3)'
       }}
       onClick={onClick}
       cursor="pointer"
-      height="400px"
       width="100%"
+      maxW="540px"
+      aspectRatio="540 / 300"
+      mx="auto"
       sx={{
         ...sx,
         '& *': {
@@ -178,31 +148,6 @@ const ProjectPanel = ({
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
     >
-      {hasSnow && (
-        <SnowContainer>
-          {[...Array(30)].map((_, i) => {
-            const size = Math.random() * 10 + 3;
-            let duration = Math.random() * 8 + 4;
-            if (title === "Jokif-AI") {
-              duration = Math.random() * 2 + 2;
-            }
-            return (
-              <Snowflake
-                key={i}
-                style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                  width: `${size}px`,
-                  height: `${size}px`,
-                  animationDuration: `${duration}s`,
-                  animationDelay: `${Math.random() * 5}s`,
-                  opacity: `${Math.random() * 0.4 + 0.4}`
-                }}
-              />
-            );
-          })}
-        </SnowContainer>
-      )}
       <Box 
         position="relative" 
         height="100%" 
@@ -220,7 +165,7 @@ const ProjectPanel = ({
             textAlign={hoverTitle === "Data Visualisation" ? "right" : "center"}
             fontSize={hoverTitle === "Data Visualisation" || hoverTitle === "Design Evaluation ChatGPT" ? "7xl" : "7xl"}
             fontWeight="900"
-            color="white"
+            color="#111827"
             opacity="0"
             transition="top 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1)"
             whiteSpace="nowrap"
@@ -253,7 +198,7 @@ const ProjectPanel = ({
             objectFit="contain"
             transition="all 0.3s ease"
             _groupHover={{ 
-              filter: 'brightness(1.2)',
+              filter: 'brightness(1.05)',
               transform: 'scale(1.05)'
             }}
             position="relative"
@@ -267,16 +212,18 @@ const ProjectPanel = ({
         bottom="0"
         left="0"
         right="0"
-        bg="transparent"
-        pt={1}
-        pb={3}
+        bg="rgba(255, 255, 255, 0.95)"
+        backdropFilter="blur(8px)"
+        pt={2}
+        pb={2}
         px={4}
-        color="white"
+        color="gray.900"
         zIndex={3}
-        height="96px"
+        height="76px"
         display="flex"
         flexDirection="column"
         justifyContent="flex-start"
+        borderTop="1px solid rgba(0, 0, 0, 0.08)"
       >
         {/* Always-visible title above accent line - kept at consistent level */}
         {title && (
@@ -284,10 +231,11 @@ const ProjectPanel = ({
             <Text
               fontSize="xs"
               fontFamily="'Michroma', monospace"
-              fontWeight="400"
+              fontWeight="600"
               letterSpacing="0.12em"
               lineHeight="1.1"
               textTransform="uppercase"
+              color="gray.900"
             >
               {title}
             </Text>
@@ -295,10 +243,10 @@ const ProjectPanel = ({
         )}
         <Box 
           w="100%" 
-          h="0.5px" 
-          bg={accentColor} 
-          mt={3}
-          mb={2}
+          h="1px" 
+          bg={accentColor || 'rgba(0, 0, 0, 0.15)'} 
+          mt={1.5}
+          mb={1.5}
         />
         <Box flex="0 0 auto">
           <Text 
@@ -306,7 +254,9 @@ const ProjectPanel = ({
             fontFamily="'Encode Sans Expanded', sans-serif"
             fontWeight="400"
             letterSpacing="0.5px"
+            color="gray.600"
             noOfLines={2}
+            lineHeight="1.3"
           >
             {description}
           </Text>
@@ -329,24 +279,16 @@ const ProjectPanel = ({
               transition: 'transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease',
               willChange: 'transform, opacity'
             },
-            // continuous float animation for the large phone
-            '@keyframes floatPhone': {
-              '0%': { transform: 'translateY(0px)' },
-              '50%': { transform: 'translateY(-22px)' },
-              '100%': { transform: 'translateY(0px)' }
-            },
             '& img.phone-large': {
-              transformOrigin: '50% 50%',
-              animation: 'floatPhone 3.2s ease-in-out infinite'
+              transformOrigin: '50% 50%'
             }
           }}
           _groupHover={{
             '& img': {
-              transform: 'scale(1.08)'
+              transform: 'scale(1.05)'
             },
-            // keep phone floating on hover (no blink)
             '& img.phone-large': {
-              transform: 'translateY(-18px) scale(1.08)'
+              transform: 'scale(1.05)'
             }
           }}
         >
@@ -360,13 +302,12 @@ const ProjectPanel = ({
 // Usage in the main component
 function CollapseExtandip() {
   const { isOpen: isEditOpenmd12, onOpen: onEditOpenmd12, onClose: onEditClosemd12 } = useDisclosure()
-  const { isOpen: isEditOpenmd17, onOpen: onEditOpenmd17, onClose: onEditClosemd17 } = useDisclosure()
   
 
   return (
     <>
-      <Box p='2px' color='white' mt='4' rounded='md' shadow='md'>
-        <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} columnGap={4} rowGap={4} mt={5} px={4}>
+      <Box maxW="1148px" mx="auto" px={{ base: 4, sm: 6 }} mt={5}>
+        <SimpleGrid columns={{ base: 1, md: 2 }} columnGap={5} rowGap={5}>
           <Section>
             <Box as="a" href="https://bukil.github.io/" target="_blank" rel="noopener noreferrer" style={{ display: 'block', cursor: 'pointer', textDecoration: 'none' }}>
               <ProjectPanel
@@ -401,12 +342,10 @@ function CollapseExtandip() {
             <NextLink href="/human-factor" passHref legacyBehavior>
               <Box as="a" style={{ display: 'block', cursor: 'pointer', textDecoration: 'none' }}>
                 <ProjectPanel
-                  title={<span style={{ fontFamily: 'Michroma, monospace', letterSpacing: '0.12em', color: '#89EF8C', fontStyle: 'normal' }}>HUMAN FACTOR IN DESIGN</span>}
-                  hoverTitle={<span style={{ fontFamily: 'BaseNeueTrial, sans-serif', letterSpacing: 'normal', color: 'white', fontStyle: 'italic' }}>HUMAN FACTOR IN DESIGN</span>}
-                  description={<span style={{ color: '#fff' }}>Investigating the Influence of Dark Patterns on User Behavior and Decision Making</span>}
-                  accentColor="#89EF8C"
-                  gradientColors={"linear-gradient(135deg, #001a2e 0%, #002a55 45%, #001026 100%)"}
-                  hoverGradientColors={"linear-gradient(135deg, #002240 0%, #004e8c 45%, #00182a 100%)"}
+                  title={<span style={{ fontFamily: 'Michroma, monospace', letterSpacing: '0.12em', color: '#111827', fontStyle: 'normal' }}>HUMAN FACTOR IN DESIGN</span>}
+                  hoverTitle={<span style={{ fontFamily: 'BaseNeueTrial, sans-serif', letterSpacing: 'normal', color: '#111827', fontStyle: 'italic' }}>HUMAN FACTOR IN DESIGN</span>}
+                  description={<span style={{ color: '#4a5568' }}>Investigating the Influence of Dark Patterns on User Behavior and Decision Making</span>}
+                  accentColor="#0d9488"
                   customContent={
                     <div style={{ position: 'absolute', right: '6%', top: '50%', zIndex: 2, pointerEvents: 'none', transform: 'translateY(-50%)' }}>
                       <Image className="phone-large" src="/hfid/phone.svg" alt="phone" width="920px" height="auto" style={{ display: 'block' }} />
@@ -424,9 +363,7 @@ function CollapseExtandip() {
                   title="Design Evaluation ChatGPT"
                   hoverTitle="Design Evaluation ChatGPT"
                   description="A design evaluation of the ChatGPT Android client, analyzing its usability and interaction experience across real-world usage contexts."
-                  gradientColors="radial-gradient(circle at center, rgba(0, 100, 255, 0.7) 0%, rgba(0, 30, 60, 0.98) 100%)"
-                  hoverGradientColors="radial-gradient(circle at center, rgba(0, 150, 255, 0.8) 0%, rgba(0, 40, 80, 0.98) 100%)"
-                  accentColor="blue.400"
+                  accentColor="blue.500"
                   customContent={
                     <Image src="/mukil/degpt2.png" alt="Design Evaluation ChatGPT" width="40%" height="40%" objectFit="contain" style={{ margin: '48px auto 0', display: 'block' }} />
                   }
@@ -437,295 +374,23 @@ function CollapseExtandip() {
 
           {/* Jokif-AI panel removed per request */}
 
-          <Section>
-            <NextLink href="/mukilm" passHref legacyBehavior>
-              <Box as="a" style={{ display: 'block', cursor: 'pointer', textDecoration: 'none' }}>
-                <ProjectPanel
-                  title="Microinteraction"
-                  hoverTitle="Microinteraction"
-                  description="A class assignment exploring the art of microinteractions. Small, meaningful animations and transitions that enhance user experience and bring interfaces to life. 🎨"
-                  gradientColors="linear-gradient(135deg, #181c3a 0%, #2d1e4f 100%)"
-                  hoverGradientColors="linear-gradient(135deg, #2d1e4f 0%, #181c3a 100%)"
-                  accentColor="#a259ff"
-                  customContent={<GlowingRollingLandAnimation />}
-                />
-              </Box>
-            </NextLink>
-          </Section>
+
 {/* design system===================================================================================== */}
           <Section>
             <NextLink href="/DS" passHref legacyBehavior>
               <Box as="a" style={{ display: 'block', cursor: 'pointer', textDecoration: 'none' }}>
                 <ProjectPanel
-                  title={<span style={{ fontFamily: 'Michroma, monospace', letterSpacing: '0.12em', color: '#89EF8C', fontStyle: 'normal' }}>DESIGN SYSTEM</span>}
-                  hoverTitle={<span style={{ fontFamily: 'BaseNeueTrial, sans-serif', letterSpacing: 'normal', color: 'white', fontStyle: 'italic' }}>DESIGN SYSTEM</span>}
-                  description={<span style={{ color: '#fff' }}>Design System For UPI</span>}
-                  accentColor="#89EF8C"
-                  customContent={
-                    <>
-                      <Box
-                        position="absolute"
-                        top={0}
-                        left={0}
-                        width="100%"
-                        height="100%"
-                        zIndex={20}
-                        opacity={0.3}
-                      >
-                        <svg width="100%" height="100%" viewBox="0 0 650 426" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <rect x="44.25" y="26.25" width="565.5" height="370.5" stroke="white" strokeWidth="0.5"/>
-                          <line x1="0.136303" y1="-0.209574" x2="655.136" y2="425.79" stroke="white" strokeWidth="0.5"/>
-                          <line x1="-0.137038" y1="425.791" x2="649.863" y2="-0.209059" stroke="white" strokeWidth="0.5"/>
-                          <line y1="212" x2="650" y2="212" stroke="white" strokeWidth="2"/>
-                          <line x1="325.25" x2="325.25" y2="426" stroke="white" strokeWidth="0.5"/>
-                          <rect x="44.5" y="26.5" width="565" height="370" rx="24.5" stroke="white"/>
-                          <rect x="141.25" y="88.25" width="365.5" height="245.5" rx="24.75" stroke="white" strokeWidth="0.5"/>
-                          <circle cx="323.5" cy="210.5" r="119.5" stroke="white" strokeWidth="2"/>
-                          <circle cx="324" cy="209" r="182" stroke="white" strokeWidth="2"/>
-                        </svg>
-                      </Box>
-                      <Box
-                        position="absolute"
-                        top={0}
-                        left={0}
-                        width="100%"
-                        height="100%"
-                        zIndex={30}
-                      >
-                        <svg width="100%" height="100%" viewBox="0 0 650 426" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          {/* Rectangle corners */}
-                          <circle cx="44.25" cy="26.25" r="2" fill="#ffffff"/>
-                          <circle cx="609.75" cy="26.25" r="2" fill="#ffffff"/>
-                          <circle cx="44.25" cy="396.75" r="2" fill="#ffffff"/>
-                          <circle cx="609.75" cy="396.75" r="2" fill="#ffffff"/>
-                          <circle cx="141.25" cy="88.25" r="2" fill="#ffffff"/>
-                          <circle cx="506.75" cy="88.25" r="2" fill="#ffffff"/>
-                          <circle cx="141.25" cy="333.75" r="2" fill="#ffffff"/>
-                          <circle cx="506.75" cy="333.75" r="2" fill="#ffffff"/>
-                          <circle cx="325.25" cy="212" r="2" fill="#ffffff"/>
-                          {/* Circle intersections */}
-                          <circle cx="323.5" cy="91" r="2" fill="#ffffff"/>
-                          <circle cx="323.5" cy="330" r="2" fill="#ffffff"/>
-                          <circle cx="203" cy="210.5" r="2" fill="#ffffff"/>
-                          <circle cx="444" cy="210.5" r="2" fill="#ffffff"/>
-                          <circle cx="324" cy="27" r="2" fill="#ffffff"/>
-                          <circle cx="324" cy="391" r="2" fill="#ffffff"/>
-                          <circle cx="142" cy="209" r="2" fill="#ffffff"/>
-                          <circle cx="506" cy="209" r="2" fill="#ffffff"/>
-                        </svg>
-                      </Box>
-                      <DesignSystemPanelGridLines />
-                    </>
-                  }
+                  title={<span style={{ fontFamily: 'Michroma, monospace', letterSpacing: '0.12em', color: '#111827', fontStyle: 'normal' }}>DESIGN SYSTEM</span>}
+                  hoverTitle={<span style={{ fontFamily: 'BaseNeueTrial, sans-serif', letterSpacing: 'normal', color: '#111827', fontStyle: 'italic' }}>DESIGN SYSTEM</span>}
+                  description={<span style={{ color: '#4a5568' }}>Design System For UPI</span>}
+                  accentColor="#2563eb"
+                  customContent={<DesignSystemGraphic />}
                   sx={{
-                    background: 'linear-gradient(180deg,rgb(94, 164, 255) 0%,rgb(0, 26, 93) 100%)',
-                    backgroundSize: '100% 100%',
-                    transition: 'background 0.5s',
                     filter: 'brightness(0.98) saturate(0.98)',
                   }}
                 />
               </Box>
             </NextLink>
-          </Section>
-
-          <Section>
-            <ProjectPanel
-              title={<span style={{ fontFamily: 'Michroma, monospace', letterSpacing: '0.12em', fontStyle: 'normal' }}>C2C</span>}
-              hoverTitle={<span style={{ fontFamily: 'Tiny5, monospace', letterSpacing: 'normal', color: 'white' }}>C2C</span>}
-              description="C2C is a pair of interactive cubes that turn simple gestures into playfull digital control. Designed for effortless use, it doesn’t rely on precision, making it accessible for users with dexterity or muscular dystrophy challenges."
-              imageSrc="/images/works/c2cf.png"
-              imageAlt="C2C: Interaction Design Project"
-              gradientColors="radial-gradient(circle at center, rgba(0, 200, 150, 0.7) 0%, rgba(0, 30, 60, 0.98) 100%)"
-              hoverGradientColors="radial-gradient(circle at center, rgba(0, 255, 200, 0.8) 0%, rgba(0, 40, 80, 0.98) 100%)"
-              accentColor="teal.400"
-              onClick={onEditOpenmd17}
-              hasSnow={false}
-            />
-            <Modal isOpen={isEditOpenmd17} onClose={onEditClosemd17} size="full">
-              <ModalOverlay backdropFilter="blur(10px)" />
-              <ModalContent bg="rgba(0, 0, 0, 0.8)">
-                <ModalHeader mt={32} style={{ fontFamily: 'Matrix, monospace' }}>C2C</ModalHeader>
-                <ModalCloseButton mt={32} />
-                <ModalBody mt={4} style={{ fontFamily: 'Matrix, monospace' }}>
-                  {/* C2C Branding Header (constrained width) */}
-                  <Box maxW="80%" mx="auto">
-                    <div style={{
-                      fontSize: '2.5rem',
-                      color: '#89EF8C',
-                      fontWeight: 900,
-                      letterSpacing: '0.08em',
-                      marginBottom: '0.5rem',
-                      textShadow: '0 2px 12px #000, 0 0px 2px #89EF8C',
-                      textAlign: 'left',
-                    }}>
-                      C2C <span style={{ fontSize: '1.2rem', color: '#b3ffb3', fontWeight: 400, marginLeft: 12 }}>Cube to Cube</span>
-                    </div>
-                    <div style={{
-                      fontSize: '1.1rem',
-                      color: '#b3ffb3',
-                      marginBottom: '2.2rem',
-                      textAlign: 'left',
-                    }}>
-                      C2C is a pair of tangible interfaces designed to explore how physical interaction can enrich digital experiences. Created as part of an Interaction Design module at IIT Bombay, the project transforms the familiar form of a cube into a dynamic digital controller. Cube combines rotary encoder, tactile buttons, and OLED display powered by an RP2040 microcontroller, enabling real-time feedback, file navigation, and even playful mini-interactions.
-                    </div>
-                  </Box>
-                  {/* IndiaHCI acceptance badge and caption (centered, above the button) */}
-                  <Box mb={4} textAlign="center" maxW="80%" mx="auto">
-                    <a
-                      href="https://www.2025.indiahci.org/programme_1/student-design-consortium"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Box position="relative" display="inline-block" mx="auto">
-                        <Image
-                          src="/images/hci.jpg"
-                          alt="IndiaHCI 2025 - Student Design Consortium"
-                          display="block"
-                          mx="auto"
-                          width="220px"
-                          height="auto"
-                          objectFit="contain"
-                          loading="eager"
-                          fallbackSrc="/images/logo.png"
-                          style={{
-                            borderRadius: '24px 8px 24px 8px',
-                            border: '1px solid rgba(137, 239, 140, 0.6)',
-                            boxShadow: '0 0 16px rgba(137, 239, 140, 0.12)',
-                            backgroundColor: 'rgba(0,0,0,0.2)'
-                          }}
-                        />
-                      </Box>
-                    </a>
-                    <div style={{
-                      fontFamily: 'Matrix, monospace',
-                      color: '#b3ffb3',
-                      fontSize: '1.1rem',
-                      marginTop: '0.6rem'
-                    }}>
-                      Accepted in IndiaHCI 2025 under <br />
-                      Student Design Consortium (SDC) <br />
-                      1 amongst 7 finalists for round 1
-                    </div>
-                  </Box>
-                  {/* Read Full Report button (opens PDF in new tab) — centered and placed above the section */}
-                  <Box mb={6} textAlign="center">
-                    <Button
-                      as="a"
-                      href="/C2C_Interaction%20Design_Report.pdf"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      variant="outline"
-                      borderColor="#89EF8C"
-                      color="#89EF8C"
-                      leftIcon={<ExternalLinkIcon />}
-                      _hover={{ bg: '#89EF8C', color: '#0a192f', transform: 'translateY(-2px)', boxShadow: '0 3px 10px rgba(137, 239, 140, 0.3)' }}
-                    >
-                      Read Full Report
-                    </Button>
-                  </Box>
-                  {/* GSAP animated intro (Overview & Team) moved above images as requested */}
-                  <AnimatedC2CIntro />
-                  {/* IXD images reduced width and centered */}
-                  <Box mb={0}>
-                    <Image src="/images/ixd1.svg" alt="IXD 1" width="80%" mx="auto" mb={4} objectFit="contain" display="block" />
-                    <Image src="/images/ixd2.svg" alt="IXD 2" width="80%" mx="auto" objectFit="contain" display="block" />
-                  </Box>
-                  {/* 6502 video reduced width and centered, after images (no radius, no gap above) */}
-                  <Box mb={6}>
-                    <video src="/6502.mp4" style={{ width: '80%', display: 'block', borderRadius: 0, margin: '0 auto' }} controls playsInline />
-                  </Box>
-                  {/* Retro Particle BG for C2C */}
-                  <C2CParticleBG />
-                </ModalBody>
-                <ModalFooter>
-                  <Button onClick={onEditClosemd17}>Close</Button>
-                </ModalFooter>
-              </ModalContent>
-            </Modal>
-          </Section>
-
-          <Section>
-            <Box as="a" href="https://bukil.github.io/dataviz/" target="_blank" rel="noopener noreferrer" style={{ display: 'block', cursor: 'pointer', textDecoration: 'none' }}>
-              <ProjectPanel
-                title="Data visualisation:LHC, Speed of Light"
-                hoverTitle="Data Visualisation"
-                description="A visual exploration of particle speeds and collisions at the LHC, compared to the speed of light."
-                imageSrc="/dataviz.svg"
-                imageAlt="Data Visualisation LHC"
-                gradientColors="radial-gradient(circle at center, rgba(0, 120, 255, 0.7) 0%, rgba(0, 20, 40, 0.98) 100%)"
-                hoverGradientColors="radial-gradient(circle at center, rgba(50, 160, 255, 0.85) 0%, rgba(10, 30, 60, 0.98) 100%)"
-                accentColor="blue.400"
-                sx={{
-                  position: 'relative',
-                  overflow: 'hidden',
-                }}
-                customContent={
-                  <Image
-                    src="/dataviz.svg"
-                    alt="Data Visualisation LHC"
-                    position="absolute"
-                    top={"-6%"}
-                    left={0}
-                    width="100%"
-                    height="100%"
-                    objectFit="cover"
-                    zIndex={0}
-                  />
-                }
-              />
-            </Box>
-          </Section>
-
-          {/* Additional project tile: Data Vizualisation */}
-          <Section>
-            <Box as="a" href="https://bukil.github.io/MAPA/" target="_blank" rel="noopener noreferrer" style={{ display: 'block', cursor: 'pointer', textDecoration: 'none' }}>
-              <ProjectPanel
-                title="Data Vizualisation"
-                hoverTitle="Data Vizualisation"
-                description="Exploring the Links Between Literacy, Salary & Societal Issues in India"
-                gradientColors="radial-gradient(circle at center, rgba(0, 80, 200, 0.7) 0%, rgba(0, 20, 50, 0.98) 100%)"
-                hoverGradientColors="radial-gradient(circle at center, rgba(0, 120, 255, 0.85) 0%, rgba(0, 30, 70, 0.98) 100%)"
-                accentColor="blue.300"
-                sx={{ position: 'relative', overflow: 'hidden' }}
-                customContent={
-                  <Box position="absolute" top={"-6%"} left={0} width="100%" height="100%" zIndex={0}>
-                      <svg width="100%" height="100%" viewBox="0 0 100 100" preserveAspectRatio="none" role="img" aria-label="Animated inline chart preview">
-                        <style>{`
-                          .viz-grid { stroke: rgba(255,255,255,0.10); stroke-width: 0.18 }
-                          .thread { fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 0.7; opacity: 0.96; vector-effect: non-scaling-stroke }
-                          .t1 { stroke: #50b6ff; stroke-dasharray: 200; stroke-dashoffset: 200; animation: draw1 3s linear infinite }
-                          .t2 { stroke: #00ffaa; stroke-dasharray: 200; stroke-dashoffset: 200; animation: draw2 3.6s linear infinite 0.25s }
-                          .t3 { stroke: #ff6ec7; stroke-dasharray: 200; stroke-dashoffset: 200; animation: draw3 4s linear infinite 0.5s }
-                          @keyframes draw1 { to { stroke-dashoffset: 0 } }
-                          @keyframes draw2 { to { stroke-dashoffset: 0 } }
-                          @keyframes draw3 { to { stroke-dashoffset: 0 } }
-                        `}</style>
-                        {/* subtle grid */}
-                        <g className="viz-grid">
-                          {Array.from({ length: 10 }).map((_, i) => (
-                            <line key={`v${i}`} x1={(i+1)*9} y1="8" x2={(i+1)*9} y2="92" />
-                          ))}
-                          {Array.from({ length: 6 }).map((_, i) => (
-                            <line key={`h${i}`} x1="6" y1={92 - i*14} x2="94" y2={92 - i*14} />
-                          ))}
-                        </g>
-                        {/* area under main band (subtle) */}
-                        <path d="M6,80 L14,74 L22,70 L30,66 L38,58 L46,60 L54,52 L62,48 L70,40 L78,46 L86,38 L94,34 L94,92 L6,92 Z" fill="rgba(0, 255, 170, 0.06)" />
-                        {/* three thin animated threads (slightly offset for depth) */}
-                        <path className="thread t1" d="M6,80 L14,74 L22,70 L30,66 L38,58 L46,60 L54,52 L62,48 L70,40 L78,46 L86,38 L94,34" />
-                        <path className="thread t2" d="M6,81.6 L14,75.6 L22,71.6 L30,67.6 L38,59.6 L46,61.6 L54,53.6 L62,49.6 L70,41.6 L78,47.6 L86,39.6 L94,35.6" />
-                        <path className="thread t3" d="M6,78.4 L14,72.4 L22,68.4 L30,64.4 L38,56.4 L46,58.4 L54,50.4 L62,46.4 L70,38.4 L78,44.4 L86,36.4 L94,32.4" />
-                        {/* subtle point highlights to keep visual cue (very small) */}
-                        <g fill="#ffffff" opacity="0.7">
-                          {[{x:6,y:80},{x:22,y:70},{x:38,y:58},{x:54,y:52},{x:70,y:40},{x:86,y:38}].map((p,i)=>(
-                            <circle key={i} cx={p.x} cy={p.y} r="0.9" />
-                          ))}
-                        </g>
-                      </svg>
-                  </Box>
-                }
-              />
-            </Box>
           </Section>
 
 
@@ -743,7 +408,6 @@ const Works = () => {
   const bigTextRef = useRef(null)
   const scrollIndicatorRef = useRef(null)
   const characters = "DESIGN".split("")
-  const { colorMode } = useColorMode()
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -814,7 +478,7 @@ const Works = () => {
       {/* Font link moved to _document.js to satisfy @next/next/no-page-custom-font */}
       <Layout title="Works" mt={10} overflowX="hidden">
         <Box w="100%" position="relative">
-          <BigText ref={bigTextRef} colorMode={colorMode}>
+          <BigText ref={bigTextRef}>
             {characters.map((char, index) => (
               <Character key={index}>{char}</Character>
             ))}
@@ -827,7 +491,7 @@ const Works = () => {
               transition={{ repeat: Infinity, duration: 1.6, ease: 'easeInOut' }}
               style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
             >
-              <ChevronDownIcon boxSize={5} color="white" />
+              <ChevronDownIcon boxSize={5} color="#1a202c" />
             </Box>
           </ScrollIndicator>
           <ContentWrapper>
@@ -851,21 +515,21 @@ const Works = () => {
                       <Button 
                         borderRadius='50px'
                         variant='outline'
-                        border='1px'
-                        borderColor='#89EF8C'
-                        color='#89EF8C'
+                        border='1.5px solid'
+                        borderColor='#111827'
+                        color='#111827'
                         px={6}
                         py={10}
                         fontSize="lg"
-                        fontWeight="medium"
+                        fontWeight="semibold"
                         letterSpacing="wider"
                         height="90px"
                         leftIcon={<ChevronLeftIcon />}
                         _hover={{
-                          bg: '#89EF8C',
-                          color: '#0a192f',
+                          bg: '#111827',
+                          color: '#ffffff',
                           transform: 'translateY(-2px)',
-                          boxShadow: '0 3px 10px rgba(137, 239, 140, 0.3)'
+                          boxShadow: '0 3px 10px rgba(0, 0, 0, 0.15)'
                         }}
                       >
                         GO BACK TO HOME PAGE
@@ -885,301 +549,93 @@ const Works = () => {
 export default Works
 export { getServerSideProps } from '../components/chakra'
 
-// Add this component at the end of the file
-function AnimatedC2CIntro() {
-  const introRef = useRef(null)
-  const overviewRef = useRef(null)
-  const namesRef = useRef([])
 
-  useEffect(() => {
-    if (introRef.current) {
-      gsap.fromTo(introRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out' })
-    }
-    if (overviewRef.current) {
-      gsap.fromTo(overviewRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1.2, delay: 1.1, ease: 'power3.out' })
-    }
-    namesRef.current.forEach((el, i) => {
-      if (el) {
-        gsap.fromTo(el, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.7, delay: 1.7 + i * 0.2, ease: 'power3.out' })
-      }
-    })
-  }, [])
 
+function DesignSystemGraphic() {
   return (
-    <div style={{ width: '80%', margin: '0 auto' }}>
-      <div
-        ref={introRef}
-        style={{
-          fontFamily: 'Matrix, monospace',
-          fontSize: '2.2rem',
-          color: '#89EF8C',
-          textAlign: 'left',
-          marginBottom: '2.5rem',
-          letterSpacing: '0.04em',
-        }}
-      />
-      <div style={{ height: '2.5rem' }} /> {/* gap */}
-      <div
-        ref={overviewRef}
-        style={{
-          fontFamily: 'Matrix, monospace',
-          fontSize: '1.3rem',
-          color: '#fff',
-          textAlign: 'left',
-          marginBottom: '2.2rem',
-          letterSpacing: '0.02em',
-        }}
+    <Box
+      position="absolute"
+      top={0}
+      left={0}
+      width="100%"
+      height="100%"
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+      pb="72px"
+      pointerEvents="none"
+    >
+      <svg
+        width="260"
+        height="180"
+        viewBox="0 0 260 180"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        style={{ maxWidth: '80%', height: 'auto', display: 'block' }}
       >
-        <b>Overview:</b> <br />
-        This project explores the process of interaction design, from initial concept to working prototype, through collaborative teamwork and creative problem-solving.
-      </div>
-      <div style={{ height: '1.5rem' }} />
-      <div style={{
-        display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.7rem',
-        fontFamily: 'Matrix, monospace', fontSize: '1.1rem', color: '#89EF8C',
-      }}>
-        <b style={{ marginRight: '0.7rem' }}>Team:</b>
-        <a ref={el => namesRef.current[0] = el} href="https://www.behance.net/mukil" target="_blank" rel="noopener noreferrer" style={{ color: '#89EF8C', textDecoration: 'underline', fontWeight: 700 }}>MUKIL</a>
-        <span style={{ margin: '0 0.5rem' }}>·</span>
-        <a ref={el => namesRef.current[1] = el} href="https://www.behance.net/prajaktahardikar" target="_blank" rel="noopener noreferrer" style={{ color: '#89EF8C', textDecoration: 'underline', fontWeight: 700 }}>PRAJAKTA</a>
-        <span style={{ margin: '0 0.5rem' }}>·</span>
-        <a ref={el => namesRef.current[2] = el} href="https://www.anoushkashome.design" target="_blank" rel="noopener noreferrer" style={{ color: '#89EF8C', textDecoration: 'underline', fontWeight: 700 }}>ANOUSHKA</a>
-        <span style={{ margin: '0 0.5rem' }}>·</span>
-        <a ref={el => namesRef.current[3] = el} href="https://www.behance.net/samikshajain" target="_blank" rel="noopener noreferrer" style={{ color: '#89EF8C', textDecoration: 'underline', fontWeight: 700 }}>SAMIKSHA</a>
-      </div>
-    </div>
-  )
-}
+        {/* Typeface Style Banner - Zero Radius */}
+        <g transform="translate(30, 24)">
+          {/* Left Block: Bold Specimen Glyph */}
+          <rect x="0" y="0" width="50" height="44" fill="#1464FF" />
+          <text
+            x="25"
+            y="32"
+            fontFamily="'Anton', 'Arial Black', sans-serif"
+            fontSize="26"
+            fontWeight="900"
+            fill="#ffffff"
+            textAnchor="middle"
+          >
+            Aa
+          </text>
 
-// Retro particle background for C2C modal
-function C2CParticleBG() {
-  const canvasRef = useRef(null)
-  useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-    const ctx = canvas.getContext('2d')
-    let dpr = window.devicePixelRatio || 1
-    let width = window.innerWidth
-    let height = window.innerHeight
-    function setCanvasSize() {
-      dpr = window.devicePixelRatio || 1
-      width = window.innerWidth
-      height = window.innerHeight
-      canvas.width = width * dpr
-      canvas.height = height * dpr
-      ctx.setTransform(1, 0, 0, 1, 0, 0)
-      ctx.scale(dpr, dpr)
-    }
-    setCanvasSize()
-    // Retro pixel particles
-    const PARTICLE_COUNT = 60
-    const particles = Array.from({ length: PARTICLE_COUNT }).map(() => ({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      size: Math.random() * 3 + 2,
-      speedX: (Math.random() - 0.5) * 0.4,
-      speedY: (Math.random() - 0.5) * 0.4,
-      color: Math.random() > 0.5 ? '#89EF8C' : '#b3ffb3',
-      alpha: Math.random() * 0.5 + 0.5,
-    }))
-    let animId
-    function animate() {
-      ctx.clearRect(0, 0, width, height)
-      for (const p of particles) {
-        // Move
-        p.x += p.speedX
-        p.y += p.speedY
-        // Wrap
-        if (p.x < 0) p.x = width
-        if (p.x > width) p.x = 0
-        if (p.y < 0) p.y = height
-        if (p.y > height) p.y = 0
-        // Draw pixel/retro style
-        ctx.save()
-        ctx.globalAlpha = p.alpha
-        ctx.shadowColor = p.color
-        ctx.shadowBlur = 8
-        ctx.fillStyle = p.color
-        ctx.fillRect(Math.round(p.x), Math.round(p.y), p.size, p.size)
-        ctx.restore()
-      }
-      animId = requestAnimationFrame(animate)
-    }
-    animate()
-    function handleResize() {
-      setCanvasSize()
-    }
-    window.addEventListener('resize', handleResize)
-    return () => {
-      cancelAnimationFrame(animId)
-      window.removeEventListener('resize', handleResize)
-    }
-  }, [])
-  return (
-    <canvas
-      ref={canvasRef}
-      style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100vw',
-        height: '100vh',
-        zIndex: 0,
-        pointerEvents: 'none',
-        opacity: 0.22,
-      }}
-    />
-  )
-}
+          {/* Right Block: Typography Identity Banner */}
+          <rect x="50" y="0" width="150" height="44" fill="#0F172A" />
+          <text
+            x="64"
+            y="22"
+            fontFamily="'Michroma', monospace"
+            fontSize="11"
+            fontWeight="700"
+            fill="#ffffff"
+            letterSpacing="0.08em"
+          >
+            PAY-GRID
+          </text>
+          <text
+            x="64"
+            y="35"
+            fontFamily="'Encode Sans Expanded', sans-serif"
+            fontSize="7"
+            fontWeight="600"
+            fill="#B1FF0B"
+            letterSpacing="0.14em"
+          >
+            TYPEFACE SPECIMEN
+          </text>
+        </g>
 
-// Add this component at the end of the file:
-function DesignSystemPanelGridLines() {
-  // Repeated construction pattern: at each grid intersection, draw cross and diagonals
-  const svgW = 320
-  const svgH = 180
-  const gridX = 6 // number of vertical grid lines
-  const gridY = 4 // number of horizontal grid lines
-  const diagAngles = [0, 45, 90, 135] // degrees for cross and diagonals
-  // Calculate grid positions
-  const xs = Array.from({length: gridX}, (_, i) => i * (svgW/(gridX-1)))
-  const ys = Array.from({length: gridY}, (_, i) => i * (svgH/(gridY-1)))
-  // For each intersection, draw cross and diagonals
-  const guides = []
-  xs.forEach((x, xi) => {
-    ys.forEach((y, yi) => {
-      diagAngles.forEach((deg, ) => {
-        const rad = deg * Math.PI / 180
-        const len = 32 // length of each guide line
-        const dx = Math.cos(rad) * len/2
-        const dy = Math.sin(rad) * len/2
-        guides.push({
-          x1: x - dx, y1: y - dy, x2: x + dx, y2: y + dy,
-          center: xi === Math.floor(gridX/2) && yi === Math.floor(gridY/2)
-        })
-      })
-    })
-  })
-  // Center intersection for highlight
-  return (
-    <Box position="absolute" top={0} left={0} w="100%" h="100%" zIndex={1} pointerEvents="none">
-      <svg width="100%" height="100%" viewBox={`0 0 ${svgW} ${svgH}`} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
-        {/* Repeated construction guides at each grid intersection */}
-        {guides.map((l, i) => (
-          <line
-            key={i}
-            x1={l.x1} y1={l.y1} x2={l.x2} y2={l.y2}
-            stroke="#89EF8C"
-            strokeWidth={l.center ? 1.5 : 0.7}
-            opacity={l.center ? 0.35 : 0.18}
-          />
-        ))}
-        {/* center circles removed per request */}
+        {/* Extended Palette - 10 Solid Colour Tiles with Zero Radius */}
+        <g transform="translate(30, 78)">
+          {/* Row 1 */}
+          <rect x="0" y="0" width="36" height="26" fill="#1464FF" />
+          <rect x="41" y="0" width="36" height="26" fill="#2563EB" />
+          <rect x="82" y="0" width="36" height="26" fill="#38BDF8" />
+          <rect x="123" y="0" width="36" height="26" fill="#B1FF0B" />
+          <rect x="164" y="0" width="36" height="26" fill="#10B981" />
+
+          {/* Row 2 */}
+          <rect x="0" y="31" width="36" height="26" fill="#F59E0B" />
+          <rect x="41" y="31" width="36" height="26" fill="#EF4444" />
+          <rect x="82" y="31" width="36" height="26" fill="#8B5CF6" />
+          <rect x="123" y="31" width="36" height="26" fill="#0F172A" />
+          <rect x="164" y="31" width="36" height="26" fill="#E2E8F0" stroke="rgba(0, 0, 0, 0.1)" strokeWidth="1" />
+        </g>
       </svg>
-    </Box>
-  )
-}
-
-export {
-  DesignSystemPanelGridLines
-}
-
-function GlowingRollingLandAnimation() {
-  const canvasRef = useRef(null);
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    let dpr = window.devicePixelRatio || 1;
-    let width = 400, height = 400;
-    function setCanvasSize() {
-      dpr = window.devicePixelRatio || 1;
-      width = canvas.offsetWidth;
-      height = canvas.offsetHeight;
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
-      ctx.setTransform(1, 0, 0, 1, 0, 0);
-      ctx.scale(dpr, dpr);
-    }
-    setCanvasSize();
-    let t = 0;
-    function draw() {
-      ctx.clearRect(0, 0, width, height);
-      // Draw glowing horizon
-      const horizonY = height * 0.68;
-      const grad = ctx.createLinearGradient(0, horizonY-40, 0, horizonY+60);
-      grad.addColorStop(0, '#a259ff');
-      grad.addColorStop(0.2, '#00aaff');
-      grad.addColorStop(0.5, '#181c3a');
-      grad.addColorStop(1, '#181c3a');
-      ctx.save();
-      ctx.globalAlpha = 0.85;
-      ctx.beginPath();
-      ctx.moveTo(0, horizonY);
-      // Rolling land (undulating sine wave, animated)
-      for (let x = 0; x <= width; x += 2) {
-        const y = horizonY + Math.sin((x/width)*Math.PI*2*2 + t*0.8) * 18
-          + Math.sin((x/width)*Math.PI*4 + t*1.7) * 8
-          + Math.cos((x/width)*Math.PI*1.5 - t*1.2) * 10;
-        ctx.lineTo(x, y);
-      }
-      ctx.lineTo(width, height);
-      ctx.lineTo(0, height);
-      ctx.closePath();
-      ctx.shadowColor = '#a259ff';
-      ctx.shadowBlur = 32;
-      ctx.fillStyle = grad;
-      ctx.fill();
-      ctx.restore();
-      // Horizon glow
-      ctx.save();
-      const glowGrad = ctx.createRadialGradient(width/2, horizonY-18, 12, width/2, horizonY-18, width*0.7);
-      glowGrad.addColorStop(0, 'rgba(137,239,140,0.18)');
-      glowGrad.addColorStop(0.2, 'rgba(0,170,255,0.13)');
-      glowGrad.addColorStop(0.5, 'rgba(162,89,255,0.09)');
-      glowGrad.addColorStop(1, 'rgba(24,28,58,0.01)');
-      ctx.globalAlpha = 0.7;
-      ctx.beginPath();
-      ctx.arc(width/2, horizonY-18, width*0.7, 0, Math.PI*2);
-      ctx.fillStyle = glowGrad;
-      ctx.fill();
-      ctx.restore();
-      // Rolling land lines for parallax effect
-      for (let l = 0; l < 3; l++) {
-        ctx.save();
-        ctx.globalAlpha = 0.18 + l*0.09;
-        ctx.beginPath();
-        ctx.moveTo(0, horizonY + 18 + l*18);
-        for (let x = 0; x <= width; x += 2) {
-          const y = horizonY + 18 + l*18
-            + Math.sin((x/width)*Math.PI*2*2 + t*0.8 + l*0.5) * (12-l*2)
-            + Math.cos((x/width)*Math.PI*1.5 - t*1.2 - l*0.7) * (8-l*2);
-          ctx.lineTo(x, y);
-        }
-        ctx.strokeStyle = l === 0 ? '#00aaff' : l === 1 ? '#a259ff' : '#89EF8C';
-        ctx.lineWidth = 2.2 - l*0.5;
-        ctx.shadowColor = ctx.strokeStyle;
-        ctx.shadowBlur = 12 + l*6;
-        ctx.stroke();
-        ctx.restore();
-      }
-      t += 0.012;
-      requestAnimationFrame(draw);
-    }
-    let animId = requestAnimationFrame(draw);
-    window.addEventListener('resize', setCanvasSize);
-    return () => {
-      cancelAnimationFrame(animId);
-      window.removeEventListener('resize', setCanvasSize);
-    };
-  }, []);
-  return (
-    <Box w="100%" h="100%" position="absolute" top={0} left={0} zIndex={1} pointerEvents="none">
-      <canvas
-        ref={canvasRef}
-        style={{ width: '100%', height: '100%', display: 'block', borderRadius: 32 }}
-      />
     </Box>
   );
 }
+
+
 
 // Progress Bar component removed per user request

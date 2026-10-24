@@ -1,4 +1,4 @@
-import { Heading, Text, VStack, Box, useColorModeValue, Image, Icon as ChakraIcon } from '@chakra-ui/react'
+import { Heading, Text, VStack, Box, Image, Icon as ChakraIcon } from '@chakra-ui/react'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
 import { useRef, useEffect, useState } from 'react'
@@ -9,8 +9,8 @@ import { FaPlayCircle } from 'react-icons/fa'
 
 
 const Blog = () => {
-  const textColor = useColorModeValue('#222', '#fff')
-  const pinkLine = useColorModeValue('#b83280', '#ff7eb3')
+  const textColor = '#1a202c'
+  const pinkLine = '#b83280'
 
 
   // Refs for GSAP animation
@@ -174,10 +174,10 @@ const Blog = () => {
 
         ctx.save();
         ctx.globalAlpha = alpha;
-        ctx.shadowColor = '#b3d1ff';
-        ctx.shadowBlur = 8;
+        ctx.shadowColor = 'rgba(0, 0, 0, 0.1)';
+        ctx.shadowBlur = 4;
         if (star.type === 'plus') {
-          ctx.strokeStyle = 'white';
+          ctx.strokeStyle = '#64748b';
           ctx.lineWidth = Math.max(1, star.r * 0.7);
           ctx.beginPath();
           ctx.moveTo(star.x - star.r, star.y);
@@ -188,7 +188,7 @@ const Blog = () => {
         } else {
           ctx.beginPath();
           ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
-          ctx.fillStyle = 'white';
+          ctx.fillStyle = '#64748b';
           ctx.fill();
         }
         ctx.restore();
@@ -333,26 +333,26 @@ const Blog = () => {
 
   // BookReviewCard component for compact book review tiles
   function BookReviewCard({ title, author, rating, review }) {
-    const textColor = useColorModeValue('#222', '#fff');
+    const cardTextColor = '#1a202c';
     return (
       <Box
-        bg="rgba(255,255,255,0.13)"
-        borderRadius="0"
-        boxShadow="0 4px 24px 0 rgba(0,0,0,0.10)"
+        bg="rgba(0, 0, 0, 0.02)"
+        borderRadius="12px"
+        boxShadow="0 2px 12px 0 rgba(0,0,0,0.05)"
         p={4}
         minH={"140px"}
         display="flex"
         flexDirection="column"
         alignItems="flex-start"
         justifyContent="center"
-        border="1px solid rgba(255,255,255,0.18)"
+        border="1px solid rgba(0, 0, 0, 0.08)"
         backdropFilter="blur(8px)"
         style={{ WebkitBackdropFilter: 'blur(8px)' }}
       >
-        <Text fontWeight="bold" fontSize="md" color={textColor} mb={1}>{title}</Text>
-        <Text fontSize="xs" color={textColor} mb={1}>{author}</Text>
-        <Text fontSize="md" color="#FFD600" mb={1}>{rating}</Text>
-        <Text fontSize="xs" color={textColor}>{review}</Text>
+        <Text fontWeight="bold" fontSize="md" color={cardTextColor} mb={1}>{title}</Text>
+        <Text fontSize="xs" color="gray.600" mb={1}>{author}</Text>
+        <Text fontSize="md" color="#d97706" mb={1}>{rating}</Text>
+        <Text fontSize="xs" color="gray.700">{review}</Text>
       </Box>
     );
   }
@@ -462,39 +462,36 @@ const Blog = () => {
                       </Box>
                     ) : null}
                   </Box>
-                  {/* Title and Explanation, floating, with text shadow for readability */}
+                  {/* Title and Explanation in bright mode with WCAG compliant colors */}
                   <Text
                     fontSize={{ base: 'lg', md: '2xl' }}
                     fontWeight="bold"
-                    color={'#7bb6ff'}
+                    color={'#1e40af'}
                     textAlign="center"
                     fontFamily="'Archivo Black', 'Space Grotesk', sans-serif"
-                    textShadow="0 2px 16px #000, 0 0px 2px #7bb6ff"
                   >
                     NASA Astronomy Picture of the Day
                   </Text>
                   <Text
                     fontSize={{ base: 'md', md: 'xl' }}
                     fontWeight="semibold"
-                    color={'#b3d1ff'}
+                    color={'#1e293b'}
                     textAlign="center"
                     fontFamily="'Archivo Black', 'Space Grotesk', sans-serif"
-                    textShadow="0 2px 16px #000, 0 0px 2px #7bb6ff"
                   >
                     {apod.title}
                   </Text>
                   <Text
                     fontSize={{ base: 'sm', md: 'md' }}
-                    color={'#e0e6ff'}
+                    color={'#334155'}
                     textAlign="center"
                     fontFamily="'Space Mono', 'Menlo', 'monospace'"
-                    textShadow="0 2px 16px #000, 0 0px 2px #7bb6ff"
                     maxW={{ base: '95vw', md: '700px' }}
                   >
                     {apod.explanation.length > 220 ? apod.explanation.slice(0, 220) + '...' : apod.explanation}
                   </Text>
-                  <Text fontSize="xs" color="#7bb6ff" mt={2} textShadow="0 2px 8px #000">
-                    Source: <a href="https://apod.nasa.gov/" target="_blank" rel="noopener noreferrer" style={{ color: '#b3d1ff', textDecoration: 'underline' }}>NASA APOD</a>
+                  <Text fontSize="xs" color="#2563eb" mt={2}>
+                    Source: <a href="https://apod.nasa.gov/" target="_blank" rel="noopener noreferrer" style={{ color: '#2563eb', textDecoration: 'underline' }}>NASA APOD</a>
                   </Text>
                 </VStack>
               ) : null}

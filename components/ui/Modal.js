@@ -24,7 +24,8 @@ const StandardModal = ({ isOpen, onClose, children, footer, size = 'full', maxW 
       m={0}
       p={0}
       borderRadius={0}
-      bg={{ base: 'rgba(255,255,255,0.65)', _dark: 'rgba(20,20,20,0.65)' }}
+      bg="rgba(255,255,255,0.95)"
+      color="gray.800"
       boxShadow="none"
       mt={{ base: '64px', md: '80px' }}
       zIndex={zIndex + 1}

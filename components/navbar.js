@@ -11,11 +11,9 @@ import {
   MenuList,
   Portal,
   MenuButton,
-  IconButton,
-  useColorModeValue
+  IconButton
 } from '@chakra-ui/react'
 import { HamburgerIcon } from '@chakra-ui/icons'
-import ThemeToggleButton from './theme-toggle-button'
 import React, { useRef, useEffect, useState, useLayoutEffect, useCallback, useMemo } from 'react'
 
 // Stable tab paths outside component to avoid hook dep warnings
@@ -25,20 +23,17 @@ const TAB_PATHS = ['/works', '/blog', '/playground', '/Mukil_Résumé.pdf', '/co
 
 const LinkItem = ({ href, path, target, children, tabRef, ...props }) => {
   const active = path === href
-  const inactiveColor = useColorModeValue('gray.600', 'whiteAlpha.900')
-  const hoverBg = useColorModeValue(
-    'rgba(137,239,140,0.15)',
-    'rgba(137,239,140,0.25)'
-  )
+  const inactiveColor = 'gray.800'
+  const hoverBg = 'rgba(137,239,140,0.2)'
   return (
     <NextLink href={href} passHref legacyBehavior>
       <Link
         ref={tabRef}
         p={2}
-        fontSize={18}
+        fontSize={17}
         color={active ? '#202023' : inactiveColor}
         borderRadius={'12px'}
-        fontWeight="medium"
+        fontWeight="500"
         position="relative"
         zIndex={10}
         transition="all 0.2s ease-out"
@@ -61,8 +56,6 @@ const LinkItem = ({ href, path, target, children, tabRef, ...props }) => {
 
 const Navbar = props => {
   const { path } = props
-  // Normalize path to ignore query strings, hashes and trailing slashes
-  const normalizedPath = (path || '').split('?')[0].split('#')[0].replace(/\/$/, '') || '/'
   const [highlight, setHighlight] = useState({ left: 0, width: 0 })
   const navStackRef = useRef(null)
   // create stable refs and stable array identity
@@ -128,10 +121,10 @@ const Navbar = props => {
         margin="15px 16px"
         width="calc(100% - 32px)"
         overflow="hidden"
-        bg={useColorModeValue('rgba(255,255,255,0.15)', 'rgba(32, 32, 35, 0.15)')}
-        backdropFilter="blur(4px)"
-        boxShadow={useColorModeValue('0 4px 24px rgba(0,0,0,0.04)', '0 4px 24px rgba(0,0,0,0.1)')}
-        border={useColorModeValue('0.5px solid rgba(255, 255, 255, 0.05)', '0.5px solid rgba(255,255,255,0.1)')}
+        bg="rgba(255, 255, 255, 0.75)"
+        backdropFilter="blur(12px)"
+        boxShadow="0 4px 24px rgba(0, 0, 0, 0.06)"
+        border="1px solid rgba(0, 0, 0, 0.08)"
         transition="transform 0.2s linear"
         _hover={{
           transform: 'none'
@@ -170,25 +163,20 @@ const Navbar = props => {
                     boxShadow="none"
                   />
                 )}
-                <LinkItem href="/works" path={path} tabRef={tabRefs[0]} fontWeight="hairline" fontSize={18}>
+                <LinkItem href="/works" path={path} tabRef={tabRefs[0]} fontWeight="500" fontSize={17}>
                   My Work
                 </LinkItem>
-                <LinkItem href="/blog" path={path} tabRef={tabRefs[1]} fontWeight="hairline" fontSize={18}>
+                <LinkItem href="/blog" path={path} tabRef={tabRefs[1]} fontWeight="500" fontSize={17}>
                   Blog
                 </LinkItem>
-                <LinkItem href="/playground" path={path} tabRef={tabRefs[2]} fontWeight="hairline" fontSize={18}>
+                <LinkItem href="/playground" path={path} tabRef={tabRefs[2]} fontWeight="500" fontSize={17}>
                   Playground
                 </LinkItem>
                 {/* RESUME tab removed */}
-                <LinkItem href="/contact" path={path} tabRef={tabRefs[4]} fontWeight="hairline" fontSize={18}>
+                <LinkItem href="/contact" path={path} tabRef={tabRefs[4]} fontWeight="500" fontSize={17}>
                   Contact
                 </LinkItem>
               </Stack>
-              {normalizedPath !== '/' && (
-                <Box ml={2} display={{ base: 'none', md: 'flex' }} alignItems="center">
-                  <ThemeToggleButton />
-                </Box>
-              )}
             </Flex>
 
             {/* Mobile Menu - No distortion */}
@@ -201,67 +189,43 @@ const Navbar = props => {
                     variant="outline"
                     borderRadius="12px"
                     aria-label="Options"
-                    bg={useColorModeValue(
-                      'linear-gradient(180deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.3) 100%)',
-                      'linear-gradient(180deg, rgba(32,32,35,0.4) 0%, rgba(32,32,35,0.3) 100%)'
-                    )}
-                    border={useColorModeValue(
-                      '1px solid rgba(255,255,255,0.3)',
-                      '1px solid rgba(255,255,255,0.1)'
-                    )}
+                    bg="rgba(255, 255, 255, 0.85)"
+                    border="1px solid rgba(0, 0, 0, 0.12)"
+                    color="gray.800"
                     _hover={{
-                      bg: useColorModeValue(
-                        'linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0.4) 100%)',
-                        'linear-gradient(180deg, rgba(32,32,35,0.5) 0%, rgba(32,32,35,0.4) 100%)'
-                      ),
+                      bg: "rgba(255, 255, 255, 0.95)",
                       transform: 'scale(1.05)',
-                      boxShadow: useColorModeValue(
-                        '0 4px 20px rgba(0,0,0,0.1), inset 0 0 0 1px rgba(255,255,255,0.3)',
-                        '0 4px 20px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(255,255,255,0.2)'
-                      ),
+                      boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
                       transition: 'all 0.2s linear'
                     }}
                   />
                   <Portal>
                     <MenuList
-                    bg={useColorModeValue(
-                      'linear-gradient(180deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.3) 100%)',
-                      'linear-gradient(180deg, rgba(32,32,35,0.4) 0%, rgba(32,32,35,0.3) 100%)'
-                    )}
-                    backdropFilter="blur(8px)"
-                    border={useColorModeValue(
-                      '1px solid rgba(255,255,255,0.3)',
-                      '1px solid rgba(255,255,255,0.1)'
-                    )}
-                    borderRadius="12px"
-                    boxShadow={useColorModeValue(
-                      '0 4px 30px rgba(0,0,0,0.1), inset 0 0 0 1px rgba(255,255,255,0.2)',
-                      '0 4px 30px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(255,255,255,0.1)'
-                    )}
-                    zIndex={2100}
-                  >
-                    <NextLink href="/works" passHref legacyBehavior>
-                      <MenuItem as={Link}>My Work</MenuItem>
-                    </NextLink>
-                    <NextLink href="/blog" passHref legacyBehavior>
-                      <MenuItem as={Link}>Blog</MenuItem>
-                    </NextLink>
-                    <NextLink href="/playground" passHref legacyBehavior>
-                      <MenuItem as={Link}>Playground</MenuItem>
-                    </NextLink>
-                    {/* RESUME tab removed from mobile menu */}
-                    <NextLink href="/contact" passHref legacyBehavior>
-                      <MenuItem as={Link}>Contact</MenuItem>
-                    </NextLink>
-                  </MenuList>
+                      bg="rgba(255, 255, 255, 0.95)"
+                      backdropFilter="blur(12px)"
+                      border="1px solid rgba(0, 0, 0, 0.12)"
+                      borderRadius="12px"
+                      boxShadow="0 4px 30px rgba(0,0,0,0.12)"
+                      color="gray.800"
+                      zIndex={2100}
+                    >
+                      <NextLink href="/works" passHref legacyBehavior>
+                        <MenuItem as={Link} color="gray.800" fontWeight="medium">My Work</MenuItem>
+                      </NextLink>
+                      <NextLink href="/blog" passHref legacyBehavior>
+                        <MenuItem as={Link} color="gray.800" fontWeight="medium">Blog</MenuItem>
+                      </NextLink>
+                      <NextLink href="/playground" passHref legacyBehavior>
+                        <MenuItem as={Link} color="gray.800" fontWeight="medium">Playground</MenuItem>
+                      </NextLink>
+                      {/* RESUME tab removed from mobile menu */}
+                      <NextLink href="/contact" passHref legacyBehavior>
+                        <MenuItem as={Link} color="gray.800" fontWeight="medium">Contact</MenuItem>
+                      </NextLink>
+                    </MenuList>
                   </Portal>
                 </Menu>
               </Box>
-              {normalizedPath !== '/' && (
-                <Box ml={2} display={{ base: 'flex', md: 'none' }} alignItems="center">
-                  <ThemeToggleButton />
-                </Box>
-              )}
             </Flex>
           </Flex>
         </Box>

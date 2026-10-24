@@ -2,8 +2,6 @@ import Layout from '../components/layouts/main'
 import Fonts from '../components/fonts'
 import { AnimatePresence } from 'framer-motion'
 import Chakra from '../components/chakra'
-// import '../styles/cursor.css'
-import Cursor from '../components/ui/Cursor'
 
 if (typeof window !== 'undefined') {
   window.history.scrollRestoration = 'manual'
@@ -13,7 +11,6 @@ function Website({ Component, pageProps, router }) {
   return (
     <Chakra cookies={pageProps.cookies}>
       <Fonts />
-      <Cursor />
       <Layout router={router}>
         <AnimatePresence
           exitBeforeEnter

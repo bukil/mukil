@@ -133,10 +133,10 @@ const FooterLand = () => {
         <VStack spacing={6} align="stretch">
           <VStack spacing={6} align="stretch">
             <Box>
-              <Text color="white" fontSize="lg" fontWeight="bold" mb={4}>Character Animation Process</Text>
+              <Text color="gray.800" fontSize="lg" fontWeight="bold" mb={4}>Character Animation Process</Text>
               <Box display="grid" gridTemplateColumns="repeat(2, 1fr)" gap={6}>
                 <Box>
-                  <Text color="white" fontSize="sm" mb={2} fontWeight="medium">1. Initial Frame Setup</Text>
+                  <Text color="gray.700" fontSize="sm" mb={2} fontWeight="medium">1. Initial Frame Setup</Text>
                   <Box
                     as="img"
                     src="/mukil/NG0.jpeg"
@@ -145,13 +145,13 @@ const FooterLand = () => {
                     height="200px"
                     objectFit="cover"
                     borderRadius="md"
-                    border="1px solid rgba(255,255,255,0.1)"
-                    boxShadow="0 4px 12px rgba(0,0,0,0.2)"
+                    border="1px solid rgba(0,0,0,0.12)"
+                    boxShadow="0 4px 12px rgba(0,0,0,0.08)"
                   />
                 </Box>
                 <Box>
-                  <Text color="white" fontSize="sm" mb={2} fontWeight="medium">2. Aseprite Ryu Running in 12 FPS</Text>
-                  <Text color="white" fontSize="xs" mb={2} opacity={0.8}>Enhanced version of the original which is 3 Frames with static clothing and low physics</Text>
+                  <Text color="gray.700" fontSize="sm" mb={2} fontWeight="medium">2. Aseprite Ryu Running in 12 FPS</Text>
+                  <Text color="gray.600" fontSize="xs" mb={2}>Enhanced version of the original which is 3 Frames with static clothing and low physics</Text>
                   <Box
                     as="img"
                     src="/mukil/NG1.jpeg"
@@ -160,18 +160,18 @@ const FooterLand = () => {
                     height="200px"
                     objectFit="cover"
                     borderRadius="md"
-                    border="1px solid rgba(255,255,255,0.1)"
-                    boxShadow="0 4px 12px rgba(0,0,0,0.2)"
+                    border="1px solid rgba(0,0,0,0.12)"
+                    boxShadow="0 4px 12px rgba(0,0,0,0.08)"
                   />
                 </Box>
               </Box>
             </Box>
 
             <Box>
-              <Text color="white" fontSize="lg" fontWeight="bold" mb={4}>Background & Implementation</Text>
+              <Text color="gray.800" fontSize="lg" fontWeight="bold" mb={4}>Background & Implementation</Text>
               <Box display="grid" gridTemplateColumns="repeat(2, 1fr)" gap={6}>
                 <Box>
-                  <Text color="white" fontSize="sm" mb={2} fontWeight="medium">3. Footer City Pixel Art</Text>
+                  <Text color="gray.700" fontSize="sm" mb={2} fontWeight="medium">3. Footer City Pixel Art</Text>
                   <Box
                     as="img"
                     src="/mukil/NG2.jpeg"
@@ -180,13 +180,13 @@ const FooterLand = () => {
                     height="200px"
                     objectFit="cover"
                     borderRadius="md"
-                    border="1px solid rgba(255,255,255,0.1)"
-                    boxShadow="0 4px 12px rgba(0,0,0,0.2)"
+                    border="1px solid rgba(0,0,0,0.12)"
+                    boxShadow="0 4px 12px rgba(0,0,0,0.08)"
                   />
                 </Box>
                 <Box>
-                  <Text color="white" fontSize="sm" mb={2} fontWeight="medium">4. Animation Implementation</Text>
-                  <Text color="white" fontSize="xs" mb={2} opacity={0.8}>Code for the animation, here I use single image for the animation in the loop</Text>
+                  <Text color="gray.700" fontSize="sm" mb={2} fontWeight="medium">4. Animation Implementation</Text>
+                  <Text color="gray.600" fontSize="xs" mb={2}>Code for the animation, here I use single image for the animation in the loop</Text>
                   <Box
                     as="img"
                     src="/mukil/NG3.jpeg"
@@ -195,8 +195,8 @@ const FooterLand = () => {
                     height="200px"
                     objectFit="cover"
                     borderRadius="md"
-                    border="1px solid rgba(255,255,255,0.1)"
-                    boxShadow="0 4px 12px rgba(0,0,0,0.2)"
+                    border="1px solid rgba(0,0,0,0.12)"
+                    boxShadow="0 4px 12px rgba(0,0,0,0.08)"
                   />
                 </Box>
               </Box>
@@ -204,22 +204,21 @@ const FooterLand = () => {
           </VStack>
           <Button
             onClick={handleVideoClick}
-            bg="rgba(255, 255, 255, 0.15)"
-            color="#90cdf4"
+            bg="rgba(0, 0, 0, 0.05)"
+            color="#2b6cb0"
             _hover={{
-              bg: 'rgba(255, 255, 255, 0.25)',
-              transform: 'scale(1.05)',
+              bg: 'rgba(0, 0, 0, 0.1)',
+              transform: 'scale(1.02)',
             }}
             _active={{
-              bg: 'rgba(255, 255, 255, 0.2)',
+              bg: 'rgba(0, 0, 0, 0.15)',
             }}
             transition="all 0.2s ease-in-out"
             size="lg"
             width="100%"
             borderRadius="md"
-            fontWeight="medium"
-            backdropFilter="blur(4px)"
-            border="1px solid rgba(255, 255, 255, 0.1)"
+            fontWeight="semibold"
+            border="1px solid rgba(0, 0, 0, 0.15)"
           >
             Listen to &quot;Unbreakable Determination&quot; Theme
           </Button>

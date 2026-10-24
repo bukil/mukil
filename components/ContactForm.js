@@ -6,8 +6,7 @@ import {
   Input,
   Textarea,
   VStack,
-  Text,
-  useColorMode
+  Text
 } from '@chakra-ui/react'
 import { useState, useRef, useEffect } from 'react'
 import gsap from 'gsap'
@@ -22,7 +21,6 @@ const ContactForm = () => {
   const [isLoading, setIsLoading] = useState(false)
   const formRef = useRef(null)
   const buttonRef = useRef(null)
-  const { colorMode } = useColorMode();
 
   useEffect(() => {
     const btn = buttonRef.current;
@@ -60,7 +58,7 @@ const ContactForm = () => {
         onComplete: () => {
           gsap.to(formRef.current, {
             boxShadow: 'none',
-            borderColor: colorMode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : '#E2E8F0',
+            borderColor: '#E2E8F0',
             duration: 0.5,
             delay: 1
           })
@@ -121,11 +119,10 @@ const ContactForm = () => {
     }))
   }
 
-  // Bright mode for light, dark for dark
-  const formBg = colorMode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(255,255,255,0.85)';
-  const inputBg = colorMode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(255,255,255,0.85)';
-  const inputColor = colorMode === 'dark' ? 'white' : 'gray.800';
-  const borderColor = colorMode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : '#E2E8F0';
+  const formBg = 'rgba(255, 255, 255, 0.9)';
+  const inputBg = '#ffffff';
+  const inputColor = 'gray.800';
+  const borderColor = '#E2E8F0';
 
   return (
     <Box
@@ -153,8 +150,8 @@ const ContactForm = () => {
             placeholder="Your name"
             bg={inputBg}
             border={`1px solid ${borderColor}`}
-            _hover={{ borderColor: colorMode === 'dark' ? 'rgba(255, 255, 255, 0.2)' : '#CBD5E1' }}
-            _focus={{ borderColor: colorMode === 'dark' ? 'rgba(255, 255, 255, 0.3)' : '#3182ce' }}
+            _hover={{ borderColor: '#CBD5E1' }}
+            _focus={{ borderColor: '#3182ce' }}
             color={inputColor}
           />
         </FormControl>
@@ -169,8 +166,8 @@ const ContactForm = () => {
             placeholder="your.email@example.com"
             bg={inputBg}
             border={`1px solid ${borderColor}`}
-            _hover={{ borderColor: colorMode === 'dark' ? 'rgba(255, 255, 255, 0.2)' : '#CBD5E1' }}
-            _focus={{ borderColor: colorMode === 'dark' ? 'rgba(255, 255, 255, 0.3)' : '#3182ce' }}
+            _hover={{ borderColor: '#CBD5E1' }}
+            _focus={{ borderColor: '#3182ce' }}
             color={inputColor}
           />
         </FormControl>
@@ -184,8 +181,8 @@ const ContactForm = () => {
             placeholder="What's this about?"
             bg={inputBg}
             border={`1px solid ${borderColor}`}
-            _hover={{ borderColor: colorMode === 'dark' ? 'rgba(255, 255, 255, 0.2)' : '#CBD5E1' }}
-            _focus={{ borderColor: colorMode === 'dark' ? 'rgba(255, 255, 255, 0.3)' : '#3182ce' }}
+            _hover={{ borderColor: '#CBD5E1' }}
+            _focus={{ borderColor: '#3182ce' }}
             color={inputColor}
           />
         </FormControl>
@@ -200,8 +197,8 @@ const ContactForm = () => {
             rows={6}
             bg={inputBg}
             border={`1px solid ${borderColor}`}
-            _hover={{ borderColor: colorMode === 'dark' ? 'rgba(255, 255, 255, 0.2)' : '#CBD5E1' }}
-            _focus={{ borderColor: colorMode === 'dark' ? 'rgba(255, 255, 255, 0.3)' : '#3182ce' }}
+            _hover={{ borderColor: '#CBD5E1' }}
+            _focus={{ borderColor: '#3182ce' }}
             color={inputColor}
           />
         </FormControl>
@@ -212,10 +209,11 @@ const ContactForm = () => {
           isLoading={isLoading}
           loadingText="Sending..."
           width="full"
-          bg={colorMode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : '#F7FAFC'}
-          _hover={{ bg: colorMode === 'dark' ? 'rgba(255, 255, 255, 0.2)' : '#EDF2F7' }}
-          _active={{ bg: colorMode === 'dark' ? 'rgba(255, 255, 255, 0.15)' : '#E2E8F0' }}
-          color={colorMode === 'dark' ? 'white' : 'gray.800'}
+          bg="#F7FAFC"
+          _hover={{ bg: '#EDF2F7' }}
+          _active={{ bg: '#E2E8F0' }}
+          color="gray.800"
+          border="1px solid #E2E8F0"
         >
           Send Message
         </Button>

@@ -7,7 +7,6 @@ import {
   Box,
   Button,
   Text,
-  useColorMode,
   useBreakpointValue,
 } from '@chakra-ui/react'
 import { useRef, useLayoutEffect, useState, useEffect } from 'react'
@@ -34,8 +33,8 @@ const Trans = styled.span`
     position: relative;
     overflow: hidden;
     background: transparent;
-    border: 1px solid #89EF8C;
-    color: #89EF8C;
+    border: 1.5px solid #111827;
+    color: #111827;
     transition: all 0.3s ease;
     z-index: 1;
     border-radius: 50px;
@@ -48,15 +47,15 @@ const Trans = styled.span`
       left: 0;
       width: 0;
       height: 100%;
-      background: #89EF8C;
+      background: #111827;
       transition: all 0.3s ease;
       z-index: -1;
-  }
+    }
 
     &:hover {
-      color: #0a192f;
+      color: #ffffff;
       transform: translateY(-2px);
-      box-shadow: 0 3px 10px rgba(137, 239, 140, 0.3);
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
     }
 
     &:hover:before {
@@ -113,8 +112,7 @@ const SKILL_ICONS = {
   'Empathy': MdEmojiEmotions,
 }
 
-function AnimatedIntro({ textColor = '#ffffff' }) {
-  const { } = useColorMode();
+function AnimatedIntro({ textColor = '#111827' }) {
   const lines = [
     "I am a Creative Technologist and Interaction Design student living in Mumbai, currently pursuing my Masters at IIT Bombay.",
     "I craft playful, human-centered experiences at the intersection of design, technology, and art making ideas tangible, delightful, and meaningful."
@@ -183,7 +181,7 @@ const SmallGrid = () => {
     const plusThickness = 2;
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.18)';
 
     // Start from first grid line and place plus at every 5th intersection
     for (let x = 0; x <= canvas.width; x += gridSize * plusInterval) {
@@ -200,7 +198,7 @@ const SmallGrid = () => {
       canvas.height = window.innerHeight;
       
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.18)';
 
       for (let x = 0; x <= canvas.width; x += gridSize * plusInterval) {
         for (let y = 0; y <= canvas.height; y += gridSize * plusInterval) {
@@ -230,15 +228,15 @@ const SmallGrid = () => {
               0deg,
               transparent,
               transparent 38px,
-              rgba(100, 100, 100, 0.12) 38px,
-              rgba(100, 100, 100, 0.12) 40px
+              rgba(0, 0, 0, 0.05) 38px,
+              rgba(0, 0, 0, 0.05) 40px
             ),
             repeating-linear-gradient(
               90deg,
               transparent,
               transparent 38px,
-              rgba(100, 100, 100, 0.12) 38px,
-              rgba(100, 100, 100, 0.12) 40px
+              rgba(0, 0, 0, 0.05) 38px,
+              rgba(0, 0, 0, 0.05) 40px
             )
           `
         }}
@@ -258,85 +256,6 @@ const SmallGrid = () => {
   );
 };
 
-// Background Image with Mouse Reveal Effect - Full Page
-const BackgroundImageReveal = () => {
-  const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
-  const [targetPos, setTargetPos] = useState({ x: -1000, y: -1000 });
-  const animationFrameRef = useRef(null);
-
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      setTargetPos({ x: e.clientX, y: e.clientY });
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, []);
-
-  // Elastic magnetic effect animation
-  useEffect(() => {
-    const animate = () => {
-      setMousePos(prev => {
-        const dx = targetPos.x - prev.x;
-        const dy = targetPos.y - prev.y;
-        
-        // More elastic easing with stronger spring effect
-        const ease = 0.08;
-        
-        return {
-          x: prev.x + dx * ease,
-          y: prev.y + dy * ease
-        };
-      });
-      
-      animationFrameRef.current = requestAnimationFrame(animate);
-    };
-
-    animationFrameRef.current = requestAnimationFrame(animate);
-
-    return () => {
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
-      }
-    };
-  }, [targetPos]);
-
-  return (
-    <Box
-      position="absolute"
-      top={0}
-      left={0}
-      width="100vw"
-      height="100vh"
-      zIndex={-2}
-      pointerEvents="none"
-      sx={{
-        backgroundImage: 'url(/bg.png)',
-        backgroundSize: 'cover',
-        backgroundPosition: 'top center',
-        backgroundRepeat: 'no-repeat',
-        backgroundAttachment: 'scroll',
-        // Mask with radial gradient that follows mouse
-        maskImage: `radial-gradient(
-          circle 180px at ${mousePos.x}px ${mousePos.y}px,
-          rgba(0, 0, 0, 1) 0%,
-          rgba(0, 0, 0, 0.8) 40%,
-          rgba(0, 0, 0, 0) 100%
-        )`,
-        WebkitMaskImage: `radial-gradient(
-          circle 180px at ${mousePos.x}px ${mousePos.y}px,
-          rgba(0, 0, 0, 1) 0%,
-          rgba(0, 0, 0, 0.8) 40%,
-          rgba(0, 0, 0, 0) 100%
-        )`
-      }}
-    />
-  );
-};
-
 const Home = () => {
   const pageRef = useRef(null)
   const mukilRef = useRef(null)
@@ -347,11 +266,10 @@ const Home = () => {
   const buttonRef = useRef(null)
   const hiImgRef = useRef(null)
   const router = useRouter();
-  useColorMode();
   const isMobile = useBreakpointValue({ base: true, md: false })
   
-  const [bgColor, setBgColor] = useState('#000000')
-  const [textColor, setTextColor] = useState('#ffffff')
+  const bgColor = '#ffffff'
+  const textColor = '#111827'
 
   // New: Intersection observer for skills section
   const skillsSectionRef = useRef(null);
@@ -474,57 +392,7 @@ const Home = () => {
       );
     }
     
-    // Background and text color change on scroll to text section
-    if (!isMobile) {
-      if (textSectionRef.current) {
-        gsap.to({}, {
-          scrollTrigger: {
-            trigger: textSectionRef.current,
-            start: 'top 80%',
-            end: 'top 20%',
-            scrub: 2.5,
-            onUpdate: (self) => {
-              const progress = self.progress;
-              // Background: black to white (no rounding for smoother transition)
-              const bgR = 0 + (255 * progress);
-              const bgG = 0 + (255 * progress);
-              const bgB = 0 + (255 * progress);
-              setBgColor(`rgb(${bgR}, ${bgG}, ${bgB})`);
-              
-              // Text: white to black (no rounding for smoother transition)
-              const textR = 255 - (255 * progress);
-              const textG = 255 - (255 * progress);
-              const textB = 255 - (255 * progress);
-              setTextColor(`rgb(${textR}, ${textG}, ${textB})`);
-            }
-          }
-        });
-      }
-    } else {
-      // On mobile keep the background fully black and text white
-      setBgColor('#000000')
-      setTextColor('#ffffff')
 
-      // Minimal mobile-only scroll trigger for skills text color
-      // This ensures skill tab texts can transition to black on scroll on phones
-      if (skillsSectionRef.current) {
-        gsap.to({}, {
-          scrollTrigger: {
-            trigger: skillsSectionRef.current,
-            start: 'top 90%',
-            end: 'top 20%',
-            scrub: 2.5,
-            onUpdate: (self) => {
-              const progress = self.progress;
-              const textR = 255 - (255 * progress);
-              const textG = 255 - (255 * progress);
-              const textB = 255 - (255 * progress);
-              setTextColor(`rgb(${textR}, ${textG}, ${textB})`);
-            }
-          }
-        });
-      }
-    }
     
     // Fade out MUKIL KUMAR on scroll
     if (mukilRef.current) {
@@ -579,7 +447,6 @@ const Home = () => {
           {/* Font links moved to _document.js */}
         </Head>
         <Layout>
-          <BackgroundImageReveal sectionRef={mukilSectionRef} />
           <SmallGrid />
           <Spacer minHeight="30vh" />
           <Container ref={mukilSectionRef} maxW='container.xl'>
@@ -671,34 +538,34 @@ const Home = () => {
                       fontSize="sm"
                       fontWeight="bold"
                       fontFamily="'Space Grotesk', sans-serif"
-                      color="#fff"
+                      color={textColor}
                       mb={8}
                     >
                       {SKILLS.slice(0, 5).join(' | ')}<br />
                       {SKILLS.slice(5).join(' | ')}
                     </Text>
                     {/* Visual Design section */}
-                    <Heading fontSize="2xl" fontWeight="bold" mt={8} mb={4} color="#3182ce">
+                    <Heading fontSize="2xl" fontWeight="bold" mt={8} mb={4} color="#1d4ed8">
                       Visual Design
                     </Heading>
                     <Text
                       fontSize="sm"
                       fontWeight="bold"
                       fontFamily="'Space Grotesk', sans-serif"
-                      color="#fff"
+                      color={textColor}
                       mb={8}
                     >
                       {VISUAL_DESIGN_SKILLS.map(s => s.name).join(' | ')}
                     </Text>
                     {/* Development section */}
-                    <Heading fontSize="2xl" fontWeight="bold" mt={8} mb={4} color="#3182ce">
+                    <Heading fontSize="2xl" fontWeight="bold" mt={8} mb={4} color="#1d4ed8">
                       Development
                     </Heading>
                     <Text
                       fontSize="sm"
                       fontWeight="bold"
                       fontFamily="'Space Grotesk', sans-serif"
-                      color="#fff"
+                      color={textColor}
                       mb={8}
                     >
                       {DEVELOPMENT_SKILLS.slice(0, 8).map(s => s.name).join(' | ')}<br />
@@ -894,21 +761,21 @@ const Home = () => {
                     ref={buttonRef}
                     borderRadius='50px'
                     variant='outline'
-                    border='0.4px'
-                    borderColor='#89EF8C'
-                    color='#89EF8C'
+                    border='1.5px solid'
+                    borderColor='#111827'
+                    color='#111827'
                     px={6}
                     py={10}
                     fontSize="lg"
-                    fontWeight="medium"
+                    fontWeight="semibold"
                     letterSpacing="wider"
                     height="90px"
                     rightIcon={<ChevronRightIcon />}
                     _hover={{
-                      bg: '#89EF8C',
-                      color: '#0a192f',
+                      bg: '#111827',
+                      color: '#ffffff',
                       transform: 'translateY(-2px)',
-                      boxShadow: '0 3px 10px rgba(137, 239, 140, 0.3)'
+                      boxShadow: '0 3px 10px rgba(0, 0, 0, 0.15)'
                     }}
                   >
                     SEE MORE ABOUT MY WORK

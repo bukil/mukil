@@ -1,364 +1,254 @@
 /*
   AttractorsSim
-  - Three.js particle simulation inspired by WebGPU Attractors Particles
-  - Uses Points + GPU-accelerated shader material where available
-  - Falls back to CPU updates if needed
-  - lil-gui controls to match typical attractor demos
+  - Three.js particle simulation inspired by Lorenz Attractor
+  - Bright / White theme edition: anchored in bottom-left corner with large radius
+  - Vibrant jade/emerald particles on crisp white background with smooth fading trails
+  - Slow, graceful meditative pace
+  - Accessible, performant, zero GUI clutter
 */
 
 import { useEffect, useRef } from 'react'
 import * as THREE from 'three'
-import GUI from 'lil-gui'
 
 const PRESETS = {
   Lorenz: { a: 10, b: 28, c: 8 / 3 },
 }
 
-export default function AttractorsSim({ guiContainerRef }) {
+// Generate smooth circular particle sprite optimized for white background
+function createCircleTexture() {
+  const canvas = document.createElement('canvas')
+  canvas.width = 128
+  canvas.height = 128
+  const ctx = canvas.getContext('2d')
+
+  const grad = ctx.createRadialGradient(64, 64, 0, 64, 64, 64)
+  grad.addColorStop(0, 'rgba(4, 120, 87, 0.95)') // Rich deep emerald core
+  grad.addColorStop(0.35, 'rgba(5, 150, 105, 0.8)')
+  grad.addColorStop(0.7, 'rgba(16, 185, 129, 0.3)')
+  grad.addColorStop(1, 'rgba(16, 185, 129, 0)')
+
+  ctx.fillStyle = grad
+  ctx.fillRect(0, 0, 128, 128)
+
+  const texture = new THREE.CanvasTexture(canvas)
+  texture.generateMipmaps = false
+  texture.minFilter = THREE.LinearFilter
+  return texture
+}
+
+export default function AttractorsSim() {
   const mountRef = useRef(null)
   const canvasRef = useRef(null)
-  const guiRef = useRef(null)
   const cleanupRef = useRef(() => {})
 
   useEffect(() => {
     if (!mountRef.current || !canvasRef.current) return
 
-  const canvas = canvasRef.current
-  const width = window.innerWidth
-  const height = window.innerHeight
+    const canvas = canvasRef.current
+    let width = window.innerWidth
+    let height = window.innerHeight
 
-    // Scene setup
+    // Scene setup with pure white background
     const scene = new THREE.Scene()
-    scene.background = new THREE.Color(0x000000)
+    scene.background = new THREE.Color(0xffffff)
 
-  const aspect = width / height;
-  const camera = new THREE.OrthographicCamera(-50 * aspect, 50 * aspect, 50, -50, 0.1, 1000);
-  camera.position.set(0, 0, 120);
+    const aspect = width / height
+    const viewSize = 25
+    const camera = new THREE.OrthographicCamera(
+      -viewSize * aspect,
+      viewSize * aspect,
+      viewSize,
+      -viewSize,
+      0.1,
+      1000
+    )
+    camera.position.set(0, 0, 120)
 
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' })
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5))
+    const renderer = new THREE.WebGLRenderer({
+      canvas,
+      antialias: true,
+      powerPreference: 'high-performance',
+    })
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5))
     renderer.setSize(width, height)
 
-    // Particles
-    let params = {
-    count: 100000,
-    speed: 1.0,
-    dt: 0.005,
-    strength: 1.0,
-    noise: 0.0,
-    size: 0.08,
-    palette: '#89EF8C',
-      trails: 0.92,
+    // Particles configuration
+    const params = {
+      count: 8500, // Balanced count across the larger radius
+      speed: 0.14, // Slow, peaceful flow
+      dt: 0.003,
+      strength: 1.0,
+      noise: 0.02,
+      size: 20, // Big glowing orbs
+      trails: 0.55, // Smooth fading trails toward white
       computeFraction: 1.0,
-      spawnRadius: 10,
-  followMouse: false,
-      followFactor: 1.0,
-      showHandle: true,
-      dragDepthRate: 0.25,
-      pause: false,
-      reset: () => resetParticles(),
+      spawnRadius: 75, // Large expansive radius
     }
 
-  const positions = new Float32Array(params.count * 3)
-  const velocities = new Float32Array(params.count * 3)
-  let noiseData = new Float32Array(params.count * 3)
+    const positions = new Float32Array(params.count * 3)
+    const noiseData = new Float32Array(params.count * 3)
 
     const randInSphere = (r = 1) => {
-      const theta = 2 * Math.PI * Math.random();
-      const rr = r * Math.sqrt(Math.random());
-      return [
-        rr * Math.cos(theta),
-        rr * Math.sin(theta),
-        0,
-      ];
+      const theta = 2 * Math.PI * Math.random()
+      const rr = r * Math.sqrt(Math.random())
+      return [rr * Math.cos(theta), rr * Math.sin(theta), (Math.random() - 0.5) * r]
     }
 
     const setInitial = () => {
       for (let i = 0; i < params.count; i++) {
-        const [x, y] = randInSphere(params.spawnRadius);
-        positions[i * 3] = x;
-        positions[i * 3 + 1] = y;
-        positions[i * 3 + 2] = 0;
-        velocities[i * 3] = 0;
-        velocities[i * 3 + 1] = 0;
-        velocities[i * 3 + 2] = 0;
+        const [x, y, z] = randInSphere(params.spawnRadius)
+        positions[i * 3] = x
+        positions[i * 3 + 1] = y
+        positions[i * 3 + 2] = z
+        noiseData[i * 3] = Math.random() - 0.5
+        noiseData[i * 3 + 1] = Math.random() - 0.5
+        noiseData[i * 3 + 2] = (Math.random() - 0.5) * 0.5
       }
-    }
-
-  const geom = new THREE.BufferGeometry()
-    geom.setAttribute('position', new THREE.BufferAttribute(positions, 3))
-  geom.attributes.position.setUsage(THREE.DynamicDrawUsage)
-
-    const material = new THREE.PointsMaterial({
-      size: params.size,
-      color: new THREE.Color(params.palette),
-      transparent: true,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false,
-    })
-
-  const points = new THREE.Points(geom, material)
-  points.frustumCulled = false
-    scene.add(points)
-
-    // Trails via render-to-texture style accumulation
-    renderer.autoClear = false
-    const clearColor = new THREE.Color(0x000000)
-
-    // GUI
-    const guiOptions = { width: 320 }
-    if (guiContainerRef && guiContainerRef.current) {
-      guiOptions.container = guiContainerRef.current
-    }
-    const gui = new GUI(guiOptions)
-    guiRef.current = gui
-  const fSim = gui.addFolder('Simulation')
-    fSim.add(params, 'count', 1000, 110000, 1000).name('Particles').onFinishChange(rebuild)
-    fSim.add(params, 'speed', 0.1, 4.0, 0.1)
-    fSim.add(params, 'dt', 0.001, 0.02, 0.001).name('Time Step')
-    fSim.add(params, 'strength', 0.1, 4.0, 0.1)
-    fSim.add(params, 'noise', 0.0, 1.0, 0.01)
-  fSim.addColor(params, 'palette').name('Color').onChange((v)=> material.color.set(v))
-  fSim.add(params, 'size', 0.02, 0.3, 0.01).name('Point Size').onChange((v)=> { material.size = v })
-    fSim.add(params, 'trails', 0.8, 0.99, 0.005)
-  fSim.add(params, 'computeFraction', 0.25, 1.0, 0.05).name('Compute %')
-    fSim.add(params, 'spawnRadius', 1, 50, 1).name('Spawn Radius').onFinishChange(() => { setInitial(); geom.attributes.position.needsUpdate = true })
-  const fAttr = gui.addFolder('Attractor')
-  const fLor = fAttr.addFolder('Lorenz Params')
-    fLor.add(PRESETS.Lorenz, 'a', 1, 20, 0.1).name('sigma')
-    fLor.add(PRESETS.Lorenz, 'b', 0, 60, 0.1).name('rho')
-    fLor.add(PRESETS.Lorenz, 'c', 1, 10, 0.01).name('beta')
-  const fFollow = gui.addFolder('Centering')
-    fFollow.add(params, 'followMouse').name('Follow Mouse')
-    fFollow.add(params, 'followFactor', 0.1, 3.0, 0.1).name('Follow Strength')
-    fSim.add(params, 'showHandle').name('Show Handle')
-    fSim.add(params, 'dragDepthRate', 0.01, 1.0, 0.01).name('Depth Rate')
-    fSim.add(params, 'pause').name('Pause')
-    fSim.add(params, 'reset').name('Reset')
-
-    const resetParticles = () => {
-      setInitial()
-      geom.attributes.position.needsUpdate = true
-    }
-
-    function rebuild() {
-      // Rebuild buffers when count changes
-      geom.dispose()
-      const newPositions = new Float32Array(params.count * 3)
-      const newVelocities = new Float32Array(params.count * 3)
-      noiseData = new Float32Array(params.count * 3)
-      for (let i = 0; i < params.count; i++) {
-        const [x, y] = randInSphere(10);
-        newPositions[i * 3] = x;
-        newPositions[i * 3 + 1] = y;
-        newPositions[i * 3 + 2] = 0;
-        newVelocities[i * 3] = 0;
-        newVelocities[i * 3 + 1] = 0;
-        newVelocities[i * 3 + 2] = 0;
-        // precompute static noise seeds
-        const j = i * 3;
-        noiseData[j] = Math.random() - 0.5;
-        noiseData[j + 1] = Math.random() - 0.5;
-        noiseData[j + 2] = 0;
-      }
-      geom.setAttribute('position', new THREE.BufferAttribute(newPositions, 3))
-      geom.attributes.position.setUsage(THREE.DynamicDrawUsage)
-      material.color.set(params.palette)
     }
 
     setInitial()
-    // initialize noise seeds
-    for (let i = 0; i < params.count * 3; i++) noiseData[i] = Math.random() - 0.5
 
-    // Mouse interaction (raycast against a plane for dragging center)
-    const mouse = new THREE.Vector2(0, 0)
-    const raycaster = new THREE.Raycaster()
-    const plane = new THREE.Plane(new THREE.Vector3(0, 0, 1), 0)
-  const mousePoint = new THREE.Vector3();
+    const geom = new THREE.BufferGeometry()
+    geom.setAttribute('position', new THREE.BufferAttribute(positions, 3))
+    geom.attributes.position.setUsage(THREE.DynamicDrawUsage)
 
-    // Attractor center + visual handle
-    const attractorCenter = new THREE.Vector3(0, 0, 0)
-  const handleGeom = new THREE.CircleGeometry(1.2, 32);
-    const handleMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.9, depthTest: false })
-    const handle = new THREE.Mesh(handleGeom, handleMat)
-    handle.position.copy(attractorCenter)
-    scene.add(handle)
-    let dragging = false
+    const particleTexture = createCircleTexture()
 
-    const inGui = (target) => {
-      if (guiContainerRef && guiContainerRef.current) return guiContainerRef.current.contains(target)
-      return target && target.closest ? target.closest('.lil-gui') : false
+    // NormalBlending on white background for high clarity and contrast
+    const material = new THREE.PointsMaterial({
+      size: params.size,
+      map: particleTexture,
+      color: new THREE.Color(0xffffff),
+      transparent: true,
+      opacity: 0.85,
+      blending: THREE.NormalBlending,
+      depthWrite: false,
+    })
+
+    const points = new THREE.Points(geom, material)
+    points.frustumCulled = false
+    // Scale up for an expansive radius across the screen
+    points.scale.set(1.18, 1.18, 1.18)
+
+    // Perspective angle so 3D orbital rings unroll cleanly
+    points.rotation.set(0.38, -0.32, 0.18)
+
+    // Position anchored in the left down corner (bottom-left)
+    const updateCornerAnchor = (w, h) => {
+      const a = w / h
+      points.position.set(-viewSize * a * 0.44, -viewSize * 0.42, 0)
     }
+    updateCornerAnchor(width, height)
 
-    const onMouseMove = (e) => {
-  const rect = canvas.getBoundingClientRect()
-      mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1
-      mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1
+    scene.add(points)
 
-      raycaster.setFromCamera(mouse, camera)
-      raycaster.ray.intersectPlane(plane, mousePoint)
-      if (dragging) {
-        attractorCenter.copy(mousePoint)
-        handle.position.copy(attractorCenter)
-      }
-    }
-    window.addEventListener('mousemove', onMouseMove)
+    // White clear color for trail fade on white background
+    renderer.autoClear = false
+    const clearColor = new THREE.Color(0xffffff)
 
-    const onMouseDown = (e) => {
-      if (inGui(e.target)) return
-      dragging = true
-      // initialize center to current mousePoint
-  const rect = canvas.getBoundingClientRect()
-      mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1
-      mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1
-      raycaster.setFromCamera(mouse, camera)
-      raycaster.ray.intersectPlane(plane, mousePoint)
-      attractorCenter.copy(mousePoint)
-      handle.position.copy(attractorCenter)
-    }
-    const onMouseUp = () => { dragging = false }
-    window.addEventListener('mousedown', onMouseDown)
-    window.addEventListener('mouseup', onMouseUp)
-    const onWheel = (e) => {
-      if (!dragging) return
-      if (inGui(e.target)) return
-      e.preventDefault()
-  // Ignore z-axis wheel movement for 2D
-    }
-    window.addEventListener('wheel', onWheel, { passive: false })
-
-    // Attractor systems
+    // Lorenz differential equations
     function stepLorenz(x, y, z, dt, a, b, c) {
       const dx = a * (y - x)
       const dy = x * (b - z) - y
       const dz = x * y - c * z
-      return [
-        x + dx * dt,
-        y + dy * dt,
-        z + dz * dt,
-      ]
+      return [x + dx * dt, y + dy * dt, z + dz * dt]
     }
 
-    // Lorenz-only mode
-
-    // Animation loop
+    // Animation loop - fully autonomous, slow speed, no mouse tracking
+    let animId = null
     let cursorIndex = 0
+
     function animate() {
-      // Trails: draw a transparent rect to fade previous frame
-      renderer.setClearColor(clearColor, 1)
-      renderer.clear()
+      // Gentle fade towards white for clean particle clarity
       renderer.setClearColor(clearColor, 1 - params.trails)
       renderer.clearColor()
 
-      if (!params.pause) {
-        const pos = geom.attributes.position.array
-  const s = params.speed
-  const dt = params.dt * s * params.strength
-        const n = params.noise
+      const pos = geom.attributes.position.array
+      const s = params.speed
+      const dt = params.dt * s * params.strength
+      const n = params.noise
 
-        const computeCount = Math.max(1, Math.floor(params.count * params.computeFraction))
-        let i = 0
-        // update in two segments if wraps around
-        const start = cursorIndex
-        const end = (start + computeCount)
-        const updateParticle = (idx) => {
-          const i3 = idx * 3
-          let x = pos[i3]
-          let y = pos[i3 + 1]
-          let z = pos[i3 + 2]
+      const computeCount = Math.max(1, Math.floor(params.count * params.computeFraction))
+      const start = cursorIndex
+      const end = start + computeCount
 
-          // add tiny noise (precomputed per-particle)
-          x += noiseData[i3] * n * 0.01
-          y += noiseData[i3 + 1] * n * 0.01
-          z += noiseData[i3 + 2] * n * 0.01
+      const { a, b, c } = PRESETS.Lorenz
 
-          // choose center: mouse or draggable handle
-          const center = params.followMouse ? mousePoint : attractorCenter
-          let lx = x - center.x
-          let ly = y - center.y
-          let lz = z - center.z
-          const dtc = dt * (params.followMouse ? params.followFactor : 1)
-          {
-            const { a, b, c } = PRESETS.Lorenz
-            ;[lx, ly, lz] = stepLorenz(lx, ly, lz, dtc, a, b, c)
-          }
-          x = lx + center.x
-          y = ly + center.y
-          z = lz + center.z
+      const updateParticle = (idx) => {
+        const i3 = idx * 3
+        let x = pos[i3]
+        let y = pos[i3 + 1]
+        let z = pos[i3 + 2]
 
-          pos[i3] = x
-          pos[i3 + 1] = y
-          pos[i3 + 2] = z
-        }
+        // Subtle noise dispersion
+        x += noiseData[i3] * n * 0.015
+        y += noiseData[i3 + 1] * n * 0.015
+        z += noiseData[i3 + 2] * n * 0.015
 
-        // segment 1
-        for (i = start; i < Math.min(end, params.count); i++) updateParticle(i)
-        // segment 2 (wrap)
-        if (end > params.count) {
-          for (i = 0; i < end - params.count; i++) updateParticle(i)
-        }
-        cursorIndex = (end >= params.count) ? (end - params.count) : end
-        geom.attributes.position.needsUpdate = true
+        ;[x, y, z] = stepLorenz(x, y, z, dt, a, b, c)
+
+        pos[i3] = x
+        pos[i3 + 1] = y
+        pos[i3 + 2] = z
       }
 
-  handle.visible = !!params.showHandle
-  camera.lookAt(0, 0, 0)
+      for (let i = start; i < Math.min(end, params.count); i++) updateParticle(i)
+      if (end > params.count) {
+        for (let i = 0; i < end - params.count; i++) updateParticle(i)
+      }
+      cursorIndex = end >= params.count ? end - params.count : end
+      geom.attributes.position.needsUpdate = true
+
+      // Slow organic rotation
+      points.rotation.z += 0.00015
+
+      camera.lookAt(0, 0, 0)
       renderer.render(scene, camera)
-      requestAnimationFrame(animate)
+      animId = requestAnimationFrame(animate)
     }
+
     animate()
 
     const onResize = () => {
-      const w = window.innerWidth
-      const h = window.innerHeight
-      renderer.setSize(w, h)
-      camera.aspect = w / h
+      width = window.innerWidth
+      height = window.innerHeight
+      renderer.setSize(width, height)
+      const a = width / height
+      camera.left = -viewSize * a
+      camera.right = viewSize * a
+      camera.top = viewSize
+      camera.bottom = -viewSize
       camera.updateProjectionMatrix()
+      updateCornerAnchor(width, height)
     }
     window.addEventListener('resize', onResize)
 
-    // If GUI is inside a container, ensure it scrolls with layout
-    let styleEl
-    if (guiContainerRef && guiContainerRef.current) {
-      styleEl = document.createElement('style')
-      styleEl.textContent = `
-        .lil-gui {
-          position: relative !important;
-          top: auto !important;
-          right: auto !important;
-          left: auto !important;
-          bottom: auto !important;
-          margin-top: 8px !important;
-          z-index: auto !important;
-        }
-      `
-      guiContainerRef.current.appendChild(styleEl)
-    }
-
     cleanupRef.current = () => {
+      if (animId) cancelAnimationFrame(animId)
       window.removeEventListener('resize', onResize)
-      window.removeEventListener('mousemove', onMouseMove)
-      window.removeEventListener('mousedown', onMouseDown)
-      window.removeEventListener('mouseup', onMouseUp)
-  window.removeEventListener('wheel', onWheel)
-      gui.destroy()
-      if (styleEl && styleEl.parentNode) styleEl.parentNode.removeChild(styleEl)
       renderer.dispose()
       geom.dispose()
       material.dispose()
-      handleGeom.dispose()
-      handleMat.dispose()
+      particleTexture.dispose()
     }
 
     return () => {
       cleanupRef.current()
     }
-  }, [guiContainerRef])
+  }, [])
 
   return (
     <div
       ref={mountRef}
-      style={{ position: 'fixed', inset: 0, width: '100vw', height: '100vh', pointerEvents: 'none', zIndex: 0 }}
+      style={{
+        position: 'fixed',
+        inset: 0,
+        width: '100vw',
+        height: '100vh',
+        pointerEvents: 'none',
+        zIndex: 0,
+      }}
+      aria-hidden="true"
     >
       <canvas
         ref={canvasRef}

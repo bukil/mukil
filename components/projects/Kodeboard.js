@@ -1,11 +1,10 @@
 import React, { useRef, useEffect } from 'react';
-import { Image, Text, Box, useColorMode } from '@chakra-ui/react';
+import { Image, Text, Box } from '@chakra-ui/react';
 import StandardModal from '../ui/Modal';
 import gsap from 'gsap';
 
 const KodeboardModal = ({ isOpen, onClose }) => {
   const textRef = useRef(null);
-  const { colorMode } = useColorMode();
 
   useEffect(() => {
     let tl;
@@ -43,11 +42,11 @@ const KodeboardModal = ({ isOpen, onClose }) => {
           mb={8}
           textAlign="center"
           lineHeight={1}
-          color={colorMode === 'light' ? '#89EF8C' : undefined}
+          color="gray.900"
         >
           KODEBOARD
         </Text>
-        <Text fontSize={24} fontWeight={'hairline'} mb={6}>
+        <Text fontSize={24} fontWeight={'hairline'} color="gray.700" mb={6}>
           Discover the innovative Kode/Board concept, a multi-layer clipboard at your fingertips.
         </Text>
         <Image 

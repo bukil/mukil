@@ -5,7 +5,6 @@ import {
   Text,
   Box,
   Spacer,
-  useColorMode,
   Link,
   HStack,
   Icon,
@@ -38,21 +37,8 @@ const ContactLink = ({ icon, href, children }) => (
 )
 
 const Contact = () => {
-  const { colorMode } = useColorMode()
-  
   return (
     <Layout>
-      {colorMode === 'dark' && (
-        <Box
-          position="fixed"
-          top={0}
-          left={0}
-          right={0}
-          bottom={0}
-          bg="linear-gradient(to top, rgba(4, 19, 67, 0.4) 0%, rgba(0, 0, 0, 0.8) 100%)"
-          zIndex={-1}
-        />
-      )}
       <Box position="relative" minH="100vh">
         <Container maxW="container.xl">
           <Spacer mb={130}/>
@@ -78,7 +64,7 @@ const Contact = () => {
               fontFamily='"Michroma", sans-serif'
               fontWeight="400"
               letterSpacing="0.2em"
-              color="gray.500"
+              color="gray.700"
               maxW="800px"
               mx="auto"
             >
@@ -109,10 +95,10 @@ const Contact = () => {
               </Box>
 
               <Box>
-                <Heading as="h2" fontSize="2xl" mb={4}>
+                <Heading as="h2" fontSize="2xl" mb={4} color="gray.900">
                   Location
                 </Heading>
-                <Text>Aligarh, Uttar Pradesh, India</Text>
+                <Text color="gray.700">Aligarh, Uttar Pradesh, India</Text>
               </Box>
 
               <Box mt={8}>
@@ -135,7 +121,7 @@ const Contact = () => {
               fontFamily="'BaseNeueTrial', sans-serif"
               fontWeight="900"
               lineHeight="2"
-              background="linear-gradient(to bottom, rgba(255, 255, 255, 0.51) 0%, rgba(255, 255, 255, 0.04) 50%, rgba(255, 255, 255, 0.01) 100%)"
+              background="linear-gradient(to bottom, rgba(0, 0, 0, 0.08) 0%, rgba(0, 0, 0, 0.02) 50%, rgba(0, 0, 0, 0.00) 100%)"
               backgroundClip="text"
               WebkitBackgroundClip="text"
               color="transparent"
