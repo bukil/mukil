@@ -1,9 +1,37 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Text, Heading, VStack, Grid, GridItem, Button, HStack, SimpleGrid, Image } from '@chakra-ui/react';
+import { Box, Text, Heading, VStack, Grid, GridItem, Button, HStack, SimpleGrid, Image, Input } from '@chakra-ui/react';
 import Layout from '../components/layouts/article';
 import Head from 'next/head';
 
 const Mukilm = () => {
+  const [isUnlocked, setIsUnlocked] = useState(false);
+  const [hasCheckedAuth, setHasCheckedAuth] = useState(false);
+  const [passInput, setPassInput] = useState('');
+  const [passError, setPassError] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem('apple_project_unlocked');
+      if (stored === 'rollno43') {
+        setIsUnlocked(true);
+      }
+      setHasCheckedAuth(true);
+    }
+  }, []);
+
+  const handleUnlockDirect = (e) => {
+    if (e) e.preventDefault();
+    if (passInput.trim() === 'rollno43') {
+      setIsUnlocked(true);
+      setPassError(false);
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('apple_project_unlocked', 'rollno43');
+      }
+    } else {
+      setPassError(true);
+    }
+  };
+
   const [setShowHandHint] = useState(true);
   const [leftImageScale, setLeftImageScale] = useState(1);
   const [volume, setVolume] = useState(50);
@@ -106,6 +134,65 @@ const Mukilm = () => {
     document.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseup', handleMouseUp);
   };
+
+  if (!hasCheckedAuth) {
+    return null;
+  }
+
+  if (!isUnlocked) {
+    return (
+      <Layout title="Password">
+        <Head>
+          <title>Password</title>
+        </Head>
+        <Box minH="80vh" display="flex" alignItems="center" justifyContent="center" px={4} py={16}>
+          <Box
+            as="form"
+            onSubmit={handleUnlockDirect}
+            maxW="280px"
+            w="100%"
+          >
+            <Input
+              type="password"
+              placeholder="password"
+              value={passInput}
+              onChange={(e) => {
+                setPassInput(e.target.value);
+                if (passError) setPassError(false);
+              }}
+              autoFocus
+              fontFamily="'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
+              fontSize="13px"
+              textAlign="center"
+              color="#555555"
+              bg="#FFFFFF"
+              border="1px solid"
+              borderColor={passError ? '#999999' : 'rgba(0, 0, 0, 0.12)'}
+              borderRadius="8px"
+              h="38px"
+              _placeholder={{ color: '#888888', fontFamily: "'Inter', -apple-system, sans-serif" }}
+              _focus={{
+                borderColor: '#666666',
+                boxShadow: 'none'
+              }}
+            />
+            {passError && (
+              <Text
+                mt={2}
+                fontSize="11px"
+                fontFamily="'Inter', -apple-system, sans-serif"
+                color="#888888"
+                textAlign="center"
+              >
+                incorrect password
+              </Text>
+            )}
+          </Box>
+        </Box>
+      </Layout>
+    );
+  }
+
 
   return (
     <Layout title="Microinteraction Design">
