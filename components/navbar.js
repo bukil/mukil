@@ -29,10 +29,11 @@ const LinkItem = ({ href, path, target, children, tabRef, ...props }) => {
     <NextLink href={href} passHref legacyBehavior>
       <Link
         ref={tabRef}
-        p={2}
+        py={2.5}
+        px={3.5}
         fontSize={17}
         color={active ? '#202023' : inactiveColor}
-        borderRadius={'12px'}
+        borderRadius={0}
         fontWeight="500"
         position="relative"
         zIndex={10}
@@ -157,7 +158,7 @@ const Navbar = props => {
                     height="100%"
                     width={highlight.width}
                     bg="#89EF8C"
-                    borderRadius="12px"
+                    borderRadius={0}
                     zIndex={1}
                     transition="all 0.3s ease-out"
                     boxShadow="none"

@@ -8,9 +8,15 @@ import NextLink from 'next/link'
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import KodeboardModal from '../components/projects/Kodeboard'
+import dynamic from 'next/dynamic'
 import { motion } from 'framer-motion'
 import React from 'react'
 import MunselModel from '../components/MunselModel'
+
+const HairlineHub = dynamic(
+  () => import('@lucasmarkes/hairline/react').then((m) => m.Hub),
+  { ssr: false }
+)
 
 // Styled components
 const Trans = styled.span`
@@ -363,10 +369,8 @@ function CollapseExtandip() {
                   title="Design Evaluation ChatGPT"
                   hoverTitle="Design Evaluation ChatGPT"
                   description="A design evaluation of the ChatGPT Android client, analyzing its usability and interaction experience across real-world usage contexts."
-                  accentColor="blue.500"
-                  customContent={
-                    <Image src="/mukil/degpt2.png" alt="Design Evaluation ChatGPT" width="40%" height="40%" objectFit="contain" style={{ margin: '48px auto 0', display: 'block' }} />
-                  }
+                  accentColor="#232327"
+                  customContent={<ChatGPT3DGraphic />}
                 />
               </Box>
             </NextLink>
@@ -383,7 +387,7 @@ function CollapseExtandip() {
                   title={<span style={{ fontFamily: 'Michroma, monospace', letterSpacing: '0.12em', color: '#111827', fontStyle: 'normal' }}>DESIGN SYSTEM</span>}
                   hoverTitle={<span style={{ fontFamily: 'BaseNeueTrial, sans-serif', letterSpacing: 'normal', color: '#111827', fontStyle: 'italic' }}>DESIGN SYSTEM</span>}
                   description={<span style={{ color: '#4a5568' }}>Design System For UPI</span>}
-                  accentColor="#2563eb"
+                  accentColor="#232327"
                   customContent={<DesignSystemGraphic />}
                   sx={{
                     filter: 'brightness(0.98) saturate(0.98)',
@@ -563,79 +567,305 @@ function DesignSystemGraphic() {
       alignItems="center"
       justifyContent="center"
       pb="72px"
+      pointerEvents="auto"
+      data-hairline=""
+      sx={{
+        '--hairline-plate': '#ffffff',
+        '--hairline-hi': '#232327',
+        '--hairline-edge': '#a4a4ac',
+        '--hairline-mid': '#c3c3c9',
+        '--hairline-lo': '#e0e0e4',
+        '--hairline-stroke': '0.9',
+      }}
+    >
+      <Box width="310px" maxW="88%" position="relative">
+        <HairlineHub play intensity={0.7} />
+      </Box>
+    </Box>
+  );
+}
+
+function ChatGPT3DGraphic() {
+  const gptPath =
+    'M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.872zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.407-.667zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1638a.0804.0804 0 0 1-.038-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.459a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z';
+
+  // Hairline framework isometric matrix:
+  // Projects a 2D horizontal plane (X, Y) to true 30° isometric screen coordinates.
+  // matrix(cos(30°), sin(30°), -cos(30°), sin(30°), 0, 0)
+  // Scale factor S = 2.8 => cos(30°)*2.8 = 2.42487, sin(30°)*2.8 = 1.4
+  const isoTransform = 'matrix(2.42487, 1.4, -2.42487, 1.4, 0, 0) translate(-12, -12)';
+
+  // Extrusion step offsets (from base floor up to top face)
+  const extrusionSteps = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
+
+  return (
+    <Box
+      position="absolute"
+      top={0}
+      left={0}
+      width="100%"
+      height="100%"
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+      pb="72px"
       pointerEvents="none"
+      data-hairline=""
+      sx={{
+        '--hairline-plate': '#ffffff',
+        '--hairline-hi': '#232327',
+        '--hairline-edge': '#a4a4ac',
+        '--hairline-mid': '#c3c3c9',
+        '--hairline-lo': '#e0e0e4',
+        '--hairline-stroke': '0.9',
+        '& svg': {
+          width: '100%',
+          height: '100%',
+          display: 'block'
+        },
+        '& path, & polygon, & line, & circle': {
+          vectorEffect: 'non-scaling-stroke',
+          strokeLinejoin: 'round',
+          strokeLinecap: 'round'
+        }
+      }}
     >
       <svg
-        width="260"
-        height="180"
-        viewBox="0 0 260 180"
+        viewBox="0 0 540 224"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        style={{ maxWidth: '80%', height: 'auto', display: 'block' }}
+        style={{ width: '100%', height: '100%', overflow: 'visible' }}
       >
-        {/* Typeface Style Banner - Zero Radius */}
-        <g transform="translate(30, 24)">
-          {/* Left Block: Bold Specimen Glyph */}
-          <rect x="0" y="0" width="50" height="44" fill="#1464FF" />
+        {/* ============================================================== */}
+        {/* Hairline Technical Metadata & Figures Annotation               */}
+        {/* ============================================================== */}
+        <g opacity="0.85">
           <text
-            x="25"
-            y="32"
-            fontFamily="'Anton', 'Arial Black', sans-serif"
-            fontSize="26"
-            fontWeight="900"
-            fill="#ffffff"
-            textAnchor="middle"
-          >
-            Aa
-          </text>
-
-          {/* Right Block: Typography Identity Banner */}
-          <rect x="50" y="0" width="150" height="44" fill="#0F172A" />
-          <text
-            x="64"
-            y="22"
+            x="36"
+            y="26"
             fontFamily="'Michroma', monospace"
-            fontSize="11"
-            fontWeight="700"
-            fill="#ffffff"
-            letterSpacing="0.08em"
-          >
-            PAY-GRID
-          </text>
-          <text
-            x="64"
-            y="35"
-            fontFamily="'Encode Sans Expanded', sans-serif"
-            fontSize="7"
+            fontSize="8"
             fontWeight="600"
-            fill="#B1FF0B"
+            fill="#a4a4ac"
             letterSpacing="0.14em"
           >
-            TYPEFACE SPECIMEN
+            FIG. 03 · CHATGPT
+          </text>
+          <text
+            x="504"
+            y="26"
+            textAnchor="end"
+            fontFamily="'Michroma', monospace"
+            fontSize="8"
+            fontWeight="500"
+            fill="#c3c3c9"
+            letterSpacing="0.1em"
+          >
+            AZ 045° · EL 30°
+          </text>
+          <text
+            x="36"
+            y="200"
+            fontFamily="'Encode Sans Expanded', sans-serif"
+            fontSize="7.5"
+            fontWeight="500"
+            fill="#a4a4ac"
+            letterSpacing="0.08em"
+          >
+            HAIRLINE FRAMEWORK · 0.9PX ISO
           </text>
         </g>
 
-        {/* Extended Palette - 10 Solid Colour Tiles with Zero Radius */}
-        <g transform="translate(30, 78)">
-          {/* Row 1 */}
-          <rect x="0" y="0" width="36" height="26" fill="#1464FF" />
-          <rect x="41" y="0" width="36" height="26" fill="#2563EB" />
-          <rect x="82" y="0" width="36" height="26" fill="#38BDF8" />
-          <rect x="123" y="0" width="36" height="26" fill="#B1FF0B" />
-          <rect x="164" y="0" width="36" height="26" fill="#10B981" />
+        {/* Technical Perimeter Frame / Border Guide */}
+        <rect
+          x="20"
+          y="10"
+          width="500"
+          height="198"
+          fill="none"
+          stroke="#e0e0e4"
+          strokeWidth="0.8"
+          strokeDasharray="1 4"
+        />
 
-          {/* Row 2 */}
-          <rect x="0" y="31" width="36" height="26" fill="#F59E0B" />
-          <rect x="41" y="31" width="36" height="26" fill="#EF4444" />
-          <rect x="82" y="31" width="36" height="26" fill="#8B5CF6" />
-          <rect x="123" y="31" width="36" height="26" fill="#0F172A" />
-          <rect x="164" y="31" width="36" height="26" fill="#E2E8F0" stroke="rgba(0, 0, 0, 0.1)" strokeWidth="1" />
+        {/* ============================================================== */}
+        {/* Isometric Base Plinth (Platform)                              */}
+        {/* ============================================================== */}
+        <g id="isometric-plinth">
+          {/* Plinth front-left drop facet (8px depth) */}
+          <polygon
+            points="146,114 270,185 270,193 146,122"
+            fill="#ffffff"
+            stroke="#a4a4ac"
+            strokeWidth="0.9"
+          />
+          {/* Plinth front-right drop facet (8px depth) */}
+          <polygon
+            points="270,185 394,114 394,122 270,193"
+            fill="#ffffff"
+            stroke="#a4a4ac"
+            strokeWidth="0.9"
+          />
+
+          {/* Plinth top plate surface (True 30° Isometric Diamond) */}
+          <polygon
+            points="270,43 394,114 270,185 146,114"
+            fill="#ffffff"
+            stroke="#232327"
+            strokeWidth="0.9"
+          />
+
+          {/* Isometric floor guide lines (Dashed lines along 30° / 150° axes) */}
+          <g stroke="#e0e0e4" strokeWidth="0.8" strokeDasharray="2 4">
+            {/* 30° axis guides */}
+            <line x1="177" y1="96" x2="301" y2="167" />
+            <line x1="208" y1="78" x2="332" y2="149" />
+            <line x1="239" y1="60" x2="363" y2="131" />
+
+            {/* 150° axis guides */}
+            <line x1="363" y1="96" x2="239" y2="167" />
+            <line x1="332" y1="78" x2="208" y2="149" />
+            <line x1="301" y1="60" x2="177" y2="131" />
+          </g>
+
+          {/* Registration Crosshairs (+) at Plinth Anchor Points */}
+          <g stroke="#a4a4ac" strokeWidth="0.8">
+            {/* Left corner */}
+            <line x1="140" y1="114" x2="152" y2="114" />
+            <line x1="146" y1="108" x2="146" y2="120" />
+            {/* Right corner */}
+            <line x1="388" y1="114" x2="400" y2="114" />
+            <line x1="394" y1="108" x2="394" y2="120" />
+            {/* Top corner */}
+            <line x1="264" y1="43" x2="276" y2="43" />
+            <line x1="270" y1="37" x2="270" y2="49" />
+            {/* Bottom corner */}
+            <line x1="264" y1="185" x2="276" y2="185" />
+            <line x1="270" y1="179" x2="270" y2="191" />
+          </g>
+
+          {/* Hairline Anchor Dots */}
+          <circle cx="146" cy="114" r="1.6" fill="#232327" />
+          <circle cx="394" cy="114" r="1.6" fill="#232327" />
+          <circle cx="270" cy="43" r="1.6" fill="#232327" />
+          <circle cx="270" cy="185" r="1.6" fill="#232327" />
+          <circle cx="270" cy="114" r="1.5" fill="#a4a4ac" />
+        </g>
+
+        {/* ============================================================== */}
+        {/* Floor Footprint Shadow of the ChatGPT Knot                     */}
+        {/* ============================================================== */}
+        <g transform="translate(270, 114)">
+          <path
+            d={gptPath}
+            transform={isoTransform}
+            fill="none"
+            stroke="#e0e0e4"
+            strokeWidth="0.85"
+            strokeDasharray="2 3"
+          />
+        </g>
+
+        {/* ============================================================== */}
+        {/* Vertical Projection Drop Guides (Knot vertices down to floor) */}
+        {/* ============================================================== */}
+        <g stroke="#c3c3c9" strokeWidth="0.8" strokeDasharray="1 3">
+          <line x1="270" y1="96" x2="270" y2="114" />
+          <line x1="220" y1="96" x2="220" y2="114" />
+          <line x1="320" y1="96" x2="320" y2="114" />
+          <line x1="245" y1="82" x2="245" y2="100" />
+          <line x1="295" y1="82" x2="295" y2="100" />
+          <line x1="270" y1="68" x2="270" y2="86" />
+        </g>
+
+        {/* ============================================================== */}
+        {/* 3D Isometric Extruded ChatGPT Logo                             */}
+        {/* Reacts smoothly on hover: lifts along isometric vertical axis  */}
+        {/* ============================================================== */}
+        <g
+          id="chatgpt-isometric-body"
+          className="hairline-interactive-knot"
+          style={{
+            transform: 'translateY(-16px)',
+            transition: 'transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1)'
+          }}
+        >
+          {/* Volumetric Extrusion Slices (Back-to-front stack) */}
+          {extrusionSteps.map((step) => (
+            <g key={step} transform={`translate(270, ${114 - step})`}>
+              <path
+                d={gptPath}
+                transform={isoTransform}
+                fill="#ffffff"
+                stroke={step === 1 ? '#a4a4ac' : '#c3c3c9'}
+                strokeWidth="0.9"
+              />
+            </g>
+          ))}
+
+          {/* Primary Top Isometric Face (Lit & Crisp Black Lines) */}
+          <g transform="translate(270, 99)">
+            {/* Opaque white plate base face */}
+            <path
+              d={gptPath}
+              transform={isoTransform}
+              fill="#ffffff"
+              stroke="#232327"
+              strokeWidth="1.0"
+            />
+
+            {/* Inner loop edge definition lines for maximum hairline clarity */}
+            <path
+              d={gptPath}
+              transform={isoTransform}
+              fill="none"
+              stroke="#232327"
+              strokeWidth="0.9"
+            />
+
+            {/* Subtle inner aperture depth drop */}
+            <polygon
+              points="-3,-1 0,1 3,-1 3,-3 0,-1 -3,-3"
+              fill="#232327"
+              opacity="0.25"
+            />
+
+            {/* Hairline Coordinate Anchor Dots on Knot Vertices */}
+            <circle cx="0" cy="-28" r="1.6" fill="#232327" />
+            <circle cx="48" cy="0" r="1.6" fill="#232327" />
+            <circle cx="-48" cy="0" r="1.6" fill="#232327" />
+            <circle cx="0" cy="28" r="1.6" fill="#232327" />
+            <circle cx="0" cy="0" r="1.4" fill="#a4a4ac" />
+          </g>
+        </g>
+
+        {/* Floating Technical Badge (Hairline Specimen Pill) */}
+        <g transform="translate(432, 184)">
+          <rect
+            x="0"
+            y="0"
+            width="72"
+            height="18"
+            fill="#ffffff"
+            stroke="#232327"
+            strokeWidth="0.8"
+          />
+          <text
+            x="36"
+            y="12"
+            textAnchor="middle"
+            fontFamily="'Michroma', monospace"
+            fontSize="7"
+            fontWeight="600"
+            fill="#232327"
+            letterSpacing="0.08em"
+          >
+            ISO · 30°
+          </text>
         </g>
       </svg>
     </Box>
   );
 }
-
-
 
 // Progress Bar component removed per user request

@@ -22,8 +22,19 @@ import { useRef, useEffect } from 'react'
 import NextLink from 'next/link'
 import { motion } from 'framer-motion'
 import gsap from 'gsap'
+import dynamic from 'next/dynamic'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
+
+const HairlineExploded = dynamic(
+  () => import('@lucasmarkes/hairline/react').then((m) => m.Exploded),
+  { ssr: false }
+)
+
+const HairlinePlot = dynamic(
+  () => import('@lucasmarkes/hairline/react').then((m) => m.Plot),
+  { ssr: false }
+)
 
 // Accessible, bright-mode project panel with fixed dimensions matching Works
 const ProjectPanel = ({
@@ -81,6 +92,9 @@ const ProjectPanel = ({
         ...sx,
         '& *': {
           pointerEvents: 'none'
+        },
+        '& [data-hairline], & [data-hairline] *': {
+          pointerEvents: 'auto'
         }
       }}
       as={motion.div}
@@ -208,7 +222,7 @@ const ProjectPanel = ({
           top="0"
           left="0"
           right="0"
-          bottom="0"
+          bottom="76px"
           display="flex"
           alignItems="center"
           justifyContent="center"
@@ -227,7 +241,37 @@ const ProjectPanel = ({
   )
 }
 
-// Minimal tactile microinteraction graphic tailored for white theme
+// Hairline interactive Plot figure for Data Visualisation
+function DataVizPlotGraphic() {
+  return (
+    <Box
+      position="absolute"
+      top={0}
+      left={0}
+      width="100%"
+      height="100%"
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+      pointerEvents="auto"
+      data-hairline=""
+      sx={{
+        '--hairline-plate': '#ffffff',
+        '--hairline-hi': '#232327',
+        '--hairline-edge': '#a4a4ac',
+        '--hairline-mid': '#c3c3c9',
+        '--hairline-lo': '#e0e0e4',
+        '--hairline-stroke': '0.9',
+      }}
+    >
+      <Box width="300px" maxW="88%" position="relative">
+        <HairlinePlot play intensity={0.7} />
+      </Box>
+    </Box>
+  );
+}
+
+// Hairline interactive Exploded figure for Microinteraction
 function MicrointeractionGraphic() {
   return (
     <Box
@@ -240,65 +284,20 @@ function MicrointeractionGraphic() {
       alignItems="center"
       justifyContent="center"
       pb="72px"
-      pointerEvents="none"
+      pointerEvents="auto"
+      data-hairline=""
+      sx={{
+        '--hairline-plate': '#ffffff',
+        '--hairline-hi': '#232327',
+        '--hairline-edge': '#a4a4ac',
+        '--hairline-mid': '#c3c3c9',
+        '--hairline-lo': '#e0e0e4',
+        '--hairline-stroke': '0.9',
+      }}
     >
-      <svg
-        width="260"
-        height="180"
-        viewBox="0 0 260 180"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        style={{ maxWidth: '75%', height: 'auto', display: 'block' }}
-        role="img"
-        aria-label="Tactile slider microinteraction preview graphic"
-      >
-        <defs>
-          <linearGradient id="pgSliderGradLight" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#a855f7" />
-            <stop offset="100%" stopColor="#6366f1" />
-          </linearGradient>
-        </defs>
-
-        {/* Vertical track background */}
-        <line x1="100" y1="36" x2="100" y2="144" stroke="rgba(0, 0, 0, 0.1)" strokeWidth="3" strokeLinecap="round" />
-        
-        {/* Active slider segment */}
-        <line x1="100" y1="88" x2="100" y2="144" stroke="url(#pgSliderGradLight)" strokeWidth="3" strokeLinecap="round" />
-
-        {/* Endpoints +/- with accessible high-contrast color */}
-        <text x="100" y="24" fontFamily="'Encode Sans Expanded', sans-serif" fontSize="13" fontWeight="600" fill="#334155" textAnchor="middle">+</text>
-        <text x="100" y="162" fontFamily="'Encode Sans Expanded', sans-serif" fontSize="15" fontWeight="600" fill="#334155" textAnchor="middle">−</text>
-
-        {/* Precision tick marks */}
-        <g stroke="#64748b" strokeLinecap="round">
-          <line x1="112" y1="44" x2="117" y2="44" strokeWidth="1" opacity="0.6" />
-          <line x1="112" y1="66" x2="119" y2="66" strokeWidth="1" opacity="0.7" />
-          <line x1="112" y1="88" x2="124" y2="88" strokeWidth="1.5" stroke="#7c3aed" opacity="0.9" />
-          <line x1="112" y1="110" x2="119" y2="110" strokeWidth="1" opacity="0.7" />
-          <line x1="112" y1="132" x2="117" y2="132" strokeWidth="1" opacity="0.6" />
-        </g>
-
-        {/* Tactile Thumb node at y=88 */}
-        <circle cx="100" cy="88" r="9" stroke="#a855f7" strokeWidth="1" opacity="0.3" />
-        <circle cx="100" cy="88" r="4.5" fill="#ffffff" stroke="#7c3aed" strokeWidth="2" />
-
-        {/* Minimal haptic ripple arcs */}
-        <path d="M 129 82 C 134 85 134 91 129 94" stroke="#a855f7" strokeWidth="1.2" strokeLinecap="round" fill="none" opacity="0.8" />
-        <path d="M 134 78 C 141 83 141 93 134 98" stroke="#a855f7" strokeWidth="1" strokeDasharray="1.5 2" strokeLinecap="round" fill="none" opacity="0.5" />
-
-        {/* Value indicator */}
-        <text
-          x="146"
-          y="93"
-          fontFamily="'Michroma', monospace"
-          fontSize="14"
-          fontWeight="700"
-          fill="#111827"
-          letterSpacing="0.04em"
-        >
-          2.4×
-        </text>
-      </svg>
+      <Box width="300px" maxW="88%" position="relative">
+        <HairlineExploded play intensity={0.7} />
+      </Box>
     </Box>
   )
 }
@@ -511,55 +510,8 @@ const Playground = () => {
                   title="Data Vizualisation"
                   hoverTitle="Data Visualisation"
                   description="Exploring the Links Between Literacy, Salary & Societal Issues in India"
-                  accentColor="#0284c7"
-                  sx={{ position: 'relative', overflow: 'hidden' }}
-                  customContent={
-                    <Box position="absolute" top="-6%" left={0} width="100%" height="100%" zIndex={0}>
-                      <svg
-                        width="100%"
-                        height="100%"
-                        viewBox="0 0 100 100"
-                        preserveAspectRatio="none"
-                        role="img"
-                        aria-label="Inline comparative data chart"
-                      >
-                        <style>{`
-                          .viz-grid-light { stroke: rgba(0,0,0,0.06); stroke-width: 0.18 }
-                          .thread-light { fill: none; stroke-linecap: round; stroke-linejoin: round; stroke-width: 0.8; opacity: 0.95; vector-effect: non-scaling-stroke }
-                          .tl1 { stroke: #1d4ed8 }
-                          .tl2 { stroke: #047857 }
-                          .tl3 { stroke: #be185d }
-                        `}</style>
-                        <g className="viz-grid-light">
-                          {Array.from({ length: 10 }).map((_, i) => (
-                            <line key={`v${i}`} x1={(i + 1) * 9} y1="8" x2={(i + 1) * 9} y2="92" />
-                          ))}
-                          {Array.from({ length: 6 }).map((_, i) => (
-                            <line key={`h${i}`} x1="6" y1={92 - i * 14} x2="94" y2={92 - i * 14} />
-                          ))}
-                        </g>
-                        <path
-                          d="M6,80 L14,74 L22,70 L30,66 L38,58 L46,60 L54,52 L62,48 L70,40 L78,46 L86,38 L94,34 L94,92 L6,92 Z"
-                          fill="rgba(29, 78, 216, 0.04)"
-                        />
-                        <path className="thread-light tl1" d="M6,80 L14,74 L22,70 L30,66 L38,58 L46,60 L54,52 L62,48 L70,40 L78,46 L86,38 L94,34" />
-                        <path className="thread-light tl2" d="M6,81.6 L14,75.6 L22,71.6 L30,67.6 L38,59.6 L46,61.6 L54,53.6 L62,49.6 L70,41.6 L78,47.6 L86,39.6 L94,35.6" />
-                        <path className="thread-light tl3" d="M6,78.4 L14,72.4 L22,68.4 L30,64.4 L38,56.4 L46,58.4 L54,50.4 L62,46.4 L70,38.4 L78,44.4 L86,36.4 L94,32.4" />
-                        <g fill="#111827" opacity="0.65">
-                          {[
-                            { x: 6, y: 80 },
-                            { x: 22, y: 70 },
-                            { x: 38, y: 58 },
-                            { x: 54, y: 52 },
-                            { x: 70, y: 40 },
-                            { x: 86, y: 38 }
-                          ].map((p, i) => (
-                            <circle key={i} cx={p.x} cy={p.y} r="0.9" />
-                          ))}
-                        </g>
-                      </svg>
-                    </Box>
-                  }
+                  accentColor="#232327"
+                  customContent={<DataVizPlotGraphic />}
                 />
               </Box>
             </Section>
@@ -575,7 +527,7 @@ const Playground = () => {
                     title="Microinteraction"
                     hoverTitle="Microinteraction"
                     description="A class assignment exploring the art of microinteractions. Small, meaningful animations and transitions that enhance user experience and bring interfaces to life. 🎨"
-                    accentColor="#7c3aed"
+                    accentColor="#232327"
                     customContent={<MicrointeractionGraphic />}
                   />
                 </Box>

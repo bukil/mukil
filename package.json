@@ -19,6 +19,7 @@
     "@emotion/styled": "^11.14.0",
     "@fontsource/open-sans": "^4.5.13",
     "@fontsource/raleway": "^4.5.11",
+    "@lucasmarkes/hairline": "^0.5.1",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.4.0",
     "@splinetool/react-spline": "^4.1.0",
