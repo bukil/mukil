@@ -113,23 +113,10 @@ const SKILL_ICONS = {
 
 function AnimatedIntro({ textColor = '#1A1A1A' }) {
   const line = "Mukil is a product designer working at the intersection of design and technology to create meaningful, accessible experiences."
-  const textRef = useRef(null)
-
-  useEffect(() => {
-    if (!textRef.current) return;
-    gsap.set(textRef.current, { opacity: 0, y: 30 });
-    gsap.to(textRef.current, {
-      opacity: 1,
-      y: 0,
-      duration: 1.2,
-      ease: "power3.out"
-    });
-  }, []);
 
   return (
     <Box w="100%">
       <Text
-        ref={textRef}
         variant="home-txt"
         fontSize={{ base: '28px', sm: '34px', md: '38px', lg: '42px', xl: '42px' }}
         fontWeight="normal"
@@ -213,17 +200,9 @@ const Home = () => {
     };
   }, [skillsVisible]);
 
-  // GSAP/ScrollTrigger animation and cleanup logic (keep only for journey, button, hi.png)
+  // GSAP/ScrollTrigger animation and cleanup logic
   useLayoutEffect(() => {
     if (window.ScrollTrigger) window.ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-    // Fade in page
-    if (pageRef.current) {
-      gsap.fromTo(
-        pageRef.current,
-        { opacity: 0 },
-        { opacity: 1, duration: 1.2, ease: 'power2.out' }
-      )
-    }
     // Simple journey items animation - just fade in
     journeyRefs.current.forEach((item, index) => {
       if (item) {
@@ -353,13 +332,13 @@ const Home = () => {
                 {isMobile ? (
                   <>
                     {/* SKILLS section: all tabs highlighted by default on mobile */}
-                    <Heading fontSize="2xl" fontWeight="bold" mb={6} color="#89EF8C">
+                    <Heading fontSize="2xl" fontWeight="normal" mb={6} color="#363636ff">
                       Skills
                     </Heading>
                     <Text
                       fontSize="sm"
-                      fontWeight="bold"
-                      fontFamily="'Space Grotesk', sans-serif"
+                      fontWeight="300"
+                      fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
                       color={textColor}
                       mb={8}
                     >
@@ -367,26 +346,26 @@ const Home = () => {
                       {SKILLS.slice(5).join(' | ')}
                     </Text>
                     {/* Visual Design section */}
-                    <Heading fontSize="2xl" fontWeight="bold" mt={8} mb={4} color="#1d4ed8">
+                    <Heading fontSize="2xl" fontWeight="normal" mt={8} mb={4} color="#373737ff">
                       Visual Design
                     </Heading>
                     <Text
                       fontSize="sm"
-                      fontWeight="bold"
-                      fontFamily="'Space Grotesk', sans-serif"
+                      fontWeight="300"
+                      fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
                       color={textColor}
                       mb={8}
                     >
                       {VISUAL_DESIGN_SKILLS.map(s => s.name).join(' | ')}
                     </Text>
                     {/* Development section */}
-                    <Heading fontSize="2xl" fontWeight="bold" mt={8} mb={4} color="#1d4ed8">
+                    <Heading fontSize="2xl" fontWeight="normal" mt={8} mb={4} color="#373737ff">
                       Development
                     </Heading>
                     <Text
                       fontSize="sm"
-                      fontWeight="bold"
-                      fontFamily="'Space Grotesk', sans-serif"
+                      fontWeight="300"
+                      fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
                       color={textColor}
                       mb={8}
                     >
@@ -396,22 +375,22 @@ const Home = () => {
                   </>
                 ) : (
                   <>
-                    <Heading fontSize="2xl" fontWeight="bold" mb={6} color={textColor} style={{ transition: 'color 0.3s ease-out' }}>
+                    <Heading fontSize="2xl" fontWeight="normal" mb={6} color={textColor} style={{ transition: 'color 0.3s ease-out' }}>
                       Skills
                     </Heading>
                     <Box display="flex" flexWrap="wrap" gap={2} mb={8} alignItems="center">
                       {SKILLS.map((skill, index) => {
                         const Icon = SKILL_ICONS[skill]
                         const isHovered = hoveredSkill === skill
-                        const iconColor = '#89EF8C'
+                        const iconColor = '#353535ff'
                         const isBreakAfter = index === 4 // Break after "3D Modeling"
                         return (
                           <>
                             <Text
                               key={skill}
                               fontSize="md"
-                              fontWeight="bold"
-                              fontFamily="'Space Grotesk', sans-serif"
+                              fontWeight="300"
+                              fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
                               color={isHovered ? '#89EF8C' : textColor}
                               cursor="pointer"
                               onMouseEnter={() => setHoveredSkill(skill)}
@@ -440,7 +419,8 @@ const Home = () => {
                             {index < SKILLS.length - 1 && !isBreakAfter && (
                               <Text
                                 fontSize="md"
-                                fontWeight="semibold"
+                                fontWeight="300"
+                                fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
                                 color={textColor}
                                 opacity={0.4}
                                 style={{ transition: 'color 0.3s ease-out' }}
@@ -455,7 +435,7 @@ const Home = () => {
                         )
                       })}
                     </Box>
-                    <Heading fontSize="2xl" fontWeight="bold" mt={8} mb={4} color={textColor} style={{ transition: 'color 0.3s ease-out' }}>
+                    <Heading fontSize="2xl" fontWeight="normal" mt={8} mb={4} color={textColor} style={{ transition: 'color 0.3s ease-out' }}>
                       Visual Design
                     </Heading>
                     <Box display="flex" flexWrap="wrap" gap={2} mb={8} alignItems="center">
@@ -468,8 +448,8 @@ const Home = () => {
                             <Text
                               key={skill.name}
                               fontSize="md"
-                              fontWeight="bold"
-                              fontFamily="'Space Grotesk', sans-serif"
+                              fontWeight="300"
+                              fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
                               color={isHovered ? '#3182ce' : textColor}
                               cursor="pointer"
                               onMouseEnter={() => setHoveredSkill(skill.name)}
@@ -498,7 +478,8 @@ const Home = () => {
                             {index < VISUAL_DESIGN_SKILLS.length - 1 && (
                               <Text
                                 fontSize="md"
-                                fontWeight="semibold"
+                                fontWeight="300"
+                                fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
                                 color={textColor}
                                 opacity={0.4}
                                 style={{ transition: 'color 0.3s ease-out' }}
@@ -510,7 +491,7 @@ const Home = () => {
                         )
                       })}
                     </Box>
-                    <Heading fontSize="2xl" fontWeight="bold" mt={8} mb={4} color={textColor} style={{ transition: 'color 0.3s ease-out' }}>
+                    <Heading fontSize="2xl" fontWeight="normal" mt={8} mb={4} color={textColor} style={{ transition: 'color 0.3s ease-out' }}>
                       Development
                     </Heading>
                     <Box display="flex" flexWrap="wrap" gap={2} mb={8} alignItems="center">
@@ -524,8 +505,8 @@ const Home = () => {
                             <Text
                               key={skill.name}
                               fontSize="md"
-                              fontWeight="bold"
-                              fontFamily="'Space Grotesk', sans-serif"
+                              fontWeight="300"
+                              fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
                               color={isHovered ? '#3182ce' : textColor}
                               cursor="pointer"
                               onMouseEnter={() => setHoveredSkill(skill.name)}
@@ -554,7 +535,8 @@ const Home = () => {
                             {index < DEVELOPMENT_SKILLS.length - 1 && !isBreakAfter && (
                               <Text
                                 fontSize="md"
-                                fontWeight="semibold"
+                                fontWeight="300"
+                                fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
                                 color={textColor}
                                 opacity={0.4}
                                 style={{ transition: 'color 0.3s ease-out' }}

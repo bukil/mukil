@@ -6,6 +6,15 @@ export default class Document extends NextDocument {
     return (
       <Html lang="en">
         <Head>
+          {/* Preconnect to Google Fonts early */}
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+
+          {/* Preload critical above-fold images */}
+          <link rel="preload" as="image" href="/images/1016_opt.jpg" />
+          <link rel="preload" as="image" href="/images/Apple-Logo.png" />
+          <link rel="preload" as="image" href="/images/logo.png" />
+
           <link
             rel="preload"
             href="https://fonts.googleapis.com/css2?family=Michroma:wght@400;700;900&display=swap"

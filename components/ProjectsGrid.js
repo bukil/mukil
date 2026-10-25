@@ -8,6 +8,7 @@ import {
 } from '@chakra-ui/react'
 import NextLink from 'next/link'
 import dynamic from 'next/dynamic'
+import NextImage from 'next/image'
 import MunselModel from './MunselModel'
 import KodeboardModal from './projects/Kodeboard'
 import Section from './section'
@@ -374,21 +375,34 @@ export function AppleHIGGraphic() {
       justifyContent="center"
       overflow="hidden"
     >
-      <Image
-        src="/images/1016@2x.jpg"
-        alt="macOS Wallpaper"
+      {/* Next.js Image with fill — gets Vercel CDN optimization & proper cover */}
+      <Box
         position="absolute"
         top={0}
         left={0}
         width="100%"
         height="100%"
-        objectFit="cover"
-        objectPosition="center"
-        transition="transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)"
-        _groupHover={{
-          transform: 'scale(1.06)'
+        overflow="hidden"
+        sx={{
+          '& img': {
+            transition: 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
+            objectFit: 'cover',
+            objectPosition: 'center',
+          }
         }}
-      />
+        _groupHover={{
+          '& img': { transform: 'scale(1.06)' }
+        }}
+      >
+        <NextImage
+          src="/images/1016_opt.jpg"
+          alt="macOS Wallpaper"
+          fill
+          priority
+          sizes="(max-width: 768px) 100vw, 1440px"
+          style={{ objectFit: 'cover', objectPosition: 'center' }}
+        />
+      </Box>
       <Box
         position="relative"
         zIndex={2}
