@@ -3,6 +3,7 @@ const Fonts = () => (
     @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
     @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
     @import url('https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap');
     
     @font-face {
       font-family: 'BaseNeueTrial';
@@ -41,6 +42,25 @@ const Fonts = () => (
     @font-face {
       font-family: 'Matrix';
       src: url('/fonts/matrix.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    /* Ogg font from Sharp Type */
+    @font-face {
+      font-family: 'Ogg';
+      src: url('/fonts/Ogg-Roman.woff2') format('woff2'),
+           url('/fonts/Ogg-Roman.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: 'Ogg-Roman';
+      src: url('/fonts/Ogg-Roman.woff2') format('woff2'),
+           url('/fonts/Ogg-Roman.woff') format('woff');
       font-weight: normal;
       font-style: normal;
       font-display: swap;

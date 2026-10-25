@@ -19,8 +19,7 @@ import { Global } from '@emotion/react'
 import Layout from '../components/layouts/article'
 import { ChevronRightIcon } from '@chakra-ui/icons'
 import Section from '../components/section'
-import { Grid, GridItem } from '@chakra-ui/react'
-import Image from 'next/image'
+import ProjectsGrid from '../components/ProjectsGrid'
 
 import { Spacer } from '@chakra-ui/react'
 import styled from '@emotion/styled'
@@ -33,12 +32,12 @@ const Trans = styled.span`
     position: relative;
     overflow: hidden;
     background: transparent;
-    border: 1.5px solid #111827;
-    color: #111827;
+    border: 1px solid #1A1A1A;
+    color: #1A1A1A;
     transition: all 0.3s ease;
     z-index: 1;
-    border-radius: 50px;
-    height: 90px;
+    border-radius: 40px;
+    height: 70px;
     
     &:before {
       content: '';
@@ -47,15 +46,15 @@ const Trans = styled.span`
       left: 0;
       width: 0;
       height: 100%;
-      background: #111827;
+      background: #1A1A1A;
       transition: all 0.3s ease;
       z-index: -1;
     }
 
     &:hover {
-      color: #ffffff;
+      color: #F4F4F0;
       transform: translateY(-2px);
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
     }
 
     &:hover:before {
@@ -112,164 +111,57 @@ const SKILL_ICONS = {
   'Empathy': MdEmojiEmotions,
 }
 
-function AnimatedIntro({ textColor = '#111827' }) {
-  const lines = [
-    "I am a Creative Technologist and Interaction Design student living in Mumbai, currently pursuing my Masters at IIT Bombay.",
-    "I craft playful, human-centered experiences at the intersection of design, technology, and art making ideas tangible, delightful, and meaningful."
-  ];
-  const lineRefs = useRef([]);
+function AnimatedIntro({ textColor = '#1A1A1A' }) {
+  const line = "Mukil is a product designer working at the intersection of design and technology to create meaningful, accessible experiences."
+  const textRef = useRef(null)
 
   useEffect(() => {
-    if (!lineRefs.current) return;
-    gsap.set(lineRefs.current, { opacity: 0, y: 40, scale: 0.96 });
-    gsap.to(lineRefs.current, {
+    if (!textRef.current) return;
+    gsap.set(textRef.current, { opacity: 0, y: 30 });
+    gsap.to(textRef.current, {
       opacity: 1,
       y: 0,
-      scale: 1,
-      duration: 1.1,
-      stagger: 0.38,
-      ease: "back.out(1.7)"
+      duration: 1.2,
+      ease: "power3.out"
     });
   }, []);
 
   return (
-    <Box mt={6} mb={6}>
-      {lines.map((line, i) => (
-        <Text
-          ref={el => lineRefs.current[i] = el}
-          key={i}
-          variant="home-txt"
-          fontSize={{ base: 'xl', md: '2xl', lg: '3xl' }}
-          fontWeight="bold"
-          lineHeight={1.2}
-          fontFamily="'Manrope', sans-serif"
-          color={textColor}
-          textAlign="justify"
-          mb={i === lines.length - 1 ? 0 : 3}
-          sx={{
-            textAlign: 'justify',
-            textJustify: 'inter-word',
-            hyphens: 'auto'
-          }}
-          style={{
-            transition: 'color 0.3s ease-out'
-          }}
-        >
-          {line}
-        </Text>
-      ))}
+    <Box w="100%">
+      <Text
+        ref={textRef}
+        variant="home-txt"
+        fontSize={{ base: '28px', sm: '34px', md: '38px', lg: '42px', xl: '42px' }}
+        fontWeight="normal"
+        lineHeight={1.1}
+        letterSpacing="-0.02em"
+        fontFamily="'Ogg', 'Instrument Serif', 'Playfair Display', Georgia, serif"
+        color={textColor}
+        maxW={{ base: '100%', md: '840px', lg: '960px' }}
+        sx={{
+          hyphens: 'none'
+        }}
+        style={{
+          transition: 'color 0.3s ease-out'
+        }}
+      >
+        {line}
+      </Text>
     </Box>
   );
 }
 
-// Full Page Grey Grid Component with Plus Signs
-const SmallGrid = () => {
-  const canvasRef = useRef(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext('2d');
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    // Draw plus signs at every 5th intersection (accounting for grid line position)
-    const gridSize = 40;
-    const plusInterval = 5; // Every 5 boxes
-    const plusSize = 6;
-    const plusThickness = 2;
-
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.18)';
-
-    // Start from first grid line and place plus at every 5th intersection
-    for (let x = 0; x <= canvas.width; x += gridSize * plusInterval) {
-      for (let y = 0; y <= canvas.height; y += gridSize * plusInterval) {
-        // Draw horizontal line of plus (centered on intersection)
-        ctx.fillRect(x - plusSize, y - plusThickness / 2, plusSize * 2, plusThickness);
-        // Draw vertical line of plus (centered on intersection)
-        ctx.fillRect(x - plusThickness / 2, y - plusSize, plusThickness, plusSize * 2);
-      }
-    }
-
-    const handleResize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.18)';
-
-      for (let x = 0; x <= canvas.width; x += gridSize * plusInterval) {
-        for (let y = 0; y <= canvas.height; y += gridSize * plusInterval) {
-          ctx.fillRect(x - plusSize, y - plusThickness / 2, plusSize * 2, plusThickness);
-          ctx.fillRect(x - plusThickness / 2, y - plusSize, plusThickness, plusSize * 2);
-        }
-      }
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  return (
-    <>
-      <Box
-        position="fixed"
-        top={0}
-        left={0}
-        width="100vw"
-        height="100vh"
-        zIndex={-1}
-        pointerEvents="none"
-        sx={{
-          backgroundImage: `
-            repeating-linear-gradient(
-              0deg,
-              transparent,
-              transparent 38px,
-              rgba(0, 0, 0, 0.05) 38px,
-              rgba(0, 0, 0, 0.05) 40px
-            ),
-            repeating-linear-gradient(
-              90deg,
-              transparent,
-              transparent 38px,
-              rgba(0, 0, 0, 0.05) 38px,
-              rgba(0, 0, 0, 0.05) 40px
-            )
-          `
-        }}
-      />
-      <Box
-        as="canvas"
-        ref={canvasRef}
-        position="fixed"
-        top={0}
-        left={0}
-        width="100vw"
-        height="100vh"
-        zIndex={-1}
-        pointerEvents="none"
-      />
-    </>
-  );
-};
-
 const Home = () => {
   const pageRef = useRef(null)
-  const mukilRef = useRef(null)
   const textSectionRef = useRef(null)
-  const mukilSectionRef = useRef(null)
 
   const journeyRefs = useRef([])
   const buttonRef = useRef(null)
-  const hiImgRef = useRef(null)
   const router = useRouter();
   const isMobile = useBreakpointValue({ base: true, md: false })
-  
-  const bgColor = '#ffffff'
-  const textColor = '#111827'
+
+  const bgColor = '#F4F4F0'
+  const textColor = '#1A1A1A'
 
   // New: Intersection observer for skills section
   const skillsSectionRef = useRef(null);
@@ -304,12 +196,12 @@ const Home = () => {
         duration: 4.5, // slower for smoother animation
         ease: 'sine.inOut',
       })
-      .to(el, {
-        scale: 1,
-        y: 0,
-        duration: 4.5,
-        ease: 'sine.inOut',
-      });
+        .to(el, {
+          scale: 1,
+          y: 0,
+          duration: 4.5,
+          ease: 'sine.inOut',
+        });
       // Add will-change for browser optimization
       el.style.willChange = 'transform';
     }
@@ -372,42 +264,9 @@ const Home = () => {
       btn.addEventListener('mouseenter', hoverEnter)
       btn.addEventListener('mouseleave', hoverLeave)
     }
-    // Hi.png scroll animation
-    if (hiImgRef.current) {
-      gsap.fromTo(
-        hiImgRef.current,
-        { y: -100, scale: 0.5, opacity: 0 },
-        {
-          y: 300,
-          scale: 2.2,
-          opacity: 1,
-          ease: 'power2.inOut',
-          scrollTrigger: {
-            trigger: hiImgRef.current,
-            start: 'top top',
-            end: 'bottom+=600 top',
-            scrub: 1,
-          },
-        }
-      );
-    }
-    
 
-    
-    // Fade out MUKIL KUMAR on scroll
-    if (mukilRef.current) {
-      gsap.to(mukilRef.current, {
-        opacity: 0,
-        y: -50,
-        scrollTrigger: {
-          trigger: mukilRef.current,
-          start: 'top top',
-          end: 'bottom top',
-          scrub: 1,
-        }
-      });
-    }
-    
+
+
     // Cleanup
     return () => {
       if (btn && hoverEnter && hoverLeave) {
@@ -428,103 +287,66 @@ const Home = () => {
           <meta name="keywords" content="Mukil, Interaction Designer, Creative Technologist, Electronics Engineer, IDC IIT Bombay, UX Design, UI Design, Product Design" />
           <meta name="author" content="Mukil" />
           <meta name="robots" content="index, follow" />
-          
+
           {/* Open Graph / Social Media Meta Tags */}
           <meta property="og:title" content="Mukil" />
           <meta property="og:description" content="Portfolio of Mukil - Interaction Designer, Creative Technologist, and Electronics Engineer. Specializing in user-centered design and creative technology solutions." />
           <meta property="og:type" content="website" />
           <meta property="og:url" content="https://mukil.vercel.app" />
           <meta property="og:image" content="https://mukil.vercel.app/images/mukil.jpg" />
-          
+
           {/* Twitter Card Meta Tags */}
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:title" content="Mukil" />
           <meta name="twitter:description" content="Portfolio of Mukil - Interaction Designer, Creative Technologist, and Electronics Engineer." />
           <meta name="twitter:image" content="https://mukil.vercel.app/images/mukil.jpg" />
-          
+
           {/* Canonical URL */}
           <link rel="canonical" href="https://mukil.vercel.app" />
           {/* Font links moved to _document.js */}
         </Head>
         <Layout>
-          <SmallGrid />
-          <Spacer minHeight="30vh" />
-          <Container ref={mukilSectionRef} maxW='container.xl'>
-            {/* Removed green triangle above MUKIL heading */}
-            <Box>
-              <Heading ref={mukilRef} fontSize={{ base: '6xl', md: '8xl', lg: '9xl' }} fontWeight="bold" lineHeight={0.95} textAlign="left" fontFamily="'Anton', sans-serif" letterSpacing="0.04em" color={textColor} style={{ transition: 'color 0.3s ease-out' }}>
-                MUKIL<br />KUMAR
-              </Heading>
-            </Box>
-            {/* Hi.png animated image */}
-            <Box
-              ref={hiImgRef}
-              position="fixed"
-              top={['10px', '30px']}
-              right={['10px', '30px']}
-              w={['60px', '100px', '140px']}
-              pointerEvents="none"
-              zIndex={3}
-            >
-              <Image
-                src="/mukil/Hi.png"
-                alt="Hi"
-                width={140}
-                height={140}
-                style={{ width: '100%', height: 'auto' }}
-                priority
-              />
-            </Box>
-          </Container> 
+          <Spacer minHeight={{ base: '12px', md: '16px' }} />
 
-          <Spacer minHeight="12vh" />
-
-          <Container ref={textSectionRef} maxW='container.xl' mt={4} mb={8}>
-            <Grid templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)' }} gap={10}>
-              <GridItem>
-                <Section delay={0.3}>
-                  <AnimatedIntro textColor={textColor} />
-                </Section>
-              </GridItem>
-              <GridItem>
-                {/* Right side can be used for other content */}
-              </GridItem>
-            </Grid>
+          <Container ref={textSectionRef} maxW='1440px' px={{ base: '20px', md: '28px', lg: '32px' }} mt={0} mb={{ base: '48px', md: '64px', lg: '76px' }}>
+            <Section delay={0.2}>
+              <AnimatedIntro textColor={textColor} />
+            </Section>
           </Container>
 
+          {/* Selected Projects Section */}
+          <Box maxW='1440px' mx="auto" px={{ base: '20px', md: '28px', lg: '32px' }} mb={20}>
+            <Section delay={0.3}>
+              <ProjectsGrid />
+            </Section>
+          </Box>
+
           {/* Skill Section */}
-          <Container maxW='container.xl' mt={20} mb={20} position="relative" ref={skillsSectionRef}>
-            {/* Big SKILLS text behind the tabs */}
+          <Container maxW='1440px' px={{ base: '20px', md: '28px', lg: '32px' }} mt={16} mb={20} position="relative" ref={skillsSectionRef}>
+            {/* Subtle SKILLS background text */}
             {!isMobile && (
-            <Box
-              ref={skillsTextRef}
-              position="absolute"
-              top="55%"
-              left="50%"
-              transform="translate(-50%, -50%)"
-              w="100%"
-              zIndex={0}
-              textAlign="center"
-              pointerEvents="none"
-              userSelect="none"
-              fontSize={{ base: '32vw', md: '24vw', lg: '20vw' }}
-              fontWeight="extrabold"
-              fontFamily="'BaseNeueTrial', sans-serif"
-              lineHeight={1}
-              opacity={0.2}
-              style={{
-                background: 'linear-gradient(90deg, #89EF8C 0%, #3182ce 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text',
-                textFillColor: 'transparent',
-                textShadow: '0 8px 32px rgba(137,239,140,0.18)',
-                maskImage: 'linear-gradient(to bottom, black 70%, transparent 100%)',
-                WebkitMaskImage: 'linear-gradient(to bottom, black 70%, transparent 100%)',
-              }}
-            >
-              SKILLS
-            </Box>
+              <Box
+                ref={skillsTextRef}
+                position="absolute"
+                top="55%"
+                left="50%"
+                transform="translate(-50%, -50%)"
+                w="100%"
+                zIndex={0}
+                textAlign="center"
+                pointerEvents="none"
+                userSelect="none"
+                fontSize={{ base: '32vw', md: '24vw', lg: '20vw' }}
+                fontWeight="extrabold"
+                fontFamily="'BaseNeueTrial', sans-serif"
+                lineHeight={1}
+                opacity={0.04}
+                style={{
+                  color: '#1A1A1A'
+                }}
+              >
+                SKILLS
+              </Box>
             )}
             {skillsVisible && (
               <>
@@ -573,180 +395,180 @@ const Home = () => {
                     </Text>
                   </>
                 ) : (
-              <>
-                <Heading fontSize="2xl" fontWeight="bold" mb={6} color={textColor} style={{ transition: 'color 0.3s ease-out' }}>
-                  Skills
-                </Heading>
-                <Box display="flex" flexWrap="wrap" gap={2} mb={8} alignItems="center">
-                  {SKILLS.map((skill, index) => {
-                    const Icon = SKILL_ICONS[skill]
-                    const isHovered = hoveredSkill === skill
-                    const iconColor = '#89EF8C'
-                    const isBreakAfter = index === 4 // Break after "3D Modeling"
-                    return (
-                      <>
-                        <Text
-                          key={skill}
-                          fontSize="md"
-                          fontWeight="bold"
-                          fontFamily="'Space Grotesk', sans-serif"
-                          color={isHovered ? '#89EF8C' : textColor}
-                          cursor="pointer"
-                          onMouseEnter={() => setHoveredSkill(skill)}
-                          onMouseLeave={() => setHoveredSkill(null)}
-                          position="relative"
-                          style={{ transition: 'color 0.3s ease-out' }}
-                        >
-                          {skill}
-                          {Icon && (
-                            <Box
-                              as={Icon}
-                              position="absolute"
-                              left="50%"
-                              top="-44px"
-                              transform={`translateX(-50%) scale(${isHovered ? 1 : 0.5})`}
-                              fontSize="2.5rem"
-                              color={iconColor}
-                              opacity={isHovered ? 1 : 0}
-                              transition="all 0.38s cubic-bezier(.4,2,.3,1)"
-                              zIndex={2}
-                              pointerEvents="none"
-                              filter="drop-shadow(0 2px 8px #89EF8C44)"
-                            />
-                          )}
-                        </Text>
-                        {index < SKILLS.length - 1 && !isBreakAfter && (
-                          <Text
-                            fontSize="md"
-                            fontWeight="semibold"
-                            color={textColor}
-                            opacity={0.4}
-                            style={{ transition: 'color 0.3s ease-out' }}
-                          >
-                            |
-                          </Text>
-                        )}
-                        {isBreakAfter && (
-                          <Box width="100%" height="0" />
-                        )}
-                      </>
-                    )
-                  })}
-                </Box>
-                <Heading fontSize="2xl" fontWeight="bold" mt={8} mb={4} color={textColor} style={{ transition: 'color 0.3s ease-out' }}>
-                  Visual Design
-                </Heading>
-                <Box display="flex" flexWrap="wrap" gap={2} mb={8} alignItems="center">
-                  {VISUAL_DESIGN_SKILLS.map((skill, index) => {
-                    const Icon = skill.icon
-                    const isHovered = hoveredSkill === skill.name
-                    const iconColor = '#3182ce'
-                    return (
-                      <>
-                        <Text
-                          key={skill.name}
-                          fontSize="md"
-                          fontWeight="bold"
-                          fontFamily="'Space Grotesk', sans-serif"
-                          color={isHovered ? '#3182ce' : textColor}
-                          cursor="pointer"
-                          onMouseEnter={() => setHoveredSkill(skill.name)}
-                          onMouseLeave={() => setHoveredSkill(null)}
-                          position="relative"
-                          style={{ transition: 'color 0.3s ease-out' }}
-                        >
-                          {skill.name}
-                          {Icon && (
-                            <Box
-                              as={Icon}
-                              position="absolute"
-                              left="50%"
-                              top="-44px"
-                              transform={`translateX(-50%) scale(${isHovered ? 1 : 0.5})`}
-                              fontSize="2.5rem"
-                              color={iconColor}
-                              opacity={isHovered ? 1 : 0}
-                              transition="all 0.38s cubic-bezier(.4,2,.3,1)"
-                              zIndex={2}
-                              pointerEvents="none"
-                              filter="drop-shadow(0 2px 8px #3182ce44)"
-                            />
-                          )}
-                        </Text>
-                        {index < VISUAL_DESIGN_SKILLS.length - 1 && (
-                          <Text
-                            fontSize="md"
-                            fontWeight="semibold"
-                            color={textColor}
-                            opacity={0.4}
-                            style={{ transition: 'color 0.3s ease-out' }}
-                          >
-                            |
-                          </Text>
-                        )}
-                      </>
-                    )
-                  })}
-                </Box>
-                <Heading fontSize="2xl" fontWeight="bold" mt={8} mb={4} color={textColor} style={{ transition: 'color 0.3s ease-out' }}>
-                  Development
-                </Heading>
-                <Box display="flex" flexWrap="wrap" gap={2} mb={8} alignItems="center">
-                  {DEVELOPMENT_SKILLS.map((skill, index) => {
-                    const Icon = skill.icon
-                    const isHovered = hoveredSkill === skill.name
-                    const iconColor = '#3182ce'
-                    const isBreakAfter = index === 7 // Break after "Three.js"
-                    return (
-                      <>
-                        <Text
-                          key={skill.name}
-                          fontSize="md"
-                          fontWeight="bold"
-                          fontFamily="'Space Grotesk', sans-serif"
-                          color={isHovered ? '#3182ce' : textColor}
-                          cursor="pointer"
-                          onMouseEnter={() => setHoveredSkill(skill.name)}
-                          onMouseLeave={() => setHoveredSkill(null)}
-                          position="relative"
-                          style={{ transition: 'color 0.3s ease-out' }}
-                        >
-                          {skill.name}
-                          {Icon && (
-                            <Box
-                              as={Icon}
-                              position="absolute"
-                              left="50%"
-                              top="-44px"
-                              transform={`translateX(-50%) scale(${isHovered ? 1 : 0.5})`}
-                              fontSize="2.5rem"
-                              color={iconColor}
-                              opacity={isHovered ? 1 : 0}
-                              transition="all 0.38s cubic-bezier(.4,2,.3,1)"
-                              zIndex={2}
-                              pointerEvents="none"
-                              filter="drop-shadow(0 2px 8px #3182ce44)"
-                            />
-                          )}
-                        </Text>
-                        {index < DEVELOPMENT_SKILLS.length - 1 && !isBreakAfter && (
-                          <Text
-                            fontSize="md"
-                            fontWeight="semibold"
-                            color={textColor}
-                            opacity={0.4}
-                            style={{ transition: 'color 0.3s ease-out' }}
-                          >
-                            |
-                          </Text>
-                        )}
-                        {isBreakAfter && (
-                          <Box width="100%" height="0" />
-                        )}
-                      </>
-                    )
-                  })}
-                </Box>
+                  <>
+                    <Heading fontSize="2xl" fontWeight="bold" mb={6} color={textColor} style={{ transition: 'color 0.3s ease-out' }}>
+                      Skills
+                    </Heading>
+                    <Box display="flex" flexWrap="wrap" gap={2} mb={8} alignItems="center">
+                      {SKILLS.map((skill, index) => {
+                        const Icon = SKILL_ICONS[skill]
+                        const isHovered = hoveredSkill === skill
+                        const iconColor = '#89EF8C'
+                        const isBreakAfter = index === 4 // Break after "3D Modeling"
+                        return (
+                          <>
+                            <Text
+                              key={skill}
+                              fontSize="md"
+                              fontWeight="bold"
+                              fontFamily="'Space Grotesk', sans-serif"
+                              color={isHovered ? '#89EF8C' : textColor}
+                              cursor="pointer"
+                              onMouseEnter={() => setHoveredSkill(skill)}
+                              onMouseLeave={() => setHoveredSkill(null)}
+                              position="relative"
+                              style={{ transition: 'color 0.3s ease-out' }}
+                            >
+                              {skill}
+                              {Icon && (
+                                <Box
+                                  as={Icon}
+                                  position="absolute"
+                                  left="50%"
+                                  top="-44px"
+                                  transform={`translateX(-50%) scale(${isHovered ? 1 : 0.5})`}
+                                  fontSize="2.5rem"
+                                  color={iconColor}
+                                  opacity={isHovered ? 1 : 0}
+                                  transition="all 0.38s cubic-bezier(.4,2,.3,1)"
+                                  zIndex={2}
+                                  pointerEvents="none"
+                                  filter="drop-shadow(0 2px 8px #89EF8C44)"
+                                />
+                              )}
+                            </Text>
+                            {index < SKILLS.length - 1 && !isBreakAfter && (
+                              <Text
+                                fontSize="md"
+                                fontWeight="semibold"
+                                color={textColor}
+                                opacity={0.4}
+                                style={{ transition: 'color 0.3s ease-out' }}
+                              >
+                                |
+                              </Text>
+                            )}
+                            {isBreakAfter && (
+                              <Box width="100%" height="0" />
+                            )}
+                          </>
+                        )
+                      })}
+                    </Box>
+                    <Heading fontSize="2xl" fontWeight="bold" mt={8} mb={4} color={textColor} style={{ transition: 'color 0.3s ease-out' }}>
+                      Visual Design
+                    </Heading>
+                    <Box display="flex" flexWrap="wrap" gap={2} mb={8} alignItems="center">
+                      {VISUAL_DESIGN_SKILLS.map((skill, index) => {
+                        const Icon = skill.icon
+                        const isHovered = hoveredSkill === skill.name
+                        const iconColor = '#3182ce'
+                        return (
+                          <>
+                            <Text
+                              key={skill.name}
+                              fontSize="md"
+                              fontWeight="bold"
+                              fontFamily="'Space Grotesk', sans-serif"
+                              color={isHovered ? '#3182ce' : textColor}
+                              cursor="pointer"
+                              onMouseEnter={() => setHoveredSkill(skill.name)}
+                              onMouseLeave={() => setHoveredSkill(null)}
+                              position="relative"
+                              style={{ transition: 'color 0.3s ease-out' }}
+                            >
+                              {skill.name}
+                              {Icon && (
+                                <Box
+                                  as={Icon}
+                                  position="absolute"
+                                  left="50%"
+                                  top="-44px"
+                                  transform={`translateX(-50%) scale(${isHovered ? 1 : 0.5})`}
+                                  fontSize="2.5rem"
+                                  color={iconColor}
+                                  opacity={isHovered ? 1 : 0}
+                                  transition="all 0.38s cubic-bezier(.4,2,.3,1)"
+                                  zIndex={2}
+                                  pointerEvents="none"
+                                  filter="drop-shadow(0 2px 8px #3182ce44)"
+                                />
+                              )}
+                            </Text>
+                            {index < VISUAL_DESIGN_SKILLS.length - 1 && (
+                              <Text
+                                fontSize="md"
+                                fontWeight="semibold"
+                                color={textColor}
+                                opacity={0.4}
+                                style={{ transition: 'color 0.3s ease-out' }}
+                              >
+                                |
+                              </Text>
+                            )}
+                          </>
+                        )
+                      })}
+                    </Box>
+                    <Heading fontSize="2xl" fontWeight="bold" mt={8} mb={4} color={textColor} style={{ transition: 'color 0.3s ease-out' }}>
+                      Development
+                    </Heading>
+                    <Box display="flex" flexWrap="wrap" gap={2} mb={8} alignItems="center">
+                      {DEVELOPMENT_SKILLS.map((skill, index) => {
+                        const Icon = skill.icon
+                        const isHovered = hoveredSkill === skill.name
+                        const iconColor = '#3182ce'
+                        const isBreakAfter = index === 7 // Break after "Three.js"
+                        return (
+                          <>
+                            <Text
+                              key={skill.name}
+                              fontSize="md"
+                              fontWeight="bold"
+                              fontFamily="'Space Grotesk', sans-serif"
+                              color={isHovered ? '#3182ce' : textColor}
+                              cursor="pointer"
+                              onMouseEnter={() => setHoveredSkill(skill.name)}
+                              onMouseLeave={() => setHoveredSkill(null)}
+                              position="relative"
+                              style={{ transition: 'color 0.3s ease-out' }}
+                            >
+                              {skill.name}
+                              {Icon && (
+                                <Box
+                                  as={Icon}
+                                  position="absolute"
+                                  left="50%"
+                                  top="-44px"
+                                  transform={`translateX(-50%) scale(${isHovered ? 1 : 0.5})`}
+                                  fontSize="2.5rem"
+                                  color={iconColor}
+                                  opacity={isHovered ? 1 : 0}
+                                  transition="all 0.38s cubic-bezier(.4,2,.3,1)"
+                                  zIndex={2}
+                                  pointerEvents="none"
+                                  filter="drop-shadow(0 2px 8px #3182ce44)"
+                                />
+                              )}
+                            </Text>
+                            {index < DEVELOPMENT_SKILLS.length - 1 && !isBreakAfter && (
+                              <Text
+                                fontSize="md"
+                                fontWeight="semibold"
+                                color={textColor}
+                                opacity={0.4}
+                                style={{ transition: 'color 0.3s ease-out' }}
+                              >
+                                |
+                              </Text>
+                            )}
+                            {isBreakAfter && (
+                              <Box width="100%" height="0" />
+                            )}
+                          </>
+                        )
+                      })}
+                    </Box>
                   </>
                 )}
               </>
@@ -757,28 +579,30 @@ const Home = () => {
             <Section>
               <Box align="center" mb={4}>
                 <NextLink href="/works" passHref scroll={true}>
-                  <Button 
+                  <Button
                     ref={buttonRef}
-                    borderRadius='50px'
+                    borderRadius='40px'
                     variant='outline'
-                    border='1.5px solid'
-                    borderColor='#111827'
-                    color='#111827'
-                    px={6}
-                    py={10}
-                    fontSize="lg"
-                    fontWeight="semibold"
-                    letterSpacing="wider"
-                    height="90px"
+                    border='1px solid'
+                    borderColor='#1A1A1A'
+                    color='#1A1A1A'
+                    px={8}
+                    py={6}
+                    fontSize="14px"
+                    fontFamily="'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
+                    fontWeight="500"
+                    letterSpacing="0.08em"
+                    textTransform="uppercase"
+                    height="64px"
                     rightIcon={<ChevronRightIcon />}
                     _hover={{
-                      bg: '#111827',
-                      color: '#ffffff',
+                      bg: '#1A1A1A',
+                      color: '#F4F4F0',
                       transform: 'translateY(-2px)',
-                      boxShadow: '0 3px 10px rgba(0, 0, 0, 0.15)'
+                      boxShadow: '0 4px 16px rgba(0, 0, 0, 0.08)'
                     }}
                   >
-                    SEE MORE ABOUT MY WORK
+                    Explore Selected Works
                   </Button>
                 </NextLink>
               </Box>

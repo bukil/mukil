@@ -1,20 +1,41 @@
 /* eslint-disable react/no-unescaped-entities */
-import { Heading, SimpleGrid, Image, Text, Button, useDisclosure, Box, Spacer } from '@chakra-ui/react'
-import { ChevronLeftIcon, ChevronDownIcon } from '@chakra-ui/icons'
+import Head from 'next/head'
+import {
+  Heading,
+  SimpleGrid,
+  Image,
+  Text,
+  Button,
+  useDisclosure,
+  Box,
+  Spacer,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton
+} from '@chakra-ui/react'
+import { ChevronLeftIcon, ChevronDownIcon, ExternalLinkIcon } from '@chakra-ui/icons'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
 import styled from '@emotion/styled'
 import NextLink from 'next/link'
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
-import KodeboardModal from '../components/projects/Kodeboard'
 import dynamic from 'next/dynamic'
 import { motion } from 'framer-motion'
 import React from 'react'
-import MunselModel from '../components/MunselModel'
+import LhcRingGraphic from '../components/LhcRingGraphic'
 
-const HairlineHub = dynamic(
-  () => import('@lucasmarkes/hairline/react').then((m) => m.Hub),
+const HairlineExploded = dynamic(
+  () => import('@lucasmarkes/hairline/react').then((m) => m.Exploded),
+  { ssr: false }
+)
+
+const HairlinePlot = dynamic(
+  () => import('@lucasmarkes/hairline/react').then((m) => m.Plot),
   { ssr: false }
 )
 
@@ -52,8 +73,6 @@ const Trans = styled.span`
     }
   }
 `
-
-
 
 const BigText = styled.div`
   font-family: 'BaseNeueTrial', sans-serif;
@@ -107,104 +126,120 @@ const ContentWrapper = styled(Box)`
   background: transparent;
 `
 
-// Standard Panel Component
-const ProjectPanel = ({ 
-  title, 
+// Accessible, bright-mode project panel with fixed dimensions matching Works
+const ProjectPanel = ({
+  title,
   hoverTitle,
-  description, 
-  imageSrc, 
-  imageAlt, 
-  gradientColors: _gradientColors, 
-  hoverGradientColors: _hoverGradientColors, 
-  accentColor, 
+  description,
+  imageSrc,
+  imageAlt,
+  accentColor,
   onClick,
   customContent,
   sx
 }) => {
   return (
-    <Box 
-      position="relative" 
-      borderWidth="1px" 
-      borderColor="rgba(0, 0, 0, 0.15)"
+    <Box
+      position="relative"
+      borderWidth="1.5px"
+      borderColor="rgba(0, 0, 0, 0.12)"
       borderRadius={0}
-      overflow="hidden" 
+      overflow="hidden"
       boxShadow="none"
-      role="group"
-      bg="transparent"
+      role={onClick ? 'button' : undefined}
+      aria-haspopup={onClick ? 'dialog' : undefined}
+      tabIndex={onClick ? 0 : undefined}
+      onKeyDown={
+        onClick
+          ? (e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault()
+                onClick()
+              }
+            }
+          : undefined
+      }
+      bg="rgba(255, 255, 255, 0.85)"
+      backdropFilter="blur(8px)"
       transition="all 0.3s ease"
       _hover={{
-        bg: 'transparent',
+        bg: '#ffffff',
         transform: 'translateY(-5px)',
-        boxShadow: '0 8px 30px rgba(0, 0, 0, 0.08)',
+        boxShadow: '0 12px 30px rgba(0, 0, 0, 0.08)',
         borderColor: 'rgba(0, 0, 0, 0.3)'
+      }}
+      _focusVisible={{
+        outline: '2px solid #111827',
+        outlineOffset: '3px'
       }}
       onClick={onClick}
       cursor="pointer"
       width="100%"
-      maxW="540px"
-      aspectRatio="540 / 300"
-      mx="auto"
+      maxW="100%"
+      aspectRatio="1 / 1"
       sx={{
         ...sx,
         '& *': {
           pointerEvents: 'none'
+        },
+        '& [data-hairline], & [data-hairline] *': {
+          pointerEvents: 'auto'
         }
       }}
       as={motion.div}
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
     >
-      <Box 
-        position="relative" 
-        height="100%" 
-        width="100%" 
+      <Box
+        position="absolute"
+        top="0"
+        left="0"
+        right="0"
+        bottom="76px"
         display="flex"
         alignItems="center"
         justifyContent="center"
       >
+        {/* Decorative large hover title - hidden from screen readers to prevent label-in-name conflict */}
         <Text
-            position="absolute"
-            top={hoverTitle === "Data Visualisation" || hoverTitle === "Design Evaluation ChatGPT" ? "3%" : "20%"}
-            right={hoverTitle === "Data Visualisation" ? "5%" : undefined}
-            left={hoverTitle === "Data Visualisation" ? undefined : "50%"}
-            transform={hoverTitle === "Data Visualisation" ? "none" : hoverTitle === "Design Evaluation ChatGPT" ? "translate(-50%, 0)" : "translate(-50%, -50%)"}
-            textAlign={hoverTitle === "Data Visualisation" ? "right" : "center"}
-            fontSize={hoverTitle === "Data Visualisation" || hoverTitle === "Design Evaluation ChatGPT" ? "7xl" : "7xl"}
-            fontWeight="900"
-            color="#111827"
-            opacity="0"
-            transition="top 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1)"
-            whiteSpace="nowrap"
-            _groupHover={{ 
-              opacity: 0.7,
-              top: hoverTitle === "Data Visualisation" || hoverTitle === "Design Evaluation ChatGPT" ? "3%" : "35%",
-              transform: hoverTitle === "Data Visualisation" ? "none" : hoverTitle === "Design Evaluation ChatGPT" ? "translate(-50%, 0)" : "translate(-50%, -50%)",
-              transition: "top 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1)"
-            }}
-            zIndex={2}
-            letterSpacing="normal"
-            lineHeight="1"
-            fontFamily="'BaseNeueTrial', sans-serif"
-            fontStyle="italic"
-            textTransform="uppercase"
-          >
-            {hoverTitle === "Design Evaluation ChatGPT"
-              ? (<><span>Design Evaluation</span><br /><span>ChatGPT</span></>)
-              : hoverTitle === "Visually understanding Colour space"
-              ? (<><span>Visually understanding</span><br /><span>Colour space</span></>)
-              : (hoverTitle || title)
-            }
-          </Text>
+          aria-hidden="true"
+          position="absolute"
+          top={hoverTitle === 'Data Visualisation' ? '3%' : '20%'}
+          right={hoverTitle === 'Data Visualisation' ? '5%' : undefined}
+          left={hoverTitle === 'Data Visualisation' ? undefined : '50%'}
+          transform={hoverTitle === 'Data Visualisation' ? 'none' : 'translate(-50%, -50%)'}
+          textAlign={hoverTitle === 'Data Visualisation' ? 'right' : 'center'}
+          fontSize="7xl"
+          fontWeight="900"
+          color="#111827"
+          opacity="0"
+          transition="top 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1)"
+          whiteSpace="nowrap"
+          _groupHover={{
+            opacity: 0.75,
+            top: hoverTitle === 'Data Visualisation' ? '3%' : '35%',
+            transform: hoverTitle === 'Data Visualisation' ? 'none' : 'translate(-50%, -50%)',
+            transition: 'top 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1)'
+          }}
+          zIndex={2}
+          letterSpacing="normal"
+          lineHeight="1"
+          fontFamily="'BaseNeueTrial', sans-serif"
+          fontStyle="italic"
+          textTransform="uppercase"
+        >
+          {hoverTitle || title}
+        </Text>
         {imageSrc && (
-          <Image 
+          <Image
             src={imageSrc}
-            alt={imageAlt}
-            width={title === "Kode/Board" ? "80%" : "50%"}
-            height={title === "Kode/Board" ? "80%" : "50%"}
+            alt={imageAlt || ''}
+            width="70%"
+            height="70%"
             objectFit="contain"
             transition="all 0.3s ease"
-            _groupHover={{ 
-              filter: 'brightness(1.05)',
+            _groupHover={{
+              filter: 'brightness(1.04)',
               transform: 'scale(1.05)'
             }}
             position="relative"
@@ -213,17 +248,19 @@ const ProjectPanel = ({
           />
         )}
       </Box>
+
+      {/* Bottom metadata drawer with accessible high-contrast text */}
       <Box
         position="absolute"
         bottom="0"
         left="0"
         right="0"
         bg="rgba(255, 255, 255, 0.95)"
-        backdropFilter="blur(8px)"
+        backdropFilter="blur(12px)"
         pt={2}
         pb={2}
         px={4}
-        color="gray.900"
+        color="#111827"
         zIndex={3}
         height="76px"
         display="flex"
@@ -231,36 +268,37 @@ const ProjectPanel = ({
         justifyContent="flex-start"
         borderTop="1px solid rgba(0, 0, 0, 0.08)"
       >
-        {/* Always-visible title above accent line - kept at consistent level */}
         {title && (
           <Box mb={0}>
-            <Text
+            <Heading
+              as="h2"
               fontSize="xs"
               fontFamily="'Michroma', monospace"
               fontWeight="600"
               letterSpacing="0.12em"
               lineHeight="1.1"
               textTransform="uppercase"
-              color="gray.900"
+              color="#111827"
             >
               {title}
-            </Text>
+            </Heading>
           </Box>
         )}
-        <Box 
-          w="100%" 
-          h="1px" 
-          bg={accentColor || 'rgba(0, 0, 0, 0.15)'} 
+        <Box
+          w="100%"
+          h="1px"
+          bg={accentColor || 'rgba(0, 0, 0, 0.15)'}
           mt={1.5}
           mb={1.5}
+          aria-hidden="true"
         />
         <Box flex="0 0 auto">
-          <Text 
+          <Text
             fontSize="xs"
             fontFamily="'Encode Sans Expanded', sans-serif"
             fontWeight="400"
             letterSpacing="0.5px"
-            color="gray.600"
+            color="#334155"
             noOfLines={2}
             lineHeight="1.3"
           >
@@ -268,32 +306,21 @@ const ProjectPanel = ({
           </Text>
         </Box>
       </Box>
+
       {customContent && (
         <Box
           position="absolute"
           top="0"
           left="0"
           right="0"
-          bottom="0"
+          bottom="76px"
           display="flex"
           alignItems="center"
           justifyContent="center"
           zIndex={1}
           pointerEvents="none"
-          sx={{
-            '& img': {
-              transition: 'transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease',
-              willChange: 'transform, opacity'
-            },
-            '& img.phone-large': {
-              transformOrigin: '50% 50%'
-            }
-          }}
           _groupHover={{
             '& img': {
-              transform: 'scale(1.05)'
-            },
-            '& img.phone-large': {
               transform: 'scale(1.05)'
             }
           }}
@@ -305,113 +332,449 @@ const ProjectPanel = ({
   )
 }
 
-// Usage in the main component
-function CollapseExtandip() {
-  const { isOpen: isEditOpenmd12, onOpen: onEditOpenmd12, onClose: onEditClosemd12 } = useDisclosure()
-  
-
+// Hairline interactive Plot figure for Data Visualisation
+function DataVizPlotGraphic() {
   return (
-    <>
-      <Box maxW="1148px" mx="auto" px={{ base: 4, sm: 6 }} mt={5}>
-        <SimpleGrid columns={{ base: 1, md: 2 }} columnGap={5} rowGap={5}>
-          <Section>
-            <Box as="a" href="https://bukil.github.io/" target="_blank" rel="noopener noreferrer" style={{ display: 'block', cursor: 'pointer', textDecoration: 'none' }}>
-              <ProjectPanel
-                title="Visually understanding Colour space"
-                hoverTitle="Visually understanding Colour space"
-                description="Documentation is in progress"
-                gradientColors="radial-gradient(circle at center, rgba(80, 90, 200, 0.7) 0%, rgba(10, 15, 40, 0.98) 100%)"
-                hoverGradientColors="radial-gradient(circle at center, rgba(100, 110, 220, 0.85) 0%, rgba(20, 25, 50, 0.98) 100%)"
-                accentColor="purple.300"
-                sx={{ position: 'relative', overflow: 'hidden' }}
-                customContent={<MunselModel />}
-              />
-            </Box>
-          </Section>
-          <Section>
-            <ProjectPanel
-              title="Kode/Board"
-              hoverTitle="Kode/Board"
-              description="Here is a keyboard concept (kode board), Copy, paste, repeat... but not as you know it. Multi-layer clipboard on fingertips like seamlessly storing your snippets for instant recall."
-              imageSrc="/images/works/BOTASF.png"
-              imageAlt="Kode/Board"
-              gradientColors="radial-gradient(circle at center, rgba(0, 150, 0, 0.7) 0%, rgba(0, 30, 0, 0.98) 100%)"
-              hoverGradientColors="radial-gradient(circle at center, rgba(0, 200, 0, 0.8) 0%, rgba(0, 40, 0, 0.98) 100%)"
-              accentColor="green.400"
-              onClick={onEditOpenmd12}
-            />
-            <KodeboardModal isOpen={isEditOpenmd12} onClose={onEditClosemd12} />
-          </Section>
-
-          {/* Human Factor in Design - same style as DESIGN SYSTEM */}
-          <Section>
-            <NextLink href="/human-factor" passHref legacyBehavior>
-              <Box as="a" style={{ display: 'block', cursor: 'pointer', textDecoration: 'none' }}>
-                <ProjectPanel
-                  title={<span style={{ fontFamily: 'Michroma, monospace', letterSpacing: '0.12em', color: '#111827', fontStyle: 'normal' }}>HUMAN FACTOR IN DESIGN</span>}
-                  hoverTitle={<span style={{ fontFamily: 'BaseNeueTrial, sans-serif', letterSpacing: 'normal', color: '#111827', fontStyle: 'italic' }}>HUMAN FACTOR IN DESIGN</span>}
-                  description={<span style={{ color: '#4a5568' }}>Investigating the Influence of Dark Patterns on User Behavior and Decision Making</span>}
-                  accentColor="#0d9488"
-                  customContent={
-                    <div style={{ position: 'absolute', right: '6%', top: '50%', zIndex: 2, pointerEvents: 'none', transform: 'translateY(-50%)' }}>
-                      <Image className="phone-large" src="/hfid/phone.svg" alt="phone" width="920px" height="auto" style={{ display: 'block' }} />
-                    </div>
-                  }
-                />
-              </Box>
-            </NextLink>
-          </Section>
-
-          <Section>
-            <NextLink href="/design-evaluation" passHref legacyBehavior>
-              <Box as="a" style={{ display: 'block', cursor: 'pointer', textDecoration: 'none' }}>
-                  <ProjectPanel
-                  title="Design Evaluation ChatGPT"
-                  hoverTitle="Design Evaluation ChatGPT"
-                  description="A design evaluation of the ChatGPT Android client, analyzing its usability and interaction experience across real-world usage contexts."
-                  accentColor="#232327"
-                  customContent={<ChatGPT3DGraphic />}
-                />
-              </Box>
-            </NextLink>
-          </Section>
-
-          {/* Jokif-AI panel removed per request */}
-
-
-{/* design system===================================================================================== */}
-          <Section>
-            <NextLink href="/DS" passHref legacyBehavior>
-              <Box as="a" style={{ display: 'block', cursor: 'pointer', textDecoration: 'none' }}>
-                <ProjectPanel
-                  title={<span style={{ fontFamily: 'Michroma, monospace', letterSpacing: '0.12em', color: '#111827', fontStyle: 'normal' }}>DESIGN SYSTEM</span>}
-                  hoverTitle={<span style={{ fontFamily: 'BaseNeueTrial, sans-serif', letterSpacing: 'normal', color: '#111827', fontStyle: 'italic' }}>DESIGN SYSTEM</span>}
-                  description={<span style={{ color: '#4a5568' }}>Design System For UPI</span>}
-                  accentColor="#232327"
-                  customContent={<DesignSystemGraphic />}
-                  sx={{
-                    filter: 'brightness(0.98) saturate(0.98)',
-                  }}
-                />
-              </Box>
-            </NextLink>
-          </Section>
-
-
-        </SimpleGrid>
+    <Box
+      position="absolute"
+      top={0}
+      left={0}
+      width="100%"
+      height="100%"
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+      pointerEvents="auto"
+      data-hairline=""
+      sx={{
+        '--hairline-plate': '#ffffff',
+        '--hairline-hi': '#232327',
+        '--hairline-edge': '#a4a4ac',
+        '--hairline-mid': '#c3c3c9',
+        '--hairline-lo': '#e0e0e4',
+        '--hairline-stroke': '0.9',
+      }}
+    >
+      <Box
+        width="460px"
+        maxW="96%"
+        position="relative"
+        transform="translateY(-10px) scale(1.4)"
+        transformOrigin="center center"
+      >
+        <HairlinePlot play intensity={0.7} />
       </Box>
-    </>
+    </Box>
   )
 }
 
-// ============== Indu also check out content for the interaction design ^ ===================
+// Hairline interactive Exploded figure for Microinteraction
+function MicrointeractionGraphic() {
+  return (
+    <Box
+      position="absolute"
+      top={0}
+      left={0}
+      width="100%"
+      height="100%"
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+      pointerEvents="auto"
+      data-hairline=""
+      sx={{
+        '--hairline-plate': '#ffffff',
+        '--hairline-hi': '#232327',
+        '--hairline-edge': '#a4a4ac',
+        '--hairline-mid': '#c3c3c9',
+        '--hairline-lo': '#e0e0e4',
+        '--hairline-stroke': '0.9',
+      }}
+    >
+      <Box
+        width="460px"
+        maxW="96%"
+        position="relative"
+        transform="translate(32px, -102px) scale(1.4)"
+        transformOrigin="center center"
+      >
+        <HairlineExploded play intensity={0.7} />
+      </Box>
+    </Box>
+  )
+}
 
-// ================ End of Work Section =========================
+// Retro particle background for C2C modal
+function C2CParticleBG() {
+  const canvasRef = useRef(null)
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext('2d')
+    let dpr = window.devicePixelRatio || 1
+    let width = window.innerWidth
+    let height = window.innerHeight
+    function setCanvasSize() {
+      dpr = window.devicePixelRatio || 1
+      width = window.innerWidth
+      height = window.innerHeight
+      canvas.width = width * dpr
+      canvas.height = height * dpr
+      ctx.setTransform(1, 0, 0, 1, 0, 0)
+      ctx.scale(dpr, dpr)
+    }
+    setCanvasSize()
+    const PARTICLE_COUNT = 60
+    const particles = Array.from({ length: PARTICLE_COUNT }).map(() => ({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      size: Math.random() * 3 + 2,
+      speedX: (Math.random() - 0.5) * 0.4,
+      speedY: (Math.random() - 0.5) * 0.4,
+      alpha: Math.random() * 0.5 + 0.3,
+    }))
+    let animId
+    function draw() {
+      ctx.clearRect(0, 0, width, height)
+      for (let p of particles) {
+        ctx.fillStyle = `rgba(16, 185, 129, ${p.alpha})`
+        ctx.fillRect(Math.floor(p.x), Math.floor(p.y), p.size, p.size)
+        p.x += p.speedX
+        p.y += p.speedY
+        if (p.x < 0) p.x = width
+        if (p.x > width) p.x = 0
+        if (p.y < 0) p.y = height
+        if (p.y > height) p.y = 0
+      }
+      animId = requestAnimationFrame(draw)
+    }
+    draw()
+    window.addEventListener('resize', setCanvasSize)
+    return () => {
+      cancelAnimationFrame(animId)
+      window.removeEventListener('resize', setCanvasSize)
+    }
+  }, [])
+  return (
+    <canvas
+      ref={canvasRef}
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100vw',
+        height: '100vh',
+        zIndex: 0,
+        pointerEvents: 'none',
+      }}
+      aria-hidden="true"
+    />
+  )
+}
+
+function AnimatedC2CIntro() {
+  const introRef = useRef(null)
+  const overviewRef = useRef(null)
+  const namesRef = useRef([])
+
+  useEffect(() => {
+    if (introRef.current) {
+      gsap.fromTo(introRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out' })
+    }
+    if (overviewRef.current) {
+      gsap.fromTo(overviewRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1.2, delay: 1.1, ease: 'power3.out' })
+    }
+    namesRef.current.forEach((el, i) => {
+      if (el) {
+        gsap.fromTo(el, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.7, delay: 1.7 + i * 0.2, ease: 'power3.out' })
+      }
+    })
+  }, [])
+
+  return (
+    <div style={{ width: '80%', margin: '0 auto' }}>
+      <div
+        ref={introRef}
+        style={{
+          fontFamily: 'Matrix, monospace',
+          fontSize: '2.2rem',
+          color: '#059669',
+          textAlign: 'left',
+          marginBottom: '2.5rem',
+          letterSpacing: '0.04em',
+        }}
+      />
+      <div style={{ height: '2.5rem' }} />
+      <div
+        ref={overviewRef}
+        style={{
+          fontFamily: 'Matrix, monospace',
+          fontSize: '1.3rem',
+          color: '#111827',
+          textAlign: 'left',
+          marginBottom: '2.2rem',
+          letterSpacing: '0.02em',
+        }}
+      >
+        <b>Overview:</b> <br />
+        This project explores the process of interaction design, from initial concept to working prototype, through collaborative teamwork and creative problem-solving.
+      </div>
+      <div style={{ height: '1.5rem' }} />
+      <div style={{
+        display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.7rem',
+        fontFamily: 'Matrix, monospace', fontSize: '1.1rem', color: '#059669',
+      }}>
+        <b style={{ marginRight: '0.7rem', color: '#111827' }}>Team:</b>
+        <a ref={el => { namesRef.current[0] = el }} href="https://www.behance.net/mukil" target="_blank" rel="noopener noreferrer" style={{ color: '#059669', textDecoration: 'underline', fontWeight: 700 }}>MUKIL</a>
+        <span style={{ margin: '0 0.5rem', color: '#64748b' }}>·</span>
+        <a ref={el => { namesRef.current[1] = el }} href="https://www.behance.net/prajaktahardikar" target="_blank" rel="noopener noreferrer" style={{ color: '#059669', textDecoration: 'underline', fontWeight: 700 }}>PRAJAKTA</a>
+        <span style={{ margin: '0 0.5rem', color: '#64748b' }}>·</span>
+        <a ref={el => { namesRef.current[2] = el }} href="https://www.anoushkashome.design" target="_blank" rel="noopener noreferrer" style={{ color: '#059669', textDecoration: 'underline', fontWeight: 700 }}>ANOUSHKA</a>
+        <span style={{ margin: '0 0.5rem', color: '#64748b' }}>·</span>
+        <a ref={el => { namesRef.current[3] = el }} href="https://www.behance.net/samikshajain" target="_blank" rel="noopener noreferrer" style={{ color: '#059669', textDecoration: 'underline', fontWeight: 700 }}>SAMIKSHA</a>
+      </div>
+    </div>
+  )
+}
+
+// Playground projects rendered on the Works page
+function WorksGrid() {
+  const { isOpen: isC2COpen, onOpen: onC2COpen, onClose: onC2CClose } = useDisclosure()
+
+  return (
+    <Box maxW="1440px" mx="auto" px={{ base: '20px', md: '28px', lg: '32px' }} mb={{ base: 16, md: 20 }}>
+      <SimpleGrid columns={{ base: 1, md: 2 }} columnGap={{ base: 5, md: 6, lg: 8 }} rowGap={{ base: 6, md: 8, lg: 10 }}>
+        {/* Panel 1: Data visualisation: LHC, Speed of Light */}
+        <Section delay={0.1}>
+          <Box
+            as="a"
+            href="https://bukil.github.io/dataviz/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ display: 'block', cursor: 'pointer', textDecoration: 'none' }}
+          >
+            <ProjectPanel
+              title="Data visualisation:LHC, Speed of Light"
+              hoverTitle="Data Visualisation"
+              description="A visual exploration of particle speeds and collisions at the LHC, compared to the speed of light."
+              accentColor="#232327"
+              customContent={<LhcRingGraphic />}
+            />
+          </Box>
+        </Section>
+
+        {/* Panel 2: Data Vizualisation (MAPA) */}
+        <Section delay={0.2}>
+          <Box
+            as="a"
+            href="https://bukil.github.io/MAPA/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ display: 'block', cursor: 'pointer', textDecoration: 'none' }}
+          >
+            <ProjectPanel
+              title="Data Vizualisation"
+              hoverTitle="Data Visualisation"
+              description="Exploring the Links Between Literacy, Salary & Societal Issues in India"
+              accentColor="#232327"
+              customContent={<DataVizPlotGraphic />}
+            />
+          </Box>
+        </Section>
+
+        {/* Panel 3: Microinteraction */}
+        <Section delay={0.3}>
+          <NextLink href="/mukilm" passHref legacyBehavior>
+            <Box
+              as="a"
+              style={{ display: 'block', cursor: 'pointer', textDecoration: 'none' }}
+            >
+              <ProjectPanel
+                title="Microinteraction"
+                hoverTitle="Microinteraction"
+                description="A class assignment exploring the art of microinteractions. Small, meaningful animations and transitions that enhance user experience and bring interfaces to life. 🎨"
+                accentColor="#232327"
+                customContent={<MicrointeractionGraphic />}
+              />
+            </Box>
+          </NextLink>
+        </Section>
+
+        {/* Panel 4: C2C */}
+        <Section delay={0.4}>
+          <ProjectPanel
+            title={
+              <span style={{ fontFamily: 'Michroma, monospace', letterSpacing: '0.12em', fontStyle: 'normal' }}>
+                C2C
+              </span>
+            }
+            hoverTitle={
+              <span style={{ fontFamily: 'Tiny5, monospace', letterSpacing: 'normal', color: '#111827' }}>
+                C2C
+              </span>
+            }
+            description="C2C is a pair of interactive cubes that turn simple gestures into playfull digital control. Designed for effortless use, it doesn’t rely on precision, making it accessible for users with dexterity or muscular dystrophy challenges."
+            imageSrc="/images/works/c2cf.png"
+            imageAlt="C2C physical interaction cube controller"
+            accentColor="#0d9488"
+            onClick={onC2COpen}
+          />
+
+          <Modal isOpen={isC2COpen} onClose={onC2CClose} size="full">
+            <ModalOverlay backdropFilter="blur(10px)" bg="rgba(0, 0, 0, 0.4)" />
+            <ModalContent bg="#ffffff" color="#111827">
+              <ModalHeader mt={24} style={{ fontFamily: 'Matrix, monospace', color: '#059669', fontSize: '1.8rem' }}>
+                C2C
+              </ModalHeader>
+              <ModalCloseButton mt={24} color="#111827" aria-label="Close C2C details modal" />
+              <ModalBody mt={4} style={{ fontFamily: 'Matrix, monospace' }}>
+                <Box maxW="80%" mx="auto">
+                  <div
+                    style={{
+                      fontSize: '2.5rem',
+                      color: '#059669',
+                      fontWeight: 900,
+                      letterSpacing: '0.08em',
+                      marginBottom: '0.5rem',
+                      textAlign: 'left'
+                    }}
+                  >
+                    C2C{' '}
+                    <span style={{ fontSize: '1.2rem', color: '#047857', fontWeight: 500, marginLeft: 12 }}>
+                      Cube to Cube
+                    </span>
+                  </div>
+                  <div
+                    style={{
+                      fontSize: '1.1rem',
+                      color: '#334155',
+                      marginBottom: '2.2rem',
+                      textAlign: 'left',
+                      lineHeight: 1.6
+                    }}
+                  >
+                    C2C is a pair of tangible interfaces designed to explore how physical interaction can enrich
+                    digital experiences. Created as part of an Interaction Design module at IIT Bombay, the project
+                    transforms the familiar form of a cube into a dynamic digital controller. Cube combines rotary
+                    encoder, tactile buttons, and OLED display powered by an RP2040 microcontroller, enabling
+                    real-time feedback, file navigation, and even playful mini-interactions.
+                  </div>
+                </Box>
+
+                <Box mb={4} textAlign="center" maxW="80%" mx="auto">
+                  <a
+                    href="https://www.2025.indiahci.org/programme_1/student-design-consortium"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="IndiaHCI 2025 Student Design Consortium finalist details (opens in a new tab)"
+                  >
+                    <Box position="relative" display="inline-block" mx="auto">
+                      <Image
+                        src="/images/hci.jpg"
+                        alt="IndiaHCI 2025 - Student Design Consortium Acceptance Badge"
+                        display="block"
+                        mx="auto"
+                        width="220px"
+                        height="auto"
+                        objectFit="contain"
+                        loading="eager"
+                        fallbackSrc="/images/logo.png"
+                        style={{
+                          borderRadius: '24px 8px 24px 8px',
+                          border: '1px solid rgba(5, 150, 105, 0.4)',
+                          boxShadow: '0 4px 16px rgba(0, 0, 0, 0.08)',
+                          backgroundColor: '#ffffff'
+                        }}
+                      />
+                    </Box>
+                  </a>
+                  <div
+                    style={{
+                      fontFamily: 'Matrix, monospace',
+                      color: '#047857',
+                      fontSize: '1.1rem',
+                      marginTop: '0.6rem'
+                    }}
+                  >
+                    Accepted in IndiaHCI 2025 under <br />
+                    Student Design Consortium (SDC) <br />
+                    1 amongst 7 finalists for round 1
+                  </div>
+                </Box>
+
+                <Box mb={6} textAlign="center">
+                  <Button
+                    as="a"
+                    href="/C2C_Interaction%20Design_Report.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Read Full C2C Interaction Design Report PDF (opens in a new tab)"
+                    variant="outline"
+                    borderColor="#059669"
+                    color="#059669"
+                    leftIcon={<ExternalLinkIcon />}
+                    _hover={{
+                      bg: '#059669',
+                      color: '#ffffff',
+                      transform: 'translateY(-2px)',
+                      boxShadow: '0 3px 10px rgba(5, 150, 105, 0.25)'
+                    }}
+                  >
+                    Read Full Report
+                  </Button>
+                </Box>
+
+                <AnimatedC2CIntro />
+
+                <Box mb={0}>
+                  <Image
+                    src="/images/ixd1.svg"
+                    alt="Interaction Design process overview diagram"
+                    width="80%"
+                    mx="auto"
+                    mb={4}
+                    objectFit="contain"
+                    display="block"
+                  />
+                  <Image
+                    src="/images/ixd2.svg"
+                    alt="Interaction Design hardware schematics diagram"
+                    width="80%"
+                    mx="auto"
+                    objectFit="contain"
+                    display="block"
+                  />
+                </Box>
+
+                <Box mb={6}>
+                  <video
+                    src="/6502.mp4"
+                    style={{ width: '80%', display: 'block', borderRadius: 0, margin: '0 auto' }}
+                    controls
+                    playsInline
+                    aria-label="C2C hardware demo video"
+                  />
+                </Box>
+
+                <C2CParticleBG />
+              </ModalBody>
+              <ModalFooter>
+                <Button onClick={onC2CClose} colorScheme="teal" variant="ghost">
+                  Close
+                </Button>
+              </ModalFooter>
+            </ModalContent>
+          </Modal>
+        </Section>
+      </SimpleGrid>
+    </Box>
+  )
+}
 
 const Works = () => {
   const bigTextRef = useRef(null)
   const scrollIndicatorRef = useRef(null)
-  const characters = "DESIGN".split("")
+  const characters = 'DESIGN'.split('')
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -430,27 +793,35 @@ const Works = () => {
         opacity: 1,
         duration: 0.8,
         stagger: 0.1,
-        ease: "power4.out"
+        ease: 'power4.out'
       })
 
       // Floating animation
-      tl.to(chars, {
-        y: -20,
-        duration: 2,
-        stagger: 0.05,
-        ease: "power1.inOut",
-        yoyo: true,
-        repeat: 1
-      }, ">")
+      tl.to(
+        chars,
+        {
+          y: -20,
+          duration: 2,
+          stagger: 0.05,
+          ease: 'power1.inOut',
+          yoyo: true,
+          repeat: 1
+        },
+        '>'
+      )
 
       // Exit animation
-      tl.to(chars, {
-        y: 100,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.1,
-        ease: "power4.in"
-      }, ">")
+      tl.to(
+        chars,
+        {
+          y: 100,
+          opacity: 0,
+          duration: 0.8,
+          stagger: 0.1,
+          ease: 'power4.in'
+        },
+        '>'
+      )
     }, bigTextRef)
 
     // Add scroll effect
@@ -465,7 +836,7 @@ const Works = () => {
         gsap.to(elements, {
           opacity: opacity,
           duration: 0.1,
-          ease: "none"
+          ease: 'none'
         })
       }
     }
@@ -479,8 +850,11 @@ const Works = () => {
 
   return (
     <>
-      {/* Font link moved to _document.js to satisfy @next/next/no-page-custom-font */}
-      <Layout title="Works" mt={10} overflowX="hidden">
+      <Head>
+        <title>Playground - Mukil</title>
+        <meta name="description" content="Mukil's creative playground and interactive projects." />
+      </Head>
+      <Layout title="Playground" mt={10} overflowX="hidden">
         <Box w="100%" position="relative">
           <BigText ref={bigTextRef}>
             {characters.map((char, index) => (
@@ -491,7 +865,7 @@ const Works = () => {
             <Box
               as={motion.div}
               initial={{ y: -8, opacity: 0.4 }}
-              animate={{ y: [ -8, 8, -8 ], opacity: [0.4, 1, 0.4] }}
+              animate={{ y: [-8, 8, -8], opacity: [0.4, 1, 0.4] }}
               transition={{ repeat: Infinity, duration: 1.6, ease: 'easeInOut' }}
               style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
             >
@@ -500,12 +874,10 @@ const Works = () => {
           </ScrollIndicator>
           <ContentWrapper>
             <Section>
-              <Heading as="h3" fontSize={50} mb={15} mt={10}>
-                <CollapseExtandip/>
-              </Heading>
+              <WorksGrid />
             </Section>
-            <Spacer/>
-            <Spacer/>
+            <Spacer />
+            <Spacer />
             <Trans>
               <Section>
                 <Box align="center" mb={4}>
@@ -516,12 +888,12 @@ const Works = () => {
                       transition={{ type: 'spring', stiffness: 60, damping: 16 }}
                       style={{ display: 'inline-block' }}
                     >
-                      <Button 
-                        borderRadius='50px'
-                        variant='outline'
-                        border='1.5px solid'
-                        borderColor='#111827'
-                        color='#111827'
+                      <Button
+                        borderRadius="50px"
+                        variant="outline"
+                        border="1.5px solid"
+                        borderColor="#111827"
+                        color="#111827"
                         px={6}
                         py={10}
                         fontSize="lg"
@@ -552,320 +924,3 @@ const Works = () => {
 
 export default Works
 export { getServerSideProps } from '../components/chakra'
-
-
-
-function DesignSystemGraphic() {
-  return (
-    <Box
-      position="absolute"
-      top={0}
-      left={0}
-      width="100%"
-      height="100%"
-      display="flex"
-      alignItems="center"
-      justifyContent="center"
-      pb="72px"
-      pointerEvents="auto"
-      data-hairline=""
-      sx={{
-        '--hairline-plate': '#ffffff',
-        '--hairline-hi': '#232327',
-        '--hairline-edge': '#a4a4ac',
-        '--hairline-mid': '#c3c3c9',
-        '--hairline-lo': '#e0e0e4',
-        '--hairline-stroke': '0.9',
-      }}
-    >
-      <Box width="310px" maxW="88%" position="relative">
-        <HairlineHub play intensity={0.7} />
-      </Box>
-    </Box>
-  );
-}
-
-function ChatGPT3DGraphic() {
-  const gptPath =
-    'M22.2819 9.8211a5.9847 5.9847 0 0 0-.5157-4.9108 6.0462 6.0462 0 0 0-6.5098-2.9A6.0651 6.0651 0 0 0 4.9807 4.1818a5.9847 5.9847 0 0 0-3.9977 2.9 6.0462 6.0462 0 0 0 .7427 7.0966 5.98 5.98 0 0 0 .511 4.9107 6.051 6.051 0 0 0 6.5146 2.9001A5.9847 5.9847 0 0 0 13.2599 24a6.0557 6.0557 0 0 0 5.7718-4.2058 5.9894 5.9894 0 0 0 3.9977-2.9001 6.0557 6.0557 0 0 0-.7475-7.0729zm-9.022 12.6081a4.4755 4.4755 0 0 1-2.8764-1.0408l.1419-.0804 4.7783-2.7582a.7948.7948 0 0 0 .3927-.6813v-6.7369l2.02 1.1686a.071.071 0 0 1 .038.052v5.5826a4.504 4.504 0 0 1-4.4945 4.4944zm-9.6607-4.1254a4.4708 4.4708 0 0 1-.5346-3.0137l.142.0852 4.783 2.7582a.7712.7712 0 0 0 .7806 0l5.8428-3.3685v2.3324a.0804.0804 0 0 1-.0332.0615L9.74 19.9502a4.4992 4.4992 0 0 1-6.1408-1.6464zM2.3408 7.8956a4.485 4.485 0 0 1 2.3655-1.9728V11.6a.7664.7664 0 0 0 .3879.6765l5.8144 3.3543-2.0201 1.1685a.0757.0757 0 0 1-.071 0l-4.8303-2.7865A4.504 4.504 0 0 1 2.3408 7.872zm16.5963 3.8558L13.1038 8.364 15.1192 7.2a.0757.0757 0 0 1 .071 0l4.8303 2.7913a4.4944 4.4944 0 0 1-.6765 8.1042v-5.6772a.79.79 0 0 0-.407-.667zm2.0107-3.0231l-.142-.0852-4.7735-2.7818a.7759.7759 0 0 0-.7854 0L9.409 9.2297V6.8974a.0662.0662 0 0 1 .0284-.0615l4.8303-2.7866a4.4992 4.4992 0 0 1 6.6802 4.66zM8.3065 12.863l-2.02-1.1638a.0804.0804 0 0 1-.038-.0567V6.0742a4.4992 4.4992 0 0 1 7.3757-3.4537l-.142.0805L8.704 5.459a.7948.7948 0 0 0-.3927.6813zm1.0976-2.3654l2.602-1.4998 2.6069 1.4998v2.9994l-2.5974 1.4997-2.6067-1.4997Z';
-
-  // Hairline framework isometric matrix:
-  // Projects a 2D horizontal plane (X, Y) to true 30° isometric screen coordinates.
-  // matrix(cos(30°), sin(30°), -cos(30°), sin(30°), 0, 0)
-  // Scale factor S = 2.8 => cos(30°)*2.8 = 2.42487, sin(30°)*2.8 = 1.4
-  const isoTransform = 'matrix(2.42487, 1.4, -2.42487, 1.4, 0, 0) translate(-12, -12)';
-
-  // Extrusion step offsets (from base floor up to top face)
-  const extrusionSteps = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
-
-  return (
-    <Box
-      position="absolute"
-      top={0}
-      left={0}
-      width="100%"
-      height="100%"
-      display="flex"
-      alignItems="center"
-      justifyContent="center"
-      pb="72px"
-      pointerEvents="none"
-      data-hairline=""
-      sx={{
-        '--hairline-plate': '#ffffff',
-        '--hairline-hi': '#232327',
-        '--hairline-edge': '#a4a4ac',
-        '--hairline-mid': '#c3c3c9',
-        '--hairline-lo': '#e0e0e4',
-        '--hairline-stroke': '0.9',
-        '& svg': {
-          width: '100%',
-          height: '100%',
-          display: 'block'
-        },
-        '& path, & polygon, & line, & circle': {
-          vectorEffect: 'non-scaling-stroke',
-          strokeLinejoin: 'round',
-          strokeLinecap: 'round'
-        }
-      }}
-    >
-      <svg
-        viewBox="0 0 540 224"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        style={{ width: '100%', height: '100%', overflow: 'visible' }}
-      >
-        {/* ============================================================== */}
-        {/* Hairline Technical Metadata & Figures Annotation               */}
-        {/* ============================================================== */}
-        <g opacity="0.85">
-          <text
-            x="36"
-            y="26"
-            fontFamily="'Michroma', monospace"
-            fontSize="8"
-            fontWeight="600"
-            fill="#a4a4ac"
-            letterSpacing="0.14em"
-          >
-            FIG. 03 · CHATGPT
-          </text>
-          <text
-            x="504"
-            y="26"
-            textAnchor="end"
-            fontFamily="'Michroma', monospace"
-            fontSize="8"
-            fontWeight="500"
-            fill="#c3c3c9"
-            letterSpacing="0.1em"
-          >
-            AZ 045° · EL 30°
-          </text>
-          <text
-            x="36"
-            y="200"
-            fontFamily="'Encode Sans Expanded', sans-serif"
-            fontSize="7.5"
-            fontWeight="500"
-            fill="#a4a4ac"
-            letterSpacing="0.08em"
-          >
-            HAIRLINE FRAMEWORK · 0.9PX ISO
-          </text>
-        </g>
-
-        {/* Technical Perimeter Frame / Border Guide */}
-        <rect
-          x="20"
-          y="10"
-          width="500"
-          height="198"
-          fill="none"
-          stroke="#e0e0e4"
-          strokeWidth="0.8"
-          strokeDasharray="1 4"
-        />
-
-        {/* ============================================================== */}
-        {/* Isometric Base Plinth (Platform)                              */}
-        {/* ============================================================== */}
-        <g id="isometric-plinth">
-          {/* Plinth front-left drop facet (8px depth) */}
-          <polygon
-            points="146,114 270,185 270,193 146,122"
-            fill="#ffffff"
-            stroke="#a4a4ac"
-            strokeWidth="0.9"
-          />
-          {/* Plinth front-right drop facet (8px depth) */}
-          <polygon
-            points="270,185 394,114 394,122 270,193"
-            fill="#ffffff"
-            stroke="#a4a4ac"
-            strokeWidth="0.9"
-          />
-
-          {/* Plinth top plate surface (True 30° Isometric Diamond) */}
-          <polygon
-            points="270,43 394,114 270,185 146,114"
-            fill="#ffffff"
-            stroke="#232327"
-            strokeWidth="0.9"
-          />
-
-          {/* Isometric floor guide lines (Dashed lines along 30° / 150° axes) */}
-          <g stroke="#e0e0e4" strokeWidth="0.8" strokeDasharray="2 4">
-            {/* 30° axis guides */}
-            <line x1="177" y1="96" x2="301" y2="167" />
-            <line x1="208" y1="78" x2="332" y2="149" />
-            <line x1="239" y1="60" x2="363" y2="131" />
-
-            {/* 150° axis guides */}
-            <line x1="363" y1="96" x2="239" y2="167" />
-            <line x1="332" y1="78" x2="208" y2="149" />
-            <line x1="301" y1="60" x2="177" y2="131" />
-          </g>
-
-          {/* Registration Crosshairs (+) at Plinth Anchor Points */}
-          <g stroke="#a4a4ac" strokeWidth="0.8">
-            {/* Left corner */}
-            <line x1="140" y1="114" x2="152" y2="114" />
-            <line x1="146" y1="108" x2="146" y2="120" />
-            {/* Right corner */}
-            <line x1="388" y1="114" x2="400" y2="114" />
-            <line x1="394" y1="108" x2="394" y2="120" />
-            {/* Top corner */}
-            <line x1="264" y1="43" x2="276" y2="43" />
-            <line x1="270" y1="37" x2="270" y2="49" />
-            {/* Bottom corner */}
-            <line x1="264" y1="185" x2="276" y2="185" />
-            <line x1="270" y1="179" x2="270" y2="191" />
-          </g>
-
-          {/* Hairline Anchor Dots */}
-          <circle cx="146" cy="114" r="1.6" fill="#232327" />
-          <circle cx="394" cy="114" r="1.6" fill="#232327" />
-          <circle cx="270" cy="43" r="1.6" fill="#232327" />
-          <circle cx="270" cy="185" r="1.6" fill="#232327" />
-          <circle cx="270" cy="114" r="1.5" fill="#a4a4ac" />
-        </g>
-
-        {/* ============================================================== */}
-        {/* Floor Footprint Shadow of the ChatGPT Knot                     */}
-        {/* ============================================================== */}
-        <g transform="translate(270, 114)">
-          <path
-            d={gptPath}
-            transform={isoTransform}
-            fill="none"
-            stroke="#e0e0e4"
-            strokeWidth="0.85"
-            strokeDasharray="2 3"
-          />
-        </g>
-
-        {/* ============================================================== */}
-        {/* Vertical Projection Drop Guides (Knot vertices down to floor) */}
-        {/* ============================================================== */}
-        <g stroke="#c3c3c9" strokeWidth="0.8" strokeDasharray="1 3">
-          <line x1="270" y1="96" x2="270" y2="114" />
-          <line x1="220" y1="96" x2="220" y2="114" />
-          <line x1="320" y1="96" x2="320" y2="114" />
-          <line x1="245" y1="82" x2="245" y2="100" />
-          <line x1="295" y1="82" x2="295" y2="100" />
-          <line x1="270" y1="68" x2="270" y2="86" />
-        </g>
-
-        {/* ============================================================== */}
-        {/* 3D Isometric Extruded ChatGPT Logo                             */}
-        {/* Reacts smoothly on hover: lifts along isometric vertical axis  */}
-        {/* ============================================================== */}
-        <g
-          id="chatgpt-isometric-body"
-          className="hairline-interactive-knot"
-          style={{
-            transform: 'translateY(-16px)',
-            transition: 'transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1)'
-          }}
-        >
-          {/* Volumetric Extrusion Slices (Back-to-front stack) */}
-          {extrusionSteps.map((step) => (
-            <g key={step} transform={`translate(270, ${114 - step})`}>
-              <path
-                d={gptPath}
-                transform={isoTransform}
-                fill="#ffffff"
-                stroke={step === 1 ? '#a4a4ac' : '#c3c3c9'}
-                strokeWidth="0.9"
-              />
-            </g>
-          ))}
-
-          {/* Primary Top Isometric Face (Lit & Crisp Black Lines) */}
-          <g transform="translate(270, 99)">
-            {/* Opaque white plate base face */}
-            <path
-              d={gptPath}
-              transform={isoTransform}
-              fill="#ffffff"
-              stroke="#232327"
-              strokeWidth="1.0"
-            />
-
-            {/* Inner loop edge definition lines for maximum hairline clarity */}
-            <path
-              d={gptPath}
-              transform={isoTransform}
-              fill="none"
-              stroke="#232327"
-              strokeWidth="0.9"
-            />
-
-            {/* Subtle inner aperture depth drop */}
-            <polygon
-              points="-3,-1 0,1 3,-1 3,-3 0,-1 -3,-3"
-              fill="#232327"
-              opacity="0.25"
-            />
-
-            {/* Hairline Coordinate Anchor Dots on Knot Vertices */}
-            <circle cx="0" cy="-28" r="1.6" fill="#232327" />
-            <circle cx="48" cy="0" r="1.6" fill="#232327" />
-            <circle cx="-48" cy="0" r="1.6" fill="#232327" />
-            <circle cx="0" cy="28" r="1.6" fill="#232327" />
-            <circle cx="0" cy="0" r="1.4" fill="#a4a4ac" />
-          </g>
-        </g>
-
-        {/* Floating Technical Badge (Hairline Specimen Pill) */}
-        <g transform="translate(432, 184)">
-          <rect
-            x="0"
-            y="0"
-            width="72"
-            height="18"
-            fill="#ffffff"
-            stroke="#232327"
-            strokeWidth="0.8"
-          />
-          <text
-            x="36"
-            y="12"
-            textAnchor="middle"
-            fontFamily="'Michroma', monospace"
-            fontSize="7"
-            fontWeight="600"
-            fill="#232327"
-            letterSpacing="0.08em"
-          >
-            ISO · 30°
-          </text>
-        </g>
-      </svg>
-    </Box>
-  );
-}
-
-// Progress Bar component removed per user request

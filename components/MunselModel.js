@@ -12,11 +12,11 @@ function Model(props) {
 export default function MunselModel() {
   return (
     <div style={{ width: '100%', height: '100%' }}>
-      <Canvas orthographic camera={{ position: [5, 5, 5], zoom: 40 }}>
+      <Canvas orthographic camera={{ position: [5, 5, 5], zoom: 46 }}>
         <ambientLight intensity={0.8} />
         <directionalLight position={[10, 10, 5]} intensity={1} />
         <Center>
-          <Model scale={0.35} />
+          <Model scale={0.48} />
         </Center>
         <OrbitControls enableZoom={false} enablePan={false} />
       </Canvas>
