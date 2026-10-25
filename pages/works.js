@@ -161,10 +161,9 @@ const ProjectPanel = ({
       }
       bg="rgba(255, 255, 255, 0.85)"
       backdropFilter="blur(8px)"
-      transition="all 0.3s ease"
+      transition="border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease"
       _hover={{
         bg: '#ffffff',
-        transform: 'translateY(-5px)',
         boxShadow: '0 12px 30px rgba(0, 0, 0, 0.08)',
         borderColor: 'rgba(0, 0, 0, 0.3)'
       }}
@@ -186,9 +185,6 @@ const ProjectPanel = ({
           pointerEvents: 'auto'
         }
       }}
-      as={motion.div}
-      whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
     >
       <Box
         position="absolute"
@@ -237,10 +233,10 @@ const ProjectPanel = ({
             width="70%"
             height="70%"
             objectFit="contain"
-            transition="all 0.3s ease"
+            transition="transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease"
             _groupHover={{
               filter: 'brightness(1.04)',
-              transform: 'scale(1.05)'
+              transform: 'scale(1.06)'
             }}
             position="relative"
             zIndex="1"
@@ -319,9 +315,29 @@ const ProjectPanel = ({
           justifyContent="center"
           zIndex={1}
           pointerEvents="none"
+          sx={{
+            '& img': {
+              transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+              willChange: 'transform'
+            },
+            '& canvas': {
+              transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+              willChange: 'transform'
+            },
+            '& svg': {
+              transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+              willChange: 'transform'
+            }
+          }}
           _groupHover={{
             '& img': {
-              transform: 'scale(1.05)'
+              transform: 'scale(1.06)'
+            },
+            '& canvas': {
+              transform: 'scale(1.06)'
+            },
+            '& svg': {
+              transform: 'scale(1.06)'
             }
           }}
         >

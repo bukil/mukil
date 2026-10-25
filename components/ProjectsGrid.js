@@ -8,7 +8,6 @@ import {
 } from '@chakra-ui/react'
 import NextLink from 'next/link'
 import dynamic from 'next/dynamic'
-import { motion } from 'framer-motion'
 import MunselModel from './MunselModel'
 import KodeboardModal from './projects/Kodeboard'
 import Section from './section'
@@ -50,10 +49,9 @@ export const ProjectPanel = ({
       boxShadow="none"
       role="group"
       bg="transparent"
-      transition="all 0.3s ease"
+      transition="border-color 0.3s ease, box-shadow 0.3s ease"
       _hover={{
         bg: 'transparent',
-        transform: 'translateY(-5px)',
         boxShadow: '0 8px 30px rgba(0, 0, 0, 0.08)',
         borderColor: 'rgba(0, 0, 0, 0.3)'
       }}
@@ -71,9 +69,6 @@ export const ProjectPanel = ({
           pointerEvents: 'auto'
         }
       }}
-      as={motion.div}
-      whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
     >
       {!isSimpleTile && (
         <Box
@@ -175,10 +170,10 @@ export const ProjectPanel = ({
               width={title === "Kode/Board" ? "82%" : "68%"}
               height={title === "Kode/Board" ? "82%" : "68%"}
               objectFit="contain"
-              transition="all 0.3s ease"
+              transition="transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease"
               _groupHover={{
                 filter: 'brightness(1.05)',
-                transform: 'scale(1.05)'
+                transform: 'scale(1.06)'
               }}
               position="relative"
               zIndex="1"
@@ -257,20 +252,27 @@ export const ProjectPanel = ({
           pointerEvents="none"
           sx={{
             '& img': {
-              transition: 'transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease',
+              transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease',
               willChange: 'transform, opacity'
             },
             '& img.phone-large': {
               transformOrigin: '50% 50%'
+            },
+            '& canvas': {
+              transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+              willChange: 'transform'
             }
           }}
           _groupHover={{
             '& img': {
-              transform: 'scale(1.05)'
+              transform: 'scale(1.06)'
             },
             '& img.phone-large': {
               transformOrigin: '50% 50%',
-              transform: 'scale(1.05)'
+              transform: 'scale(1.06)'
+            },
+            '& canvas': {
+              transform: 'scale(1.06)'
             }
           }}
         >
@@ -309,6 +311,10 @@ export function DesignSystemGraphic() {
         position="relative"
         transform="translateY(-17px) scale(1.18)"
         transformOrigin="center center"
+        transition="transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
+        _groupHover={{
+          transform: 'translateY(-17px) scale(1.25)'
+        }}
       >
         <HairlineHub play intensity={0.7} />
       </Box>
@@ -344,6 +350,10 @@ export function DakshaGraphic() {
         position="relative"
         transform="translateY(-17px) scale(1.18)"
         transformOrigin="center center"
+        transition="transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
+        _groupHover={{
+          transform: 'translateY(-17px) scale(1.25)'
+        }}
       >
         <HairlineDish play intensity={0.7} />
       </Box>
@@ -422,6 +432,10 @@ export function ChatGPT3DGraphic() {
       justifyContent="center"
       pointerEvents="none"
       data-hairline=""
+      transition="transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
+      _groupHover={{
+        transform: 'scale(1.06)'
+      }}
       sx={{
         '--hairline-plate': '#ffffff',
         '--hairline-hi': '#232327',
