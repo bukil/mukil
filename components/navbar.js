@@ -17,7 +17,6 @@ import React from 'react'
 
 const NAV_ITEMS = [
   { label: 'Playground', href: '/works' },
-  { label: 'Blog', href: '/blog' },
   { label: 'Contact', href: '/contact' }
 ]
 
