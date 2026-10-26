@@ -399,6 +399,7 @@ export function AppleHIGGraphic() {
           alt="macOS Wallpaper"
           fill
           priority
+          unoptimized
           sizes="(max-width: 768px) 100vw, 1440px"
           style={{ objectFit: 'cover', objectPosition: 'center' }}
         />
