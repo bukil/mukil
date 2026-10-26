@@ -27,7 +27,7 @@ const HairlineDish = dynamic(
 
 export const ProjectPanel = ({
   title,
-  rightText = 'PLACEHOLDER',
+  rightText = 'Placeholder',
   hoverTitle: _hoverTitle,
   description: _description,
   imageSrc,
@@ -51,7 +51,7 @@ export const ProjectPanel = ({
       cursor={onClick ? 'pointer' : undefined}
     >
       {/* Title on left, placeholder on right outside the panel, very close to the panel */}
-      {(title || (rightText ?? 'PLACEHOLDER')) && (
+      {(title || (rightText ?? 'Placeholder')) && (
         <Box
           mb="6px"
           display="flex"
@@ -60,29 +60,27 @@ export const ProjectPanel = ({
           width="100%"
         >
           <Text
-            fontSize={{ base: '9px', md: '10px' }}
-            fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
+            fontSize={{ base: '9.5px', md: '10.5px' }}
+            fontFamily="'GT Walsheim', 'GT Walsheim Pro', -apple-system, BlinkMacSystemFont, sans-serif"
             fontWeight="700"
-            letterSpacing="0.08em"
-            textTransform="uppercase"
+            letterSpacing="0.02em"
             color={titleColor || '#2f2f2f97'}
             lineHeight="1.2"
             textAlign="left"
           >
             {title}
           </Text>
-          {(rightText ?? 'PLACEHOLDER') && (
+          {(rightText ?? 'Placeholder') && (
             <Text
-              fontSize={{ base: '9px', md: '10px' }}
-              fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
+              fontSize={{ base: '9.5px', md: '10.5px' }}
+              fontFamily="'GT Walsheim', 'GT Walsheim Pro', -apple-system, BlinkMacSystemFont, sans-serif"
               fontWeight="700"
-              letterSpacing="0.08em"
-              textTransform="uppercase"
+              letterSpacing="0.02em"
               color={titleColor || '#2f2f2f97'}
               lineHeight="1.2"
               textAlign="right"
             >
-              {rightText ?? 'PLACEHOLDER'}
+              {rightText ?? 'Placeholder'}
             </Text>
           )}
         </Box>
@@ -219,14 +217,14 @@ export function DesignSystemGraphic() {
       }}
     >
       <Box
-        width="460px"
-        maxW="96%"
+        width={{ base: '92%', sm: '88%', md: '460px' }}
+        maxW={{ base: '92%', md: '96%' }}
         position="relative"
-        transform="translateY(-17px) scale(1.18)"
+        transform={{ base: 'translateY(0) scale(1.08)', md: 'translateY(-17px) scale(1.18)' }}
         transformOrigin="center center"
         transition="transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
         _groupHover={{
-          transform: 'translateY(-17px) scale(1.25)'
+          transform: { base: 'translateY(0) scale(1.14)', md: 'translateY(-17px) scale(1.25)' }
         }}
       >
         <HairlineHub play intensity={0.7} />
@@ -258,14 +256,14 @@ export function DakshaGraphic() {
       }}
     >
       <Box
-        width="460px"
-        maxW="96%"
+        width={{ base: '92%', sm: '88%', md: '460px' }}
+        maxW={{ base: '92%', md: '96%' }}
         position="relative"
-        transform="translateY(-17px) scale(1.18)"
+        transform={{ base: 'translateY(-4px) scale(1.08)', md: 'translateY(-17px) scale(1.18)' }}
         transformOrigin="center center"
         transition="transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
         _groupHover={{
-          transform: 'translateY(-17px) scale(1.25)'
+          transform: { base: 'translateY(-4px) scale(1.14)', md: 'translateY(-17px) scale(1.25)' }
         }}
       >
         <HairlineDish play intensity={0.7} />
@@ -522,7 +520,7 @@ export default function ProjectsGrid({ mt = 0, ...props }) {
           <Section gridColumn={{ base: 'span 1', md: 'span 2' }}>
             <ProjectPanel
               title="Apple HIG Architecture"
-              rightText="AI Design System· AI Governence · Railgourd · Defensive UX"
+              rightText="AI Design System • AI Governance • Railgourd & Defensive UX • Interaction Design • RAG "
               aspectRatio={{ base: '1 / 1', sm: '16 / 9', md: '2.1 / 1' }}
               customContent={<AppleHIGGraphic />}
               onClick={onOpenApple}
@@ -533,7 +531,7 @@ export default function ProjectsGrid({ mt = 0, ...props }) {
           <Section>
             <ProjectPanel
               title="Daksha in Orbit"
-              rightText="Mixed Reality - Interaction Design - Astronomy Education - Outreach"
+              rightText="Mixed Reality • Interaction Design • Astronomy Education • Outreach"
               accentColor="#38bdf8"
               customContent={<DakshaGraphic />}
             />
@@ -550,7 +548,7 @@ export default function ProjectsGrid({ mt = 0, ...props }) {
             >
               <ProjectPanel
                 title="Colour Space"
-                rightText="Color Space | Interaction Design | Data Viz"
+                rightText="Colour Geometry • Interaction Design • Data Viz"
                 accentColor="purple.300"
                 sx={{ position: 'relative', overflow: 'hidden' }}
                 customContent={<MunselModel />}
@@ -562,7 +560,7 @@ export default function ProjectsGrid({ mt = 0, ...props }) {
           <Section>
             <ProjectPanel
               title="Kode/Board"
-              rightText="Accessibility | Tangible Interaction"
+              rightText="Accessibility • Tangible Interaction"
               imageSrc="/images/works/BOTASF.png"
               imageAlt="Kode/Board"
               accentColor="green.400"
@@ -577,7 +575,7 @@ export default function ProjectsGrid({ mt = 0, ...props }) {
               <Box as="a" style={{ display: 'block', cursor: 'pointer', textDecoration: 'none' }}>
                 <ProjectPanel
                   title="Human Factor in Design"
-                  rightText="Product Evaluation | Quanlitative Analysis"
+                  rightText="Product Evaluation • Quanlitative Analysis"
                   accentColor="#0d9488"
                   customContent={
                     <div style={{ position: 'absolute', right: '6%', top: '50%', zIndex: 2, pointerEvents: 'none', transform: 'translateY(-50%)' }}>
@@ -595,7 +593,7 @@ export default function ProjectsGrid({ mt = 0, ...props }) {
               <Box as="a" style={{ display: 'block', cursor: 'pointer', textDecoration: 'none' }}>
                 <ProjectPanel
                   title="Design Evaluation ChatGPT"
-                  rightText="AI Evaluation | AI Governence"
+                  rightText="AI Evaluation • AI Governance"
                   accentColor="#232327"
                   customContent={<ChatGPT3DGraphic />}
                 />
@@ -609,7 +607,7 @@ export default function ProjectsGrid({ mt = 0, ...props }) {
               <Box as="a" style={{ display: 'block', cursor: 'pointer', textDecoration: 'none' }}>
                 <ProjectPanel
                   title="Design System for UPI"
-                  rightText="Design System | Documentation | Encapsulation"
+                  rightText="Design System • Documentation • Encapsulation"
                   accentColor="#232327"
                   customContent={<DesignSystemGraphic />}
                   sx={{

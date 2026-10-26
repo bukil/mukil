@@ -127,7 +127,7 @@ const ContentWrapper = styled(Box)`
 // Accessible, bright-mode project panel with fixed dimensions matching Works
 const ProjectPanel = ({
   title,
-  rightText = 'PLACEHOLDER',
+  rightText = 'Placeholder',
   hoverTitle: _hoverTitle,
   description: _description,
   imageSrc,
@@ -146,7 +146,7 @@ const ProjectPanel = ({
       cursor={onClick ? 'pointer' : undefined}
     >
       {/* Title on left, placeholder on right outside the panel, very close to the panel */}
-      {(title || (rightText ?? 'PLACEHOLDER')) && (
+      {(title || (rightText ?? 'Placeholder')) && (
         <Box
           mb="6px"
           display="flex"
@@ -155,29 +155,27 @@ const ProjectPanel = ({
           width="100%"
         >
           <Text
-            fontSize={{ base: '9px', md: '10px' }}
-            fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
+            fontSize={{ base: '9.5px', md: '10.5px' }}
+            fontFamily="'GT Walsheim', 'GT Walsheim Pro', -apple-system, BlinkMacSystemFont, sans-serif"
             fontWeight="700"
-            letterSpacing="0.08em"
-            textTransform="uppercase"
+            letterSpacing="0.02em"
             color="#2f2f2f97"
             lineHeight="1.2"
             textAlign="left"
           >
             {title}
           </Text>
-          {(rightText ?? 'PLACEHOLDER') && (
+          {(rightText ?? 'Placeholder') && (
             <Text
-              fontSize={{ base: '9px', md: '10px' }}
-              fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
+              fontSize={{ base: '9.5px', md: '10.5px' }}
+              fontFamily="'GT Walsheim', 'GT Walsheim Pro', -apple-system, BlinkMacSystemFont, sans-serif"
               fontWeight="700"
-              letterSpacing="0.08em"
-              textTransform="uppercase"
+              letterSpacing="0.02em"
               color="#2f2f2f97"
               lineHeight="1.2"
               textAlign="right"
             >
-              {rightText ?? 'PLACEHOLDER'}
+              {rightText ?? 'Placeholder'}
             </Text>
           )}
         </Box>
@@ -333,11 +331,15 @@ function DataVizPlotGraphic() {
       }}
     >
       <Box
-        width="460px"
-        maxW="96%"
+        width={{ base: '84%', sm: '86%', md: '460px' }}
+        maxW={{ base: '86%', md: '96%' }}
         position="relative"
-        transform="translateY(-10px) scale(1.4)"
+        transform={{ base: 'translateY(-12px) scale(1.10)', md: 'translateY(-10px) scale(1.4)' }}
         transformOrigin="center center"
+        transition="transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
+        _groupHover={{
+          transform: { base: 'translateY(-12px) scale(1.15)', md: 'translateY(-10px) scale(1.45)' }
+        }}
       >
         <HairlinePlot play intensity={0.7} />
       </Box>
@@ -369,11 +371,15 @@ function MicrointeractionGraphic() {
       }}
     >
       <Box
-        width="460px"
-        maxW="96%"
+        width={{ base: '82%', sm: '85%', md: '460px' }}
+        maxW={{ base: '85%', md: '96%' }}
         position="relative"
-        transform="translate(32px, -102px) scale(1.4)"
+        transform={{ base: 'translate(22px, -65px) scale(1.15)', md: 'translate(32px, -102px) scale(1.4)' }}
         transformOrigin="center center"
+        transition="transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
+        _groupHover={{
+          transform: { base: 'translate(22px, -65px) scale(1.20)', md: 'translate(32px, -102px) scale(1.45)' }
+        }}
       >
         <HairlineExploded play intensity={0.7} />
       </Box>
@@ -532,7 +538,7 @@ function WorksGrid() {
           >
             <ProjectPanel
               title="Data visualisation: LHC, Speed of Light"
-              rightText="PLACEHOLDER"
+              rightText="Placeholder"
               accentColor="#232327"
               customContent={<LhcRingGraphic />}
             />
@@ -550,7 +556,7 @@ function WorksGrid() {
           >
             <ProjectPanel
               title="Data Vizualisation"
-              rightText="PLACEHOLDER"
+              rightText="Placeholder"
               accentColor="#232327"
               customContent={<DataVizPlotGraphic />}
             />
@@ -566,7 +572,7 @@ function WorksGrid() {
             >
               <ProjectPanel
                 title="Microinteraction"
-                rightText="PLACEHOLDER"
+                rightText="Placeholder"
                 accentColor="#232327"
                 customContent={<MicrointeractionGraphic />}
               />
@@ -578,7 +584,7 @@ function WorksGrid() {
         <Section delay={0.4}>
           <ProjectPanel
             title="C2C"
-            rightText="PLACEHOLDER"
+            rightText="Placeholder"
             imageSrc="/images/works/c2cf.png"
             imageAlt="C2C physical interaction cube controller"
             accentColor="#0d9488"

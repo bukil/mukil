@@ -10,10 +10,12 @@ export default class Document extends NextDocument {
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
 
-          {/* Preload critical above-fold images */}
+          {/* Preload critical above-fold images and fonts */}
           <link rel="preload" as="image" href="/images/1016_opt.jpg" />
           <link rel="preload" as="image" href="/images/Apple-Logo.png" />
           <link rel="preload" as="image" href="/images/logo.png" />
+          <link rel="preload" href="/fonts/GT-Walsheim-Pro-Bold.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+          <link rel="preload" href="/fonts/GT-Walsheim-Pro-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
 
           <link
             rel="preload"
