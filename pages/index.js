@@ -287,21 +287,21 @@ const Home = () => {
         <Layout>
           <Spacer minHeight={{ base: '12px', md: '16px' }} />
 
-          <Container ref={textSectionRef} maxW='1440px' px={{ base: '20px', md: '28px', lg: '32px' }} mt={0} mb={{ base: '48px', md: '64px', lg: '76px' }}>
+          <Box ref={textSectionRef} w="100%" px={{ base: '20px', md: '24px' }} mt={0} mb={{ base: '48px', md: '64px', lg: '76px' }}>
             <Section delay={0.2}>
               <AnimatedIntro textColor={textColor} />
             </Section>
-          </Container>
+          </Box>
 
           {/* Selected Projects Section */}
-          <Box maxW='1440px' mx="auto" px={{ base: '20px', md: '28px', lg: '32px' }} mb={20}>
+          <Box w="100%" px={{ base: '20px', md: '24px' }} mb={20}>
             <Section delay={0.3}>
               <ProjectsGrid />
             </Section>
           </Box>
 
           {/* Skill Section */}
-          <Container maxW='1440px' px={{ base: '20px', md: '28px', lg: '32px' }} mt={16} mb={20} position="relative" ref={skillsSectionRef}>
+          <Box w="100%" px={{ base: '20px', md: '24px' }} mt={16} mb={20} position="relative" ref={skillsSectionRef}>
             {/* Subtle SKILLS background text */}
             {!isMobile && (
               <Box
@@ -555,11 +555,11 @@ const Home = () => {
                 )}
               </>
             )}
-          </Container>
+          </Box>
           {/* SEE MORE ABOUT MY WORK button moved below skills */}
           <Trans>
             <Section>
-              <Container maxW='1440px' px={{ base: '20px', md: '28px', lg: '32px' }}>
+              <Box w="100%" px={{ base: '20px', md: '24px' }}>
                 <Box display="flex" justifyContent="flex-end" mb={12}>
                   <NextLink href="/works" passHref scroll={true}>
                     <Button
@@ -589,7 +589,7 @@ const Home = () => {
                     </Button>
                   </NextLink>
                 </Box>
-              </Container>
+              </Box>
             </Section>
           </Trans>
         </Layout>

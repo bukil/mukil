@@ -310,7 +310,7 @@ export function AppleHIGGraphic() {
           fill
           priority
           unoptimized
-          sizes="(max-width: 768px) 100vw, 1440px"
+          sizes="100vw"
           style={{ objectFit: 'cover', objectPosition: 'center' }}
         />
       </Box>
@@ -515,12 +515,12 @@ export default function ProjectsGrid({ mt = 0, ...props }) {
   return (
     <>
       <Box w="100%" mt={mt} {...props}>
-        <SimpleGrid columns={{ base: 1, md: 2 }} columnGap={{ base: 5, md: 6, lg: 8 }} rowGap={{ base: 6, md: 8, lg: 10 }}>
+        <SimpleGrid columns={{ base: 1, md: 2 }} gap={{ base: '20px', md: '24px' }}>
           {/* 1. Intelligent Design System Architecture for Apple HIG (Wide Simple Tile) */}
           <Section gridColumn={{ base: 'span 1', md: 'span 2' }}>
             <ProjectPanel
               title="Apple HIG Architecture"
-              rightText="AI Design System • AI Governance • Railgourd & Defensive UX • Interaction Design • RAG "
+              rightText="AI Design System • AI Governance • Railgourd & Defensive UX • Interaction Design • RAG System"
               aspectRatio={{ base: '1 / 1', sm: '16 / 9', md: '2.1 / 1' }}
               customContent={<AppleHIGGraphic />}
               onClick={onOpenApple}

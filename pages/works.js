@@ -525,8 +525,8 @@ function WorksGrid() {
   const { isOpen: isC2COpen, onOpen: onC2COpen, onClose: onC2CClose } = useDisclosure()
 
   return (
-    <Box maxW="1440px" mx="auto" px={{ base: '20px', md: '28px', lg: '32px' }} mb={{ base: 16, md: 20 }}>
-      <SimpleGrid columns={{ base: 1, md: 2 }} columnGap={{ base: 5, md: 6, lg: 8 }} rowGap={{ base: 6, md: 8, lg: 10 }}>
+    <Box w="100%" px={{ base: '20px', md: '24px' }} mb={{ base: 16, md: 20 }}>
+      <SimpleGrid columns={{ base: 1, md: 2 }} gap={{ base: '20px', md: '24px' }}>
         {/* Panel 1: Data visualisation: LHC, Speed of Light */}
         <Section delay={0.1}>
           <Box
@@ -851,7 +851,7 @@ const Works = () => {
             <Spacer />
             <Trans>
               <Section>
-                <Box maxW="1440px" mx="auto" px={{ base: '20px', md: '28px', lg: '32px' }} display="flex" justifyContent="flex-start" mb={12}>
+                <Box w="100%" px={{ base: '20px', md: '24px' }} display="flex" justifyContent="flex-start" mb={12}>
                   <NextLink href="/" passHref scroll={true}>
                     <Button
                       borderRadius="40px"

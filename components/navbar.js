@@ -31,11 +31,11 @@ const Navbar = ({ path }) => {
       zIndex={2000}
       pt={{ base: '20px', md: '28px' }}
       pb="16px"
-      px={{ base: '20px', md: '28px', lg: '32px' }}
+      px={{ base: '20px', md: '24px' }}
       bg="transparent"
       pointerEvents="none"
     >
-      <Flex align="center" justify="space-between" maxW="1440px" mx="auto" w="100%" pointerEvents="auto">
+      <Flex align="center" justify="space-between" w="100%" pointerEvents="auto">
         {/* Mukil Signature Logo on the Left */}
         <Box display="flex" alignItems="center">
           <Logo />
