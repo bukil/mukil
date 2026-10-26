@@ -519,8 +519,8 @@ export default function ProjectsGrid({ mt = 0, ...props }) {
           {/* 1. Intelligent Design System Architecture for Apple HIG (Wide Simple Tile) */}
           <Section gridColumn={{ base: 'span 1', md: 'span 2' }}>
             <ProjectPanel
-              title="Apple HIG Architecture"
-              rightText="AI Design System • AI Governance • Railgourd & Defensive UX • Interaction Design • RAG System"
+              title="Intelligent Design System Architecture for Apple HIGs"
+              rightText="AI Design System • AI Governance • Generative AI • Guardrails & Defensive UX • Interaction Design • RAG System"
               aspectRatio={{ base: '1 / 1', sm: '16 / 9', md: '2.1 / 1' }}
               customContent={<AppleHIGGraphic />}
               onClick={onOpenApple}
@@ -548,7 +548,7 @@ export default function ProjectsGrid({ mt = 0, ...props }) {
             >
               <ProjectPanel
                 title="Colour Space"
-                rightText="Colour Geometry • Interaction Design • Data Viz"
+                rightText="Colour Geometry • Interaction Design • Data Visualisation • Design Education"
                 accentColor="purple.300"
                 sx={{ position: 'relative', overflow: 'hidden' }}
                 customContent={<MunselModel />}

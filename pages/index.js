@@ -2,7 +2,6 @@
 import NextLink from 'next/link'
 import Head from 'next/head'
 import {
-  Container,
   Heading,
   Box,
   Button,
