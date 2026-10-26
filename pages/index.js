@@ -332,7 +332,7 @@ const Home = () => {
                 {isMobile ? (
                   <>
                     {/* SKILLS section: all tabs highlighted by default on mobile */}
-                    <Heading fontSize="2xl" fontWeight="normal" mb={6} color="#363636ff">
+                    <Heading fontSize="2xl" fontWeight="normal" fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif" mb={6} color="#363636ff">
                       Skills
                     </Heading>
                     <Text
@@ -346,7 +346,7 @@ const Home = () => {
                       {SKILLS.slice(5).join(' | ')}
                     </Text>
                     {/* Visual Design section */}
-                    <Heading fontSize="2xl" fontWeight="normal" mt={8} mb={4} color="#373737ff">
+                    <Heading fontSize="2xl" fontWeight="normal" fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif" mt={8} mb={4} color="#373737ff">
                       Visual Design
                     </Heading>
                     <Text
@@ -359,7 +359,7 @@ const Home = () => {
                       {VISUAL_DESIGN_SKILLS.map(s => s.name).join(' | ')}
                     </Text>
                     {/* Development section */}
-                    <Heading fontSize="2xl" fontWeight="normal" mt={8} mb={4} color="#373737ff">
+                    <Heading fontSize="2xl" fontWeight="normal" fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif" mt={8} mb={4} color="#373737ff">
                       Development
                     </Heading>
                     <Text
@@ -375,7 +375,7 @@ const Home = () => {
                   </>
                 ) : (
                   <>
-                    <Heading fontSize="2xl" fontWeight="normal" mb={6} color={textColor} style={{ transition: 'color 0.3s ease-out' }}>
+                    <Heading fontSize="2xl" fontWeight="normal" fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif" mb={6} color={textColor} style={{ transition: 'color 0.3s ease-out' }}>
                       Skills
                     </Heading>
                     <Box display="flex" flexWrap="wrap" gap={2} mb={8} alignItems="center">
@@ -435,7 +435,7 @@ const Home = () => {
                         )
                       })}
                     </Box>
-                    <Heading fontSize="2xl" fontWeight="normal" mt={8} mb={4} color={textColor} style={{ transition: 'color 0.3s ease-out' }}>
+                    <Heading fontSize="2xl" fontWeight="normal" fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif" mt={8} mb={4} color={textColor} style={{ transition: 'color 0.3s ease-out' }}>
                       Visual Design
                     </Heading>
                     <Box display="flex" flexWrap="wrap" gap={2} mb={8} alignItems="center">
@@ -491,7 +491,7 @@ const Home = () => {
                         )
                       })}
                     </Box>
-                    <Heading fontSize="2xl" fontWeight="normal" mt={8} mb={4} color={textColor} style={{ transition: 'color 0.3s ease-out' }}>
+                    <Heading fontSize="2xl" fontWeight="normal" fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif" mt={8} mb={4} color={textColor} style={{ transition: 'color 0.3s ease-out' }}>
                       Development
                     </Heading>
                     <Box display="flex" flexWrap="wrap" gap={2} mb={8} alignItems="center">
@@ -571,7 +571,7 @@ const Home = () => {
                     px={8}
                     py={6}
                     fontSize="14px"
-                    fontFamily="'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
+                    fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
                     fontWeight="500"
                     letterSpacing="0.08em"
                     textTransform="uppercase"
@@ -584,7 +584,7 @@ const Home = () => {
                       boxShadow: '0 4px 16px rgba(0, 0, 0, 0.08)'
                     }}
                   >
-                    Explore Selected Works
+                    Explore More
                   </Button>
                 </NextLink>
               </Box>
