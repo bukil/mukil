@@ -1,7 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import Head from 'next/head'
 import {
-  Heading,
   SimpleGrid,
   Image,
   Text,
@@ -128,221 +127,162 @@ const ContentWrapper = styled(Box)`
 // Accessible, bright-mode project panel with fixed dimensions matching Works
 const ProjectPanel = ({
   title,
-  hoverTitle,
-  description,
+  hoverTitle: _hoverTitle,
+  description: _description,
   imageSrc,
   imageAlt,
-  accentColor,
+  accentColor: _accentColor,
   onClick,
   customContent,
   sx
 }) => {
   return (
     <Box
-      position="relative"
-      borderWidth="1.5px"
-      borderColor="rgba(0, 0, 0, 0.12)"
-      borderRadius={0}
-      overflow="hidden"
-      boxShadow="none"
-      role={onClick ? 'button' : undefined}
-      aria-haspopup={onClick ? 'dialog' : undefined}
-      tabIndex={onClick ? 0 : undefined}
-      onKeyDown={
-        onClick
-          ? (e) => {
+      width="100%"
+      maxW="100%"
+      role="group"
+      onClick={onClick}
+      cursor={onClick ? 'pointer' : undefined}
+    >
+      {/* Title outside the panel, on the left side and very close to the panel */}
+      {title && (
+        <Box mb="6px" textAlign="left">
+          <Text
+            fontSize={{ base: '9px', md: '10px' }}
+            fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
+            fontWeight="700"
+            letterSpacing="0.08em"
+            textTransform="uppercase"
+            color="#2f2f2f97"
+            lineHeight="1.2"
+          >
+            {title}
+          </Text>
+        </Box>
+      )}
+
+      <Box
+        position="relative"
+        borderWidth="1.5px"
+        borderColor="rgba(0, 0, 0, 0.12)"
+        borderRadius={0}
+        overflow="hidden"
+        boxShadow="none"
+        role={onClick ? 'button' : undefined}
+        aria-haspopup={onClick ? 'dialog' : undefined}
+        tabIndex={onClick ? 0 : undefined}
+        onKeyDown={
+          onClick
+            ? (e) => {
               if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault()
                 onClick()
               }
             }
-          : undefined
-      }
-      bg="rgba(255, 255, 255, 0.85)"
-      backdropFilter="blur(8px)"
-      transition="border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease"
-      _hover={{
-        bg: '#ffffff',
-        boxShadow: '0 12px 30px rgba(0, 0, 0, 0.08)',
-        borderColor: 'rgba(0, 0, 0, 0.3)'
-      }}
-      _focusVisible={{
-        outline: '2px solid #111827',
-        outlineOffset: '3px'
-      }}
-      onClick={onClick}
-      cursor="pointer"
-      width="100%"
-      maxW="100%"
-      aspectRatio="1 / 1"
-      sx={{
-        ...sx,
-        '& *': {
-          pointerEvents: 'none'
-        },
-        '& [data-hairline], & [data-hairline] *': {
-          pointerEvents: 'auto'
+            : undefined
         }
-      }}
-    >
-      <Box
-        position="absolute"
-        top="0"
-        left="0"
-        right="0"
-        bottom="76px"
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
+        bg="rgba(255, 255, 255, 0.85)"
+        backdropFilter="blur(8px)"
+        transition="border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease"
+        _hover={{
+          bg: '#ffffff',
+          boxShadow: '0 12px 30px rgba(0, 0, 0, 0.08)',
+          borderColor: 'rgba(0, 0, 0, 0.3)'
+        }}
+        _groupHover={{
+          bg: '#ffffff',
+          boxShadow: '0 12px 30px rgba(0, 0, 0, 0.08)',
+          borderColor: 'rgba(0, 0, 0, 0.3)'
+        }}
+        _focusVisible={{
+          outline: '2px solid #111827',
+          outlineOffset: '3px'
+        }}
+        cursor="pointer"
+        width="100%"
+        maxW="100%"
+        aspectRatio="1 / 1"
+        sx={{
+          ...sx,
+          '& *': {
+            pointerEvents: 'none'
+          },
+          '& [data-hairline], & [data-hairline] *': {
+            pointerEvents: 'auto'
+          }
+        }}
       >
-        {/* Decorative large hover title - hidden from screen readers to prevent label-in-name conflict */}
-        <Text
-          aria-hidden="true"
-          position="absolute"
-          top={hoverTitle === 'Data Visualisation' ? '3%' : '20%'}
-          right={hoverTitle === 'Data Visualisation' ? '5%' : undefined}
-          left={hoverTitle === 'Data Visualisation' ? undefined : '50%'}
-          transform={hoverTitle === 'Data Visualisation' ? 'none' : 'translate(-50%, -50%)'}
-          textAlign={hoverTitle === 'Data Visualisation' ? 'right' : 'center'}
-          fontSize="7xl"
-          fontWeight="900"
-          color="#111827"
-          opacity="0"
-          transition="top 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1)"
-          whiteSpace="nowrap"
-          _groupHover={{
-            opacity: 0.75,
-            top: hoverTitle === 'Data Visualisation' ? '3%' : '35%',
-            transform: hoverTitle === 'Data Visualisation' ? 'none' : 'translate(-50%, -50%)',
-            transition: 'top 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1)'
-          }}
-          zIndex={2}
-          letterSpacing="normal"
-          lineHeight="1"
-          fontFamily="'BaseNeueTrial', sans-serif"
-          fontStyle="italic"
-          textTransform="uppercase"
-        >
-          {hoverTitle || title}
-        </Text>
         {imageSrc && (
-          <Image
-            src={imageSrc}
-            alt={imageAlt || ''}
-            width="70%"
-            height="70%"
-            objectFit="contain"
-            transition="transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease"
-            _groupHover={{
-              filter: 'brightness(1.04)',
-              transform: 'scale(1.06)'
-            }}
-            position="relative"
-            zIndex="1"
-            bg="transparent"
-          />
-        )}
-      </Box>
-
-      {/* Bottom metadata drawer with accessible high-contrast text */}
-      <Box
-        position="absolute"
-        bottom="0"
-        left="0"
-        right="0"
-        bg="rgba(255, 255, 255, 0.95)"
-        backdropFilter="blur(12px)"
-        pt={2}
-        pb={2}
-        px={4}
-        color="#111827"
-        zIndex={3}
-        height="76px"
-        display="flex"
-        flexDirection="column"
-        justifyContent="flex-start"
-        borderTop="1px solid rgba(0, 0, 0, 0.08)"
-      >
-        {title && (
-          <Box mb={0}>
-            <Heading
-              as="h2"
-              fontSize="xs"
-              fontFamily="'Michroma', monospace"
-              fontWeight="600"
-              letterSpacing="0.12em"
-              lineHeight="1.1"
-              textTransform="uppercase"
-              color="#111827"
-            >
-              {title}
-            </Heading>
+          <Box
+            position="absolute"
+            top="0"
+            left="0"
+            right="0"
+            bottom="0"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <Image
+              src={imageSrc}
+              alt={imageAlt || ''}
+              width="70%"
+              height="70%"
+              objectFit="contain"
+              transition="transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease"
+              _groupHover={{
+                filter: 'brightness(1.04)',
+                transform: 'scale(1.06)'
+              }}
+              position="relative"
+              zIndex="1"
+              bg="transparent"
+            />
           </Box>
         )}
-        <Box
-          w="100%"
-          h="1px"
-          bg={accentColor || 'rgba(0, 0, 0, 0.15)'}
-          mt={1.5}
-          mb={1.5}
-          aria-hidden="true"
-        />
-        <Box flex="0 0 auto">
-          <Text
-            fontSize="xs"
-            fontFamily="'Encode Sans Expanded', sans-serif"
-            fontWeight="400"
-            letterSpacing="0.5px"
-            color="#334155"
-            noOfLines={2}
-            lineHeight="1.3"
-          >
-            {description}
-          </Text>
-        </Box>
-      </Box>
 
-      {customContent && (
-        <Box
-          position="absolute"
-          top="0"
-          left="0"
-          right="0"
-          bottom="76px"
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          zIndex={1}
-          pointerEvents="none"
-          sx={{
-            '& img': {
-              transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
-              willChange: 'transform'
-            },
-            '& canvas': {
-              transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
-              willChange: 'transform'
-            },
-            '& svg': {
-              transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
-              willChange: 'transform'
-            }
-          }}
-          _groupHover={{
-            '& img': {
-              transform: 'scale(1.06)'
-            },
-            '& canvas': {
-              transform: 'scale(1.06)'
-            },
-            '& svg': {
-              transform: 'scale(1.06)'
-            }
-          }}
-        >
-          {customContent}
-        </Box>
-      )}
+        {customContent && (
+          <Box
+            position="absolute"
+            top="0"
+            left="0"
+            right="0"
+            bottom="0"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            zIndex={1}
+            pointerEvents="none"
+            sx={{
+              '& img': {
+                transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+                willChange: 'transform'
+              },
+              '& canvas': {
+                transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+                willChange: 'transform'
+              },
+              '& svg': {
+                transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+                willChange: 'transform'
+              }
+            }}
+            _groupHover={{
+              '& img': {
+                transform: 'scale(1.06)'
+              },
+              '& canvas': {
+                transform: 'scale(1.06)'
+              },
+              '& svg': {
+                transform: 'scale(1.06)'
+              }
+            }}
+          >
+            {customContent}
+          </Box>
+        )}
+      </Box>
     </Box>
   )
 }
@@ -569,9 +509,7 @@ function WorksGrid() {
             style={{ display: 'block', cursor: 'pointer', textDecoration: 'none' }}
           >
             <ProjectPanel
-              title="Data visualisation:LHC, Speed of Light"
-              hoverTitle="Data Visualisation"
-              description="A visual exploration of particle speeds and collisions at the LHC, compared to the speed of light."
+              title="Data visualisation: LHC, Speed of Light"
               accentColor="#232327"
               customContent={<LhcRingGraphic />}
             />
@@ -589,8 +527,6 @@ function WorksGrid() {
           >
             <ProjectPanel
               title="Data Vizualisation"
-              hoverTitle="Data Visualisation"
-              description="Exploring the Links Between Literacy, Salary & Societal Issues in India"
               accentColor="#232327"
               customContent={<DataVizPlotGraphic />}
             />
@@ -606,8 +542,6 @@ function WorksGrid() {
             >
               <ProjectPanel
                 title="Microinteraction"
-                hoverTitle="Microinteraction"
-                description="A class assignment exploring the art of microinteractions. Small, meaningful animations and transitions that enhance user experience and bring interfaces to life. 🎨"
                 accentColor="#232327"
                 customContent={<MicrointeractionGraphic />}
               />
@@ -618,17 +552,7 @@ function WorksGrid() {
         {/* Panel 4: C2C */}
         <Section delay={0.4}>
           <ProjectPanel
-            title={
-              <span style={{ fontFamily: 'Michroma, monospace', letterSpacing: '0.12em', fontStyle: 'normal' }}>
-                C2C
-              </span>
-            }
-            hoverTitle={
-              <span style={{ fontFamily: 'Tiny5, monospace', letterSpacing: 'normal', color: '#111827' }}>
-                C2C
-              </span>
-            }
-            description="C2C is a pair of interactive cubes that turn simple gestures into playfull digital control. Designed for effortless use, it doesn’t rely on precision, making it accessible for users with dexterity or muscular dystrophy challenges."
+            title="C2C"
             imageSrc="/images/works/c2cf.png"
             imageAlt="C2C physical interaction cube controller"
             accentColor="#0d9488"

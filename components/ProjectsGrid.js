@@ -27,144 +27,89 @@ const HairlineDish = dynamic(
 
 export const ProjectPanel = ({
   title,
-  hoverTitle,
-  description,
+  hoverTitle: _hoverTitle,
+  description: _description,
   imageSrc,
   imageAlt,
   gradientColors: _gradientColors,
   hoverGradientColors: _hoverGradientColors,
-  accentColor,
+  accentColor: _accentColor,
   onClick,
   customContent,
   aspectRatio = '1 / 1',
-  isSimpleTile = false,
+  isSimpleTile: _isSimpleTile = false,
+  titleColor,
   sx
 }) => {
   return (
     <Box
-      position="relative"
-      borderWidth="1px"
-      borderColor="rgba(0, 0, 0, 0.15)"
-      borderRadius={0}
-      overflow="hidden"
-      boxShadow="none"
-      role="group"
-      bg="transparent"
-      transition="border-color 0.3s ease, box-shadow 0.3s ease"
-      _hover={{
-        bg: 'transparent',
-        boxShadow: '0 8px 30px rgba(0, 0, 0, 0.08)',
-        borderColor: 'rgba(0, 0, 0, 0.3)'
-      }}
-      onClick={onClick}
-      cursor="pointer"
       width="100%"
       maxW="100%"
-      aspectRatio={aspectRatio}
-      sx={{
-        ...sx,
-        '& *': {
-          pointerEvents: 'none'
-        },
-        '& [data-hairline], & [data-hairline] *': {
-          pointerEvents: 'auto'
-        }
-      }}
+      role="group"
+      onClick={onClick}
+      cursor={onClick ? 'pointer' : undefined}
     >
-      {!isSimpleTile && (
-        <Box
-          position="absolute"
-          top="0"
-          left="0"
-          right="0"
-          bottom="76px"
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
+      {/* Title outside the panel, on the left side and very close to the panel */}
+      {title && (
+        <Box mb="6px" textAlign="left">
           <Text
-            position="absolute"
-            top={
-              hoverTitle === "Data Visualisation" ||
-              hoverTitle === "Design Evaluation ChatGPT" ||
-              hoverTitle === "Daksha in Orbit" ||
-              hoverTitle === "Apple HIG Architecture"
-                ? "3%"
-                : "20%"
-            }
-            right={hoverTitle === "Data Visualisation" ? "5%" : undefined}
-            left={hoverTitle === "Data Visualisation" ? undefined : "50%"}
-            transform={
-              hoverTitle === "Data Visualisation"
-                ? "none"
-                : hoverTitle === "Design Evaluation ChatGPT" ||
-                  hoverTitle === "Daksha in Orbit" ||
-                  hoverTitle === "Apple HIG Architecture"
-                ? "translate(-50%, 0)"
-                : "translate(-50%, -50%)"
-            }
-            textAlign={hoverTitle === "Data Visualisation" ? "right" : "center"}
-            fontSize={
-              hoverTitle === "Data Visualisation" || hoverTitle === "Design Evaluation ChatGPT"
-                ? "7xl"
-                : "6xl"
-            }
-            fontWeight="900"
-            color="#111827"
-            opacity="0"
-            transition="top 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1)"
-            whiteSpace="nowrap"
-            _groupHover={{
-              opacity: 0.7,
-              top:
-                hoverTitle === "Data Visualisation" ||
-                hoverTitle === "Design Evaluation ChatGPT" ||
-                hoverTitle === "Daksha in Orbit" ||
-                hoverTitle === "Apple HIG Architecture"
-                  ? "3%"
-                  : "35%",
-              transform:
-                hoverTitle === "Data Visualisation"
-                  ? "none"
-                  : hoverTitle === "Design Evaluation ChatGPT" ||
-                    hoverTitle === "Daksha in Orbit" ||
-                    hoverTitle === "Apple HIG Architecture"
-                  ? "translate(-50%, 0)"
-                  : "translate(-50%, -50%)",
-              transition: "top 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1)"
-            }}
-            zIndex={2}
-            letterSpacing="normal"
-            lineHeight="1"
-            fontFamily="'BaseNeueTrial', sans-serif"
-            fontStyle="italic"
+            fontSize={{ base: '9px', md: '10px' }}
+            fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
+            fontWeight="700"
+            letterSpacing="0.08em"
             textTransform="uppercase"
+            color={titleColor || '#2f2f2f97'}
+            lineHeight="1.2"
           >
-            {hoverTitle === "Design Evaluation ChatGPT" ? (
-              <>
-                <span>Design Evaluation</span><br />
-                <span>ChatGPT</span>
-              </>
-            ) : hoverTitle === "Visually understanding Colour space" ? (
-              <>
-                <span>Visually understanding</span><br />
-                <span>Colour space</span>
-              </>
-            ) : hoverTitle === "Daksha in Orbit" ? (
-              <>
-                <span>Daksha in</span><br />
-                <span>Orbit</span>
-              </>
-            ) : hoverTitle === "Apple HIG Architecture" ? (
-              <>
-                <span>Apple HIG</span><br />
-                <span>Architecture</span>
-              </>
-            ) : (
-              hoverTitle || title
-            )}
+            {title}
           </Text>
-          {imageSrc && (
+        </Box>
+      )}
+
+      <Box
+        position="relative"
+        borderWidth="1px"
+        borderColor="rgba(0, 0, 0, 0.15)"
+        borderRadius={0}
+        overflow="hidden"
+        boxShadow="none"
+        bg="transparent"
+        transition="border-color 0.3s ease, box-shadow 0.3s ease"
+        _hover={{
+          bg: 'transparent',
+          boxShadow: '0 8px 30px rgba(0, 0, 0, 0.08)',
+          borderColor: 'rgba(0, 0, 0, 0.3)'
+        }}
+        _groupHover={{
+          boxShadow: '0 8px 30px rgba(0, 0, 0, 0.08)',
+          borderColor: 'rgba(0, 0, 0, 0.3)'
+        }}
+        cursor="pointer"
+        width="100%"
+        maxW="100%"
+        aspectRatio={aspectRatio}
+        sx={{
+          ...sx,
+          '& *': {
+            pointerEvents: 'none'
+          },
+          '& [data-hairline], & [data-hairline] *': {
+            pointerEvents: 'auto'
+          }
+        }}
+      >
+
+        {imageSrc && (
+          <Box
+            position="absolute"
+            top="0"
+            left="0"
+            right="0"
+            bottom="0"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+          >
             <Image
               src={imageSrc}
               alt={imageAlt}
@@ -180,106 +125,51 @@ export const ProjectPanel = ({
               zIndex="1"
               bg="transparent"
             />
-          )}
-        </Box>
-      )}
-      {!isSimpleTile && (title || description) && (
-        <Box
-          position="absolute"
-          bottom="0"
-          left="0"
-          right="0"
-          bg="rgba(255, 255, 255, 0.95)"
-          backdropFilter="blur(8px)"
-          pt={2}
-          pb={2}
-          px={4}
-          color="gray.900"
-          zIndex={3}
-          height="76px"
-          display="flex"
-          flexDirection="column"
-          justifyContent="flex-start"
-          borderTop="1px solid rgba(0, 0, 0, 0.08)"
-        >
-          {title && (
-            <Box mb={0}>
-              <Text
-                fontSize="xs"
-                fontFamily="'Michroma', monospace"
-                fontWeight="600"
-                letterSpacing="0.12em"
-                lineHeight="1.1"
-                textTransform="uppercase"
-                color="gray.900"
-              >
-                {title}
-              </Text>
-            </Box>
-          )}
-          <Box
-            w="100%"
-            h="1px"
-            bg={accentColor || 'rgba(0, 0, 0, 0.15)'}
-            mt={1.5}
-            mb={1.5}
-          />
-          <Box flex="0 0 auto">
-            <Text
-              fontSize="xs"
-              fontFamily="'Encode Sans Expanded', sans-serif"
-              fontWeight="400"
-              letterSpacing="0.5px"
-              color="gray.600"
-              noOfLines={2}
-              lineHeight="1.3"
-            >
-              {description}
-            </Text>
           </Box>
-        </Box>
-      )}
-      {customContent && (
-        <Box
-          position="absolute"
-          top="0"
-          left="0"
-          right="0"
-          bottom={isSimpleTile ? '0' : '76px'}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-          zIndex={1}
-          pointerEvents="none"
-          sx={{
-            '& img': {
-              transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease',
-              willChange: 'transform, opacity'
-            },
-            '& img.phone-large': {
-              transformOrigin: '50% 50%'
-            },
-            '& canvas': {
-              transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
-              willChange: 'transform'
-            }
-          }}
-          _groupHover={{
-            '& img': {
-              transform: 'scale(1.06)'
-            },
-            '& img.phone-large': {
-              transformOrigin: '50% 50%',
-              transform: 'scale(1.06)'
-            },
-            '& canvas': {
-              transform: 'scale(1.06)'
-            }
-          }}
-        >
-          {customContent}
-        </Box>
-      )}
+        )}
+
+        {customContent && (
+          <Box
+            position="absolute"
+            top="0"
+            left="0"
+            right="0"
+            bottom="0"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            zIndex={1}
+            pointerEvents="none"
+            sx={{
+              '& img': {
+                transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease',
+                willChange: 'transform, opacity'
+              },
+              '& img.phone-large': {
+                transformOrigin: '50% 50%'
+              },
+              '& canvas': {
+                transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+                willChange: 'transform'
+              }
+            }}
+            _groupHover={{
+              '& img': {
+                transform: 'scale(1.06)'
+              },
+              '& img.phone-large': {
+                transformOrigin: '50% 50%',
+                transform: 'scale(1.06)'
+              },
+              '& canvas': {
+                transform: 'scale(1.06)'
+              }
+            }}
+          >
+            {customContent}
+          </Box>
+        )}
+      </Box>
     </Box>
   )
 }
@@ -609,7 +499,7 @@ export default function ProjectsGrid({ mt = 0, ...props }) {
           {/* 1. Intelligent Design System Architecture for Apple HIG (Wide Simple Tile) */}
           <Section gridColumn={{ base: 'span 1', md: 'span 2' }}>
             <ProjectPanel
-              isSimpleTile
+              title="Apple HIG Architecture"
               aspectRatio={{ base: '1 / 1', sm: '16 / 9', md: '2.1 / 1' }}
               customContent={<AppleHIGGraphic />}
               onClick={onOpenApple}
@@ -619,13 +509,7 @@ export default function ProjectsGrid({ mt = 0, ...props }) {
           {/* 2. Daksha in Orbit */}
           <Section>
             <ProjectPanel
-              title={
-                <span style={{ fontFamily: 'Michroma, monospace', letterSpacing: '0.12em', color: '#111827', fontStyle: 'normal' }}>
-                  DAKSHA IN ORBIT: A VR PLATFORM FOR SATELLITE EDUCATION AND OUTREACH
-                </span>
-              }
-              hoverTitle="Daksha in Orbit"
-              description="Designed and developed an immersive VR learning platform that enables intuitive exploration of satellite systems through spatial interactions, interactive 3D visualizations, and user-centered educational experiences for students and scientists. May 2026 • XR • Space Design"
+              title="Daksha in Orbit"
               accentColor="#38bdf8"
               customContent={<DakshaGraphic />}
             />
@@ -642,8 +526,6 @@ export default function ProjectsGrid({ mt = 0, ...props }) {
             >
               <ProjectPanel
                 title="Visually understanding Colour space"
-                hoverTitle="Visually understanding Colour space"
-                description="Documentation is in progress"
                 accentColor="purple.300"
                 sx={{ position: 'relative', overflow: 'hidden' }}
                 customContent={<MunselModel />}
@@ -655,8 +537,6 @@ export default function ProjectsGrid({ mt = 0, ...props }) {
           <Section>
             <ProjectPanel
               title="Kode/Board"
-              hoverTitle="Kode/Board"
-              description="Here is a keyboard concept (kode board), Copy, paste, repeat... but not as you know it. Multi-layer clipboard on fingertips like seamlessly storing your snippets for instant recall."
               imageSrc="/images/works/BOTASF.png"
               imageAlt="Kode/Board"
               accentColor="green.400"
@@ -670,21 +550,7 @@ export default function ProjectsGrid({ mt = 0, ...props }) {
             <NextLink href="/human-factor" passHref legacyBehavior>
               <Box as="a" style={{ display: 'block', cursor: 'pointer', textDecoration: 'none' }}>
                 <ProjectPanel
-                  title={
-                    <span style={{ fontFamily: 'Michroma, monospace', letterSpacing: '0.12em', color: '#111827', fontStyle: 'normal' }}>
-                      HUMAN FACTOR IN DESIGN
-                    </span>
-                  }
-                  hoverTitle={
-                    <span style={{ fontFamily: 'BaseNeueTrial, sans-serif', letterSpacing: 'normal', color: '#111827', fontStyle: 'italic' }}>
-                      HUMAN FACTOR IN DESIGN
-                    </span>
-                  }
-                  description={
-                    <span style={{ color: '#4a5568' }}>
-                      Investigating the Influence of Dark Patterns on User Behavior and Decision Making
-                    </span>
-                  }
+                  title="Human Factor in Design"
                   accentColor="#0d9488"
                   customContent={
                     <div style={{ position: 'absolute', right: '6%', top: '50%', zIndex: 2, pointerEvents: 'none', transform: 'translateY(-50%)' }}>
@@ -702,8 +568,6 @@ export default function ProjectsGrid({ mt = 0, ...props }) {
               <Box as="a" style={{ display: 'block', cursor: 'pointer', textDecoration: 'none' }}>
                 <ProjectPanel
                   title="Design Evaluation ChatGPT"
-                  hoverTitle="Design Evaluation ChatGPT"
-                  description="A design evaluation of the ChatGPT Android client, analyzing its usability and interaction experience across real-world usage contexts."
                   accentColor="#232327"
                   customContent={<ChatGPT3DGraphic />}
                 />
@@ -716,17 +580,7 @@ export default function ProjectsGrid({ mt = 0, ...props }) {
             <NextLink href="/DS" passHref legacyBehavior>
               <Box as="a" style={{ display: 'block', cursor: 'pointer', textDecoration: 'none' }}>
                 <ProjectPanel
-                  title={
-                    <span style={{ fontFamily: 'Michroma, monospace', letterSpacing: '0.12em', color: '#111827', fontStyle: 'normal' }}>
-                      DESIGN SYSTEM
-                    </span>
-                  }
-                  hoverTitle={
-                    <span style={{ fontFamily: 'BaseNeueTrial, sans-serif', letterSpacing: 'normal', color: '#111827', fontStyle: 'italic' }}>
-                      DESIGN SYSTEM
-                    </span>
-                  }
-                  description={<span style={{ color: '#4a5568' }}>Design System For UPI</span>}
+                  title="Design System"
                   accentColor="#232327"
                   customContent={<DesignSystemGraphic />}
                   sx={{
