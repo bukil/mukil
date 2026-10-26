@@ -45,28 +45,27 @@ const Trans = styled.span`
     position: relative;
     overflow: hidden;
     background: transparent;
-    border: 1.5px solid #111827;
-    color: #111827;
+    border: 1px solid #1A1A1A;
+    color: #1A1A1A;
     transition: all 0.3s ease;
     z-index: 1;
-    border-radius: 50px;
-    height: 90px;
+    border-radius: 40px;
+    height: 64px;
     &:before {
       content: '';
       position: absolute;
       top: 0;
-      left: auto;
-      right: 0;
+      left: 0;
       width: 0;
       height: 100%;
-      background: #111827;
+      background: #1A1A1A;
       transition: all 0.3s ease;
       z-index: -1;
     }
     &:hover {
-      color: #ffffff;
+      color: #F4F4F0;
       transform: translateY(-2px);
-      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
     }
     &:hover:before {
       width: 100%;
@@ -896,37 +895,32 @@ const Works = () => {
             <Spacer />
             <Trans>
               <Section>
-                <Box align="center" mb={4}>
+                <Box maxW="1440px" mx="auto" px={{ base: '20px', md: '28px', lg: '32px' }} display="flex" justifyContent="flex-start" mb={12}>
                   <NextLink href="/" passHref scroll={true}>
-                    <motion.div
-                      initial={{ x: 100, opacity: 0 }}
-                      animate={{ x: 0, opacity: 1 }}
-                      transition={{ type: 'spring', stiffness: 60, damping: 16 }}
-                      style={{ display: 'inline-block' }}
+                    <Button
+                      borderRadius="40px"
+                      variant="outline"
+                      border="1px solid"
+                      borderColor="#1A1A1A"
+                      color="#1A1A1A"
+                      px={8}
+                      py={6}
+                      fontSize="14px"
+                      fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
+                      fontWeight="500"
+                      letterSpacing="0.08em"
+                      textTransform="uppercase"
+                      height="64px"
+                      leftIcon={<ChevronLeftIcon />}
+                      _hover={{
+                        bg: '#1A1A1A',
+                        color: '#F4F4F0',
+                        transform: 'translateY(-2px)',
+                        boxShadow: '0 4px 16px rgba(0, 0, 0, 0.08)'
+                      }}
                     >
-                      <Button
-                        borderRadius="50px"
-                        variant="outline"
-                        border="1.5px solid"
-                        borderColor="#111827"
-                        color="#111827"
-                        px={6}
-                        py={10}
-                        fontSize="lg"
-                        fontWeight="semibold"
-                        letterSpacing="wider"
-                        height="90px"
-                        leftIcon={<ChevronLeftIcon />}
-                        _hover={{
-                          bg: '#111827',
-                          color: '#ffffff',
-                          transform: 'translateY(-2px)',
-                          boxShadow: '0 3px 10px rgba(0, 0, 0, 0.15)'
-                        }}
-                      >
-                        GO BACK TO HOME PAGE
-                      </Button>
-                    </motion.div>
+                      GO BACK TO HOME PAGE
+                    </Button>
                   </NextLink>
                 </Box>
               </Section>

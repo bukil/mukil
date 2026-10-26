@@ -37,7 +37,7 @@ const Trans = styled.span`
     transition: all 0.3s ease;
     z-index: 1;
     border-radius: 40px;
-    height: 70px;
+    height: 64px;
     
     &:before {
       content: '';
@@ -332,7 +332,7 @@ const Home = () => {
                 {isMobile ? (
                   <>
                     {/* SKILLS section: all tabs highlighted by default on mobile */}
-                    <Heading fontSize="2xl" fontWeight="normal" fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif" mb={6} color="#363636ff">
+                    <Heading fontSize="2xl" fontWeight="300" fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif" mb={6} color="#363636ff">
                       Skills
                     </Heading>
                     <Text
@@ -346,7 +346,7 @@ const Home = () => {
                       {SKILLS.slice(5).join(' | ')}
                     </Text>
                     {/* Visual Design section */}
-                    <Heading fontSize="2xl" fontWeight="normal" fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif" mt={8} mb={4} color="#373737ff">
+                    <Heading fontSize="2xl" fontWeight="300" fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif" mt={8} mb={4} color="#373737ff">
                       Visual Design
                     </Heading>
                     <Text
@@ -359,7 +359,7 @@ const Home = () => {
                       {VISUAL_DESIGN_SKILLS.map(s => s.name).join(' | ')}
                     </Text>
                     {/* Development section */}
-                    <Heading fontSize="2xl" fontWeight="normal" fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif" mt={8} mb={4} color="#373737ff">
+                    <Heading fontSize="2xl" fontWeight="300" fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif" mt={8} mb={4} color="#373737ff">
                       Development
                     </Heading>
                     <Text
@@ -375,7 +375,7 @@ const Home = () => {
                   </>
                 ) : (
                   <>
-                    <Heading fontSize="2xl" fontWeight="normal" fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif" mb={6} color={textColor} style={{ transition: 'color 0.3s ease-out' }}>
+                    <Heading fontSize="2xl" fontWeight="300" fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif" mb={6} color={textColor} style={{ transition: 'color 0.3s ease-out' }}>
                       Skills
                     </Heading>
                     <Box display="flex" flexWrap="wrap" gap={2} mb={8} alignItems="center">
@@ -435,7 +435,7 @@ const Home = () => {
                         )
                       })}
                     </Box>
-                    <Heading fontSize="2xl" fontWeight="normal" fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif" mt={8} mb={4} color={textColor} style={{ transition: 'color 0.3s ease-out' }}>
+                    <Heading fontSize="2xl" fontWeight="300" fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif" mt={8} mb={4} color={textColor} style={{ transition: 'color 0.3s ease-out' }}>
                       Visual Design
                     </Heading>
                     <Box display="flex" flexWrap="wrap" gap={2} mb={8} alignItems="center">
@@ -491,7 +491,7 @@ const Home = () => {
                         )
                       })}
                     </Box>
-                    <Heading fontSize="2xl" fontWeight="normal" fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif" mt={8} mb={4} color={textColor} style={{ transition: 'color 0.3s ease-out' }}>
+                    <Heading fontSize="2xl" fontWeight="300" fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif" mt={8} mb={4} color={textColor} style={{ transition: 'color 0.3s ease-out' }}>
                       Development
                     </Heading>
                     <Box display="flex" flexWrap="wrap" gap={2} mb={8} alignItems="center">
@@ -559,35 +559,37 @@ const Home = () => {
           {/* SEE MORE ABOUT MY WORK button moved below skills */}
           <Trans>
             <Section>
-              <Box align="center" mb={4}>
-                <NextLink href="/works" passHref scroll={true}>
-                  <Button
-                    ref={buttonRef}
-                    borderRadius='40px'
-                    variant='outline'
-                    border='1px solid'
-                    borderColor='#1A1A1A'
-                    color='#1A1A1A'
-                    px={8}
-                    py={6}
-                    fontSize="14px"
-                    fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
-                    fontWeight="500"
-                    letterSpacing="0.08em"
-                    textTransform="uppercase"
-                    height="64px"
-                    rightIcon={<ChevronRightIcon />}
-                    _hover={{
-                      bg: '#1A1A1A',
-                      color: '#F4F4F0',
-                      transform: 'translateY(-2px)',
-                      boxShadow: '0 4px 16px rgba(0, 0, 0, 0.08)'
-                    }}
-                  >
-                    Explore More
-                  </Button>
-                </NextLink>
-              </Box>
+              <Container maxW='1440px' px={{ base: '20px', md: '28px', lg: '32px' }}>
+                <Box display="flex" justifyContent="flex-end" mb={12}>
+                  <NextLink href="/works" passHref scroll={true}>
+                    <Button
+                      ref={buttonRef}
+                      borderRadius='40px'
+                      variant='outline'
+                      border='1px solid'
+                      borderColor='#1A1A1A'
+                      color='#1A1A1A'
+                      px={8}
+                      py={6}
+                      fontSize="14px"
+                      fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
+                      fontWeight="500"
+                      letterSpacing="0.08em"
+                      textTransform="uppercase"
+                      height="64px"
+                      rightIcon={<ChevronRightIcon />}
+                      _hover={{
+                        bg: '#1A1A1A',
+                        color: '#F4F4F0',
+                        transform: 'translateY(-2px)',
+                        boxShadow: '0 4px 16px rgba(0, 0, 0, 0.08)'
+                      }}
+                    >
+                      Explore More
+                    </Button>
+                  </NextLink>
+                </Box>
+              </Container>
             </Section>
           </Trans>
         </Layout>
