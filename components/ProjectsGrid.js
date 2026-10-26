@@ -27,6 +27,7 @@ const HairlineDish = dynamic(
 
 export const ProjectPanel = ({
   title,
+  rightText = 'PLACEHOLDER',
   hoverTitle: _hoverTitle,
   description: _description,
   imageSrc,
@@ -49,9 +50,15 @@ export const ProjectPanel = ({
       onClick={onClick}
       cursor={onClick ? 'pointer' : undefined}
     >
-      {/* Title outside the panel, on the left side and very close to the panel */}
-      {title && (
-        <Box mb="6px" textAlign="left">
+      {/* Title on left, placeholder on right outside the panel, very close to the panel */}
+      {(title || (rightText ?? 'PLACEHOLDER')) && (
+        <Box
+          mb="6px"
+          display="flex"
+          alignItems="center"
+          justifyContent="space-between"
+          width="100%"
+        >
           <Text
             fontSize={{ base: '9px', md: '10px' }}
             fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
@@ -60,9 +67,24 @@ export const ProjectPanel = ({
             textTransform="uppercase"
             color={titleColor || '#2f2f2f97'}
             lineHeight="1.2"
+            textAlign="left"
           >
             {title}
           </Text>
+          {(rightText ?? 'PLACEHOLDER') && (
+            <Text
+              fontSize={{ base: '9px', md: '10px' }}
+              fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
+              fontWeight="700"
+              letterSpacing="0.08em"
+              textTransform="uppercase"
+              color={titleColor || '#2f2f2f97'}
+              lineHeight="1.2"
+              textAlign="right"
+            >
+              {rightText ?? 'PLACEHOLDER'}
+            </Text>
+          )}
         </Box>
       )}
 
@@ -500,6 +522,7 @@ export default function ProjectsGrid({ mt = 0, ...props }) {
           <Section gridColumn={{ base: 'span 1', md: 'span 2' }}>
             <ProjectPanel
               title="Apple HIG Architecture"
+              rightText="AI Design System· AI Governence · Railgourd · Defensive UX"
               aspectRatio={{ base: '1 / 1', sm: '16 / 9', md: '2.1 / 1' }}
               customContent={<AppleHIGGraphic />}
               onClick={onOpenApple}
@@ -510,6 +533,7 @@ export default function ProjectsGrid({ mt = 0, ...props }) {
           <Section>
             <ProjectPanel
               title="Daksha in Orbit"
+              rightText="Mixed Reality - Interaction Design - Astronomy Education - Outreach"
               accentColor="#38bdf8"
               customContent={<DakshaGraphic />}
             />
@@ -525,7 +549,8 @@ export default function ProjectsGrid({ mt = 0, ...props }) {
               style={{ display: 'block', cursor: 'pointer', textDecoration: 'none' }}
             >
               <ProjectPanel
-                title="Visually understanding Colour space"
+                title="Colour Space"
+                rightText="Color Space | Interaction Design | Data Viz"
                 accentColor="purple.300"
                 sx={{ position: 'relative', overflow: 'hidden' }}
                 customContent={<MunselModel />}
@@ -537,6 +562,7 @@ export default function ProjectsGrid({ mt = 0, ...props }) {
           <Section>
             <ProjectPanel
               title="Kode/Board"
+              rightText="Accessibility | Tangible Interaction"
               imageSrc="/images/works/BOTASF.png"
               imageAlt="Kode/Board"
               accentColor="green.400"
@@ -551,6 +577,7 @@ export default function ProjectsGrid({ mt = 0, ...props }) {
               <Box as="a" style={{ display: 'block', cursor: 'pointer', textDecoration: 'none' }}>
                 <ProjectPanel
                   title="Human Factor in Design"
+                  rightText="Product Evaluation | Quanlitative Analysis"
                   accentColor="#0d9488"
                   customContent={
                     <div style={{ position: 'absolute', right: '6%', top: '50%', zIndex: 2, pointerEvents: 'none', transform: 'translateY(-50%)' }}>
@@ -568,6 +595,7 @@ export default function ProjectsGrid({ mt = 0, ...props }) {
               <Box as="a" style={{ display: 'block', cursor: 'pointer', textDecoration: 'none' }}>
                 <ProjectPanel
                   title="Design Evaluation ChatGPT"
+                  rightText="AI Evaluation | AI Governence"
                   accentColor="#232327"
                   customContent={<ChatGPT3DGraphic />}
                 />
@@ -580,7 +608,8 @@ export default function ProjectsGrid({ mt = 0, ...props }) {
             <NextLink href="/DS" passHref legacyBehavior>
               <Box as="a" style={{ display: 'block', cursor: 'pointer', textDecoration: 'none' }}>
                 <ProjectPanel
-                  title="Design System"
+                  title="Design System for UPI"
+                  rightText="Design System | Documentation | Encapsulation"
                   accentColor="#232327"
                   customContent={<DesignSystemGraphic />}
                   sx={{

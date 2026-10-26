@@ -127,6 +127,7 @@ const ContentWrapper = styled(Box)`
 // Accessible, bright-mode project panel with fixed dimensions matching Works
 const ProjectPanel = ({
   title,
+  rightText = 'PLACEHOLDER',
   hoverTitle: _hoverTitle,
   description: _description,
   imageSrc,
@@ -144,9 +145,15 @@ const ProjectPanel = ({
       onClick={onClick}
       cursor={onClick ? 'pointer' : undefined}
     >
-      {/* Title outside the panel, on the left side and very close to the panel */}
-      {title && (
-        <Box mb="6px" textAlign="left">
+      {/* Title on left, placeholder on right outside the panel, very close to the panel */}
+      {(title || (rightText ?? 'PLACEHOLDER')) && (
+        <Box
+          mb="6px"
+          display="flex"
+          alignItems="center"
+          justifyContent="space-between"
+          width="100%"
+        >
           <Text
             fontSize={{ base: '9px', md: '10px' }}
             fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
@@ -155,9 +162,24 @@ const ProjectPanel = ({
             textTransform="uppercase"
             color="#2f2f2f97"
             lineHeight="1.2"
+            textAlign="left"
           >
             {title}
           </Text>
+          {(rightText ?? 'PLACEHOLDER') && (
+            <Text
+              fontSize={{ base: '9px', md: '10px' }}
+              fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
+              fontWeight="700"
+              letterSpacing="0.08em"
+              textTransform="uppercase"
+              color="#2f2f2f97"
+              lineHeight="1.2"
+              textAlign="right"
+            >
+              {rightText ?? 'PLACEHOLDER'}
+            </Text>
+          )}
         </Box>
       )}
 
@@ -510,6 +532,7 @@ function WorksGrid() {
           >
             <ProjectPanel
               title="Data visualisation: LHC, Speed of Light"
+              rightText="PLACEHOLDER"
               accentColor="#232327"
               customContent={<LhcRingGraphic />}
             />
@@ -527,6 +550,7 @@ function WorksGrid() {
           >
             <ProjectPanel
               title="Data Vizualisation"
+              rightText="PLACEHOLDER"
               accentColor="#232327"
               customContent={<DataVizPlotGraphic />}
             />
@@ -542,6 +566,7 @@ function WorksGrid() {
             >
               <ProjectPanel
                 title="Microinteraction"
+                rightText="PLACEHOLDER"
                 accentColor="#232327"
                 customContent={<MicrointeractionGraphic />}
               />
@@ -553,6 +578,7 @@ function WorksGrid() {
         <Section delay={0.4}>
           <ProjectPanel
             title="C2C"
+            rightText="PLACEHOLDER"
             imageSrc="/images/works/c2cf.png"
             imageAlt="C2C physical interaction cube controller"
             accentColor="#0d9488"
