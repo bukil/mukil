@@ -1,26 +1,54 @@
 import React, { useRef } from 'react'
-import { Canvas } from '@react-three/fiber'
-import { useGLTF, OrbitControls, Center } from '@react-three/drei'
+import { Canvas, useFrame } from '@react-three/fiber'
+import { useGLTF, Center } from '@react-three/drei'
+import { Box } from '@chakra-ui/react'
 
-function Model(props) {
+function RotatingModel({ scale = 0.68 }) {
   const { scene } = useGLTF('/munsel.glb')
-  const ref = useRef()
-  
-  return <primitive object={scene} ref={ref} {...props} />
+  const groupRef = useRef()
+
+  useFrame((_, delta) => {
+    if (groupRef.current) {
+      groupRef.current.rotation.y += delta * 0.25
+    }
+  })
+
+  return (
+    <group ref={groupRef}>
+      <primitive object={scene} scale={scale} />
+    </group>
+  )
 }
 
 export default function MunselModel() {
   return (
-    <div style={{ width: '100%', height: '100%' }}>
-      <Canvas orthographic camera={{ position: [5, 5, 5], zoom: 46 }}>
-        <ambientLight intensity={0.8} />
-        <directionalLight position={[10, 10, 5]} intensity={1} />
-        <Center>
-          <Model scale={0.48} />
-        </Center>
-        <OrbitControls enableZoom={false} enablePan={false} />
-      </Canvas>
-    </div>
+    <Box
+      position="absolute"
+      top={0}
+      left={0}
+      right={0}
+      bottom={0}
+      width="100%"
+      height="100%"
+      pointerEvents="none"
+    >
+      <div style={{ width: '100%', height: '100%', pointerEvents: 'none' }}>
+        <Canvas
+          orthographic
+          camera={{ position: [5, -1, 7], zoom: 72 }}
+          style={{ pointerEvents: 'none', width: '100%', height: '100%' }}
+        >
+          <ambientLight intensity={0.9} />
+          <directionalLight position={[10, 10, 10]} intensity={2.1} />
+          {/* Shift model horizontally towards the right edge and up */}
+          <group position={[7.7, 0.2345, -3.8]}>
+            <Center>
+              <RotatingModel scale={0.9} />
+            </Center>
+          </group>
+        </Canvas>
+      </div>
+    </Box>
   )
 }
 

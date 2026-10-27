@@ -528,17 +528,18 @@ export default function ProjectsGrid({ mt = 0, ...props }) {
           </Section>
 
           {/* 2. Daksha in Orbit */}
-          <Section>
+          <Section gridColumn={{ base: 'span 1', md: 'span 2' }}>
             <ProjectPanel
               title="Daksha in Orbit"
               rightText="Mixed Reality • Interaction Design • Astronomy Education • Outreach"
+              aspectRatio={{ base: '1 / 1', sm: '16 / 9', md: '2.1 / 1' }}
               accentColor="#38bdf8"
               customContent={<DakshaGraphic />}
             />
           </Section>
 
           {/* 3. Visually Understanding Colour Space */}
-          <Section>
+          <Section gridColumn={{ base: 'span 1', md: 'span 2' }}>
             <Box
               as="a"
               href="https://bukil.github.io/"
@@ -549,6 +550,7 @@ export default function ProjectsGrid({ mt = 0, ...props }) {
               <ProjectPanel
                 title="Colour Space"
                 rightText="Colour Geometry • Interaction Design • Data Visualisation • Design Education"
+                aspectRatio={{ base: '1 / 1', sm: '16 / 9', md: '2.1 / 1' }}
                 accentColor="purple.300"
                 sx={{ position: 'relative', overflow: 'hidden' }}
                 customContent={<MunselModel />}
