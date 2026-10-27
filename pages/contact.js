@@ -4,7 +4,6 @@ import {
   Heading,
   Text,
   Box,
-  Spacer,
   Link,
   HStack,
   Icon,
@@ -19,10 +18,10 @@ import ContactForm from '../components/ContactForm'
 
 const ContactLink = ({ icon, href, children }) => (
   <Link href={href} isExternal>
-    <HStack 
-      spacing={4} 
+    <HStack
+      spacing={4}
       p={2}
-      _hover={{ 
+      _hover={{
         color: '#89EF8C',
         transform: 'translateY(-2px)',
         transition: 'all 0.2s ease-in-out'
@@ -39,10 +38,9 @@ const ContactLink = ({ icon, href, children }) => (
 const Contact = () => {
   return (
     <Layout>
-      <Box position="relative" minH="100vh">
-        <Container maxW="container.xl">
-          <Spacer mb={130}/>
-          
+      <Box position="relative" minH="100vh" pt={{ base: 4, md: 8 }} pb={12}>
+        <Container maxW="container.md">
+
           <Section delay={0.1}>
             <Heading
               as="h1"
@@ -56,7 +54,7 @@ const Contact = () => {
             >
               LET'S <Text as="span" color="black" bg="#89EF8C" px={2} py={5} mx={1}>CREATE</Text> SOMETHING AMAZING <Text as="span" color="black" bg="#89EF8C" px={2} py={6} mx={1}>TOGETHER</Text>
             </Heading>
-            
+
             <Text
               fontSize="md"
               textAlign="center"
@@ -72,7 +70,7 @@ const Contact = () => {
               <br />
               Let's <Text as="span" color="black" bg="#89EF8C" px={1}>connect</Text>. Let's create. Or at the very least, let's talk. Curious to know more before we chat? <Link href="/Mukil_Résumé.pdf" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}><Text as="span" color="black" bg="#89EF8C" px={1} fontWeight="regular">Resume</Text></Link> got the highlights.
             </Text>
-            
+
             <VStack spacing={8} align="stretch">
               <Box
                 bg="black"
@@ -134,7 +132,7 @@ const Contact = () => {
           </Box>
         </Container>
       </Box>
-      <Box position="relative" width="100vw" left="50%" right="50%" marginLeft="-50vw" marginRight="-50vw">
+      <Box position="relative" width="100%" overflow="hidden">
         <FooterLand />
       </Box>
     </Layout>

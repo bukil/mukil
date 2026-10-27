@@ -16,6 +16,10 @@ export default function Chakra({ children }) {
     <ChakraProvider theme={theme} colorModeManager={lightColorModeManager}>
       <Global
         styles={`
+          html, body {
+            overflow-x: hidden;
+            max-width: 100vw;
+          }
           @keyframes scrollLand {
             0% { background-position-x: 0; }
             100% { background-position-x: -4000px; }
