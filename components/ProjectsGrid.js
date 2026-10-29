@@ -88,8 +88,8 @@ export const ProjectPanel = ({
 
       <Box
         position="relative"
-        borderWidth="1px"
-        borderColor="rgba(0, 0, 0, 0.15)"
+        borderWidth="0.5px"
+        borderColor="#1A1A1A"
         borderRadius={0}
         overflow="hidden"
         boxShadow="none"
@@ -98,11 +98,11 @@ export const ProjectPanel = ({
         _hover={{
           bg: 'transparent',
           boxShadow: '0 8px 30px rgba(0, 0, 0, 0.08)',
-          borderColor: 'rgba(0, 0, 0, 0.3)'
+          borderColor: '#1A1A1A'
         }}
         _groupHover={{
           boxShadow: '0 8px 30px rgba(0, 0, 0, 0.08)',
-          borderColor: 'rgba(0, 0, 0, 0.3)'
+          borderColor: '#1A1A1A'
         }}
         cursor="pointer"
         width="100%"

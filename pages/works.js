@@ -183,8 +183,8 @@ const ProjectPanel = ({
 
       <Box
         position="relative"
-        borderWidth="1.5px"
-        borderColor="rgba(0, 0, 0, 0.12)"
+        borderWidth="0.5px"
+        borderColor="#1A1A1A"
         borderRadius={0}
         overflow="hidden"
         boxShadow="none"
