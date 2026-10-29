@@ -82,10 +82,10 @@ const Contact = () => {
                 gap={8}
                 flexWrap="wrap"
               >
-                <ContactLink icon={EmailIcon} href="mailto:mukil289446@gmail.com">
-                  mukil289446@gmail.com
+                <ContactLink icon={EmailIcon} href="mailto:mukilonly@gmail.com">
+                  mukilonly@gmail.com
                 </ContactLink>
-                <ContactLink icon={FaLinkedin} href="https://www.linkedin.com/in/mukil-kumar-289446/">
+                <ContactLink icon={FaLinkedin} href="https://www.linkedin.com/in/mukilk/">
                   LinkedIn
                 </ContactLink>
                 <ContactLink icon={FaGithub} href="https://github.com/bukil">

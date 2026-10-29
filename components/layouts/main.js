@@ -6,7 +6,7 @@ import FooterLand from '../FooterLand'
 
 
 const Main = ({ children, router }) => {
-  const showFooter = router.pathname !== '/' && router.pathname !== '/contact'
+  const showFooter = router.pathname === '/works'
   const showFooterLand = router.pathname === '/'
 
   return (

@@ -39,40 +39,6 @@ const HairlinePlot = dynamic(
 )
 
 // Styled components
-const Trans = styled.div`
-  display: inline-block;
-  button, Button {
-    position: relative;
-    overflow: hidden;
-    background: transparent;
-    border: 1px solid #1A1A1A;
-    color: #1A1A1A;
-    transition: all 0.3s ease;
-    z-index: 1;
-    border-radius: 0;
-    &:before {
-      content: '';
-      position: absolute;
-      top: 0;
-      right: 0;
-      left: auto;
-      width: 0;
-      height: 100%;
-      background: #1A1A1A;
-      transition: all 0.3s ease;
-      z-index: -1;
-    }
-    &:hover {
-      color: #F4F4F0;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-    }
-    &:hover:before {
-      width: 100%;
-    }
-  }
-`
-
 const TransRTL = styled.div`
   display: inline-block;
   button, Button {
@@ -242,12 +208,12 @@ const ProjectPanel = ({
         _hover={{
           bg: '#ffffff',
           boxShadow: '0 12px 30px rgba(0, 0, 0, 0.08)',
-          borderColor: 'rgba(0, 0, 0, 0.3)'
+          borderColor: '#1A1A1A'
         }}
         _groupHover={{
           bg: '#ffffff',
           boxShadow: '0 12px 30px rgba(0, 0, 0, 0.08)',
-          borderColor: 'rgba(0, 0, 0, 0.3)'
+          borderColor: '#1A1A1A'
         }}
         _focusVisible={{
           outline: '2px solid #111827',

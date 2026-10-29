@@ -244,26 +244,57 @@ export function DakshaGraphic() {
       display="flex"
       alignItems="center"
       justifyContent="center"
-      pointerEvents="auto"
-      data-hairline=""
-      sx={{
-        '--hairline-plate': '#ffffff',
-        '--hairline-hi': '#232327',
-        '--hairline-edge': '#a4a4ac',
-        '--hairline-mid': '#c3c3c9',
-        '--hairline-lo': '#e0e0e4',
-        '--hairline-stroke': '0.9',
-      }}
+      overflow="hidden"
     >
+      {/* Daksha panel background image */}
       <Box
-        width={{ base: '92%', sm: '88%', md: '460px' }}
-        maxW={{ base: '92%', md: '96%' }}
-        position="relative"
-        transform={{ base: 'translateY(-4px) scale(1.08)', md: 'translateY(-17px) scale(1.18)' }}
-        transformOrigin="center center"
+        position="absolute"
+        top={0}
+        left={0}
+        width="100%"
+        height="100%"
+        overflow="hidden"
+        sx={{
+          '& img': {
+            transition: 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
+            objectFit: 'cover',
+            objectPosition: 'center',
+          }
+        }}
+        _groupHover={{
+          '& img': { transform: 'scale(1.05)' }
+        }}
+      >
+        <NextImage
+          src="/images/Daksha.webp"
+          alt="Daksha in Orbit"
+          fill
+          priority
+          sizes="(max-width: 768px) 100vw, 1200px"
+          style={{ objectFit: 'cover', objectPosition: 'center' }}
+        />
+      </Box>
+
+      {/* Hairline interactive Dish diagram in bottom-right corner */}
+      <Box
+        position="absolute"
+        bottom={{ base: '6px', sm: '12px', md: '16px' }}
+        right={{ base: '8px', sm: '16px', md: '22px' }}
+        width={{ base: '140px', sm: '200px', md: '280px' }}
+        maxWidth="42%"
+        pointerEvents="auto"
+        data-hairline=""
+        sx={{
+          '--hairline-plate': 'transparent',
+          '--hairline-hi': '#ffffff',
+          '--hairline-edge': '#e2e8f0',
+          '--hairline-mid': '#94a3b8',
+          '--hairline-lo': '#475569',
+          '--hairline-stroke': '0.9',
+        }}
         transition="transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
         _groupHover={{
-          transform: { base: 'translateY(-4px) scale(1.14)', md: 'translateY(-17px) scale(1.25)' }
+          transform: 'scale(1.08)'
         }}
       >
         <HairlineDish play intensity={0.7} />
@@ -400,13 +431,24 @@ export function ChatGPT3DGraphic() {
               stroke="#a4a4ac"
               strokeWidth="0.9"
             />
+            <g transform="matrix(1.24, 0.71, -1.24, 0.71, 270, 43)">
+              <image
+                href="/images/chatgpt-base.jpg"
+                x="0"
+                y="0"
+                width="100"
+                height="100"
+                preserveAspectRatio="none"
+              />
+            </g>
             <polygon
               points="270,43 394,114 270,185 146,114"
-              fill="#ffffff"
+              fill="none"
+              style={{ fill: 'none' }}
               stroke="#232327"
               strokeWidth="0.9"
             />
-            <g stroke="#e0e0e4" strokeWidth="0.8" strokeDasharray="2 4">
+            <g stroke="rgba(255, 255, 255, 0.55)" strokeWidth="0.8" strokeDasharray="2 4">
               <line x1="177" y1="96" x2="301" y2="167" />
               <line x1="208" y1="78" x2="332" y2="149" />
               <line x1="239" y1="60" x2="363" y2="131" />
@@ -436,13 +478,13 @@ export function ChatGPT3DGraphic() {
               d={gptPath}
               transform={isoTransform}
               fill="none"
-              stroke="#e0e0e4"
+              stroke="rgba(255, 255, 255, 0.65)"
               strokeWidth="0.85"
               strokeDasharray="2 3"
             />
           </g>
 
-          <g stroke="#c3c3c9" strokeWidth="0.8" strokeDasharray="1 3">
+          <g stroke="rgba(0, 0, 0, 0.25)" strokeWidth="0.8" strokeDasharray="1 3">
             <line x1="270" y1="96" x2="270" y2="114" />
             <line x1="220" y1="96" x2="220" y2="114" />
             <line x1="320" y1="96" x2="320" y2="114" />
