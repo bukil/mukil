@@ -16,7 +16,7 @@ import {
   ModalBody,
   ModalCloseButton
 } from '@chakra-ui/react'
-import { ChevronLeftIcon, ChevronDownIcon, ExternalLinkIcon } from '@chakra-ui/icons'
+import { ChevronLeftIcon, ChevronRightIcon, ChevronDownIcon, ExternalLinkIcon } from '@chakra-ui/icons'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
 import styled from '@emotion/styled'
@@ -48,13 +48,47 @@ const Trans = styled.span`
     color: #1A1A1A;
     transition: all 0.3s ease;
     z-index: 1;
-    border-radius: 40px;
+    border-radius: 0;
     height: 64px;
     &:before {
       content: '';
       position: absolute;
       top: 0;
       left: 0;
+      width: 0;
+      height: 100%;
+      background: #1A1A1A;
+      transition: all 0.3s ease;
+      z-index: -1;
+    }
+    &:hover {
+      color: #F4F4F0;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    }
+    &:hover:before {
+      width: 100%;
+    }
+  }
+`
+
+const TransRTL = styled.span`
+  Button {
+    position: relative;
+    overflow: hidden;
+    background: transparent;
+    border: 1px solid #1A1A1A;
+    color: #1A1A1A;
+    transition: all 0.3s ease;
+    z-index: 1;
+    border-radius: 0;
+    height: 64px;
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: auto;
       width: 0;
       height: 100%;
       background: #1A1A1A;
@@ -849,12 +883,12 @@ const Works = () => {
             </Section>
             <Spacer />
             <Spacer />
-            <Trans>
+            <TransRTL>
               <Section>
-                <Box w="100%" px={{ base: '20px', md: '24px' }} display="flex" justifyContent="flex-start" mb={12}>
+                <Box w="100%" px={{ base: '20px', md: '24px' }} display="flex" justifyContent="space-between" alignItems="center" mb={12}>
                   <NextLink href="/" passHref scroll={true}>
                     <Button
-                      borderRadius="40px"
+                      borderRadius="0"
                       variant="outline"
                       border="1px solid"
                       borderColor="#1A1A1A"
@@ -878,9 +912,37 @@ const Works = () => {
                       GO BACK TO HOME PAGE
                     </Button>
                   </NextLink>
+                  <Trans>
+                    <NextLink href="/contact" passHref scroll={true}>
+                      <Button
+                        borderRadius="0"
+                        variant="outline"
+                        border="1px solid"
+                        borderColor="#1A1A1A"
+                        color="#1A1A1A"
+                        px={8}
+                        py={6}
+                        fontSize="14px"
+                        fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
+                        fontWeight="500"
+                        letterSpacing="0.08em"
+                        textTransform="uppercase"
+                        height="64px"
+                        rightIcon={<ChevronRightIcon />}
+                        _hover={{
+                          bg: '#1A1A1A',
+                          color: '#F4F4F0',
+                          transform: 'translateY(-2px)',
+                          boxShadow: '0 4px 16px rgba(0, 0, 0, 0.08)'
+                        }}
+                      >
+                        CONTACT
+                      </Button>
+                    </NextLink>
+                  </Trans>
                 </Box>
               </Section>
-            </Trans>
+            </TransRTL>
           </ContentWrapper>
         </Box>
       </Layout>

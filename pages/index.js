@@ -35,7 +35,7 @@ const Trans = styled.span`
     color: #1A1A1A;
     transition: all 0.3s ease;
     z-index: 1;
-    border-radius: 40px;
+    border-radius: 0;
     height: 64px;
     
     &:before {
@@ -300,7 +300,7 @@ const Home = () => {
           </Box>
 
           {/* Skill Section */}
-          <Box w="100%" px={{ base: '20px', md: '24px' }} mt={16} mb={20} position="relative" ref={skillsSectionRef}>
+          <Box w="100%" px={{ base: '20px', md: '24px' }} mt={16} mb={12} position="relative" ref={skillsSectionRef}>
             {/* Subtle SKILLS background text */}
             {!isMobile && (
               <Box
@@ -371,6 +371,38 @@ const Home = () => {
                       {DEVELOPMENT_SKILLS.slice(0, 8).map(s => s.name).join(' | ')}<br />
                       {DEVELOPMENT_SKILLS.slice(8).map(s => s.name).join(' | ')}
                     </Text>
+                    {/* Explore More button on mobile — after last skill text */}
+                    <Trans>
+                      <Box display="flex" justifyContent="center" mt={8} mb={4}>
+                        <NextLink href="/works" passHref scroll={true}>
+                          <Button
+                            ref={buttonRef}
+                            borderRadius='0'
+                            variant='outline'
+                            border='1px solid'
+                            borderColor='#1A1A1A'
+                            color='#1A1A1A'
+                            px={8}
+                            py={6}
+                            fontSize="14px"
+                            fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
+                            fontWeight="500"
+                            letterSpacing="0.08em"
+                            textTransform="uppercase"
+                            height="64px"
+                            rightIcon={<ChevronRightIcon />}
+                            _hover={{
+                              bg: '#1A1A1A',
+                              color: '#F4F4F0',
+                              transform: 'translateY(-2px)',
+                              boxShadow: '0 4px 16px rgba(0, 0, 0, 0.08)'
+                            }}
+                          >
+                            Explore More
+                          </Button>
+                        </NextLink>
+                      </Box>
+                    </Trans>
                   </>
                 ) : (
                   <>
@@ -493,7 +525,8 @@ const Home = () => {
                     <Heading fontSize="2xl" fontWeight="300" fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif" mt={8} mb={4} color={textColor} style={{ transition: 'color 0.3s ease-out' }}>
                       Development
                     </Heading>
-                    <Box display="flex" flexWrap="wrap" gap={2} mb={8} alignItems="center">
+                    <Box display="flex" flexWrap="wrap" gap={2} mb={0} alignItems="flex-end" justifyContent="space-between">
+                      <Box display="flex" flexWrap="wrap" gap={2} alignItems="center" flex="1">
                       {DEVELOPMENT_SKILLS.map((skill, index) => {
                         const Icon = skill.icon
                         const isHovered = hoveredSkill === skill.name
@@ -549,48 +582,44 @@ const Home = () => {
                           </>
                         )
                       })}
+                      </Box>
+                      {/* Explore More button — baseline-aligned with last skill text row */}
+                      <Trans>
+                        <NextLink href="/works" passHref scroll={true}>
+                          <Button
+                            ref={buttonRef}
+                            borderRadius='0'
+                            variant='outline'
+                            border='1px solid'
+                            borderColor='#1A1A1A'
+                            color='#1A1A1A'
+                            px={8}
+                            py={6}
+                            fontSize="14px"
+                            fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
+                            fontWeight="500"
+                            letterSpacing="0.08em"
+                            textTransform="uppercase"
+                            height="64px"
+                            rightIcon={<ChevronRightIcon />}
+                            _hover={{
+                              bg: '#1A1A1A',
+                              color: '#F4F4F0',
+                              transform: 'translateY(-2px)',
+                              boxShadow: '0 4px 16px rgba(0, 0, 0, 0.08)'
+                            }}
+                          >
+                            Explore More
+                          </Button>
+                        </NextLink>
+                      </Trans>
                     </Box>
                   </>
                 )}
               </>
             )}
           </Box>
-          {/* SEE MORE ABOUT MY WORK button moved below skills */}
-          <Trans>
-            <Section>
-              <Box w="100%" px={{ base: '20px', md: '24px' }}>
-                <Box display="flex" justifyContent="flex-end" mb={12}>
-                  <NextLink href="/works" passHref scroll={true}>
-                    <Button
-                      ref={buttonRef}
-                      borderRadius='40px'
-                      variant='outline'
-                      border='1px solid'
-                      borderColor='#1A1A1A'
-                      color='#1A1A1A'
-                      px={8}
-                      py={6}
-                      fontSize="14px"
-                      fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
-                      fontWeight="500"
-                      letterSpacing="0.08em"
-                      textTransform="uppercase"
-                      height="64px"
-                      rightIcon={<ChevronRightIcon />}
-                      _hover={{
-                        bg: '#1A1A1A',
-                        color: '#F4F4F0',
-                        transform: 'translateY(-2px)',
-                        boxShadow: '0 4px 16px rgba(0, 0, 0, 0.08)'
-                      }}
-                    >
-                      Explore More
-                    </Button>
-                  </NextLink>
-                </Box>
-              </Box>
-            </Section>
-          </Trans>
+          {/* SEE MORE ABOUT MY WORK button moved inside skills section */}
         </Layout>
       </Box>
     </>
