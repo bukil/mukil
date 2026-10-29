@@ -14,8 +14,12 @@
   font-display: swap;
 }
 
-body {
+html {
   overflow-x: hidden;
+}
+
+body {
+  overflow-x: visible;
 } 
 
 /* Local Matrix font for C2C modal */

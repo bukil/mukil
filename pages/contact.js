@@ -74,7 +74,8 @@ const Contact = () => {
             <VStack spacing={8} align="stretch">
               <Box
                 bg="black"
-                borderRadius="full"
+                borderRadius="0"
+                border="0.5px solid #1A1A1A"
                 p={4}
                 display="flex"
                 justifyContent="center"

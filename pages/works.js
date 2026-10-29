@@ -39,8 +39,9 @@ const HairlinePlot = dynamic(
 )
 
 // Styled components
-const Trans = styled.span`
-  Button {
+const Trans = styled.div`
+  display: inline-block;
+  button, Button {
     position: relative;
     overflow: hidden;
     background: transparent;
@@ -49,12 +50,12 @@ const Trans = styled.span`
     transition: all 0.3s ease;
     z-index: 1;
     border-radius: 0;
-    height: 64px;
     &:before {
       content: '';
       position: absolute;
       top: 0;
-      left: 0;
+      right: 0;
+      left: auto;
       width: 0;
       height: 100%;
       background: #1A1A1A;
@@ -72,8 +73,9 @@ const Trans = styled.span`
   }
 `
 
-const TransRTL = styled.span`
-  Button {
+const TransRTL = styled.div`
+  display: inline-block;
+  button, Button {
     position: relative;
     overflow: hidden;
     background: transparent;
@@ -82,7 +84,6 @@ const TransRTL = styled.span`
     transition: all 0.3s ease;
     z-index: 1;
     border-radius: 0;
-    height: 64px;
     &:before {
       content: '';
       position: absolute;
@@ -883,36 +884,47 @@ const Works = () => {
             </Section>
             <Spacer />
             <Spacer />
-            <TransRTL>
               <Section>
-                <Box w="100%" px={{ base: '20px', md: '24px' }} display="flex" justifyContent="space-between" alignItems="center" mb={12}>
-                  <NextLink href="/" passHref scroll={true}>
-                    <Button
-                      borderRadius="0"
-                      variant="outline"
-                      border="1px solid"
-                      borderColor="#1A1A1A"
-                      color="#1A1A1A"
-                      px={8}
-                      py={6}
-                      fontSize="14px"
-                      fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
-                      fontWeight="500"
-                      letterSpacing="0.08em"
-                      textTransform="uppercase"
-                      height="64px"
-                      leftIcon={<ChevronLeftIcon />}
-                      _hover={{
-                        bg: '#1A1A1A',
-                        color: '#F4F4F0',
-                        transform: 'translateY(-2px)',
-                        boxShadow: '0 4px 16px rgba(0, 0, 0, 0.08)'
-                      }}
-                    >
-                      GO BACK TO HOME PAGE
-                    </Button>
-                  </NextLink>
-                  <Trans>
+                <Box
+                  w="100%"
+                  px={{ base: '16px', sm: '20px', md: '24px' }}
+                  display="flex"
+                  flexDirection="row"
+                  justifyContent="space-between"
+                  alignItems="center"
+                  gap={{ base: 2, sm: 3, md: 0 }}
+                  mb={12}
+                >
+                  <TransRTL>
+                    <NextLink href="/" passHref scroll={true}>
+                      <Button
+                        borderRadius="0"
+                        variant="outline"
+                        border="1px solid"
+                        borderColor="#1A1A1A"
+                        color="#1A1A1A"
+                        px={{ base: 2.5, sm: 4, md: 8 }}
+                        py={{ base: 3, md: 6 }}
+                        fontSize={{ base: '10px', sm: '12px', md: '14px' }}
+                        fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
+                        fontWeight="500"
+                        letterSpacing={{ base: '0.03em', sm: '0.05em', md: '0.08em' }}
+                        textTransform="uppercase"
+                        height={{ base: '42px', sm: '48px', md: '64px' }}
+                        whiteSpace="nowrap"
+                        leftIcon={<ChevronLeftIcon boxSize={{ base: 3.5, sm: 4, md: 5 }} />}
+                        _hover={{
+                          bg: '#1A1A1A',
+                          color: '#F4F4F0',
+                          transform: 'translateY(-2px)',
+                          boxShadow: '0 4px 16px rgba(0, 0, 0, 0.08)'
+                        }}
+                      >
+                        GO BACK TO HOME PAGE
+                      </Button>
+                    </NextLink>
+                  </TransRTL>
+                  <TransRTL>
                     <NextLink href="/contact" passHref scroll={true}>
                       <Button
                         borderRadius="0"
@@ -920,15 +932,16 @@ const Works = () => {
                         border="1px solid"
                         borderColor="#1A1A1A"
                         color="#1A1A1A"
-                        px={8}
-                        py={6}
-                        fontSize="14px"
+                        px={{ base: 3, sm: 4, md: 8 }}
+                        py={{ base: 3, md: 6 }}
+                        fontSize={{ base: '10px', sm: '12px', md: '14px' }}
                         fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
                         fontWeight="500"
-                        letterSpacing="0.08em"
+                        letterSpacing={{ base: '0.03em', sm: '0.05em', md: '0.08em' }}
                         textTransform="uppercase"
-                        height="64px"
-                        rightIcon={<ChevronRightIcon />}
+                        height={{ base: '42px', sm: '48px', md: '64px' }}
+                        whiteSpace="nowrap"
+                        rightIcon={<ChevronRightIcon boxSize={{ base: 3.5, sm: 4, md: 5 }} />}
                         _hover={{
                           bg: '#1A1A1A',
                           color: '#F4F4F0',
@@ -939,10 +952,9 @@ const Works = () => {
                         CONTACT
                       </Button>
                     </NextLink>
-                  </Trans>
+                  </TransRTL>
                 </Box>
               </Section>
-            </TransRTL>
           </ContentWrapper>
         </Box>
       </Layout>

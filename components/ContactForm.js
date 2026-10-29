@@ -58,7 +58,7 @@ const ContactForm = () => {
         onComplete: () => {
           gsap.to(formRef.current, {
             boxShadow: 'none',
-            borderColor: '#E2E8F0',
+            borderColor: '#1A1A1A',
             duration: 0.5,
             delay: 1
           })
@@ -122,7 +122,7 @@ const ContactForm = () => {
   const formBg = 'rgba(255, 255, 255, 0.9)';
   const inputBg = '#ffffff';
   const inputColor = 'gray.800';
-  const borderColor = '#E2E8F0';
+  const borderColor = '#1A1A1A';
 
   return (
     <Box
@@ -130,9 +130,9 @@ const ContactForm = () => {
       as="form"
       onSubmit={handleSubmit}
       bg={formBg}
-      p={8}
-      borderRadius="xl"
-      border={`1px solid ${borderColor}`}
+      p={{ base: 5, md: 8 }}
+      borderRadius="0"
+      border={`0.5px solid ${borderColor}`}
       backdropFilter="blur(10px)"
       transition="all 0.3s ease"
     >
@@ -142,22 +142,23 @@ const ContactForm = () => {
         </Text>
         
         <FormControl isRequired>
-          <FormLabel>Name</FormLabel>
+          <FormLabel fontSize="sm" fontWeight="500">Name</FormLabel>
           <Input
             name="name"
             value={formData.name}
             onChange={handleChange}
             placeholder="Your name"
             bg={inputBg}
-            border={`1px solid ${borderColor}`}
-            _hover={{ borderColor: '#CBD5E1' }}
-            _focus={{ borderColor: '#3182ce' }}
+            borderRadius="0"
+            border={`0.5px solid ${borderColor}`}
+            _hover={{ borderColor: '#1A1A1A' }}
+            _focus={{ borderColor: '#1A1A1A', boxShadow: '0 0 0 1px #1A1A1A' }}
             color={inputColor}
           />
         </FormControl>
 
         <FormControl isRequired>
-          <FormLabel>Email</FormLabel>
+          <FormLabel fontSize="sm" fontWeight="500">Email</FormLabel>
           <Input
             name="email"
             type="email"
@@ -165,30 +166,32 @@ const ContactForm = () => {
             onChange={handleChange}
             placeholder="your.email@example.com"
             bg={inputBg}
-            border={`1px solid ${borderColor}`}
-            _hover={{ borderColor: '#CBD5E1' }}
-            _focus={{ borderColor: '#3182ce' }}
+            borderRadius="0"
+            border={`0.5px solid ${borderColor}`}
+            _hover={{ borderColor: '#1A1A1A' }}
+            _focus={{ borderColor: '#1A1A1A', boxShadow: '0 0 0 1px #1A1A1A' }}
             color={inputColor}
           />
         </FormControl>
 
         <FormControl isRequired>
-          <FormLabel>Subject</FormLabel>
+          <FormLabel fontSize="sm" fontWeight="500">Subject</FormLabel>
           <Input
             name="subject"
             value={formData.subject}
             onChange={handleChange}
             placeholder="What's this about?"
             bg={inputBg}
-            border={`1px solid ${borderColor}`}
-            _hover={{ borderColor: '#CBD5E1' }}
-            _focus={{ borderColor: '#3182ce' }}
+            borderRadius="0"
+            border={`0.5px solid ${borderColor}`}
+            _hover={{ borderColor: '#1A1A1A' }}
+            _focus={{ borderColor: '#1A1A1A', boxShadow: '0 0 0 1px #1A1A1A' }}
             color={inputColor}
           />
         </FormControl>
 
         <FormControl isRequired>
-          <FormLabel>Message</FormLabel>
+          <FormLabel fontSize="sm" fontWeight="500">Message</FormLabel>
           <Textarea
             name="message"
             value={formData.message}
@@ -196,9 +199,10 @@ const ContactForm = () => {
             placeholder="Your message here..."
             rows={6}
             bg={inputBg}
-            border={`1px solid ${borderColor}`}
-            _hover={{ borderColor: '#CBD5E1' }}
-            _focus={{ borderColor: '#3182ce' }}
+            borderRadius="0"
+            border={`0.5px solid ${borderColor}`}
+            _hover={{ borderColor: '#1A1A1A' }}
+            _focus={{ borderColor: '#1A1A1A', boxShadow: '0 0 0 1px #1A1A1A' }}
             color={inputColor}
           />
         </FormControl>
@@ -209,11 +213,17 @@ const ContactForm = () => {
           isLoading={isLoading}
           loadingText="Sending..."
           width="full"
+          borderRadius="0"
+          border={`0.5px solid ${borderColor}`}
           bg="#F7FAFC"
-          _hover={{ bg: '#EDF2F7' }}
-          _active={{ bg: '#E2E8F0' }}
+          _hover={{ bg: '#1A1A1A', color: '#F4F4F0' }}
+          _active={{ bg: '#1A1A1A' }}
           color="gray.800"
-          border="1px solid #E2E8F0"
+          height="52px"
+          fontSize="14px"
+          fontWeight="500"
+          letterSpacing="0.08em"
+          textTransform="uppercase"
         >
           Send Message
         </Button>
