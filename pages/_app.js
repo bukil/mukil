@@ -12,51 +12,51 @@ if (typeof window !== 'undefined') {
 // 1 = navigating forward (Home -> Playground): enters from Right (+100%), exits to Left (-100%)
 // -1 = navigating back (Playground -> Home): enters from Left (-100%), exits to Right (+100%)
 // 0 = standard fade / gentle motion for other routes
+// Snappy tween durations — no spring settle lag, no mode="wait" blocking
+const SLIDE_DURATION = 0.22   // seconds for the x slide
+const FADE_DURATION  = 0.15   // seconds for opacity
+
 const pageVariants = {
   initial: (direction) => {
-    if (direction === 1) {
-      return { x: '100%', opacity: 0 }
-    }
-    if (direction === -1) {
-      return { x: '-100%', opacity: 0 }
-    }
-    return { opacity: 0, y: 16 }
+    if (direction === 1) return { x: '60%', opacity: 0 }
+    if (direction === -1) return { x: '-60%', opacity: 0 }
+    return { opacity: 0, y: 10 }
   },
   animate: {
     x: 0,
     y: 0,
     opacity: 1,
     transition: {
-      x: { type: 'spring', stiffness: 280, damping: 32, mass: 0.8 },
-      opacity: { duration: 0.25, ease: 'easeOut' },
-      y: { duration: 0.35, ease: 'easeOut' }
+      x: { duration: SLIDE_DURATION, ease: [0.25, 0.46, 0.45, 0.94] },
+      opacity: { duration: FADE_DURATION, ease: 'easeOut' },
+      y: { duration: SLIDE_DURATION, ease: [0.25, 0.46, 0.45, 0.94] }
     }
   },
   exit: (direction) => {
     if (direction === 1) {
       return {
-        x: '-100%',
+        x: '-60%',
         opacity: 0,
         transition: {
-          x: { type: 'spring', stiffness: 280, damping: 32, mass: 0.8 },
-          opacity: { duration: 0.2, ease: 'easeIn' }
+          x: { duration: SLIDE_DURATION, ease: [0.55, 0, 1, 0.45] },
+          opacity: { duration: FADE_DURATION, ease: 'easeIn' }
         }
       }
     }
     if (direction === -1) {
       return {
-        x: '100%',
+        x: '60%',
         opacity: 0,
         transition: {
-          x: { type: 'spring', stiffness: 280, damping: 32, mass: 0.8 },
-          opacity: { duration: 0.2, ease: 'easeIn' }
+          x: { duration: SLIDE_DURATION, ease: [0.55, 0, 1, 0.45] },
+          opacity: { duration: FADE_DURATION, ease: 'easeIn' }
         }
       }
     }
     return {
       opacity: 0,
-      y: 16,
-      transition: { duration: 0.25, ease: 'easeIn' }
+      y: 10,
+      transition: { duration: FADE_DURATION, ease: 'easeIn' }
     }
   }
 }
@@ -75,10 +75,6 @@ function Website({ Component, pageProps, router }) {
       const nextOrder = ORDER[next]
 
       if (typeof prevOrder === 'number' && typeof nextOrder === 'number' && prevOrder !== nextOrder) {
-        // If going to a page further to the right (e.g. Home -> Playground, Playground -> Contact, Home -> Contact):
-        // direction = 1 (enter from right, exit to left)
-        // If going back to a page on the left:
-        // direction = -1 (enter from left, exit to right)
         setDirection(nextOrder > prevOrder ? 1 : -1)
       } else {
         setDirection(0)
@@ -86,9 +82,17 @@ function Website({ Component, pageProps, router }) {
       prevPathRef.current = next
     }
 
+    const handleRouteChangeComplete = () => {
+      if (typeof window !== 'undefined') {
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+      }
+    }
+
     router.events.on('routeChangeStart', handleRouteChangeStart)
+    router.events.on('routeChangeComplete', handleRouteChangeComplete)
     return () => {
       router.events.off('routeChangeStart', handleRouteChangeStart)
+      router.events.off('routeChangeComplete', handleRouteChangeComplete)
     }
   }, [router])
 
@@ -97,14 +101,9 @@ function Website({ Component, pageProps, router }) {
       <Fonts />
       <Layout router={router}>
         <AnimatePresence
-          mode="wait"
+          mode="sync"
           initial={false}
           custom={direction}
-          onExitComplete={() => {
-            if (typeof window !== 'undefined') {
-              window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
-            }
-          }}
         >
           <motion.div
             key={router.route}
