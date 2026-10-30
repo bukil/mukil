@@ -404,7 +404,7 @@ export function ChatGPT3DGraphic() {
           height: '100%',
           display: 'block'
         },
-        '& path, & polygon, & line, & circle': {
+        '& path, & polygon, & line, & circle, & rect': {
           vectorEffect: 'non-scaling-stroke',
           strokeLinejoin: 'round',
           strokeLinecap: 'round'
@@ -417,60 +417,54 @@ export function ChatGPT3DGraphic() {
         xmlns="http://www.w3.org/2000/svg"
         style={{ width: '100%', height: '100%', overflow: 'visible' }}
       >
+        <defs>
+          <clipPath id="chatgpt-rounded-base">
+            <rect x="0" y="0" width="100" height="100" rx="10" ry="10" />
+          </clipPath>
+        </defs>
         <g id="chatgpt-scaled-complex" transform="translate(270, 232) scale(1.50) translate(-270, -114)">
           <g id="isometric-plinth">
-            <polygon
-              points="146,114 270,185 270,193 146,122"
+            {/* Front skirt/thickness of rounded plinth */}
+            <path
+              d="M153.26,114 L153.6,115.96 L154.6,117.84 L156.22,119.58 L158.4,121.1 L257.6,177.9 L260.26,179.15 L263.29,180.08 L266.58,180.65 L270,180.84 L273.42,180.65 L276.71,180.08 L279.74,179.15 L282.4,177.9 L381.6,121.1 L383.78,119.58 L385.4,117.84 L386.4,115.96 L386.74,114 L386.74,122 L386.4,123.96 L385.4,125.84 L383.78,127.58 L381.6,129.1 L282.4,185.9 L279.74,187.15 L276.71,188.08 L273.42,188.65 L270,188.84 L266.58,188.65 L263.29,188.08 L260.26,187.15 L257.6,185.9 L158.4,129.1 L156.22,127.58 L154.6,125.84 L153.6,123.96 L153.26,122 Z"
               fill="#ffffff"
               stroke="#a4a4ac"
               strokeWidth="0.9"
             />
-            <polygon
-              points="270,185 394,114 394,122 270,193"
-              fill="#ffffff"
-              stroke="#a4a4ac"
-              strokeWidth="0.9"
-            />
+
+            {/* Top rounded plate with image, grid lines, and hairline perimeter */}
             <g transform="matrix(1.24, 0.71, -1.24, 0.71, 270, 43)">
-              <image
-                href="/images/chatgpt-base.jpg"
+              <g clipPath="url(#chatgpt-rounded-base)">
+                <image
+                  href="/images/chatgpt-base.jpg"
+                  x="0"
+                  y="0"
+                  width="100"
+                  height="100"
+                  preserveAspectRatio="none"
+                />
+                <g stroke="rgba(255, 255, 255, 0.55)" strokeWidth="0.8" strokeDasharray="2 4">
+                  <line x1="0" y1="25" x2="100" y2="25" />
+                  <line x1="0" y1="50" x2="100" y2="50" />
+                  <line x1="0" y1="75" x2="100" y2="75" />
+                  <line x1="25" y1="0" x2="25" y2="100" />
+                  <line x1="50" y1="0" x2="50" y2="100" />
+                  <line x1="75" y1="0" x2="75" y2="100" />
+                </g>
+              </g>
+              <rect
                 x="0"
                 y="0"
                 width="100"
                 height="100"
-                preserveAspectRatio="none"
+                rx="10"
+                ry="10"
+                fill="none"
+                style={{ fill: 'none' }}
+                stroke="#232327"
+                strokeWidth="0.9"
               />
             </g>
-            <polygon
-              points="270,43 394,114 270,185 146,114"
-              fill="none"
-              style={{ fill: 'none' }}
-              stroke="#232327"
-              strokeWidth="0.9"
-            />
-            <g stroke="rgba(255, 255, 255, 0.55)" strokeWidth="0.8" strokeDasharray="2 4">
-              <line x1="177" y1="96" x2="301" y2="167" />
-              <line x1="208" y1="78" x2="332" y2="149" />
-              <line x1="239" y1="60" x2="363" y2="131" />
-              <line x1="363" y1="96" x2="239" y2="167" />
-              <line x1="332" y1="78" x2="208" y2="149" />
-              <line x1="301" y1="60" x2="177" y2="131" />
-            </g>
-            <g stroke="#a4a4ac" strokeWidth="0.8">
-              <line x1="140" y1="114" x2="152" y2="114" />
-              <line x1="146" y1="108" x2="146" y2="120" />
-              <line x1="388" y1="114" x2="400" y2="114" />
-              <line x1="394" y1="108" x2="394" y2="120" />
-              <line x1="264" y1="43" x2="276" y2="43" />
-              <line x1="270" y1="37" x2="270" y2="49" />
-              <line x1="264" y1="185" x2="276" y2="185" />
-              <line x1="270" y1="179" x2="270" y2="191" />
-            </g>
-            <circle cx="146" cy="114" r="1.6" fill="#232327" />
-            <circle cx="394" cy="114" r="1.6" fill="#232327" />
-            <circle cx="270" cy="43" r="1.6" fill="#232327" />
-            <circle cx="270" cy="185" r="1.6" fill="#232327" />
-            <circle cx="270" cy="114" r="1.5" fill="#a4a4ac" />
           </g>
 
           <g transform="translate(270, 114)">
@@ -533,11 +527,6 @@ export function ChatGPT3DGraphic() {
                 fill="#232327"
                 opacity="0.25"
               />
-              <circle cx="0" cy="-28" r="1.6" fill="#232327" />
-              <circle cx="48" cy="0" r="1.6" fill="#232327" />
-              <circle cx="-48" cy="0" r="1.6" fill="#232327" />
-              <circle cx="0" cy="28" r="1.6" fill="#232327" />
-              <circle cx="0" cy="0" r="1.4" fill="#a4a4ac" />
             </g>
           </g>
         </g>
