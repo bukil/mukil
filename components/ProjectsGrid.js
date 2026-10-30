@@ -13,6 +13,7 @@ import MunselModel from './MunselModel'
 import KodeboardModal from './projects/Kodeboard'
 import Section from './section'
 import ApplePasswordModal from './ApplePasswordModal'
+import { animate } from 'animejs'
 
 const HairlineHub = dynamic(
   () => import('@lucasmarkes/hairline/react').then((m) => m.Hub),
@@ -370,14 +371,16 @@ export function AppleHIGGraphic() {
   )
 }
 
-// Hairline Tour Stops (ambient inspection loop when not hovered)
-// Travels across knot quadrants, dwells to reveal magnified lines, then rests on plinth corner
+// Hairline Tour Stops (ambient inspection loop visiting knot quadrants & 3D UI component tiles)
 const TOUR_STOPS = [
-  { x: -36, y: -18, dwell: 1800, lift: 1 }, // West quadrant (left lobe)
-  { x: 0, y: -28, dwell: 1800, lift: 1 },   // North quadrant (top lobe)
-  { x: 36, y: -14, dwell: 1800, lift: 1 },   // East quadrant (right lobe)
-  { x: 0, y: 22, dwell: 1800, lift: 1 },    // South quadrant (front lobe)
-  { x: 42, y: 16, dwell: 2400, lift: 0 }    // Rest position on plinth
+  { x: -36, y: -18, dwell: 1800, lift: 1 },  // Main knot West quadrant
+  { x: 0, y: -28, dwell: 1800, lift: 1 },    // Main knot North quadrant
+  { x: 70, y: -80, dwell: 2000, lift: 1 },   // Right Upper Tab (Voice Mic)
+  { x: 139, y: -40, dwell: 2000, lift: 1 },  // Right Lower Tab (Send Button)
+  { x: 0, y: 22, dwell: 1800, lift: 1 },     // Main knot South quadrant
+  { x: -70, y: -80, dwell: 2000, lift: 1 },  // Left Upper Tab (Plus Button)
+  { x: -139, y: -40, dwell: 2000, lift: 1 }, // Left Lower Tab (Web Search Globe)
+  { x: 42, y: 16, dwell: 2400, lift: 0 }     // Main plinth rest position
 ];
 
 export function ChatGPT3DGraphic() {
@@ -391,6 +394,18 @@ export function ChatGPT3DGraphic() {
   const loupeRef = useRef(null);
   const magnifiedContentRef = useRef(null);
   const rimGroupRef = useRef(null);
+
+  // Satellite Plinth Anime.js Animation Refs
+  const plinthTab1Ref = useRef(null);
+  const plinthTab2Ref = useRef(null);
+  const plinthTab3Ref = useRef(null);
+  const plinthTab4Ref = useRef(null);
+  const plinthTextRef = useRef(null);
+  const plinthState = useRef(0);
+  const plinthProgress = useRef({ value: 0 });
+  const plinthAnimRef = useRef(null);
+  const plinthIntervalRef = useRef(null);
+  const switchPlinthsRef = useRef(null);
 
   // Loupe rest position: rests near the lower-right area of the plinth, clear of the logo
   const REST_X = 42;
@@ -443,10 +458,10 @@ export function ChatGPT3DGraphic() {
       const x = Number.isFinite(springX.current.x) ? springX.current.x : REST_X;
       const y = Number.isFinite(springY.current.x) ? springY.current.x : REST_Y;
       const rawLift = Number.isFinite(springLift.current.x) ? springLift.current.x : 0;
-      const liftProgress = Math.max(0, Math.min(1.5, rawLift));
+      const _liftProgress = Math.max(0, Math.min(1.5, rawLift));
 
-      // Lens elevation above floor (28px rest -> 34px hover lift)
-      const liftZ = 28 + 6 * liftProgress;
+      // Lens rests directly over target (zero vertical parallax disconnect)
+      const liftZ = 0;
 
       // Update Loupe position
       if (loupeRef.current) {
@@ -509,16 +524,12 @@ export function ChatGPT3DGraphic() {
       const nx = Math.max(-0.5, Math.min(0.5, (e.clientX - rect.left) / rect.width - 0.5));
       const ny = Math.max(-0.5, Math.min(0.5, (e.clientY - rect.top) / rect.height - 0.5));
 
-      let tx = nx * 105;
-      let ty = ny * 62;
+      let tx = nx * 300;
+      let ty = ny * 160;
 
-      // Isometric boundary clamping: stay inside rounded base plinth
-      const rho = Math.abs(tx) / 106 + Math.abs(ty) / 63;
-      if (rho > 0.60 && rho > 0.0001) {
-        const scaleClamp = 0.60 / rho;
-        tx *= scaleClamp;
-        ty *= scaleClamp;
-      }
+      // Isometric boundary clamping: stay inside complex bounds
+      tx = Math.max(-150, Math.min(150, tx));
+      ty = Math.max(-88, Math.min(75, ty));
 
       if (Number.isFinite(tx) && Number.isFinite(ty)) {
         springX.current.t = tx;
@@ -548,12 +559,78 @@ export function ChatGPT3DGraphic() {
       tourTimeoutRef.current = setTimeout(advanceTour, 1800);
     };
 
+    // -------------------------------------------------------------------------
+    // Anime.js Satellite Plinth Switching Animation with inOutElastic(1, 0.66)
+    // Plinths glide strictly within the isometric plane without moving main base
+    // -------------------------------------------------------------------------
+    const updatePlinthPositions = (p) => {
+      const cp = Math.max(0, Math.min(1, p));
+      const arc = Math.sin(Math.PI * cp);
+
+      // Pair 1: Left Flank (Tab 1 at Slot 1: 200.56, 34.48 <-> Tab 2 at Slot 2: 131.12, 74.24)
+      const dx1 = -69.44 * p - 16 * arc;
+      const dy1 = 39.76 * p - 9.1 * arc;
+
+      const dx2 = 69.44 * p + 16 * arc;
+      const dy2 = -39.76 * p + 9.1 * arc;
+
+      // Pair 2: Right Flank (Tab 3 at Slot 3: 339.44, 34.48 <-> Tab 4 at Slot 4: 408.88, 74.24)
+      const dx3 = 69.44 * p + 16 * arc;
+      const dy3 = 39.76 * p - 9.1 * arc;
+
+      const dx4 = -69.44 * p - 16 * arc;
+      const dy4 = -39.76 * p + 9.1 * arc;
+
+      // Tab 5 (Prompt Bar): shifts along bottom isometric track
+      const dxBar = 29.76 * p;
+      const dyBar = 17.04 * p;
+
+      if (plinthTab1Ref.current) plinthTab1Ref.current.setAttribute('transform', `translate(${dx1.toFixed(2)}, ${dy1.toFixed(2)})`);
+      if (plinthTab2Ref.current) plinthTab2Ref.current.setAttribute('transform', `translate(${dx2.toFixed(2)}, ${dy2.toFixed(2)})`);
+      if (plinthTab3Ref.current) plinthTab3Ref.current.setAttribute('transform', `translate(${dx3.toFixed(2)}, ${dy3.toFixed(2)})`);
+      if (plinthTab4Ref.current) plinthTab4Ref.current.setAttribute('transform', `translate(${dx4.toFixed(2)}, ${dy4.toFixed(2)})`);
+      if (plinthTextRef.current) plinthTextRef.current.setAttribute('transform', `translate(${dxBar.toFixed(2)}, ${dyBar.toFixed(2)})`);
+    };
+
+    const switchPlinths = () => {
+      const nextState = plinthState.current === 0 ? 1 : 0;
+      plinthState.current = nextState;
+
+      if (plinthIntervalRef.current) clearTimeout(plinthIntervalRef.current);
+      if (plinthAnimRef.current) {
+        try {
+          plinthAnimRef.current.pause();
+        } catch (_err) {}
+      }
+
+      plinthAnimRef.current = animate(plinthProgress.current, {
+        value: nextState,
+        duration: 950,
+        ease: 'inOutElastic(1, 0.66)',
+        onUpdate: () => {
+          updatePlinthPositions(plinthProgress.current.value);
+        },
+        onComplete: () => {
+          if (!document.hidden) {
+            plinthIntervalRef.current = setTimeout(switchPlinths, 2800);
+          }
+        }
+      });
+    };
+
+    switchPlinthsRef.current = switchPlinths;
+    // Schedule initial plinth switch
+    plinthIntervalRef.current = setTimeout(switchPlinths, 3000);
+
     const onVisibilityChange = () => {
       if (document.hidden) {
         if (tourTimeoutRef.current) clearTimeout(tourTimeoutRef.current);
-      } else if (!isHovered.current) {
+        if (plinthIntervalRef.current) clearTimeout(plinthIntervalRef.current);
+      } else {
         if (tourTimeoutRef.current) clearTimeout(tourTimeoutRef.current);
         tourTimeoutRef.current = setTimeout(advanceTour, 1200);
+        if (plinthIntervalRef.current) clearTimeout(plinthIntervalRef.current);
+        plinthIntervalRef.current = setTimeout(switchPlinths, 1500);
       }
     };
 
@@ -570,6 +647,12 @@ export function ChatGPT3DGraphic() {
 
     return () => {
       if (tourTimeoutRef.current) clearTimeout(tourTimeoutRef.current);
+      if (plinthIntervalRef.current) clearTimeout(plinthIntervalRef.current);
+      if (plinthAnimRef.current) {
+        try {
+          plinthAnimRef.current.pause();
+        } catch (_err) {}
+      }
       container.removeEventListener('pointermove', onPointerMove);
       container.removeEventListener('pointerenter', onPointerEnter);
       container.removeEventListener('pointerleave', onPointerLeave);
@@ -585,6 +668,7 @@ export function ChatGPT3DGraphic() {
   return (
     <Box
       ref={containerRef}
+      id="chatgpt-interactive-container"
       position="absolute"
       top={0}
       left={0}
@@ -629,6 +713,25 @@ export function ChatGPT3DGraphic() {
         },
         '& .hl-slice': {
           strokeWidth: '0.22px !important'
+        },
+        '& .hl-lens-outline': {
+          strokeWidth: '0.28px !important',
+          stroke: '#232327 !important'
+        },
+        '@keyframes hlCursorBlink': {
+          '0%, 100%': { opacity: 1 },
+          '50%': { opacity: 0 }
+        },
+        '@keyframes hlPulse': {
+          '0%, 100%': { opacity: 0.85, transform: 'scale(1)' },
+          '50%': { opacity: 1, transform: 'scale(1.08)' }
+        },
+        '& .hl-cursor-blink': {
+          animation: 'hlCursorBlink 0.9s infinite steps(2, start)'
+        },
+        '& .hl-shine-symbol': {
+          transformOrigin: '200.56px 34.48px',
+          animation: 'hlPulse 3s ease-in-out infinite'
         }
       }}
     >
@@ -643,12 +746,356 @@ export function ChatGPT3DGraphic() {
             <rect x="0" y="0" width="100" height="100" rx="10" ry="10" />
           </clipPath>
 
+          <clipPath id="chatgpt-shine-base">
+            <rect x="0" y="0" width="44" height="44" rx="6" ry="6" />
+          </clipPath>
+
+          <clipPath id="chatgpt-btn-base">
+            <rect x="0" y="0" width="44" height="44" rx="6" ry="6" />
+          </clipPath>
+
+          <clipPath id="chatgpt-input-base">
+            <rect x="0" y="0" width="100" height="44" rx="7" ry="7" />
+          </clipPath>
+
           <clipPath id="chatgpt-loupe-glass">
             <ellipse cx="0" cy="0" rx="40" ry="23.1" />
           </clipPath>
 
-          {/* Reusable Stationary Artwork: Base plinth + Stationary ChatGPT Logo Stack as before */}
+          {/* Reusable Stationary Artwork: Main base + 3D UI Satellite bases */}
           <g id="chatgpt-stationary-artwork">
+            {/* Satellite Base 1: Plus (+) Attachment Tab (Slot 1: Outer Top) */}
+            <g id="plinth-tab-1" ref={plinthTab1Ref}>
+              {/* Front skirt (8px height) */}
+              <path
+                className="hl-outline"
+                d="M150.36,34.48 L150.49,35.42 L150.87,36.34 L151.51,37.22 L152.37,38.02 L153.44,38.74 L193.12,61.46 L193.12,61.46 L194.38,62.07 L195.78,62.57 L197.31,62.93 L198.91,63.15 L200.56,63.22 L202.21,63.15 L203.81,62.93 L205.34,62.57 L206.74,62.07 L208,61.46 L247.68,38.74 L247.68,38.74 L248.75,38.02 L249.61,37.22 L250.25,36.34 L250.63,35.42 L250.76,34.48 L250.76,42.48 L250.76,42.48 L250.63,43.42 L250.25,44.34 L249.61,45.22 L248.75,46.02 L247.68,46.74 L247.68,46.74 L208,69.46 L206.74,70.07 L205.34,70.57 L203.81,70.93 L202.21,71.15 L200.56,71.22 L198.91,71.15 L197.31,70.93 L195.78,70.57 L194.38,70.07 L193.12,69.46 L193.12,69.46 L153.44,46.74 L152.37,46.02 L151.51,45.22 L150.87,44.34 L150.49,43.42 L150.36,42.48 Z"
+                fill="#ffffff"
+                style={{ fill: '#ffffff', strokeWidth: '0.25px' }}
+                stroke="#a4a4ac"
+                strokeWidth="0.25"
+              />
+              {/* Clean White Top Plate with subtle grid */}
+              <g transform="matrix(1.24, 0.71, -1.24, 0.71, 200.56, 3.24)">
+                <rect
+                  className="hl-outline"
+                  x="0"
+                  y="0"
+                  width="44"
+                  height="44"
+                  rx="6"
+                  ry="6"
+                  fill="#ffffff"
+                  style={{ fill: '#ffffff', strokeWidth: '0.25px' }}
+                  stroke="#232327"
+                  strokeWidth="0.25"
+                />
+                <g stroke="rgba(35, 35, 39, 0.08)" strokeWidth="0.18" strokeDasharray="1.5 2.5">
+                  <line className="hl-grid-line" style={{ strokeWidth: '0.18px' }} x1="0" y1="22" x2="44" y2="22" />
+                  <line className="hl-grid-line" style={{ strokeWidth: '0.18px' }} x1="22" y1="0" x2="22" y2="44" />
+                </g>
+              </g>
+
+              {/* 3D UI Symbol: Tactile Plus (+) Button */}
+              <g transform="translate(200.56, 34.48)">
+                <path
+                  d="M -10,0 A 10 5.7 0 0 0 10,0 L 10,2.5 A 10 5.7 0 0 1 -10,2.5 Z"
+                  fill="#ffffff"
+                  stroke="#a4a4ac"
+                  strokeWidth="0.25"
+                />
+                <ellipse
+                  cx="0"
+                  cy="0"
+                  rx="10"
+                  ry="5.7"
+                  fill="#f8f8fa"
+                  stroke="#232327"
+                  strokeWidth="0.25"
+                />
+                <path
+                  d="M -4.2,0 L 4.2,0 M 0,-2.4 L 0,2.4"
+                  fill="none"
+                  stroke="#232327"
+                  strokeWidth="0.38"
+                  strokeLinecap="round"
+                />
+              </g>
+            </g>
+
+            {/* Satellite Base 2: Web Search Globe Tab (Left Lower: 131.12, 74.24) */}
+            <g id="plinth-tab-2" ref={plinthTab2Ref}>
+              {/* Front skirt (8px height) */}
+              <path
+                className="hl-outline"
+                d="M80.92,74.24 L81.05,75.18 L81.43,76.1 L82.07,76.98 L82.93,77.78 L84,78.5 L123.68,101.22 L123.68,101.22 L124.94,101.83 L126.34,102.33 L127.87,102.69 L129.47,102.91 L131.12,102.98 L132.77,102.91 L134.37,102.69 L135.9,102.33 L137.3,101.83 L138.56,101.22 L178.24,78.5 L178.24,78.5 L179.31,77.78 L180.17,76.98 L180.81,76.1 L181.19,75.18 L181.32,74.24 L181.32,82.24 L181.32,82.24 L181.19,83.18 L180.81,84.1 L180.17,84.98 L179.31,85.78 L178.24,86.5 L178.24,86.5 L138.56,109.22 L137.3,109.83 L135.9,110.33 L134.37,110.69 L132.77,110.91 L131.12,110.98 L129.47,110.91 L127.87,110.69 L126.34,110.33 L124.94,109.83 L123.68,109.22 L123.68,109.22 L84,86.5 L82.93,85.78 L82.07,84.98 L81.43,84.1 L81.05,83.18 L80.92,82.24 Z"
+                fill="#ffffff"
+                style={{ fill: '#ffffff', strokeWidth: '0.25px' }}
+                stroke="#a4a4ac"
+                strokeWidth="0.25"
+              />
+              {/* Clean White Top Plate with subtle grid */}
+              <g transform="matrix(1.24, 0.71, -1.24, 0.71, 131.12, 43.00)">
+                <rect
+                  className="hl-outline"
+                  x="0"
+                  y="0"
+                  width="44"
+                  height="44"
+                  rx="6"
+                  ry="6"
+                  fill="#ffffff"
+                  style={{ fill: '#ffffff', strokeWidth: '0.25px' }}
+                  stroke="#232327"
+                  strokeWidth="0.25"
+                />
+                <g stroke="rgba(35, 35, 39, 0.08)" strokeWidth="0.18" strokeDasharray="1.5 2.5">
+                  <line className="hl-grid-line" style={{ strokeWidth: '0.18px' }} x1="0" y1="22" x2="44" y2="22" />
+                  <line className="hl-grid-line" style={{ strokeWidth: '0.18px' }} x1="22" y1="0" x2="22" y2="44" />
+                </g>
+              </g>
+
+              {/* 3D UI Symbol: Tactile Web Search Globe */}
+              <g transform="translate(131.12, 74.24)">
+                <path
+                  d="M -10,0 A 10 5.7 0 0 0 10,0 L 10,2.5 A 10 5.7 0 0 1 -10,2.5 Z"
+                  fill="#ffffff"
+                  stroke="#a4a4ac"
+                  strokeWidth="0.25"
+                />
+                <ellipse
+                  cx="0"
+                  cy="0"
+                  rx="10"
+                  ry="5.7"
+                  fill="#f8f8fa"
+                  stroke="#232327"
+                  strokeWidth="0.25"
+                />
+                <path d="M -8.5,0 L 8.5,0" stroke="#232327" strokeWidth="0.25" strokeLinecap="round" />
+                <path d="M 0,-4.8 L 0,4.8" stroke="#232327" strokeWidth="0.25" strokeLinecap="round" />
+                <ellipse cx="0" cy="0" rx="4.5" ry="5.2" fill="none" stroke="#232327" strokeWidth="0.25" />
+              </g>
+            </g>
+
+            {/* Satellite Base 3: Voice Mic Tab (Right Upper: 339.44, 34.48) */}
+            <g id="plinth-tab-3" ref={plinthTab3Ref}>
+              {/* Front skirt (8px height, shifted by +138.88 from Slot 1) */}
+              <g transform="translate(138.88, 0)">
+                <path
+                  className="hl-outline"
+                  d="M150.36,34.48 L150.49,35.42 L150.87,36.34 L151.51,37.22 L152.37,38.02 L153.44,38.74 L193.12,61.46 L193.12,61.46 L194.38,62.07 L195.78,62.57 L197.31,62.93 L198.91,63.15 L200.56,63.22 L202.21,63.15 L203.81,62.93 L205.34,62.57 L206.74,62.07 L208,61.46 L247.68,38.74 L247.68,38.74 L248.75,38.02 L249.61,37.22 L250.25,36.34 L250.63,35.42 L250.76,34.48 L250.76,42.48 L250.76,42.48 L250.63,43.42 L250.25,44.34 L249.61,45.22 L248.75,46.02 L247.68,46.74 L247.68,46.74 L208,69.46 L206.74,70.07 L205.34,70.57 L203.81,70.93 L202.21,71.15 L200.56,71.22 L198.91,71.15 L197.31,70.93 L195.78,70.57 L194.38,70.07 L193.12,69.46 L193.12,69.46 L153.44,46.74 L152.37,46.02 L151.51,45.22 L150.87,44.34 L150.49,43.42 L150.36,42.48 Z"
+                  fill="#ffffff"
+                  style={{ fill: '#ffffff', strokeWidth: '0.25px' }}
+                  stroke="#a4a4ac"
+                  strokeWidth="0.25"
+                />
+              </g>
+              {/* Clean White Top Plate with subtle grid */}
+              <g transform="matrix(1.24, 0.71, -1.24, 0.71, 339.44, 3.24)">
+                <rect
+                  className="hl-outline"
+                  x="0"
+                  y="0"
+                  width="44"
+                  height="44"
+                  rx="6"
+                  ry="6"
+                  fill="#ffffff"
+                  style={{ fill: '#ffffff', strokeWidth: '0.25px' }}
+                  stroke="#232327"
+                  strokeWidth="0.25"
+                />
+                <g stroke="rgba(35, 35, 39, 0.08)" strokeWidth="0.18" strokeDasharray="1.5 2.5">
+                  <line className="hl-grid-line" style={{ strokeWidth: '0.18px' }} x1="0" y1="22" x2="44" y2="22" />
+                  <line className="hl-grid-line" style={{ strokeWidth: '0.18px' }} x1="22" y1="0" x2="22" y2="44" />
+                </g>
+              </g>
+
+              {/* 3D UI Symbol: Tactile Voice Mic Button */}
+              <g transform="translate(339.44, 34.48)">
+                <path
+                  d="M -10,0 A 10 5.7 0 0 0 10,0 L 10,2.5 A 10 5.7 0 0 1 -10,2.5 Z"
+                  fill="#ffffff"
+                  stroke="#a4a4ac"
+                  strokeWidth="0.25"
+                />
+                <ellipse
+                  cx="0"
+                  cy="0"
+                  rx="10"
+                  ry="5.7"
+                  fill="#f8f8fa"
+                  stroke="#232327"
+                  strokeWidth="0.25"
+                />
+                <rect x="-1.8" y="-3.4" width="3.6" height="4.8" rx="1.8" fill="#232327" />
+                <path
+                  d="M -3.6,-0.8 A 3.6 2.6 0 0 0 3.6,-0.8"
+                  fill="none"
+                  stroke="#232327"
+                  strokeWidth="0.28"
+                  strokeLinecap="round"
+                />
+                <path
+                  d="M 0,1.8 L 0,3.2 M -2.2,3.2 L 2.2,3.2"
+                  fill="none"
+                  stroke="#232327"
+                  strokeWidth="0.28"
+                  strokeLinecap="round"
+                />
+              </g>
+            </g>
+
+            {/* Satellite Base 4: Send Arrow Button Tab (Right Lower: 408.88, 74.24) */}
+            <g id="plinth-tab-4" ref={plinthTab4Ref}>
+              {/* Front skirt (8px height, shifted by +277.76 from Slot 2) */}
+              <g transform="translate(277.76, 0)">
+                <path
+                  className="hl-outline"
+                  d="M80.92,74.24 L81.05,75.18 L81.43,76.1 L82.07,76.98 L82.93,77.78 L84,78.5 L123.68,101.22 L123.68,101.22 L124.94,101.83 L126.34,102.33 L127.87,102.69 L129.47,102.91 L131.12,102.98 L132.77,102.91 L134.37,102.69 L135.9,102.33 L137.3,101.83 L138.56,101.22 L178.24,78.5 L178.24,78.5 L179.31,77.78 L180.17,76.98 L180.81,76.1 L181.19,75.18 L181.32,74.24 L181.32,82.24 L181.32,82.24 L181.19,83.18 L180.81,84.1 L180.17,84.98 L179.31,85.78 L178.24,86.5 L178.24,86.5 L138.56,109.22 L137.3,109.83 L135.9,110.33 L134.37,110.69 L132.77,110.91 L131.12,110.98 L129.47,110.91 L127.87,110.69 L126.34,110.33 L124.94,109.83 L123.68,109.22 L123.68,109.22 L84,86.5 L82.93,85.78 L82.07,84.98 L81.43,84.1 L81.05,83.18 L80.92,82.24 Z"
+                  fill="#ffffff"
+                  style={{ fill: '#ffffff', strokeWidth: '0.25px' }}
+                  stroke="#a4a4ac"
+                  strokeWidth="0.25"
+                />
+              </g>
+              {/* Clean White Top Plate with subtle grid */}
+              <g transform="matrix(1.24, 0.71, -1.24, 0.71, 408.88, 43.00)">
+                <rect
+                  className="hl-outline"
+                  x="0"
+                  y="0"
+                  width="44"
+                  height="44"
+                  rx="6"
+                  ry="6"
+                  fill="#ffffff"
+                  style={{ fill: '#ffffff', strokeWidth: '0.25px' }}
+                  stroke="#232327"
+                  strokeWidth="0.25"
+                />
+                <g stroke="rgba(35, 35, 39, 0.08)" strokeWidth="0.18" strokeDasharray="1.5 2.5">
+                  <line className="hl-grid-line" style={{ strokeWidth: '0.18px' }} x1="0" y1="22" x2="44" y2="22" />
+                  <line className="hl-grid-line" style={{ strokeWidth: '0.18px' }} x1="22" y1="0" x2="22" y2="44" />
+                </g>
+              </g>
+
+              {/* 3D UI Symbol: Tactile Send Arrow Button (Dark High Contrast) */}
+              <g transform="translate(408.88, 74.24)">
+                <path
+                  d="M -10,0 A 10 5.7 0 0 0 10,0 L 10,2.5 A 10 5.7 0 0 1 -10,2.5 Z"
+                  fill="#ffffff"
+                  stroke="#a4a4ac"
+                  strokeWidth="0.25"
+                />
+                <ellipse
+                  cx="0"
+                  cy="0"
+                  rx="10"
+                  ry="5.7"
+                  fill="#232327"
+                  stroke="#232327"
+                  strokeWidth="0.25"
+                />
+                <path
+                  d="M 0,-2.8 L 0,2.5 M 0,-2.8 L -2.2,-0.6 M 0,-2.8 L 2.2,-0.6"
+                  fill="none"
+                  stroke="#ffffff"
+                  strokeWidth="0.38"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </g>
+            </g>
+
+            {/* Satellite Base 5: Text Prompt Bar Plinth (Clean White Plate, No Texture) */}
+            <g id="plinth-text-field" ref={plinthTextRef}>
+              {/* Front skirt (8px height) */}
+              <path
+                className="hl-outline"
+                d="M81.64,153.76 L81.8,154.86 L82.25,155.93 L82.98,156.95 L83.99,157.89 L85.24,158.73 L191.88,219.79 L191.88,219.79 L193.34,220.51 L194.99,221.08 L196.77,221.5 L198.64,221.76 L200.56,221.85 L202.48,221.76 L204.35,221.5 L206.13,221.08 L207.78,220.51 L209.24,219.79 L246.44,198.49 L246.44,198.49 L247.69,197.65 L248.7,196.71 L249.43,195.69 L249.88,194.62 L250.04,193.52 L250.04,201.52 L250.04,201.52 L249.88,202.62 L249.43,203.69 L248.7,204.71 L247.69,205.65 L246.44,206.49 L246.44,206.49 L209.24,227.79 L207.78,228.51 L206.13,229.08 L204.35,229.5 L202.48,229.76 L200.56,229.85 L198.64,229.76 L196.77,229.5 L194.99,229.08 L193.34,228.51 L191.88,227.79 L191.88,227.79 L85.24,166.73 L83.99,165.89 L82.98,164.95 L82.25,163.93 L81.8,162.86 L81.64,161.76 Z"
+                fill="#ffffff"
+                style={{ fill: '#ffffff', strokeWidth: '0.25px' }}
+                stroke="#a4a4ac"
+                strokeWidth="0.25"
+              />
+              {/* Clean White Top Plate with subtle grid */}
+              <g transform="matrix(1.24, 0.71, -1.24, 0.71, 131.12, 122.52)">
+                <rect
+                  className="hl-outline"
+                  x="0"
+                  y="0"
+                  width="100"
+                  height="44"
+                  rx="7"
+                  ry="7"
+                  fill="#ffffff"
+                  style={{ fill: '#ffffff', strokeWidth: '0.25px' }}
+                  stroke="#232327"
+                  strokeWidth="0.25"
+                />
+                <g stroke="rgba(35, 35, 39, 0.08)" strokeWidth="0.18" strokeDasharray="1.5 2.5">
+                  <line className="hl-grid-line" style={{ strokeWidth: '0.18px' }} x1="0" y1="22" x2="100" y2="22" />
+                  <line className="hl-grid-line" style={{ strokeWidth: '0.18px' }} x1="25" y1="0" x2="25" y2="44" />
+                  <line className="hl-grid-line" style={{ strokeWidth: '0.18px' }} x1="50" y1="0" x2="50" y2="44" />
+                  <line className="hl-grid-line" style={{ strokeWidth: '0.18px' }} x1="75" y1="0" x2="75" y2="44" />
+                </g>
+
+                {/* 3D UI Symbol: Isometric Prompt Input Capsule Bar (Full Length) */}
+                <g>
+                  {/* Capsule container */}
+                  <rect
+                    x="6"
+                    y="9"
+                    width="88"
+                    height="26"
+                    rx="13"
+                    ry="13"
+                    fill="#fbfbfd"
+                    style={{ fill: '#fbfbfd', strokeWidth: '0.28px' }}
+                    stroke="#232327"
+                    strokeWidth="0.28"
+                  />
+                  {/* Plus '+' Attachment icon button */}
+                  <circle cx="15" cy="22" r="5" fill="#f4f4f5" stroke="#d4d4d8" strokeWidth="0.25" />
+                  <line x1="12.5" y1="22" x2="17.5" y2="22" stroke="#71717a" strokeWidth="0.35" />
+                  <line x1="15" y1="19.5" x2="15" y2="24.5" stroke="#71717a" strokeWidth="0.35" />
+
+                  {/* Simulated typing placeholder text */}
+                  <line x1="24" y1="22" x2="52" y2="22" stroke="#a1a1aa" strokeWidth="0.35" strokeDasharray="2 2" />
+
+                  {/* Animated Blinking Cursor Bar */}
+                  <line
+                    className="hl-cursor-blink"
+                    x1="55"
+                    y1="17.5"
+                    x2="55"
+                    y2="26.5"
+                    stroke="#232327"
+                    strokeWidth="0.5"
+                  />
+
+                  {/* Mic icon */}
+                  <rect x="68" y="18.5" width="3.6" height="6" rx="1.8" fill="none" stroke="#a1a1aa" strokeWidth="0.3" />
+                  <path d="M 67.8,22.2 A 2 2 0 0 0 71.8,22.2 M 69.8,24.2 L 69.8,25.8" fill="none" stroke="#a1a1aa" strokeWidth="0.3" />
+
+                  {/* Small circular Send button on far right of prompt capsule */}
+                  <circle cx="81.5" cy="22" r="4.5" fill="#232327" stroke="#232327" strokeWidth="0.25" />
+                  <path
+                    d="M 81.5,23.8 L 81.5,20.2 M 80,21.6 L 81.5,20.2 L 83,21.6"
+                    fill="none"
+                    style={{ fill: 'none', strokeWidth: '0.35px' }}
+                    stroke="#ffffff"
+                    strokeWidth="0.35"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </g>
+              </g>
+            </g>
+
+            {/* Main Center Plinth */}
             <g id="isometric-plinth">
               {/* Front skirt/thickness of rounded plinth (ultra-thin stroke) */}
               <path
@@ -742,64 +1189,35 @@ export function ChatGPT3DGraphic() {
 
           {/* Interactive Floating Magnifying Lens without legs */}
           <g ref={loupeRef} transform={`translate(${270 + REST_X}, ${114 + REST_Y})`}>
-            {/* Soft floating shadow below lens */}
-            <ellipse
-              cx="0"
-              cy="6"
-              rx="38"
-              ry="22"
-              fill="rgba(0, 0, 0, 0.08)"
-              style={{ fill: 'rgba(0, 0, 0, 0.08)' }}
-              stroke="none"
-            />
-
-            {/* Elevated cylindrical rim & optical glass */}
-            <g ref={rimGroupRef} transform="translate(0, -28)">
+            {/* Simple Clean Lens */}
+            <g ref={rimGroupRef}>
               {/* Magnified view through glass */}
               <g clipPath="url(#chatgpt-loupe-glass)">
-                <ellipse cx="0" cy="0" rx="40" ry="23.1" fill="rgba(255, 255, 255, 0.12)" style={{ fill: 'rgba(255, 255, 255, 0.12)' }} />
+                {/* Opaque backing matching page canvas to completely block unzoomed artwork underneath */}
+                <ellipse
+                  cx="0"
+                  cy="0"
+                  rx="40"
+                  ry="23.1"
+                  fill="#f4f4f0"
+                  style={{ fill: '#f4f4f0' }}
+                />
                 <g ref={magnifiedContentRef}>
                   <use href="#chatgpt-stationary-artwork" />
                 </g>
               </g>
 
-              {/* Cylindrical Rim: skirt, top face, and inner bevel crease (thin lines) */}
-              <path
-                d="M -44 0 A 44 25.4 0 0 0 44 0 L 44 2.8 A 44 25.4 0 0 1 -44 2.8 Z"
-                fill="#ffffff"
-                style={{ fill: '#ffffff', strokeWidth: '0.3px' }}
-                stroke="#232327"
-                strokeWidth="0.3"
-              />
+              {/* Simple Single Outline */}
               <ellipse
-                cx="0"
-                cy="0"
-                rx="44"
-                ry="25.4"
-                fill="none"
-                style={{ fill: 'none', strokeWidth: '0.3px' }}
-                stroke="#232327"
-                strokeWidth="0.3"
-              />
-              <ellipse
+                className="hl-lens-outline"
                 cx="0"
                 cy="0"
                 rx="40"
                 ry="23.1"
                 fill="none"
-                style={{ fill: 'none', strokeWidth: '0.25px' }}
-                stroke="#a4a4ac"
-                strokeWidth="0.25"
-              />
-
-              {/* Glint shine highlight arc on glass */}
-              <path
-                d="M -34 -6 A 38 21.9 0 0 1 20 -18"
-                fill="none"
-                style={{ fill: 'none', strokeWidth: '0.3px' }}
-                stroke="rgba(255, 255, 255, 0.95)"
-                strokeWidth="0.3"
-                strokeDasharray="10 24"
+                style={{ fill: 'none', strokeWidth: '0.28px', stroke: '#232327' }}
+                stroke="#232327"
+                strokeWidth="0.28"
               />
             </g>
           </g>
@@ -867,7 +1285,7 @@ export function ChatGPTCustomSVGGraphic() {
       const x = Number.isFinite(springX.current.x) ? springX.current.x : 0;
       const y = Number.isFinite(springY.current.y) ? springY.current.y : 0;
       const rawLift = Number.isFinite(springLift.current.x) ? springLift.current.x : 0;
-      const liftProgress = Math.max(0, Math.min(1.5, rawLift)); // 0 (rest) to 1 (hovered zoom)
+      const _liftProgress = Math.max(0, Math.min(1.5, rawLift)); // 0 (rest) to 1 (hovered zoom)
 
       // Zoom lens interaction dynamics:
       // 1. Knot elevation lifts along vertical Z axis (16px rest -> 34px zoom)
