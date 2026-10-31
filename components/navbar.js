@@ -29,8 +29,8 @@ const Navbar = ({ path }) => {
       top={0}
       left={0}
       zIndex={2000}
-      pt={{ base: '20px', md: '28px' }}
-      pb="16px"
+      pt={{ base: '12px', md: '14px' }}
+      pb="10px"
       px={{ base: '20px', md: '24px' }}
       bg="transparent"
       pointerEvents="none"
