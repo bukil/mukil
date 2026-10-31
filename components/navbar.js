@@ -3,7 +3,6 @@ import NextLink from 'next/link'
 import {
   Box,
   Link,
-  Flex,
   HStack,
   Menu,
   MenuItem,
@@ -22,26 +21,34 @@ const NAV_ITEMS = [
 
 const Navbar = ({ path }) => {
   return (
-    <Box
-      position="fixed"
-      as="nav"
-      w="100%"
-      top={0}
-      left={0}
-      zIndex={2000}
-      pt={{ base: '12px', md: '14px' }}
-      pb="10px"
-      px={{ base: '20px', md: '24px' }}
-      bg="transparent"
-      pointerEvents="none"
-    >
-      <Flex align="center" justify="space-between" w="100%" pointerEvents="auto">
-        {/* Mukil Signature Logo on the Left */}
-        <Box display="flex" alignItems="center">
-          <Logo />
-        </Box>
+    <>
+      {/* Mukil Signature Logo on the Left - with real-time color inversion */}
+      <Box
+        position="fixed"
+        top={0}
+        left={0}
+        zIndex={2000}
+        pt={{ base: '12px', md: '14px' }}
+        pb="10px"
+        px={{ base: '20px', md: '24px' }}
+        pointerEvents="auto"
+        mixBlendMode="difference"
+      >
+        <Logo />
+      </Box>
 
-        {/* Desktop Navigation on the Right */}
+      {/* Desktop & Mobile Navigation on the Right - in crisp black */}
+      <Box
+        position="fixed"
+        top={0}
+        right={0}
+        zIndex={2000}
+        pt={{ base: '12px', md: '14px' }}
+        pb="10px"
+        px={{ base: '20px', md: '24px' }}
+        pointerEvents="auto"
+      >
+        {/* Desktop Navigation */}
         <HStack
           as="nav"
           spacing={{ md: 7, lg: 9 }}
@@ -134,8 +141,8 @@ const Navbar = ({ path }) => {
             </Portal>
           </Menu>
         </Box>
-      </Flex>
-    </Box>
+      </Box>
+    </>
   )
 }
 

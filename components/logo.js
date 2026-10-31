@@ -9,11 +9,11 @@ const LogoBox = styled.span`
   margin-top: -6px;
   margin-bottom: 6px;
 
-  img {
+  img, svg {
     transition: opacity 0.2s ease, transform 0.2s ease;
   }
 
-  &:hover img {
+  &:hover img, &:hover svg {
     opacity: 0.75;
     transform: scale(1.03);
   }
