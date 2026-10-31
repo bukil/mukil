@@ -13,20 +13,25 @@ const Main = ({ children, router }) => {
     <Box as="main" pb={0} minHeight="100vh" display="flex" flexDirection="column">
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="description" content="homepage" />
+        <meta name="description" content="Mukil Kumar — Product Designer, Interaction Designer, and Creative Technologist from IDC School of Design, IIT Bombay." />
+        <meta name="keywords" content="Mukil, Mukil Kumar, Mukil IITB, Mukil IDC, Mukil Designer, Mukil IIT Bombay, Product Designer, Interaction Designer, IDC School of Design, Creative Technologist" />
         <meta name="author" content="Mukil Kumar" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="manifest" href="/site.webmanifest" />
-        <meta name="apple-mobile-web-app-title" content="Mukil" />
-        <meta name="application-name" content="Mukil" />
+        <meta name="apple-mobile-web-app-title" content="Mukil Kumar" />
+        <meta name="application-name" content="Mukil Kumar" />
         <meta name="theme-color" content="#ffffff" />
-        <meta property="og:site_name" content="Mukil" />
-        <meta name="og:title" content="Mukil" />
+        <meta property="og:site_name" content="Mukil Kumar Portfolio" />
+        <meta name="og:title" content="Mukil Kumar | Product & Interaction Designer | IDC IIT Bombay" />
+        <meta property="og:description" content="Mukil Kumar — Product Designer, Interaction Designer, and Creative Technologist from IDC School of Design, IIT Bombay." />
         <meta property="og:type" content="website" />
-        <title>Mukil</title>
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Mukil Kumar | Product & Interaction Designer | IDC IIT Bombay" />
+        <meta name="twitter:description" content="Portfolio of Mukil Kumar — Interaction Designer, Creative Technologist, and M.Des at IDC School of Design, IIT Bombay." />
+        <title>Mukil Kumar | Product & Interaction Designer | IDC IIT Bombay</title>
       </Head>
 
       <Navbar path={router.asPath} />

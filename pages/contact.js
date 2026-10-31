@@ -1,4 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
+import Head from 'next/head'
 import {
   Container,
   Heading,
@@ -37,7 +38,16 @@ const ContactLink = ({ icon, href, children }) => (
 
 const Contact = () => {
   return (
-    <Layout>
+    <>
+      <Head>
+        <title>Contact | Mukil Kumar — IDC IIT Bombay</title>
+        <meta name="description" content="Connect with Mukil Kumar — Product Designer and Interaction Designer from IDC School of Design, IIT Bombay. Open for collaborations, projects, and discussions." />
+        <meta name="keywords" content="Contact Mukil, Mukil Kumar, Mukil, Mukil IITB, Mukil IDC, Hire Mukil, Interaction Designer Contact" />
+        <meta property="og:title" content="Contact | Mukil Kumar — IDC IIT Bombay" />
+        <meta property="og:description" content="Connect with Mukil Kumar — Product Designer and Interaction Designer from IDC School of Design, IIT Bombay." />
+        <link rel="canonical" href="https://mukil.vercel.app/contact" />
+      </Head>
+      <Layout>
       <Box position="relative" minH="100vh" pt={{ base: 4, md: 8 }} pb={12}>
         <Container maxW="container.md">
 
@@ -137,6 +147,7 @@ const Contact = () => {
         <FooterLand />
       </Box>
     </Layout>
+    </>
   )
 }
 

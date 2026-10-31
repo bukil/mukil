@@ -111,11 +111,12 @@ const SKILL_ICONS = {
 }
 
 function AnimatedIntro({ textColor = '#1A1A1A' }) {
-  const line = "Mukil is a product designer working at the intersection of design and technology to create meaningful, accessible experiences."
+  const line = "Mukil Kumar is a product designer working at the intersection of design and technology to create meaningful, accessible experiences."
 
   return (
     <Box w="100%">
       <Text
+        as="h1"
         variant="home-txt"
         fontSize={{ base: '28px', sm: '34px', md: '38px', lg: '42px', xl: '42px' }}
         fontWeight="normal"
@@ -132,6 +133,9 @@ function AnimatedIntro({ textColor = '#1A1A1A' }) {
         }}
       >
         {line}
+      </Text>
+      <Text as="h2" srOnly>
+        Mukil Kumar — Interaction Designer, Product Designer & Creative Technologist at IDC School of Design, IIT Bombay (IITB)
       </Text>
     </Box>
   );
@@ -260,28 +264,99 @@ const Home = () => {
       <Global styles={`body { background: ${bgColor} !important; transition: background 0.1s linear; }`} />
       <Box ref={pageRef} position="relative" minHeight="100vh">
         <Head>
-          <title>Mukil | Design</title>
-          <meta name="description" content="Mukil - Interaction Designer, Creative Technologist, and Electronics Engineer. Currently pursuing Master of Design at IDC IIT Bombay. Specializing in user-centered design and creative technology solutions." />
-          <meta name="keywords" content="Mukil, Interaction Designer, Creative Technologist, Electronics Engineer, IDC IIT Bombay, UX Design, UI Design, Product Design" />
-          <meta name="author" content="Mukil" />
+          <title>Mukil Kumar | Product & Interaction Designer | IDC IIT Bombay</title>
+          <meta name="description" content="Portfolio of Mukil Kumar — Interaction Designer, Product Designer, and Creative Technologist from IDC School of Design, IIT Bombay (IITB). Specializing in human-centered experiences." />
+          <meta name="keywords" content="Mukil, Mukil Kumar, Mukil IITB, Mukil IDC, Mukil Designer, Mukil IIT Bombay, Product Designer, Interaction Designer, Creative Technologist, IDC School of Design" />
+          <meta name="author" content="Mukil Kumar" />
           <meta name="robots" content="index, follow" />
 
           {/* Open Graph / Social Media Meta Tags */}
-          <meta property="og:title" content="Mukil" />
-          <meta property="og:description" content="Portfolio of Mukil - Interaction Designer, Creative Technologist, and Electronics Engineer. Specializing in user-centered design and creative technology solutions." />
+          <meta property="og:title" content="Mukil Kumar | Product & Interaction Designer | IDC IIT Bombay" />
+          <meta property="og:description" content="Portfolio of Mukil Kumar — Interaction Designer, Product Designer, and Creative Technologist from IDC School of Design, IIT Bombay." />
           <meta property="og:type" content="website" />
           <meta property="og:url" content="https://mukil.vercel.app" />
           <meta property="og:image" content="https://mukil.vercel.app/images/mukil.jpg" />
 
           {/* Twitter Card Meta Tags */}
           <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:title" content="Mukil" />
-          <meta name="twitter:description" content="Portfolio of Mukil - Interaction Designer, Creative Technologist, and Electronics Engineer." />
+          <meta name="twitter:title" content="Mukil Kumar | Product & Interaction Designer | IDC IIT Bombay" />
+          <meta name="twitter:description" content="Portfolio of Mukil Kumar — Interaction Designer, Product Designer, and Creative Technologist at IDC School of Design, IIT Bombay." />
           <meta name="twitter:image" content="https://mukil.vercel.app/images/mukil.jpg" />
 
           {/* Canonical URL */}
           <link rel="canonical" href="https://mukil.vercel.app" />
-          {/* Font links moved to _document.js */}
+
+          {/* Schema.org Person & WebSite Structured Data (JSON-LD) */}
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                '@context': 'https://schema.org',
+                '@graph': [
+                  {
+                    '@type': 'Person',
+                    '@id': 'https://mukil.vercel.app/#person',
+                    name: 'Mukil Kumar',
+                    alternateName: [
+                      'Mukil',
+                      'Mukil IITB',
+                      'Mukil IDC',
+                      'Mukil Designer',
+                      'Mukil Kumar IIT Bombay'
+                    ],
+                    url: 'https://mukil.vercel.app',
+                    image: 'https://mukil.vercel.app/images/mukil.jpg',
+                    jobTitle: [
+                      'Product Designer',
+                      'Interaction Designer',
+                      'Creative Technologist'
+                    ],
+                    description:
+                      'Product & Interaction Designer and Creative Technologist at IDC School of Design, IIT Bombay.',
+                    alumniOf: [
+                      {
+                        '@type': 'EducationalOrganization',
+                        name: 'IDC School of Design, IIT Bombay',
+                        alternateName: ['IDC IIT Bombay', 'IDC IITB', 'IDC'],
+                        url: 'https://www.idc.iitb.ac.in'
+                      },
+                      {
+                        '@type': 'EducationalOrganization',
+                        name: 'Indian Institute of Technology Bombay',
+                        alternateName: ['IIT Bombay', 'IITB'],
+                        url: 'https://www.iitb.ac.in'
+                      }
+                    ],
+                    knowsAbout: [
+                      'Product Design',
+                      'Interaction Design',
+                      'User Interface Design',
+                      'User Experience Design',
+                      'Design Systems',
+                      'Creative Coding',
+                      '3D Modeling',
+                      'Hardware & Electronics'
+                    ],
+                    sameAs: [
+                      'https://www.linkedin.com/in/mukilk/',
+                      'https://github.com/bukil'
+                    ]
+                  },
+                  {
+                    '@type': 'WebSite',
+                    '@id': 'https://mukil.vercel.app/#website',
+                    url: 'https://mukil.vercel.app',
+                    name: 'Mukil Kumar Portfolio',
+                    description:
+                      'Personal portfolio of Mukil Kumar — Product Designer, Interaction Designer, and Creative Technologist from IDC School of Design, IIT Bombay.',
+                    publisher: {
+                      '@id': 'https://mukil.vercel.app/#person'
+                    }
+                  }
+                ]
+              })
+            }}
+          />
         </Head>
         <Layout>
           <Spacer minHeight={{ base: '12px', md: '16px' }} />

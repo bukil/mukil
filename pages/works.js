@@ -823,8 +823,12 @@ const Works = () => {
   return (
     <>
       <Head>
-        <title>Playground - Mukil</title>
-        <meta name="description" content="Mukil's creative playground and interactive projects." />
+        <title>Playground & Projects | Mukil Kumar — IDC IIT Bombay</title>
+        <meta name="description" content="Explore interaction design experiments, creative coding, 3D modeling, and interactive hardware projects by Mukil Kumar (IDC School of Design, IIT Bombay)." />
+        <meta name="keywords" content="Mukil Kumar, Mukil, Mukil Projects, Mukil Playground, Mukil IITB, Mukil IDC, Interaction Design Portfolio, Creative Coding, IIT Bombay" />
+        <meta property="og:title" content="Playground & Projects | Mukil Kumar — IDC IIT Bombay" />
+        <meta property="og:description" content="Explore interaction design experiments, creative coding, and interactive hardware projects by Mukil Kumar." />
+        <link rel="canonical" href="https://mukil.vercel.app/works" />
       </Head>
       <Layout title="Playground" mt={10} overflowX="hidden">
         <Box w="100%" position="relative">
