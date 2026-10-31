@@ -3,31 +3,34 @@ import Image from 'next/image'
 import styled from '@emotion/styled'
 
 const LogoBox = styled.span`
-  font-weight: bold;
-  font-size: 18px;
   display: inline-flex;
   align-items: center;
-  height: 30px;
-  line-height: 20px;
   padding: 4px 0;
 
   img {
-    transition: 250ms ease;
-    transform: rotate(-10deg);
+    transition: opacity 0.2s ease, transform 0.2s ease;
   }
 
   &:hover img {
-    transform: rotate(0deg);
+    opacity: 0.75;
+    transform: scale(1.03);
   }
 `
 
 const Logo = () => {
-  const footPrintImg = '/images/logo.png'
+  const logoImg = '/muk.svg'
 
   return (
     <Link href="/" scroll={false}>
       <LogoBox>
-        <Image src={footPrintImg} width={100} height={40} alt="logo" priority/>
+        <Image
+          src={logoImg}
+          width={110}
+          height={80}
+          alt="Mukil"
+          priority
+          style={{ width: '110px', height: 'auto', display: 'block' }}
+        />
       </LogoBox>
     </Link>
   )
