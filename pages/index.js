@@ -261,7 +261,7 @@ const Home = () => {
 
   return (
     <>
-      <Global styles={`body { background: ${bgColor} !important; transition: background 0.1s linear; }`} />
+      <Global styles={`html, body { background: ${bgColor} !important; transition: background 0.1s linear; }`} />
       <Box ref={pageRef} position="relative" minHeight="100vh">
         <Head>
           <title>Mukil Kumar | Product & Interaction Designer | IDC IIT Bombay</title>

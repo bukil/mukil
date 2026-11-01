@@ -1,16 +1,28 @@
 import Head from 'next/head'
+import { useEffect } from 'react'
 import Navbar from '../navbar'
 import { Box, Container } from '@chakra-ui/react'
+import { Global } from '@emotion/react'
 import Footer from '../footer'
 import FooterLand from '../FooterLand'
-
 
 const Main = ({ children, router }) => {
   const showFooter = router.pathname === '/works'
   const showFooterLand = router.pathname === '/'
 
+  // Home is '#F4F4F0'; Playground (/works) and Contact (/contact) stay white '#ffffff' as before
+  const isHome = router.pathname === '/'
+  const currentBg = isHome ? '#F4F4F0' : '#ffffff'
+
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      document.documentElement.style.backgroundColor = currentBg
+      document.body.style.backgroundColor = currentBg
+    }
+  }, [currentBg])
+
   return (
-    <Box as="main" pb={0} minHeight="100vh" display="flex" flexDirection="column">
+    <Box as="main" pb={0} minHeight="100vh" display="flex" flexDirection="column" bg={currentBg} transition="background-color 0.2s ease">
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content="Mukil Kumar — Product Designer, Interaction Designer, and Creative Technologist from IDC School of Design, IIT Bombay." />
@@ -23,7 +35,7 @@ const Main = ({ children, router }) => {
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="apple-mobile-web-app-title" content="Mukil Kumar" />
         <meta name="application-name" content="Mukil Kumar" />
-        <meta name="theme-color" content="#ffffff" />
+        <meta name="theme-color" content={currentBg} />
         <meta property="og:site_name" content="Mukil Kumar Portfolio" />
         <meta name="og:title" content="Mukil Kumar | Product & Interaction Designer | IDC IIT Bombay" />
         <meta property="og:description" content="Mukil Kumar — Product Designer, Interaction Designer, and Creative Technologist from IDC School of Design, IIT Bombay." />
@@ -34,9 +46,20 @@ const Main = ({ children, router }) => {
         <title>Mukil Kumar | Product & Interaction Designer | IDC IIT Bombay</title>
       </Head>
 
+      <Global
+        styles={`
+          html {
+            background-color: ${currentBg} !important;
+          }
+          body {
+            background-color: ${currentBg} !important;
+          }
+        `}
+      />
+
       <Navbar path={router.asPath} />
 
-      <Box as="main" pt="80px" pb={0} flex="1" display="flex" flexDirection="column">
+      <Box as="main" pt="80px" pb={0} flex="1" display="flex" flexDirection="column" bg={currentBg} transition="background-color 0.2s ease">
         {['/works', '/', '/contact'].includes(router.pathname) ? (
           <Box flex="1" display="flex" flexDirection="column">
             <Box flex="1">

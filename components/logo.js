@@ -6,11 +6,12 @@ const LogoBox = styled.span`
   display: inline-flex;
   align-items: center;
   padding: 0;
-  margin-top: -6px;
-  margin-bottom: 6px;
+  margin: 0;
+  overflow: visible;
 
   img, svg {
     transition: opacity 0.2s ease, transform 0.2s ease;
+    overflow: visible;
   }
 
   &:hover img, &:hover svg {
@@ -28,10 +29,10 @@ const Logo = () => {
         <Image
           src={logoImg}
           width={110}
-          height={59}
+          height={67}
           alt="Mukil"
           priority
-          style={{ width: '110px', height: 'auto', display: 'block' }}
+          style={{ width: '110px', height: 'auto', display: 'block', overflow: 'visible' }}
         />
       </LogoBox>
     </Link>

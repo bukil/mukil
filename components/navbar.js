@@ -33,6 +33,7 @@ const Navbar = ({ path }) => {
         px={{ base: '20px', md: '24px' }}
         pointerEvents="auto"
         mixBlendMode="difference"
+        overflow="visible"
       >
         <Logo />
       </Box>
@@ -105,7 +106,7 @@ const Navbar = ({ path }) => {
             />
             <Portal>
               <MenuList
-                bg="#F4F4F0"
+                bg={path === '/' ? '#F4F4F0' : '#ffffff'}
                 backdropFilter="blur(16px)"
                 border="1px solid rgba(26, 26, 26, 0.12)"
                 borderRadius="8px"
