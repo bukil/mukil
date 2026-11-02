@@ -1,4 +1,5 @@
-import { google } from 'googleapis'
+// Load only the Sheets client instead of initializing every Google API.
+import { auth as googleAuth, sheets as createSheets } from 'googleapis/build/src/apis/sheets'
 
 // Check for required environment variables
 const requiredEnvVars = {
@@ -28,7 +29,7 @@ let SPREADSHEET_ID
 
 try {
   // Initialize Google Sheets API
-  const auth = new google.auth.GoogleAuth({
+  const auth = new googleAuth.GoogleAuth({
     credentials: {
       client_email: process.env.GOOGLE_CLIENT_EMAIL,
       private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, '\n'),
@@ -36,7 +37,7 @@ try {
     scopes: ['https://www.googleapis.com/auth/spreadsheets'],
   })
 
-  sheets = google.sheets({ version: 'v4', auth })
+  sheets = createSheets({ version: 'v4', auth })
   SPREADSHEET_ID = process.env.GOOGLE_SHEET_ID
 } catch (error) {
   console.error('Error initializing Google Sheets:', error)
@@ -112,4 +113,4 @@ export default async function handler(req, res) {
       } : undefined
     })
   }
-} 
+}

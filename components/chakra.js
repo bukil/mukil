@@ -10,7 +10,6 @@ const lightColorModeManager = {
   get: () => 'light',
   set: () => {}
 }
-
 export default function Chakra({ children }) {
   return (
     <ChakraProvider theme={theme} colorModeManager={lightColorModeManager}>
@@ -33,12 +32,4 @@ export default function Chakra({ children }) {
       {children}
     </ChakraProvider>
   )
-}
-
-export async function getServerSideProps({ req }) {
-  return {
-    props: {
-      cookies: req.headers.cookie ?? ''
-    }
-  }
 }

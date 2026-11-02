@@ -152,4 +152,3 @@ const Contact = () => {
 }
 
 export default Contact
-export { getServerSideProps } from '../components/chakra'

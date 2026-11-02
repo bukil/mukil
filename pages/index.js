@@ -264,6 +264,7 @@ const Home = () => {
       <Global styles={`html, body { background: ${bgColor} !important; transition: background 0.1s linear; }`} />
       <Box ref={pageRef} position="relative" minHeight="100vh">
         <Head>
+          <link rel="preload" as="image" href="/images/Apple-Logo.png" />
           <title>Mukil Kumar | Product & Interaction Designer | IDC IIT Bombay</title>
           <meta name="description" content="Portfolio of Mukil Kumar — Interaction Designer, Product Designer, and Creative Technologist from IDC School of Design, IIT Bombay (IITB). Specializing in human-centered experiences." />
           <meta name="keywords" content="Mukil, Mukil Kumar, Mukil IITB, Mukil IDC, Mukil Designer, Mukil IIT Bombay, Product Designer, Interaction Designer, Creative Technologist, IDC School of Design" />
@@ -702,4 +703,3 @@ const Home = () => {
 }
 
 export default Home
-export { getServerSideProps } from '../components/chakra'

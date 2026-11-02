@@ -97,7 +97,7 @@ function Website({ Component, pageProps, router }) {
   }, [router])
 
   return (
-    <Chakra cookies={pageProps.cookies}>
+    <Chakra>
       <Fonts />
       <Layout router={router}>
         <AnimatePresence
