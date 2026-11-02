@@ -704,6 +704,9 @@ export function ChatGPT3DGraphic() {
         '& .hl-outline': {
           strokeWidth: '0.25px !important'
         },
+        '& .hl-skirt': {
+          strokeWidth: '0.36px !important'
+        },
         '& .hl-grid-line': {
           strokeWidth: '0.18px !important'
         },
@@ -768,12 +771,12 @@ export function ChatGPT3DGraphic() {
             <g id="plinth-tab-1" ref={plinthTab1Ref}>
               {/* Front skirt (8px height) */}
               <path
-                className="hl-outline"
+                className="hl-skirt"
                 d="M150.36,34.48 L150.49,35.42 L150.87,36.34 L151.51,37.22 L152.37,38.02 L153.44,38.74 L193.12,61.46 L193.12,61.46 L194.38,62.07 L195.78,62.57 L197.31,62.93 L198.91,63.15 L200.56,63.22 L202.21,63.15 L203.81,62.93 L205.34,62.57 L206.74,62.07 L208,61.46 L247.68,38.74 L247.68,38.74 L248.75,38.02 L249.61,37.22 L250.25,36.34 L250.63,35.42 L250.76,34.48 L250.76,42.48 L250.76,42.48 L250.63,43.42 L250.25,44.34 L249.61,45.22 L248.75,46.02 L247.68,46.74 L247.68,46.74 L208,69.46 L206.74,70.07 L205.34,70.57 L203.81,70.93 L202.21,71.15 L200.56,71.22 L198.91,71.15 L197.31,70.93 L195.78,70.57 L194.38,70.07 L193.12,69.46 L193.12,69.46 L153.44,46.74 L152.37,46.02 L151.51,45.22 L150.87,44.34 L150.49,43.42 L150.36,42.48 Z"
                 fill="#ffffff"
-                style={{ fill: '#ffffff', strokeWidth: '0.25px' }}
-                stroke="#a4a4ac"
-                strokeWidth="0.25"
+                style={{ fill: '#ffffff', strokeWidth: '0.36px' }}
+                stroke="#232327"
+                strokeWidth="0.36"
               />
               {/* Clean White Top Plate with subtle grid */}
               <g transform="matrix(1.24, 0.71, -1.24, 0.71, 200.56, 3.24)">
@@ -801,7 +804,7 @@ export function ChatGPT3DGraphic() {
                 <path
                   d="M -10,0 A 10 5.7 0 0 0 10,0 L 10,2.5 A 10 5.7 0 0 1 -10,2.5 Z"
                   fill="#ffffff"
-                  stroke="#a4a4ac"
+                  stroke="#232327"
                   strokeWidth="0.25"
                 />
                 <ellipse
@@ -827,12 +830,12 @@ export function ChatGPT3DGraphic() {
             <g id="plinth-tab-2" ref={plinthTab2Ref}>
               {/* Front skirt (8px height) */}
               <path
-                className="hl-outline"
+                className="hl-skirt"
                 d="M80.92,74.24 L81.05,75.18 L81.43,76.1 L82.07,76.98 L82.93,77.78 L84,78.5 L123.68,101.22 L123.68,101.22 L124.94,101.83 L126.34,102.33 L127.87,102.69 L129.47,102.91 L131.12,102.98 L132.77,102.91 L134.37,102.69 L135.9,102.33 L137.3,101.83 L138.56,101.22 L178.24,78.5 L178.24,78.5 L179.31,77.78 L180.17,76.98 L180.81,76.1 L181.19,75.18 L181.32,74.24 L181.32,82.24 L181.32,82.24 L181.19,83.18 L180.81,84.1 L180.17,84.98 L179.31,85.78 L178.24,86.5 L178.24,86.5 L138.56,109.22 L137.3,109.83 L135.9,110.33 L134.37,110.69 L132.77,110.91 L131.12,110.98 L129.47,110.91 L127.87,110.69 L126.34,110.33 L124.94,109.83 L123.68,109.22 L123.68,109.22 L84,86.5 L82.93,85.78 L82.07,84.98 L81.43,84.1 L81.05,83.18 L80.92,82.24 Z"
                 fill="#ffffff"
-                style={{ fill: '#ffffff', strokeWidth: '0.25px' }}
-                stroke="#a4a4ac"
-                strokeWidth="0.25"
+                style={{ fill: '#ffffff', strokeWidth: '0.36px' }}
+                stroke="#232327"
+                strokeWidth="0.36"
               />
               {/* Clean White Top Plate with subtle grid */}
               <g transform="matrix(1.24, 0.71, -1.24, 0.71, 131.12, 43.00)">
@@ -860,7 +863,7 @@ export function ChatGPT3DGraphic() {
                 <path
                   d="M -10,0 A 10 5.7 0 0 0 10,0 L 10,2.5 A 10 5.7 0 0 1 -10,2.5 Z"
                   fill="#ffffff"
-                  stroke="#a4a4ac"
+                  stroke="#232327"
                   strokeWidth="0.25"
                 />
                 <ellipse
@@ -883,12 +886,12 @@ export function ChatGPT3DGraphic() {
               {/* Front skirt (8px height, shifted by +138.88 from Slot 1) */}
               <g transform="translate(138.88, 0)">
                 <path
-                  className="hl-outline"
+                  className="hl-skirt"
                   d="M150.36,34.48 L150.49,35.42 L150.87,36.34 L151.51,37.22 L152.37,38.02 L153.44,38.74 L193.12,61.46 L193.12,61.46 L194.38,62.07 L195.78,62.57 L197.31,62.93 L198.91,63.15 L200.56,63.22 L202.21,63.15 L203.81,62.93 L205.34,62.57 L206.74,62.07 L208,61.46 L247.68,38.74 L247.68,38.74 L248.75,38.02 L249.61,37.22 L250.25,36.34 L250.63,35.42 L250.76,34.48 L250.76,42.48 L250.76,42.48 L250.63,43.42 L250.25,44.34 L249.61,45.22 L248.75,46.02 L247.68,46.74 L247.68,46.74 L208,69.46 L206.74,70.07 L205.34,70.57 L203.81,70.93 L202.21,71.15 L200.56,71.22 L198.91,71.15 L197.31,70.93 L195.78,70.57 L194.38,70.07 L193.12,69.46 L193.12,69.46 L153.44,46.74 L152.37,46.02 L151.51,45.22 L150.87,44.34 L150.49,43.42 L150.36,42.48 Z"
                   fill="#ffffff"
-                  style={{ fill: '#ffffff', strokeWidth: '0.25px' }}
-                  stroke="#a4a4ac"
-                  strokeWidth="0.25"
+                  style={{ fill: '#ffffff', strokeWidth: '0.36px' }}
+                  stroke="#232327"
+                  strokeWidth="0.36"
                 />
               </g>
               {/* Clean White Top Plate with subtle grid */}
@@ -917,7 +920,7 @@ export function ChatGPT3DGraphic() {
                 <path
                   d="M -10,0 A 10 5.7 0 0 0 10,0 L 10,2.5 A 10 5.7 0 0 1 -10,2.5 Z"
                   fill="#ffffff"
-                  stroke="#a4a4ac"
+                  stroke="#232327"
                   strokeWidth="0.25"
                 />
                 <ellipse
@@ -952,12 +955,12 @@ export function ChatGPT3DGraphic() {
               {/* Front skirt (8px height, shifted by +277.76 from Slot 2) */}
               <g transform="translate(277.76, 0)">
                 <path
-                  className="hl-outline"
+                  className="hl-skirt"
                   d="M80.92,74.24 L81.05,75.18 L81.43,76.1 L82.07,76.98 L82.93,77.78 L84,78.5 L123.68,101.22 L123.68,101.22 L124.94,101.83 L126.34,102.33 L127.87,102.69 L129.47,102.91 L131.12,102.98 L132.77,102.91 L134.37,102.69 L135.9,102.33 L137.3,101.83 L138.56,101.22 L178.24,78.5 L178.24,78.5 L179.31,77.78 L180.17,76.98 L180.81,76.1 L181.19,75.18 L181.32,74.24 L181.32,82.24 L181.32,82.24 L181.19,83.18 L180.81,84.1 L180.17,84.98 L179.31,85.78 L178.24,86.5 L178.24,86.5 L138.56,109.22 L137.3,109.83 L135.9,110.33 L134.37,110.69 L132.77,110.91 L131.12,110.98 L129.47,110.91 L127.87,110.69 L126.34,110.33 L124.94,109.83 L123.68,109.22 L123.68,109.22 L84,86.5 L82.93,85.78 L82.07,84.98 L81.43,84.1 L81.05,83.18 L80.92,82.24 Z"
                   fill="#ffffff"
-                  style={{ fill: '#ffffff', strokeWidth: '0.25px' }}
-                  stroke="#a4a4ac"
-                  strokeWidth="0.25"
+                  style={{ fill: '#ffffff', strokeWidth: '0.36px' }}
+                  stroke="#232327"
+                  strokeWidth="0.36"
                 />
               </g>
               {/* Clean White Top Plate with subtle grid */}
@@ -986,7 +989,7 @@ export function ChatGPT3DGraphic() {
                 <path
                   d="M -10,0 A 10 5.7 0 0 0 10,0 L 10,2.5 A 10 5.7 0 0 1 -10,2.5 Z"
                   fill="#ffffff"
-                  stroke="#a4a4ac"
+                  stroke="#232327"
                   strokeWidth="0.25"
                 />
                 <ellipse
@@ -1013,12 +1016,12 @@ export function ChatGPT3DGraphic() {
             <g id="plinth-text-field" ref={plinthTextRef}>
               {/* Front skirt (8px height) */}
               <path
-                className="hl-outline"
+                className="hl-skirt"
                 d="M81.64,153.76 L81.8,154.86 L82.25,155.93 L82.98,156.95 L83.99,157.89 L85.24,158.73 L191.88,219.79 L191.88,219.79 L193.34,220.51 L194.99,221.08 L196.77,221.5 L198.64,221.76 L200.56,221.85 L202.48,221.76 L204.35,221.5 L206.13,221.08 L207.78,220.51 L209.24,219.79 L246.44,198.49 L246.44,198.49 L247.69,197.65 L248.7,196.71 L249.43,195.69 L249.88,194.62 L250.04,193.52 L250.04,201.52 L250.04,201.52 L249.88,202.62 L249.43,203.69 L248.7,204.71 L247.69,205.65 L246.44,206.49 L246.44,206.49 L209.24,227.79 L207.78,228.51 L206.13,229.08 L204.35,229.5 L202.48,229.76 L200.56,229.85 L198.64,229.76 L196.77,229.5 L194.99,229.08 L193.34,228.51 L191.88,227.79 L191.88,227.79 L85.24,166.73 L83.99,165.89 L82.98,164.95 L82.25,163.93 L81.8,162.86 L81.64,161.76 Z"
                 fill="#ffffff"
-                style={{ fill: '#ffffff', strokeWidth: '0.25px' }}
-                stroke="#a4a4ac"
-                strokeWidth="0.25"
+                style={{ fill: '#ffffff', strokeWidth: '0.36px' }}
+                stroke="#232327"
+                strokeWidth="0.36"
               />
               {/* Clean White Top Plate with subtle grid */}
               <g transform="matrix(1.24, 0.71, -1.24, 0.71, 131.12, 122.52)">
@@ -1099,12 +1102,12 @@ export function ChatGPT3DGraphic() {
             <g id="isometric-plinth">
               {/* Front skirt/thickness of rounded plinth (ultra-thin stroke) */}
               <path
-                className="hl-outline"
+                className="hl-skirt"
                 d="M153.26,114 L153.6,115.96 L154.6,117.84 L156.22,119.58 L158.4,121.1 L257.6,177.9 L260.26,179.15 L263.29,180.08 L266.58,180.65 L270,180.84 L273.42,180.65 L276.71,180.08 L279.74,179.15 L282.4,177.9 L381.6,121.1 L383.78,119.58 L385.4,117.84 L386.4,115.96 L386.74,114 L386.74,122 L386.4,123.96 L385.4,125.84 L383.78,127.58 L381.6,129.1 L282.4,185.9 L279.74,187.15 L276.71,188.08 L273.42,188.65 L270,188.84 L266.58,188.65 L263.29,188.08 L260.26,187.15 L257.6,185.9 L158.4,129.1 L156.22,127.58 L154.6,125.84 L153.6,123.96 L153.26,122 Z"
                 fill="#ffffff"
-                style={{ fill: '#ffffff', strokeWidth: '0.25px' }}
-                stroke="#a4a4ac"
-                strokeWidth="0.25"
+                style={{ fill: '#ffffff', strokeWidth: '0.36px' }}
+                stroke="#232327"
+                strokeWidth="0.36"
               />
 
               {/* Top rounded plate with image, ultra-thin dashed grid lines, and ultra-thin hairline outline */}
@@ -1474,7 +1477,7 @@ export function ChatGPTCustomSVGGraphic() {
             <path
               d="M153.26,114 L153.6,115.96 L154.6,117.84 L156.22,119.58 L158.4,121.1 L257.6,177.9 L260.26,179.15 L263.29,180.08 L266.58,180.65 L270,180.84 L273.42,180.65 L276.71,180.08 L279.74,179.15 L282.4,177.9 L381.6,121.1 L383.78,119.58 L385.4,117.84 L386.4,115.96 L386.74,114 L386.74,122 L386.4,123.96 L385.4,125.84 L383.78,127.58 L381.6,129.1 L282.4,185.9 L279.74,187.15 L276.71,188.08 L273.42,188.65 L270,188.84 L266.58,188.65 L263.29,188.08 L260.26,187.15 L257.6,185.9 L158.4,129.1 L156.22,127.58 L154.6,125.84 L153.6,123.96 L153.26,122 Z"
               fill="#ffffff"
-              stroke="#a4a4ac"
+              stroke="#232327"
               strokeWidth="0.9"
             />
 

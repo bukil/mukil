@@ -149,10 +149,28 @@ const Mukilm = () => {
           <Box
             as="form"
             onSubmit={handleUnlockDirect}
-            maxW="280px"
+            maxW={{ base: '90%', sm: '460px' }}
             w="100%"
+            minH={{ base: '68px', md: '80px' }}
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            justifyContent="center"
+            position="relative"
+            bg="rgba(255, 255, 255, 0.35)"
+            backdropFilter="blur(32px) saturate(180%)"
+            sx={{
+              WebkitBackdropFilter: 'blur(32px) saturate(180%)'
+            }}
+            borderRadius="0px"
+            border="none"
+            outline="none"
+            boxShadow="0 16px 36px rgba(0, 0, 0, 0.08)"
+            overflow="hidden"
+            p={0}
           >
             <Input
+              variant="unstyled"
               type="password"
               placeholder="password"
               value={passInput}
@@ -162,26 +180,54 @@ const Mukilm = () => {
               }}
               autoFocus
               fontFamily="'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-              fontSize="13px"
+              fontSize="16px"
               textAlign="center"
-              color="#555555"
-              bg="#FFFFFF"
-              border="1px solid"
-              borderColor={passError ? '#999999' : 'rgba(0, 0, 0, 0.12)'}
-              borderRadius="8px"
-              h="38px"
-              _placeholder={{ color: '#888888', fontFamily: "'Inter', -apple-system, sans-serif" }}
+              letterSpacing="0.1em"
+              color="#1A1A1A"
+              bg="transparent"
+              border="none"
+              outline="none"
+              w="100%"
+              h="auto"
+              py={0}
+              px={6}
+              _placeholder={{
+                color: 'rgba(26, 26, 26, 0.45)',
+                fontFamily: "'Inter', -apple-system, sans-serif",
+                letterSpacing: 'normal',
+                textAlign: 'center'
+              }}
               _focus={{
-                borderColor: '#666666',
+                border: 'none',
+                outline: 'none',
                 boxShadow: 'none'
+              }}
+              _focusVisible={{
+                border: 'none',
+                outline: 'none',
+                boxShadow: 'none'
+              }}
+              sx={{
+                textAlign: 'center',
+                '&::placeholder': {
+                  textAlign: 'center',
+                  letterSpacing: 'normal'
+                },
+                '&::-webkit-input-placeholder': {
+                  textAlign: 'center',
+                  letterSpacing: 'normal'
+                }
               }}
             />
             {passError && (
               <Text
-                mt={2}
+                position="absolute"
+                bottom="6px"
+                left="0"
+                right="0"
                 fontSize="11px"
                 fontFamily="'Inter', -apple-system, sans-serif"
-                color="#888888"
+                color="#D9383A"
                 textAlign="center"
               >
                 incorrect password

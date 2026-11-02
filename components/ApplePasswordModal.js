@@ -54,21 +54,37 @@ export default function ApplePasswordModal({ isOpen, onClose }) {
       size="xs"
     >
       <ModalOverlay
-        bg="rgba(0, 0, 0, 0.3)"
-        backdropFilter="blur(12px)"
+        bg="rgba(0, 0, 0, 0.12)"
       />
       <ModalContent
-        bg="#F4F4F0"
-        borderRadius="14px"
-        border="1px solid rgba(0, 0, 0, 0.1)"
-        boxShadow="0 20px 50px rgba(0, 0, 0, 0.12)"
-        maxW="280px"
+        bg="rgba(255, 255, 255, 0.35)"
+        backdropFilter="blur(32px) saturate(180%)"
+        sx={{
+          WebkitBackdropFilter: 'blur(32px) saturate(180%)'
+        }}
+        borderRadius="0px"
+        border="none"
+        outline="none"
+        boxShadow="0 16px 36px rgba(0, 0, 0, 0.08)"
+        maxW={{ base: '90%', sm: '460px' }}
         p={0}
+        overflow="hidden"
         animation={isShaking ? `${shakeAnimation} 0.4s ease-in-out` : undefined}
       >
-        <ModalBody p={5}>
-          <Box as="form" onSubmit={handleUnlock}>
+        <ModalBody p={0}>
+          <Box
+            as="form"
+            onSubmit={handleUnlock}
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            justifyContent="center"
+            minH={{ base: '68px', md: '80px' }}
+            w="100%"
+            position="relative"
+          >
             <Input
+              variant="unstyled"
               type="password"
               placeholder="password"
               value={password}
@@ -78,26 +94,54 @@ export default function ApplePasswordModal({ isOpen, onClose }) {
               }}
               autoFocus
               fontFamily="'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
-              fontSize="13px"
+              fontSize="16px"
               textAlign="center"
-              color="#555555"
-              bg="#FFFFFF"
-              border="1px solid"
-              borderColor={error ? '#999999' : 'rgba(0, 0, 0, 0.12)'}
-              borderRadius="8px"
-              h="38px"
-              _placeholder={{ color: '#888888', fontFamily: "'Inter', -apple-system, sans-serif" }}
+              letterSpacing="0.1em"
+              color="#1A1A1A"
+              bg="transparent"
+              border="none"
+              outline="none"
+              w="100%"
+              h="auto"
+              py={0}
+              px={6}
+              _placeholder={{
+                color: 'rgba(26, 26, 26, 0.45)',
+                fontFamily: "'Inter', -apple-system, sans-serif",
+                letterSpacing: 'normal',
+                textAlign: 'center'
+              }}
               _focus={{
-                borderColor: '#666666',
+                border: 'none',
+                outline: 'none',
                 boxShadow: 'none'
+              }}
+              _focusVisible={{
+                border: 'none',
+                outline: 'none',
+                boxShadow: 'none'
+              }}
+              sx={{
+                textAlign: 'center',
+                '&::placeholder': {
+                  textAlign: 'center',
+                  letterSpacing: 'normal'
+                },
+                '&::-webkit-input-placeholder': {
+                  textAlign: 'center',
+                  letterSpacing: 'normal'
+                }
               }}
             />
             {error && (
               <Text
-                mt={2}
+                position="absolute"
+                bottom="6px"
+                left="0"
+                right="0"
                 fontSize="11px"
                 fontFamily="'Inter', -apple-system, sans-serif"
-                color="#888888"
+                color="#D9383A"
                 textAlign="center"
               >
                 incorrect password
