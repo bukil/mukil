@@ -401,6 +401,9 @@ export function ChatGPT3DGraphic() {
   const plinthTab3Ref = useRef(null);
   const plinthTab4Ref = useRef(null);
   const plinthTextRef = useRef(null);
+  const plinthRightTextRef = useRef(null);
+  const plinthTextContentRef = useRef(null);
+  const activePromptTextRef = useRef(null);
   const plinthState = useRef(0);
   const plinthProgress = useRef({ value: 0 });
   const plinthAnimRef = useRef(null);
@@ -581,15 +584,52 @@ export function ChatGPT3DGraphic() {
       const dx4 = -69.44 * p - 16 * arc;
       const dy4 = -39.76 * p + 9.1 * arc;
 
-      // Tab 5 (Prompt Bar): shifts along bottom isometric track
-      const dxBar = 29.76 * p;
-      const dyBar = 17.04 * p;
+      // Pair 3: Bottom Flank (Tab 5 at Slot 5: Left <-> Tab 6 at Slot 6: Right)
+      // Interchanges positions along the bottom isometric track around the front apex (X=270, Y=185)
+      // Direction turns 90deg in isometric projection (scaleX: 1 -> -1) so each panel fits its target edge perfectly
+      const cxA = 165.84;
+      const cyA = 173.64;
+      const cxB = 374.16;
+      const cyB = 173.64;
+
+      const sx = Math.cos(Math.PI * cp);
+
+      // Tab 5: moves from Slot 5 (Left) across to Slot 6 (Right) on outer arc
+      const cx5 = cxA + (cxB - cxA) * p;
+      const cy5 = cyA + 30 * arc;
+      const tx5 = cx5 - sx * cxA;
+      const ty5 = cy5 - cyA;
+
+      // Tab 6: moves from Slot 6 (Right) across to Slot 5 (Left) on inner arc
+      const cx6 = cxB - (cxB - cxA) * p;
+      const cy6 = cyB + 10 * arc;
+      const tx6 = cx6 - sx * cxB;
+      const ty6 = cy6 - cyB;
 
       if (plinthTab1Ref.current) plinthTab1Ref.current.setAttribute('transform', `translate(${dx1.toFixed(2)}, ${dy1.toFixed(2)})`);
       if (plinthTab2Ref.current) plinthTab2Ref.current.setAttribute('transform', `translate(${dx2.toFixed(2)}, ${dy2.toFixed(2)})`);
       if (plinthTab3Ref.current) plinthTab3Ref.current.setAttribute('transform', `translate(${dx3.toFixed(2)}, ${dy3.toFixed(2)})`);
       if (plinthTab4Ref.current) plinthTab4Ref.current.setAttribute('transform', `translate(${dx4.toFixed(2)}, ${dy4.toFixed(2)})`);
-      if (plinthTextRef.current) plinthTextRef.current.setAttribute('transform', `translate(${dxBar.toFixed(2)}, ${dyBar.toFixed(2)})`);
+
+      if (plinthTextRef.current) {
+        plinthTextRef.current.setAttribute('transform', `translate(${tx5.toFixed(2)}, ${ty5.toFixed(2)}) scale(${sx.toFixed(4)}, 1)`);
+      }
+      if (plinthRightTextRef.current) {
+        plinthRightTextRef.current.setAttribute('transform', `translate(${tx6.toFixed(2)}, ${ty6.toFixed(2)}) scale(${sx.toFixed(4)}, 1)`);
+      }
+
+      // Smoothly hide edge-on content and counter-scale for left-to-right readability
+      const showContent = Math.abs(sx) > 0.12;
+      const isFlipped = sx < 0;
+
+      if (plinthTextContentRef.current) {
+        plinthTextContentRef.current.style.opacity = showContent ? '1' : '0';
+        plinthTextContentRef.current.setAttribute('transform', isFlipped ? 'scale(-1, 1) translate(-100, 0)' : '');
+      }
+      if (activePromptTextRef.current) {
+        activePromptTextRef.current.style.opacity = showContent ? '1' : '0';
+        activePromptTextRef.current.setAttribute('transform', isFlipped ? 'scale(-1, 1) translate(-44, 0)' : '');
+      }
     };
 
     const switchPlinths = () => {
@@ -600,7 +640,7 @@ export function ChatGPT3DGraphic() {
       if (plinthAnimRef.current) {
         try {
           plinthAnimRef.current.pause();
-        } catch (_err) {}
+        } catch (_err) { }
       }
 
       plinthAnimRef.current = animate(plinthProgress.current, {
@@ -612,7 +652,7 @@ export function ChatGPT3DGraphic() {
         },
         onComplete: () => {
           if (!document.hidden) {
-            plinthIntervalRef.current = setTimeout(switchPlinths, 2800);
+            plinthIntervalRef.current = setTimeout(switchPlinths, 4200);
           }
         }
       });
@@ -620,7 +660,7 @@ export function ChatGPT3DGraphic() {
 
     switchPlinthsRef.current = switchPlinths;
     // Schedule initial plinth switch
-    plinthIntervalRef.current = setTimeout(switchPlinths, 3000);
+    plinthIntervalRef.current = setTimeout(switchPlinths, 4500);
 
     const onVisibilityChange = () => {
       if (document.hidden) {
@@ -645,13 +685,101 @@ export function ChatGPT3DGraphic() {
     wake();
     tourTimeoutRef.current = setTimeout(advanceTour, 1400);
 
+    // Active Fast-Changing Typing Text Animation (Humane Design Collaboration Prompts)
+    const activePrompts = [
+      "Hey, let's work on the design assignment",
+      "How to crack MAANG , FAANG Product Design role in first try",
+      "Hey Gpt how to talk in front of a girl",
+      "Can we check this layout for accessibility?",
+    ];
+
+    const wrapPromptLines = (text, maxChars = 14) => {
+      if (!text) return [];
+      const words = text.split(' ');
+      const lines = [];
+      let curr = '';
+      for (let i = 0; i < words.length; i++) {
+        let w = words[i];
+        while (w.length > maxChars) {
+          if (curr) {
+            lines.push(curr);
+            curr = '';
+          }
+          lines.push(w.slice(0, maxChars));
+          w = w.slice(maxChars);
+        }
+        if (!w) continue;
+        if (!curr) {
+          curr = w;
+        } else if (curr.length + 1 + w.length <= maxChars) {
+          curr += ' ' + w;
+        } else {
+          lines.push(curr);
+          curr = w;
+        }
+      }
+      if (curr) lines.push(curr);
+      return lines;
+    };
+
+    const renderActivePrompt = (str) => {
+      if (!activePromptTextRef.current) return;
+      const lines = wrapPromptLines(str, 14);
+      const cursorTspan = '<tspan fill="#232327" class="hl-cursor-blink" font-weight="300" dx="0.5">|</tspan>';
+      if (lines.length === 0) {
+        activePromptTextRef.current.innerHTML = `<tspan x="5" y="16">${cursorTspan}</tspan>`;
+        return;
+      }
+      const tspans = lines.map((line, idx) => {
+        const isLast = idx === lines.length - 1;
+        const y = 16 + idx * 5.4;
+        return `<tspan x="5" y="${y}">${line}${isLast ? cursorTspan : ''}</tspan>`;
+      }).join('');
+      activePromptTextRef.current.innerHTML = tspans;
+    };
+
+    let promptIdx = 0;
+    let charIdx = 0;
+    let isDeleting = false;
+    let typeTimer = null;
+
+    const tickTypewriter = () => {
+      const currentPrompt = activePrompts[promptIdx];
+
+      if (!isDeleting) {
+        charIdx++;
+        renderActivePrompt(currentPrompt.slice(0, charIdx));
+        if (charIdx === currentPrompt.length) {
+          isDeleting = true;
+          // Hold full text comfortably so it can be easily read before flipping
+          typeTimer = setTimeout(tickTypewriter, 2200);
+          return;
+        }
+        typeTimer = setTimeout(tickTypewriter, 28);
+      } else {
+        charIdx--;
+        renderActivePrompt(currentPrompt.slice(0, charIdx));
+        if (charIdx === 0) {
+          isDeleting = false;
+          promptIdx = (promptIdx + 1) % activePrompts.length;
+          // Gentle pause before starting the next prompt
+          typeTimer = setTimeout(tickTypewriter, 400);
+          return;
+        }
+        typeTimer = setTimeout(tickTypewriter, 14);
+      }
+    };
+
+    typeTimer = setTimeout(tickTypewriter, 400);
+
     return () => {
       if (tourTimeoutRef.current) clearTimeout(tourTimeoutRef.current);
       if (plinthIntervalRef.current) clearTimeout(plinthIntervalRef.current);
+      if (typeTimer) clearTimeout(typeTimer);
       if (plinthAnimRef.current) {
         try {
           plinthAnimRef.current.pause();
-        } catch (_err) {}
+        } catch (_err) { }
       }
       container.removeEventListener('pointermove', onPointerMove);
       container.removeEventListener('pointerenter', onPointerEnter);
@@ -1046,7 +1174,7 @@ export function ChatGPT3DGraphic() {
                 </g>
 
                 {/* 3D UI Symbol: Isometric Prompt Input Capsule Bar (Full Length) */}
-                <g>
+                <g ref={plinthTextContentRef} style={{ transition: 'opacity 0.15s ease' }}>
                   {/* Capsule container */}
                   <rect
                     x="6"
@@ -1095,6 +1223,55 @@ export function ChatGPT3DGraphic() {
                     strokeLinejoin="round"
                   />
                 </g>
+              </g>
+            </g>
+
+            {/* Satellite Base 6: Right Text Field Plinth (Tall, Narrow, Pure Text, Aligned to Grid) */}
+            <g id="plinth-right-text-field" ref={plinthRightTextRef}>
+              {/* Front skirt (8px height, opposite proportion on grid: short width 44, high height 100) */}
+              <path
+                className="hl-skirt"
+                d="M458.36,153.76 L458.20,154.86 L457.75,155.93 L457.02,156.95 L456.01,157.89 L454.76,158.73 L348.12,219.79 L348.12,219.79 L346.66,220.51 L345.01,221.08 L343.23,221.50 L341.36,221.76 L339.44,221.85 L337.52,221.76 L335.65,221.50 L333.87,221.08 L332.22,220.51 L330.76,219.79 L293.56,198.49 L293.56,198.49 L292.31,197.65 L291.30,196.71 L290.57,195.69 L290.12,194.62 L289.96,193.52 L289.96,201.52 L289.96,201.52 L290.12,202.62 L290.57,203.69 L291.30,204.71 L292.31,205.65 L293.56,206.49 L293.56,206.49 L330.76,227.79 L332.22,228.51 L333.87,229.08 L335.65,229.50 L337.52,229.76 L339.44,229.85 L341.36,229.76 L343.23,229.50 L345.01,229.08 L346.66,228.51 L348.12,227.79 L348.12,227.79 L454.76,166.73 L456.01,165.89 L457.02,164.95 L457.75,163.93 L458.20,162.86 L458.36,161.76 Z"
+                fill="#ffffff"
+                style={{ fill: '#ffffff', strokeWidth: '0.36px' }}
+                stroke="#232327"
+                strokeWidth="0.36"
+              />
+
+              {/* Clean White Top Plate with subtle grid (High height 100, Short width 44, symmetric to Prompt Bar) */}
+              <g transform="matrix(1.24, 0.71, -1.24, 0.71, 408.88, 122.52)">
+                <rect
+                  className="hl-outline"
+                  x="0"
+                  y="0"
+                  width="44"
+                  height="100"
+                  rx="7"
+                  ry="7"
+                  fill="#ffffff"
+                  style={{ fill: '#ffffff', strokeWidth: '0.25px' }}
+                  stroke="#232327"
+                  strokeWidth="0.25"
+                />
+                <g stroke="rgba(35, 35, 39, 0.08)" strokeWidth="0.18" strokeDasharray="1.5 2.5">
+                  <line className="hl-grid-line" style={{ strokeWidth: '0.18px' }} x1="22" y1="0" x2="22" y2="100" />
+                  <line className="hl-grid-line" style={{ strokeWidth: '0.18px' }} x1="0" y1="25" x2="44" y2="25" />
+                  <line className="hl-grid-line" style={{ strokeWidth: '0.18px' }} x1="0" y1="50" x2="44" y2="50" />
+                  <line className="hl-grid-line" style={{ strokeWidth: '0.18px' }} x1="0" y1="75" x2="44" y2="75" />
+                </g>
+
+                {/* ONLY TYPING TEXT - Multi-line word-wrapped strictly within tab, no symbols */}
+                <text
+                  ref={activePromptTextRef}
+                  x="5"
+                  y="16"
+                  fill="#232327"
+                  fontSize="3.4"
+                  fontFamily="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+                  fontWeight="500"
+                  letterSpacing="-0.04"
+                  style={{ userSelect: 'none', transition: 'opacity 0.15s ease' }}
+                />
               </g>
             </g>
 
