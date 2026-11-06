@@ -38,6 +38,7 @@ next-env.d.ts
 *.json
 !package.json
 !package-lock.json
+!components/daksha/project-assets.json
 !tsconfig.json
 !next.config.js
 !vercel.json

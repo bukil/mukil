@@ -1,0 +1,299 @@
+{
+  "brand-colour-studies": {
+    "src": "/images/daksha/brand-colour-studies.jpg",
+    "width": 764,
+    "height": 790,
+    "sourceFrame": "234:1917",
+    "variants": [
+      {
+        "src": "/images/daksha/brand-colour-studies-640.jpg",
+        "width": 640
+      }
+    ],
+    "sourceNode": "234:1983"
+  },
+  "concept-assembly": {
+    "src": "/images/daksha/concept-assembly.jpg",
+    "width": 1326,
+    "height": 888,
+    "sourceNode": "234:1695",
+    "sourceFrame": "234:1686",
+    "variants": [
+      {
+        "src": "/images/daksha/concept-assembly-640.jpg",
+        "width": 640
+      },
+      {
+        "src": "/images/daksha/concept-assembly-960.jpg",
+        "width": 960
+      }
+    ]
+  },
+  "concept-data-anchoring": {
+    "src": "/images/daksha/concept-data-anchoring.jpg",
+    "width": 1600,
+    "height": 923,
+    "sourceNode": "234:1694",
+    "sourceFrame": "234:1686",
+    "variants": [
+      {
+        "src": "/images/daksha/concept-data-anchoring-640.jpg",
+        "width": 640
+      },
+      {
+        "src": "/images/daksha/concept-data-anchoring-960.jpg",
+        "width": 960
+      }
+    ]
+  },
+  "detector-test-bench": {
+    "src": "/images/daksha/detector-test-bench.jpg",
+    "width": 1800,
+    "height": 1350,
+    "sourceFrame": "234:1668",
+    "variants": [
+      {
+        "src": "/images/daksha/detector-test-bench-640.jpg",
+        "width": 640
+      },
+      {
+        "src": "/images/daksha/detector-test-bench-960.jpg",
+        "width": 960
+      }
+    ],
+    "sourceNode": "234:1671"
+  },
+  "lab-research-visit": {
+    "src": "/images/daksha/lab-research-visit.jpg",
+    "width": 1800,
+    "height": 1350,
+    "sourceFrame": "234:1392",
+    "variants": [
+      {
+        "src": "/images/daksha/lab-research-visit-640.jpg",
+        "width": 640
+      },
+      {
+        "src": "/images/daksha/lab-research-visit-960.jpg",
+        "width": 960
+      }
+    ],
+    "sourceNode": "234:1392"
+  },
+  "mission-literature": {
+    "src": "/images/daksha/mission-literature.jpg",
+    "width": 1600,
+    "height": 1106,
+    "sourceNode": "234:1655",
+    "sourceFrame": "234:1652",
+    "variants": [
+      {
+        "src": "/images/daksha/mission-literature-640.jpg",
+        "width": 640
+      },
+      {
+        "src": "/images/daksha/mission-literature-960.jpg",
+        "width": 960
+      }
+    ]
+  },
+  "mission-organisations": {
+    "src": "/images/daksha/mission-organisations.jpg",
+    "width": 1800,
+    "height": 278,
+    "sourceFrame": "234:1596",
+    "variants": [
+      {
+        "src": "/images/daksha/mission-organisations-640.jpg",
+        "width": 640
+      },
+      {
+        "src": "/images/daksha/mission-organisations-960.jpg",
+        "width": 960
+      }
+    ],
+    "sourceNode": "234:1598"
+  },
+  "model-development": {
+    "src": "/images/daksha/model-development.jpg",
+    "width": 1126,
+    "height": 1560,
+    "sourceNode": "234:1990",
+    "sourceFrame": "234:1987",
+    "variants": [
+      {
+        "src": "/images/daksha/model-development-640.jpg",
+        "width": 640
+      },
+      {
+        "src": "/images/daksha/model-development-960.jpg",
+        "width": 960
+      }
+    ]
+  },
+  "model-structure": {
+    "src": "/images/daksha/model-structure.jpg",
+    "width": 892,
+    "height": 913,
+    "sourceNode": "234:1991",
+    "sourceFrame": "234:1987",
+    "variants": [
+      {
+        "src": "/images/daksha/model-structure-640.jpg",
+        "width": 640
+      }
+    ]
+  },
+  "navigation-after": {
+    "src": "/images/daksha/navigation-after.jpg",
+    "width": 620,
+    "height": 292,
+    "sourceNode": "234:1998",
+    "sourceFrame": "234:1994",
+    "variants": []
+  },
+  "navigation-before": {
+    "src": "/images/daksha/navigation-before.jpg",
+    "width": 1600,
+    "height": 900,
+    "sourceNode": "234:1996",
+    "sourceFrame": "234:1994",
+    "variants": [
+      {
+        "src": "/images/daksha/navigation-before-640.jpg",
+        "width": 640
+      },
+      {
+        "src": "/images/daksha/navigation-before-960.jpg",
+        "width": 960
+      }
+    ]
+  },
+  "prototype-menu": {
+    "src": "/images/daksha/prototype-menu.jpg",
+    "width": 868,
+    "height": 489,
+    "sourceNode": "234:2039",
+    "sourceFrame": "234:2034",
+    "variants": [
+      {
+        "src": "/images/daksha/prototype-menu-640.jpg",
+        "width": 640
+      }
+    ]
+  },
+  "student-team": {
+    "src": "/images/daksha/student-team.jpg",
+    "width": 1600,
+    "height": 800,
+    "sourceNode": "234:1659",
+    "sourceFrame": "234:1656",
+    "variants": [
+      {
+        "src": "/images/daksha/student-team-640.jpg",
+        "width": 640
+      },
+      {
+        "src": "/images/daksha/student-team-960.jpg",
+        "width": 960
+      }
+    ]
+  },
+  "testing-sessions": {
+    "src": "/images/daksha/testing-sessions.jpg",
+    "width": 1770,
+    "height": 604,
+    "sourceFrame": "234:2401",
+    "variants": [
+      {
+        "src": "/images/daksha/testing-sessions-640.jpg",
+        "width": 640
+      },
+      {
+        "src": "/images/daksha/testing-sessions-960.jpg",
+        "width": 960
+      }
+    ],
+    "sourceNode": "234:2404"
+  },
+  "ui-navigation-controls": {
+    "src": "/images/daksha/ui-navigation-controls.jpg",
+    "width": 720,
+    "height": 380,
+    "variants": [
+      {
+        "src": "/images/daksha/ui-navigation-controls-640.jpg",
+        "width": 640
+      }
+    ],
+    "sourceNode": "110:56"
+  },
+  "usage-classroom": {
+    "src": "/images/daksha/usage-classroom.jpg",
+    "width": 1120,
+    "height": 658,
+    "sourceNode": "234:2060",
+    "sourceFrame": "234:2052",
+    "variants": [
+      {
+        "src": "/images/daksha/usage-classroom-640.jpg",
+        "width": 640
+      },
+      {
+        "src": "/images/daksha/usage-classroom-960.jpg",
+        "width": 960
+      }
+    ]
+  },
+  "usage-exhibition": {
+    "src": "/images/daksha/usage-exhibition.jpg",
+    "width": 1120,
+    "height": 660,
+    "sourceNode": "234:2382",
+    "sourceFrame": "234:2377",
+    "variants": [
+      {
+        "src": "/images/daksha/usage-exhibition-640.jpg",
+        "width": 640
+      },
+      {
+        "src": "/images/daksha/usage-exhibition-960.jpg",
+        "width": 960
+      }
+    ]
+  },
+  "usage-laboratory": {
+    "src": "/images/daksha/usage-laboratory.jpg",
+    "width": 1129,
+    "height": 661,
+    "sourceNode": "234:2227",
+    "sourceFrame": "234:2218",
+    "variants": [
+      {
+        "src": "/images/daksha/usage-laboratory-640.jpg",
+        "width": 640
+      },
+      {
+        "src": "/images/daksha/usage-laboratory-960.jpg",
+        "width": 960
+      }
+    ]
+  },
+  "vr-interface-buttons": {
+    "src": "/images/daksha/vr-interface-buttons.jpg",
+    "width": 1564,
+    "height": 548,
+    "sourceFrame": "234:1917",
+    "variants": [
+      {
+        "src": "/images/daksha/vr-interface-buttons-640.jpg",
+        "width": 640
+      },
+      {
+        "src": "/images/daksha/vr-interface-buttons-960.jpg",
+        "width": 960
+      }
+    ],
+    "sourceNode": "234:1986"
+  }
+}
