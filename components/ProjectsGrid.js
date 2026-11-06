@@ -1812,13 +1812,15 @@ export default function ProjectsGrid({ mt = 0, ...props }) {
 
           {/* 2. Daksha in Orbit */}
           <Section gridColumn={{ base: 'span 1', md: 'span 2' }}>
-            <ProjectPanel
-              title="Daksha in Orbit"
-              rightText="Mixed Reality • Interaction Design • Astronomy Education • Outreach"
-              aspectRatio={{ base: '1 / 1', sm: '16 / 9', md: '2.1 / 1' }}
-              accentColor="#38bdf8"
-              customContent={<DakshaGraphic />}
-            />
+            <NextLink href="/daksha-in-orbit" style={{ display: 'block', textDecoration: 'none' }}>
+              <ProjectPanel
+                title="Daksha in Orbit"
+                rightText="Mixed Reality • Interaction Design • Astronomy Education • Outreach"
+                aspectRatio={{ base: '1 / 1', sm: '16 / 9', md: '2.1 / 1' }}
+                accentColor="#38bdf8"
+                customContent={<DakshaGraphic />}
+              />
+            </NextLink>
           </Section>
 
           {/* 3. Visually Understanding Colour Space */}

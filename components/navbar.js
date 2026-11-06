@@ -20,10 +20,14 @@ const NAV_ITEMS = [
 ]
 
 const Navbar = ({ path }) => {
+  const dark = path?.startsWith('/daksha-in-orbit')
+  const activeColor = dark ? '#edf4ff' : '#1A1A1A'
+  const inactiveColor = dark ? '#b4c3d5' : '#666666'
   return (
     <>
       {/* Mukil Signature Logo on the Left - with real-time color inversion */}
       <Box
+        data-site-navigation
         position="fixed"
         top={0}
         left={0}
@@ -40,6 +44,7 @@ const Navbar = ({ path }) => {
 
       {/* Desktop & Mobile Navigation on the Right - in crisp black */}
       <Box
+        data-site-navigation
         position="fixed"
         top={0}
         right={0}
@@ -66,11 +71,11 @@ const Navbar = ({ path }) => {
                   fontWeight={isActive ? '600' : '500'}
                   letterSpacing="0.08em"
                   textTransform="uppercase"
-                  color={isActive ? '#1A1A1A' : '#666666'}
+                  color={isActive ? activeColor : inactiveColor}
                   position="relative"
                   py={1}
                   _hover={{
-                    color: '#1A1A1A',
+                    color: activeColor,
                     textDecoration: 'none'
                   }}
                   _after={isActive ? {
@@ -80,7 +85,7 @@ const Navbar = ({ path }) => {
                     left: 0,
                     right: 0,
                     height: '1.5px',
-                    bg: '#1A1A1A',
+                    bg: activeColor,
                     borderRadius: '1px'
                   } : undefined}
                   transition="color 0.2s ease"
@@ -100,13 +105,13 @@ const Navbar = ({ path }) => {
               icon={<HamburgerIcon boxSize={5} />}
               variant="ghost"
               aria-label="Toggle navigation menu"
-              color="#1A1A1A"
+              color={activeColor}
               _hover={{ bg: 'rgba(26, 26, 26, 0.06)' }}
               _active={{ bg: 'rgba(26, 26, 26, 0.1)' }}
             />
             <Portal>
               <MenuList
-                bg={path === '/' ? '#F4F4F0' : '#ffffff'}
+                bg={dark ? '#07101d' : path === '/' ? '#F4F4F0' : '#ffffff'}
                 backdropFilter="blur(16px)"
                 border="1px solid rgba(26, 26, 26, 0.12)"
                 borderRadius="8px"
@@ -125,11 +130,11 @@ const Navbar = ({ path }) => {
                         fontWeight={isActive ? '600' : '500'}
                         letterSpacing="0.08em"
                         textTransform="uppercase"
-                        color={isActive ? '#1A1A1A' : '#666666'}
+                        color={isActive ? activeColor : inactiveColor}
                         bg={isActive ? 'rgba(26, 26, 26, 0.05)' : 'transparent'}
                         _hover={{
                           bg: 'rgba(26, 26, 26, 0.08)',
-                          color: '#1A1A1A',
+                          color: activeColor,
                           textDecoration: 'none'
                         }}
                       >

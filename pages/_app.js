@@ -1,3 +1,4 @@
+import 'lenis/dist/lenis.css'
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import Layout from '../components/layouts/main'
@@ -100,23 +101,27 @@ function Website({ Component, pageProps, router }) {
     <Chakra>
       <Fonts />
       <Layout router={router}>
-        <AnimatePresence
-          mode="sync"
-          initial={false}
-          custom={direction}
-        >
-          <motion.div
-            key={router.route}
+        {router.pathname === '/daksha-in-orbit' ? (
+          <Component {...pageProps} />
+        ) : (
+          <AnimatePresence
+            mode="sync"
+            initial={false}
             custom={direction}
-            variants={pageVariants}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            style={{ width: '100%', minHeight: '100%' }}
           >
-            <Component {...pageProps} />
-          </motion.div>
-        </AnimatePresence>
+            <motion.div
+              key={router.route}
+              custom={direction}
+              variants={pageVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              style={{ width: '100%', minHeight: '100%' }}
+            >
+              <Component {...pageProps} />
+            </motion.div>
+          </AnimatePresence>
+        )}
       </Layout>
     </Chakra>
   )

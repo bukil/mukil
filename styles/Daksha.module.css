@@ -1,0 +1,1288 @@
+.page {
+  --ink: #f5f7fb;
+  --muted: #98a9bd;
+  --accent: #269cff;
+  --line: #89b6e52e;
+  --paper: #02050b;
+  --panel: #071221;
+  --gutter: clamp(24px, 5vw, 100px);
+  position: relative;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Inter', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  isolation: isolate;
+}
+.page *,
+.page *::before,
+.page *::after {
+  box-sizing: border-box;
+}
+.page ::selection {
+  background: #258bcb70;
+  color: #fff;
+}
+.page a {
+  color: inherit;
+  text-decoration: none;
+}
+.page button {
+  font: inherit;
+  color: inherit;
+}
+.page a:focus-visible,
+.page button:focus-visible,
+.canvas:focus-visible,
+.modeStage:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 5px;
+}
+.page section:focus,
+.caseStudy:focus {
+  outline: none;
+}
+.page h1,
+.page h2,
+.page h3 {
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 1.04;
+}
+.storyPage {
+  min-height: 100svh;
+}
+.skipLink {
+  position: fixed;
+  top: 12px;
+  left: 20px;
+  padding: 12px 16px;
+  z-index: 100;
+  background: var(--panel);
+  transform: translateY(-200%);
+}
+.skipLink:focus {
+  transform: none;
+}
+.globalStage {
+  --stage-reveal: 0;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background: #02050b;
+}
+.globalStage::before {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  content: '';
+  opacity: var(--stage-reveal);
+  background: radial-gradient(ellipse at 72% 55%, #061629, #02050b 65%);
+  pointer-events: none;
+}
+.canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  cursor: grab;
+  touch-action: pan-y;
+  opacity: var(--stage-reveal);
+  will-change: opacity;
+}
+.canvas:active {
+  cursor: grabbing;
+}
+.canvas canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.poster {
+  position: absolute;
+  width: min(50vw, 800px);
+  left: 70%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  opacity: var(--stage-reveal);
+  will-change: opacity;
+}
+.poster img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.header {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 40;
+  height: 82px;
+  padding: 0 var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  background: linear-gradient(#02050bf5, #02050b00);
+}
+.brand {
+  font-size: 27px;
+  letter-spacing: -1.6px;
+  font-weight: 600;
+}
+.brand > span {
+  color: var(--accent);
+}
+.projectName {
+  display: flex;
+  gap: 12px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+}
+.projectName > span {
+  color: var(--muted);
+}
+.backLink {
+  font-size: 11px;
+  border: 1px solid var(--line);
+  padding: 12px 18px;
+  background: #02050b60;
+}
+.backLink:hover {
+  border-color: var(--accent);
+}
+.readingProgress {
+  position: fixed;
+  inset: 0 0 auto;
+  height: 2px;
+  z-index: 2200;
+}
+.readingProgress > div {
+  height: 100%;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+.sceneStatus {
+  position: fixed;
+  left: var(--gutter);
+  bottom: 109px;
+  z-index: 25;
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  font-size: 9px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  pointer-events: none;
+}
+.liveDot {
+  width: 4px;
+  height: 4px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+.sceneControls {
+  position: fixed;
+  right: var(--gutter);
+  bottom: 100px;
+  z-index: 25;
+  display: flex;
+  gap: 8px;
+}
+.sceneControls button {
+  background: #071221a6;
+  border: 1px solid var(--line);
+  padding: 8px 12px;
+  min-height: 34px;
+  font-size: 9px;
+  cursor: pointer;
+  transition: border-color 150ms;
+}
+.sceneControls button:hover {
+  border-color: var(--accent);
+}
+.globalStage[data-revealed='false'] ~ .sceneStatus,
+.globalStage[data-revealed='false'] ~ .sceneControls {
+  opacity: 0;
+  pointer-events: none;
+}
+.storyContent {
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
+}
+.storyContent a,
+.storyContent button,
+.storyContent p,
+.storyContent h1,
+.storyContent h2,
+.storyContent h3,
+.storyContent dd,
+.storyContent figure {
+  pointer-events: auto;
+}
+.chapter {
+  position: relative;
+  min-height: 145svh;
+  padding: 160px var(--gutter);
+  display: flex;
+  align-items: center;
+  scroll-margin-top: 0;
+}
+.hero {
+  min-height: 155svh;
+  align-items: flex-start;
+  padding-top: max(160px, 25svh);
+}
+.storyCopy {
+  width: 53%;
+  max-width: 820px;
+}
+.copyRight {
+  justify-content: flex-start;
+}
+.copyRight .storyCopy {
+  width: 53%;
+}
+.eyebrow,
+.caseKicker {
+  display: block;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  line-height: 1.5;
+  color: var(--accent);
+}
+.hero h1 {
+  font-size: clamp(65px, 8.5vw, 156px);
+  line-height: 0.94;
+  margin: 30px 0;
+  letter-spacing: -0.055em;
+  font-weight: 500;
+}
+.hero .eyebrow {
+  color: #b9dfff;
+}
+.hero h1 > span:not(.wordMask) {
+  color: #e5edf8;
+}
+.storyCopy h2 {
+  font-size: clamp(40px, 4.5vw, 78px);
+  margin: 25px 0;
+}
+.storyCopy h2 > span:not(.wordMask) {
+  color: #86bbeb;
+}
+.storyCopy p {
+  max-width: 34ch;
+  color: #b7c4d4;
+  font-size: 14px;
+  line-height: 1.7;
+  margin: 0 0 28px;
+}
+.textLink {
+  display: inline-flex;
+  gap: 26px;
+  align-items: center;
+  padding-bottom: 9px;
+  border-bottom: 1px solid #79b5e86b;
+  font-size: 11px;
+}
+.textLink:hover {
+  color: var(--accent);
+}
+.heroFoot {
+  position: absolute;
+  left: var(--gutter);
+  bottom: 160px;
+  color: var(--muted);
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  font-size: 8px;
+  letter-spacing: 0.08em;
+}
+.heroFoot > i {
+  width: 32px;
+  height: 1px;
+  background: var(--line);
+}
+.caseStudy {
+  background: transparent;
+  scroll-margin-top: 90px;
+}
+.caseIntro {
+  min-height: 75svh;
+  padding: 120px var(--gutter);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.caseIntro h2 {
+  font-size: clamp(36px, 4.1vw, 68px);
+  max-width: 11ch;
+  text-transform: uppercase;
+  margin: 28px 0 36px;
+}
+.projectCredits {
+  width: 46%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 25px;
+  margin: 0;
+}
+.projectCredits dt {
+  font-size: 8px;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+}
+.projectCredits dd {
+  margin: 8px 0 0;
+  font-size: 11px;
+  line-height: 1.5;
+}
+.caseNav {
+  display: none;
+}
+.caseSection {
+  position: relative;
+  min-height: 140svh;
+  padding: 130px var(--gutter) 170px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  scroll-margin-top: 70px;
+}
+.caseHeading {
+  width: 47%;
+  margin-bottom: 28px;
+}
+.caseHeading h2 {
+  font-size: clamp(34px, 4vw, 65px);
+  text-transform: uppercase;
+  margin: 22px 0;
+}
+.caseHeading p {
+  max-width: 40ch;
+  color: #a8b9ce;
+  font-size: 13px;
+  line-height: 1.7;
+  margin: 0;
+}
+.figurePair,
+.modelFigureGrid,
+.brandFigureGrid {
+  width: 47%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.brandFigureGrid {
+  margin-top: 24px;
+  grid-template-columns: 0.7fr 1.3fr;
+  align-items: center;
+}
+.projectFigure {
+  width: 47%;
+  margin: 0;
+  min-width: 0;
+}
+.figurePair > .projectFigure,
+.modelFigureGrid > .projectFigure,
+.brandFigureGrid .projectFigure {
+  width: 100%;
+}
+.projectFigure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 290px;
+  object-fit: contain;
+  background: #071221d9;
+  border: 1px solid #92bbe22b;
+}
+.projectFigure figcaption {
+  color: #91a7c1;
+  font-size: 9px;
+  line-height: 1.5;
+  margin-top: 10px;
+}
+.logoFigure {
+  padding: 14px;
+  background: #fff;
+}
+.logoFigure img {
+  border: 0;
+  max-height: 90px;
+  background: #fff;
+}
+.processLine {
+  width: 47%;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  padding: 24px 0 0;
+  margin: 0;
+}
+.processLine li {
+  display: flex;
+  gap: 8px;
+  color: #c0cfdf;
+  font-size: 9px;
+}
+.processLine li > span {
+  color: var(--accent);
+  font-size: 8px;
+}
+.modelFigureGrid img {
+  height: 340px;
+  max-height: 340px;
+}
+.brandFigureGrid .projectFigure:first-child img {
+  max-height: 220px;
+}
+.smallSourceFigure {
+  max-width: 620px;
+}
+.controlsFigure {
+  width: 25%;
+  max-width: 300px;
+  margin-top: 24px;
+}
+.prototypeFigure {
+  width: 38%;
+  margin-top: 24px;
+}
+.prototypeFigure img {
+  max-height: 220px;
+}
+.usageGrid {
+  width: 47%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.usageGrid .projectFigure {
+  width: 100%;
+}
+.usageLabel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+.usageLabel h3 {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0;
+  margin: 0;
+}
+.usageLabel > span {
+  font-size: 9px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.caseEnding {
+  width: 47%;
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 25px;
+  margin-top: 35px;
+  border-top: 1px solid var(--line);
+  font-size: 9px;
+  color: var(--muted);
+}
+.caseSection:is([id='research'], [id='assets'], [id='usage']) > * {
+  margin-left: 0;
+}
+.experienceModes {
+  border: 1px solid var(--line);
+  background: #071221;
+}
+.modeTabs {
+  display: flex;
+  border-bottom: 1px solid var(--line);
+}
+.modeTabs button {
+  flex: 1;
+  min-height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 0;
+  border-right: 1px solid var(--line);
+  background: #0712218c;
+  color: #92a9c4;
+  font-size: 11px;
+  cursor: pointer;
+  scroll-margin-top: 160px;
+}
+.modeTabs button:last-child {
+  border-right: 0;
+}
+.modeTabs button > span {
+  font-size: 8px;
+}
+.modeTabs button[aria-selected='true'] {
+  color: #fff;
+  background: #1265a7;
+}
+.modeTabs button:hover {
+  color: #fff;
+}
+.modeStage {
+  height: 580px;
+  position: relative;
+  overflow: hidden;
+}
+.modeScene {
+  position: absolute;
+  inset: 0;
+}
+.modeStepCopy {
+  position: absolute;
+  top: 30px;
+  left: 24px;
+  width: 29%;
+  max-width: 360px;
+  z-index: 4;
+  pointer-events: none;
+}
+.modeStepCopy h3 {
+  font-size: 34px;
+  text-transform: uppercase;
+  margin: 20px 0 14px;
+}
+.modeStepCopy > p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.65;
+  margin: 0;
+}
+.partControls {
+  margin-top: 24px;
+  pointer-events: auto;
+}
+.partName {
+  display: block;
+  color: #bfd4e8;
+  font-size: 10px;
+  line-height: 1.5;
+}
+.partControls > div {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+}
+.partControls button,
+.modeStageFooter button {
+  border: 1px solid #62a3d680;
+  background: #06111ea6;
+  color: #c5e1fc;
+  padding: 9px 12px;
+  min-height: 36px;
+  font-size: 10px;
+  cursor: pointer;
+}
+.partControls button:hover,
+.modeStageFooter button:hover {
+  background: #0b4675;
+}
+.modeStageFooter {
+  position: absolute;
+  inset: auto 24px 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  color: var(--muted);
+  font-size: 9px;
+  z-index: 5;
+  pointer-events: none;
+}
+.modeStageFooter button {
+  pointer-events: auto;
+}
+.modePoster {
+  position: absolute;
+  left: 42%;
+  top: 10%;
+  height: 80%;
+  width: 55%;
+}
+.modePoster img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.modeCallout {
+  position: absolute;
+  right: 24px;
+  top: 45%;
+  max-width: 170px;
+  border-left: 1px solid var(--accent);
+  background: #071221cc;
+  padding: 14px;
+  z-index: 3;
+  pointer-events: none;
+}
+.modeCallout span {
+  display: block;
+  font-size: 8px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.modeCallout strong {
+  color: #c0dfff;
+  font-weight: 400;
+  font-size: 12px;
+}
+.peopleNetwork {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+.peopleNetwork > span {
+  position: absolute;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  color: #b9daff;
+  background: #071221b0;
+  font-size: 11px;
+}
+.peopleNode0 {
+  left: 42%;
+  top: 20%;
+}
+.peopleNode1 {
+  right: 6%;
+  top: 20%;
+}
+.peopleNode2 {
+  left: 42%;
+  bottom: 20%;
+}
+.peopleNode3 {
+  right: 6%;
+  bottom: 20%;
+}
+.integratedModes {
+  width: 47%;
+  background: transparent;
+  border: 0;
+}
+.integratedModes .modeStage {
+  height: 340px;
+  overflow: visible;
+}
+.integratedModes .modeStepCopy {
+  left: 0;
+  top: 28px;
+  width: 100%;
+  max-width: 390px;
+}
+.integratedModes .modeStepCopy h3 {
+  font-size: 35px;
+}
+.integratedModes .modeScene {
+  pointer-events: none;
+}
+.integratedModes .modeCallout {
+  display: none;
+}
+.integratedModes .modeStageFooter {
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.integratedModes .peopleNetwork {
+  top: 190px;
+  bottom: 65px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-content: flex-start;
+}
+.integratedModes .peopleNetwork > span {
+  position: static;
+  font-size: 10px;
+  padding: 8px 10px;
+}
+.storyRail {
+  position: fixed;
+  z-index: 30;
+  bottom: 28px;
+  left: var(--gutter);
+  right: var(--gutter);
+  display: flex;
+  gap: 6px;
+}
+.storyRail a {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex: 1;
+  min-height: 48px;
+  padding: 0 14px;
+  background: #132033b5;
+  color: #99adc3;
+  border: 1px solid #9ebfe51a;
+  font-size: 10px;
+  text-transform: uppercase;
+  backdrop-filter: blur(8px);
+  transition: background 160ms, color 160ms;
+}
+.storyRail a > span {
+  font-size: 8px;
+  opacity: 0.7;
+}
+.storyRail a > i {
+  position: absolute;
+  inset: auto 0 0;
+  height: 2px;
+  background: transparent;
+}
+.storyRail a[aria-current],
+.storyRail a[data-complete='true'] {
+  background: #087ad2e0;
+  color: #fff;
+}
+.storyRail a[aria-current] > i {
+  background: #9cdaff;
+}
+.storyRail a:hover {
+  background: #1168abe6;
+  color: #fff;
+}
+.footer {
+  position: relative;
+  z-index: 3;
+  padding: 55px var(--gutter) 160px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  background: #02050b;
+  border-top: 1px solid var(--line);
+  font-size: 11px;
+}
+.footer > span {
+  color: var(--muted);
+  font-size: 9px;
+}
+@media (max-width: 1000px) and (min-width: 760px) {
+  .storyCopy h2 {
+    font-size: 44px;
+  }
+  .caseHeading h2 {
+    font-size: 38px;
+  }
+  .figurePair,
+  .modelFigureGrid,
+  .brandFigureGrid,
+  .projectFigure,
+  .caseHeading,
+  .integratedModes,
+  .usageGrid,
+  .processLine {
+    width: 48%;
+  }
+  .modeTabs button {
+    font-size: 10px;
+    gap: 4px;
+  }
+  .storyRail a {
+    padding: 0 10px;
+    font-size: 9px;
+  }
+}
+@media (max-width: 759px) {
+  .page {
+    --gutter: 20px;
+  }
+  .header {
+    height: 66px;
+  }
+  .brand {
+    font-size: 24px;
+  }
+  .projectName {
+    display: none;
+  }
+  .backLink {
+    font-size: 10px;
+    padding: 9px 12px;
+  }
+  .chapter {
+    min-height: 140svh;
+    padding-top: 125px;
+    padding-bottom: 150px;
+    align-items: flex-start;
+  }
+  .hero {
+    min-height: 155svh;
+    padding-top: 140px;
+  }
+  .storyCopy,
+  .copyRight .storyCopy {
+    width: 100%;
+    max-width: 420px;
+  }
+  .eyebrow,
+  .caseKicker {
+    font-size: 8px;
+  }
+  .hero h1 {
+    font-size: clamp(56px, 13.5vw, 90px);
+    margin: 28px 0 20px;
+  }
+  .storyCopy h2 {
+    font-size: clamp(35px, 8vw, 52px);
+    max-width: 13ch;
+    margin: 22px 0;
+  }
+  .storyCopy p {
+    font-size: 12px;
+    max-width: 29ch;
+  }
+  .textLink {
+    font-size: 10px;
+  }
+  .heroFoot {
+    display: none;
+  }
+  .poster {
+    left: 65%;
+    top: 65%;
+    width: 90%;
+  }
+  .caseIntro {
+    min-height: 85svh;
+    padding-top: 100px;
+    padding-bottom: 130px;
+  }
+  .caseIntro h2 {
+    font-size: 38px;
+    max-width: 10ch;
+  }
+  .projectCredits {
+    width: 100%;
+    max-width: 360px;
+    gap: 24px 16px;
+  }
+  .projectCredits dd {
+    font-size: 10px;
+  }
+  .caseSection {
+    min-height: 110svh;
+    padding-top: 100px;
+    padding-bottom: 140px;
+    justify-content: flex-start;
+  }
+  .caseHeading {
+    width: 100%;
+    margin-bottom: 25px;
+  }
+  .caseHeading h2 {
+    font-size: 36px;
+    max-width: 13ch;
+    margin-top: 18px;
+  }
+  .caseHeading p {
+    font-size: 12px;
+    max-width: 35ch;
+  }
+  .figurePair,
+  .modelFigureGrid,
+  .brandFigureGrid {
+    width: 68%;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+  .projectFigure {
+    width: 68%;
+  }
+  .projectFigure img {
+    max-height: 280px;
+  }
+  .projectFigure figcaption {
+    font-size: 9px;
+  }
+  .caseSection:is([id='research'], [id='assets'], [id='usage']) > * {
+    margin-left: 0;
+  }
+  .modelFigureGrid img {
+    height: 280px;
+  }
+  .brandFigureGrid {
+    grid-template-columns: 0.8fr 1.2fr;
+    width: 100%;
+    gap: 12px;
+  }
+  .brandFigureGrid .projectFigure:first-child img {
+    max-height: 180px;
+  }
+  .logoFigure {
+    width: 100%;
+  }
+  .processLine {
+    width: 100%;
+    gap: 16px;
+  }
+  .controlsFigure {
+    width: 65%;
+  }
+  .usageGrid {
+    width: 68%;
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  .usageLabel h3 {
+    font-size: 12px;
+  }
+  .caseEnding {
+    width: 100%;
+    font-size: 8px;
+    margin-top: 25px;
+  }
+  .integratedModes {
+    width: 100%;
+  }
+  .modeTabs button {
+    min-height: 42px;
+    font-size: 10px;
+    gap: 6px;
+  }
+  .integratedModes .modeStage {
+    height: 350px;
+  }
+  .integratedModes .modeStepCopy {
+    top: 24px;
+    width: 72%;
+    max-width: 280px;
+    padding: 14px;
+    margin-left: -14px;
+    background: linear-gradient(
+      90deg,
+      rgba(2, 5, 11, 0.96) 75%,
+      rgba(2, 5, 11, 0.75)
+    );
+  }
+  .integratedModes .modeStepCopy h3 {
+    font-size: 28px;
+    max-width: 12ch;
+  }
+  .modeStepCopy > p {
+    font-size: 12px;
+    max-width: 28ch;
+  }
+  .partControls {
+    margin-top: 20px;
+  }
+  .integratedModes .modeStageFooter {
+    font-size: 8px;
+    right: 0;
+  }
+  .prototypeFigure {
+    width: 68%;
+    margin-top: 35px;
+  }
+  .sceneStatus {
+    bottom: 83px;
+    font-size: 8px;
+    max-width: 145px;
+  }
+  .sceneControls {
+    bottom: 75px;
+    gap: 5px;
+  }
+  .sceneControls button {
+    font-size: 8px;
+    min-height: 30px;
+    padding: 6px 8px;
+  }
+  .storyRail {
+    bottom: 16px;
+    gap: 4px;
+  }
+  .storyRail a {
+    min-height: 40px;
+    justify-content: center;
+    padding: 0 7px;
+    font-size: 0;
+    gap: 0;
+  }
+  .storyRail a > span {
+    font-size: 9px;
+  }
+  .storyRail a[aria-current] {
+    flex: 2.3;
+    font-size: 8px;
+    gap: 7px;
+  }
+  .footer {
+    font-size: 10px;
+    padding-top: 35px;
+    padding-bottom: 140px;
+    flex-wrap: wrap;
+    gap: 22px;
+  }
+  .footer > span {
+    width: 100%;
+    order: 3;
+    font-size: 8px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page *,
+  .page *::before,
+  .page *::after {
+    transition: none !important;
+    scroll-behavior: auto;
+  }
+}
+
+/* An unobstructed, centered assembly stage; scroll remains the only timeline. */
+.storyPage[data-assembly='true'] .storyContent,
+.storyPage[data-assembly='true'] .storyRail,
+.storyPage[data-assembly='true'] .sceneStatus,
+.storyPage[data-assembly='true'] .sceneControls,
+.storyPage[data-assembly='true'] .footer {
+  visibility: hidden;
+  pointer-events: none;
+}
+.assemblyCue {
+  position: fixed;
+  inset: auto 24px 30px;
+  z-index: 3;
+  display: grid;
+  gap: 8px;
+  text-align: center;
+  font-size: 11px;
+  color: var(--muted);
+  pointer-events: none;
+  visibility: hidden;
+}
+.assemblyCue > span {
+  color: var(--accent);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+}
+.storyPage[data-assembly='true'] .assemblyCue {
+  visibility: visible;
+}
+.modeStage[data-mode='2'] .modeStepCopy,
+.modeStage[data-mode='2'] .modeStageFooter {
+  visibility: hidden;
+}
+:global(body):has(.storyPage[data-assembly='true'])
+  :global([data-site-navigation]) {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.headsetChapter {
+  position: relative;
+  min-height: 260svh;
+}
+.headsetCue {
+  position: fixed;
+  inset: auto 24px 34px;
+  z-index: 3;
+  display: grid;
+  gap: 9px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 11px;
+  pointer-events: none;
+  visibility: hidden;
+}
+.headsetCue > span {
+  color: var(--accent);
+  font-size: 9px;
+  letter-spacing: 0.15em;
+}
+.storyPage:has([data-headset='true']) .headsetCue {
+  visibility: visible;
+}
+.storyPage:has([data-headset='true']) .storyRail,
+.storyPage:has([data-headset='true']) .sceneStatus {
+  visibility: hidden;
+}
+.storyPage:has([data-headset='true']) .chapter:not(.hero) {
+  visibility: hidden;
+}
+
+.loadingScreen {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+  background: #02050b;
+  text-align: center;
+  visibility: visible;
+  touch-action: none;
+  overscroll-behavior: none;
+}
+.loadingProgress {
+  width: min(72vw, 560px);
+}
+.loadingProgress progress {
+  display: block;
+  width: 100%;
+  height: 10px;
+  border-radius: 100px;
+  overflow: clip;
+  accent-color: var(--accent);
+}
+.loadingScreen button {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  padding: 12px 22px;
+  margin-top: 24px;
+  cursor: pointer;
+}
+.storyPage[data-loading='true'] > :not(.loadingScreen) {
+  visibility: hidden;
+}
+:global(body):has(.storyPage[data-loading='true'])
+  :global([data-site-navigation]) {
+  visibility: hidden;
+}
+.loadingProgress progress {
+  appearance: none;
+  border: 0;
+  background: var(--line);
+}
+.loadingProgress progress::-webkit-progress-bar {
+  background: var(--line);
+}
+.loadingProgress progress::-webkit-progress-value {
+  background: var(--accent);
+}
+.loadingProgress progress::-moz-progress-bar {
+  background: var(--accent);
+}
+
+.wordMask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.1em;
+  margin-bottom: -0.1em;
+}
+.revealWord {
+  display: inline-block;
+  transform-origin: left bottom;
+}
+.systemsLegend {
+  display: grid;
+  gap: 10px;
+  margin: 0 0 28px;
+  font-size: 9px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.systemsLegend > span {
+  width: fit-content;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line);
+}
+.assemblyCue {
+  width: min(360px, calc(100vw - 48px));
+  margin-inline: auto;
+  gap: 12px;
+}
+.assemblyCaption {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+}
+.assemblyCaption strong {
+  font-size: clamp(16px, 2vw, 22px);
+  font-weight: 400;
+  color: var(--ink);
+}
+.assemblyCaption > span {
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+.assemblyTrack {
+  height: 1px;
+  background: var(--line);
+  overflow: hidden;
+}
+.assemblyTrack > i {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  transform: scaleX(var(--assembly-progress, 0));
+  transform-origin: left;
+}
+.assemblyCue small {
+  font-size: 10px;
+  color: var(--muted);
+}
+
+/* A longer runway keeps fine assembly movements readable while Lenis scrubs. */
+.caseSection.prototypeRunway {
+  display: block;
+  min-height: 560svh;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.prototypeSticky {
+  position: sticky;
+  top: min(0px, calc(100svh - 860px));
+  padding: 85px 0 45px;
+}
+.prototypeSticky .prototypeFigure img {
+  max-height: 130px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .caseSection.prototypeRunway {
+    min-height: 280svh;
+  }
+}
+
+.flightChapter {
+  position: relative;
+  min-height: 320svh;
+}
+.storyPage[data-flight='true'] .storyContent,
+.storyPage[data-flight='true'] .storyRail,
+.storyPage[data-flight='true'] .sceneStatus,
+.storyPage[data-flight='true'] .sceneControls,
+.storyPage[data-flight='true'] .headsetCue,
+.storyPage[data-flight='true'] .footer {
+  visibility: hidden;
+  pointer-events: none;
+}
+:global(body):has(.storyPage[data-flight='true'])
+  :global([data-site-navigation]) {
+  visibility: hidden;
+}
+@media (prefers-reduced-motion: reduce) {
+  .flightChapter {
+    min-height: 130svh;
+  }
+}
+
+.storyPage[data-motion='reduced'] .flightChapter {
+  min-height: 130svh;
+}
