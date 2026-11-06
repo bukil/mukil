@@ -701,7 +701,11 @@ export default function SpacecraftScene({
                 minY = Math.min(minY, point.y)
                 maxY = Math.max(maxY, point.y)
               }
-          const fit = Math.min(1, 1.76 / (maxX - minX), 1.65 / (maxY - minY))
+          const fit = Math.min(
+            1,
+            0.88 / Math.max(Math.abs(minX), Math.abs(maxX)),
+            0.825 / Math.max(Math.abs(minY), Math.abs(maxY))
+          )
           if (fit >= 0.999) break
           rig.scale.multiplyScalar(fit)
           rig.position.multiplyScalar(fit)
