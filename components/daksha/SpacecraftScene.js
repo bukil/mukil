@@ -20,6 +20,7 @@ import { ASSEMBLY_PARTS, LEARNING_PARTS } from './experience-modes'
 import { STORY_CHAPTERS, STORY_INDEX } from './story-chapters'
 import { createOrbitalFlight } from './OrbitalFlight'
 import { prepareFinalSatellite, SOLAR_PART } from './final-satellite.mjs'
+import { SCENE_ASSETS } from './scene-assets.mjs'
 import { createStoryEnvironment } from './StoryEnvironment'
 import { createHeadsetPortal } from './HeadsetPortal'
 import { prepareBrushedTangents } from './spacecraft-finish.mjs'
@@ -767,11 +768,7 @@ export default function SpacecraftScene({
             experienceMix < 0.999 &&
             material.userData.dakshaGhostFrom?.value > 0.002) ||
           material.userData.dakshaVisibility.value < 0.998
-        if (material.transparent !== transparent) {
-          material.transparent = transparent
-          material.depthWrite = !transparent
-          material.needsUpdate = true
-        }
+        material.depthWrite = !transparent
       })
       guides.position.set(0, 0, 0)
       guides.scale.setScalar(1)
@@ -1072,23 +1069,22 @@ export default function SpacecraftScene({
           render()
         }
       }
-      loader.load(
-        '/Mukifd.glb',
-        async gltf => {
-          const assets = await Promise.allSettled([
-            loader.loadAsync('/models/electricalSystem_battery_d01.glb'),
-            ...(variant === 'story' ? [loader.loadAsync('/Quest3.glb')] : [])
-          ])
+      Promise.allSettled([
+        loader.loadAsync(SCENE_ASSETS.satellite),
+        loader.loadAsync(SCENE_ASSETS.battery),
+        ...(variant === 'story' ? [loader.loadAsync(SCENE_ASSETS.headset)] : [])
+      ])
+        .then(async assets => {
           if (assets.some(asset => asset.status === 'rejected')) {
             assets.forEach(asset => {
               if (asset.status === 'fulfilled') disposeModel(asset.value.scene)
             })
-            disposeModel(gltf.scene)
             if (!disposed) onError()
             return
           }
-          const battery = assets[0].value
-          const headset = assets[1]?.value
+          const gltf = assets[0].value
+          const battery = assets[1].value
+          const headset = assets[2]?.value
           if (disposed) {
             disposeModel(gltf.scene)
             disposeModel(battery.scene)
@@ -1124,11 +1120,29 @@ export default function SpacecraftScene({
           // Geometry is baked into the shared bank; materials/textures remain in use.
           battery.scene.traverse(node => node.geometry?.dispose())
           model.updateMatrixWorld(true)
+          if (model.userData.optimizedSatellite) {
+            assemblyPieces = model.userData.assemblyPieces
+            for (const path of model.userData.assemblyGuidePaths) {
+              assemblyGuides.addPaths(
+                [
+                  {
+                    center: new THREE.Vector3(...path.center),
+                    offset: new THREE.Vector3(...path.offset),
+                    delay: path.delay,
+                    vertices: { length: path.count }
+                  }
+                ],
+                new THREE.Matrix4()
+              )
+            }
+          }
           const inverseModel = model.matrixWorld.clone().invert()
           const originalMaterials = new Set()
           const materialClones = new Map()
           model.children.forEach(root => {
             const part = root.userData.part || root.name
+            const precomputedPart =
+              model.userData.optimizedSatellite && part !== BATTERY_PART
             const surface = new THREE.MeshStandardMaterial({
               color: 0xdbeaf4,
               roughness: 0.88,
@@ -1146,7 +1160,7 @@ export default function SpacecraftScene({
             }
             const edges = []
             const solarOutline =
-              part === SOLAR_PART
+              part === SOLAR_PART || precomputedPart
                 ? new THREE.LineBasicMaterial({
                     color: 0x18568f,
                     transparent: true,
@@ -1163,6 +1177,21 @@ export default function SpacecraftScene({
             }
             const inverseRoot = root.matrixWorld.clone().invert()
             root.traverse(node => {
+              if (node.userData.precomputedOutline) {
+                originalMaterials.add(node.material)
+                node.material = solarOutline
+                node.geometry.setAttribute(
+                  'assemblyOffset',
+                  node.geometry.getAttribute('_assembly_offset')
+                )
+                node.geometry.setAttribute(
+                  'assemblyDelay',
+                  node.geometry.getAttribute('_assembly_delay')
+                )
+                node.frustumCulled = false
+                node.renderOrder = 1
+                return
+              }
               if (!node.isMesh) return
               const old = Array.isArray(node.material)
                 ? node.material
@@ -1194,19 +1223,31 @@ export default function SpacecraftScene({
               node.castShadow = variant === 'story'
               node.receiveShadow = variant === 'story'
               selectableMeshes.push(node)
-              const plan = prepareAssemblyGeometry(
-                node.geometry,
-                ASSEMBLY_PARTS.indexOf(part),
-                assemblyPieces
-              )
-              assemblyPieces += plan.pieces.length
-              assemblyGuides.addPaths(
-                plan.pieces,
-                new THREE.Matrix4().multiplyMatrices(
-                  inverseModel,
-                  node.matrixWorld
+              let plan
+              if (precomputedPart) {
+                node.geometry.setAttribute(
+                  'assemblyOffset',
+                  node.geometry.getAttribute('_assembly_offset')
                 )
-              )
+                node.geometry.setAttribute(
+                  'assemblyDelay',
+                  node.geometry.getAttribute('_assembly_delay')
+                )
+              } else {
+                plan = prepareAssemblyGeometry(
+                  node.geometry,
+                  ASSEMBLY_PARTS.indexOf(part),
+                  assemblyPieces
+                )
+                assemblyPieces += plan.pieces.length
+                assemblyGuides.addPaths(
+                  plan.pieces,
+                  new THREE.Matrix4().multiplyMatrices(
+                    inverseModel,
+                    node.matrixWorld
+                  )
+                )
+              }
               node.frustumCulled = false
               node.customDepthMaterial = new THREE.MeshDepthMaterial({
                 depthPacking: THREE.RGBADepthPacking
@@ -1215,6 +1256,7 @@ export default function SpacecraftScene({
                 injectAssemblyShader(shader, assemblyUniforms)
               node.customDepthMaterial.customProgramCacheKey = () =>
                 'daksha-assembly-depth-v1'
+              if (precomputedPart) return
               const geometry = new THREE.EdgesGeometry(node.geometry, 28)
               const edgeTransform = new THREE.Matrix4().multiplyMatrices(
                 inverseRoot,
@@ -1262,6 +1304,7 @@ export default function SpacecraftScene({
           // A restrained x-ray pass reveals inner layers beneath the blue outlines.
           surfaceMaterials.forEach(material => {
             material.forceSinglePass = true
+            material.transparent = true
             material.userData.dakshaGhost = { value: 0 }
             material.userData.dakshaBlue = { value: 0 }
             material.userData.dakshaBlack = { value: 0 }
@@ -1333,49 +1376,38 @@ export default function SpacecraftScene({
             warming = true
             cancelAnimationFrame(frame)
             onProgress(68)
-            // Upload textures and compile both opacity variants before scrolling.
-            for (const transparent of [false, true]) {
-              surfaceMaterials.forEach(material => {
-                material.transparent = transparent
-                material.depthWrite = !transparent
-                material.needsUpdate = true
-                for (const value of Object.values(material))
-                  if (value?.isTexture) renderer.initTexture(value)
-              })
+            // The alpha-capable shader is shared by solid and x-ray views.
+            const textures = new Set()
+            surfaceMaterials.forEach(material => {
+              for (const value of Object.values(material))
+                if (value?.isTexture) textures.add(value)
+            })
+            textures.forEach(texture => renderer.initTexture(texture))
+            // Compile the guide material too, without drawing later chapters.
+            assemblyGuides.lines.visible = true
+            const previousTarget = renderer.getRenderTarget()
+            // The world is drawn into linear HDR targets in both VR and the
+            // composer. Compile for that target instead of a second screen variant.
+            if (composer) renderer.setRenderTarget(composer.renderTarget1)
+            try {
               await renderer.compileAsync(scene, camera)
-              if (disposed) return
+            } finally {
+              renderer.setRenderTarget(previousTarget)
+              assemblyGuides.lines.visible = false
             }
+            if (disposed) return
             await headsetPortal?.prepare(renderer)
             if (disposed) return
             const saved = { ...stateRef.current }
+            // Two representative renders upload geometry and warm the lens and
+            // post-processing paths. Later chapters reuse the same shader code.
             const samples =
               variant === 'story'
                 ? [
-                    { chapter: 1.08, interactive: false },
                     { chapter: 1.65, interactive: false },
-                    { chapter: 2.45, interactive: false },
-                    {
-                      chapter: STORY_INDEX.spacecraft + 0.3,
-                      interactive: false
-                    },
-                    { chapter: STORY_INDEX.inside, interactive: false },
-                    {
-                      chapter: STORY_INDEX.prototype,
-                      interactive: true,
-                      modeProgress: 0.34
-                    },
-                    {
-                      chapter: STORY_INDEX.prototype,
-                      interactive: true,
-                      modeProgress: 0.69
-                    },
-                    {
-                      chapter: STORY_INDEX.prototype,
-                      interactive: true,
-                      modeProgress: 0.9
-                    }
+                    { chapter: 2.45, interactive: false }
                   ]
-                : [{ progress: 0.35 }, { progress: 0.69 }]
+                : [{ progress: 0.35 }]
             for (let i = 0; i < samples.length; i++) {
               Object.assign(stateRef.current, samples[i])
               render()
@@ -1394,15 +1426,10 @@ export default function SpacecraftScene({
             warming = false
             if (!disposed) onError()
           }
-        },
-        event => {
-          if (!disposed && event.total)
-            onProgress((event.loaded / event.total) * 40)
-        },
-        () => {
+        })
+        .catch(() => {
           if (!disposed) onError()
-        }
-      )
+        })
     } catch {
       onError()
     }

@@ -13,6 +13,7 @@ import {
 } from '../components/daksha/story-chapters'
 import styles from '../styles/Daksha.module.css'
 import { experienceProgressForScroll } from '../components/daksha/scroll-motion.mjs'
+import { SCENE_ASSETS } from '../components/daksha/scene-assets.mjs'
 
 const SpacecraftScene = dynamic(
   () => import('../components/daksha/SpacecraftScene'),
@@ -58,14 +59,8 @@ export default function DakshaInOrbit() {
 
   useEffect(() => {
     let alive = true
-    const images = [...rootRef.current.querySelectorAll('main img')]
-    let complete = 0
-    const tasks = images.map(async image => {
-      image.loading = 'eager'
-      await image.decode().catch(() => {})
-      if (alive) setPageProgress((++complete / Math.max(1, images.length)) * 95)
-    })
-    Promise.all([...tasks, document.fonts.ready]).then(() => {
+    // Below-fold figures keep native lazy loading and do not block scene entry.
+    document.fonts.ready.then(() => {
       if (alive) {
         setPageProgress(100)
         setPageReady(true)
@@ -367,7 +362,18 @@ export default function DakshaInOrbit() {
         />
         <link rel="canonical" href="https://mukil.vercel.app/daksha-in-orbit" />
         <link rel="icon" href="/favicon.ico" />
-        <link rel="preload" href="/models/daksha-poster.webp" as="image" />
+        <link
+          rel="preload"
+          href={SCENE_ASSETS.satellite}
+          as="fetch"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href={SCENE_ASSETS.headset}
+          as="fetch"
+          crossOrigin="anonymous"
+        />
       </Head>
       {!experienceReady && (
         <div className={styles.loadingScreen} role="status" aria-live="polite">

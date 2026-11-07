@@ -80,6 +80,44 @@ function mergeInto(parent, entries) {
 }
 
 export function prepareFinalSatellite(source) {
+  const prepared = source.children.find(
+    node => node.userData.optimizedSatellite
+  )
+  if (prepared) {
+    const arrays = prepared.children.find(
+      node => node.userData.part === SOLAR_PART
+    )
+    const hinges = []
+    arrays.traverse(node => {
+      const side = node.userData.solarHingeSide
+      if (side)
+        hinges.push({
+          group: node,
+          side,
+          pivot: node.position.clone(),
+          outer: node,
+          inner: arrays.children.find(
+            child => child.userData.solarInnerSide === side
+          )
+        })
+    })
+    if (hinges.length !== 2)
+      throw new Error('Prepared satellite hinges are missing')
+    const update = deployment => {
+      const value = THREE.MathUtils.clamp(deployment, 0, 1)
+      for (const hinge of hinges)
+        hinge.group.rotation.z = hinge.side * Math.PI * (1 - value)
+      prepared.userData.solarDeployment = value
+    }
+    update(1)
+    return {
+      model: prepared,
+      arrays,
+      hinges,
+      update,
+      sourceMeshes: prepared.userData.sourceMeshes
+    }
+  }
   source.updateMatrixWorld(true)
   const meshes = []
   const bodyBounds = new THREE.Box3()
