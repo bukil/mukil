@@ -13,6 +13,7 @@ import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js'
+import { SMAAPass } from 'three/examples/jsm/postprocessing/SMAAPass.js'
 import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js'
 import gsap from 'gsap'
 import styles from '../../styles/Daksha.module.css'
@@ -23,7 +24,11 @@ import { prepareFinalSatellite, SOLAR_PART } from './final-satellite.mjs'
 import { SCENE_ASSETS } from './scene-assets.mjs'
 import { createStoryEnvironment } from './StoryEnvironment'
 import { createHeadsetPortal } from './HeadsetPortal'
-import { prepareBrushedTangents } from './spacecraft-finish.mjs'
+import {
+  createSpacecraftFinish,
+  prepareBrushedTangents
+} from './spacecraft-finish.mjs'
+import { renderQuality } from './render-quality.mjs'
 import {
   sampleStoryValue,
   easeRange,
@@ -133,6 +138,7 @@ export default function SpacecraftScene({
     let observer
     let renderer
     let composer
+    let quality
     let bloom
     let scenePass
     let assemblyPieces = 0
@@ -147,6 +153,10 @@ export default function SpacecraftScene({
     const raycaster = new THREE.Raycaster()
     const pointer = new THREE.Vector2()
     const surfaceMaterials = new Set()
+    const fitMeshes = []
+    const fitPoint = new THREE.Vector3()
+    const fitProjection = new THREE.Matrix4()
+    const fitTransform = new THREE.Matrix4()
     const ghostUniform = { value: 0 }
     const scanUniform = { value: -2.4 }
     const experienceUniform = { value: 1 }
@@ -618,6 +628,11 @@ export default function SpacecraftScene({
       const batteryBank = parts.find(item => item.key === BATTERY_PART)
       if (batteryBank && assembling && assemblyProgress < BATTERY_LAYOUT.appear)
         batteryBank.node.visible = false
+      if (batteryBank && !warming && !interactive)
+        batteryBank.node.visible =
+          ghostUniform.value > 0.03 || (storyProfile?.explode || 0) > 0.03
+      if (batteryBank && !warming && modeFrame?.mode === 0)
+        batteryBank.node.visible = false
       const solarDeployment = assembling
         ? easeRange(assemblyProgress, 0.86, 1)
         : story
@@ -688,20 +703,33 @@ export default function SpacecraftScene({
         viewCamera.updateMatrixWorld()
         for (let pass = 0; pass < 2; pass++) {
           rig.updateMatrixWorld(true)
-          const bounds = new THREE.Box3().setFromObject(model)
           let minX = Infinity,
             maxX = -Infinity,
             minY = Infinity,
             maxY = -Infinity
-          for (const x of [bounds.min.x, bounds.max.x])
-            for (const y of [bounds.min.y, bounds.max.y])
-              for (const z of [bounds.min.z, bounds.max.z]) {
-                const point = new THREE.Vector3(x, y, z).project(viewCamera)
-                minX = Math.min(minX, point.x)
-                maxX = Math.max(maxX, point.x)
-                minY = Math.min(minY, point.y)
-                maxY = Math.max(maxY, point.y)
-              }
+          fitProjection.multiplyMatrices(
+            viewCamera.projectionMatrix,
+            viewCamera.matrixWorldInverse
+          )
+          // Project each mesh's local bounds: a world-space enclosing box wastes
+          // much of a phone viewport when the long solar wings are angled.
+          for (const mesh of fitMeshes) {
+            const bounds = mesh.geometry.boundingBox
+            fitTransform.multiplyMatrices(fitProjection, mesh.matrixWorld)
+            for (let corner = 0; corner < 8; corner++) {
+              fitPoint
+                .set(
+                  corner & 1 ? bounds.max.x : bounds.min.x,
+                  corner & 2 ? bounds.max.y : bounds.min.y,
+                  corner & 4 ? bounds.max.z : bounds.min.z
+                )
+                .applyMatrix4(fitTransform)
+              minX = Math.min(minX, fitPoint.x)
+              maxX = Math.max(maxX, fitPoint.x)
+              minY = Math.min(minY, fitPoint.y)
+              maxY = Math.max(maxY, fitPoint.y)
+            }
+          }
           const fit = Math.min(
             1,
             0.88 / Math.max(Math.abs(minX), Math.abs(maxX)),
@@ -843,7 +871,7 @@ export default function SpacecraftScene({
       if (headsetPortal?.active) {
         headsetPortal.render(renderer, scene, viewCamera, rig.position)
       } else if (composer) {
-        bloom.strength = 0.24 + 0.5 * flight.stretch
+        bloom.strength = 0.14 + 0.5 * flight.stretch
         composer.render()
       } else renderer.render(scene, viewCamera)
       if (modeFrame) {
@@ -908,6 +936,18 @@ export default function SpacecraftScene({
         mount.dataset.headsetPhase = headsetPortal.phase
         mount.dataset.headsetStickers = String(headsetPortal.stickerCount)
       }
+      mount.dataset.pixelRatio = renderer.getPixelRatio().toFixed(2)
+      mount.dataset.hdrResolution = composer
+        ? `${composer.readBuffer.width}x${composer.readBuffer.height}`
+        : ''
+      mount.dataset.hdrSamples = String(composer?.renderTarget1.samples || 0)
+      mount.dataset.antialiasing = composer ? 'SMAA' : 'MSAA'
+      mount.dataset.toneMapping = 'AgX'
+      mount.dataset.reflectiveMaterials = String(
+        [...surfaceMaterials].filter(
+          material => material.userData.reflectiveFinish
+        ).length
+      )
       mount.dataset.flightSpeed = flight.speed.toFixed(4)
       mount.dataset.flightBlend = flight.blend.toFixed(4)
       mount.dataset.flightTime = flightTime.toFixed(3)
@@ -959,17 +999,17 @@ export default function SpacecraftScene({
         antialias: true,
         powerPreference: 'high-performance'
       })
-      renderer.setPixelRatio(
-        Math.min(
-          window.devicePixelRatio || 1,
-          mount.clientWidth < 760 ? 1.35 : 1.6
-        )
+      quality = renderQuality(
+        mount.clientWidth,
+        mount.clientHeight,
+        window.devicePixelRatio || 1
       )
+      renderer.setPixelRatio(quality.pixelRatio)
       renderer.outputColorSpace = THREE.SRGBColorSpace
       renderer.shadowMap.enabled = variant === 'story'
       renderer.shadowMap.type = THREE.PCFSoftShadowMap
-      renderer.toneMapping = THREE.ACESFilmicToneMapping
-      renderer.toneMappingExposure = 1
+      renderer.toneMapping = THREE.AgXToneMapping
+      renderer.toneMappingExposure = 1.05
       renderer.setClearColor(0x000000, 0)
       renderer.domElement.setAttribute('aria-hidden', 'true')
       mount.appendChild(renderer.domElement)
@@ -980,7 +1020,8 @@ export default function SpacecraftScene({
       if (variant === 'story') {
         for (const [position, size, color, strength] of [
           [[-4, 3, 7], [1.6, 8], 0xdbeaff, 3.5],
-          [[6, 1, -4], [2, 6], 0xffe8c4, 2.5]
+          [[6, 1, -4], [2, 6], 0xffe8c4, 2.5],
+          [[6, 2, 5], [2.4, 7], 0xf2f6ff, 4]
         ]) {
           const card = new THREE.Mesh(
             new THREE.PlaneGeometry(...size),
@@ -994,9 +1035,9 @@ export default function SpacecraftScene({
           room.add(card)
         }
       }
-      environment = pmrem.fromScene(room, 0.04)
+      environment = pmrem.fromScene(room, 0.02)
       scene.environment = environment.texture
-      scene.environmentIntensity = variant === 'story' ? 0.6 : 1
+      scene.environmentIntensity = variant === 'story' ? 0.9 : 1
       scene.environmentRotation.set(0, 0.35, 0)
       room.dispose()
       pmrem.dispose()
@@ -1008,17 +1049,21 @@ export default function SpacecraftScene({
           manager,
           mount.clientWidth < 760
         )
-        composer = new EffectComposer(renderer)
-        composer.setPixelRatio(
-          Math.min(
-            window.devicePixelRatio || 1,
-            mount.clientWidth < 760 ? 1 : 1.35
-          )
-        )
+        // Bloom blends back into the scene buffer. Multisample resolves discard
+        // that buffer's color attachment, so an in-place bloom blend can replace
+        // the entire scene with black. Keep HDR buffers single-sampled and smooth
+        // edges separately, before the output tone mapping.
+        const hdrTarget = new THREE.WebGLRenderTarget(1, 1, {
+          type: THREE.HalfFloatType
+        })
+        hdrTarget.texture.name = 'Daksha HDR'
+        composer = new EffectComposer(renderer, hdrTarget)
+        composer.setPixelRatio(quality.pixelRatio)
         scenePass = new RenderPass(scene, camera)
         composer.addPass(scenePass)
         bloom = new UnrealBloomPass(new THREE.Vector2(1, 1), 0.24, 0.35, 2.8)
         composer.addPass(bloom)
+        composer.addPass(new SMAAPass())
         composer.addPass(new OutputPass())
       }
       const key = (keyLight = new THREE.DirectionalLight(
@@ -1053,8 +1098,11 @@ export default function SpacecraftScene({
         camera.aspect = width / height
         camera.position.z = width < 760 ? 9.7 : width < 1150 ? 10 : 8.8
         camera.updateProjectionMatrix()
+        quality = renderQuality(width, height, window.devicePixelRatio || 1)
+        renderer.setPixelRatio(quality.pixelRatio)
         renderer.setSize(width, height)
-        headsetPortal?.resize(width, height)
+        headsetPortal?.resize(width, height, quality.pixelRatio)
+        composer?.setPixelRatio(quality.pixelRatio)
         composer?.setSize(width, height)
         invalidate()
       }
@@ -1063,11 +1111,7 @@ export default function SpacecraftScene({
       resize()
       controllerRef.current = {
         invalidate,
-        reset,
-        draw: () => {
-          cancelAnimationFrame(frame)
-          render()
-        }
+        reset
       }
       Promise.allSettled([
         loader.loadAsync(SCENE_ASSETS.satellite),
@@ -1112,7 +1156,11 @@ export default function SpacecraftScene({
               disposeModel(gltf.scene)
               return
             }
-            headsetPortal.resize(mount.clientWidth, mount.clientHeight)
+            headsetPortal.resize(
+              mount.clientWidth,
+              mount.clientHeight,
+              quality.pixelRatio
+            )
           }
           solarRig = prepareFinalSatellite(gltf.scene)
           model = solarRig.model
@@ -1201,11 +1249,14 @@ export default function SpacecraftScene({
                 const clone = original => {
                   const key = part + ':' + original.uuid
                   if (!materialClones.has(key)) {
-                    const copy = original.clone()
-                    copy.userData.part = part
-                    copy.polygonOffset = true
-                    copy.polygonOffsetFactor = 1
-                    copy.polygonOffsetUnits = 1
+                    const copy = createSpacecraftFinish(original, part)
+                    const anisotropy = Math.min(
+                      8,
+                      renderer.capabilities.getMaxAnisotropy()
+                    )
+                    for (const value of Object.values(copy))
+                      if (value?.isTexture && value.isDataTexture !== true)
+                        value.anisotropy = anisotropy
                     materialClones.set(key, copy)
                     surfaceMaterials.add(copy)
                   }
@@ -1368,6 +1419,11 @@ export default function SpacecraftScene({
             })
           })
           rig.add(model)
+          model.traverse(node => {
+            if (!node.isMesh) return
+            if (!node.geometry.boundingBox) node.geometry.computeBoundingBox()
+            fitMeshes.push(node)
+          })
           assemblyGuides.build()
           try {
             await resourcesReady

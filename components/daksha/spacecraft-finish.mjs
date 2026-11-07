@@ -1,41 +1,50 @@
 import * as THREE from 'three'
 
-// Retain imported maps and labels while giving each material its own finish.
+// Restore reflective PBR response where procedural Blender shaders exported as
+// maximally rough defaults. Imported maps, UV transforms, and labels stay intact.
 export function createSpacecraftFinish(original, part) {
   const material = new THREE.MeshPhysicalMaterial()
   if (original.isMeshPhysicalMaterial) material.copy(original)
   else THREE.MeshStandardMaterial.prototype.copy.call(material, original)
   material.defines = { STANDARD: '', PHYSICAL: '' }
-  const name = original.name.toLowerCase()
-  const plastic = name.includes('plastic')
-  const detector = name.includes('detector')
-  const gold = name.includes('gold')
-  const graphite = name.includes('graphite')
   material.userData.part = part
-  material.emissive.setHex(0)
-  material.emissiveIntensity = 1
-  material.envMapIntensity = plastic || detector ? 0.8 : 2.1
-
-  if (plastic) {
-    material.metalness = 0
-    material.roughness = name.includes('rough') ? 0.55 : 0.27
-    material.clearcoat = name.includes('glossy') ? 0.45 : 0.12
-    material.clearcoatRoughness = 0.2
-  } else if (detector) {
-    material.metalness = 0.35
-    material.roughness = 0.24
-    material.clearcoat = 0.65
-    material.clearcoatRoughness = 0.1
-  } else {
-    material.metalness = 1
-    material.roughness = gold ? 0.2 : graphite ? 0.26 : 0.22
-    material.anisotropy = gold ? 0.72 : graphite ? 0.65 : 0.85
-    material.anisotropyRotation = graphite ? Math.PI / 2 : Math.PI / 8
-    material.clearcoat = gold ? 0.3 : 0.22
+  const name = original.name.toLowerCase()
+  const solar = name.includes('solar')
+  const metal =
+    /metal|titanium|gold|graphite/.test(name) && !name.includes('plastic')
+  if (metal) {
+    material.metalness = Math.max(0.92, original.metalness)
+    material.roughness = original.roughnessMap
+      ? Math.max(0.32, original.roughness * 0.48)
+      : name.includes('graphite')
+      ? 0.28
+      : 0.22
+    material.envMapIntensity = 1.65
+    material.anisotropy = Math.max(
+      original.anisotropy || 0,
+      name.includes('titanium') ? 0.8 : 0.5
+    )
+    material.clearcoat = Math.max(original.clearcoat || 0, 0.18)
+    material.clearcoatRoughness = 0.14
+    // Procedural gold often has no exported base color at all.
+    if (
+      name.includes('gold') &&
+      !original.map &&
+      original.color.r > 0.95 &&
+      original.color.g > 0.95
+    )
+      material.color.set(0xd9ae58)
+    if (name.includes('chromatic')) {
+      material.iridescence = 0.15
+      material.iridescenceIOR = 1.3
+    }
+    material.userData.reflectiveFinish = true
+  } else if (solar) {
+    material.envMapIntensity = 0.8
+    material.clearcoat = Math.max(original.clearcoat || 0, 0.35)
     material.clearcoatRoughness = 0.12
-    if (gold) material.color.setRGB(0.88, 0.57, 0.2)
-    else if (name.includes('titanium'))
-      material.color.lerp(new THREE.Color(0.7, 0.76, 0.82), 0.4)
+    if (original.roughnessMap)
+      material.roughness = Math.min(original.roughness, 0.65)
   }
   material.polygonOffset = true
   material.polygonOffsetFactor = 1

@@ -180,8 +180,7 @@ export default function DakshaInOrbit() {
         lastActive = current
         setActive(current)
       }
-      if (controllerRef.current?.draw) controllerRef.current.draw()
-      else controllerRef.current?.invalidate()
+      controllerRef.current?.invalidate()
     }
     const measure = () => {
       points = sections.map((section, index) =>

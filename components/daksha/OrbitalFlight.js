@@ -43,7 +43,10 @@ export function createOrbitalFlight(scene, mobile) {
     fragmentShader: `uniform float uOpacity;varying vec2 vUv;varying float vDepth;varying float vTint;
       void main(){
         float width=1.0-smoothstep(0.05,0.5,abs(vUv.y-0.5));
-        float tail=pow(vUv.x,1.7)*(1.0-smoothstep(0.92,1.0,vUv.x));
+        // Edge interpolation can put a sample just below zero. Fractional pow
+        // then produces NaN, which spreads across the bloom pyramid as black.
+        float along=clamp(vUv.x,0.0,1.0);
+        float tail=pow(along,1.7)*(1.0-smoothstep(0.92,1.0,along));
         vec3 color=mix(vec3(0.26,0.55,1.0),vec3(0.85,0.95,1.0),vTint);
         if(vTint>0.96)color=vec3(1.0,0.65,0.3);
         gl_FragColor=vec4(color*1.6,width*tail*uOpacity*(0.2+vDepth*0.7));

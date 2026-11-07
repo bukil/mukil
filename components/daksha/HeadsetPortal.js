@@ -38,7 +38,9 @@ export async function createHeadsetPortal(source, environment, manager) {
   scene.add(root)
   source.traverse(node => {
     if (!node.isMesh) return
-    node.material.envMapIntensity = node.material.isMeshPhysicalMaterial ? 2.5 : 1
+    node.material.envMapIntensity = node.material.isMeshPhysicalMaterial
+      ? 2.5
+      : 1
   })
   const key = new THREE.DirectionalLight(0xe9f3ff, 3.5)
   key.position.set(-4, 6, 8)
@@ -142,13 +144,13 @@ export async function createHeadsetPortal(source, environment, manager) {
     get phase() {
       return phase
     },
-    resize(nextWidth, nextHeight) {
+    resize(nextWidth, nextHeight, pixelRatio = 1.35) {
       width = nextWidth
       height = nextHeight
       camera.aspect = width / height
       camera.updateProjectionMatrix()
       // One shared live render feeds both eyes; no second renderer or idle loop.
-      const ratio = Math.min(1.35, 1536 / width, 1536 / height)
+      const ratio = Math.min(pixelRatio, 2, 2048 / width, 2048 / height)
       target.setSize(Math.round(width * ratio), Math.round(height * ratio))
     },
     update(chapter, reducedMotion) {
