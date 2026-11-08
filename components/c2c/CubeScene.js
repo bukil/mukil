@@ -152,9 +152,9 @@ export default function CubeScene({ motionRef, controllerRef }) {
       renderer = new THREE.WebGLRenderer({
         alpha: true,
         antialias: true,
-        powerPreference: 'low-power'
+        powerPreference: 'high-performance'
       })
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5))
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2))
       renderer.setClearColor(0x000000, 0)
       renderer.toneMapping = THREE.ACESFilmicToneMapping
       renderer.toneMappingExposure = 1.25
@@ -178,6 +178,7 @@ export default function CubeScene({ motionRef, controllerRef }) {
       const resize = () => {
         const { width, height } = mount.getBoundingClientRect()
         if (!width || !height) return
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2))
         renderer.setSize(width, height)
         camera.aspect = width / height
         camera.position.z = width < 768 ? 11.8 : 7.8
