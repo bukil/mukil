@@ -27,6 +27,8 @@ import dynamic from 'next/dynamic'
 import { motion } from 'framer-motion'
 import React from 'react'
 import LhcRingGraphic from '../components/LhcRingGraphic'
+import useProjectScroll from '../hooks/useProjectScroll'
+import scrollStyles from '../styles/ProjectScroll.module.css'
 
 const HairlineExploded = dynamic(
   () => import('@lucasmarkes/hairline/react').then((m) => m.Exploded),
@@ -140,6 +142,7 @@ const ProjectPanel = ({
 }) => {
   return (
     <Box
+      data-project-card=""
       width="100%"
       maxW="100%"
       role="group"
@@ -235,6 +238,7 @@ const ProjectPanel = ({
       >
         {imageSrc && (
           <Box
+            data-project-artwork=""
             position="absolute"
             top="0"
             left="0"
@@ -264,6 +268,7 @@ const ProjectPanel = ({
 
         {customContent && (
           <Box
+            data-project-artwork=""
             position="absolute"
             top="0"
             left="0"
@@ -529,7 +534,7 @@ function WorksGrid() {
     <Box w="100%" px={{ base: '20px', md: '24px' }} mb={{ base: 16, md: 20 }}>
       <SimpleGrid columns={{ base: 1, md: 2 }} gap={{ base: '20px', md: '24px' }}>
         {/* Panel 1: Data visualisation: LHC, Speed of Light */}
-        <Section delay={0.1}>
+        <Section data-project-row="" delay={0.1}>
           <Box
             as="a"
             href="https://bukil.github.io/dataviz/"
@@ -547,7 +552,7 @@ function WorksGrid() {
         </Section>
 
         {/* Panel 2: Data Vizualisation (MAPA) */}
-        <Section delay={0.2}>
+        <Section data-project-row="" delay={0.2}>
           <Box
             as="a"
             href="https://bukil.github.io/MAPA/"
@@ -565,7 +570,7 @@ function WorksGrid() {
         </Section>
 
         {/* Panel 3: Microinteraction */}
-        <Section delay={0.3}>
+        <Section data-project-row="" delay={0.3}>
           <NextLink href="/mukilm" passHref legacyBehavior>
             <Box
               as="a"
@@ -582,7 +587,7 @@ function WorksGrid() {
         </Section>
 
         {/* Panel 4: C2C */}
-        <Section delay={0.4}>
+        <Section data-project-row="" delay={0.4}>
           <ProjectPanel
             title="C2C"
             rightText="Placeholder"
@@ -744,6 +749,8 @@ function WorksGrid() {
 }
 
 const Works = () => {
+  const pageRef = useRef(null)
+  useProjectScroll(pageRef)
   const bigTextRef = useRef(null)
   const scrollIndicatorRef = useRef(null)
   const characters = 'DESIGN'.split('')
@@ -831,7 +838,7 @@ const Works = () => {
         <link rel="canonical" href="https://mukil.vercel.app/works" />
       </Head>
       <Layout title="Playground" mt={10} overflowX="hidden">
-        <Box w="100%" position="relative">
+        <Box ref={pageRef} className={scrollStyles.root} w="100%" position="relative">
           <BigText ref={bigTextRef}>
             {characters.map((char, index) => (
               <Character key={index}>{char}</Character>

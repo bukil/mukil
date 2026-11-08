@@ -1,0 +1,62 @@
+@keyframes projectEnter {
+  from {
+    transform: translate3d(0, var(--project-entry), 0) scale(0.985);
+    opacity: 0.65;
+  }
+  to {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes projectArtwork {
+  from { transform: translateY(var(--project-drift)); }
+  to { transform: translateY(calc(-1 * var(--project-drift))); }
+}
+
+.root {
+  --project-entry: 36px;
+  overflow-x: clip;
+  --project-drift: 6px;
+}
+
+@media (min-width: 768px) {
+  .root {
+    --project-entry: 64px;
+    --project-drift: 12px;
+  }
+}
+
+/* Give moving artwork enough bleed to keep panel edges covered. */
+@media (prefers-reduced-motion: no-preference) {
+  /* Reveal each panel inside its own row so it cannot overlap its neighbours. */
+  .root [data-project-row] {
+    overflow: clip;
+    overflow-clip-margin: 4px;
+  }
+
+  .root [data-project-artwork] {
+    top: calc(-1 * var(--project-drift));
+    bottom: calc(-1 * var(--project-drift));
+  }
+}
+
+@supports ((animation-timeline: view()) and (animation-range: entry)) {
+  @media (prefers-reduced-motion: no-preference) {
+    .root [data-project-row] {
+      view-timeline: --project block;
+    }
+
+    .root [data-project-card] {
+      animation: projectEnter cubic-bezier(0.215, 0.61, 0.355, 1) both;
+      animation-timeline: --project;
+      animation-range: entry 0% entry 85%;
+    }
+
+    .root [data-project-artwork] {
+      animation: projectArtwork linear both;
+      animation-timeline: --project;
+      animation-range: cover 0% cover 100%;
+    }
+  }
+}

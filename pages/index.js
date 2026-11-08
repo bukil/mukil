@@ -8,11 +8,9 @@ import {
   Text,
   useBreakpointValue,
 } from '@chakra-ui/react'
-import { useRef, useLayoutEffect, useState, useEffect } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-gsap.registerPlugin(ScrollTrigger);
-import { useRouter } from 'next/router'
+import { useRef, useState, useEffect } from 'react'
+import useProjectScroll from '../hooks/useProjectScroll'
+import scrollStyles from '../styles/ProjectScroll.module.css'
 import { Global } from '@emotion/react'
 
 import Layout from '../components/layouts/article'
@@ -111,7 +109,7 @@ const SKILL_ICONS = {
 }
 
 function AnimatedIntro({ textColor = '#1A1A1A' }) {
-  const line = "Mukil Kumar is a product designer working at the intersection of design and technology to create meaningful, accessible experiences."
+  const line = "Mukil is a product designer working at the intersection of design and technology to create meaningful, accessible experiences."
 
   return (
     <Box w="100%">
@@ -145,9 +143,7 @@ const Home = () => {
   const pageRef = useRef(null)
   const textSectionRef = useRef(null)
 
-  const journeyRefs = useRef([])
-  const buttonRef = useRef(null)
-  const router = useRouter();
+  useProjectScroll(pageRef)
   const isMobile = useBreakpointValue({ base: true, md: false })
 
   const bgColor = '#F4F4F0'
@@ -156,7 +152,6 @@ const Home = () => {
   // New: Intersection observer for skills section
   const skillsSectionRef = useRef(null);
   const [skillsVisible, setSkillsVisible] = useState(false);
-  const skillsTextRef = useRef(null);
   const [hoveredSkill, setHoveredSkill] = useState(null)
 
   useEffect(() => {
@@ -175,94 +170,10 @@ const Home = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Continuous smooth animation for SKILLS text
-  useEffect(() => {
-    const el = skillsTextRef.current
-    if (skillsVisible && el) {
-      const tl = gsap.timeline({ repeat: -1, yoyo: true });
-      tl.to(el, {
-        scale: 1.03, // reduced for less GPU load
-        y: 12, // reduced for less movement
-        duration: 4.5, // slower for smoother animation
-        ease: 'sine.inOut',
-      })
-        .to(el, {
-          scale: 1,
-          y: 0,
-          duration: 4.5,
-          ease: 'sine.inOut',
-        });
-      // Add will-change for browser optimization
-      el.style.willChange = 'transform';
-    }
-    return () => {
-      if (el) {
-        gsap.killTweensOf(el);
-        el.style.willChange = '';
-      }
-    };
-  }, [skillsVisible]);
-
-  // GSAP/ScrollTrigger animation and cleanup logic
-  useLayoutEffect(() => {
-    if (window.ScrollTrigger) window.ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-    // Simple journey items animation - just fade in
-    journeyRefs.current.forEach((item, index) => {
-      if (item) {
-        gsap.to(item, {
-          opacity: 1,
-          duration: 0.5,
-          delay: index * 0.2,
-          ease: "power2.out"
-        })
-      }
-    })
-    // Button animation
-    let hoverEnter, hoverLeave;
-    const btn = buttonRef.current
-    if (btn) {
-      gsap.to(btn, {
-        opacity: 1,
-        y: 0,
-        duration: 0.5,
-        delay: 1,
-        ease: "power2.out"
-      })
-      // Hover animation
-      hoverEnter = () => {
-        gsap.to(btn, {
-          scale: 1.05,
-          duration: 0.3,
-          ease: "power2.out"
-        })
-      }
-      hoverLeave = () => {
-        gsap.to(btn, {
-          scale: 1,
-          duration: 0.3,
-          ease: "power2.out"
-        })
-      }
-      btn.addEventListener('mouseenter', hoverEnter)
-      btn.addEventListener('mouseleave', hoverLeave)
-    }
-
-
-
-    // Cleanup
-    return () => {
-      if (btn && hoverEnter && hoverLeave) {
-        btn.removeEventListener('mouseenter', hoverEnter)
-        btn.removeEventListener('mouseleave', hoverLeave)
-      }
-      if (window.ScrollTrigger) window.ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-    };
-  }, [router.asPath, isMobile]);
-
   return (
     <>
       <Global styles={`html, body { background: ${bgColor} !important; transition: background 0.1s linear; }`} />
-      <Box ref={pageRef} position="relative" minHeight="100vh">
+      <Box ref={pageRef} className={scrollStyles.root} position="relative" minHeight="100vh">
         <Head>
           <link rel="preload" as="image" href="/images/Apple-Logo.png" />
           <title>Mukil Kumar | Product & Interaction Designer | IDC IIT Bombay</title>
@@ -380,7 +291,6 @@ const Home = () => {
             {/* Subtle SKILLS background text */}
             {!isMobile && (
               <Box
-                ref={skillsTextRef}
                 position="absolute"
                 top="55%"
                 left="50%"
@@ -452,7 +362,6 @@ const Home = () => {
                       <Box display="flex" justifyContent="center" mt={8} mb={4}>
                         <NextLink href="/works" passHref scroll={true}>
                           <Button
-                            ref={buttonRef}
                             borderRadius='0'
                             variant='outline'
                             border='1px solid'
@@ -663,7 +572,6 @@ const Home = () => {
                       <Trans>
                         <NextLink href="/works" passHref scroll={true}>
                           <Button
-                            ref={buttonRef}
                             borderRadius='0'
                             variant='outline'
                             border='1px solid'

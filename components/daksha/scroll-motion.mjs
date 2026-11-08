@@ -36,6 +36,24 @@ export const sunProgressForChapter = chapter =>
     STORY_INDEX.spacecraft + 0.72
   )
 
+// A reversible material bridge from the exterior close-up into the breakdown.
+export function rainbowGlassForChapter(chapter, reducedMotion = false) {
+  if (reducedMotion) return 0
+  return (
+    easeRange(
+      chapter,
+      STORY_INDEX.spacecraft + 0.2,
+      STORY_INDEX.spacecraft + 0.5
+    ) *
+    (1 -
+      easeRange(
+        chapter,
+        STORY_INDEX.spacecraft + 0.68,
+        STORY_INDEX.inside + 0.06
+      ))
+  )
+}
+
 // Reserve half the experience scroll for the detailed orthographic assembly.
 // The output remains the four-mode coordinate used by scene and narration.
 export function experienceProgressForScroll(fraction) {

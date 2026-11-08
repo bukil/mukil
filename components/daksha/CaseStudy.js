@@ -1,22 +1,7 @@
-import { useEffect, useRef, useState } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import styles from '../../styles/Daksha.module.css'
 import ExperienceModes from './ExperienceModes'
 import RevealWords from './RevealWords'
 import assets from './project-assets.json'
-
-const CHAPTERS = [
-  ['project-brief', 'Brief'],
-  ['research', 'Research'],
-  ['ideation', 'Concept'],
-  ['assets', 'Models'],
-  ['development', 'Iteration'],
-  ['prototype', 'Experience'],
-  ['usage', 'Context'],
-  ['testing', 'Testing'],
-  ['reflection', 'Next']
-]
 
 function ProjectFigure({ name, alt, caption, className = '', wide = false }) {
   const asset = assets[name]
@@ -70,11 +55,17 @@ function Chapter({ id, number, label, title, text, children }) {
     <section
       id={id}
       data-case-chapter
-      className={`${styles.caseSection} ${id === 'prototype' ? styles.prototypeRunway : ''}`}
+      className={`${styles.caseSection} ${
+        id === 'prototype' ? styles.prototypeRunway : ''
+      }`}
       tabIndex={-1}
       aria-labelledby={`${id}-title`}
     >
-      {id === 'prototype' ? <div className={styles.prototypeSticky}>{content}</div> : content}
+      {id === 'prototype' ? (
+        <div className={styles.prototypeSticky}>{content}</div>
+      ) : (
+        content
+      )}
     </section>
   )
 }
@@ -85,97 +76,11 @@ export default function CaseStudy({
   storyController,
   sceneStatus
 }) {
-  const rootRef = useRef(null)
-  const navRef = useRef(null)
-  const [active, setActive] = useState(0)
-
-  useEffect(() => {
-    if (sceneStatus !== 'ready') return
-    gsap.registerPlugin(ScrollTrigger)
-    const root = rootRef.current
-    const ctx = gsap.context(() => {
-      root.querySelectorAll('[data-case-chapter]').forEach((section, index) => {
-        const select = () => {
-          setActive(index)
-          const nav = navRef.current
-          const link = nav?.querySelectorAll('a')[index]
-          if (link && nav.scrollWidth > nav.clientWidth)
-            nav.scrollTo({
-              left: link.offsetLeft - (nav.clientWidth - link.offsetWidth) / 2,
-              behavior: 'instant'
-            })
-        }
-        ScrollTrigger.create({
-          trigger: section,
-          start: 'top 30%',
-          end: 'bottom 30%',
-          onEnter: select,
-          onEnterBack: select
-        })
-      })
-      if (motionEnabled)
-        root.querySelectorAll('[data-case-reveal]').forEach(element => {
-          const words = element.querySelectorAll('[data-reveal-word]')
-          if (words.length) {
-            const timeline = gsap.timeline({
-              scrollTrigger: {
-                trigger: element,
-                start: 'top 90%',
-                end: 'top 56%',
-                scrub: 0.35
-              }
-            })
-            timeline
-              .fromTo(
-                words,
-                { yPercent: 110, rotation: 3, opacity: 0 },
-                {
-                  yPercent: 0,
-                  rotation: 0,
-                  opacity: 1,
-                  stagger: 0.055,
-                  duration: 0.7
-                }
-              )
-              .fromTo(
-                element.querySelectorAll('p'),
-                { y: 15, opacity: 0 },
-                { y: 0, opacity: 1, duration: 0.5 },
-                0.2
-              )
-          } else {
-            gsap.fromTo(
-              element,
-              { y: 26, opacity: 0.25, clipPath: 'inset(10% 0% 0% 0%)' },
-              {
-                y: 0,
-                opacity: 1,
-                clipPath: 'inset(0% 0% 0% 0%)',
-                ease: 'none',
-                scrollTrigger: {
-                  trigger: element,
-                  start: 'top 95%',
-                  end: 'top 65%',
-                  scrub: 0.3
-                }
-              }
-            )
-          }
-        })
-    }, root)
-    return () => ctx.revert()
-  }, [motionEnabled, sceneStatus])
-
   return (
-    <div
-      id="project-notes"
-      ref={rootRef}
-      className={styles.caseStudy}
-      tabIndex={-1}
-    >
+    <div id="project-notes" className={styles.caseStudy} tabIndex={-1}>
       <div className={styles.caseIntro}>
         <span className={styles.caseKicker}>DAKSHA IN ORBIT / 2026</span>
-        <h2>From research to interaction.</h2>
+        <h2>Designing a way into the mission.</h2>
         <dl className={styles.projectCredits}>
           <div>
             <dt>DESIGN</dt>
@@ -195,30 +100,12 @@ export default function CaseStudy({
           </div>
         </dl>
       </div>
-      <nav
-        ref={navRef}
-        className={styles.caseNav}
-        aria-label="Case study chapters"
-      >
-        {CHAPTERS.map(([id, label], index) => (
-          <a
-            key={id}
-            href={`#${id}`}
-            onClick={event => navigate(event, id)}
-            aria-current={active === index ? 'location' : undefined}
-          >
-            <span>{String(index + 1).padStart(2, '0')}</span>
-            {label}
-          </a>
-        ))}
-      </nav>
-
       <Chapter
         id="project-brief"
         number="01"
         label="THE BRIEF"
         title="Make the mission approachable."
-        text="A VR learning platform for students and newcomers to explore Daksha’s structure, components, and mission."
+        text="A VR platform that introduces students and new audiences to Daksha’s mission, structure, and components."
       >
         <ProjectFigure
           name="mission-organisations"
@@ -297,7 +184,7 @@ export default function CaseStudy({
           <ProjectFigure
             name="vr-interface-buttons"
             alt="Solid Home and Satellite View icons with text labels"
-            caption="Solid icons. Direct labels. Inter typography."
+            caption="Interface studies from the VR prototype."
           />
         </div>
       </Chapter>
@@ -327,7 +214,7 @@ export default function CaseStudy({
         id="development"
         number="05"
         label="ITERATION"
-        title="Clearer ways in."
+        title="Navigation within reach."
         text="The entry menu evolved into four learning modes. Wrist-based controls keep navigation close at hand."
       >
         <div className={styles.figurePair}>
@@ -403,8 +290,8 @@ export default function CaseStudy({
         id="testing"
         number="08"
         label="TESTING"
-        title="In people’s hands."
-        text="Headset sessions focused on understanding the structure, finding a way through, and comfort during use."
+        title="Testing the experience."
+        text="Headset sessions explored component understanding, navigation, and comfort."
       >
         <ProjectFigure
           name="testing-sessions"

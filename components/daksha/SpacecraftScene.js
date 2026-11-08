@@ -34,6 +34,7 @@ import {
   easeRange,
   sunProgressForChapter,
   experienceBlendForChapter,
+  rainbowGlassForChapter,
   flightForChapter
 } from './scroll-motion.mjs'
 import {
@@ -158,6 +159,7 @@ export default function SpacecraftScene({
     const fitProjection = new THREE.Matrix4()
     const fitTransform = new THREE.Matrix4()
     const ghostUniform = { value: 0 }
+    const rainbowGlassUniform = { value: 0 }
     const scanUniform = { value: -2.4 }
     const experienceUniform = { value: 1 }
     const transitionScanUniform = { value: 0 }
@@ -309,6 +311,12 @@ export default function SpacecraftScene({
       const story = variant === 'story'
       const storyProfile = story ? profileFor() : null
       const chapterPosition = stateRef.current.chapter || 0
+      rainbowGlassUniform.value = story
+        ? rainbowGlassForChapter(
+            chapterPosition,
+            stateRef.current.reducedMotion
+          )
+        : 0
       const flight = story
         ? flightForChapter(chapterPosition, stateRef.current.reducedMotion)
         : { blend: 0, speed: 0, stretch: 0 }
@@ -788,9 +796,25 @@ export default function SpacecraftScene({
         )
       }
       surfaceMaterials.forEach(material => {
+        const finish = material.userData.rainbowBase
+        if (finish) {
+          const glass = rainbowGlassUniform.value
+          material.clearcoat = THREE.MathUtils.lerp(finish.clearcoat, 1, glass)
+          material.clearcoatRoughness = THREE.MathUtils.lerp(
+            finish.clearcoatRoughness,
+            0.045,
+            glass
+          )
+          material.iridescence = THREE.MathUtils.lerp(
+            finish.iridescence,
+            1,
+            glass
+          )
+        }
         if (material.userData.part === SOLAR_PART)
           material.userData.dakshaVisibility.value *= solarPresence
         const transparent =
+          rainbowGlassUniform.value > 0.002 ||
           material.userData.dakshaGhost.value > 0.002 ||
           (interactive &&
             experienceMix < 0.999 &&
@@ -917,6 +941,19 @@ export default function SpacecraftScene({
             height: viewport.height
           })
       }
+      if (story && !modeFrame && !warming) {
+        const center = rig
+          .getWorldPosition(new THREE.Vector3())
+          .project(viewCamera)
+        onFrame?.({
+          mode: -1,
+          chapter: chapterPosition,
+          center: [
+            ((center.x + 1) * viewport.width) / 2,
+            ((1 - center.y) * viewport.height) / 2
+          ]
+        })
+      }
       // Diagnostics are local to this canvas, with no global production API.
       mount.dataset.shaderPrograms = String(renderer.info.programs?.length || 0)
       mount.dataset.drawCalls = String(renderer.info.render.calls)
@@ -943,6 +980,7 @@ export default function SpacecraftScene({
       mount.dataset.hdrSamples = String(composer?.renderTarget1.samples || 0)
       mount.dataset.antialiasing = composer ? 'SMAA' : 'MSAA'
       mount.dataset.toneMapping = 'AgX'
+      mount.dataset.rainbowGlass = rainbowGlassUniform.value.toFixed(4)
       mount.dataset.reflectiveMaterials = String(
         [...surfaceMaterials].filter(
           material => material.userData.reflectiveFinish
@@ -983,15 +1021,6 @@ export default function SpacecraftScene({
       if (!disposed && !frame && visible && !document.hidden)
         frame = requestAnimationFrame(render)
     }
-    const reset = () =>
-      gsap.to(drag, {
-        x: 0,
-        y: 0,
-        duration: stateRef.current.reducedMotion ? 0 : 0.22,
-        ease: 'power3.out',
-        overwrite: true,
-        onUpdate: invalidate
-      })
 
     try {
       renderer = new THREE.WebGLRenderer({
@@ -1110,8 +1139,7 @@ export default function SpacecraftScene({
       observer.observe(mount)
       resize()
       controllerRef.current = {
-        invalidate,
-        reset
+        invalidate
       }
       Promise.allSettled([
         loader.loadAsync(SCENE_ASSETS.satellite),
@@ -1354,6 +1382,19 @@ export default function SpacecraftScene({
           originalMaterials.forEach(material => material.dispose())
           // A restrained x-ray pass reveals inner layers beneath the blue outlines.
           surfaceMaterials.forEach(material => {
+            if (material.isMeshPhysicalMaterial) {
+              // Keep these shader features compiled before entry; animating the
+              // coating never swaps a shader or starts a transmission render.
+              material.clearcoat = Math.max(material.clearcoat, 0.00001)
+              material.iridescence = Math.max(material.iridescence, 0.00001)
+              material.iridescenceIOR = 1.4
+              material.iridescenceThicknessRange = [120, 520]
+              material.userData.rainbowBase = {
+                clearcoat: material.clearcoat,
+                clearcoatRoughness: material.clearcoatRoughness,
+                iridescence: material.iridescence
+              }
+            }
             material.forceSinglePass = true
             material.transparent = true
             material.userData.dakshaGhost = { value: 0 }
@@ -1364,6 +1405,7 @@ export default function SpacecraftScene({
             material.userData.dakshaBlueFrom = { value: 0 }
             material.userData.dakshaBlackFrom = { value: 0 }
             material.onBeforeCompile = shader => {
+              shader.uniforms.uDakshaRainbowGlass = rainbowGlassUniform
               shader.uniforms.uDakshaGhost = material.userData.dakshaGhost
               shader.uniforms.uDakshaBlue = material.userData.dakshaBlue
               shader.uniforms.uDakshaBlack = material.userData.dakshaBlack
@@ -1384,6 +1426,7 @@ export default function SpacecraftScene({
                   '#include <begin_vertex>\n vDakshaHeight = (modelMatrix * vec4(transformed, 1.0)).y;'
                 )
               shader.fragmentShader =
+                'uniform float uDakshaRainbowGlass;\n' +
                 'uniform float uDakshaExperience;\nuniform float uDakshaTransitionScan;\nuniform float uDakshaGhostFrom;\nuniform float uDakshaBlueFrom;\nuniform float uDakshaBlackFrom;\nuniform float uDakshaGhost;\nuniform float uDakshaBlue;\nuniform float uDakshaBlack;\nuniform float uDakshaVisibility;\nuniform float uDakshaScan;\nvarying float vDakshaHeight;\n' +
                 shader.fragmentShader.replace(
                   '#include <emissivemap_fragment>',
@@ -1401,12 +1444,24 @@ export default function SpacecraftScene({
                 totalEmissiveRadiance += vec3(0.003, 0.018, 0.04) * (dakshaRim * 0.7 + dakshaBand * 0.3) * ghost;
                 diffuseColor.a *= mix(1.0, 0.18 + dakshaRim * 0.28, ghost) * uDakshaVisibility;
                 float scanLine = exp(-pow((vDakshaHeight - scanHeight) / 0.065, 2.0));
-                totalEmissiveRadiance += vec3(0.08, 0.48, 0.75) * scanLine * uDakshaTransitionScan;`
+                totalEmissiveRadiance += vec3(0.08, 0.48, 0.75) * scanLine * uDakshaTransitionScan;
+                // Thin-film color follows the viewing angle and the surface,
+                // rather than painting a flat rainbow over the screen.
+                float glassFacing = clamp(abs(dot(normalize(normal), normalize(vViewPosition))), 0.0, 1.0);
+                float glassRim = pow(1.0 - glassFacing, 2.0);
+                vec3 film = 0.5 + 0.5 * cos(6.2831853 *
+                  (vec3(0.0, 0.33, 0.67) + glassFacing * 0.72 + vDakshaHeight * 0.11));
+                vec3 glassColor = mix(vec3(0.52, 0.77, 0.94), film, 0.78);
+                diffuseColor.rgb = mix(diffuseColor.rgb, glassColor, uDakshaRainbowGlass * 0.88);
+                roughnessFactor = mix(roughnessFactor, 0.10, uDakshaRainbowGlass);
+                metalnessFactor = mix(metalnessFactor, 0.12, uDakshaRainbowGlass);
+                diffuseColor.a *= mix(1.0, 0.46 + 0.40 * glassRim, uDakshaRainbowGlass);
+                totalEmissiveRadiance += film * (0.04 + 0.18 * glassRim) * uDakshaRainbowGlass;`
                 )
               injectAssemblyShader(shader, assemblyUniforms)
             }
             material.customProgramCacheKey = () =>
-              'daksha-story-material-v7-scan'
+              'daksha-story-material-v8-rainbow-glass'
           })
           model.children.forEach(node => {
             const offset = OFFSETS[node.name] ||
@@ -1554,11 +1609,6 @@ export default function SpacecraftScene({
     }
     const keyDown = event => {
       if (!model) return
-      if (event.key === 'Home') {
-        event.preventDefault()
-        reset()
-        return
-      }
       const steps = {
         ArrowLeft: [-0.2, 0],
         ArrowRight: [0.2, 0],
@@ -1642,8 +1692,8 @@ export default function SpacecraftScene({
       aria-roledescription="3D viewer"
       aria-label={
         variant === 'modes'
-          ? 'Daksha spacecraft. Drag or use arrow keys to rotate. Click a component to inspect. Use the mode tabs and component buttons to explore. Press Home to reset.'
-          : 'Daksha spacecraft. Drag or use arrow keys to rotate. Press Home to reset. Scroll to change view.'
+          ? 'Daksha spacecraft. Drag or use arrow keys to rotate. Click a component to inspect. Use the mode tabs and component buttons to explore.'
+          : 'Daksha spacecraft. Drag or use arrow keys to rotate. Scroll to change view.'
       }
     />
   )

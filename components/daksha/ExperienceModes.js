@@ -261,9 +261,6 @@ export default function ExperienceModes({
               ? 'Click a part to inspect'
               : 'Drag to rotate'}
           </span>
-          <button type="button" onClick={() => controllerRef.current?.reset()}>
-            Reset view ↺
-          </button>
         </div>
       </div>
     </div>

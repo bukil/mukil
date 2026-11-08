@@ -1,6 +1,9 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
+import localFont from 'next/font/local'
+import { createLaxMotion } from '../components/daksha/lax-motion'
+import OrbitalTransition from '../components/daksha/OrbitalTransition'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
@@ -20,10 +23,26 @@ const SpacecraftScene = dynamic(
   { ssr: false }
 )
 
+const displayFont = localFont({
+  src: [
+    {
+      path: '../node_modules/@fontsource/space-grotesk/files/space-grotesk-latin-500-normal.woff2',
+      weight: '500'
+    },
+    {
+      path: '../node_modules/@fontsource/space-grotesk/files/space-grotesk-latin-600-normal.woff2',
+      weight: '600'
+    }
+  ],
+  variable: '--daksha-display',
+  display: 'swap'
+})
+
 export default function DakshaInOrbit() {
   const rootRef = useRef(null)
   const lenisRef = useRef(null)
   const assemblyInfoRef = useRef(null)
+  const orbitalRef = useRef(null)
   const controllerRef = useRef(null)
   const stageRef = useRef(null)
   const sceneState = useRef({
@@ -140,13 +159,29 @@ export default function DakshaInOrbit() {
       : null
     lenisRef.current = lenis
     root.dataset.scrollEngine = lenis ? 'lenis' : 'native-reduced'
-    const advanceLenis = time => lenis?.raf(time * 1000)
+    let textMotion
+    if (motionEnabled)
+      createLaxMotion(root, () => lenis?.animatedScroll ?? window.scrollY)
+        .then(motion => {
+          if (!alive) motion.destroy()
+          else {
+            textMotion = motion
+            root.dataset.textMotion = 'lax'
+          }
+        })
+        .catch(() => {
+          root.dataset.textMotion = 'static'
+        })
+    const advanceLenis = time => {
+      lenis?.raf(time * 1000)
+      if (!document.hidden) textMotion?.update()
+    }
     const syncScroll = () => ScrollTrigger.update()
     if (lenis) {
       lenis.on('scroll', syncScroll)
-      gsap.ticker.add(advanceLenis)
       gsap.ticker.lagSmoothing(0)
     }
+    if (motionEnabled) gsap.ticker.add(advanceLenis)
     const apply = value => {
       if (value === lastPosition) return
       lastPosition = value
@@ -220,59 +255,11 @@ export default function DakshaInOrbit() {
         end: 'bottom bottom',
         onRefresh: self => {
           measure()
+          textMotion?.measure()
           update(self)
         },
         onUpdate: update
       })
-      if (motionEnabled)
-        root.querySelectorAll('[data-story-copy]').forEach(copy => {
-          const words = copy.querySelectorAll('[data-reveal-word]')
-          const details = copy.querySelectorAll('p, a, [data-breakdown-label]')
-          const hero = copy.closest('#overview')
-          const timeline = gsap.timeline(
-            hero
-              ? { defaults: { ease: 'power3.out' } }
-              : {
-                  defaults: { ease: 'power2.out' },
-                  scrollTrigger: {
-                    trigger: copy,
-                    start: 'top 86%',
-                    end: 'top 43%',
-                    scrub: 0.45
-                  }
-                }
-          )
-          timeline
-            .fromTo(
-              words,
-              { yPercent: 112, rotation: 3, opacity: 0 },
-              {
-                yPercent: 0,
-                rotation: 0,
-                opacity: 1,
-                duration: 0.8,
-                stagger: 0.065
-              },
-              0
-            )
-            .fromTo(
-              details,
-              { y: 18, opacity: 0 },
-              { y: 0, opacity: 1, duration: 0.55, stagger: 0.09 },
-              0.24
-            )
-          if (hero)
-            gsap.to(copy, {
-              yPercent: -14,
-              opacity: 0,
-              scrollTrigger: {
-                trigger: hero,
-                start: 'top top',
-                end: 'bottom 38%',
-                scrub: true
-              }
-            })
-        })
     }, root)
     document.fonts.ready.then(() => {
       if (alive) {
@@ -284,6 +271,8 @@ export default function DakshaInOrbit() {
     return () => {
       alive = false
       gsap.ticker.remove(advanceLenis)
+      textMotion?.destroy()
+      delete root.dataset.textMotion
       lenis?.off('scroll', syncScroll)
       lenis?.destroy()
       if (lenis) gsap.ticker.lagSmoothing(500, 33)
@@ -328,6 +317,7 @@ export default function DakshaInOrbit() {
   }
 
   const sceneFrame = useCallback(frame => {
+    orbitalRef.current?.update(frame)
     const info = assemblyInfoRef.current
     if (!info || frame.mode !== 2) return
     info.querySelector('[data-assembly-part]').textContent = frame.part
@@ -341,7 +331,7 @@ export default function DakshaInOrbit() {
 
   return (
     <div
-      className={`${styles.page} ${styles.storyPage}`}
+      className={`${styles.page} ${styles.storyPage} ${displayFont.variable}`}
       ref={rootRef}
       data-motion={motionEnabled ? 'full' : 'reduced'}
       data-assembly={assembling}
@@ -437,33 +427,12 @@ export default function DakshaInOrbit() {
       <div className={styles.readingProgress} aria-hidden="true">
         <div ref={progressRef} />
       </div>
-      <div className={styles.sceneStatus} aria-live="polite">
-        <span className={styles.liveDot} />
-        {modelStatus === 'loading'
-          ? `Preparing orbit · ${loadProgress}%`
-          : modelStatus === 'fallback'
-          ? 'Spacecraft preview'
-          : STORY_CHAPTERS[active].label}
-      </div>
-      <div className={styles.sceneControls}>
-        <button type="button" onClick={() => controllerRef.current?.reset()}>
-          Reset ↺
-        </button>
-        <button
-          type="button"
-          onClick={() => setMotionEnabled(value => !value)}
-          aria-pressed={!motionEnabled}
-        >
-          {motionEnabled ? 'Pause motion Ⅱ' : 'Enable motion ▷'}
-        </button>
-      </div>
 
       <div
         ref={assemblyInfoRef}
         className={styles.assemblyCue}
         aria-hidden={!assembling}
       >
-        <span>ASSEMBLY / ORTHOGRAPHIC</span>
         <div className={styles.assemblyCaption}>
           <strong data-assembly-part>Spacecraft bus</strong>
           <span data-assembly-percent>0%</span>
@@ -471,12 +440,11 @@ export default function DakshaInOrbit() {
         <div className={styles.assemblyTrack}>
           <i />
         </div>
-        <small>Scroll to assemble · scroll back to reverse</small>
       </div>
-      <div className={styles.headsetCue} aria-hidden="true">
-        <span>STEP INTO DAKSHA</span>
-        Scroll to enter through the lens
-      </div>
+      <OrbitalTransition
+        controllerRef={orbitalRef}
+        enabled={experienceReady && motionEnabled}
+      />
       <main
         className={styles.storyContent}
         inert={assembling || !experienceReady ? true : undefined}
@@ -488,17 +456,14 @@ export default function DakshaInOrbit() {
           aria-labelledby="hero-heading"
         >
           <div className={styles.storyCopy} data-story-copy>
-            <span className={styles.eyebrow}>
-              DAKSHA MISSION / VR LEARNING PLATFORM
-            </span>
             <h1 id="hero-heading">
-              <RevealWords text="DAKSHA" />
+              <RevealWords text="Daksha" />
               <br />
               <span>
-                <RevealWords text="IN ORBIT." />
+                <RevealWords text="in Orbit" />
               </span>
             </h1>
-            <p>A VR platform for satellite education and outreach.</p>
+            <p>A VR platform for satellite education and outreach</p>
             <a
               href="#headset"
               className={styles.textLink}
@@ -529,12 +494,10 @@ export default function DakshaInOrbit() {
           <div className={styles.storyCopy} data-story-copy>
             <span className={styles.eyebrow}>01 / THE OPPORTUNITY</span>
             <h2 id="spacecraft-heading">
-              <RevealWords text="A COMPLEX" />
-              <br />
-              <RevealWords text="INSTRUMENT." />
+              <RevealWords text="A complex instrument." />
               <br />
               <span>
-                <RevealWords text="A CLEARER WAY IN." />
+                <RevealWords text="A clearer way in." />
               </span>
             </h2>
             <p>
@@ -552,10 +515,10 @@ export default function DakshaInOrbit() {
           <div className={styles.storyCopy} data-story-copy>
             <span className={styles.eyebrow}>02 / BENEATH THE SURFACE</span>
             <h2 id="inside-heading">
-              <RevealWords text="EVERY PART." />
+              <RevealWords text="Every part." />
               <br />
               <span>
-                <RevealWords text="IN CONTEXT." />
+                <RevealWords text="In context." />
               </span>
             </h2>
             <p>
@@ -587,12 +550,12 @@ export default function DakshaInOrbit() {
           <div className={styles.storyCopy} data-story-copy>
             <span className={styles.eyebrow}>03 / THE LEARNING EXPERIENCE</span>
             <h2 id="experience-heading">
-              <RevealWords text="EXPLORE." />
+              <RevealWords text="Explore." />
               <br />
-              <RevealWords text="INSPECT." />
+              <RevealWords text="Inspect." />
               <br />
               <span>
-                <RevealWords text="ASSEMBLE." />
+                <RevealWords text="Assemble." />
               </span>
             </h2>
             <p>

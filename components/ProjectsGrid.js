@@ -46,6 +46,7 @@ export const ProjectPanel = ({
 }) => {
   return (
     <Box
+      data-project-card=""
       width="100%"
       maxW="100%"
       role="group"
@@ -123,6 +124,7 @@ export const ProjectPanel = ({
 
         {imageSrc && (
           <Box
+            data-project-artwork=""
             position="absolute"
             top="0"
             left="0"
@@ -152,6 +154,7 @@ export const ProjectPanel = ({
 
         {customContent && (
           <Box
+            data-project-artwork=""
             position="absolute"
             top="0"
             left="0"
@@ -1800,7 +1803,7 @@ export default function ProjectsGrid({ mt = 0, ...props }) {
       <Box w="100%" mt={mt} {...props}>
         <SimpleGrid columns={{ base: 1, md: 2 }} gap={{ base: '20px', md: '24px' }}>
           {/* 1. Intelligent Design System Architecture for Apple HIG (Wide Simple Tile) */}
-          <Section gridColumn={{ base: 'span 1', md: 'span 2' }}>
+          <Section data-project-row="" gridColumn={{ base: 'span 1', md: 'span 2' }}>
             <ProjectPanel
               title="Intelligent Design System Architecture for Apple HIGs"
               rightText="AI Design System • AI Governance • Generative AI • Guardrails & Defensive UX • Interaction Design • RAG System"
@@ -1811,7 +1814,7 @@ export default function ProjectsGrid({ mt = 0, ...props }) {
           </Section>
 
           {/* 2. Daksha in Orbit */}
-          <Section gridColumn={{ base: 'span 1', md: 'span 2' }}>
+          <Section data-project-row="" gridColumn={{ base: 'span 1', md: 'span 2' }}>
             <NextLink href="/daksha-in-orbit" style={{ display: 'block', textDecoration: 'none' }}>
               <ProjectPanel
                 title="Daksha in Orbit"
@@ -1824,7 +1827,7 @@ export default function ProjectsGrid({ mt = 0, ...props }) {
           </Section>
 
           {/* 3. Visually Understanding Colour Space */}
-          <Section gridColumn={{ base: 'span 1', md: 'span 2' }}>
+          <Section data-project-row="" gridColumn={{ base: 'span 1', md: 'span 2' }}>
             <Box
               as="a"
               href="https://bukil.github.io/"
@@ -1844,7 +1847,7 @@ export default function ProjectsGrid({ mt = 0, ...props }) {
           </Section>
 
           {/* 4. Kode/Board */}
-          <Section>
+          <Section data-project-row="">
             <ProjectPanel
               title="Kode/Board"
               rightText="Accessibility • Tangible Interaction"
@@ -1857,7 +1860,7 @@ export default function ProjectsGrid({ mt = 0, ...props }) {
           </Section>
 
           {/* 5. Human Factor in Design */}
-          <Section>
+          <Section data-project-row="">
             <NextLink href="/human-factor" passHref legacyBehavior>
               <Box as="a" style={{ display: 'block', cursor: 'pointer', textDecoration: 'none' }}>
                 <ProjectPanel
@@ -1875,7 +1878,7 @@ export default function ProjectsGrid({ mt = 0, ...props }) {
           </Section>
 
           {/* 6. Design Evaluation ChatGPT */}
-          <Section>
+          <Section data-project-row="">
             <NextLink href="/design-evaluation" passHref legacyBehavior>
               <Box as="a" style={{ display: 'block', cursor: 'pointer', textDecoration: 'none' }}>
                 <ProjectPanel
@@ -1889,7 +1892,7 @@ export default function ProjectsGrid({ mt = 0, ...props }) {
           </Section>
 
           {/* 7. Design System */}
-          <Section>
+          <Section data-project-row="">
             <NextLink href="/DS" passHref legacyBehavior>
               <Box as="a" style={{ display: 'block', cursor: 'pointer', textDecoration: 'none' }}>
                 <ProjectPanel
