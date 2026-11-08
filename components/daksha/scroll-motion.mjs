@@ -36,21 +36,17 @@ export const sunProgressForChapter = chapter =>
     STORY_INDEX.spacecraft + 0.72
   )
 
-// A reversible material bridge from the exterior close-up into the breakdown.
+// Reversible glass during orbital travel and the two material transitions.
 export function rainbowGlassForChapter(chapter, reducedMotion = false) {
   if (reducedMotion) return 0
-  return (
-    easeRange(
-      chapter,
-      STORY_INDEX.spacecraft + 0.2,
-      STORY_INDEX.spacecraft + 0.5
-    ) *
-    (1 -
-      easeRange(
-        chapter,
-        STORY_INDEX.spacecraft + 0.68,
-        STORY_INDEX.inside + 0.06
-      ))
+  const pulse = (start, peak, release, end) =>
+    easeRange(chapter, start, peak) * (1 - easeRange(chapter, release, end))
+  return Math.max(
+    flightForChapter(chapter).blend,
+    pulse(STORY_INDEX.spacecraft + 0.2, STORY_INDEX.spacecraft + 0.5,
+      STORY_INDEX.spacecraft + 0.68, STORY_INDEX.inside + 0.06),
+    pulse(STORY_INDEX.assets + 0.12, STORY_INDEX.assets + 0.38,
+      STORY_INDEX.assets + 0.55, STORY_INDEX.development + 0.02)
   )
 }
 

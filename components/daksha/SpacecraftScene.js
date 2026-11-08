@@ -28,6 +28,7 @@ import {
   createSpacecraftFinish,
   prepareBrushedTangents
 } from './spacecraft-finish.mjs'
+import { createRefractiveGlass, injectRefractiveGlass } from './refractive-glass.mjs'
 import { renderQuality } from './render-quality.mjs'
 import {
   sampleStoryValue,
@@ -136,6 +137,7 @@ export default function SpacecraftScene({
     let lastFlightTime = 0
     let flightEffect
     let headsetPortal
+    let refractiveGlass
     let observer
     let renderer
     let composer
@@ -802,14 +804,17 @@ export default function SpacecraftScene({
           material.clearcoat = THREE.MathUtils.lerp(finish.clearcoat, 1, glass)
           material.clearcoatRoughness = THREE.MathUtils.lerp(
             finish.clearcoatRoughness,
-            0.045,
+            0.065,
             glass
           )
           material.iridescence = THREE.MathUtils.lerp(
             finish.iridescence,
-            1,
+            0,
             glass
           )
+          material.anisotropy = THREE.MathUtils.lerp(finish.anisotropy, 0, glass)
+          material.envMapIntensity = THREE.MathUtils.lerp(finish.envMapIntensity, 1.8, glass)
+          material.ior = THREE.MathUtils.lerp(finish.ior, 1.46, glass)
         }
         if (material.userData.part === SOLAR_PART)
           material.userData.dakshaVisibility.value *= solarPresence
@@ -820,7 +825,7 @@ export default function SpacecraftScene({
             experienceMix < 0.999 &&
             material.userData.dakshaGhostFrom?.value > 0.002) ||
           material.userData.dakshaVisibility.value < 0.998
-        material.depthWrite = !transparent
+        material.depthWrite = rainbowGlassUniform.value > 0.4 || !transparent
       })
       guides.position.set(0, 0, 0)
       guides.scale.setScalar(1)
@@ -887,11 +892,16 @@ export default function SpacecraftScene({
             storyProfile.isolate *
               (1 - emphasis) *
               (1 - (interactive ? experienceMix : 0))
+        // Let optical highlights define the glass; the blue technical overlay
+        // returns with the original finish when the transition releases.
+        material.opacity *= 1 - rainbowGlassUniform.value * 0.94
       })
       headsetPortal?.update(
         stateRef.current.chapter || 0,
         stateRef.current.reducedMotion
       )
+      if (refractiveGlass && rainbowGlassUniform.value > 0.002)
+        refractiveGlass.capture(scene, viewCamera, rig)
       if (headsetPortal?.active) {
         headsetPortal.render(renderer, scene, viewCamera, rig.position)
       } else if (composer) {
@@ -981,6 +991,7 @@ export default function SpacecraftScene({
       mount.dataset.antialiasing = composer ? 'SMAA' : 'MSAA'
       mount.dataset.toneMapping = 'AgX'
       mount.dataset.rainbowGlass = rainbowGlassUniform.value.toFixed(4)
+      mount.dataset.glassRefraction = rainbowGlassUniform.value > 0.002 ? 'scene-rgb' : 'off'
       mount.dataset.reflectiveMaterials = String(
         [...surfaceMaterials].filter(
           material => material.userData.reflectiveFinish
@@ -1040,6 +1051,7 @@ export default function SpacecraftScene({
       renderer.toneMapping = THREE.AgXToneMapping
       renderer.toneMappingExposure = 1.05
       renderer.setClearColor(0x000000, 0)
+      if (variant === 'story') refractiveGlass = createRefractiveGlass(renderer)
       renderer.domElement.setAttribute('aria-hidden', 'true')
       mount.appendChild(renderer.domElement)
       const pmrem = new THREE.PMREMGenerator(renderer)
@@ -1383,8 +1395,8 @@ export default function SpacecraftScene({
           // A restrained x-ray pass reveals inner layers beneath the blue outlines.
           surfaceMaterials.forEach(material => {
             if (material.isMeshPhysicalMaterial) {
-              // Keep these shader features compiled before entry; animating the
-              // coating never swaps a shader or starts a transmission render.
+              // Precompile the reflection lobes; refraction uses a separate world
+              // capture only during the glass envelope, with no material swaps.
               material.clearcoat = Math.max(material.clearcoat, 0.00001)
               material.iridescence = Math.max(material.iridescence, 0.00001)
               material.iridescenceIOR = 1.4
@@ -1392,7 +1404,10 @@ export default function SpacecraftScene({
               material.userData.rainbowBase = {
                 clearcoat: material.clearcoat,
                 clearcoatRoughness: material.clearcoatRoughness,
-                iridescence: material.iridescence
+                iridescence: material.iridescence,
+                anisotropy: material.anisotropy,
+                envMapIntensity: material.envMapIntensity,
+                ior: material.ior
               }
             }
             material.forceSinglePass = true
@@ -1445,23 +1460,17 @@ export default function SpacecraftScene({
                 diffuseColor.a *= mix(1.0, 0.18 + dakshaRim * 0.28, ghost) * uDakshaVisibility;
                 float scanLine = exp(-pow((vDakshaHeight - scanHeight) / 0.065, 2.0));
                 totalEmissiveRadiance += vec3(0.08, 0.48, 0.75) * scanLine * uDakshaTransitionScan;
-                // Thin-film color follows the viewing angle and the surface,
-                // rather than painting a flat rainbow over the screen.
-                float glassFacing = clamp(abs(dot(normalize(normal), normalize(vViewPosition))), 0.0, 1.0);
-                float glassRim = pow(1.0 - glassFacing, 2.0);
-                vec3 film = 0.5 + 0.5 * cos(6.2831853 *
-                  (vec3(0.0, 0.33, 0.67) + glassFacing * 0.72 + vDakshaHeight * 0.11));
-                vec3 glassColor = mix(vec3(0.52, 0.77, 0.94), film, 0.78);
-                diffuseColor.rgb = mix(diffuseColor.rgb, glassColor, uDakshaRainbowGlass * 0.88);
-                roughnessFactor = mix(roughnessFactor, 0.10, uDakshaRainbowGlass);
-                metalnessFactor = mix(metalnessFactor, 0.12, uDakshaRainbowGlass);
-                diffuseColor.a *= mix(1.0, 0.46 + 0.40 * glassRim, uDakshaRainbowGlass);
-                totalEmissiveRadiance += film * (0.04 + 0.18 * glassRim) * uDakshaRainbowGlass;`
+                // Clear dielectric glass replaces the rainbow coating. Keep
+                // alpha opaque here: the captured world supplies transmission.
+                diffuseColor.rgb = mix(diffuseColor.rgb, vec3(0.94, 0.985, 1.0), uDakshaRainbowGlass);
+                roughnessFactor = mix(roughnessFactor, 0.075, uDakshaRainbowGlass);
+                metalnessFactor = mix(metalnessFactor, 0.0, uDakshaRainbowGlass);`
                 )
+              if (refractiveGlass) injectRefractiveGlass(shader, refractiveGlass.uniforms)
               injectAssemblyShader(shader, assemblyUniforms)
             }
             material.customProgramCacheKey = () =>
-              'daksha-story-material-v8-rainbow-glass'
+              'daksha-story-material-v9-scene-refraction'
           })
           model.children.forEach(node => {
             const offset = OFFSETS[node.name] ||
@@ -1516,7 +1525,8 @@ export default function SpacecraftScene({
               variant === 'story'
                 ? [
                     { chapter: 1.65, interactive: false },
-                    { chapter: 2.45, interactive: false }
+                    { chapter: 2.45, interactive: false },
+                    { chapter: STORY_INDEX.spacecraft + 0.55, interactive: false }
                   ]
                 : [{ progress: 0.35 }]
             for (let i = 0; i < samples.length; i++) {
@@ -1663,6 +1673,7 @@ export default function SpacecraftScene({
       }
       flightEffect?.dispose()
       storyEnvironment?.dispose()
+      refractiveGlass?.dispose()
       environment?.dispose()
       composer?.passes.forEach(pass => pass.dispose?.())
       composer?.dispose()
