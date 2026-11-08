@@ -130,6 +130,9 @@ export default function SpacecraftScene({
     let solarRig
     let warming = false
     let keyLight
+    // Three dynamic point lights fired only during orbital flight.
+    // All start at zero intensity and are ramped in the render loop.
+    let flightLights = null
     const viewport = { width: mount.clientWidth, height: mount.clientHeight }
     let environment
     let storyEnvironment
@@ -902,10 +905,65 @@ export default function SpacecraftScene({
       )
       if (refractiveGlass && rainbowGlassUniform.value > 0.002)
         refractiveGlass.capture(scene, viewCamera, rig)
+      // ── Flight lighting ─────────────────────────────────────────────────────
+      // Animate the three flight point-lights and ramp scene exposure for
+      // extreme bloom / glass reflection during satellite fast-travel.
+      if (flightLights && flight.blend > 0) {
+        const { thruster, engine, strobe } = flightLights
+        const fb = flight.blend          // 0→1 fade-in/out envelope
+        const sp = flight.speed          // instantaneous speed (0–1)
+        const ft = flightTime
+
+        // Thruster: white-cyan front glow pulsing with engine rhythm.
+        const thrusterPulse = 0.7 + 0.3 * Math.sin(ft * 18.4)
+        thruster.intensity = fb * sp * 22 * thrusterPulse
+        thruster.position.set(
+          0.6 * Math.sin(ft * 7.1),
+          0.3 + 0.2 * Math.cos(ft * 11.3),
+          4.5
+        )
+
+        // Engine: warm golden side-sweep raking solar panels from behind.
+        const enginePulse = 0.65 + 0.35 * Math.sin(ft * 13.7 + 1.2)
+        engine.intensity = fb * sp * 18 * enginePulse
+        engine.position.set(
+          -3 + 0.5 * Math.cos(ft * 5.9),
+          -1.2 + 0.4 * Math.sin(ft * 8.3),
+          -4
+        )
+
+        // Strobe: cold violet flash that skims the glass body in bursts.
+        const strobePulse = Math.pow(Math.max(0, Math.sin(ft * 6.5)), 4)
+        strobe.intensity = fb * sp * 28 * strobePulse
+        strobe.position.set(
+          4 + 0.3 * Math.sin(ft * 14.1),
+          2 + 0.3 * Math.cos(ft * 9.7),
+          1
+        )
+
+        // Push environment reflections on the glass to maximum during flight.
+        scene.environmentIntensity = THREE.MathUtils.lerp(
+          0.9,
+          2.6,
+          fb * sp
+        )
+        // Raise tone-mapping exposure for blown-out star-warp highlights.
+        renderer.toneMappingExposure = THREE.MathUtils.lerp(1.05, 2.4, fb * sp)
+      } else if (flightLights) {
+        // Idle — zero out everything cleanly.
+        flightLights.thruster.intensity = 0
+        flightLights.engine.intensity = 0
+        flightLights.strobe.intensity = 0
+        scene.environmentIntensity = 0.9
+        renderer.toneMappingExposure = 1.05
+      }
       if (headsetPortal?.active) {
         headsetPortal.render(renderer, scene, viewCamera, rig.position)
       } else if (composer) {
-        bloom.strength = 0.14 + 0.5 * flight.stretch
+        // Base bloom 0.14; swell to 1.1 at peak flight stretch for extreme glow.
+        bloom.strength = 0.14 + 0.96 * flight.stretch
+        bloom.radius = THREE.MathUtils.lerp(0.35, 0.72, flight.stretch)
+        bloom.threshold = THREE.MathUtils.lerp(2.8, 0.55, flight.stretch)
         composer.render()
       } else renderer.render(scene, viewCamera)
       if (modeFrame) {
@@ -1130,6 +1188,19 @@ export default function SpacecraftScene({
         fill,
         new THREE.AmbientLight(0xc5d8e8, variant === 'story' ? 0.025 : 0.6)
       )
+      if (variant === 'story') {
+        // Hot white-cyan thruster glow — sweeps ahead of the craft.
+        const thruster = new THREE.PointLight(0xc8f0ff, 0, 14, 2.2)
+        thruster.position.set(0, 0.3, 4.5)
+        // Warm golden engine bloom — rakes across the solar panels from behind.
+        const engine = new THREE.PointLight(0xffb347, 0, 12, 2.0)
+        engine.position.set(-3, -1.2, -4)
+        // Cold violet/blue side-strobe — flickers on the glass body.
+        const strobe = new THREE.PointLight(0x7b6cff, 0, 10, 2.5)
+        strobe.position.set(4, 2, 1)
+        scene.add(thruster, engine, strobe)
+        flightLights = { thruster, engine, strobe }
+      }
       const resize = () => {
         const width = mount.clientWidth
         const height = mount.clientHeight
@@ -1672,6 +1743,12 @@ export default function SpacecraftScene({
         headsetPortal.dispose()
       }
       flightEffect?.dispose()
+      if (flightLights) {
+        flightLights.thruster.removeFromParent()
+        flightLights.engine.removeFromParent()
+        flightLights.strobe.removeFromParent()
+        flightLights = null
+      }
       storyEnvironment?.dispose()
       refractiveGlass?.dispose()
       environment?.dispose()
