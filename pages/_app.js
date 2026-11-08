@@ -101,7 +101,7 @@ function Website({ Component, pageProps, router }) {
     <Chakra>
       <Fonts />
       <Layout router={router}>
-        {router.pathname === '/daksha-in-orbit' ? (
+        {['/daksha-in-orbit', '/c2c'].includes(router.pathname) ? (
           <Component {...pageProps} />
         ) : (
           <AnimatePresence

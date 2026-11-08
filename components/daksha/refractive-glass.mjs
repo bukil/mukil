@@ -19,7 +19,7 @@ export function createRefractiveGlass(renderer) {
   }
   return {
     uniforms,
-    capture(scene, camera, spacecraft) {
+    capture(scene, camera, occluders) {
       renderer.getDrawingBufferSize(size)
       uniforms.uGlassResolution.value.copy(size)
       uniforms.uGlassProjection.value.copy(camera.projectionMatrix)
@@ -27,15 +27,16 @@ export function createRefractiveGlass(renderer) {
       const width = Math.max(1, Math.round(size.x * scale))
       const height = Math.max(1, Math.round(size.y * scale))
       if (target.width !== width || target.height !== height) target.setSize(width, height)
+      const hidden = Array.isArray(occluders) ? occluders : [occluders]
+      const visibility = hidden.map(object => object.visible)
       const previous = {
         target: renderer.getRenderTarget(),
-        visible: spacecraft.visible,
         toneMapping: renderer.toneMapping,
         autoClear: renderer.autoClear,
         shadows: renderer.shadowMap.autoUpdate
       }
       try {
-        spacecraft.visible = false
+        hidden.forEach(object => { object.visible = false })
         renderer.toneMapping = THREE.NoToneMapping
         renderer.autoClear = true
         renderer.shadowMap.autoUpdate = false
@@ -43,7 +44,7 @@ export function createRefractiveGlass(renderer) {
         renderer.clear()
         renderer.render(scene, camera)
       } finally {
-        spacecraft.visible = previous.visible
+        hidden.forEach((object, index) => { object.visible = visibility[index] })
         renderer.setRenderTarget(previous.target)
         renderer.toneMapping = previous.toneMapping
         renderer.autoClear = previous.autoClear

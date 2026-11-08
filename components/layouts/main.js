@@ -13,7 +13,8 @@ const Main = ({ children, router }) => {
   // Home is '#F4F4F0'; Playground (/works) and Contact (/contact) stay white '#ffffff' as before
   const isHome = router.pathname === '/'
   const isDaksha = router.pathname === '/daksha-in-orbit'
-  const currentBg = isDaksha ? '#02050b' : isHome ? '#F4F4F0' : '#ffffff'
+  const isC2C = router.pathname === '/c2c'
+  const currentBg = isC2C ? '#edf3ed' : isDaksha ? '#02050b' : isHome ? '#F4F4F0' : '#ffffff'
 
   useEffect(() => {
     if (typeof document !== 'undefined') {
@@ -21,6 +22,8 @@ const Main = ({ children, router }) => {
       document.body.style.backgroundColor = currentBg
     }
   }, [currentBg])
+
+  if (isC2C) return <><Navbar path={router.asPath} />{children}</>
 
   if (isDaksha) return <><Navbar path={router.asPath} />{children}</>
 

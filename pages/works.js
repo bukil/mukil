@@ -5,18 +5,10 @@ import {
   Image,
   Text,
   Button,
-  useDisclosure,
   Box,
-  Spacer,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton
+  Spacer
 } from '@chakra-ui/react'
-import { ChevronLeftIcon, ChevronRightIcon, ChevronDownIcon, ExternalLinkIcon } from '@chakra-ui/icons'
+import { ChevronLeftIcon, ChevronRightIcon, ChevronDownIcon } from '@chakra-ui/icons'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
 import styled from '@emotion/styled'
@@ -393,142 +385,8 @@ function MicrointeractionGraphic() {
   )
 }
 
-// Retro particle background for C2C modal
-function C2CParticleBG() {
-  const canvasRef = useRef(null)
-  useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-    const ctx = canvas.getContext('2d')
-    let dpr = window.devicePixelRatio || 1
-    let width = window.innerWidth
-    let height = window.innerHeight
-    function setCanvasSize() {
-      dpr = window.devicePixelRatio || 1
-      width = window.innerWidth
-      height = window.innerHeight
-      canvas.width = width * dpr
-      canvas.height = height * dpr
-      ctx.setTransform(1, 0, 0, 1, 0, 0)
-      ctx.scale(dpr, dpr)
-    }
-    setCanvasSize()
-    const PARTICLE_COUNT = 60
-    const particles = Array.from({ length: PARTICLE_COUNT }).map(() => ({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      size: Math.random() * 3 + 2,
-      speedX: (Math.random() - 0.5) * 0.4,
-      speedY: (Math.random() - 0.5) * 0.4,
-      alpha: Math.random() * 0.5 + 0.3,
-    }))
-    let animId
-    function draw() {
-      ctx.clearRect(0, 0, width, height)
-      for (let p of particles) {
-        ctx.fillStyle = `rgba(16, 185, 129, ${p.alpha})`
-        ctx.fillRect(Math.floor(p.x), Math.floor(p.y), p.size, p.size)
-        p.x += p.speedX
-        p.y += p.speedY
-        if (p.x < 0) p.x = width
-        if (p.x > width) p.x = 0
-        if (p.y < 0) p.y = height
-        if (p.y > height) p.y = 0
-      }
-      animId = requestAnimationFrame(draw)
-    }
-    draw()
-    window.addEventListener('resize', setCanvasSize)
-    return () => {
-      cancelAnimationFrame(animId)
-      window.removeEventListener('resize', setCanvasSize)
-    }
-  }, [])
-  return (
-    <canvas
-      ref={canvasRef}
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100vw',
-        height: '100vh',
-        zIndex: 0,
-        pointerEvents: 'none',
-      }}
-      aria-hidden="true"
-    />
-  )
-}
-
-function AnimatedC2CIntro() {
-  const introRef = useRef(null)
-  const overviewRef = useRef(null)
-  const namesRef = useRef([])
-
-  useEffect(() => {
-    if (introRef.current) {
-      gsap.fromTo(introRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out' })
-    }
-    if (overviewRef.current) {
-      gsap.fromTo(overviewRef.current, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 1.2, delay: 1.1, ease: 'power3.out' })
-    }
-    namesRef.current.forEach((el, i) => {
-      if (el) {
-        gsap.fromTo(el, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.7, delay: 1.7 + i * 0.2, ease: 'power3.out' })
-      }
-    })
-  }, [])
-
-  return (
-    <div style={{ width: '80%', margin: '0 auto' }}>
-      <div
-        ref={introRef}
-        style={{
-          fontFamily: 'Matrix, monospace',
-          fontSize: '2.2rem',
-          color: '#059669',
-          textAlign: 'left',
-          marginBottom: '2.5rem',
-          letterSpacing: '0.04em',
-        }}
-      />
-      <div style={{ height: '2.5rem' }} />
-      <div
-        ref={overviewRef}
-        style={{
-          fontFamily: 'Matrix, monospace',
-          fontSize: '1.3rem',
-          color: '#111827',
-          textAlign: 'left',
-          marginBottom: '2.2rem',
-          letterSpacing: '0.02em',
-        }}
-      >
-        <b>Overview:</b> <br />
-        This project explores the process of interaction design, from initial concept to working prototype, through collaborative teamwork and creative problem-solving.
-      </div>
-      <div style={{ height: '1.5rem' }} />
-      <div style={{
-        display: 'flex', flexDirection: 'row', alignItems: 'center', gap: '0.7rem',
-        fontFamily: 'Matrix, monospace', fontSize: '1.1rem', color: '#059669',
-      }}>
-        <b style={{ marginRight: '0.7rem', color: '#111827' }}>Team:</b>
-        <a ref={el => { namesRef.current[0] = el }} href="https://www.behance.net/mukil" target="_blank" rel="noopener noreferrer" style={{ color: '#059669', textDecoration: 'underline', fontWeight: 700 }}>MUKIL</a>
-        <span style={{ margin: '0 0.5rem', color: '#64748b' }}>·</span>
-        <a ref={el => { namesRef.current[1] = el }} href="https://www.behance.net/prajaktahardikar" target="_blank" rel="noopener noreferrer" style={{ color: '#059669', textDecoration: 'underline', fontWeight: 700 }}>PRAJAKTA</a>
-        <span style={{ margin: '0 0.5rem', color: '#64748b' }}>·</span>
-        <a ref={el => { namesRef.current[2] = el }} href="https://www.anoushkashome.design" target="_blank" rel="noopener noreferrer" style={{ color: '#059669', textDecoration: 'underline', fontWeight: 700 }}>ANOUSHKA</a>
-        <span style={{ margin: '0 0.5rem', color: '#64748b' }}>·</span>
-        <a ref={el => { namesRef.current[3] = el }} href="https://www.behance.net/samikshajain" target="_blank" rel="noopener noreferrer" style={{ color: '#059669', textDecoration: 'underline', fontWeight: 700 }}>SAMIKSHA</a>
-      </div>
-    </div>
-  )
-}
-
 // Playground projects rendered on the Works page
 function WorksGrid() {
-  const { isOpen: isC2COpen, onOpen: onC2COpen, onClose: onC2CClose } = useDisclosure()
 
   return (
     <Box w="100%" px={{ base: '20px', md: '24px' }} mb={{ base: 16, md: 20 }}>
@@ -588,160 +446,15 @@ function WorksGrid() {
 
         {/* Panel 4: C2C */}
         <Section data-project-row="" delay={0.4}>
-          <ProjectPanel
-            title="C2C"
-            rightText="Placeholder"
-            imageSrc="/images/works/c2cf.png"
-            imageAlt="C2C physical interaction cube controller"
-            accentColor="#0d9488"
-            onClick={onC2COpen}
-          />
-
-          <Modal isOpen={isC2COpen} onClose={onC2CClose} size="full">
-            <ModalOverlay backdropFilter="blur(10px)" bg="rgba(0, 0, 0, 0.4)" />
-            <ModalContent bg="#ffffff" color="#111827">
-              <ModalHeader mt={24} style={{ fontFamily: 'Matrix, monospace', color: '#059669', fontSize: '1.8rem' }}>
-                C2C
-              </ModalHeader>
-              <ModalCloseButton mt={24} color="#111827" aria-label="Close C2C details modal" />
-              <ModalBody mt={4} style={{ fontFamily: 'Matrix, monospace' }}>
-                <Box maxW="80%" mx="auto">
-                  <div
-                    style={{
-                      fontSize: '2.5rem',
-                      color: '#059669',
-                      fontWeight: 900,
-                      letterSpacing: '0.08em',
-                      marginBottom: '0.5rem',
-                      textAlign: 'left'
-                    }}
-                  >
-                    C2C{' '}
-                    <span style={{ fontSize: '1.2rem', color: '#047857', fontWeight: 500, marginLeft: 12 }}>
-                      Cube to Cube
-                    </span>
-                  </div>
-                  <div
-                    style={{
-                      fontSize: '1.1rem',
-                      color: '#334155',
-                      marginBottom: '2.2rem',
-                      textAlign: 'left',
-                      lineHeight: 1.6
-                    }}
-                  >
-                    C2C is a pair of tangible interfaces designed to explore how physical interaction can enrich
-                    digital experiences. Created as part of an Interaction Design module at IIT Bombay, the project
-                    transforms the familiar form of a cube into a dynamic digital controller. Cube combines rotary
-                    encoder, tactile buttons, and OLED display powered by an RP2040 microcontroller, enabling
-                    real-time feedback, file navigation, and even playful mini-interactions.
-                  </div>
-                </Box>
-
-                <Box mb={4} textAlign="center" maxW="80%" mx="auto">
-                  <a
-                    href="https://www.2025.indiahci.org/programme_1/student-design-consortium"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="IndiaHCI 2025 Student Design Consortium finalist details (opens in a new tab)"
-                  >
-                    <Box position="relative" display="inline-block" mx="auto">
-                      <Image
-                        src="/images/hci.jpg"
-                        alt="IndiaHCI 2025 - Student Design Consortium Acceptance Badge"
-                        display="block"
-                        mx="auto"
-                        width="220px"
-                        height="auto"
-                        objectFit="contain"
-                        loading="eager"
-                        fallbackSrc="/images/logo.png"
-                        style={{
-                          borderRadius: '24px 8px 24px 8px',
-                          border: '1px solid rgba(5, 150, 105, 0.4)',
-                          boxShadow: '0 4px 16px rgba(0, 0, 0, 0.08)',
-                          backgroundColor: '#ffffff'
-                        }}
-                      />
-                    </Box>
-                  </a>
-                  <div
-                    style={{
-                      fontFamily: 'Matrix, monospace',
-                      color: '#047857',
-                      fontSize: '1.1rem',
-                      marginTop: '0.6rem'
-                    }}
-                  >
-                    Accepted in IndiaHCI 2025 under <br />
-                    Student Design Consortium (SDC) <br />
-                    1 amongst 7 finalists for round 1
-                  </div>
-                </Box>
-
-                <Box mb={6} textAlign="center">
-                  <Button
-                    as="a"
-                    href="/C2C_Interaction%20Design_Report.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Read Full C2C Interaction Design Report PDF (opens in a new tab)"
-                    variant="outline"
-                    borderColor="#059669"
-                    color="#059669"
-                    leftIcon={<ExternalLinkIcon />}
-                    _hover={{
-                      bg: '#059669',
-                      color: '#ffffff',
-                      transform: 'translateY(-2px)',
-                      boxShadow: '0 3px 10px rgba(5, 150, 105, 0.25)'
-                    }}
-                  >
-                    Read Full Report
-                  </Button>
-                </Box>
-
-                <AnimatedC2CIntro />
-
-                <Box mb={0}>
-                  <Image
-                    src="/images/ixd1.svg"
-                    alt="Interaction Design process overview diagram"
-                    width="80%"
-                    mx="auto"
-                    mb={4}
-                    objectFit="contain"
-                    display="block"
-                  />
-                  <Image
-                    src="/images/ixd2.svg"
-                    alt="Interaction Design hardware schematics diagram"
-                    width="80%"
-                    mx="auto"
-                    objectFit="contain"
-                    display="block"
-                  />
-                </Box>
-
-                <Box mb={6}>
-                  <video
-                    src="/6502.mp4"
-                    style={{ width: '80%', display: 'block', borderRadius: 0, margin: '0 auto' }}
-                    controls
-                    playsInline
-                    aria-label="C2C hardware demo video"
-                  />
-                </Box>
-
-                <C2CParticleBG />
-              </ModalBody>
-              <ModalFooter>
-                <Button onClick={onC2CClose} colorScheme="teal" variant="ghost">
-                  Close
-                </Button>
-              </ModalFooter>
-            </ModalContent>
-          </Modal>
+          <NextLink href="/c2c" aria-label="Explore C2C — Cube to Cube">
+            <ProjectPanel
+              title="C2C"
+              rightText="Placeholder"
+              imageSrc="/images/works/c2cf.png"
+              imageAlt="C2C physical interaction cube controller"
+              accentColor="#0d9488"
+            />
+          </NextLink>
         </Section>
       </SimpleGrid>
     </Box>
