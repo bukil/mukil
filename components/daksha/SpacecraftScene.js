@@ -14,7 +14,7 @@ import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js'
 import { SMAAPass } from 'three/examples/jsm/postprocessing/SMAAPass.js'
-import { Holo } from '../c2c/holospot/holo'
+import { prefersLightweightGraphics } from '../../lib/mobile-graphics'
 import { createDepthOfFieldPass } from './depth-of-field.mjs'
 import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js'
 import gsap from 'gsap'
@@ -1511,7 +1511,9 @@ export default function SpacecraftScene({
               }
             }
           })
-          if (variant === 'story') {
+          if (variant === 'story' && !prefersLightweightGraphics()) {
+            const { Holo } = await import('../c2c/holospot/holo')
+            if (disposed) return
             const foilParts = model.children.filter(part =>
               part.getObjectByProperty('isMesh', true)
             )

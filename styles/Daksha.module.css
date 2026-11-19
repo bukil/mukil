@@ -1100,10 +1100,20 @@
   margin: 0 auto 24px;
 }
 .loadingCardFallback {
+  display: grid;
+  place-items: center;
   width: 78%;
   aspect-ratio: 63 / 88;
   border-radius: 5.08% / 3.64%;
   background: linear-gradient(135deg, #d1f3ff, #788bc4 34%, #d2b3ec 49%, #ffdfaa 57%, #8cb2ce 75%, #eaf7ff);
+}
+.loadingCardFallback::after {
+  content: '';
+  width: 54%;
+  aspect-ratio: 1;
+  background: linear-gradient(135deg, #304b71, #effaff 38%, #477398 43%, #705987 70%, #dcfbff);
+  -webkit-mask: url('/images/daksha/foil-cards/daksha.svg') center / contain no-repeat;
+  mask: url('/images/daksha/foil-cards/daksha.svg') center / contain no-repeat;
 }
 .loadingCard canvas {
   position: absolute;
@@ -1117,6 +1127,8 @@
 }
 @media (prefers-reduced-motion: no-preference) {
   .loadingCard[data-ready='false'] .loadingCardFallback {
+  display: grid;
+  place-items: center;
     will-change: transform;
     animation: dakshaLoadingTilt 7s linear infinite;
   }

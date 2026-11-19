@@ -3,7 +3,7 @@ import * as THREE from 'three'
 import Image from 'next/image'
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
-import { Holo } from './holospot/holo'
+import { prefersLightweightGraphics } from '../../lib/mobile-graphics'
 import { C2C_MODEL_URL } from './config.mjs'
 import styles from '../../styles/C2C.module.css'
 
@@ -318,6 +318,7 @@ export default function CubeScene({ motionRef, controllerRef, team = false }) {
   const finishRef = useRef(null)
   const [ready, setReady] = useState(false)
   useEffect(() => {
+    const lightweight = prefersLightweightGraphics()
     const mount = mountRef.current
     let disposed = false,
       frame = 0,
@@ -448,7 +449,8 @@ export default function CubeScene({ motionRef, controllerRef, team = false }) {
         lastDisplayMode = displayMode
       }
 
-      holo.render(scene, camera)
+      if (holo) holo.render(scene, camera)
+      else renderer.render(scene, camera)
       mount.dataset.turn = state.turn.toFixed(3)
       mount.dataset.model = model ? 'glb' : 'study'
       mount.dataset.primaryScale = activePair.primary.scale.x.toFixed(4)
@@ -460,13 +462,15 @@ export default function CubeScene({ motionRef, controllerRef, team = false }) {
       if (!disposed && !frame && inView && !document.hidden)
         frame = requestAnimationFrame(render)
     }
-    try {
+    const initialize = async () => {
+      const Holo = lightweight ? null : (await import('./holospot/holo')).Holo
+      if (disposed) return
       renderer = new THREE.WebGLRenderer({
         alpha: true,
         antialias: true,
         powerPreference: 'high-performance'
       })
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2))
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, lightweight ? 1.25 : 2))
       renderer.setClearColor(0x000000, 0)
       renderer.toneMapping = THREE.ACESFilmicToneMapping
       renderer.toneMappingExposure = 1.35
@@ -492,8 +496,14 @@ export default function CubeScene({ motionRef, controllerRef, team = false }) {
         new THREE.AmbientLight(0xffffff, 0.9)
       )
       finishRef.current ??= team ? 'emboss' : chooseFinish()
+      if (lightweight) {
+        const body = study.primary.children[0].material
+        body.color.set(team ? 0x58b88e : 0x649eb8)
+        body.metalness = 0.62
+        body.iridescence = 0.65
+      }
       const finish = finishRef.current
-      holo = new Holo(renderer, {
+      if (Holo) holo = new Holo(renderer, {
         compose: 'over',
         quality: 'medium',
         settings: {
@@ -525,7 +535,7 @@ export default function CubeScene({ motionRef, controllerRef, team = false }) {
           'studio.ambient.scrim': 0.95
         }
       })
-      const applyFinish = mesh => holo.apply(mesh, {
+      const applyFinish = mesh => holo?.apply(mesh, {
         material: finish,
         sizeMm: 90,
         settings: team
@@ -539,7 +549,7 @@ export default function CubeScene({ motionRef, controllerRef, team = false }) {
       const resize = () => {
         const { width, height } = mount.getBoundingClientRect()
         if (!width || !height) return
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2))
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, lightweight ? 1.25 : 2))
         renderer.setSize(width, height)
         camera.aspect = width / height
         camera.position.z = !team && width < 768 ? 11.8 : 7.8
@@ -577,7 +587,7 @@ export default function CubeScene({ motionRef, controllerRef, team = false }) {
             model.add(primary, companion)
             activePair = { group: model, primary, companion }
             study.group.traverse(node => {
-              if (holo.get(node)) holo.remove(node)
+              if (holo?.get(node)) holo.remove(node)
             })
             model.traverse(node => {
               if (!node.isMesh || node.userData.c2cGlass === false) return
@@ -594,9 +604,8 @@ export default function CubeScene({ motionRef, controllerRef, team = false }) {
             mount.dataset.model = 'study-fallback'
           }
         )
-    } catch {
-      setReady(false)
     }
+    initialize().catch(() => { if (!disposed) setReady(false) })
     const visibility = new IntersectionObserver(([entry]) => {
       inView = entry.isIntersecting
       if (inView) invalidate()

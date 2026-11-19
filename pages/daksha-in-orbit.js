@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import { prefersLightweightGraphics } from '../lib/mobile-graphics'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import localFont from 'next/font/local'
@@ -84,7 +85,7 @@ export default function DakshaInOrbit() {
   const onSceneProgress = useCallback(value => setSceneProgress(previous => Math.max(previous, value)), [])
   const [cardReady, setCardReady] = useState(false)
   const [loadingHoldDone, setLoadingHoldDone] = useState(false)
-  const experienceReady = modelStatus === 'ready' && pageReady && loadingHoldDone
+  const experienceReady = (modelStatus === 'ready' || modelStatus === 'poster') && pageReady && loadingHoldDone
   const [motionEnabled, setMotionEnabled] = useState(true)
   const storyController = useMemo(
     () => ({ stateRef: sceneState, controllerRef }),
@@ -314,7 +315,7 @@ export default function DakshaInOrbit() {
   const ready = useCallback(() => {
     setModelStatus('ready')
   }, [])
-  const error = useCallback(() => setModelStatus('fallback'), [])
+  const error = useCallback(() => setModelStatus(prefersLightweightGraphics() ? 'poster' : 'fallback'), [])
   const selectPart = useCallback(
     name => sceneState.current.onSelectPart?.(name),
     []
@@ -424,7 +425,7 @@ export default function DakshaInOrbit() {
                 />
               </div>
             )}
-            <SpacecraftScene
+            {modelStatus !== 'poster' && <SpacecraftScene
               key={sceneKey}
               variant="story"
               stateRef={sceneState}
@@ -435,7 +436,7 @@ export default function DakshaInOrbit() {
               onSelectPart={selectPart}
               onAssemblyChange={setAssembling}
               onFrame={sceneFrame}
-            />
+            />}
           </div>
           <div className={styles.readingProgress} aria-hidden="true">
             <div ref={progressRef} />

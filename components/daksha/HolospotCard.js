@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
-import { Holo, shotCamera } from '../c2c/holospot/holo'
+import { prefersLightweightGraphics } from '../../lib/mobile-graphics'
 import styles from '../../styles/Daksha.module.css'
 
 const cardSize = { widthMm: 63, heightMm: 88 }
@@ -10,6 +10,10 @@ export default function HolospotCard({ onReady }) {
   const [ready, setReady] = useState(false)
 
   useEffect(() => {
+    if (prefersLightweightGraphics()) {
+      onReady()
+      return
+    }
     const mount = mountRef.current
     const scene = new THREE.Scene()
     const camera = new THREE.PerspectiveCamera()
@@ -54,7 +58,8 @@ export default function HolospotCard({ onReady }) {
     }
     const deadline = window.setTimeout(fallback, 3500)
 
-    try {
+    import('../c2c/holospot/holo').then(({ Holo, shotCamera }) => {
+      if (disposed || released) return
       renderer = new THREE.WebGLRenderer()
       renderer.setPixelRatio(0.9)
       renderer.domElement.setAttribute('aria-hidden', 'true')
@@ -153,9 +158,7 @@ export default function HolospotCard({ onReady }) {
         setReady(true)
         onReady()
       }).catch(fallback)
-    } catch {
-      fallback()
-    }
+    }).catch(fallback)
     return () => {
       disposed = true
       release()
