@@ -1,0 +1,96 @@
+.page { color: #151421; font-family: 'Inter', sans-serif; }
+.page section {
+  background: var(--chapter-color);
+  display: grid;
+  grid-template-columns: 1.12fr .88fr;
+  gap: 5vw;
+  align-items: center;
+  min-height: 100svh;
+  padding: 110px 7vw;
+  overflow: hidden;
+}
+.title { font-size: clamp(3.5rem, 7.5vw, 9rem); font-weight: 650; letter-spacing: -.075em; line-height: .94; }
+.subheads { margin-top: 2rem; padding-top: .9rem; border-top: 1px solid currentColor; display: flex; flex-wrap: wrap; gap: .45rem 1.4rem; }
+.subheads > * { font-size: clamp(.9rem, 1.2vw, 1.2rem); font-weight: 500; }
+.page figure { position: relative; aspect-ratio: 4 / 5; overflow: hidden; border: 1px solid #15142144; background: #ffffff42; }
+.page figure::before,.page figure::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top right, transparent 49.9%, #15142133 50%, transparent 50.15%); }
+.page figure::after { transform: scaleX(-1); }
+.page figure span { position: absolute; inset: 25% 15%; border-radius: 50%; background: var(--chapter-color); box-shadow: inset -1vw -1vw 3vw #1514211f, inset 1vw 1vw 3vw #ffffff88; }
+.spy { position: fixed; z-index: 5; bottom: max(14px, env(safe-area-inset-bottom)); left: 50%; transform: translateX(-50%); display: flex; align-items: center; padding: 4px 10px; border-radius: 24px; background: #181722; color: white; }
+.spy span { padding: 0 12px; font-size: .8rem; white-space: nowrap; }
+.spy a { display: grid; place-items: center; width: 25px; height: 34px; border-radius: 12px; }
+.spy i { width: 6px; height: 6px; background: #9695a0; border-radius: 6px; transition: width .2s; }
+.spy a[aria-current] i { width: 18px; background: white; }
+.spy a:focus-visible { outline: 2px solid white; }
+@media (max-width: 700px) {
+  .page section { grid-template-columns: 1fr; align-content: center; gap: 3rem; padding: 100px 7vw 84px; }
+  .page figure { aspect-ratio: 4 / 3; }
+  .spy span { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .spy i { transition: none; } }
+.wordMask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding: .07em .08em .12em 0;
+  margin: -.07em -.08em -.12em 0;
+}
+.wordMask > span { display: inline-block; transform-origin: left bottom; }
+.page section:nth-of-type(3n + 2) figure span {
+  inset: 20%;
+  border-radius: 18%;
+  transform: rotate(-16deg);
+}
+.page section:nth-of-type(3n) figure span {
+  inset: 18% 12%;
+  background: transparent;
+  border: clamp(14px, 3vw, 48px) solid var(--chapter-color);
+}
+
+.page section { position: relative; perspective: 1100px; }
+.shutters { display: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .shutters {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    pointer-events: none;
+  }
+  .shutters[data-sideways='true'] { flex-direction: column; }
+  .shutters i { flex: 1; background: var(--previous-color); }
+}
+
+.title [data-letter], .subheads [data-caption] { display: inline-block; }
+.subheads > * { overflow: hidden; }
+
+.page section:first-of-type { grid-template-columns: minmax(0, 1fr); }
+.page section:first-of-type header { position: relative; max-width: 15ch; font-size: clamp(3.5rem, 7.5vw, 9rem); }
+.heroMaterial {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(120deg, #ffffff44 0%, transparent 4%, #403bad18 10%, #ffffff55 12.5%),
+    radial-gradient(ellipse at 18% 50%, #56c2fcad, transparent 53%),
+    radial-gradient(ellipse at 76% 8%, #7f66ffbd, transparent 52%),
+    radial-gradient(ellipse at 90% 93%, #4642ff, transparent 64%), #f0f0f5;
+}
+.heroMaterial::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('/images/apple-project/fine-grain.png') repeat,
+    linear-gradient(100deg, #ffffffb3, #ffffff61 44%, transparent 79%);
+}
+
+.page section figure[data-fluted] { background: #b9bac6; }
+.page figure[data-fluted]::before,
+.page figure[data-fluted]::after { content: none; }
+.page section figure[data-fluted] span {
+  inset: -9%;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: url('/images/apple-project/fluted-pearl.webp') center / cover;
+}

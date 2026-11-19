@@ -31,7 +31,7 @@ export default function ApplePasswordModal({ isOpen, onClose }) {
         localStorage.setItem('apple_project_unlocked', 'rollno43')
       }
       onClose()
-      router.push('/mukilm')
+      router.push('/apple-project')
     } else {
       setError(true)
       setIsShaking(true)

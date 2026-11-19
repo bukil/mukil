@@ -15,8 +15,31 @@ export function createDepthOfFieldPass() {
       farPlane: { value: 100 }
     },
     vertexShader: `
+      #include <packing>
+      uniform sampler2D tDepth;
+      uniform vec2 focusUv;
+      uniform float focus, nearPlane, farPlane;
+      varying float focalDepth;
+      float depthAt(vec2 uv) {
+        return -perspectiveDepthToViewZ(texture2D(tDepth, uv).x, nearPlane, farPlane);
+      }
+
       varying vec2 vUv;
       void main() {
+        // The focal plane is shared by every pixel in this fullscreen pass.
+        focalDepth = focus;
+        float bestDelta = 2.0;
+        for (int y = -1; y <= 1; y++) {
+          for (int x = -1; x <= 1; x++) {
+            if (abs(x) + abs(y) > 1) continue;
+            float candidate = depthAt(clamp(focusUv + vec2(float(x), float(y)) * 0.035, 0.0, 1.0));
+            float delta = abs(candidate - focus);
+            if (delta < bestDelta) {
+              bestDelta = delta;
+              focalDepth = candidate;
+            }
+          }
+        }
         vUv = uv;
         gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
       }
@@ -26,7 +49,8 @@ export function createDepthOfFieldPass() {
       varying vec2 vUv;
       uniform sampler2D tDiffuse, tDepth;
       uniform vec2 texel, focusUv;
-      uniform float focus, nearPlane, farPlane;
+      uniform float nearPlane, farPlane;
+      varying float focalDepth;
 
       float depthAt(vec2 uv) {
         return -perspectiveDepthToViewZ(texture2D(tDepth, uv).x, nearPlane, farPlane);
@@ -41,19 +65,6 @@ export function createDepthOfFieldPass() {
           return;
         }
         float depth = depthAt(vUv);
-        float focalDepth = focus;
-        float bestDelta = 2.0;
-        for (int y = -1; y <= 1; y++) {
-          for (int x = -1; x <= 1; x++) {
-            if (abs(x) + abs(y) > 1) continue;
-            float candidate = depthAt(clamp(focusUv + vec2(float(x), float(y)) * 0.035, 0.0, 1.0));
-            float delta = abs(candidate - focus);
-            if (delta < bestDelta) {
-              bestDelta = delta;
-              focalDepth = candidate;
-            }
-          }
-        }
         float planeBlur = smoothstep(0.85, 3.5, abs(depth - focalDepth));
         float radius = planeBlur * spotFalloff * 3.2;
         if (radius > 0.1) {

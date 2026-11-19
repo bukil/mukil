@@ -198,20 +198,23 @@ export async function createHeadsetPortal(source, environment, manager) {
           : 'entering'
     },
     render(renderer, world, viewCamera, spacecraftPosition) {
-      innerCamera.position.copy(viewCamera.position)
-      innerCamera.fov = viewCamera.fov
-      innerCamera.aspect = THREE.MathUtils.lerp(
-        EYE_RADIUS[0] / EYE_RADIUS[1],
-        width / height,
-        screenBlend
-      )
-      lookTarget.copy(spacecraftPosition).multiplyScalar(1 - screenBlend)
-      innerCamera.lookAt(lookTarget)
-      innerCamera.updateProjectionMatrix()
-      const previous = renderer.getRenderTarget()
-      renderer.setRenderTarget(target)
-      renderer.render(world, innerCamera)
-      renderer.setRenderTarget(previous)
+      // Closed lenses show only their dark base color.
+      if (uniforms.uReveal.value > 0) {
+        innerCamera.position.copy(viewCamera.position)
+        innerCamera.fov = viewCamera.fov
+        innerCamera.aspect = THREE.MathUtils.lerp(
+          EYE_RADIUS[0] / EYE_RADIUS[1],
+          width / height,
+          screenBlend
+        )
+        lookTarget.copy(spacecraftPosition).multiplyScalar(1 - screenBlend)
+        innerCamera.lookAt(lookTarget)
+        innerCamera.updateProjectionMatrix()
+        const previous = renderer.getRenderTarget()
+        renderer.setRenderTarget(target)
+        renderer.render(world, innerCamera)
+        renderer.setRenderTarget(previous)
+      }
       renderer.getDrawingBufferSize(uniforms.uResolution.value)
       renderer.render(scene, camera)
     },

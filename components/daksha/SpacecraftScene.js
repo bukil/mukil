@@ -128,6 +128,7 @@ export default function SpacecraftScene({
     let disposed = false
     let frame = 0
     let renderCount = 0
+    let lastDiagnostics = -Infinity
     let model
     let solarRig
     let warming = false
@@ -1057,67 +1058,72 @@ export default function SpacecraftScene({
           ]
         })
       }
-      // Diagnostics are local to this canvas, with no global production API.
-      mount.dataset.shaderPrograms = String(renderer.info.programs?.length || 0)
-      mount.dataset.drawCalls = String(renderer.info.render.calls)
-      mount.dataset.triangles = String(renderer.info.render.triangles)
-      mount.dataset.geometries = String(renderer.info.memory.geometries)
-      mount.dataset.textures = String(renderer.info.memory.textures)
-      mount.dataset.outlines = String(outlineMaterials.size)
-      mount.dataset.progress = stateRef.current.progress.toFixed(6)
-      mount.dataset.frames = String(++renderCount)
-      mount.dataset.xray = ghostUniform.value.toFixed(3)
-      mount.dataset.projection =
-        projectionBlend >= 0.999 ? 'orthographic' : 'perspective'
+      renderCount++
       if (headsetPortal) {
-        mount.dataset.headset = String(
-          headsetPortal.active && (stateRef.current.chapter || 0) > 0.45
+        const headset = String(headsetPortal.active && (stateRef.current.chapter || 0) > 0.45)
+        if (mount.dataset.headset !== headset) mount.dataset.headset = headset
+      }
+      if (now - lastDiagnostics >= 250) {
+        lastDiagnostics = now
+        // Diagnostics are local to this canvas, with no global production API.
+        mount.dataset.shaderPrograms = String(renderer.info.programs?.length || 0)
+        mount.dataset.drawCalls = String(renderer.info.render.calls)
+        mount.dataset.triangles = String(renderer.info.render.triangles)
+        mount.dataset.geometries = String(renderer.info.memory.geometries)
+        mount.dataset.textures = String(renderer.info.memory.textures)
+        mount.dataset.outlines = String(outlineMaterials.size)
+        mount.dataset.progress = stateRef.current.progress.toFixed(6)
+        mount.dataset.frames = String(renderCount)
+        mount.dataset.xray = ghostUniform.value.toFixed(3)
+        mount.dataset.projection =
+          projectionBlend >= 0.999 ? 'orthographic' : 'perspective'
+        if (headsetPortal) {
+          mount.dataset.headsetPhase = headsetPortal.phase
+          mount.dataset.headsetStickers = String(headsetPortal.stickerCount)
+        }
+        mount.dataset.pixelRatio = renderer.getPixelRatio().toFixed(2)
+        mount.dataset.hdrResolution = composer
+          ? `${composer.readBuffer.width}x${composer.readBuffer.height}`
+          : ''
+        mount.dataset.hdrSamples = String(composer?.renderTarget1.samples || 0)
+        mount.dataset.antialiasing = composer ? 'SMAA' : 'MSAA'
+        mount.dataset.toneMapping = 'AgX'
+        mount.dataset.rainbowGlass = rainbowGlassUniform.value.toFixed(4)
+        mount.dataset.glassRefraction = rainbowGlassUniform.value > 0.002 ? 'scene-rgb' : 'off'
+        mount.dataset.reflectiveMaterials = String(
+          [...surfaceMaterials].filter(
+            material => material.userData.reflectiveFinish
+          ).length
         )
-        mount.dataset.headsetPhase = headsetPortal.phase
-        mount.dataset.headsetStickers = String(headsetPortal.stickerCount)
-      }
-      mount.dataset.pixelRatio = renderer.getPixelRatio().toFixed(2)
-      mount.dataset.hdrResolution = composer
-        ? `${composer.readBuffer.width}x${composer.readBuffer.height}`
-        : ''
-      mount.dataset.hdrSamples = String(composer?.renderTarget1.samples || 0)
-      mount.dataset.antialiasing = composer ? 'SMAA' : 'MSAA'
-      mount.dataset.toneMapping = 'AgX'
-      mount.dataset.rainbowGlass = rainbowGlassUniform.value.toFixed(4)
-      mount.dataset.glassRefraction = rainbowGlassUniform.value > 0.002 ? 'scene-rgb' : 'off'
-      mount.dataset.reflectiveMaterials = String(
-        [...surfaceMaterials].filter(
-          material => material.userData.reflectiveFinish
-        ).length
-      )
-      mount.dataset.flightSpeed = flight.speed.toFixed(4)
-      mount.dataset.flightBlend = flight.blend.toFixed(4)
-      mount.dataset.flightTime = flightTime.toFixed(3)
-      mount.dataset.satelliteAsset = model?.userData.source || ''
-      mount.dataset.solarWings = String(solarRig?.hinges.length || 0)
-      mount.dataset.solarDeployment = solarDeployment.toFixed(4)
-      mount.dataset.batteryPacks = String(BATTERY_LAYOUT.levels.length)
-      mount.dataset.anisotropicMaterials = String(
-        [...surfaceMaterials].filter(material => material.anisotropy > 0).length
-      )
-      if (storyEnvironment) {
-        mount.dataset.sunSweep = storyProfile.sunSweep.toFixed(3)
-        mount.dataset.sunPosition = storyEnvironment.sunlight.position
-          .toArray()
-          .map(value => value.toFixed(3))
-          .join(',')
-      }
-      mount.dataset.assemblyCentered = String(
-        assemblyBlend >= 0.999 && rig.position.length() < 0.001
-      )
-      mount.dataset.assemblyPieces = String(assemblyPieces)
-      mount.dataset.assemblyProgress = assemblyProgress.toFixed(3)
-      mount.dataset.experienceBlend = experienceMix.toFixed(4)
-      mount.dataset.transitionScan = transitionScanUniform.value.toFixed(4)
-      if (story) {
-        mount.dataset.chapter = (stateRef.current.chapter || 0).toFixed(3)
-        mount.dataset.materialMix = storyProfile.blue.toFixed(3)
-        mount.dataset.earth = storyProfile.earth.toFixed(3)
+        mount.dataset.flightSpeed = flight.speed.toFixed(4)
+        mount.dataset.flightBlend = flight.blend.toFixed(4)
+        mount.dataset.flightTime = flightTime.toFixed(3)
+        mount.dataset.satelliteAsset = model?.userData.source || ''
+        mount.dataset.solarWings = String(solarRig?.hinges.length || 0)
+        mount.dataset.solarDeployment = solarDeployment.toFixed(4)
+        mount.dataset.batteryPacks = String(BATTERY_LAYOUT.levels.length)
+        mount.dataset.anisotropicMaterials = String(
+          [...surfaceMaterials].filter(material => material.anisotropy > 0).length
+        )
+        if (storyEnvironment) {
+          mount.dataset.sunSweep = storyProfile.sunSweep.toFixed(3)
+          mount.dataset.sunPosition = storyEnvironment.sunlight.position
+            .toArray()
+            .map(value => value.toFixed(3))
+            .join(',')
+        }
+        mount.dataset.assemblyCentered = String(
+          assemblyBlend >= 0.999 && rig.position.length() < 0.001
+        )
+        mount.dataset.assemblyPieces = String(assemblyPieces)
+        mount.dataset.assemblyProgress = assemblyProgress.toFixed(3)
+        mount.dataset.experienceBlend = experienceMix.toFixed(4)
+        mount.dataset.transitionScan = transitionScanUniform.value.toFixed(4)
+        if (story) {
+          mount.dataset.chapter = (stateRef.current.chapter || 0).toFixed(3)
+          mount.dataset.materialMix = storyProfile.blue.toFixed(3)
+          mount.dataset.earth = storyProfile.earth.toFixed(3)
+        }
       }
       if (flight.speed > 0.001 && !warming) invalidate()
     }
