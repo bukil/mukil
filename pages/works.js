@@ -391,8 +391,21 @@ function WorksGrid() {
   return (
     <Box w="100%" px={{ base: '20px', md: '24px' }} mb={{ base: 16, md: 20 }}>
       <SimpleGrid columns={{ base: 1, md: 2 }} gap={{ base: '20px', md: '24px' }}>
-        {/* Panel 1: Data visualisation: LHC, Speed of Light */}
+        {/* Cube to Cube */}
         <Section data-project-row="" delay={0.1}>
+          <NextLink href="/c2c" aria-label="Explore C2C — Cube to Cube">
+            <ProjectPanel
+              title="C2C"
+              rightText="Placeholder"
+              imageSrc="/images/works/c2cf.png"
+              imageAlt="C2C physical interaction cube controller"
+              accentColor="#0d9488"
+            />
+          </NextLink>
+        </Section>
+
+        {/* Panel 2: Data visualisation: LHC, Speed of Light */}
+        <Section data-project-row="" delay={0.2}>
           <Box
             as="a"
             href="https://bukil.github.io/dataviz/"
@@ -409,8 +422,8 @@ function WorksGrid() {
           </Box>
         </Section>
 
-        {/* Panel 2: Data Vizualisation (MAPA) */}
-        <Section data-project-row="" delay={0.2}>
+        {/* Panel 3: Data Vizualisation (MAPA) */}
+        <Section data-project-row="" delay={0.3}>
           <Box
             as="a"
             href="https://bukil.github.io/MAPA/"
@@ -427,8 +440,8 @@ function WorksGrid() {
           </Box>
         </Section>
 
-        {/* Panel 3: Microinteraction */}
-        <Section data-project-row="" delay={0.3}>
+        {/* Panel 4: Microinteraction */}
+        <Section data-project-row="" delay={0.4}>
           <NextLink href="/mukilm" passHref legacyBehavior>
             <Box
               as="a"
@@ -444,18 +457,6 @@ function WorksGrid() {
           </NextLink>
         </Section>
 
-        {/* Panel 4: C2C */}
-        <Section data-project-row="" delay={0.4}>
-          <NextLink href="/c2c" aria-label="Explore C2C — Cube to Cube">
-            <ProjectPanel
-              title="C2C"
-              rightText="Placeholder"
-              imageSrc="/images/works/c2cf.png"
-              imageAlt="C2C physical interaction cube controller"
-              accentColor="#0d9488"
-            />
-          </NextLink>
-        </Section>
       </SimpleGrid>
     </Box>
   )

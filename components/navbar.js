@@ -42,7 +42,7 @@ const Navbar = ({ path }) => {
         <Logo />
       </Box>
 
-      {/* Desktop & Mobile Navigation on the Right - in crisp black */}
+      {/* Desktop & Mobile Navigation on the Right */}
       <Box
         data-site-navigation
         position="fixed"
@@ -53,6 +53,7 @@ const Navbar = ({ path }) => {
         pb="10px"
         px={{ base: '20px', md: '24px' }}
         pointerEvents="auto"
+        mixBlendMode="difference"
       >
         {/* Desktop Navigation */}
         <HStack
@@ -71,11 +72,11 @@ const Navbar = ({ path }) => {
                   fontWeight={isActive ? '600' : '500'}
                   letterSpacing="0.08em"
                   textTransform="uppercase"
-                  color={isActive ? activeColor : inactiveColor}
+                  color="white"
                   position="relative"
                   py={1}
                   _hover={{
-                    color: activeColor,
+                    color: 'white',
                     textDecoration: 'none'
                   }}
                   _after={isActive ? {
@@ -85,7 +86,7 @@ const Navbar = ({ path }) => {
                     left: 0,
                     right: 0,
                     height: '1.5px',
-                    bg: activeColor,
+                    bg: 'white',
                     borderRadius: '1px'
                   } : undefined}
                   transition="color 0.2s ease"
@@ -105,7 +106,7 @@ const Navbar = ({ path }) => {
               icon={<HamburgerIcon boxSize={5} />}
               variant="ghost"
               aria-label="Toggle navigation menu"
-              color={activeColor}
+              color="white"
               _hover={{ bg: 'rgba(26, 26, 26, 0.06)' }}
               _active={{ bg: 'rgba(26, 26, 26, 0.1)' }}
             />
