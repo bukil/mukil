@@ -14,6 +14,8 @@ import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js'
 import { SMAAPass } from 'three/examples/jsm/postprocessing/SMAAPass.js'
+import { Holo } from '../c2c/holospot/holo'
+import { createDepthOfFieldPass } from './depth-of-field.mjs'
 import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js'
 import gsap from 'gsap'
 import styles from '../../styles/Daksha.module.css'
@@ -145,6 +147,11 @@ export default function SpacecraftScene({
     let renderer
     let composer
     let quality
+    let foilRenderer
+    let foilReady = false
+    let foilOpacity = 0
+    let lastRenderTime
+    let depthOfField
     let bloom
     let scenePass
     let assemblyPieces = 0
@@ -228,7 +235,7 @@ export default function SpacecraftScene({
     })
     const manager = new THREE.LoadingManager(() => finishResources())
     manager.onProgress = (_, loaded, total) => {
-      if (!disposed) onProgress(Math.min(65, (loaded / total) * 65))
+      if (!disposed) onProgress?.(Math.min(65, (loaded / total) * 65))
     }
     manager.onError = () => {
       resourceError = true
@@ -969,7 +976,30 @@ export default function SpacecraftScene({
         bloom.strength = 0.14 + 0.96 * flight.stretch
         bloom.radius = THREE.MathUtils.lerp(0.35, 0.72, flight.stretch)
         bloom.threshold = THREE.MathUtils.lerp(2.8, 0.55, flight.stretch)
+        viewCamera.updateMatrixWorld()
+        depthOfField.updateFocus(composer.readBuffer, viewCamera, rig)
         composer.render()
+        const foilReveal =
+          easeRange(chapterPosition, STORY_INDEX.spacecraft + 0.45, STORY_INDEX.spacecraft + 0.78) *
+          (1 - easeRange(chapterPosition, STORY_INDEX.inside + 0.18, STORY_INDEX.inside + 0.55))
+        const foilTarget = foilReady && !warming && !interactive
+          ? 0.94 * foilReveal * (1 - THREE.MathUtils.smoothstep(projectionBlend, 0, 0.24)) *
+            (1 - THREE.MathUtils.smoothstep(rainbowGlassUniform.value, 0, 0.3))
+          : 0
+        const delta = Math.min(0.05, (now - (lastRenderTime ?? now - 16)) / 1000)
+        lastRenderTime = now
+        foilOpacity = THREE.MathUtils.damp(foilOpacity, foilTarget, 12, delta)
+        if (!warming && foilOpacity > 0.01) {
+          // The base pass already updated the shadow maps for this frame.
+          const updateShadows = renderer.shadowMap.autoUpdate
+          renderer.shadowMap.autoUpdate = false
+          try {
+            foilRenderer.render(scene, viewCamera, { overlay: true, opacity: foilOpacity, still: true })
+          } finally {
+            renderer.shadowMap.autoUpdate = updateShadows
+          }
+        }
+        if (!warming && Math.abs(foilOpacity - foilTarget) > 0.01) invalidate()
       } else renderer.render(scene, viewCamera)
       if (modeFrame) {
         if (story && !warming) stateRef.current.onStoryFrame?.(modeFrame)
@@ -1125,7 +1155,9 @@ export default function SpacecraftScene({
         for (const [position, size, color, strength] of [
           [[-4, 3, 7], [1.6, 8], 0xdbeaff, 3.5],
           [[6, 1, -4], [2, 6], 0xffe8c4, 2.5],
-          [[6, 2, 5], [2.4, 7], 0xf2f6ff, 4]
+          [[6, 2, 5], [2.4, 7], 0xf2f6ff, 4],
+          [[-2, 7, 1], [6, 3], 0xe9f5ff, 3.2],
+          [[1, -4, 5], [5, 1.8], 0xffebd5, 1.6]
         ]) {
           const card = new THREE.Mesh(
             new THREE.PlaneGeometry(...size),
@@ -1160,11 +1192,14 @@ export default function SpacecraftScene({
         const hdrTarget = new THREE.WebGLRenderTarget(1, 1, {
           type: THREE.HalfFloatType
         })
+        hdrTarget.depthTexture = new THREE.DepthTexture(1, 1)
         hdrTarget.texture.name = 'Daksha HDR'
         composer = new EffectComposer(renderer, hdrTarget)
         composer.setPixelRatio(quality.pixelRatio)
         scenePass = new RenderPass(scene, camera)
         composer.addPass(scenePass)
+        depthOfField = createDepthOfFieldPass()
+        composer.addPass(depthOfField)
         bloom = new UnrealBloomPass(new THREE.Vector2(1, 1), 0.24, 0.35, 2.8)
         composer.addPass(bloom)
         composer.addPass(new SMAAPass())
@@ -1194,6 +1229,15 @@ export default function SpacecraftScene({
         new THREE.AmbientLight(0xc5d8e8, variant === 'story' ? 0.025 : 0.6)
       )
       if (variant === 'story') {
+        for (const [color, intensity, position] of [
+          [0xffe5c6, 0.36, [5, 1, -4]],
+          [0xc4e2ff, 0.28, [4, 5, 3]],
+          [0xe5edff, 0.16, [1, -4, 3]]
+        ]) {
+          const accent = new THREE.DirectionalLight(color, intensity)
+          accent.position.set(...position)
+          scene.add(accent)
+        }
         // Hot white-cyan thruster glow — sweeps ahead of the craft.
         const thruster = new THREE.PointLight(0xc8f0ff, 0, 14, 2.2)
         thruster.position.set(0, 0.3, 4.5)
@@ -1467,6 +1511,41 @@ export default function SpacecraftScene({
               }
             }
           })
+          if (variant === 'story') {
+            const foilParts = model.children.filter(part =>
+              part.getObjectByProperty('isMesh', true)
+            )
+            const finishes = [
+              { material: 'prism', settings: { 'prism.pattern': 'linear', 'prism.sigTheta': 0.9 } },
+              { material: 'shatter', settings: { 'shatter.size': 1.2, 'shatter.jitter': 1 } },
+              { material: 'nebula', settings: { 'nebula.size': 105, 'nebula.starSize': 350 } },
+              { material: 'sparkle', settings: { 'sparkle.size': 170, 'sparkle.irregularity': 0.95 } },
+              { material: 'vortex', settings: { 'vortex.bands': 0, 'vortex.waviness': 0.5 } },
+              { material: 'volume', settings: {
+                'volume.subject': '/c2c/holospot/holo3d/chip.sdf',
+                'volume.type': 'rainbow',
+                'volume.slit': 18
+              } },
+              { material: 'emboss' }
+            ]
+            foilRenderer = new Holo(renderer, {
+              compose: 'over',
+              quality: 'low',
+              settings: { 'bump.map': 'none', 'studio.preset': 'softbox' }
+            })
+            foilParts.forEach((part, index) => {
+              foilRenderer.apply(part, {
+                sizeMm: 90,
+                scene: false,
+                ...finishes[index % finishes.length]
+              })
+            })
+            foilRenderer.ready().then(() => {
+              if (disposed) return
+              foilReady = true
+              invalidate()
+            }).catch(() => foilRenderer.dispose())
+          }
           originalMaterials.forEach(material => material.dispose())
           // A restrained x-ray pass reveals inner layers beneath the blue outlines.
           surfaceMaterials.forEach(material => {
@@ -1572,7 +1651,7 @@ export default function SpacecraftScene({
             if (resourceError) throw new Error('A scene texture failed to load')
             warming = true
             cancelAnimationFrame(frame)
-            onProgress(68)
+            onProgress?.(68)
             // The alpha-capable shader is shared by solid and x-ray views.
             const textures = new Set()
             surfaceMaterials.forEach(material => {
@@ -1609,7 +1688,7 @@ export default function SpacecraftScene({
             for (let i = 0; i < samples.length; i++) {
               Object.assign(stateRef.current, samples[i])
               render()
-              onProgress(74 + ((i + 1) / samples.length) * 24)
+              onProgress?.(74 + ((i + 1) / samples.length) * 24)
               await new Promise(resolve => requestAnimationFrame(resolve))
               if (disposed) return
             }
@@ -1618,7 +1697,7 @@ export default function SpacecraftScene({
             render()
             warming = false
             mount.dataset.ready = 'true'
-            onProgress(100)
+            onProgress?.(100)
             onReady()
           } catch {
             warming = false
@@ -1755,6 +1834,7 @@ export default function SpacecraftScene({
         flightLights.strobe.removeFromParent()
         flightLights = null
       }
+      foilRenderer?.dispose()
       storyEnvironment?.dispose()
       refractiveGlass?.dispose()
       environment?.dispose()

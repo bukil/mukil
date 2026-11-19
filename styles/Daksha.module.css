@@ -71,16 +71,12 @@
   inset: 0;
   z-index: 0;
   overflow: hidden;
-  background: #02050b;
-}
-.globalStage::before {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  content: '';
-  opacity: var(--stage-reveal);
-  background: radial-gradient(ellipse at 72% 55%, #061629, #02050b 65%);
-  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 14% 34%, #02050bf5 0%, #02050bc4 30%, transparent 69%),
+    radial-gradient(ellipse 112% 118% at 104% 143%,
+      #07182f 64%, #123d73 72%, #246bbc 77%, #7ed0ff 81%,
+      #fff 82.5%, #fff 84%, #fff1b8 85%, #f6b870 86.5%,
+      #c66d48 88%, #456eb1 91%, #142c54 95%, #030611 100%);
 }
 .canvas {
   position: absolute;
@@ -1053,16 +1049,45 @@
   touch-action: none;
   overscroll-behavior: none;
 }
-.loadingProgress {
-  width: min(72vw, 560px);
+.loadingCard {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: min(90vw, 63svh, 520px);
+  aspect-ratio: 0.74;
+  margin: 0 auto 24px;
 }
-.loadingProgress progress {
-  display: block;
+.loadingCardFallback {
+  width: 78%;
+  aspect-ratio: 63 / 88;
+  border-radius: 5.08% / 3.64%;
+  background: linear-gradient(135deg, #d1f3ff, #788bc4 34%, #d2b3ec 49%, #ffdfaa 57%, #8cb2ce 75%, #eaf7ff);
+}
+.loadingCard canvas {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  height: 10px;
-  border-radius: 100px;
-  overflow: clip;
-  accent-color: var(--accent);
+  height: 100%;
+  visibility: hidden;
+}
+.loadingCard[data-ready='true'] canvas {
+  visibility: visible;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .loadingCard[data-ready='false'] .loadingCardFallback {
+    will-change: transform;
+    animation: dakshaLoadingTilt 7s linear infinite;
+  }
+}
+@keyframes dakshaLoadingTilt {
+  0%, 100% { transform: perspective(740px) rotateX(-12deg) rotateY(0deg); }
+  12.5% { transform: perspective(740px) rotateX(-8.5deg) rotateY(8.5deg); }
+  25% { transform: perspective(740px) rotateX(0deg) rotateY(12deg); }
+  37.5% { transform: perspective(740px) rotateX(8.5deg) rotateY(8.5deg); }
+  50% { transform: perspective(740px) rotateX(12deg) rotateY(0deg); }
+  62.5% { transform: perspective(740px) rotateX(8.5deg) rotateY(-8.5deg); }
+  75% { transform: perspective(740px) rotateX(0deg) rotateY(-12deg); }
+  87.5% { transform: perspective(740px) rotateX(-8.5deg) rotateY(-8.5deg); }
 }
 .loadingScreen button {
   border: 1px solid var(--line);
@@ -1078,21 +1103,6 @@
   :global([data-site-navigation]) {
   visibility: hidden;
 }
-.loadingProgress progress {
-  appearance: none;
-  border: 0;
-  background: var(--line);
-}
-.loadingProgress progress::-webkit-progress-bar {
-  background: var(--line);
-}
-.loadingProgress progress::-webkit-progress-value {
-  background: var(--accent);
-}
-.loadingProgress progress::-moz-progress-bar {
-  background: var(--accent);
-}
-
 .wordMask {
   display: inline-block;
   overflow: hidden;

@@ -7,7 +7,7 @@ import OrbitalTransition from '../components/daksha/OrbitalTransition'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
-import CaseStudy from '../components/daksha/CaseStudy'
+import HolospotCard from '../components/daksha/HolospotCard'
 import Lenis from 'lenis'
 import RevealWords from '../components/daksha/RevealWords'
 import {
@@ -16,7 +16,10 @@ import {
 } from '../components/daksha/story-chapters'
 import styles from '../styles/Daksha.module.css'
 import { experienceProgressForScroll } from '../components/daksha/scroll-motion.mjs'
-import { SCENE_ASSETS } from '../components/daksha/scene-assets.mjs'
+
+const CaseStudy = dynamic(() => import('../components/daksha/CaseStudy'), {
+  ssr: false
+})
 
 const SpacecraftScene = dynamic(
   () => import('../components/daksha/SpacecraftScene'),
@@ -56,17 +59,21 @@ export default function DakshaInOrbit() {
   const [active, setActive] = useState(0)
   const [assembling, setAssembling] = useState(false)
   const [modelStatus, setModelStatus] = useState('loading')
-  const [loadProgress, setLoadProgress] = useState(0)
-  const [pageProgress, setPageProgress] = useState(0)
   const [pageReady, setPageReady] = useState(false)
   const [sceneKey, setSceneKey] = useState(0)
-  const experienceReady = modelStatus === 'ready' && pageReady
-  const totalProgress = Math.round(loadProgress * 0.8 + pageProgress * 0.2)
+  const [cardReady, setCardReady] = useState(false)
+  const [loadingHoldDone, setLoadingHoldDone] = useState(false)
+  const experienceReady = modelStatus === 'ready' && pageReady && loadingHoldDone
   const [motionEnabled, setMotionEnabled] = useState(true)
   const storyController = useMemo(
     () => ({ stateRef: sceneState, controllerRef }),
     []
   )
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setLoadingHoldDone(true), 7000)
+    return () => window.clearTimeout(timer)
+  }, [sceneKey])
 
   useEffect(() => {
     const query = window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -81,7 +88,6 @@ export default function DakshaInOrbit() {
     // Below-fold figures keep native lazy loading and do not block scene entry.
     document.fonts.ready.then(() => {
       if (alive) {
-        setPageProgress(100)
         setPageReady(true)
       }
     })
@@ -150,7 +156,8 @@ export default function DakshaInOrbit() {
     const lenis = motionEnabled
       ? new Lenis({
           autoRaf: false,
-          lerp: 0.095,
+          lerp: 0.085,
+          wheelMultiplier: 0.58,
           smoothWheel: true,
           syncTouch: false,
           anchors: false,
@@ -282,18 +289,11 @@ export default function DakshaInOrbit() {
     }
   }, [motionEnabled, experienceReady])
 
+  const onCardReady = useCallback(() => setCardReady(true), [])
   const ready = useCallback(() => {
-    setLoadProgress(100)
     setModelStatus('ready')
   }, [])
   const error = useCallback(() => setModelStatus('fallback'), [])
-  const progress = useCallback(
-    value =>
-      setLoadProgress(current =>
-        Math.max(current, Math.min(100, Math.round(value)))
-      ),
-    []
-  )
   const selectPart = useCallback(
     name => sceneState.current.onSelectPart?.(name),
     []
@@ -351,27 +351,16 @@ export default function DakshaInOrbit() {
         />
         <link rel="canonical" href="https://mukil.vercel.app/daksha-in-orbit" />
         <link rel="icon" href="/favicon.ico" />
-        <link
-          rel="preload"
-          href={SCENE_ASSETS.satellite}
-          as="fetch"
-          crossOrigin="anonymous"
-        />
-        <link
-          rel="preload"
-          href={SCENE_ASSETS.headset}
-          as="fetch"
-          crossOrigin="anonymous"
-        />
       </Head>
       {!experienceReady && (
-        <div className={styles.loadingScreen} role="status" aria-live="polite">
+        <div className={styles.loadingScreen} role="status" aria-live="polite" aria-label="Loading Daksha">
           {modelStatus === 'fallback' ? (
             <button
               type="button"
               onClick={() => {
+                setCardReady(false)
+                setLoadingHoldDone(false)
                 setModelStatus('loading')
-                setLoadProgress(0)
                 setAssembling(false)
                 Object.assign(sceneState.current, {
                   chapter: 0,
@@ -385,219 +374,216 @@ export default function DakshaInOrbit() {
               Try again
             </button>
           ) : (
-            <div className={styles.loadingProgress}>
-              <progress
-                max="100"
-                value={totalProgress}
-                aria-label="Loading experience"
-              />
-            </div>
+            <HolospotCard onReady={onCardReady} />
           )}
         </div>
       )}
-      <a className={styles.skipLink} href="#overview">
-        Skip to project
-      </a>
-      <div ref={stageRef} className={styles.globalStage} data-revealed="false">
-        {modelStatus !== 'ready' && (
-          <div className={styles.poster}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/models/daksha-poster.webp"
-              alt="Daksha spacecraft"
-              width="1000"
-              height="1000"
-              fetchPriority="high"
+      {cardReady && (
+        <>
+          <a className={styles.skipLink} href="#overview">
+            Skip to project
+          </a>
+          <div ref={stageRef} className={styles.globalStage} data-revealed="false">
+            {modelStatus !== 'ready' && (
+              <div className={styles.poster}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/models/daksha-poster.webp"
+                  alt="Daksha spacecraft"
+                  width="1000"
+                  height="1000"
+                  fetchPriority="high"
+                />
+              </div>
+            )}
+            <SpacecraftScene
+              key={sceneKey}
+              variant="story"
+              stateRef={sceneState}
+              controllerRef={controllerRef}
+              onReady={ready}
+              onError={error}
+              onSelectPart={selectPart}
+              onAssemblyChange={setAssembling}
+              onFrame={sceneFrame}
             />
           </div>
-        )}
-        <SpacecraftScene
-          key={sceneKey}
-          variant="story"
-          stateRef={sceneState}
-          controllerRef={controllerRef}
-          onReady={ready}
-          onError={error}
-          onProgress={progress}
-          onSelectPart={selectPart}
-          onAssemblyChange={setAssembling}
-          onFrame={sceneFrame}
-        />
-      </div>
-      <div className={styles.readingProgress} aria-hidden="true">
-        <div ref={progressRef} />
-      </div>
+          <div className={styles.readingProgress} aria-hidden="true">
+            <div ref={progressRef} />
+          </div>
 
-      <div
-        ref={assemblyInfoRef}
-        className={styles.assemblyCue}
-        aria-hidden={!assembling}
-      >
-        <div className={styles.assemblyCaption}>
-          <strong data-assembly-part>Spacecraft bus</strong>
-          <span data-assembly-percent>0%</span>
-        </div>
-        <div className={styles.assemblyTrack}>
-          <i />
-        </div>
-      </div>
-      <OrbitalTransition
-        controllerRef={orbitalRef}
-        enabled={experienceReady && motionEnabled}
-      />
-      <main
-        className={styles.storyContent}
-        inert={assembling || !experienceReady ? true : undefined}
-      >
-        <section
-          id="overview"
-          className={`${styles.chapter} ${styles.hero}`}
-          tabIndex={-1}
-          aria-labelledby="hero-heading"
-        >
-          <div className={styles.storyCopy} data-story-copy>
-            <h1 id="hero-heading">
-              <RevealWords text="Daksha" />
-              <br />
-              <span>
-                <RevealWords text="in Orbit" />
-              </span>
-            </h1>
-            <p>A VR platform for satellite education and outreach</p>
-            <a
-              href="#headset"
-              className={styles.textLink}
-              onClick={event => navigate(event, 'headset')}
-            >
-              Explore the mission <span>↓</span>
-            </a>
-          </div>
-        </section>
-        <section
-          id="headset"
-          className={styles.headsetChapter}
-          tabIndex={-1}
-          aria-label="Enter Daksha through the VR headset. Scroll to rotate the headset and move through one lens."
-        />
-        <section
-          id="flight"
-          className={styles.flightChapter}
-          tabIndex={-1}
-          aria-label="Orbital flight. Scroll to stretch the starlight, slow the satellite, and continue the mission."
-        />
-        <section
-          id="spacecraft"
-          className={`${styles.chapter} ${styles.copyRight}`}
-          tabIndex={-1}
-          aria-labelledby="spacecraft-heading"
-        >
-          <div className={styles.storyCopy} data-story-copy>
-            <span className={styles.eyebrow}>01 / THE OPPORTUNITY</span>
-            <h2 id="spacecraft-heading">
-              <RevealWords text="A complex instrument." />
-              <br />
-              <span>
-                <RevealWords text="A clearer way in." />
-              </span>
-            </h2>
-            <p>
-              Bring the mission and its subsystems into a shared virtual
-              environment.
-            </p>
-          </div>
-        </section>
-        <section
-          id="inside"
-          className={styles.chapter}
-          tabIndex={-1}
-          aria-labelledby="inside-heading"
-        >
-          <div className={styles.storyCopy} data-story-copy>
-            <span className={styles.eyebrow}>02 / BENEATH THE SURFACE</span>
-            <h2 id="inside-heading">
-              <RevealWords text="Every part." />
-              <br />
-              <span>
-                <RevealWords text="In context." />
-              </span>
-            </h2>
-            <p>
-              Separate the layers. See how each component belongs to the whole.
-            </p>
-            <div
-              className={styles.systemsLegend}
-              aria-label="Spacecraft subsystems"
-            >
-              <span data-breakdown-label>01 / Structure</span>
-              <span data-breakdown-label>02 / Detectors</span>
-              <span data-breakdown-label>03 / Battery packs</span>
-            </div>
-            <a
-              href="#assets"
-              className={styles.textLink}
-              onClick={event => navigate(event, 'assets')}
-            >
-              The model studies ↗
-            </a>
-          </div>
-        </section>
-        <section
-          id="experience"
-          className={`${styles.chapter} ${styles.copyRight}`}
-          tabIndex={-1}
-          aria-labelledby="experience-heading"
-        >
-          <div className={styles.storyCopy} data-story-copy>
-            <span className={styles.eyebrow}>03 / THE LEARNING EXPERIENCE</span>
-            <h2 id="experience-heading">
-              <RevealWords text="Explore." />
-              <br />
-              <RevealWords text="Inspect." />
-              <br />
-              <span>
-                <RevealWords text="Assemble." />
-              </span>
-            </h2>
-            <p>
-              Four modes connect the satellite, its structure, and the people
-              behind it.
-            </p>
-            <a
-              href="#project-notes"
-              className={styles.textLink}
-              onClick={event => navigate(event, 'project-notes')}
-            >
-              Follow the design process ↓
-            </a>
-          </div>
-        </section>
-        <CaseStudy
-          motionEnabled={motionEnabled}
-          navigate={navigate}
-          storyController={storyController}
-          sceneStatus={modelStatus}
-        />
-      </main>
-      <nav className={styles.storyRail} aria-label="Project story">
-        {STORY_GROUPS.map((group, index) => (
-          <a
-            key={group.id}
-            href={`#${group.id}`}
-            onClick={event => navigate(event, group.id)}
-            aria-current={groupIndex === index ? 'step' : undefined}
-            data-complete={groupIndex > index ? 'true' : undefined}
+          <div
+            ref={assemblyInfoRef}
+            className={styles.assemblyCue}
+            aria-hidden={!assembling}
           >
-            <span>0{index + 1}</span>
-            {group.label}
-            <i />
-          </a>
-        ))}
-      </nav>
-      <footer className={styles.footer}>
-        <Link href="/">Back to portfolio ↗</Link>
-        <span>MUKIL KUMAR © 2026</span>
-        <Link href="/contact">Get in touch ↗</Link>
-      </footer>
+            <div className={styles.assemblyCaption}>
+              <strong data-assembly-part>Spacecraft bus</strong>
+              <span data-assembly-percent>0%</span>
+            </div>
+            <div className={styles.assemblyTrack}>
+              <i />
+            </div>
+          </div>
+          <OrbitalTransition
+            controllerRef={orbitalRef}
+            enabled={experienceReady && motionEnabled}
+          />
+          <main
+            className={styles.storyContent}
+            inert={assembling || !experienceReady ? true : undefined}
+          >
+            <section
+              id="overview"
+              className={`${styles.chapter} ${styles.hero}`}
+              tabIndex={-1}
+              aria-labelledby="hero-heading"
+            >
+              <div className={styles.storyCopy} data-story-copy>
+                <h1 id="hero-heading">
+                  <RevealWords text="Daksha" />
+                  <br />
+                  <span>
+                    <RevealWords text="in Orbit" />
+                  </span>
+                </h1>
+                <p>A VR platform for satellite education and outreach</p>
+                <a
+                  href="#headset"
+                  className={styles.textLink}
+                  onClick={event => navigate(event, 'headset')}
+                >
+                  Explore the mission <span>↓</span>
+                </a>
+              </div>
+            </section>
+            <section
+              id="headset"
+              className={styles.headsetChapter}
+              tabIndex={-1}
+              aria-label="Enter Daksha through the VR headset. Scroll to rotate the headset and move through one lens."
+            />
+            <section
+              id="flight"
+              className={styles.flightChapter}
+              tabIndex={-1}
+              aria-label="Orbital flight. Scroll to stretch the starlight, slow the satellite, and continue the mission."
+            />
+            <section
+              id="spacecraft"
+              className={`${styles.chapter} ${styles.copyRight}`}
+              tabIndex={-1}
+              aria-labelledby="spacecraft-heading"
+            >
+              <div className={styles.storyCopy} data-story-copy>
+                <span className={styles.eyebrow}>01 / THE OPPORTUNITY</span>
+                <h2 id="spacecraft-heading">
+                  <RevealWords text="A complex instrument." />
+                  <br />
+                  <span>
+                    <RevealWords text="A clearer way in." />
+                  </span>
+                </h2>
+                <p>
+                  Bring the mission and its subsystems into a shared virtual
+                  environment.
+                </p>
+              </div>
+            </section>
+            <section
+              id="inside"
+              className={styles.chapter}
+              tabIndex={-1}
+              aria-labelledby="inside-heading"
+            >
+              <div className={styles.storyCopy} data-story-copy>
+                <span className={styles.eyebrow}>02 / BENEATH THE SURFACE</span>
+                <h2 id="inside-heading">
+                  <RevealWords text="Every part." />
+                  <br />
+                  <span>
+                    <RevealWords text="In context." />
+                  </span>
+                </h2>
+                <p>
+                  Separate the layers. See how each component belongs to the whole.
+                </p>
+                <div
+                  className={styles.systemsLegend}
+                  aria-label="Spacecraft subsystems"
+                >
+                  <span data-breakdown-label>01 / Structure</span>
+                  <span data-breakdown-label>02 / Detectors</span>
+                  <span data-breakdown-label>03 / Battery packs</span>
+                </div>
+                <a
+                  href="#assets"
+                  className={styles.textLink}
+                  onClick={event => navigate(event, 'assets')}
+                >
+                  The model studies ↗
+                </a>
+              </div>
+            </section>
+            <section
+              id="experience"
+              className={`${styles.chapter} ${styles.copyRight}`}
+              tabIndex={-1}
+              aria-labelledby="experience-heading"
+            >
+              <div className={styles.storyCopy} data-story-copy>
+                <span className={styles.eyebrow}>03 / THE LEARNING EXPERIENCE</span>
+                <h2 id="experience-heading">
+                  <RevealWords text="Explore." />
+                  <br />
+                  <RevealWords text="Inspect." />
+                  <br />
+                  <span>
+                    <RevealWords text="Assemble." />
+                  </span>
+                </h2>
+                <p>
+                  Four modes connect the satellite, its structure, and the people
+                  behind it.
+                </p>
+                <a
+                  href="#project-notes"
+                  className={styles.textLink}
+                  onClick={event => navigate(event, 'project-notes')}
+                >
+                  Follow the design process ↓
+                </a>
+              </div>
+            </section>
+            <CaseStudy
+              motionEnabled={motionEnabled}
+              navigate={navigate}
+              storyController={storyController}
+              sceneStatus={modelStatus}
+            />
+          </main>
+          <nav className={styles.storyRail} aria-label="Project story">
+            {STORY_GROUPS.map((group, index) => (
+              <a
+                key={group.id}
+                href={`#${group.id}`}
+                onClick={event => navigate(event, group.id)}
+                aria-current={groupIndex === index ? 'step' : undefined}
+                data-complete={groupIndex > index ? 'true' : undefined}
+              >
+                <span>0{index + 1}</span>
+                {group.label}
+                <i />
+              </a>
+            ))}
+          </nav>
+          <footer className={styles.footer}>
+            <Link href="/">Back to portfolio ↗</Link>
+            <span>MUKIL KUMAR © 2026</span>
+            <Link href="/contact">Get in touch ↗</Link>
+          </footer>
+        </>
+      )}
     </div>
   )
 }

@@ -37,15 +37,40 @@ export const HEADSET_STICKERS = [
     angle: 16
   },
   {
-    file: 'sticker1.svg',
+    file: 'daksha.png',
     location: 'right arm',
+    embossed: true,
     position: [-0.094, -0.004, -0.055],
     rotation: [0, -Math.PI / 2, 0],
     normal: [-1, 0, 0],
-    width: 0.021,
-    aspect: 1,
-    depth: 0.014,
-    angle: 0
+    width: 0.032,
+    aspect: 611 / 604,
+    depth: 0.018,
+    color: 0xd4eaff
+  },
+  {
+    file: 'isro.png',
+    location: 'right arm, front',
+    embossed: true,
+    position: [-0.094, -0.004, -0.027],
+    rotation: [0, -Math.PI / 2, 0],
+    normal: [-1, 0, 0],
+    width: 0.017,
+    aspect: 161 / 229,
+    depth: 0.028,
+    color: 0xffc481
+  },
+  {
+    file: 'iucaa.png',
+    location: 'right arm, rear',
+    embossed: true,
+    position: [-0.094, -0.004, -0.084],
+    rotation: [0, -Math.PI / 2, 0],
+    normal: [-1, 0, 0],
+    width: 0.018,
+    aspect: 101 / 130,
+    depth: 0.028,
+    color: 0xc9e9ff
   }
 ]
 
@@ -65,7 +90,7 @@ export function projectHeadsetSticker(mesh, sticker) {
     )
   )
   // Tessellate the projected shell before lifting a convex resin coating.
-  // The thin edges stay attached; the centre rises half a millimetre.
+  // Keep the edges attached and lift the embossed marks higher than vinyl.
   const p = geometry.attributes.position
   const n = geometry.attributes.normal
   const uv = geometry.attributes.uv
@@ -82,7 +107,7 @@ export function projectHeadsetSticker(mesh, sticker) {
   const emit = vertex => {
     const u = THREE.MathUtils.clamp(vertex.uv.x, 0, 1)
     const v = THREE.MathUtils.clamp(vertex.uv.y, 0, 1)
-    const height = 0.00055
+    const height = sticker.embossed ? 0.00125 : 0.00055
     const dome = Math.sin(Math.PI * u) * Math.sin(Math.PI * v)
     const position = vertex.p
       .clone()
@@ -160,7 +185,9 @@ export async function attachHeadsetStickers(source, manager) {
   const loader = new THREE.TextureLoader(manager)
   const assets = await Promise.allSettled(
     HEADSET_STICKERS.map(sticker =>
-      loader.loadAsync(`/sticker/${encodeURIComponent(sticker.file)}`)
+      loader.loadAsync(sticker.embossed
+        ? `/images/daksha/headset-emboss/${sticker.file}`
+        : `/sticker/${encodeURIComponent(sticker.file)}`)
     )
   )
   if (assets.some(asset => asset.status === 'rejected')) {
@@ -171,19 +198,28 @@ export async function attachHeadsetStickers(source, manager) {
   }
   HEADSET_STICKERS.forEach((sticker, index) => {
     const texture = assets[index].value
-    texture.colorSpace = THREE.SRGBColorSpace
+    if (!sticker.embossed) texture.colorSpace = THREE.SRGBColorSpace
     texture.anisotropy = 4
     const material = new THREE.MeshPhysicalMaterial({
-      map: texture,
-      roughness: 0.075,
+      ...(sticker.embossed ? {
+        color: sticker.color,
+        alphaMap: texture,
+        bumpMap: texture,
+        bumpScale: 0.018,
+        emissive: sticker.color,
+        emissiveIntensity: 0.12,
+        iridescence: 0.45,
+        iridescenceThicknessRange: [140, 340]
+      } : { map: texture }),
+      roughness: sticker.embossed ? 0.3 : 0.075,
       clearcoat: 1,
       clearcoatRoughness: 0.025,
       ior: 1.5,
       specularIntensity: 1,
       envMapIntensity: 2.5,
-      metalness: 0,
+      metalness: sticker.embossed ? 0.76 : 0,
       transparent: true,
-      alphaTest: 0.025,
+      alphaTest: sticker.embossed ? 0.22 : 0.025,
       depthWrite: false,
       polygonOffset: true,
       polygonOffsetFactor: -2,

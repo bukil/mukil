@@ -341,6 +341,9 @@ export default function CubeScene({ motionRef, controllerRef, team = false }) {
     const pointer = new THREE.Vector2()
     const dragRotation = { pitch: 0, yaw: 0 }
     let drag = null
+    let teamTurn = 0
+    let previousFrameTime
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
     let lastProgress
     let lastScrollTime = -Infinity
 
@@ -421,9 +424,13 @@ export default function CubeScene({ motionRef, controllerRef, team = false }) {
       const logoHold = finishRef.current === 'volume'
         ? THREE.MathUtils.smoothstep(p, 0.31, 0.41) * (1 - THREE.MathUtils.smoothstep(p, 0.64, 0.8))
         : 0
+      if (team && !drag && !reducedMotion.matches && previousFrameTime !== undefined) {
+        teamTurn = (teamTurn + Math.min(time - previousFrameTime, 40) * 0.00035) % (2 * Math.PI)
+      }
+      previousFrameTime = time
       primary.rotation.set(
         THREE.MathUtils.lerp(THREE.MathUtils.lerp(state.tilt, 0.82, closeup), 0.14, logoHold) + dragRotation.pitch,
-        state.turn * (1 - Math.max(closeup, logoHold)) + dragRotation.yaw,
+        state.turn * (1 - Math.max(closeup, logoHold)) + dragRotation.yaw + teamTurn,
         state.roll + drop * 0.24
       )
       const rotX = state.tilt + 0.12 + Math.sin(p * Math.PI * 2) * 0.32
@@ -491,9 +498,9 @@ export default function CubeScene({ motionRef, controllerRef, team = false }) {
         quality: 'medium',
         settings: {
           'dof.on': true,
-          'dof.fstop': '4.5',
+          'dof.fstop': team ? '3.5' : '4.5',
           'dof.focus': 'object',
-          'dof.offset': -18,
+          'dof.offset': team ? -24 : -18,
           'bump.map': 'none',
           'studio.preset': 'softbox',
           'studio.panel.on': true,
@@ -521,7 +528,9 @@ export default function CubeScene({ motionRef, controllerRef, team = false }) {
       const applyFinish = mesh => holo.apply(mesh, {
         material: finish,
         sizeMm: 90,
-        settings: finishSettings[finish]
+        settings: team
+          ? { ...finishSettings[finish], 'emboss.paperColour': '#58b88e' }
+          : finishSettings[finish]
       })
       study.group.traverse(node => {
         if (node.userData.c2cGlass === true) applyFinish(node)

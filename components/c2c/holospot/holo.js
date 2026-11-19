@@ -41672,7 +41672,7 @@ var vc = .25, yc = !1, bc = class {
 	}
 	applyDpr() {
 		let t = Math.min(Math.max(this.requestedDpr, .25), this.allocDpr), n = this.r.domElement, r = new e.Vector2();
-		this.r.getSize(r), (t !== this.r.getPixelRatio() || r.x !== this.cssW || r.y !== this.cssH || n.width !== Math.floor(this.cssW * t) || n.height !== Math.floor(this.cssH * t)) && this.r.setDrawingBufferSize(this.cssW, this.cssH, t), this.effDpr = t, this.vw = Math.min(Math.max(1, n.width), this.allocW), this.vh = Math.min(Math.max(1, n.height), this.allocH), this.hdrScale.set(this.vw / this.allocW, this.vh / this.allocH), this.hdrMax.set((this.vw - .5) / this.allocW, (this.vh - .5) / this.allocH);
+		this.r.getSize(r), !this.preserveDrawingBuffer && (t !== this.r.getPixelRatio() || r.x !== this.cssW || r.y !== this.cssH || n.width !== Math.floor(this.cssW * t) || n.height !== Math.floor(this.cssH * t)) && this.r.setDrawingBufferSize(this.cssW, this.cssH, t), this.effDpr = t, this.vw = Math.min(Math.max(1, this.preserveDrawingBuffer ? Math.floor(this.cssW * t) : n.width), this.allocW), this.vh = Math.min(Math.max(1, this.preserveDrawingBuffer ? Math.floor(this.cssH * t) : n.height), this.allocH), this.hdrScale.set(this.vw / this.allocW, this.vh / this.allocH), this.hdrMax.set((this.vw - .5) / this.allocW, (this.vh - .5) / this.allocH);
 	}
 	applyColorSpace(t) {
 		let n = !1;
@@ -44430,7 +44430,7 @@ function $u(e) {
 	}), t;
 }
 // src/compose.ts
-var ed = "varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position.xy, 0.0, 1.0); }", td = "\nuniform sampler2D tBlack; uniform sampler2D tWhite; uniform sampler2D tCanvas;\nvarying vec2 vUv;\nvec3 decode(vec3 c) { return mix(pow((c + 0.055) / 1.055, vec3(2.4)), c / 12.92, vec3(lessThanEqual(c, vec3(0.04045)))); }\nvec3 encode(vec3 x) {\n  x = clamp(x, 0.0, 1.0);\n  return mix(1.055 * pow(x, vec3(1.0 / 2.4)) - 0.055, 12.92 * x, vec3(lessThanEqual(x, vec3(0.0031308))));\n}\nvoid main() {\n  vec4 D = texture2D(tCanvas, vUv);\n  vec3 b = texture2D(tBlack, vUv).rgb, w = texture2D(tWhite, vUv).rgb;\n  if (all(lessThanEqual(b, vec3(0.0))) && all(greaterThanEqual(w, vec3(1.0)))) { gl_FragColor = D; return; }   // no layer here\n  vec3 B = decode(b);\n  vec3 keep = clamp(decode(w) - B, 0.0, 1.0);          // what remains of the background, per channel\n  float m = max(keep.r, max(keep.g, keep.b));\n  gl_FragColor = vec4(encode(B + keep * decode(D.rgb)), 1.0 - m * (1.0 - D.a));\n}", nd = class {
+var ed = "varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position.xy, 0.0, 1.0); }", td = "\nuniform sampler2D tBlack; uniform sampler2D tWhite; uniform sampler2D tCanvas;\nuniform float uOpacity;\nvarying vec2 vUv;\nvec3 decode(vec3 c) { return mix(pow((c + 0.055) / 1.055, vec3(2.4)), c / 12.92, vec3(lessThanEqual(c, vec3(0.04045)))); }\nvec3 encode(vec3 x) {\n  x = clamp(x, 0.0, 1.0);\n  return mix(1.055 * pow(x, vec3(1.0 / 2.4)) - 0.055, 12.92 * x, vec3(lessThanEqual(x, vec3(0.0031308))));\n}\nvoid main() {\n  vec4 D = texture2D(tCanvas, vUv);\n  vec3 b = texture2D(tBlack, vUv).rgb, w = texture2D(tWhite, vUv).rgb;\n  if (all(lessThanEqual(b, vec3(0.0))) && all(greaterThanEqual(w, vec3(1.0)))) { gl_FragColor = D; return; }   // no layer here\n  vec3 B = decode(b);\n  vec3 keep = clamp(decode(w) - B, 0.0, 1.0);          // what remains of the background, per channel\n  float m = max(keep.r, max(keep.g, keep.b));\n  gl_FragColor = mix(D, vec4(encode(B + keep * decode(D.rgb)), 1.0 - m * (1.0 - D.a)), uOpacity);\n}", nd = class {
 	black;
 	white;
 	canvas = null;
@@ -44452,7 +44452,8 @@ var ed = "varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position.
 			uniforms: {
 				tBlack: { value: this.black.texture },
 				tWhite: { value: this.white.texture },
-				tCanvas: { value: null }
+				tCanvas: { value: null },
+				uOpacity: { value: 1 }
 			},
 			depthTest: !1,
 			depthWrite: !1,
@@ -44463,7 +44464,8 @@ var ed = "varying vec2 vUv; void main() { vUv = uv; gl_Position = vec4(position.
 	resize(e, t) {
 		(this.black.width !== e || this.black.height !== t) && (this.black.setSize(e, t), this.white.setSize(e, t));
 	}
-	render(t) {
+	render(t, opacity = 1) {
+		this.material.uniforms.uOpacity.value = opacity;
 		t.getDrawingBufferSize(this.size);
 		let n = Math.max(1, Math.floor(this.size.x)), r = Math.max(1, Math.floor(this.size.y));
 		this.canvas && this.canvas.image.width === n && this.canvas.image.height === r || (this.canvas?.dispose(), this.canvas = new e.FramebufferTexture(n, r), this.canvas.minFilter = this.canvas.magFilter = e.NearestFilter, this.material.uniforms.tCanvas.value = this.canvas), t.copyFramebufferToTexture(this.canvas), this.quad.render(t);
@@ -44526,6 +44528,13 @@ var id = class {
 		return Zr(t) === "hologram" ? String(t["emboss.holo.subject"]) : null;
 	}
 	sync(e, t, n, r) {
+		// Standalone cards can share the module while owning separate paper textures.
+		Ea.logo = (url) => this.assets.slotOf(url);
+		Ea.volume = (subject) => {
+			const grid = this.subjects(e).includes(subject) ? this.host.grid(subject) : null;
+			const slab = grid && this.atlas?.slabs.get(grid);
+			return slab ? { grid, scale: slab.scale, offset: slab.offset } : null;
+		};
 		vi(n), this.assets.update(oa(e), !0), this.assets.u.uPrintK.value.x = +!!this.assets.print.loaded, this.dirty && (this.dirty = !1, r());
 		let i = No(e), a = i === this.multiSeen ? this.multiKey : JSON.stringify(i);
 		this.multiSeen = i;
@@ -48560,12 +48569,20 @@ var Vd = class {
 	}
 	render(t, n, r = {}) {
 		if (this.disposed) return;
-		let i = this.renderer, a = [...this.objects.values()].filter((e) => e.mesh && e.holoMaterial && !e.failed);
+		let i = this.renderer, a = [...this.objects.values()].filter((e) => {
+			if (!e.mesh || !e.holoMaterial || e.failed) return false;
+			for (let source = e.source; source; source = source.parent) {
+				if (!source.visible) return false;
+			}
+			return true;
+		});
 		if (!this.pipeline || !this.tier || !this.env || a.length === 0) {
-			i.render(t, n);
+			if (!r.overlay) i.render(t, n);
 			return;
 		}
 		let o = this.pipeline, s = this.tier;
+		// An overlay must preserve the frame the caller has already drawn.
+		o.preserveDrawingBuffer = r.overlay === true;
 		i.getSize(this.size);
 		let c = i.getPixelRatio();
 		(this.size.x !== this.lastW || this.size.y !== this.lastH) && (o.resize(this.size.x, this.size.y), this.lastW = this.size.x, this.lastH = this.size.y, this.lastDpr = 0), c !== this.lastDpr && (o.setDpr(c), this.lastDpr = i.getPixelRatio());
@@ -48651,7 +48668,7 @@ var Vd = class {
 			for (let e of a) D(e.scene, e.camera);
 		};
 		try {
-			if (S === "over" && (T(), i.render(t, n), E()), i.autoClear = !1, i.toneMapping = e.NoToneMapping, i.render = ((e, t) => {
+			if (S === "over" && !r.overlay && (T(), i.render(t, n), E()), i.autoClear = !1, i.toneMapping = e.NoToneMapping, i.render = ((e, t) => {
 				e === this.marker ? k() : D(e, t);
 			}), S === "replace") o.render(this.marker, n, C);
 			else {
@@ -48674,7 +48691,7 @@ var Vd = class {
 						1
 					],
 					reuse: !0
-				}), i.setRenderTarget = O, i.setRenderTarget(null), e.render(i);
+				}), i.setRenderTarget = O, i.setRenderTarget(null), e.render(i, r.opacity ?? 1);
 			}
 		} finally {
 			E(), i.render = D, i.setRenderTarget = O, this.restore(y, S === "replace");
