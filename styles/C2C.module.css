@@ -179,9 +179,15 @@
   text-align: center;
 }
 .heroCopy h1 {
-  font-size: clamp(56px, 6vw, 85px);
-  max-width: 900px;
+  font-size: clamp(52px, 5.8vw, 82px);
+  max-width: 880px;
   margin: 0 auto;
+  color: #123329;
+  text-shadow:
+    0 1.5px 0 rgba(255, 255, 255, 0.95),
+    1px 1px 0 rgba(255, 255, 255, 0.6),
+    0 -1px 0 rgba(0, 0, 0, 0.35),
+    1px 3px 5px rgba(16, 43, 35, 0.28);
 }
 .heroCopy p {
   font-size: 17px;
@@ -220,6 +226,7 @@
   height: 650svh;
 }
 .impactStage {
+  touch-action: pan-y pinch-zoom;
   position: sticky;
   top: 0;
   height: 100svh;
@@ -335,7 +342,13 @@
   padding: 0 24px;
 }
 .sectionHeading h2 {
-  font-size: clamp(56px, 7vw, 100px);
+  font-size: clamp(52px, 6.5vw, 92px);
+  color: #e2f4ea;
+  text-shadow:
+    0 1.5px 0 rgba(160, 246, 207, 0.45),
+    1px 1px 0 rgba(255, 255, 255, 0.35),
+    0 -1.5px 0 rgba(0, 0, 0, 0.9),
+    1px 3px 6px rgba(0, 0, 0, 0.6);
 }
 .sectionHeading p {
   margin-top: 36px;
@@ -507,7 +520,13 @@
   text-align: center;
 }
 .processStage > h2 {
-  font-size: clamp(56px, 6.25vw, 90px);
+  font-size: clamp(52px, 6vw, 86px);
+  color: #123329;
+  text-shadow:
+    0 1.5px 0 rgba(255, 255, 255, 0.95),
+    1px 1px 0 rgba(255, 255, 255, 0.6),
+    0 -1px 0 rgba(0, 0, 0, 0.35),
+    1px 3px 5px rgba(16, 43, 35, 0.28);
 }
 .processCards {
   display: grid;
@@ -558,9 +577,13 @@
 }
 .galleryTitle h2 {
   font-size: clamp(56px, 6vw, 86px);
-  max-width: 700px;
-  background: rgb(217 232 219 / 90%);
-  padding: 20px;
+  max-width: 760px;
+  color: #123329;
+  text-shadow:
+    0 1.5px 0 rgba(255, 255, 255, 0.95),
+    1px 1px 0 rgba(255, 255, 255, 0.6),
+    0 -1px 0 rgba(0, 0, 0, 0.35),
+    1px 3px 5px rgba(16, 43, 35, 0.28);
 }
 .floatingImage {
   position: absolute;
@@ -601,21 +624,42 @@
   width: 12%;
 }
 .people {
-  text-align: center;
-  padding: 130px 24px;
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  align-items: center;
+  gap: clamp(24px, 5vw, 100px);
+  text-align: left;
+  padding: clamp(64px, 8vw, 130px) clamp(24px, 6vw, 110px);
 }
 .people h2 {
   font-size: clamp(54px, 6vw, 85px);
+  color: #123329;
+  text-shadow:
+    0 1.5px 0 rgba(255, 255, 255, 0.95),
+    1px 1px 0 rgba(255, 255, 255, 0.6),
+    0 -1px 0 rgba(0, 0, 0, 0.35),
+    1px 3px 5px rgba(16, 43, 35, 0.28);
 }
-.people > p {
+.teamCopy > p {
   margin-top: 30px;
 }
+.teamCube {
+  position: relative;
+  justify-self: end;
+  width: 100%;
+  height: clamp(360px, 46vw, 680px);
+  touch-action: pan-y pinch-zoom;
+}
+.teamCube .sceneFallback {
+  top: 50%;
+  width: min(60%, 280px);
+  height: auto;
+  transform: translate(-50%, -50%);
+}
 .team {
-  max-width: 1100px;
-  margin: 60px auto 0;
+  margin-top: 40px;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 30px;
+  gap: 14px;
   font-size: 18px;
   font-weight: 600;
 }
@@ -635,7 +679,13 @@
   align-items: center;
 }
 .closing h2 {
-  font-size: clamp(56px, 6vw, 88px);
+  font-size: clamp(52px, 6vw, 86px);
+  color: #f0faf3;
+  text-shadow:
+    0 1.5px 0 rgba(255, 255, 255, 0.45),
+    1px 1px 0 rgba(255, 255, 255, 0.3),
+    0 -1.5px 0 rgba(2, 54, 38, 0.75),
+    1px 3px 6px rgba(0, 0, 0, 0.3);
 }
 .closing > img {
   width: min(460px, 80vw);
@@ -866,19 +916,22 @@
     width: 22%;
   }
   .people {
+    grid-template-columns: minmax(0, 1fr);
     padding: 90px 24px;
+  }
+  .teamCube {
+    width: min(100%, 460px);
+    height: clamp(260px, 85vw, 420px);
   }
   .people h2 {
     font-size: 12vw;
   }
-  .people > p {
+  .teamCopy > p {
     font-size: 13px;
   }
   .team {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
     font-size: 14px;
-    gap: 30px 18px;
-    margin-top: 40px;
+    margin-top: 24px;
   }
   .people .guides {
     font-size: 11px;

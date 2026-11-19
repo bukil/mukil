@@ -2,12 +2,55 @@ import { useEffect, useRef, useState } from 'react'
 import * as THREE from 'three'
 import Image from 'next/image'
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js'
-import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
-import { clone as cloneModel } from 'three/examples/jsm/utils/SkeletonUtils.js'
-import { createC2CGlass } from './glass-material.mjs'
+import { Holo } from './holospot/holo'
 import { C2C_MODEL_URL } from './config.mjs'
 import styles from '../../styles/C2C.module.css'
+
+const foilStickers = [
+  { name: 'IIT Bombay', logo: 'iit-bombay', x: 29, y: 33, width: 31, height: 31, foil: 'concentric' },
+  { name: 'IDC', logo: 'idc', x: 50, y: 70, width: 67, height: 14, foil: 'linear' },
+  { name: 'M', logo: 'm', x: 71, y: 33, width: 28, height: 28, foil: 'radial' }
+]
+
+const finishSettings = {
+  prism: { 'prism.pattern': 'linear', 'prism.sigTheta': 0.9 },
+  shatter: { 'shatter.size': 1.2, 'shatter.jitter': 1, 'shatter.chords': 2.3 },
+  vortex: { 'vortex.bands': 0, 'vortex.waviness': 0.5 },
+  sparkle: { 'sparkle.size': 170, 'sparkle.irregularity': 0.95 },
+  nebula: { 'nebula.size': 105, 'nebula.starSize': 350 },
+  volume: {
+    'volume.subject': '/c2c/holospot/holo3d/iit-bombay-idc.sdf',
+    'volume.type': 'rainbow',
+    'volume.size': 65,
+    'volume.slit': 18,
+    'volume.depth': -3,
+    'volume.efficiency': 1,
+    'volume.backdrop': 'none'
+  },
+  emboss: {
+    'emboss.doc': JSON.stringify({
+      v: 1,
+      e: foilStickers.map(({ name, logo, ...placement }) => ({
+        i: logo,
+        t: 'f',
+        n: name,
+        p: { ...placement, logo: `/logos/${logo}.svg`, foilCoverage: 1, gloss: 0.75 }
+      }))
+    })
+  }
+}
+const finishes = Object.keys(finishSettings)
+
+function chooseFinish() {
+  const key = 'c2c-last-finish'
+  let previous
+  try { previous = window.localStorage.getItem(key) } catch {}
+  const choices = finishes.filter(finish => finish !== previous)
+  const finish = choices[Math.floor(Math.random() * choices.length)]
+  try { window.localStorage.setItem(key, finish) } catch {}
+  return finish
+}
 
 function disposeObject(object, extraMaterials = []) {
   const materials = new Set(extraMaterials),
@@ -30,367 +73,94 @@ function disposeObject(object, extraMaterials = []) {
   materials.forEach(item => item.dispose())
 }
 
-function drawScreen(ctx, w, h, p, time, isForth, rotX = 0) {
-  ctx.save()
-  // Matte obsidian background
-  ctx.fillStyle = '#0a141a'
-  ctx.fillRect(0, 0, w, h)
+const displayModes = [
+  {
+    label: 'HELLO!',
+    color: '#bce6cc',
+    pixels: ['.........', '..#...#..', '..#...#..', '.........', '.#.....#.', '..#####..']
+  },
+  {
+    label: 'PLAY TIME',
+    color: '#eecde1',
+    pixels: ['..##.##..', '.#######.', '.#######.', '..#####..', '...###...', '....#....']
+  },
+  {
+    label: 'TAKE A BREAK',
+    color: '#e8d883',
+    pixels: ['..#####..', '...#.#...', '....#....', '...#.#...', '..#####..', '.........']
+  },
+  {
+    label: 'NICE WORK!',
+    color: '#bce6cc',
+    pixels: ['....#....', '...###...', '.#######.', '..#####..', '..##.##..', '.#.....#.']
+  }
+]
 
-  // Outer technical bezel border
-  ctx.strokeStyle = '#163328'
-  ctx.lineWidth = 4
-  ctx.strokeRect(18, 18, w - 36, h - 36)
+function drawScreen(ctx, mode, frame) {
+  const { label, color, pixels } = displayModes[mode]
 
-  // Top header status bar
-  ctx.fillStyle = '#10221c'
-  ctx.fillRect(20, 20, w - 40, 72)
-  ctx.strokeStyle = '#1b3f32'
-  ctx.lineWidth = 2
-  ctx.beginPath()
-  ctx.moveTo(20, 92)
-  ctx.lineTo(w - 20, 92)
-  ctx.stroke()
+  ctx.fillStyle = '#102b23'
+  ctx.fillRect(0, 0, 96, 72)
+  ctx.fillStyle = color
+  const bob = frame % 2
+  pixels.forEach((row, y) => {
+    for (const [x, pixel] of [...row].entries()) {
+      if (pixel === '#') ctx.fillRect(30 + x * 4, 14 + y * 4 + bob, 4, 4)
+    }
+  })
 
-  // Protocol label & live ROT_X degrees readout
-  ctx.font = 'bold 24px monospace'
-  ctx.fillStyle = '#59c994'
-  ctx.fillText('C2C // PROTOCOL', 44, 62)
+  ctx.font = 'bold 9px monospace'
+  ctx.textAlign = 'center'
+  ctx.fillText(label, 48, 57)
+}
 
-  const rotDeg = rotX * (180 / Math.PI)
-  ctx.font = '20px monospace'
-  ctx.fillStyle = '#789c92'
-  ctx.fillText(
-    `ROT_X: ${rotDeg >= 0 ? '+' : ''}${rotDeg.toFixed(1)}°`,
-    w - 360,
-    62
+function createStudioEnvironment(renderer) {
+  const pmrem = new THREE.PMREMGenerator(renderer)
+  const envScene = new THREE.Scene()
+  envScene.background = new THREE.Color(0x060c09)
+
+  const keySoftbox = new THREE.Mesh(
+    new THREE.PlaneGeometry(8, 5),
+    new THREE.MeshBasicMaterial({ color: 0xffffff })
   )
+  keySoftbox.position.set(-3, 6, 5)
+  keySoftbox.lookAt(0, 0, 0)
 
-  const modeTag = isForth ? '+X FORTH' : '-X BACK'
-  ctx.fillText(modeTag, w - 180, 62)
+  const warmSoftbox = new THREE.Mesh(
+    new THREE.PlaneGeometry(6, 4),
+    new THREE.MeshBasicMaterial({ color: 0xffb86c })
+  )
+  warmSoftbox.position.set(-6, 2, -4)
+  warmSoftbox.lookAt(0, 0, 0)
 
-  // Live status LED
-  ctx.fillStyle = isForth ? '#59c994' : '#ff8eb2'
-  ctx.beginPath()
-  ctx.arc(w - 202, 56, 7, 0, Math.PI * 2)
-  ctx.fill()
+  const coolSoftbox = new THREE.Mesh(
+    new THREE.PlaneGeometry(5, 6),
+    new THREE.MeshBasicMaterial({ color: 0x70d8ff })
+  )
+  coolSoftbox.position.set(6, 3, 2)
+  coolSoftbox.lookAt(0, 0, 0)
 
-  // Real-time oscilloscope audio/telemetry wave across the header bottom
-  ctx.strokeStyle = 'rgba(89, 201, 148, 0.45)'
-  ctx.lineWidth = 2
-  ctx.beginPath()
-  for (let ox = 24; ox <= w - 24; ox += 12) {
-    const oy =
-      84 +
-      Math.sin(time * 0.009 + ox * 0.025) *
-        5 *
-        (p < 0.28 ? 0.7 : p < 0.62 ? 1.0 : 1.4)
-    if (ox === 24) ctx.moveTo(ox, oy)
-    else ctx.lineTo(ox, oy)
-  }
-  ctx.stroke()
+  const topStrip = new THREE.Mesh(
+    new THREE.PlaneGeometry(10, 0.6),
+    new THREE.MeshBasicMaterial({ color: 0xffffff })
+  )
+  topStrip.position.set(0, 5, 2)
+  topStrip.lookAt(0, 0, 0)
 
-  // 4 Modes corresponding to X rotation:
-  // 0.00 .. 0.28: Loading / Pairing
-  // 0.28 .. 0.62: Scrolling in Screen (Files / Directory)
-  // 0.62 .. 0.88: Volume control with dynamic audio visualizer
-  // 0.88 .. 1.00: Focus / Pomodoro Timer
-  if (p < 0.28) {
-    // ──── 1. LOADING / CONNECTING ────
-    const sub = p / 0.28
-    const percent = Math.min(100, Math.round(sub * 100))
+  envScene.add(keySoftbox, warmSoftbox, coolSoftbox, topStrip)
 
-    ctx.font = 'bold 28px monospace'
-    ctx.fillStyle = '#a0f6cf'
-    ctx.fillText('HARDWARE SYNC // C2C_LINK', 44, 150)
+  const envMap = pmrem.fromScene(envScene, 0.04)
+  pmrem.dispose()
+  keySoftbox.geometry.dispose()
+  keySoftbox.material.dispose()
+  warmSoftbox.geometry.dispose()
+  warmSoftbox.material.dispose()
+  coolSoftbox.geometry.dispose()
+  coolSoftbox.material.dispose()
+  topStrip.geometry.dispose()
+  topStrip.material.dispose()
 
-    ctx.font = '20px monospace'
-    ctx.fillStyle = '#789c92'
-    ctx.fillText('CONNECTING CUBE CONTROLLER...', 44, 185)
-
-    // Center circular radar spinner
-    const cx = w / 2
-    const cy = 340
-    const radius = 95
-
-    // Outer track
-    ctx.beginPath()
-    ctx.arc(cx, cy, radius, 0, Math.PI * 2)
-    ctx.strokeStyle = '#162e24'
-    ctx.lineWidth = 10
-    ctx.stroke()
-
-    // Rotating arc
-    const spinAngle = (time * 0.005) % (Math.PI * 2)
-    ctx.beginPath()
-    ctx.arc(cx, cy, radius, spinAngle, spinAngle + Math.PI * 1.3)
-    ctx.strokeStyle = '#59c994'
-    ctx.lineWidth = 10
-    ctx.lineCap = 'round'
-    ctx.stroke()
-    ctx.lineCap = 'butt'
-
-    // Orbiting particle dots around the radar
-    for (let d = 0; d < 6; d++) {
-      const dAngle = time * 0.003 + (d * Math.PI) / 3
-      const dx = cx + Math.cos(dAngle) * 125
-      const dy = cy + Math.sin(dAngle) * 125
-      ctx.fillStyle = d % 2 === 0 ? '#59c994' : '#a0f6cf'
-      ctx.beginPath()
-      ctx.arc(dx, dy, 4, 0, Math.PI * 2)
-      ctx.fill()
-    }
-
-    // Percentage inside ring
-    ctx.font = 'bold 64px monospace'
-    ctx.fillStyle = '#e1fff0'
-    ctx.textAlign = 'center'
-    ctx.fillText(`${percent}%`, cx, cy + 22)
-    ctx.textAlign = 'left'
-
-    // Progress bar
-    const barX = 80
-    const barY = 485
-    const barW = w - 160
-    const barH = 40
-    ctx.strokeStyle = '#285442'
-    ctx.lineWidth = 3
-    ctx.strokeRect(barX, barY, barW, barH)
-
-    ctx.fillStyle = '#112920'
-    ctx.fillRect(barX + 4, barY + 4, barW - 8, barH - 8)
-
-    ctx.fillStyle = '#59c994'
-    ctx.fillRect(barX + 4, barY + 4, (barW - 8) * sub, barH - 8)
-
-    // Hex register telemetry footer
-    const hexSeq = ['0x4F', '0x82', '0xC1', '0x9D', '0x3E', '0xAA']
-    const activeHex = hexSeq[Math.floor(time * 0.003) % hexSeq.length]
-    ctx.font = '19px monospace'
-    ctx.fillStyle = '#6a8c82'
-    ctx.fillText(
-      `DEVICE: MARBLE_VITRINE   STREAM: ${(sub * 128.4).toFixed(1)} KB/s   REG: [${activeHex}]`,
-      80,
-      580
-    )
-    ctx.fillText(
-      'STATUS: ' +
-        (percent === 100 ? 'LINK ESTABLISHED' : 'DOWNLINK SYNCING...'),
-      80,
-      615
-    )
-  } else if (p < 0.62) {
-    // ──── 2. SCROLLING IN THE SCREEN (FILES / DIRECTORY) ────
-    const sub = (p - 0.28) / (0.62 - 0.28)
-
-    ctx.font = 'bold 28px monospace'
-    ctx.fillStyle = '#a0f6cf'
-    ctx.fillText('STORAGE // DIRECTORY', 44, 145)
-
-    ctx.font = '20px monospace'
-    ctx.fillStyle = '#789c92'
-    ctx.fillText('ROTARY SCROLL IN PROGRESS', 44, 180)
-
-    const files = [
-      { id: '01', name: 'MARBLE_VITRINE.OBJ', size: '14.2 MB', ext: '3D' },
-      { id: '02', name: 'REFRACTION_MAP.EXR', size: '512 KB', ext: 'HDR' },
-      { id: '03', name: 'GLASS_CAUSTICS.SHD', size: '8.7 MB', ext: 'GLSL' },
-      { id: '04', name: 'TACTILE_HAPTICS.WAV', size: '24.1 MB', ext: 'PCM' },
-      { id: '05', name: 'SYSTEM_MANIFEST.DAT', size: '64 KB', ext: 'DATA' }
-    ]
-
-    const selectedIndex = Math.min(4, Math.floor(sub * 5))
-    const listY = 220
-    const rowH = 78
-
-    files.forEach((file, idx) => {
-      const y = listY + idx * rowH
-      const isSelected = idx === selectedIndex
-
-      if (isSelected) {
-        ctx.fillStyle = '#174032'
-        ctx.fillRect(44, y - 10, w - 130, rowH - 12)
-        ctx.strokeStyle = '#59c994'
-        ctx.lineWidth = 3
-        ctx.strokeRect(44, y - 10, w - 130, rowH - 12)
-
-        // Pulsing selector arrow
-        const arrowOffset = Math.sin(time * 0.01) * 4
-        ctx.font = 'bold 26px monospace'
-        ctx.fillStyle = '#59c994'
-        ctx.fillText('▸', 60 + arrowOffset, y + 36)
-
-        ctx.fillStyle = '#ffffff'
-        ctx.fillText(file.id + '  ' + file.name, 96, y + 36)
-
-        ctx.font = '20px monospace'
-        ctx.fillStyle = '#a0f6cf'
-        ctx.fillText(file.ext + '  ' + file.size, w - 320, y + 36)
-      } else {
-        ctx.fillStyle = '#0e1d1a'
-        ctx.fillRect(44, y - 10, w - 130, rowH - 12)
-
-        ctx.font = '24px monospace'
-        ctx.fillStyle = '#5a786f'
-        ctx.fillText('  ' + file.id + '  ' + file.name, 60, y + 36)
-
-        ctx.font = '19px monospace'
-        ctx.fillStyle = '#456057'
-        ctx.fillText(file.size, w - 240, y + 36)
-      }
-    })
-
-    // Scrollbar on right
-    const sbX = w - 65
-    const sbY = listY - 10
-    const sbH = files.length * rowH - 12
-    ctx.fillStyle = '#142620'
-    ctx.fillRect(sbX, sbY, 14, sbH)
-
-    const thumbH = 65
-    const thumbY = sbY + sub * (sbH - thumbH)
-    ctx.fillStyle = '#59c994'
-    ctx.fillRect(sbX, thumbY, 14, thumbH)
-
-    ctx.font = '19px monospace'
-    ctx.fillStyle = '#6a8c82'
-    ctx.fillText(
-      'SELECTED: ' +
-        files[selectedIndex].name +
-        '   TRANSFER: 48.2 MB/s   [ITEM ' +
-        (selectedIndex + 1) +
-        '/5]',
-      44,
-      650
-    )
-  } else if (p < 0.88) {
-    // ──── 3. VOLUME CONTROL ────
-    const sub = (p - 0.62) / (0.88 - 0.62)
-    const vol = Math.round(18 + sub * 72) // 18% to 90%
-
-    ctx.font = 'bold 28px monospace'
-    ctx.fillStyle = '#a0f6cf'
-    ctx.fillText('AUDIO // LEVEL GAIN', 44, 145)
-
-    ctx.font = '20px monospace'
-    ctx.fillStyle = '#789c92'
-    ctx.fillText('ROTARY MASTER VOLUME', 44, 180)
-
-    ctx.font = 'bold 96px monospace'
-    ctx.fillStyle = '#e1fff0'
-    ctx.fillText(`VOL  ${vol}%`, 44, 290)
-
-    // Segmented Volume Meter (28 vertical bars)
-    const barStartX = 44
-    const barY = 340
-    const numBars = 28
-    const totalW = w - 88
-    const gap = 8
-    const singleW = (totalW - (numBars - 1) * gap) / numBars
-    const activeCount = Math.round((vol / 100) * numBars)
-
-    for (let k = 0; k < numBars; k++) {
-      const bx = barStartX + k * (singleW + gap)
-      const bh = 50 + (k / numBars) * 45
-      const by = barY + (95 - bh)
-
-      if (k < activeCount) {
-        ctx.fillStyle = k > 23 ? '#ff8eb2' : '#59c994'
-      } else {
-        ctx.fillStyle = '#162822'
-      }
-      ctx.fillRect(bx, by, singleW, bh)
-    }
-
-    // Dynamic Live Equalizer Spectrum with falling peak caps
-    ctx.font = '20px monospace'
-    ctx.fillStyle = '#789c92'
-    ctx.fillText(
-      `SPECTRUM ANALYZER [PEAK: ${(vol * 0.18 - 18).toFixed(1)} dB • 96kHz / 24-BIT]`,
-      44,
-      490
-    )
-
-    const eqCount = 20
-    const eqStartX = 44
-    const eqTotalW = w - 88
-    const eqGap = 10
-    const eqBarW = (eqTotalW - (eqCount - 1) * eqGap) / eqCount
-    const eqBaseY = 640
-
-    for (let j = 0; j < eqCount; j++) {
-      const wave = Math.sin(time * 0.008 + j * 0.6) * 0.5 + 0.5
-      const wave2 = Math.cos(time * 0.005 + j * 1.1) * 0.5 + 0.5
-      const hNorm = (wave * 0.6 + wave2 * 0.4) * (vol / 100)
-      const eqH = Math.max(8, hNorm * 110)
-      const ex = eqStartX + j * (eqBarW + eqGap)
-
-      ctx.fillStyle = j > 16 && vol > 70 ? '#ff8eb2' : '#45b882'
-      ctx.fillRect(ex, eqBaseY - eqH, eqBarW, eqH)
-
-      // Peak hold cap bar
-      ctx.fillStyle = '#e1fff0'
-      ctx.fillRect(ex, eqBaseY - eqH - 5, eqBarW, 3)
-    }
-  } else {
-    // ──── 4. FOCUS / TIMER ────
-    const sub = (p - 0.88) / (1.0 - 0.88)
-
-    ctx.font = 'bold 28px monospace'
-    ctx.fillStyle = '#ff8eb2'
-    ctx.fillText('POMODORO // FOCUS', 44, 145)
-
-    ctx.font = '20px monospace'
-    ctx.fillStyle = '#a67283'
-    ctx.fillText('SESSION 03 / 04 ACTIVE', 44, 180)
-
-    const secs = 60 - Math.floor(sub * 25)
-    const secStr = secs < 10 ? '0' + secs : '' + secs
-    ctx.font = 'bold 125px monospace'
-    ctx.fillStyle = '#e1fff0'
-    ctx.fillText(`24:${secStr}`, 44, 335)
-
-    // Breathing timer arc
-    ctx.strokeStyle = '#ff8eb2'
-    ctx.lineWidth = 4
-    ctx.beginPath()
-    const arcRadius = 70 + Math.sin(time * 0.006) * 6
-    ctx.arc(w - 180, 290, arcRadius, 0, Math.PI * 2)
-    ctx.stroke()
-
-    ctx.font = '40px monospace'
-    ctx.fillStyle = '#ff8eb2'
-    ctx.fillText('● ● ● ○', 44, 415)
-
-    const barX = 44
-    const barY = 475
-    const barW = w - 88
-    ctx.strokeStyle = '#5a3040'
-    ctx.lineWidth = 3
-    ctx.strokeRect(barX, barY, barW, 36)
-
-    ctx.fillStyle = '#ff8eb2'
-    ctx.fillRect(barX + 4, barY + 4, (barW - 8) * (0.65 + sub * 0.32), 28)
-
-    ctx.font = '20px monospace'
-    ctx.fillStyle = '#789c92'
-    ctx.fillText(
-      'HAPTIC FEEDBACK: ARMED   REVERSE ROTATION TO RETURN',
-      44,
-      575
-    )
-    ctx.fillText('TANGIBLE C2C WORKSPACE', 44, 610)
-  }
-
-  // CRT sweeping phosphor scanline across the display
-  const scanY = (time * 0.28) % h
-  const scanGrad = ctx.createLinearGradient(0, scanY - 24, 0, scanY + 24)
-  scanGrad.addColorStop(0, 'rgba(160, 246, 207, 0)')
-  scanGrad.addColorStop(0.5, 'rgba(160, 246, 207, 0.08)')
-  scanGrad.addColorStop(1, 'rgba(160, 246, 207, 0)')
-  ctx.fillStyle = scanGrad
-  ctx.fillRect(20, scanY - 24, w - 40, 48)
-
-  ctx.restore()
+  return envMap
 }
 
 function createStudy() {
@@ -402,47 +172,37 @@ function createStudy() {
     clearcoat: 1,
     clearcoatRoughness: 0.13
   })
-  const cap = new THREE.MeshStandardMaterial({
-    color: 0xe5e9e5,
-    metalness: 0.65,
-    roughness: 0.25
-  })
   const pink = new THREE.MeshStandardMaterial({
     color: 0xd987ab,
     metalness: 0.1,
     roughness: 0.3
   })
-  const box = new RoundedBoxGeometry(1.55, 1.55, 1.55, 4, 0.08)
+  const box = new RoundedBoxGeometry(1.55, 1.55, 1.55, 10, 0.13)
 
   // ── LEFT CUBE (Primary — active display with rich interface animations) ──
   const primary = new THREE.Group()
   const body = new THREE.Mesh(box, dark)
   body.userData.c2cGlass = true
   primary.add(body)
-  const plate = new THREE.Mesh(
-    new RoundedBoxGeometry(1.48, 0.07, 1.48, 2, 0.03),
-    cap
-  )
-  plate.position.y = 0.79
-  primary.add(plate)
 
   const screen = document.createElement('canvas')
-  screen.width = 1024
-  screen.height = 768
+  screen.width = 96
+  screen.height = 72
   const ctx = screen.getContext('2d')
-  drawScreen(ctx, 1024, 768, 0, 0, true, 0)
+  drawScreen(ctx, 0, 0)
 
   const texture = new THREE.CanvasTexture(screen)
   texture.colorSpace = THREE.SRGBColorSpace
-  texture.minFilter = THREE.LinearFilter
-  texture.magFilter = THREE.LinearFilter
+  texture.minFilter = THREE.NearestFilter
+  texture.magFilter = THREE.NearestFilter
+  texture.generateMipmaps = false
 
   const display = new THREE.Mesh(
     new THREE.PlaneGeometry(1.12, 0.85),
     new THREE.MeshBasicMaterial({ map: texture })
   )
   display.rotation.x = -Math.PI / 2
-  display.position.y = 0.831
+  display.position.y = 0.777
   primary.add(display)
 
   for (let i = 0; i < 2; i++) {
@@ -460,18 +220,82 @@ function createStudy() {
     primary.add(button)
   }
 
-  // ── RIGHT CUBE (Companion — clean glass & metal controller, NO screen, NO buttons, NO dial) ──
   const companion = new THREE.Group()
-  const companionBody = new THREE.Mesh(box, dark)
-  companionBody.userData.c2cGlass = true
-  companion.add(companionBody)
+  const textFocusDepth = { value: 0 }
+  const faceGeometry = new THREE.PlaneGeometry(1.55, 1.55)
+  const faces = [
+    ['Design for all.', ['Make controls easy to find', 'and feedback easy to perceive.'], 'Offer more than one way to act.', 0, 0],
+    ['Explore freely.', ['Give people room to try', 'an input and see what it does.'], 'Make it easy to go back.', 0, Math.PI / 2],
+    ['Turn to act.', ['Map a physical gesture', 'to a predictable digital action.'], 'Keep the mapping consistent.', 0, Math.PI],
+    ['Show the result.', ['Make each state visible', 'as soon as an input registers.'], 'Confirm the action at the point of use.', 0, -Math.PI / 2],
+    ['Invite play.', ['Use tactile interactions', 'to make discovery feel natural.'], 'Give people a low-risk way to try.', -Math.PI / 2, 0],
+    ['Stay in control.', ['Make the current mode clear', 'before the next input.'], 'Keep important actions within reach.', Math.PI / 2, 0]
+  ]
 
-  const companionPlate = new THREE.Mesh(
-    new RoundedBoxGeometry(1.48, 0.07, 1.48, 2, 0.03),
-    cap
-  )
-  companionPlate.position.y = 0.79
-  companion.add(companionPlate)
+  // Mint, pink, yellow, and green from the C2C interaction demos.
+  const palette = ['#bce6cc', '#eecde1', '#e8d883', '#6dc3a1']
+
+  const headlineFonts = [
+    '900 110px Arial Black, sans-serif',
+    'italic 700 114px Georgia, serif',
+    '900 112px Impact, sans-serif',
+    '800 105px Arial, sans-serif',
+    'italic 800 118px Georgia, serif',
+    '800 100px Menlo, monospace'
+  ]
+
+  for (const [index, [headline, description, detail, pitch, yaw]] of faces.entries()) {
+    const canvas = document.createElement('canvas')
+    canvas.width = canvas.height = 512
+    const context = canvas.getContext('2d')
+    context.textBaseline = 'top'
+    context.strokeStyle = '#102b23'
+    context.lineJoin = 'round'
+
+    const drawLine = (text, y, font, color, outline) => {
+      context.font = font
+      context.lineWidth = outline
+      context.strokeText(text, 24, y, 464)
+      context.fillStyle = color
+      context.fillText(text, 24, y, 464)
+    }
+
+    const words = headline.split(' ')
+    drawLine(words.slice(0, -1).join(' '), 16, headlineFonts[index], palette[index % palette.length], 8)
+    drawLine(words.at(-1), 122, headlineFonts[index], palette[index % palette.length], 8)
+    description.forEach((line, row) => {
+      drawLine(line, 275 + row * 57, '700 48px sans-serif', '#edf3ed', 4)
+    })
+    drawLine(detail, 449, '700 31px monospace', palette[(index + 1) % palette.length], 3)
+    const faceTexture = new THREE.CanvasTexture(canvas)
+    faceTexture.colorSpace = THREE.SRGBColorSpace
+    const material = new THREE.MeshBasicMaterial({
+      map: faceTexture,
+      alphaTest: 0.16,
+      transparent: true,
+      toneMapped: false
+    })
+    // The text cube renders outside Holospot's depth-of-field pass.
+    material.onBeforeCompile = shader => {
+      shader.uniforms.uTextFocusDepth = textFocusDepth
+      shader.vertexShader = shader.vertexShader.replace(
+        '#include <project_vertex>',
+        '#include <project_vertex>\n vTextDepth = -mvPosition.z;'
+      )
+      shader.vertexShader = 'varying float vTextDepth;\n' + shader.vertexShader
+      shader.fragmentShader = (
+        'uniform float uTextFocusDepth;\nvarying float vTextDepth;\n' +
+        shader.fragmentShader
+      ).replace('#include <map_fragment>', `
+        float blur = smoothstep(0.05, 0.58, vTextDepth - uTextFocusDepth) * 2.4;
+        diffuseColor *= texture2D(map, vMapUv, blur);
+      `)
+    }
+    const face = new THREE.Mesh(faceGeometry, material)
+    face.rotation.set(pitch, yaw, 0)
+    face.translateZ(0.775)
+    companion.add(face)
+  }
 
   primary.position.x = -0.85
   companion.position.x = 0.85
@@ -480,14 +304,18 @@ function createStudy() {
     group,
     primary,
     companion,
+    textFocusDepth,
     screen,
     ctx,
     texture
   }
 }
 
-export default function CubeScene({ motionRef, controllerRef }) {
+const teamPose = { turn: -0.22, tilt: 0.26, roll: -0.05, scale: 1.35, x: 0, y: 0, split: 0 }
+
+export default function CubeScene({ motionRef, controllerRef, team = false }) {
   const mountRef = useRef(null)
+  const finishRef = useRef(null)
   const [ready, setReady] = useState(false)
   useEffect(() => {
     const mount = mountRef.current
@@ -495,84 +323,131 @@ export default function CubeScene({ motionRef, controllerRef }) {
       frame = 0,
       inView = true,
       model
-    let renderer, environment, observer, glass
+    let renderer, environment, observer, holo
     const scene = new THREE.Scene()
     const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 50)
     camera.position.z = 7.8
     const rig = new THREE.Group()
     scene.add(rig)
     const study = createStudy()
+    let lastDisplayFrame = -1
+    let lastDisplayMode = -1
+    const textCenter = new THREE.Vector3()
     let activePair = study
     rig.add(study.group)
+    study.companion.visible = !team
+    const stage = team ? mount.parentElement : mount.closest('[data-impact-stage]')
+    const raycaster = new THREE.Raycaster()
+    const pointer = new THREE.Vector2()
+    const dragRotation = { pitch: 0, yaw: 0 }
+    let drag = null
+    let lastProgress
+    let lastScrollTime = -Infinity
+
+    const startDrag = event => {
+      if (event.button !== 0 || (lastProgress ?? 0) >= 0.98 ||
+          performance.now() - lastScrollTime < 180 ||
+          event.target.closest('a, button')) return
+      const rect = mount.getBoundingClientRect()
+      pointer.set(
+        (event.clientX - rect.left) / rect.width * 2 - 1,
+        1 - (event.clientY - rect.top) / rect.height * 2
+      )
+      raycaster.setFromCamera(pointer, camera)
+      if (!raycaster.intersectObject(activePair.primary, true).length) return
+      drag = { id: event.pointerId, x: event.clientX, y: event.clientY }
+      stage.setPointerCapture(event.pointerId)
+    }
+    const moveDrag = event => {
+      if (drag?.id !== event.pointerId) return
+      dragRotation.yaw += (event.clientX - drag.x) * 0.012
+      dragRotation.pitch = THREE.MathUtils.clamp(
+        dragRotation.pitch + (event.clientY - drag.y) * 0.012, -1.5, 1.5
+      )
+      drag.x = event.clientX
+      drag.y = event.clientY
+    }
+    const endDrag = event => {
+      if (event.pointerId === drag?.id) drag = null
+    }
+    stage?.addEventListener('pointerdown', startDrag)
+    stage?.addEventListener('pointermove', moveDrag)
+    stage?.addEventListener('lostpointercapture', endDrag)
     const render = (time = 0) => {
       frame = 0
       if (disposed || !inView || document.hidden || !renderer) return
       frame = requestAnimationFrame(render)
-      const state = motionRef.current
-      activePair.companion.position.x = 0.85 + state.split * 0.5
-      activePair.primary.position.x = -0.85 - state.split * 0.5
-
-      // ── Clean Choreography: Normal Overview -> Zoom In -> Complete Interfaces -> Zoom Out -> Rest ──
-      const cyclePeriod = 20000 // 20s complete demonstration cycle
-      const t = ((time || 0) % cyclePeriod) / cyclePeriod
-
-      // Smooth zoom envelope: 0 = normal overview, 1 = deep close-up on the screen
-      let zoomProgress = 0
-      if (t >= 0.15 && t < 0.23) {
-        // Zoom in first (3.0s - 4.6s)
-        const f = (t - 0.15) / 0.08
-        zoomProgress = f * f * (3 - 2 * f)
-      } else if (t >= 0.23 && t < 0.75) {
-        // Held deep zoom while interfaces complete (4.6s - 15.0s)
-        zoomProgress = 1
-      } else if (t >= 0.75 && t < 0.83) {
-        // Zoom out also back to overview (15.0s - 16.6s)
-        const f = (t - 0.75) / 0.08
-        zoomProgress = 1 - f * f * (3 - 2 * f)
+      const state = team ? teamPose : motionRef.current
+      const p = state.progress ?? 0
+      if (p !== lastProgress) {
+        lastProgress = p
+        lastScrollTime = time
+        drag = null
       }
+      const zoom = THREE.MathUtils.smoothstep(p, 0.405, 0.58)
+      const exit = THREE.MathUtils.smoothstep(p, 0.84, 0.98)
+      const primary = activePair.primary
+      const closeup = zoom * (1 - exit)
+      const bodyScale = (model ? primary.userData.fittedScale : 1)
+      primary.scale.setScalar(bodyScale * (1 + closeup * 0.65) * Math.max(0.001, 1 - exit))
+      const separation = 1.54 + state.split * 0.24
+      activePair.primary.position.x = team ? 0 : -separation
+      activePair.companion.position.x = separation
 
-      // Base scale reflects the natural overview size (moderate, not big)
-      const baseScale = state.scale * (mount.clientWidth < 768 ? 1.5 : 1.0)
-      // When zoomed in, zoom up to 2.25x for close inspection of the screen
-      const zoomFactor = 1.0 + 1.25 * zoomProgress
-      // Pan so the display is centered in view when zoomed in
-      const panX = 0.82 * zoomProgress
-      const panY = -0.3 * zoomProgress
+      // Rotate each cube around its own center while keeping their screen positions apart.
+      rig.position.set(state.x, state.y, 0)
+      const viewSlope = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * camera.aspect
+      const usableWidth = camera.position.z * viewSlope * 0.92 - Math.abs(state.x)
+      const fitScale = usableWidth / (
+        (team ? 0 : separation) + 1.45 * (1 + closeup * 0.65) * (1 + viewSlope)
+      )
+      rig.scale.setScalar(Math.min(state.scale, fitScale))
+      const fallTime = state.fallTime ?? 1.4
+      const reboundTime = Math.max(0, fallTime - 1)
+      // With height and impact time normalized to 1, gravity is 2.
+      // The rebound retains 20% of the vertical impact speed.
+      const drop = fallTime < 1
+        ? 1 - fallTime ** 2
+        : Math.max(0, reboundTime * (0.4 - reboundTime))
+      const viewTop = camera.position.z * viewSlope / camera.aspect
+      const dropHeight = (viewTop - state.y) / rig.scale.x + 2
+      primary.position.y = drop * dropHeight + closeup * 0.65 + exit * 8
 
-      // Smoothly tilt and level the view during zoom so the display is flat and easy to read
-      const tilt = THREE.MathUtils.lerp(state.tilt, 0.68, zoomProgress)
-      const turn = THREE.MathUtils.lerp(state.turn, -0.06, zoomProgress)
-      const roll = THREE.MathUtils.lerp(state.roll, 0, zoomProgress)
+      if (time - lastScrollTime < 180) {
+        dragRotation.pitch *= 0.82
+        dragRotation.yaw *= 0.82
+      }
+      // Give the hologram a front-facing hold after landing, then reveal the top display.
+      const logoHold = finishRef.current === 'volume'
+        ? THREE.MathUtils.smoothstep(p, 0.31, 0.41) * (1 - THREE.MathUtils.smoothstep(p, 0.64, 0.8))
+        : 0
+      primary.rotation.set(
+        THREE.MathUtils.lerp(THREE.MathUtils.lerp(state.tilt, 0.82, closeup), 0.14, logoHold) + dragRotation.pitch,
+        state.turn * (1 - Math.max(closeup, logoHold)) + dragRotation.yaw,
+        state.roll + drop * 0.24
+      )
+      const rotX = state.tilt + 0.12 + Math.sin(p * Math.PI * 2) * 0.32
+      activePair.companion.rotation.set(rotX, state.turn - p * Math.PI * 1.5, state.roll)
 
-      rig.rotation.set(tilt, turn, roll)
-      rig.position.set(state.x + panX, state.y + panY, 0)
-      rig.scale.setScalar(baseScale * zoomFactor)
+      activePair.companion.getWorldPosition(textCenter)
+      study.textFocusDepth.value = camera.position.z - textCenter.z - 0.4 * rig.scale.x
 
-      // Active interface progression during the zoom window (0.20 .. 0.78)
-      const activeWindow = THREE.MathUtils.clamp((t - 0.2) / 0.58, 0, 1)
-      const p =
-        activeWindow < 0.5
-          ? 4 * activeWindow * activeWindow * activeWindow
-          : 1 - Math.pow(-2 * activeWindow + 2, 3) / 2
-
-      // Right cube rotates on X axis as the interfaces progress
-      const rotX = THREE.MathUtils.lerp(-0.95, 0.95, p)
-      activePair.companion.rotation.x = rotX
-
-      // Update screen on left cube through the 4 interface states
-      if (study.ctx && study.texture) {
-        drawScreen(study.ctx, 1024, 768, p, time || 0, true, rotX)
+      const displayFrame = p === 0 ? 0 : Math.floor(time / 500) % 2
+      const displayMode = Math.min(displayModes.length - 1, Math.floor(p * displayModes.length))
+      if (displayFrame !== lastDisplayFrame || displayMode !== lastDisplayMode) {
+        drawScreen(study.ctx, displayMode, displayFrame)
         study.texture.needsUpdate = true
+        lastDisplayFrame = displayFrame
+        lastDisplayMode = displayMode
       }
 
-      glass?.capture(camera)
-      renderer.render(scene, camera)
+      holo.render(scene, camera)
       mount.dataset.turn = state.turn.toFixed(3)
       mount.dataset.model = model ? 'glb' : 'study'
       mount.dataset.primaryScale = activePair.primary.scale.x.toFixed(4)
       mount.dataset.companionScale = activePair.companion.scale.x.toFixed(4)
       mount.dataset.companionRotX = rotX.toFixed(3)
-      mount.dataset.zoomFactor = zoomFactor.toFixed(3)
+      mount.dataset.zoomFactor = rig.scale.x.toFixed(3)
     }
     const invalidate = () => {
       if (!disposed && !frame && inView && !document.hidden)
@@ -587,38 +462,85 @@ export default function CubeScene({ motionRef, controllerRef }) {
       renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2))
       renderer.setClearColor(0x000000, 0)
       renderer.toneMapping = THREE.ACESFilmicToneMapping
-      renderer.toneMappingExposure = 1.25
+      renderer.toneMappingExposure = 1.35
       renderer.outputColorSpace = THREE.SRGBColorSpace
       renderer.domElement.setAttribute('aria-hidden', 'true')
       mount.appendChild(renderer.domElement)
-      const pmrem = new THREE.PMREMGenerator(renderer)
-      const room = new RoomEnvironment()
-      environment = pmrem.fromScene(room, 0.03)
+      environment = createStudioEnvironment(renderer)
       scene.environment = environment.texture
-      scene.environmentIntensity = 1.6
-      room.dispose()
-      pmrem.dispose()
-      const key = new THREE.DirectionalLight(0xfff7e9, 4)
+      scene.environmentIntensity = 2.4
+      const key = new THREE.DirectionalLight(0xffffff, 5.2)
       key.position.set(-4, 6, 7)
-      const fill = new THREE.DirectionalLight(0xc8f8df, 2.5)
-      fill.position.set(5, 2, -3)
-      scene.add(key, fill, new THREE.AmbientLight(0xffffff, 0.7))
-      glass = createC2CGlass(renderer, scene, mount)
-      glass.apply(study.group, true)
+      const warmRim = new THREE.DirectionalLight(0xffb86c, 3.8)
+      warmRim.position.set(-6, 2, -4)
+      const coolRim = new THREE.DirectionalLight(0x70d8ff, 3.2)
+      coolRim.position.set(5, 3, -2)
+      const fill = new THREE.DirectionalLight(0xc8f8df, 1.8)
+      fill.position.set(2, 4, 4)
+      scene.add(
+        key,
+        warmRim,
+        coolRim,
+        fill,
+        new THREE.AmbientLight(0xffffff, 0.9)
+      )
+      finishRef.current ??= team ? 'emboss' : chooseFinish()
+      const finish = finishRef.current
+      holo = new Holo(renderer, {
+        compose: 'over',
+        quality: 'medium',
+        settings: {
+          'dof.on': true,
+          'dof.fstop': '4.5',
+          'dof.focus': 'object',
+          'dof.offset': -18,
+          'bump.map': 'none',
+          'studio.preset': 'softbox',
+          'studio.panel.on': true,
+          'studio.panel.dir': { x: -0.48, y: 0.68 },
+          'studio.panel.width': 32,
+          'studio.panel.length': 65,
+          'studio.panel.radiance': 8,
+          'studio.spotA.on': true,
+          'studio.spotA.dir': { x: 0.62, y: 0.42 },
+          'studio.spotA.size': 2.6,
+          'studio.spotA.radiance': 900,
+          'studio.spotB.on': true,
+          'studio.spotB.dir': { x: -0.82, y: -0.25 },
+          'studio.spotB.size': 3.4,
+          'studio.spotB.radiance': 650,
+          'studio.spotC.on': true,
+          'studio.spotC.dir': { x: 0.36, y: -0.81 },
+          'studio.spotC.size': 1.8,
+          'studio.spotC.radiance': 1000,
+          'studio.ambient.rims': 8,
+          'studio.ambient.fill': 1.1,
+          'studio.ambient.scrim': 0.95
+        }
+      })
+      const applyFinish = mesh => holo.apply(mesh, {
+        material: finish,
+        sizeMm: 90,
+        settings: finishSettings[finish]
+      })
+      study.group.traverse(node => {
+        if (node.userData.c2cGlass === true) applyFinish(node)
+      })
+      mount.dataset.material = finish
       const resize = () => {
         const { width, height } = mount.getBoundingClientRect()
         if (!width || !height) return
         renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2))
         renderer.setSize(width, height)
         camera.aspect = width / height
-        camera.position.z = width < 768 ? 11.8 : 7.8
+        camera.position.z = !team && width < 768 ? 11.8 : 7.8
         camera.updateProjectionMatrix()
         invalidate()
       }
       observer = new ResizeObserver(resize)
       observer.observe(mount)
       resize()
-      controllerRef.current = { invalidate }
+      if (controllerRef) controllerRef.current = { invalidate }
       setReady(true)
       if (C2C_MODEL_URL)
         new GLTFLoader().load(
@@ -638,13 +560,22 @@ export default function CubeScene({ motionRef, controllerRef }) {
             primary.scale.setScalar(
               1.65 / Math.max(size.x, size.y, size.z, 0.0001)
             )
-            const companion = cloneModel(primary)
+            primary.userData.fittedScale = primary.scale.x
+            const companion = study.companion
             primary.position.x = -0.85
             companion.position.x = 0.85
             model = new THREE.Group()
             model.add(primary, companion)
             activePair = { group: model, primary, companion }
-            glass.apply(model)
+            study.group.traverse(node => {
+              if (holo.get(node)) holo.remove(node)
+            })
+            model.traverse(node => {
+              if (!node.isMesh || node.userData.c2cGlass === false) return
+              const materials = [].concat(node.material)
+              const names = [node.name, ...materials.map(material => material.name)].join(' ')
+              if (!/screen|display|oled|button|switch|label|encoder|\bled\b/i.test(names)) applyFinish(node)
+            })
             rig.remove(study.group)
             rig.add(model)
             invalidate()
@@ -668,25 +599,28 @@ export default function CubeScene({ motionRef, controllerRef }) {
       cancelAnimationFrame(frame)
       observer?.disconnect()
       visibility.disconnect()
+      stage?.removeEventListener('pointerdown', startDrag)
+      stage?.removeEventListener('pointermove', moveDrag)
+      stage?.removeEventListener('lostpointercapture', endDrag)
       document.removeEventListener('visibilitychange', invalidate)
-      controllerRef.current = null
+      if (controllerRef) controllerRef.current = null
       study.texture?.dispose()
       const retired = new THREE.Group()
       retired.add(study.group)
       if (model) retired.add(model)
-      disposeObject(retired, glass?.originals)
-      glass?.dispose()
+      holo?.dispose()
+      disposeObject(retired)
       environment?.dispose()
       renderer?.dispose()
       renderer?.domElement.remove()
     }
-  }, [motionRef, controllerRef])
+  }, [motionRef, controllerRef, team])
   return (
     <div
       className={styles.scene}
       ref={mountRef}
       role="img"
-      aria-label="C2C cube study rotating with the page scroll"
+      aria-label="C2C cube study. Drag the main cube to rotate it when scroll is paused."
     >
       {!ready && (
         <Image

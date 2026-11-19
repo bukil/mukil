@@ -460,21 +460,26 @@ export default function C2C() {
         </section>
 
         <section id="people" className={styles.people}>
-          <h2 data-reveal="">Made together.</h2>
-          <p>
-            An exploratory Interaction Design project
-            <br />
-            at IDC School of Design, IIT Bombay.
-          </p>
-          <div className={styles.team}>
-            {[
-              'Mukil Kumar',
-              'Anoushka Shome',
-              'Samiksha Sidharth Gajbhiye',
-              'Prajakta Hardikar'
-            ].map(name => (
-              <span key={name}>{name}</span>
-            ))}
+          <div className={styles.teamCopy}>
+            <h2 data-reveal="">Made together.</h2>
+            <p>
+              An exploratory Interaction Design project
+              <br />
+              at IDC School of Design, IIT Bombay.
+            </p>
+            <div className={styles.team}>
+              {[
+                'Mukil Kumar',
+                'Anoushka Shome',
+                'Samiksha Sidharth Gajbhiye',
+                'Prajakta Hardikar'
+              ].map(name => (
+                <span key={name}>{name}</span>
+              ))}
+            </div>
+          </div>
+          <div className={styles.teamCube}>
+            <CubeScene team />
           </div>
         </section>
 

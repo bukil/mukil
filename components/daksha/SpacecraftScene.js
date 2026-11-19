@@ -807,7 +807,12 @@ export default function SpacecraftScene({
           material.clearcoat = THREE.MathUtils.lerp(finish.clearcoat, 1, glass)
           material.clearcoatRoughness = THREE.MathUtils.lerp(
             finish.clearcoatRoughness,
-            0.065,
+            0.035,
+            glass
+          )
+          material.roughness = THREE.MathUtils.lerp(
+            finish.roughness ?? 0.25,
+            0.04,
             glass
           )
           material.iridescence = THREE.MathUtils.lerp(
@@ -816,8 +821,8 @@ export default function SpacecraftScene({
             glass
           )
           material.anisotropy = THREE.MathUtils.lerp(finish.anisotropy, 0, glass)
-          material.envMapIntensity = THREE.MathUtils.lerp(finish.envMapIntensity, 1.8, glass)
-          material.ior = THREE.MathUtils.lerp(finish.ior, 1.46, glass)
+          material.envMapIntensity = THREE.MathUtils.lerp(finish.envMapIntensity, 2.4, glass)
+          material.ior = THREE.MathUtils.lerp(finish.ior, 1.54, glass)
         }
         if (material.userData.part === SOLAR_PART)
           material.userData.dakshaVisibility.value *= solarPresence
@@ -1475,6 +1480,7 @@ export default function SpacecraftScene({
               material.userData.rainbowBase = {
                 clearcoat: material.clearcoat,
                 clearcoatRoughness: material.clearcoatRoughness,
+                roughness: material.roughness,
                 iridescence: material.iridescence,
                 anisotropy: material.anisotropy,
                 envMapIntensity: material.envMapIntensity,

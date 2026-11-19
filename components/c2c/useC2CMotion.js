@@ -48,7 +48,9 @@ export default function useC2CMotion(
           scale: 0.5,
           x: 0,
           y: -0.35,
-          split: 0
+          split: 0,
+          progress: 0,
+          fallTime: conditions.motion ? 0 : 1.4
         })
         update()
         if (conditions.motion) {
@@ -61,77 +63,34 @@ export default function useC2CMotion(
               trigger: q('[data-impact]')[0],
               start: 'top top',
               end: 'bottom bottom',
-              scrub: 0.55,
+              scrub: 0.22,
               onUpdate: self => {
                 root.dataset.cubeProgress = self.progress.toFixed(4)
               }
             },
             onUpdate: update
           })
-          timeline.to(
-            motionRef.current,
-            { turn: 0.25, tilt: 0.25, scale: 0.54, duration: 1.7 },
-            0
-          )
-          timeline.to(beats[0], { autoAlpha: 0, y: -100, duration: 0.7 }, 1.2)
-          timeline.to(
-            stage,
-            { backgroundColor: '#edf3ed', color: '#047857', duration: 0.8 },
-            1.5
-          )
-          timeline.fromTo(
-            beats[1],
-            { y: 130, scale: 0.8 },
-            { autoAlpha: 1, y: 0, scale: 1, duration: 0.9 },
-            1.8
-          )
-          timeline.to(
-            motionRef.current,
-            {
-              turn: Math.PI * 1.25,
-              tilt: 0.55,
-              scale: 0.2,
-              y: 0.4,
-              split: 0.2,
-              duration: 2
-            },
-            1.7
-          )
-          timeline.to(
-            beats[1],
-            { scale: 3.4, autoAlpha: 0, duration: 1.1 },
-            3.5
-          )
-          timeline.fromTo(
-            beats[2],
-            { scale: 0.6, y: 90 },
-            { autoAlpha: 1, scale: 1, y: 0, duration: 1 },
-            4.1
-          )
-          timeline.to(
-            motionRef.current,
-            {
-              turn: Math.PI * 2.6,
-              tilt: 0.12,
-              scale: 0.58,
-              y: -0.2,
-              split: 0.12,
-              duration: 2
-            },
-            3.9
-          )
-          timeline.to(beats[2], { scale: 1.7, duration: 0.9 }, 5.4)
-          timeline.to(
-            motionRef.current,
-            {
-              turn: Math.PI * 3.2,
-              scale: 0.4,
-              y: -0.2,
-              split: 0.4,
-              duration: 0.9
-            },
-            5.6
-          )
+          const pose = motionRef.current
+          timeline.to(pose, { progress: 1, duration: 6 }, 0)
+          // One unit of fall time to impact, followed by a short rebound.
+          timeline.to(pose, { fallTime: 1.4, duration: 1.19 }, 1.18)
+          timeline.to(pose, {
+            turn: 0.22, tilt: 0.34, roll: 0.04, y: -0.52,
+            scale: 0.68, split: 0.48, duration: 1.8, ease: 'sine.inOut'
+          }, 0)
+          timeline.to(beats[0], { autoAlpha: 0, y: -44, duration: 0.6 }, 1.2)
+          timeline.to(stage, { backgroundColor: '#edf3ed', color: '#047857', duration: 1 }, 1.3)
+          timeline.fromTo(beats[1], { y: 48 }, { autoAlpha: 1, y: 0, duration: 0.7 }, 1.8)
+          timeline.to(pose, {
+            turn: -0.32, tilt: 0.52, roll: -0.08, y: -0.76,
+            scale: 0.83, split: 0.65, duration: 2, ease: 'sine.inOut'
+          }, 1.8)
+          timeline.to(beats[1], { autoAlpha: 0, y: -44, duration: 0.65 }, 3.35)
+          timeline.fromTo(beats[2], { y: 48 }, { autoAlpha: 1, y: 0, duration: 0.8 }, 3.9)
+          timeline.to(pose, {
+            turn: 0.5, tilt: 0.25, roll: 0.02, y: -0.56,
+            scale: 0.64, split: 0.24, duration: 2.2, ease: 'sine.inOut'
+          }, 3.8)
           q('[data-reveal]').forEach(el => {
             gsap.fromTo(
               el,
