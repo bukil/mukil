@@ -20,6 +20,7 @@ export default function HolospotCard({ onReady }) {
     let disposed = false
     let released = false
     let previousTime
+    let slowFrames = 0
     let orbitTime = 0
 
     const follow = event => {
@@ -61,7 +62,7 @@ export default function HolospotCard({ onReady }) {
       holo = new Holo(renderer, {
         compose: 'replace',
         quality: 'low',
-        background: '#02050b',
+        background: '#ffffff',
         settings: {
           'dof.on': false,
           'grain.animated': false,
@@ -118,8 +119,17 @@ export default function HolospotCard({ onReady }) {
           shotCamera(camera, object, { aspect: width / height })
         }
         const draw = time => {
-          if (document.hidden) return
-          const delta = Math.min(1 / 30, Math.max(0, (time - (previousTime ?? time)) / 1000))
+          if (document.hidden) {
+            previousTime = undefined
+            return
+          }
+          const delta = Math.min(0.1, Math.max(0, (time - (previousTime ?? time)) / 1000))
+          // Lower the foil shader workload only after sustained missed frames.
+          slowFrames = delta > 0.022 ? slowFrames + 1 : Math.max(0, slowFrames - 1)
+          if (slowFrames >= 12 && renderer.getPixelRatio() > 0.65) {
+            renderer.setPixelRatio(Math.max(0.65, renderer.getPixelRatio() - 0.125))
+            slowFrames = 0
+          }
           previousTime = time
           orbitTime = (orbitTime + delta) % 7
           tilt.lerp(pointer, 1 - Math.exp(-5.5 * delta))

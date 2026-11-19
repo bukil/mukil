@@ -41,6 +41,24 @@ const displayFont = localFont({
   display: 'swap'
 })
 
+const CARD_DURATION = 7000
+
+function LoadingPercentage({ sceneProgress, ready }) {
+  const [cardProgress, setCardProgress] = useState(0)
+  useEffect(() => {
+    const start = performance.now()
+    const timer = window.setInterval(() => {
+      const fraction = Math.min(1, (performance.now() - start) / CARD_DURATION)
+      setCardProgress(Math.floor(fraction * 75))
+      if (fraction === 1) window.clearInterval(timer)
+    }, 90)
+    return () => window.clearInterval(timer)
+  }, [])
+  const percent = ready ? 100 : Math.min(99, cardProgress + Math.floor(sceneProgress / 4))
+  return <span className={styles.loadingPercentage} role="progressbar" aria-label="Loading Daksha"
+    aria-valuemin={0} aria-valuemax={100} aria-valuenow={percent}>{percent}%</span>
+}
+
 export default function DakshaInOrbit() {
   const rootRef = useRef(null)
   const lenisRef = useRef(null)
@@ -61,6 +79,9 @@ export default function DakshaInOrbit() {
   const [modelStatus, setModelStatus] = useState('loading')
   const [pageReady, setPageReady] = useState(false)
   const [sceneKey, setSceneKey] = useState(0)
+  const [loaderGone, setLoaderGone] = useState(false)
+  const [sceneProgress, setSceneProgress] = useState(0)
+  const onSceneProgress = useCallback(value => setSceneProgress(previous => Math.max(previous, value)), [])
   const [cardReady, setCardReady] = useState(false)
   const [loadingHoldDone, setLoadingHoldDone] = useState(false)
   const experienceReady = modelStatus === 'ready' && pageReady && loadingHoldDone
@@ -71,7 +92,7 @@ export default function DakshaInOrbit() {
   )
 
   useEffect(() => {
-    const timer = window.setTimeout(() => setLoadingHoldDone(true), 7000)
+    const timer = window.setTimeout(() => setLoadingHoldDone(true), CARD_DURATION)
     return () => window.clearTimeout(timer)
   }, [sceneKey])
 
@@ -352,12 +373,16 @@ export default function DakshaInOrbit() {
         <link rel="canonical" href="https://mukil.vercel.app/daksha-in-orbit" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {!experienceReady && (
-        <div className={styles.loadingScreen} role="status" aria-live="polite" aria-label="Loading Daksha">
+      {!loaderGone && (
+        <div className={styles.loadingScreen} data-exiting={experienceReady}
+          onAnimationEnd={event => {
+            if (experienceReady && event.target === event.currentTarget && !event.nativeEvent.pseudoElement) setLoaderGone(true)
+          }}>
           {modelStatus === 'fallback' ? (
             <button
               type="button"
               onClick={() => {
+                setSceneProgress(0)
                 setCardReady(false)
                 setLoadingHoldDone(false)
                 setModelStatus('loading')
@@ -374,11 +399,14 @@ export default function DakshaInOrbit() {
               Try again
             </button>
           ) : (
-            <HolospotCard onReady={onCardReady} />
+            <>
+              <HolospotCard onReady={onCardReady} />
+              <LoadingPercentage key={sceneKey} sceneProgress={sceneProgress} ready={experienceReady} />
+            </>
           )}
         </div>
       )}
-      {cardReady && (
+      {cardReady && loadingHoldDone && (
         <>
           <a className={styles.skipLink} href="#overview">
             Skip to project
@@ -401,6 +429,7 @@ export default function DakshaInOrbit() {
               variant="story"
               stateRef={sceneState}
               controllerRef={controllerRef}
+              onProgress={onSceneProgress}
               onReady={ready}
               onError={error}
               onSelectPart={selectPart}

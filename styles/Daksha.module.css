@@ -1043,11 +1043,53 @@
   align-items: center;
   justify-content: center;
   padding: 28px;
-  background: #02050b;
+  background: #fff;
   text-align: center;
   visibility: visible;
   touch-action: none;
   overscroll-behavior: none;
+}
+.loadingPercentage {
+  position: absolute;
+  right: max(18px, env(safe-area-inset-right));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  z-index: 2;
+  color: #192638;
+  font: 500 14px/1 var(--daksha-display), sans-serif;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 1px 3px #ffffffa6;
+}
+.loadingScreen[data-exiting='true'] {
+  pointer-events: none;
+  overflow: hidden;
+  animation: dakshaSpaceReveal 1.8s cubic-bezier(.4, 0, .18, 1) both;
+}
+.loadingScreen[data-exiting='true']::after {
+  content: '';
+  position: absolute;
+  inset: -25% -20%;
+  background: radial-gradient(ellipse 100% 76% at 32% 110%, #152c50 46%, #29629a 55%, #86ceef 61%, #e9f8ff 63%, #ffcb94 64%, #7789ae 66%, #2e50817a 71%, transparent 80%);
+  animation: dakshaHorizonRise 1.8s cubic-bezier(.42, 0, .22, 1) both;
+}
+.loadingScreen[data-exiting='true'] .loadingCard {
+  animation: dakshaCardRecede .85s ease-in both;
+}
+@keyframes dakshaSpaceReveal {
+  0%, 18% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@keyframes dakshaHorizonRise {
+  from { transform: translate3d(-4%, 66%, 0) rotate(-8deg); }
+  to { transform: translate3d(3%, -10%, 0) rotate(3deg); }
+}
+@keyframes dakshaCardRecede {
+  from { transform: scale(1); opacity: 1; }
+  to { transform: translateY(-3%) scale(.93); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .loadingScreen[data-exiting='true'] { animation-duration: .15s; }
+  .loadingScreen[data-exiting='true']::after { content: none; }
+  .loadingScreen[data-exiting='true'] .loadingCard { animation: none; }
 }
 .loadingCard {
   position: relative;
