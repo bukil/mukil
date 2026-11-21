@@ -33,39 +33,6 @@ const HairlinePlot = dynamic(
 )
 
 // Styled components
-const TransRTL = styled.div`
-  display: inline-block;
-  button, Button {
-    position: relative;
-    overflow: hidden;
-    background: transparent;
-    border: 1px solid #1A1A1A;
-    color: #1A1A1A;
-    transition: all 0.3s ease;
-    z-index: 1;
-    border-radius: 0;
-    &:before {
-      content: '';
-      position: absolute;
-      top: 0;
-      right: 0;
-      left: auto;
-      width: 0;
-      height: 100%;
-      background: #1A1A1A;
-      transition: all 0.3s ease;
-      z-index: -1;
-    }
-    &:hover {
-      color: #F4F4F0;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-    }
-    &:hover:before {
-      width: 100%;
-    }
-  }
-`
 
 const BigText = styled.div`
   font-family: 'BaseNeueTrial', sans-serif;
@@ -158,6 +125,7 @@ const ProjectPanel = ({
             color="#2f2f2f97"
             lineHeight="1.2"
             textAlign="left"
+            _groupHover={{ textDecoration: 'underline', textUnderlineOffset: '3px' }}
           >
             {title}
           </Text>
@@ -180,7 +148,7 @@ const ProjectPanel = ({
       <Box
         position="relative"
         borderWidth="0.5px"
-        borderColor="#1A1A1A"
+        borderColor="#999995"
         borderRadius={0}
         overflow="hidden"
         boxShadow="none"
@@ -199,17 +167,8 @@ const ProjectPanel = ({
         }
         bg="rgba(255, 255, 255, 0.85)"
         backdropFilter="blur(8px)"
-        transition="border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease"
-        _hover={{
-          bg: '#ffffff',
-          boxShadow: '0 12px 30px rgba(0, 0, 0, 0.08)',
-          borderColor: '#1A1A1A'
-        }}
-        _groupHover={{
-          bg: '#ffffff',
-          boxShadow: '0 12px 30px rgba(0, 0, 0, 0.08)',
-          borderColor: '#1A1A1A'
-        }}
+        transition="border-color 150ms ease"
+        _groupHover={{ borderColor: '#171717' }}
         _focusVisible={{
           outline: '2px solid #111827',
           outlineOffset: '3px'
@@ -586,13 +545,14 @@ const Works = () => {
                   gap={{ base: 2, sm: 3, md: 0 }}
                   mb={12}
                 >
-                  <TransRTL>
-                    <NextLink href="/" passHref scroll={true}>
-                      <Button
+
+                    <Button
+                        as={NextLink}
+                        href="/"
                         borderRadius="0"
                         variant="outline"
-                        border="1px solid"
-                        borderColor="#1A1A1A"
+                        border="0.5px solid"
+                        borderColor="#999995"
                         color="#1A1A1A"
                         px={{ base: 2.5, sm: 4, md: 8 }}
                         py={{ base: 3, md: 6 }}
@@ -606,22 +566,20 @@ const Works = () => {
                         leftIcon={<ChevronLeftIcon boxSize={{ base: 3.5, sm: 4, md: 5 }} />}
                         _hover={{
                           bg: '#1A1A1A',
-                          color: '#F4F4F0',
-                          transform: 'translateY(-2px)',
-                          boxShadow: '0 4px 16px rgba(0, 0, 0, 0.08)'
+                          color: '#F4F4F0'
                         }}
                       >
                         GO BACK TO HOME PAGE
                       </Button>
-                    </NextLink>
-                  </TransRTL>
-                  <TransRTL>
-                    <NextLink href="/contact" passHref scroll={true}>
-                      <Button
+
+
+                    <Button
+                        as={NextLink}
+                        href="/contact"
                         borderRadius="0"
                         variant="outline"
-                        border="1px solid"
-                        borderColor="#1A1A1A"
+                        border="0.5px solid"
+                        borderColor="#999995"
                         color="#1A1A1A"
                         px={{ base: 3, sm: 4, md: 8 }}
                         py={{ base: 3, md: 6 }}
@@ -635,15 +593,12 @@ const Works = () => {
                         rightIcon={<ChevronRightIcon boxSize={{ base: 3.5, sm: 4, md: 5 }} />}
                         _hover={{
                           bg: '#1A1A1A',
-                          color: '#F4F4F0',
-                          transform: 'translateY(-2px)',
-                          boxShadow: '0 4px 16px rgba(0, 0, 0, 0.08)'
+                          color: '#F4F4F0'
                         }}
                       >
                         CONTACT
                       </Button>
-                    </NextLink>
-                  </TransRTL>
+
                 </Box>
               </Section>
           </ContentWrapper>

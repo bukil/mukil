@@ -96,6 +96,8 @@ export function ShaderCanvas({ preset }) {
       if (!entry.isIntersecting) return
       observer.disconnect()
       try {
+        const adapter = await navigator.gpu.requestAdapter()
+        if (disposed || !adapter || adapter.isFallbackAdapter || adapter.info?.isFallbackAdapter) return
         const { createShader } = await import('shaders/js')
         if (disposed) return
         shader = await createShader(canvas, preset, {
@@ -104,7 +106,7 @@ export function ShaderCanvas({ preset }) {
           onError: () => { canvas.style.opacity = '0' }
         })
         if (disposed) shader.destroy()
-        else if (landing && !shader.getFailureReason()) {
+        else if (preset === landingPreset && !shader.getFailureReason()) {
           removeMouseListener = bindMouseAberration(canvas.closest('section'), shader, motion)
         }
       } catch {

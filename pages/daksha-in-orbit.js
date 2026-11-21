@@ -1,14 +1,15 @@
 import Head from 'next/head'
-import { prefersLightweightGraphics } from '../lib/mobile-graphics'
+import { hasAcceleratedWebGL } from '../lib/mobile-graphics'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import localFont from 'next/font/local'
 import { createLaxMotion } from '../components/daksha/lax-motion'
+import CaseStudy from '../components/daksha/CaseStudy'
 import OrbitalTransition from '../components/daksha/OrbitalTransition'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
-import HolospotCard from '../components/daksha/HolospotCard'
+
 import Lenis from 'lenis'
 import RevealWords from '../components/daksha/RevealWords'
 import {
@@ -18,8 +19,14 @@ import {
 import styles from '../styles/Daksha.module.css'
 import { experienceProgressForScroll } from '../components/daksha/scroll-motion.mjs'
 
-const CaseStudy = dynamic(() => import('../components/daksha/CaseStudy'), {
-  ssr: false
+function CardPlaceholder() {
+  return <div className={styles.loadingCard} data-ready="false" aria-hidden="true">
+    <div className={styles.loadingCardFallback} />
+  </div>
+}
+
+const HolospotCard = dynamic(() => import('../components/daksha/HolospotCard'), {
+  ssr: false, loading: CardPlaceholder
 })
 
 const SpacecraftScene = dynamic(
@@ -79,7 +86,7 @@ export default function DakshaInOrbit() {
   const [assembling, setAssembling] = useState(false)
   const [modelStatus, setModelStatus] = useState('loading')
   const [pageReady, setPageReady] = useState(false)
-  const [sceneKey, setSceneKey] = useState(0)
+  const [graphicsReady, setGraphicsReady] = useState(false)
   const [loaderGone, setLoaderGone] = useState(false)
   const [sceneProgress, setSceneProgress] = useState(0)
   const onSceneProgress = useCallback(value => setSceneProgress(previous => Math.max(previous, value)), [])
@@ -93,9 +100,16 @@ export default function DakshaInOrbit() {
   )
 
   useEffect(() => {
+    if (navigator.connection?.saveData || !hasAcceleratedWebGL()) {
+      setModelStatus('poster')
+      setCardReady(true)
+      setLoadingHoldDone(true)
+      return
+    }
+    setGraphicsReady(true)
     const timer = window.setTimeout(() => setLoadingHoldDone(true), CARD_DURATION)
     return () => window.clearTimeout(timer)
-  }, [sceneKey])
+  }, [])
 
   useEffect(() => {
     const query = window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -311,11 +325,21 @@ export default function DakshaInOrbit() {
     }
   }, [motionEnabled, experienceReady])
 
+  useEffect(() => {
+    if (!cardReady || !loadingHoldDone || modelStatus !== 'loading') return
+    const timeout = window.setTimeout(() => setModelStatus('poster'), 15000)
+    return () => window.clearTimeout(timeout)
+  }, [cardReady, loadingHoldDone, modelStatus, sceneProgress])
+
   const onCardReady = useCallback(() => setCardReady(true), [])
   const ready = useCallback(() => {
     setModelStatus('ready')
   }, [])
-  const error = useCallback(() => setModelStatus(prefersLightweightGraphics() ? 'poster' : 'fallback'), [])
+  const error = useCallback(() => {
+    setAssembling(false)
+    if (rootRef.current) rootRef.current.dataset.flight = 'false'
+    setModelStatus('poster')
+  }, [])
   const selectPart = useCallback(
     name => sceneState.current.onSelectPart?.(name),
     []
@@ -357,6 +381,7 @@ export default function DakshaInOrbit() {
       ref={rootRef}
       data-motion={motionEnabled ? 'full' : 'reduced'}
       data-assembly={assembling}
+      data-poster={modelStatus === 'poster'}
       data-loading={!experienceReady}
     >
       <Head>
@@ -379,32 +404,8 @@ export default function DakshaInOrbit() {
           onAnimationEnd={event => {
             if (experienceReady && event.target === event.currentTarget && !event.nativeEvent.pseudoElement) setLoaderGone(true)
           }}>
-          {modelStatus === 'fallback' ? (
-            <button
-              type="button"
-              onClick={() => {
-                setSceneProgress(0)
-                setCardReady(false)
-                setLoadingHoldDone(false)
-                setModelStatus('loading')
-                setAssembling(false)
-                Object.assign(sceneState.current, {
-                  chapter: 0,
-                  progress: 0,
-                  modeProgress: 0.03,
-                  interactive: false
-                })
-                setSceneKey(key => key + 1)
-              }}
-            >
-              Try again
-            </button>
-          ) : (
-            <>
-              <HolospotCard onReady={onCardReady} />
-              <LoadingPercentage key={sceneKey} sceneProgress={sceneProgress} ready={experienceReady} />
-            </>
-          )}
+          {graphicsReady ? <HolospotCard onReady={onCardReady} /> : <CardPlaceholder />}
+          <LoadingPercentage sceneProgress={sceneProgress} ready={experienceReady} />
         </div>
       )}
       {cardReady && loadingHoldDone && (
@@ -426,7 +427,6 @@ export default function DakshaInOrbit() {
               </div>
             )}
             {modelStatus !== 'poster' && <SpacecraftScene
-              key={sceneKey}
               variant="story"
               stateRef={sceneState}
               controllerRef={controllerRef}
@@ -479,9 +479,9 @@ export default function DakshaInOrbit() {
                 </h1>
                 <p>A VR platform for satellite education and outreach</p>
                 <a
-                  href="#headset"
+                  href={modelStatus === 'poster' ? '#spacecraft' : '#headset'}
                   className={styles.textLink}
-                  onClick={event => navigate(event, 'headset')}
+                  onClick={event => navigate(event, modelStatus === 'poster' ? 'spacecraft' : 'headset')}
                 >
                   Explore the mission <span>↓</span>
                 </a>

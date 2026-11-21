@@ -59,5 +59,3 @@ export default function MunselModel() {
     </Box>
   )
 }
-
-useGLTF.preload('/munsel.glb')

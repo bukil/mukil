@@ -9,11 +9,30 @@ import {
 import NextLink from 'next/link'
 import dynamic from 'next/dynamic'
 import NextImage from 'next/image'
-import MunselModel from './MunselModel'
-import KodeboardModal from './projects/Kodeboard'
+import { hasAcceleratedWebGL } from '../lib/mobile-graphics'
+
 import Section from './section'
 import ApplePasswordModal from './ApplePasswordModal'
 import { animate } from 'animejs'
+
+const MunselModel = dynamic(() => import('./MunselModel'), { ssr: false })
+const KodeboardModal = dynamic(() => import('./projects/Kodeboard'), { ssr: false })
+
+function MunselPreview() {
+  const root = useRef(null)
+  const [visible, setVisible] = React.useState(false)
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      setVisible(entry.isIntersecting && hasAcceleratedWebGL())
+    }, { rootMargin: '120px' })
+    observer.observe(root.current)
+    return () => observer.disconnect()
+  }, [])
+  return <Box ref={root} position="absolute" inset={0} display="grid" placeItems="center">
+    {visible ? <MunselModel /> : <Box aria-hidden="true" width="36%" aspectRatio="1" borderRadius="50%"
+      background="radial-gradient(circle at 32% 26%, #ffffffa8, transparent 52%), conic-gradient(#f99391, #f8d480, #a0d7a4, #84c7e6, #b9a3dd, #f99391)" />}
+  </Box>
+}
 
 const HairlineHub = dynamic(
   () => import('@lucasmarkes/hairline/react').then((m) => m.Hub),
@@ -70,6 +89,7 @@ export const ProjectPanel = ({
             color={titleColor || '#2f2f2f97'}
             lineHeight="1.2"
             textAlign="left"
+            _groupHover={{ textDecoration: 'underline', textUnderlineOffset: '3px' }}
           >
             {title}
           </Text>
@@ -92,21 +112,13 @@ export const ProjectPanel = ({
       <Box
         position="relative"
         borderWidth="0.5px"
-        borderColor="#1A1A1A"
+        borderColor="#999995"
         borderRadius={0}
         overflow="hidden"
         boxShadow="none"
         bg="transparent"
-        transition="border-color 0.3s ease, box-shadow 0.3s ease"
-        _hover={{
-          bg: 'transparent',
-          boxShadow: '0 8px 30px rgba(0, 0, 0, 0.08)',
-          borderColor: '#1A1A1A'
-        }}
-        _groupHover={{
-          boxShadow: '0 8px 30px rgba(0, 0, 0, 0.08)',
-          borderColor: '#1A1A1A'
-        }}
+        transition="border-color 150ms ease"
+        _groupHover={{ borderColor: '#171717' }}
         cursor="pointer"
         width="100%"
         maxW="100%"
@@ -274,7 +286,6 @@ export function DakshaGraphic() {
           src="/images/Daksha.webp"
           alt="Daksha in Orbit"
           fill
-          priority
           sizes="(max-width: 768px) 100vw, 1200px"
           style={{ objectFit: 'cover', objectPosition: 'center' }}
         />
@@ -345,8 +356,7 @@ export function AppleHIGGraphic() {
           alt="macOS Wallpaper"
           fill
           priority
-          unoptimized
-          sizes="100vw"
+          sizes="(max-width: 768px) 100vw, 1200px"
           style={{ objectFit: 'cover', objectPosition: 'center' }}
         />
       </Box>
@@ -1841,7 +1851,7 @@ export default function ProjectsGrid({ mt = 0, ...props }) {
                 aspectRatio={{ base: '1 / 1', sm: '16 / 9', md: '2.1 / 1' }}
                 accentColor="purple.300"
                 sx={{ position: 'relative', overflow: 'hidden' }}
-                customContent={<MunselModel />}
+                customContent={<MunselPreview />}
               />
             </Box>
           </Section>
@@ -1856,7 +1866,7 @@ export default function ProjectsGrid({ mt = 0, ...props }) {
               accentColor="green.400"
               onClick={onOpen}
             />
-            <KodeboardModal isOpen={isOpen} onClose={onClose} />
+            {isOpen && <KodeboardModal isOpen={isOpen} onClose={onClose} />}
           </Section>
 
           {/* 5. Human Factor in Design */}

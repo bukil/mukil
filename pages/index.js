@@ -19,46 +19,10 @@ import Section from '../components/section'
 import ProjectsGrid from '../components/ProjectsGrid'
 
 import { Spacer } from '@chakra-ui/react'
-import styled from '@emotion/styled'
 import { FaFigma, FaReact } from 'react-icons/fa'
 import { SiBlender, SiAdobexd, SiAdobephotoshop, SiAdobeillustrator, SiFramer, SiHtml5, SiGreensock, SiJekyll, SiPython, SiArduino, SiUnity, SiUnrealengine, SiSwift } from 'react-icons/si'
 import { MdMemory, MdMonitor, MdSmartphone, MdCode, MdScience, MdViewInAr, MdFormatShapes, MdPlayCircleFilled, MdGroups, MdEmojiEmotions } from 'react-icons/md'
 
-const Trans = styled.span`
-  Button {
-    position: relative;
-    overflow: hidden;
-    background: transparent;
-    border: 1px solid #1A1A1A;
-    color: #1A1A1A;
-    transition: all 0.3s ease;
-    z-index: 1;
-    border-radius: 0;
-    height: 64px;
-    
-    &:before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 0;
-      height: 100%;
-      background: #1A1A1A;
-      transition: all 0.3s ease;
-      z-index: -1;
-    }
-
-    &:hover {
-      color: #F4F4F0;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-    }
-
-    &:hover:before {
-      width: 100%;
-    }
-  }
-`
 
 const SKILLS = [
   'Interaction Design',
@@ -358,14 +322,15 @@ const Home = () => {
                       {DEVELOPMENT_SKILLS.slice(8).map(s => s.name).join(' | ')}
                     </Text>
                     {/* Explore More button on mobile — after last skill text */}
-                    <Trans>
+
                       <Box display="flex" justifyContent="center" mt={8} mb={4}>
-                        <NextLink href="/works" passHref scroll={true}>
-                          <Button
+                        <Button
+                            as={NextLink}
+                            href="/works"
                             borderRadius='0'
                             variant='outline'
-                            border='1px solid'
-                            borderColor='#1A1A1A'
+                            border='0.5px solid'
+                            borderColor='#999995'
                             color='#1A1A1A'
                             px={8}
                             py={6}
@@ -378,16 +343,13 @@ const Home = () => {
                             rightIcon={<ChevronRightIcon />}
                             _hover={{
                               bg: '#1A1A1A',
-                              color: '#F4F4F0',
-                              transform: 'translateY(-2px)',
-                              boxShadow: '0 4px 16px rgba(0, 0, 0, 0.08)'
+                              color: '#F4F4F0'
                             }}
                           >
                             Explore More
                           </Button>
-                        </NextLink>
                       </Box>
-                    </Trans>
+
                   </>
                 ) : (
                   <>
@@ -569,13 +531,14 @@ const Home = () => {
                       })}
                       </Box>
                       {/* Explore More button — baseline-aligned with last skill text row */}
-                      <Trans>
-                        <NextLink href="/works" passHref scroll={true}>
-                          <Button
+
+                        <Button
+                            as={NextLink}
+                            href="/works"
                             borderRadius='0'
                             variant='outline'
-                            border='1px solid'
-                            borderColor='#1A1A1A'
+                            border='0.5px solid'
+                            borderColor='#999995'
                             color='#1A1A1A'
                             px={8}
                             py={6}
@@ -588,15 +551,12 @@ const Home = () => {
                             rightIcon={<ChevronRightIcon />}
                             _hover={{
                               bg: '#1A1A1A',
-                              color: '#F4F4F0',
-                              transform: 'translateY(-2px)',
-                              boxShadow: '0 4px 16px rgba(0, 0, 0, 0.08)'
+                              color: '#F4F4F0'
                             }}
                           >
                             Explore More
                           </Button>
-                        </NextLink>
-                      </Trans>
+
                     </Box>
                   </>
                 )}

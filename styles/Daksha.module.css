@@ -1335,3 +1335,7 @@
     display: none;
   }
 }
+
+.storyPage[data-poster='true'] .headsetChapter,
+.storyPage[data-poster='true'] .flightChapter { min-height: 1px; }
+.storyPage[data-poster='true'] .hero { min-height: 100svh; }
