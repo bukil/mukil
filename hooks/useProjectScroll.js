@@ -59,7 +59,7 @@ export default function useProjectScroll(pageRef) {
           gsap.fromTo(card, {
             y: parseFloat(style.getPropertyValue('--project-entry')) || 0,
             scale: 0.985,
-            opacity: 0.65,
+            opacity: parseFloat(style.getPropertyValue('--project-entry-opacity')) || 0.65,
           }, {
             y: 0,
             scale: 1,

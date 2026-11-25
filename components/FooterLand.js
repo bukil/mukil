@@ -1,10 +1,13 @@
 import { Box, useDisclosure, Text, VStack, Button } from "@chakra-ui/react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import StandardModal from './ui/Modal';
+import useNearViewport from '../hooks/useNearViewport';
 
 const FooterLand = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isHovered, setIsHovered] = useState(false);
+  const footerRef = useRef(null);
+  const near = useNearViewport(footerRef, '280px');
 
   const handleVideoClick = (e) => {
     e.preventDefault();
@@ -14,6 +17,7 @@ const FooterLand = () => {
   return (
     <Box
       as="footer"
+      ref={footerRef}
       width="100%"
       height="150px"
       zIndex={10}
@@ -43,9 +47,10 @@ const FooterLand = () => {
           opacity={0.8}
           sx={{
             animation: 'cloudParallax 45s linear infinite',
+            animationPlayState: near ? 'running' : 'paused',
             '@keyframes cloudParallax': {
-              '0%': { right: '-220px' },
-              '100%': { right: 'calc(100vw + 220px)' }
+              '0%': { transform: 'translateX(0)' },
+              '100%': { transform: 'translateX(calc(-100vw - 440px))' }
             }
           }}
         />
@@ -64,9 +69,10 @@ const FooterLand = () => {
           opacity={1}
           sx={{
             animation: 'cloud2Parallax 25s linear infinite',
+            animationPlayState: near ? 'running' : 'paused',
             '@keyframes cloud2Parallax': {
-              '0%': { right: '-200px' },
-              '100%': { right: 'calc(100vw + 200px)' }
+              '0%': { transform: 'translateX(0)' },
+              '100%': { transform: 'translateX(calc(-100vw - 400px))' }
             }
           }}
         />
@@ -80,6 +86,7 @@ const FooterLand = () => {
           zIndex={5}
           sx={{
             animation: 'scrollLand 20s linear infinite',
+            animationPlayState: near ? 'running' : 'paused',
             '@keyframes scrollLand': {
               '0%': {
                 transform: 'translateX(0)'

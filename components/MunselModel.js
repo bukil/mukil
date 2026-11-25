@@ -1,11 +1,16 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { useGLTF, Center } from '@react-three/drei'
 import { Box, useBreakpointValue } from '@chakra-ui/react'
+import { SCENE_ASSETS } from './daksha/scene-assets.mjs'
 
-function RotatingModel({ scale = 0.48 }) {
-  const { scene } = useGLTF('/munsel.glb')
+function RotatingModel({ scale = 0.48, onReady }) {
+  const { scene } = useGLTF(SCENE_ASSETS.munsel, false)
   const groupRef = useRef()
+
+  useEffect(() => {
+    onReady(true)
+  }, [onReady])
 
   useFrame((_, delta) => {
     if (groupRef.current) {
@@ -24,7 +29,7 @@ function RotatingModel({ scale = 0.48 }) {
   )
 }
 
-export default function MunselModel() {
+export default function MunselModel({ onReady, playing }) {
   const zoom = useBreakpointValue({ base: 30, sm: 40, md: 60, lg: 68 }) ?? 64
   const scale = useBreakpointValue({ base: 0.45, sm: 0.5, md: 0.62, lg: 0.7 }) ?? 0.65
 
@@ -45,6 +50,8 @@ export default function MunselModel() {
       <div style={{ width: '100%', height: '100%', pointerEvents: 'none' }}>
         <Canvas
           orthographic
+          frameloop={playing ? 'always' : 'demand'}
+          dpr={[1, 1.5]}
           camera={{
             position: [5, 3, 5],
             zoom
@@ -53,7 +60,7 @@ export default function MunselModel() {
         >
           <ambientLight intensity={0.9} />
           <directionalLight position={[10, 10, 10]} intensity={1.5} />
-          <RotatingModel scale={scale} />
+          <RotatingModel scale={scale} onReady={onReady} />
         </Canvas>
       </div>
     </Box>

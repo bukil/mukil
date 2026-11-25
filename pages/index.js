@@ -6,9 +6,8 @@ import {
   Box,
   Button,
   Text,
-  useBreakpointValue,
 } from '@chakra-ui/react'
-import { useRef, useState, useEffect } from 'react'
+import { Fragment, useRef, useState } from 'react'
 import useProjectScroll from '../hooks/useProjectScroll'
 import scrollStyles from '../styles/ProjectScroll.module.css'
 import { Global } from '@emotion/react'
@@ -108,38 +107,17 @@ const Home = () => {
   const textSectionRef = useRef(null)
 
   useProjectScroll(pageRef)
-  const isMobile = useBreakpointValue({ base: true, md: false })
 
   const bgColor = '#F4F4F0'
   const textColor = '#1A1A1A'
 
-  // New: Intersection observer for skills section
-  const skillsSectionRef = useRef(null);
-  const [skillsVisible, setSkillsVisible] = useState(false);
   const [hoveredSkill, setHoveredSkill] = useState(null)
-
-  useEffect(() => {
-    const observer = new window.IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setSkillsVisible(true);
-          observer.disconnect(); // Only trigger once
-        }
-      },
-      { threshold: 0.2 }
-    );
-    if (skillsSectionRef.current) {
-      observer.observe(skillsSectionRef.current);
-    }
-    return () => observer.disconnect();
-  }, []);
 
   return (
     <>
       <Global styles={`html, body { background: ${bgColor} !important; transition: background 0.1s linear; }`} />
-      <Box ref={pageRef} className={scrollStyles.root} position="relative" minHeight="100vh">
+      <Box ref={pageRef} className={`${scrollStyles.root} ${scrollStyles.home}`} position="relative" minHeight="100vh">
         <Head>
-          <link rel="preload" as="image" href="/images/Apple-Logo.png" />
           <title>Mukil Kumar | Product & Interaction Designer | IDC IIT Bombay</title>
           <meta name="description" content="Portfolio of Mukil Kumar — Interaction Designer, Product Designer, and Creative Technologist from IDC School of Design, IIT Bombay (IITB). Specializing in human-centered experiences." />
           <meta name="keywords" content="Mukil, Mukil Kumar, Mukil IITB, Mukil IDC, Mukil Designer, Mukil IIT Bombay, Product Designer, Interaction Designer, Creative Technologist, IDC School of Design" />
@@ -251,10 +229,10 @@ const Home = () => {
           </Box>
 
           {/* Skill Section */}
-          <Box w="100%" px={{ base: '20px', md: '24px' }} mt={16} mb={12} position="relative" ref={skillsSectionRef}>
+          <Box w="100%" px={{ base: '20px', md: '24px' }} mt={16} mb={12} position="relative">
             {/* Subtle SKILLS background text */}
-            {!isMobile && (
               <Box
+                display={{ base: 'none', md: 'block' }}
                 position="absolute"
                 top="55%"
                 left="50%"
@@ -275,293 +253,282 @@ const Home = () => {
               >
                 SKILLS
               </Box>
-            )}
-            {skillsVisible && (
-              <>
-                {isMobile ? (
-                  <>
-                    {/* SKILLS section: all tabs highlighted by default on mobile */}
-                    <Heading fontSize="2xl" fontWeight="300" fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif" mb={6} color="#363636ff">
-                      Skills
-                    </Heading>
-                    <Text
-                      fontSize="sm"
-                      fontWeight="300"
+            <Box display={{ base: 'block', md: 'none' }}>
+              {/* SKILLS section: all tabs highlighted by default on mobile */}
+              <Heading fontSize="2xl" fontWeight="300" fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif" mb={6} color="#363636ff">
+                Skills
+              </Heading>
+              <Text
+                fontSize="sm"
+                fontWeight="300"
+                fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
+                color={textColor}
+                mb={8}
+              >
+                {SKILLS.slice(0, 5).join(' | ')}<br />
+                {SKILLS.slice(5).join(' | ')}
+              </Text>
+              {/* Visual Design section */}
+              <Heading fontSize="2xl" fontWeight="300" fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif" mt={8} mb={4} color="#373737ff">
+                Visual Design
+              </Heading>
+              <Text
+                fontSize="sm"
+                fontWeight="300"
+                fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
+                color={textColor}
+                mb={8}
+              >
+                {VISUAL_DESIGN_SKILLS.map(s => s.name).join(' | ')}
+              </Text>
+              {/* Development section */}
+              <Heading fontSize="2xl" fontWeight="300" fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif" mt={8} mb={4} color="#373737ff">
+                Development
+              </Heading>
+              <Text
+                fontSize="sm"
+                fontWeight="300"
+                fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
+                color={textColor}
+                mb={8}
+              >
+                {DEVELOPMENT_SKILLS.slice(0, 8).map(s => s.name).join(' | ')}<br />
+                {DEVELOPMENT_SKILLS.slice(8).map(s => s.name).join(' | ')}
+              </Text>
+              {/* Explore More button on mobile — after last skill text */}
+
+                <Box display="flex" justifyContent="center" mt={8} mb={4}>
+                  <Button
+                      as={NextLink}
+                      href="/works"
+                      borderRadius='0'
+                      variant='outline'
+                      border='0.5px solid'
+                      borderColor='#999995'
+                      color='#1A1A1A'
+                      px={8}
+                      py={6}
+                      fontSize="14px"
                       fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
-                      color={textColor}
-                      mb={8}
+                      fontWeight="500"
+                      letterSpacing="0.08em"
+                      textTransform="uppercase"
+                      height="64px"
+                      rightIcon={<ChevronRightIcon />}
+                      _hover={{
+                        bg: '#1A1A1A',
+                        color: '#F4F4F0'
+                      }}
                     >
-                      {SKILLS.slice(0, 5).join(' | ')}<br />
-                      {SKILLS.slice(5).join(' | ')}
-                    </Text>
-                    {/* Visual Design section */}
-                    <Heading fontSize="2xl" fontWeight="300" fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif" mt={8} mb={4} color="#373737ff">
-                      Visual Design
-                    </Heading>
-                    <Text
-                      fontSize="sm"
-                      fontWeight="300"
+                      Explore More
+                    </Button>
+                </Box>
+
+            </Box>
+            <Box display={{ base: 'none', md: 'block' }}>
+              <Heading fontSize="2xl" fontWeight="300" fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif" mb={6} color={textColor} style={{ transition: 'color 0.3s ease-out' }}>
+                Skills
+              </Heading>
+              <Box display="flex" flexWrap="wrap" gap={2} mb={8} alignItems="center">
+                {SKILLS.map((skill, index) => {
+                  const Icon = SKILL_ICONS[skill]
+                  const isHovered = hoveredSkill === skill
+                  const iconColor = '#353535ff'
+                  const isBreakAfter = index === 4 // Break after "3D Modeling"
+                  return (
+                    <Fragment key={skill}>
+                      <Text
+                        fontSize="md"
+                        fontWeight="300"
+                        fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
+                        color={isHovered ? '#89EF8C' : textColor}
+                        cursor="pointer"
+                        onMouseEnter={() => setHoveredSkill(skill)}
+                        onMouseLeave={() => setHoveredSkill(null)}
+                        position="relative"
+                        style={{ transition: 'color 0.3s ease-out' }}
+                      >
+                        {skill}
+                        {Icon && (
+                          <Box
+                            as={Icon}
+                            position="absolute"
+                            left="50%"
+                            top="-44px"
+                            transform={`translateX(-50%) scale(${isHovered ? 1 : 0.5})`}
+                            fontSize="2.5rem"
+                            color={iconColor}
+                            opacity={isHovered ? 1 : 0}
+                            transition="all 0.38s cubic-bezier(.4,2,.3,1)"
+                            zIndex={2}
+                            pointerEvents="none"
+                            filter="drop-shadow(0 2px 8px #89EF8C44)"
+                          />
+                        )}
+                      </Text>
+                      {index < SKILLS.length - 1 && !isBreakAfter && (
+                        <Text
+                          fontSize="md"
+                          fontWeight="300"
+                          fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
+                          color={textColor}
+                          opacity={0.4}
+                          style={{ transition: 'color 0.3s ease-out' }}
+                        >
+                          |
+                        </Text>
+                      )}
+                      {isBreakAfter && (
+                        <Box width="100%" height="0" />
+                      )}
+                    </Fragment>
+                  )
+                })}
+              </Box>
+              <Heading fontSize="2xl" fontWeight="300" fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif" mt={8} mb={4} color={textColor} style={{ transition: 'color 0.3s ease-out' }}>
+                Visual Design
+              </Heading>
+              <Box display="flex" flexWrap="wrap" gap={2} mb={8} alignItems="center">
+                {VISUAL_DESIGN_SKILLS.map((skill, index) => {
+                  const Icon = skill.icon
+                  const isHovered = hoveredSkill === skill.name
+                  const iconColor = '#3182ce'
+                  return (
+                    <Fragment key={skill.name}>
+                      <Text
+                        fontSize="md"
+                        fontWeight="300"
+                        fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
+                        color={isHovered ? '#3182ce' : textColor}
+                        cursor="pointer"
+                        onMouseEnter={() => setHoveredSkill(skill.name)}
+                        onMouseLeave={() => setHoveredSkill(null)}
+                        position="relative"
+                        style={{ transition: 'color 0.3s ease-out' }}
+                      >
+                        {skill.name}
+                        {Icon && (
+                          <Box
+                            as={Icon}
+                            position="absolute"
+                            left="50%"
+                            top="-44px"
+                            transform={`translateX(-50%) scale(${isHovered ? 1 : 0.5})`}
+                            fontSize="2.5rem"
+                            color={iconColor}
+                            opacity={isHovered ? 1 : 0}
+                            transition="all 0.38s cubic-bezier(.4,2,.3,1)"
+                            zIndex={2}
+                            pointerEvents="none"
+                            filter="drop-shadow(0 2px 8px #3182ce44)"
+                          />
+                        )}
+                      </Text>
+                      {index < VISUAL_DESIGN_SKILLS.length - 1 && (
+                        <Text
+                          fontSize="md"
+                          fontWeight="300"
+                          fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
+                          color={textColor}
+                          opacity={0.4}
+                          style={{ transition: 'color 0.3s ease-out' }}
+                        >
+                          |
+                        </Text>
+                      )}
+                    </Fragment>
+                  )
+                })}
+              </Box>
+              <Heading fontSize="2xl" fontWeight="300" fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif" mt={8} mb={4} color={textColor} style={{ transition: 'color 0.3s ease-out' }}>
+                Development
+              </Heading>
+              <Box display="flex" flexWrap="wrap" gap={2} mb={0} alignItems="flex-end" justifyContent="space-between">
+                <Box display="flex" flexWrap="wrap" gap={2} alignItems="center" flex="1">
+                {DEVELOPMENT_SKILLS.map((skill, index) => {
+                  const Icon = skill.icon
+                  const isHovered = hoveredSkill === skill.name
+                  const iconColor = '#3182ce'
+                  const isBreakAfter = index === 7 // Break after "Three.js"
+                  return (
+                    <Fragment key={skill.name}>
+                      <Text
+                        fontSize="md"
+                        fontWeight="300"
+                        fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
+                        color={isHovered ? '#3182ce' : textColor}
+                        cursor="pointer"
+                        onMouseEnter={() => setHoveredSkill(skill.name)}
+                        onMouseLeave={() => setHoveredSkill(null)}
+                        position="relative"
+                        style={{ transition: 'color 0.3s ease-out' }}
+                      >
+                        {skill.name}
+                        {Icon && (
+                          <Box
+                            as={Icon}
+                            position="absolute"
+                            left="50%"
+                            top="-44px"
+                            transform={`translateX(-50%) scale(${isHovered ? 1 : 0.5})`}
+                            fontSize="2.5rem"
+                            color={iconColor}
+                            opacity={isHovered ? 1 : 0}
+                            transition="all 0.38s cubic-bezier(.4,2,.3,1)"
+                            zIndex={2}
+                            pointerEvents="none"
+                            filter="drop-shadow(0 2px 8px #3182ce44)"
+                          />
+                        )}
+                      </Text>
+                      {index < DEVELOPMENT_SKILLS.length - 1 && !isBreakAfter && (
+                        <Text
+                          fontSize="md"
+                          fontWeight="300"
+                          fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
+                          color={textColor}
+                          opacity={0.4}
+                          style={{ transition: 'color 0.3s ease-out' }}
+                        >
+                          |
+                        </Text>
+                      )}
+                      {isBreakAfter && (
+                        <Box width="100%" height="0" />
+                      )}
+                    </Fragment>
+                  )
+                })}
+                </Box>
+                {/* Explore More button — baseline-aligned with last skill text row */}
+
+                  <Button
+                      as={NextLink}
+                      href="/works"
+                      borderRadius='0'
+                      variant='outline'
+                      border='0.5px solid'
+                      borderColor='#999995'
+                      color='#1A1A1A'
+                      px={8}
+                      py={6}
+                      fontSize="14px"
                       fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
-                      color={textColor}
-                      mb={8}
+                      fontWeight="500"
+                      letterSpacing="0.08em"
+                      textTransform="uppercase"
+                      height="64px"
+                      rightIcon={<ChevronRightIcon />}
+                      _hover={{
+                        bg: '#1A1A1A',
+                        color: '#F4F4F0'
+                      }}
                     >
-                      {VISUAL_DESIGN_SKILLS.map(s => s.name).join(' | ')}
-                    </Text>
-                    {/* Development section */}
-                    <Heading fontSize="2xl" fontWeight="300" fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif" mt={8} mb={4} color="#373737ff">
-                      Development
-                    </Heading>
-                    <Text
-                      fontSize="sm"
-                      fontWeight="300"
-                      fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
-                      color={textColor}
-                      mb={8}
-                    >
-                      {DEVELOPMENT_SKILLS.slice(0, 8).map(s => s.name).join(' | ')}<br />
-                      {DEVELOPMENT_SKILLS.slice(8).map(s => s.name).join(' | ')}
-                    </Text>
-                    {/* Explore More button on mobile — after last skill text */}
+                      Explore More
+                    </Button>
 
-                      <Box display="flex" justifyContent="center" mt={8} mb={4}>
-                        <Button
-                            as={NextLink}
-                            href="/works"
-                            borderRadius='0'
-                            variant='outline'
-                            border='0.5px solid'
-                            borderColor='#999995'
-                            color='#1A1A1A'
-                            px={8}
-                            py={6}
-                            fontSize="14px"
-                            fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
-                            fontWeight="500"
-                            letterSpacing="0.08em"
-                            textTransform="uppercase"
-                            height="64px"
-                            rightIcon={<ChevronRightIcon />}
-                            _hover={{
-                              bg: '#1A1A1A',
-                              color: '#F4F4F0'
-                            }}
-                          >
-                            Explore More
-                          </Button>
-                      </Box>
-
-                  </>
-                ) : (
-                  <>
-                    <Heading fontSize="2xl" fontWeight="300" fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif" mb={6} color={textColor} style={{ transition: 'color 0.3s ease-out' }}>
-                      Skills
-                    </Heading>
-                    <Box display="flex" flexWrap="wrap" gap={2} mb={8} alignItems="center">
-                      {SKILLS.map((skill, index) => {
-                        const Icon = SKILL_ICONS[skill]
-                        const isHovered = hoveredSkill === skill
-                        const iconColor = '#353535ff'
-                        const isBreakAfter = index === 4 // Break after "3D Modeling"
-                        return (
-                          <>
-                            <Text
-                              key={skill}
-                              fontSize="md"
-                              fontWeight="300"
-                              fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
-                              color={isHovered ? '#89EF8C' : textColor}
-                              cursor="pointer"
-                              onMouseEnter={() => setHoveredSkill(skill)}
-                              onMouseLeave={() => setHoveredSkill(null)}
-                              position="relative"
-                              style={{ transition: 'color 0.3s ease-out' }}
-                            >
-                              {skill}
-                              {Icon && (
-                                <Box
-                                  as={Icon}
-                                  position="absolute"
-                                  left="50%"
-                                  top="-44px"
-                                  transform={`translateX(-50%) scale(${isHovered ? 1 : 0.5})`}
-                                  fontSize="2.5rem"
-                                  color={iconColor}
-                                  opacity={isHovered ? 1 : 0}
-                                  transition="all 0.38s cubic-bezier(.4,2,.3,1)"
-                                  zIndex={2}
-                                  pointerEvents="none"
-                                  filter="drop-shadow(0 2px 8px #89EF8C44)"
-                                />
-                              )}
-                            </Text>
-                            {index < SKILLS.length - 1 && !isBreakAfter && (
-                              <Text
-                                fontSize="md"
-                                fontWeight="300"
-                                fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
-                                color={textColor}
-                                opacity={0.4}
-                                style={{ transition: 'color 0.3s ease-out' }}
-                              >
-                                |
-                              </Text>
-                            )}
-                            {isBreakAfter && (
-                              <Box width="100%" height="0" />
-                            )}
-                          </>
-                        )
-                      })}
-                    </Box>
-                    <Heading fontSize="2xl" fontWeight="300" fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif" mt={8} mb={4} color={textColor} style={{ transition: 'color 0.3s ease-out' }}>
-                      Visual Design
-                    </Heading>
-                    <Box display="flex" flexWrap="wrap" gap={2} mb={8} alignItems="center">
-                      {VISUAL_DESIGN_SKILLS.map((skill, index) => {
-                        const Icon = skill.icon
-                        const isHovered = hoveredSkill === skill.name
-                        const iconColor = '#3182ce'
-                        return (
-                          <>
-                            <Text
-                              key={skill.name}
-                              fontSize="md"
-                              fontWeight="300"
-                              fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
-                              color={isHovered ? '#3182ce' : textColor}
-                              cursor="pointer"
-                              onMouseEnter={() => setHoveredSkill(skill.name)}
-                              onMouseLeave={() => setHoveredSkill(null)}
-                              position="relative"
-                              style={{ transition: 'color 0.3s ease-out' }}
-                            >
-                              {skill.name}
-                              {Icon && (
-                                <Box
-                                  as={Icon}
-                                  position="absolute"
-                                  left="50%"
-                                  top="-44px"
-                                  transform={`translateX(-50%) scale(${isHovered ? 1 : 0.5})`}
-                                  fontSize="2.5rem"
-                                  color={iconColor}
-                                  opacity={isHovered ? 1 : 0}
-                                  transition="all 0.38s cubic-bezier(.4,2,.3,1)"
-                                  zIndex={2}
-                                  pointerEvents="none"
-                                  filter="drop-shadow(0 2px 8px #3182ce44)"
-                                />
-                              )}
-                            </Text>
-                            {index < VISUAL_DESIGN_SKILLS.length - 1 && (
-                              <Text
-                                fontSize="md"
-                                fontWeight="300"
-                                fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
-                                color={textColor}
-                                opacity={0.4}
-                                style={{ transition: 'color 0.3s ease-out' }}
-                              >
-                                |
-                              </Text>
-                            )}
-                          </>
-                        )
-                      })}
-                    </Box>
-                    <Heading fontSize="2xl" fontWeight="300" fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif" mt={8} mb={4} color={textColor} style={{ transition: 'color 0.3s ease-out' }}>
-                      Development
-                    </Heading>
-                    <Box display="flex" flexWrap="wrap" gap={2} mb={0} alignItems="flex-end" justifyContent="space-between">
-                      <Box display="flex" flexWrap="wrap" gap={2} alignItems="center" flex="1">
-                      {DEVELOPMENT_SKILLS.map((skill, index) => {
-                        const Icon = skill.icon
-                        const isHovered = hoveredSkill === skill.name
-                        const iconColor = '#3182ce'
-                        const isBreakAfter = index === 7 // Break after "Three.js"
-                        return (
-                          <>
-                            <Text
-                              key={skill.name}
-                              fontSize="md"
-                              fontWeight="300"
-                              fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
-                              color={isHovered ? '#3182ce' : textColor}
-                              cursor="pointer"
-                              onMouseEnter={() => setHoveredSkill(skill.name)}
-                              onMouseLeave={() => setHoveredSkill(null)}
-                              position="relative"
-                              style={{ transition: 'color 0.3s ease-out' }}
-                            >
-                              {skill.name}
-                              {Icon && (
-                                <Box
-                                  as={Icon}
-                                  position="absolute"
-                                  left="50%"
-                                  top="-44px"
-                                  transform={`translateX(-50%) scale(${isHovered ? 1 : 0.5})`}
-                                  fontSize="2.5rem"
-                                  color={iconColor}
-                                  opacity={isHovered ? 1 : 0}
-                                  transition="all 0.38s cubic-bezier(.4,2,.3,1)"
-                                  zIndex={2}
-                                  pointerEvents="none"
-                                  filter="drop-shadow(0 2px 8px #3182ce44)"
-                                />
-                              )}
-                            </Text>
-                            {index < DEVELOPMENT_SKILLS.length - 1 && !isBreakAfter && (
-                              <Text
-                                fontSize="md"
-                                fontWeight="300"
-                                fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
-                                color={textColor}
-                                opacity={0.4}
-                                style={{ transition: 'color 0.3s ease-out' }}
-                              >
-                                |
-                              </Text>
-                            )}
-                            {isBreakAfter && (
-                              <Box width="100%" height="0" />
-                            )}
-                          </>
-                        )
-                      })}
-                      </Box>
-                      {/* Explore More button — baseline-aligned with last skill text row */}
-
-                        <Button
-                            as={NextLink}
-                            href="/works"
-                            borderRadius='0'
-                            variant='outline'
-                            border='0.5px solid'
-                            borderColor='#999995'
-                            color='#1A1A1A'
-                            px={8}
-                            py={6}
-                            fontSize="14px"
-                            fontFamily="'Segoe UI', 'Segoe Sans', system-ui, sans-serif"
-                            fontWeight="500"
-                            letterSpacing="0.08em"
-                            textTransform="uppercase"
-                            height="64px"
-                            rightIcon={<ChevronRightIcon />}
-                            _hover={{
-                              bg: '#1A1A1A',
-                              color: '#F4F4F0'
-                            }}
-                          >
-                            Explore More
-                          </Button>
-
-                    </Box>
-                  </>
-                )}
-              </>
-            )}
+              </Box>
+            </Box>
           </Box>
           {/* SEE MORE ABOUT MY WORK button moved inside skills section */}
         </Layout>

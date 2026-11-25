@@ -65,7 +65,7 @@ const Navbar = ({ path }) => {
           {NAV_ITEMS.map(item => {
             const isActive = path === item.href || (item.href !== '/' && path?.startsWith(item.href))
             return (
-              <NextLink key={item.href} href={item.href} passHref legacyBehavior>
+              <NextLink key={item.href} href={item.href} prefetch={path?.split("?")[0] !== "/"} passHref legacyBehavior>
                 <Link
                   fontSize="13px"
                   fontFamily="'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"
@@ -123,7 +123,7 @@ const Navbar = ({ path }) => {
                 {NAV_ITEMS.map(item => {
                   const isActive = path === item.href || (item.href !== '/' && path?.startsWith(item.href))
                   return (
-                    <NextLink key={item.href} href={item.href} passHref legacyBehavior>
+                    <NextLink key={item.href} href={item.href} prefetch={path?.split("?")[0] !== "/"} passHref legacyBehavior>
                       <MenuItem
                         as={Link}
                         fontFamily="'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif"

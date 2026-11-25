@@ -222,7 +222,8 @@ await Promise.all([MeshoptEncoder.ready, MeshoptDecoder.ready])
 const assets = [
   ['satellite', 'public/Mukifd.glb', 1024],
   ['headset', 'public/Quest3.glb', 1024],
-  ['battery', 'public/models/electricalSystem_battery_d01.glb', 512]
+  ['battery', 'public/models/electricalSystem_battery_d01.glb', 512],
+  ['munsel', 'public/munsel.glb', 512]
 ]
 const digest = bytes => createHash('sha256').update(bytes).digest('hex')
 const inputBytes = new Map(
@@ -261,7 +262,7 @@ try {
       })
     )
     if (valid.every(Boolean)) {
-      console.log('Daksha web assets are up to date.')
+      console.log('Portfolio web models are up to date.')
       process.exit(0)
     }
   }

@@ -7,31 +7,60 @@ import {
   useDisclosure
 } from '@chakra-ui/react'
 import NextLink from 'next/link'
+import Head from 'next/head'
 import dynamic from 'next/dynamic'
 import NextImage from 'next/image'
+import { animate } from 'animejs/animation'
+import useNearViewport from '../hooks/useNearViewport'
 import { hasAcceleratedWebGL } from '../lib/mobile-graphics'
 
 import Section from './section'
-import ApplePasswordModal from './ApplePasswordModal'
-import { animate } from 'animejs'
 
 const MunselModel = dynamic(() => import('./MunselModel'), { ssr: false })
 const KodeboardModal = dynamic(() => import('./projects/Kodeboard'), { ssr: false })
+const ApplePasswordModal = dynamic(() => import('./ApplePasswordModal'), { ssr: false })
 
 function MunselPreview() {
   const root = useRef(null)
-  const [visible, setVisible] = React.useState(false)
+  const near = useNearViewport(root, '120px')
+  const [ready, setReady] = React.useState(false)
+  const [supported, setSupported] = React.useState(false)
+
   useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => {
-      setVisible(entry.isIntersecting && hasAcceleratedWebGL())
-    }, { rootMargin: '120px' })
-    observer.observe(root.current)
-    return () => observer.disconnect()
+    // Load the optional renderer once, after the initial page images.
+    const prepareModel = () => {
+      setSupported(!navigator.connection?.saveData &&
+        !window.matchMedia('(prefers-reduced-motion: reduce)').matches &&
+        hasAcceleratedWebGL())
+    }
+    if (document.readyState === 'complete') {
+      prepareModel()
+      return
+    }
+    window.addEventListener('load', prepareModel, { once: true })
+    return () => window.removeEventListener('load', prepareModel)
   }, [])
-  return <Box ref={root} position="absolute" inset={0} display="grid" placeItems="center">
-    {visible ? <MunselModel /> : <Box aria-hidden="true" width="36%" aspectRatio="1" borderRadius="50%"
-      background="radial-gradient(circle at 32% 26%, #ffffffa8, transparent 52%), conic-gradient(#f99391, #f8d480, #a0d7a4, #84c7e6, #b9a3dd, #f99391)" />}
-  </Box>
+
+  return (
+    <Box ref={root} position="absolute" inset={0} display="grid" placeItems="center">
+      <Image
+        src="/images/home/colour-space.webp"
+        alt="Munsell colour solid"
+        loading="eager"
+        decoding="async"
+        width="100%"
+        height="92%"
+        objectFit="contain"
+        opacity={ready ? 0 : 1}
+        transition="opacity 180ms ease-out"
+      />
+      {supported && (
+        <Box position="absolute" inset={0} opacity={ready ? 1 : 0} transition="opacity 180ms ease-out">
+          <MunselModel onReady={setReady} playing={near} />
+        </Box>
+      )}
+    </Box>
+  )
 }
 
 const HairlineHub = dynamic(
@@ -45,6 +74,68 @@ const HairlineDish = dynamic(
 )
 
 
+function HairlinePreview({ figure: Figure, name, width, height }) {
+  const root = useRef(null)
+  const near = useNearViewport(root, '240px')
+
+  return (
+    <Box ref={root} position="relative" width="100%" aspectRatio={`${width} / ${height}`} sx={{ '&:has(svg) > img': { visibility: 'hidden' } }}>
+      <NextImage
+        aria-hidden="true"
+        src={`/images/home/${name}.svg`}
+        loading="eager"
+        alt=""
+        width={width}
+        height={height}
+        style={{ width: '100%', height: 'auto', transform: 'none' }}
+      />
+      <Box position="absolute" inset={0}>
+        <Figure play={near} intensity={0.7} />
+      </Box>
+    </Box>
+  )
+}
+
+function thumbnailSrcSet(name, widths) {
+  return widths.map(width => `/images/home/${name}-${width}.webp ${width}w`).join(', ')
+}
+
+function WideArtwork({ name, alt, priority = false }) {
+  const widths = name === 'apple' ? [480, 960, 1440] : [480, 960, 1600, 2400]
+  const wideSizes = 'calc(100vw - 48px)'
+  const squareSizes = 'calc(100vw - 40px)'
+  const squareMedia = '(max-width: 479.98px)'
+  const wideSrcSet = thumbnailSrcSet(name, widths)
+  const squareSrcSet = thumbnailSrcSet(`${name}-square`, [480, 960])
+
+  return (
+    <>
+      {priority && (
+        <Head>
+          <link rel="preload" as="image" media={squareMedia} imageSrcSet={squareSrcSet} imageSizes={squareSizes} fetchPriority="high" />
+          <link rel="preload" as="image" media="(min-width: 480px)" imageSrcSet={wideSrcSet} imageSizes={wideSizes} fetchPriority="high" />
+        </Head>
+      )}
+      <picture>
+        <source media={squareMedia} srcSet={squareSrcSet} sizes={squareSizes} />
+        {/* Pre-sized files are served directly, including on a cold cache. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={`/images/home/${name}-960.webp`}
+          srcSet={wideSrcSet}
+          sizes={wideSizes}
+          alt={alt}
+          loading="eager"
+          fetchPriority={priority ? 'high' : undefined}
+          decoding="async"
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+        />
+      </picture>
+    </>
+  )
+}
+
+
 
 export const ProjectPanel = ({
   title,
@@ -53,6 +144,8 @@ export const ProjectPanel = ({
   description: _description,
   imageSrc,
   imageAlt,
+  imageSrcSet,
+  imageSizes,
   gradientColors: _gradientColors,
   hoverGradientColors: _hoverGradientColors,
   accentColor: _accentColor,
@@ -149,6 +242,10 @@ export const ProjectPanel = ({
             <Image
               src={imageSrc}
               alt={imageAlt}
+              srcSet={imageSrcSet}
+              sizes={imageSizes}
+              loading="eager"
+              decoding="async"
               width={title === "Kode/Board" ? "82%" : "68%"}
               height={title === "Kode/Board" ? "82%" : "68%"}
               objectFit="contain"
@@ -244,7 +341,7 @@ export function DesignSystemGraphic() {
           transform: { base: 'translateY(0) scale(1.14)', md: 'translateY(-17px) scale(1.25)' }
         }}
       >
-        <HairlineHub play intensity={0.7} />
+        <HairlinePreview figure={HairlineHub} name="hub" width={400} height={320} />
       </Box>
     </Box>
   );
@@ -282,13 +379,7 @@ export function DakshaGraphic() {
           '& img': { transform: 'scale(1.05)' }
         }}
       >
-        <NextImage
-          src="/images/Daksha.webp"
-          alt="Daksha in Orbit"
-          fill
-          sizes="(max-width: 768px) 100vw, 1200px"
-          style={{ objectFit: 'cover', objectPosition: 'center' }}
-        />
+        <WideArtwork name="daksha" alt="Daksha in Orbit" />
       </Box>
 
       {/* Hairline interactive Dish diagram in bottom-right corner */}
@@ -313,7 +404,7 @@ export function DakshaGraphic() {
           transform: 'scale(1.08)'
         }}
       >
-        <HairlineDish play intensity={0.7} />
+        <HairlinePreview figure={HairlineDish} name="dish" width={400} height={320} />
       </Box>
     </Box>
   )
@@ -332,7 +423,6 @@ export function AppleHIGGraphic() {
       justifyContent="center"
       overflow="hidden"
     >
-      {/* Next.js Image with fill — gets Vercel CDN optimization & proper cover */}
       <Box
         position="absolute"
         top={0}
@@ -351,14 +441,7 @@ export function AppleHIGGraphic() {
           '& img': { transform: 'scale(1.06)' }
         }}
       >
-        <NextImage
-          src="/images/1016_opt.jpg"
-          alt="macOS Wallpaper"
-          fill
-          priority
-          sizes="(max-width: 768px) 100vw, 1200px"
-          style={{ objectFit: 'cover', objectPosition: 'center' }}
-        />
+        <WideArtwork name="apple" alt="macOS Wallpaper" priority />
       </Box>
       <Box
         position="relative"
@@ -404,6 +487,7 @@ export function ChatGPT3DGraphic() {
   const extrusionSteps = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
 
   const containerRef = useRef(null);
+  const inView = useNearViewport(containerRef);
   const loupeRef = useRef(null);
   const magnifiedContentRef = useRef(null);
   const rimGroupRef = useRef(null);
@@ -421,7 +505,6 @@ export function ChatGPT3DGraphic() {
   const plinthProgress = useRef({ value: 0 });
   const plinthAnimRef = useRef(null);
   const plinthIntervalRef = useRef(null);
-  const switchPlinthsRef = useRef(null);
 
   // Loupe rest position: rests near the lower-right area of the plinth, clear of the logo
   const REST_X = 42;
@@ -440,6 +523,7 @@ export function ChatGPT3DGraphic() {
   const lastTimeRef = useRef(null);
 
   useEffect(() => {
+    if (!inView || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     const isSpringActive = (sp) => Math.abs(sp.x - sp.t) > 0.005 || Math.abs(sp.v) > 0.05;
 
     const stepSpring = (sp, dt) => {
@@ -646,6 +730,7 @@ export function ChatGPT3DGraphic() {
     };
 
     const switchPlinths = () => {
+      if (document.hidden) return
       const nextState = plinthState.current === 0 ? 1 : 0;
       plinthState.current = nextState;
 
@@ -671,7 +756,6 @@ export function ChatGPT3DGraphic() {
       });
     };
 
-    switchPlinthsRef.current = switchPlinths;
     // Schedule initial plinth switch
     plinthIntervalRef.current = setTimeout(switchPlinths, 4500);
 
@@ -786,6 +870,7 @@ export function ChatGPT3DGraphic() {
     typeTimer = setTimeout(tickTypewriter, 400);
 
     return () => {
+      isHovered.current = false
       if (tourTimeoutRef.current) clearTimeout(tourTimeoutRef.current);
       if (plinthIntervalRef.current) clearTimeout(plinthIntervalRef.current);
       if (typeTimer) clearTimeout(typeTimer);
@@ -802,9 +887,11 @@ export function ChatGPT3DGraphic() {
       document.removeEventListener('visibilitychange', onVisibilityChange);
       if (animFrameRef.current) {
         cancelAnimationFrame(animFrameRef.current);
+        animFrameRef.current = null;
       }
+      lastTimeRef.current = null;
     };
-  }, []);
+  }, [inView]);
 
   return (
     <Box
@@ -1304,7 +1391,7 @@ export function ChatGPT3DGraphic() {
               <g transform="matrix(1.24, 0.71, -1.24, 0.71, 270, 43)">
                 <g clipPath="url(#chatgpt-rounded-base)">
                   <image
-                    href="/images/chatgpt-base.jpg"
+                    href="/images/home/chatgpt-base.webp"
                     x="0"
                     y="0"
                     width="100"
@@ -1825,7 +1912,7 @@ export default function ProjectsGrid({ mt = 0, ...props }) {
 
           {/* 2. Daksha in Orbit */}
           <Section data-project-row="" gridColumn={{ base: 'span 1', md: 'span 2' }}>
-            <NextLink href="/daksha-in-orbit" style={{ display: 'block', textDecoration: 'none' }}>
+            <NextLink href="/daksha-in-orbit" prefetch={false} style={{ display: 'block', textDecoration: 'none' }}>
               <ProjectPanel
                 title="Daksha in Orbit"
                 rightText="Mixed Reality • Interaction Design • Astronomy Education • Outreach"
@@ -1861,7 +1948,9 @@ export default function ProjectsGrid({ mt = 0, ...props }) {
             <ProjectPanel
               title="Kode/Board"
               rightText="Accessibility • Tangible Interaction"
-              imageSrc="/images/works/BOTASF.png"
+              imageSrc="/images/home/kodeboard-960.webp"
+              imageSrcSet={thumbnailSrcSet('kodeboard', [480, 960])}
+              imageSizes="(max-width: 767px) 82vw, 41vw"
               imageAlt="Kode/Board"
               accentColor="green.400"
               onClick={onOpen}
@@ -1871,7 +1960,7 @@ export default function ProjectsGrid({ mt = 0, ...props }) {
 
           {/* 5. Human Factor in Design */}
           <Section data-project-row="">
-            <NextLink href="/human-factor" passHref legacyBehavior>
+            <NextLink href="/human-factor" prefetch={false} passHref legacyBehavior>
               <Box as="a" style={{ display: 'block', cursor: 'pointer', textDecoration: 'none' }}>
                 <ProjectPanel
                   title="Human Factor in Design"
@@ -1879,7 +1968,7 @@ export default function ProjectsGrid({ mt = 0, ...props }) {
                   accentColor="#0d9488"
                   customContent={
                     <div style={{ position: 'absolute', right: '6%', top: '50%', zIndex: 2, pointerEvents: 'none', transform: 'translateY(-50%)' }}>
-                      <Image className="phone-large" src="/hfid/phone.svg" alt="phone" width="920px" height="auto" style={{ display: 'block' }} />
+                      <Image className="phone-large" src="/images/home/phone-960.webp" srcSet={thumbnailSrcSet('phone', [480, 960])} sizes="(max-width: 767px) 94vw, 47vw" loading="eager" decoding="async" alt="phone" width="920px" height="auto" style={{ display: 'block' }} />
                     </div>
                   }
                 />
@@ -1889,7 +1978,7 @@ export default function ProjectsGrid({ mt = 0, ...props }) {
 
           {/* 6. Design Evaluation ChatGPT */}
           <Section data-project-row="">
-            <NextLink href="/design-evaluation" passHref legacyBehavior>
+            <NextLink href="/design-evaluation" prefetch={false} passHref legacyBehavior>
               <Box as="a" style={{ display: 'block', cursor: 'pointer', textDecoration: 'none' }}>
                 <ProjectPanel
                   title="Design Evaluation ChatGPT"
@@ -1903,7 +1992,7 @@ export default function ProjectsGrid({ mt = 0, ...props }) {
 
           {/* 7. Design System */}
           <Section data-project-row="">
-            <NextLink href="/DS" passHref legacyBehavior>
+            <NextLink href="/DS" prefetch={false} passHref legacyBehavior>
               <Box as="a" style={{ display: 'block', cursor: 'pointer', textDecoration: 'none' }}>
                 <ProjectPanel
                   title="Design System for UPI"
@@ -1919,7 +2008,7 @@ export default function ProjectsGrid({ mt = 0, ...props }) {
           </Section>
         </SimpleGrid>
       </Box>
-      <ApplePasswordModal isOpen={isAppleOpen} onClose={onCloseApple} />
+      {isAppleOpen && <ApplePasswordModal isOpen={isAppleOpen} onClose={onCloseApple} />}
     </>
   )
 }
