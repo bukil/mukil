@@ -222,7 +222,7 @@ const Home = () => {
           </Box>
 
           {/* Selected Projects Section */}
-          <Box w="100%" px={{ base: '20px', md: '24px' }} mb={20}>
+          <Box id="selected-projects" scrollMarginTop="72px" w="100%" px={{ base: '20px', md: '24px' }} mb={20}>
             <Section delay={0.3}>
               <ProjectsGrid />
             </Section>

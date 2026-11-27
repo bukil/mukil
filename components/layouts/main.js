@@ -23,7 +23,7 @@ const Main = ({ children, router }) => {
     }
   }, [currentBg])
 
-  if (isC2C || router.pathname === '/apple-project') return <><Navbar path={router.asPath} />{children}</>
+  if (isC2C || ['/apple-project', '/usbee'].includes(router.pathname)) return <><Navbar path={router.asPath} />{children}</>
 
   if (isDaksha) return <><Navbar path={router.asPath} />{children}</>
 

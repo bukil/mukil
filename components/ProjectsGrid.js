@@ -15,6 +15,8 @@ import useNearViewport from '../hooks/useNearViewport'
 import { hasAcceleratedWebGL } from '../lib/mobile-graphics'
 
 import Section from './section'
+import { ShaderCanvas } from './FlutedShader'
+import usbeeStyles from '../styles/Usbee.module.css'
 
 const MunselModel = dynamic(() => import('./MunselModel'), { ssr: false })
 const KodeboardModal = dynamic(() => import('./projects/Kodeboard'), { ssr: false })
@@ -73,6 +75,42 @@ const HairlineDish = dynamic(
   { ssr: false }
 )
 
+
+const UsbeeLaptop = dynamic(() => import('./UsbeeLaptop'), { ssr: false })
+
+const usbeePanelShader = {
+  components: [
+    {
+      id: 'blue-light',
+      type: 'MeshGradient',
+      props: {
+        stops: [
+          { position: 0, color: '#06132f' },
+          { position: 0.5, color: '#165cb3' },
+          { position: 1, color: '#8cc8ff' },
+        ],
+        count: 3,
+        smoothness: 4.4,
+        variation: 0,
+        swirl: 0,
+        drift: 0.85,
+        speed: 1.25,
+      },
+    },
+  ],
+}
+
+function UsbeeArtwork() {
+  return (
+    <div className={usbeeStyles.panelArt} aria-hidden="true">
+      <div className={usbeeStyles.panelShader}>
+        <ShaderCanvas preset={usbeePanelShader} />
+      </div>
+      <div className={usbeeStyles.panelWordmark}>USBee</div>
+      <UsbeeLaptop />
+    </div>
+  )
+}
 
 function HairlinePreview({ figure: Figure, name, width, height }) {
   const root = useRef(null)
@@ -1919,6 +1957,17 @@ export default function ProjectsGrid({ mt = 0, ...props }) {
                 aspectRatio={{ base: '1 / 1', sm: '16 / 9', md: '2.1 / 1' }}
                 accentColor="#38bdf8"
                 customContent={<DakshaGraphic />}
+              />
+            </NextLink>
+          </Section>
+
+          <Section data-project-row="" gridColumn={{ base: 'span 1', md: 'span 2' }}>
+            <NextLink href="/usbee" aria-label="USBee case study" prefetch={false} style={{ display: 'block' }}>
+              <ProjectPanel
+                title="USBee"
+                rightText="macOS Utility • Product Design & Development"
+                aspectRatio={{ base: '1 / 1', sm: '16 / 9', md: '2.1 / 1' }}
+                customContent={<UsbeeArtwork />}
               />
             </NextLink>
           </Section>
